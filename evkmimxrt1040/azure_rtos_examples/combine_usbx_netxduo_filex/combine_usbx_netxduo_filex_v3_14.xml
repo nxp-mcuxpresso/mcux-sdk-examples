@@ -163,7 +163,7 @@
     <source path="." project_relative_path="board" type="c_include">
       <files mask="board_setup.h"/>
     </source>
-    <source path="." project_relative_path="source" type="c_include" config="true">
+    <source path="." project_relative_path="board" type="c_include" config="true">
       <files mask="usb_device_config.h"/>
     </source>
     <source path="." project_relative_path="board" type="src">

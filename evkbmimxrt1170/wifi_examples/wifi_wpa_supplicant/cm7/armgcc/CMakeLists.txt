@@ -108,6 +108,22 @@ TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)
 
 target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${TARGET_LINK_SYSTEM_LIBRARIES})
 
+if(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_debug)
+    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/examples/evkbmimxrt1170/wifi_examples/wifi_wpa_supplicant/sg-lib/libposix.a)
+endif(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_debug)
+
+if(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_debug)
+    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/examples/evkbmimxrt1170/wifi_examples/wifi_wpa_supplicant/sg-lib/libsigma_agent.a)
+endif(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_debug)
+
+if(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_release)
+    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/examples/evkbmimxrt1170/wifi_examples/wifi_wpa_supplicant/sg-lib/libposix.a)
+endif(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_release)
+
+if(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_release)
+    target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${SdkRootDirPath}/examples/evkbmimxrt1170/wifi_examples/wifi_wpa_supplicant/sg-lib/libsigma_agent.a)
+endif(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_release)
+
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 
 set_target_properties(${MCUX_SDK_PROJECT_NAME} PROPERTIES ADDITIONAL_CLEAN_FILES "output.map")

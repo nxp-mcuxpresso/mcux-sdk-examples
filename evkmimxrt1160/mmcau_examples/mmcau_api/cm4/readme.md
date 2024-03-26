@@ -8,7 +8,7 @@ data using AES-CBC, DES3-CBC and Hash algorithms MD5, SHA1 and SHA256.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

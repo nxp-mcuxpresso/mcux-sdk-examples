@@ -58,7 +58,7 @@
 #define TCPIP_THREAD_STACKSIZE 1024
 #define TCPIP_THREAD_PRIO      2
 #ifdef CONFIG_NETWORK_HIGH_PERF
-#define TCPIP_MBOX_SIZE 64
+#define TCPIP_MBOX_SIZE 96
 #else
 #define TCPIP_MBOX_SIZE 32
 #endif
@@ -528,4 +528,13 @@ u32_t lwip_rand(void);
 #define LWIP_HOOK_TCP_OUT_ADD_TCPOPTS(p, hdr, pcb, opts) lwip_hook_tcp_out_add_tcpopts(p, hdr, pcb, opts)
 #endif
 #endif
+
+#define LWIP_HOOK_IP4_ROUTE_SRC(src, dest)   lwip_hook_ip4_route_src(src, dest)
+
+/**
+ * Support ip fragment max size 10000 in arp queue
+ */
+#define ARP_QUEUEING 1
+#define ARP_QUEUE_LEN 8
+
 #endif /* __LWIPOPTS_H__ */

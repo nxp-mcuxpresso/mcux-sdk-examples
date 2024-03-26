@@ -11,7 +11,7 @@ Meanwhile it continues to receive messages published to the subscribed topics fr
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

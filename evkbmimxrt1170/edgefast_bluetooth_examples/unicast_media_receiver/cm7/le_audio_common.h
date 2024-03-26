@@ -50,8 +50,6 @@ int audio_data_make_stereo(int samples, int bits, uint8_t *input_left, uint8_t *
 	memcpy(_data.value, pdata, len)
 
 int bt_audio_codec_cfg_set_frame_duration(struct bt_audio_codec_cfg *codec_cfg, int frame_duration);
-int bt_audio_codec_cfg_meta_set_val(struct bt_audio_codec_cfg *codec_cfg, uint8_t type,
-			       const uint8_t *data, size_t data_len);
 
 int     lc3_preset_get_octets_per_frame_value(int sample_rate, int frame_duration);
 uint8_t lc3_preset_get_sample_rate_value(int sample_rate);

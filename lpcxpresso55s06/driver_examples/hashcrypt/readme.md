@@ -6,7 +6,7 @@ and decrypt it back using AES and SHA algorithm. SHA-1, SHA-256, AES ECB and AES
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

@@ -8,7 +8,7 @@ Then, do some file operation test - create, write, read, close and so on.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

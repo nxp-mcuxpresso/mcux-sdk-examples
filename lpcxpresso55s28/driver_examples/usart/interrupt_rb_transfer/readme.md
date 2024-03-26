@@ -12,7 +12,7 @@ Note: The example echo every 8 characters, so input 8 characters every time.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

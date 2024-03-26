@@ -5,7 +5,7 @@ In this example, CTimer is used to generate a PWM signal.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

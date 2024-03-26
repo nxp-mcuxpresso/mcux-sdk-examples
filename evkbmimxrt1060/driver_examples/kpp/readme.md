@@ -5,7 +5,7 @@ The example is use the continuous column and rows as 4*4 or 8*8 matrix to show t
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

@@ -5,7 +5,7 @@ show how to use the swo, and to provide a simple project for debugging and furth
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

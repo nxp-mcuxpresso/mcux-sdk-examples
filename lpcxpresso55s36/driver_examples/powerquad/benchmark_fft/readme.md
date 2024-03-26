@@ -5,7 +5,7 @@ It could be compared with the project powerquad_benckmark_sw_fft to show the Pow
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

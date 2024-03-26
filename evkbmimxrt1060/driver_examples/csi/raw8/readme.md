@@ -5,7 +5,7 @@ In this example, the RAW8 data is convert to RGB565 data, then shown in the pane
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

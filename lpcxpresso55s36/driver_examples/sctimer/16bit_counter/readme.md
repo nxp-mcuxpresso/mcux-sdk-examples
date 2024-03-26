@@ -13,7 +13,7 @@ every 0.2 seconds. When a 16-bit counter event occurs, the output is toggled and
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

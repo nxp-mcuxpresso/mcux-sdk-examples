@@ -6,7 +6,7 @@ In this example, pdm gathers one channel's audio data though edma, then sai send
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

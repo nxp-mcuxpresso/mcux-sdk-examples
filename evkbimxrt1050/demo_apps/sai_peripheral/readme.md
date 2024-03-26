@@ -7,7 +7,7 @@ The SAI Demo application demonstrates complicated digital audio playback and rec
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

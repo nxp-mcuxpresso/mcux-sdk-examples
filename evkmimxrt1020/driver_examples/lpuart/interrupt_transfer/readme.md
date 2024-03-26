@@ -6,7 +6,7 @@ In the example, you can send characters to the console back and they will be pri
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

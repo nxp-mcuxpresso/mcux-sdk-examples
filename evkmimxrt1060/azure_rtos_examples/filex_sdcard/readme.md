@@ -1,6 +1,6 @@
 Overview
 ========
-The example shows how to use the SD card middleware with Azure RTOS.
+The example shows how to use the SD card middleware.
 
 This example will print the information of the SD card and format it
 in FAT format. Then, do some file operation test - create, write,
@@ -9,7 +9,7 @@ read, close and so on.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

@@ -7,7 +7,7 @@ protection against tampering, protection against spurious memory/register update
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

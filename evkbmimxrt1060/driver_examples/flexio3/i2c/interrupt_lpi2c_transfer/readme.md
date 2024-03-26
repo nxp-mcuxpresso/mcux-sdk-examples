@@ -6,7 +6,7 @@ In this example, a flexio simulated i2c master connect to a LPI2C slave
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

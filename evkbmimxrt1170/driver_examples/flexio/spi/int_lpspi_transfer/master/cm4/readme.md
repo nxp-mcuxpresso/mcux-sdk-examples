@@ -8,7 +8,7 @@ In this example, a flexio simulated master connect to a lpspi slave .
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

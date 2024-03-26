@@ -7,7 +7,7 @@ NOTE: Please set com port format to "7 data bits without parity bit" in PC's com
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

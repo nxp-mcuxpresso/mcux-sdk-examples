@@ -10,7 +10,7 @@ The ENC hardware is created with a special synchronize mechanism. There are actu
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

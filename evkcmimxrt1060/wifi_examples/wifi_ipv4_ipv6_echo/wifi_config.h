@@ -85,6 +85,10 @@
 #define CONFIG_IPV6               1
 #define CONFIG_MAX_IPV6_ADDRESSES 3
 
+#if !defined(SD8801)
+#define CONFIG_EXT_SCAN_SUPPORT 1
+#endif
+
 /* Logs */
 #define CONFIG_ENABLE_ERROR_LOGS   1
 #define CONFIG_ENABLE_WARNING_LOGS 1

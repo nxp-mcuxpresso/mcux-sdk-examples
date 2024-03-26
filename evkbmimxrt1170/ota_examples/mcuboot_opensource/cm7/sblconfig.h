@@ -10,7 +10,9 @@
 
 /* MCUBoot Flash Config */
 
-#define CONFIG_MCUBOOT_MAX_IMG_SECTORS 800
+#include "flash_partitioning.h"
+
+#ifndef CONFIG_MCUBOOT_SWAP_MOVE
 
 /*
  * MCUBoot upgrade mode
@@ -27,6 +29,8 @@
  * bootloader and OTA application to support downgrade.
  */
 #define CONFIG_MCUBOOT_FLASH_REMAP_DOWNGRADE_SUPPORT
+
+#endif
 
 /* Board specific register for flash remap functionality */
 #define FLASH_REMAP_OFFSET_REG 0x400CC428 /* RT1170 flash remap offset register */

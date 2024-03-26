@@ -39,7 +39,7 @@ The log below shows example output of the PWM driver demo in the oscilloscope :
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

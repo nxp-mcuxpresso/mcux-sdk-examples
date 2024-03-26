@@ -27,7 +27,7 @@ For RTOS applications, DEFAULT_THREAD_PRIO and TCPIP_THREAD_PRIO values can have
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

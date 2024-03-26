@@ -9,7 +9,7 @@ The file 'cmsis_lpspi_edma_b2b_transfer_slave.c' includes the LPSPI slave code.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

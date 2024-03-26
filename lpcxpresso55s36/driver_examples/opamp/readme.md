@@ -7,7 +7,7 @@ When DAC output changes, the OPAMP output changes accordingly.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

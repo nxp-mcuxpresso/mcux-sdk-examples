@@ -5,7 +5,7 @@ If this example runs correctly, you will see the panel filled with red, green an
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

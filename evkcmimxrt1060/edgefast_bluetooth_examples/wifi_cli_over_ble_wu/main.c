@@ -46,6 +46,9 @@
 #if (((defined(CONFIG_BT_SMP)) && (CONFIG_BT_SMP)))
 #include "ksdk_mbedtls.h"
 #endif /* CONFIG_BT_SMP */
+#ifdef CONFIG_WIFI_SMOKE_TESTS
+#include "fsl_phyksz8081.h"
+#endif
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -57,6 +60,17 @@
 #define USB_HOST_INTERRUPT_PRIORITY (3U)
 #endif
 
+/* @TEST_ANCHOR */
+
+/* Ethernet configuration. */
+#ifdef CONFIG_WIFI_SMOKE_TESTS
+extern phy_ksz8081_resource_t g_phy_resource;
+#define EXAMPLE_ENET         ENET
+#define EXAMPLE_PHY_ADDRESS  BOARD_ENET0_PHY_ADDRESS
+#define EXAMPLE_PHY_OPS      &phyksz8081_ops
+#define EXAMPLE_PHY_RESOURCE &g_phy_resource
+#define EXAMPLE_CLOCK_FREQ   CLOCK_GetFreq(kCLOCK_IpgClk)
+#endif
 
 /*******************************************************************************
  * Prototypes

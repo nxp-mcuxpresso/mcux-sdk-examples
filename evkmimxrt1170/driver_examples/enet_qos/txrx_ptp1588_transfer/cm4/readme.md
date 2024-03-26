@@ -14,7 +14,7 @@ The time stamp of the received timestamp will be print when the PTP message fram
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

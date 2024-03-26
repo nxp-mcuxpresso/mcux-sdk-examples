@@ -209,30 +209,37 @@ void le_audio_sync_init(void)
     BOARD_SyncTimer_Init(sync_timer_callback);
 }
 
-void le_audio_sync_start(uint32_t iso_interval_us, uint32_t sync_delay_us, int sample_rate, int samples_per_frame, uint32_t presentation_delay_us, uint32_t sync_index_init)
+void le_audio_sync_start(int sample_rate, int samples_per_frame)
+{
+    audio_sync_info.sample_rate           = sample_rate;
+    audio_sync_info.samples_per_frame     = samples_per_frame;
+    audio_sync_info.sample_duration_us    = 1000000.0 / (float)sample_rate;
+
+    /* Start the sync timer. */
+    BORAD_SyncTimer_Start(sample_rate, 16 * 2, 0);
+
+    /* Init resampler. */
+    Resampler_Init(sample_rate, samples_per_frame);
+}
+
+void le_audio_sync_set(uint32_t iso_interval_us, uint32_t sync_delay_us, uint32_t presentation_delay_us)
 {
     audio_sync_info.iso_interval_us       = iso_interval_us;
     audio_sync_info.sync_delay_us         = sync_delay_us;
-    audio_sync_info.sample_rate           = sample_rate;
-    audio_sync_info.samples_per_frame     = samples_per_frame;
+    // audio_sync_info.sample_rate           = sample_rate;
+    // audio_sync_info.samples_per_frame     = samples_per_frame;
     audio_sync_info.presentation_delay_us = presentation_delay_us;
     audio_sync_info.bits_per_sample       = 16;
     audio_sync_info.state                 = AUDIO_SYNC_STATE_STOP;
     audio_sync_info.pre_state             = AUDIO_SYNC_STATE_STOP;
-    audio_sync_info.sample_duration_us    = 1000000.0 / (float)sample_rate;
+    // audio_sync_info.sample_duration_us    = 1000000.0 / (float)sample_rate;
     audio_sync_info.resampler_added_samples = 0;
     audio_sync_info.extra_samples_needed  = 0.0;
-    
+
     audio_sync_info.fix_kp = 0.2;
     audio_sync_info.fix_ki = 0.002;
     audio_sync_info.fix_i  = 0.0;
     audio_sync_info.fix_output = 0.0;
-
-    /* Start the sync timer. */
-    BORAD_SyncTimer_Start(sample_rate, 16 * 2, sync_index_init);
-
-    /* Init resampler. */
-    Resampler_Init(sample_rate, samples_per_frame);
 }
 
 /* 

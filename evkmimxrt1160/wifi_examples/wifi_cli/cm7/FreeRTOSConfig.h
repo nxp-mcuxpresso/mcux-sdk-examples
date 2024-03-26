@@ -59,7 +59,8 @@
 #define configUSE_NEWLIB_REENTRANT              0
 #define configENABLE_BACKWARD_COMPATIBILITY     1
 #define configNUM_THREAD_LOCAL_STORAGE_POINTERS 5
-#define configUSE_APPLICATION_TASK_TAG          0
+#define configUSE_APPLICATION_TASK_TAG          1
+#define configUSE_POSIX_ERRNO                   1
 
 /* Used memory allocation (heap_x.c) */
 #define configFRTOS_MEMORY_SCHEME 4
@@ -90,7 +91,7 @@
  *#define configGENERATE_RUN_TIME_STATS        1
  *#define portCONFIGURE_TIMER_FOR_RUN_TIME_STATS()
  *#define portGET_RUN_TIME_COUNTER_VALUE()  xTaskGetTickCount()
-*/
+ */
 
 /* Co-routine related definitions. */
 #define configUSE_CO_ROUTINES           0
@@ -128,6 +129,7 @@
 #define INCLUDE_xTaskGetHandle              0
 #define INCLUDE_xTaskResumeFromISR          1
 #define INCLUDE_pcTaskGetTaskName           1
+#define INCLUDE_xSemaphoreGetMutexHolder    1
 
 
 

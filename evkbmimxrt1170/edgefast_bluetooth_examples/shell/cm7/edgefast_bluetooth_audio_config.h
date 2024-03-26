@@ -128,6 +128,14 @@
 #include "config_tmap.h"
 #endif
 
+#if (defined(CONFIG_BT_GMAP) && (CONFIG_BT_GMAP > 0))
+#include "config_gmap.h"
+#endif
+
+#if (defined(CONFIG_BT_PBP) && (CONFIG_BT_PBP > 0))
+#include "config_pbp.h"
+#endif
+
 #endif /* CONFIG_BT_AUDIO */
 
 /*! @}*/

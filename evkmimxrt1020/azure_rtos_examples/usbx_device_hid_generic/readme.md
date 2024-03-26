@@ -7,7 +7,7 @@ to the device, and the device will send the received message back.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

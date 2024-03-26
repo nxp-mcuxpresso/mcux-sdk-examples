@@ -12,8 +12,9 @@
  * rebuild the corresponding library and use the new library to
  * replace the one in your project.
  */
-
-#define TX_ENABLE_FPU_SUPPORT
+#ifndef TX_ENABLE_FPU_SUPPORT
+#define TX_ENABLE_FPU_SUPPORT   1
+#endif
 
 //#define TX_MAX_PRIORITIES                       32
 
@@ -64,4 +65,9 @@
 //#define TX_TIMER_ENABLE_PERFORMANCE_INFO
 
 //#define TX_TIMER_TICKS_PER_SECOND 100
+
+#ifndef TX_SINGLE_MODE_SECURE
+#define TX_SINGLE_MODE_SECURE
+#endif
+
 #endif

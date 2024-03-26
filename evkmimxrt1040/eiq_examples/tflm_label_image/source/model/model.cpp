@@ -43,7 +43,7 @@ status_t MODEL_Init(void)
     if (s_model->version() != TFLITE_SCHEMA_VERSION)
     {
         PRINTF("Model provided is schema version %d not equal "
-               "to supported version %d.",
+               "to supported version %d!\r\n",
                s_model->version(), TFLITE_SCHEMA_VERSION);
         return kStatus_Fail;
     }
@@ -62,7 +62,7 @@ status_t MODEL_Init(void)
     TfLiteStatus allocate_status = s_interpreter->AllocateTensors();
     if (allocate_status != kTfLiteOk)
     {
-        PRINTF("AllocateTensors() failed");
+        PRINTF("AllocateTensors() failed!\r\n");
         return kStatus_Fail;
     }
 
@@ -94,7 +94,7 @@ uint8_t* GetTensorData(TfLiteTensor* tensor, tensor_dims_t* dims, tensor_type_t*
             *type = kTensorType_INT8;
             break;
         default:
-            assert("Unknown input tensor data type");
+            assert("Unknown input tensor data type!\r\n");
     };
 
     dims->size = tensor->dims->size;
@@ -144,7 +144,7 @@ void MODEL_ConvertInput(uint8_t* data, tensor_dims_t* dims, tensor_type_t type)
             }
             break;
         default:
-            assert("Unknown input tensor data type");
+            assert("Unknown input tensor data type!\r\n");
     }
 }
 

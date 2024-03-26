@@ -7,7 +7,7 @@ The purpose of this demo is to demonstrate how to use virtual com and provide a 
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

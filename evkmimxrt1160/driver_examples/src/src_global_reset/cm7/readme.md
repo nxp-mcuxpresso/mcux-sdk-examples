@@ -8,7 +8,7 @@ If not, enable the predicted global system reset, after which the predicted glob
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

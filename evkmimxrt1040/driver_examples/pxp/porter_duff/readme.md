@@ -8,7 +8,7 @@ mode result is shown 2 seconds, then switch to the other mode.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

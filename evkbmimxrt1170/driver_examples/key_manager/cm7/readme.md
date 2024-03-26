@@ -4,7 +4,7 @@ The Key Manager example shows how to configure Key Manager to select PUF key as 
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

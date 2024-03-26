@@ -17,7 +17,7 @@ CMP input voltage is greater than the VREF voltage, AOI continuous output square
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

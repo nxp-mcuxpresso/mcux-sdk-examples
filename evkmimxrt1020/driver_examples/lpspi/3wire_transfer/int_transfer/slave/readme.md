@@ -11,7 +11,7 @@ This example uses the transactional API in LPSPI driver.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

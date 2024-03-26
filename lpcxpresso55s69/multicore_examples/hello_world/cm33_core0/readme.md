@@ -7,7 +7,7 @@ core toggles an on-board LED indicating that the secondary core is running.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

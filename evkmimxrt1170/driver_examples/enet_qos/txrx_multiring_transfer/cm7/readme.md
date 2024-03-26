@@ -16,7 +16,7 @@ The example transmits 20 number frames. For simple demo, we create frames with s
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

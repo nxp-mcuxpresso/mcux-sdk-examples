@@ -9,7 +9,7 @@ In this example, pdm will trigger edma to transfer data when one PDM channel wat
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

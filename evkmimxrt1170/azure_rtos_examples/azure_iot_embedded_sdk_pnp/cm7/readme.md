@@ -1,6 +1,6 @@
 Overview
 ========
-This example showcases the usability of Azure RTOS API to connect to Azure IoT Hub and start interacting with Azure IoT services.
+This example showcases the usability of NETX DUO API to connect to Azure IoT Hub and start interacting with Azure IoT services.
 When the example is running, it will periodically report the temperature value to the IoT Hub.
 
 This example also used the Azure IoT Plug and Play feature.
@@ -77,7 +77,7 @@ Note that these steps assume you use the Azure IoT Hub for the first time.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

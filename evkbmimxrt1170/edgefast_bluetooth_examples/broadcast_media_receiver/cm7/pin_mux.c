@@ -779,7 +779,7 @@ void BOARD_InitPinsM2(void) {
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 BOARD_InitGPT2Pins:
-- options: {callFromInitBoot: 'true', coreID: cm7, enableClock: 'true'}
+- options: {callFromInitBoot: 'false', coreID: cm7, enableClock: 'true'}
 - pin_list:
   - {pin_num: N12, peripheral: GPT2, signal: 'gpt_capture, 1', pin_signal: GPIO_AD_00}
   - {pin_num: R14, peripheral: GPT2, signal: 'gpt_capture, 2', pin_signal: GPIO_AD_01}
@@ -806,7 +806,7 @@ void BOARD_InitGPT2Pins(void) {
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 BOARD_InitGPT3Pins:
-- options: {callFromInitBoot: 'true', coreID: cm7, enableClock: 'true'}
+- options: {callFromInitBoot: 'false', coreID: cm7, enableClock: 'true'}
 - pin_list:
   - {pin_num: N13, peripheral: GPT3, signal: 'gpt_capture, 1', pin_signal: GPIO_AD_06}
   - {pin_num: T17, peripheral: GPT3, signal: 'gpt_capture, 2', pin_signal: GPIO_AD_07}

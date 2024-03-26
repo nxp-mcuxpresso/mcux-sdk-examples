@@ -12,7 +12,7 @@ output and make sure the output voltage to set will not cause hardware damage.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

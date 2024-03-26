@@ -10,7 +10,7 @@ it increments and writes it to the mailbox register for the secondary core again
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

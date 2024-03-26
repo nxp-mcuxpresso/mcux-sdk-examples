@@ -26,7 +26,7 @@ The shared memory assignment to the secure domain is done in the BOARD_InitTrust
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

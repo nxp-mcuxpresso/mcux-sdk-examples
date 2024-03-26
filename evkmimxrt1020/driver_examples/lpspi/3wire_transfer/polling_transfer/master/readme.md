@@ -10,7 +10,7 @@ The file 'lpspi_3wire_polling_transfer_master.c' includes the LPSPI master code.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

@@ -4,7 +4,7 @@ The FLEXRAM project is a simple demonstration program of the SDK FLEXRAM driver.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

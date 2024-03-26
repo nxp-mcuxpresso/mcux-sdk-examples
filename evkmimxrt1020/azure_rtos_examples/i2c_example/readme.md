@@ -1,6 +1,6 @@
 Overview
 ========
-The I2C example shows an application using Azure RTOS threads with the I2C driver:
+The I2C example shows an application using threads with the I2C driver:
 
 Two I2C instances of a single board are used. One I2C instance is used as
 I2C master and another I2C instance is used as I2C slave.
@@ -11,7 +11,7 @@ and the second thread deals with I2C slave operation.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

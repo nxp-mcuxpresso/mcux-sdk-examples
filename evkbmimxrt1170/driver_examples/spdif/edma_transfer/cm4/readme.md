@@ -8,7 +8,7 @@ Notice: Please use 48KHz sample rate for PC playback and set SPDIF output device
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

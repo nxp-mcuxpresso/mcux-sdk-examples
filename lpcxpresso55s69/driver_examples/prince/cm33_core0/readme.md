@@ -6,7 +6,7 @@ The example also shows how to correctly perform PRINCE region erase and write op
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

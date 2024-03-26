@@ -11,7 +11,7 @@ level 0, hysteresis level is level 0.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

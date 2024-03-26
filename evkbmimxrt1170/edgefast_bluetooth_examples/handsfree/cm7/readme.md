@@ -7,7 +7,7 @@ board running a HFP AG application. And the HF example support accept/reject/End
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

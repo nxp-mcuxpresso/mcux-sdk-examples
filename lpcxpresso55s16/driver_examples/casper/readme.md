@@ -5,7 +5,7 @@ The CASPER Example project is a demonstration program that uses the KSDK softwar
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

@@ -46,10 +46,28 @@
 #endif
 #endif
 
+#ifdef CONFIG_WIFI_SMOKE_TESTS
+#include "fsl_iomuxc.h"
+#include "fsl_enet.h"
+#endif
+#ifdef CONFIG_WIFI_SMOKE_TESTS
+#include "fsl_phyksz8081.h"
+#endif
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
 
+/* @TEST_ANCHOR */
+
+/* Ethernet configuration. */
+#ifdef CONFIG_WIFI_SMOKE_TESTS
+extern phy_ksz8081_resource_t g_phy_resource;
+#define EXAMPLE_ENET         ENET
+#define EXAMPLE_PHY_ADDRESS  BOARD_ENET0_PHY_ADDRESS
+#define EXAMPLE_PHY_OPS      &phyksz8081_ops
+#define EXAMPLE_PHY_RESOURCE &g_phy_resource
+#define EXAMPLE_CLOCK_FREQ   CLOCK_GetFreq(kCLOCK_IpgClk)
+#endif
 #define SERIAL_PORT_NVIC_PRIO 5
 
 #if !defined(RW610_SERIES) && !defined(RW612_SERIES)
@@ -248,6 +266,32 @@ uint32_t resp_buf_len, reqd_resp_len;
 /*******************************************************************************
  * Code
  ******************************************************************************/
+#ifdef CONFIG_WIFI_SMOKE_TESTS
+phy_ksz8081_resource_t g_phy_resource;
+
+void BOARD_InitModuleClock(void)
+{
+    const clock_enet_pll_config_t config = {.enableClkOutput = true, .enableClkOutput25M = false, .loopDivider = 1};
+    CLOCK_InitEnetPll(&config);
+}
+
+static void MDIO_Init(void)
+{
+    (void)CLOCK_EnableClock(s_enetClock[ENET_GetInstance(EXAMPLE_ENET)]);
+    ENET_SetSMI(EXAMPLE_ENET, EXAMPLE_CLOCK_FREQ, false);
+}
+
+static status_t MDIO_Write(uint8_t phyAddr, uint8_t regAddr, uint16_t data)
+{
+    return ENET_MDIOWrite(EXAMPLE_ENET, phyAddr, regAddr, data);
+}
+
+static status_t MDIO_Read(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
+{
+    return ENET_MDIORead(EXAMPLE_ENET, phyAddr, regAddr, pData);
+}
+#endif
+
 #if defined(RW610_SERIES) || defined(RW612_SERIES)
 const int TASK_MAIN_PRIO = CONFIG_WIFI_MAX_PRIO - 3;
 #else
@@ -1097,6 +1141,26 @@ int main(void)
     BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
+
+#ifdef CONFIG_WIFI_SMOKE_TESTS
+    BOARD_InitModuleClock();
+
+    IOMUXC_EnableMode(IOMUXC_GPR, kIOMUXC_GPR_ENET1TxClkOutputDir, true);
+
+    gpio_pin_config_t gpio_config = {kGPIO_DigitalOutput, 0, kGPIO_NoIntmode};
+
+    GPIO_PinInit(GPIO1, 9, &gpio_config);
+    GPIO_PinInit(GPIO1, 10, &gpio_config);
+    /* Pull up the ENET_INT before RESET. */
+    GPIO_WritePinOutput(GPIO1, 10, 1);
+    GPIO_WritePinOutput(GPIO1, 9, 0);
+    SDK_DelayAtLeastUs(10000, CLOCK_GetFreq(kCLOCK_CpuClk));
+    GPIO_WritePinOutput(GPIO1, 9, 1);
+
+    MDIO_Init();
+    g_phy_resource.read  = MDIO_Read;
+    g_phy_resource.write = MDIO_Write;
+#endif
 #endif
 
     result =

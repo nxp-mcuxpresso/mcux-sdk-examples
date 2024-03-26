@@ -6,7 +6,7 @@ In this example, asrc will convert the audio data and playback the through SAI.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

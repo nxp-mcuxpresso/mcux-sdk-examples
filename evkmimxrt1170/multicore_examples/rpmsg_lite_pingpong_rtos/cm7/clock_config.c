@@ -1,6 +1,5 @@
 /*
- * Copyright 2020-2021 NXP
- * All rights reserved.
+ * Copyright 2020-2024 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -18,11 +17,11 @@
 
 /* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Clocks v8.0
+product: Clocks v11.0
 processor: MIMXRT1176xxxxx
 package_id: MIMXRT1176DVMAA
 mcu_data: ksdk2_0
-processor_version: 0.0.0
+processor_version: 0.14.8
 board: MIMXRT1170-EVK
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 
@@ -196,6 +195,7 @@ outputs:
 - {id: USDHC1_CLK_ROOT.outFreq, value: 24 MHz}
 - {id: USDHC2_CLK_ROOT.outFreq, value: 24 MHz}
 settings:
+- {id: CoreBusClockRootsInitializationConfig, value: selectedCore}
 - {id: SOCDomainVoltage, value: OD}
 - {id: ANADIG_OSC_OSC_24M_CTRL_LP_EN_CFG, value: Low}
 - {id: ANADIG_OSC_OSC_24M_CTRL_OSC_EN_CFG, value: Enabled}
@@ -339,7 +339,7 @@ void BOARD_BootClockRUN(void)
 
     /* Init OSC RC 400M */
     CLOCK_OSC_EnableOscRc400M();
-    CLOCK_OSC_GateOscRc400M(true);
+    CLOCK_OSC_GateOscRc400M(false);
 
     /* Init OSC RC 48M */
     CLOCK_OSC_EnableOsc48M(true);

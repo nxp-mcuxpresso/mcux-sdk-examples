@@ -7,7 +7,7 @@ panel, so part of the LCD panel might be blank.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

@@ -39,7 +39,7 @@ For user buttons and LEDs assignment on particular board, see chapter "Running t
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================
