@@ -99,14 +99,16 @@ status_t powerManager_BoardNotify(pm_event_type_t eventType, uint8_t powerState,
         return kStatus_PMPowerStateNotAllowed;
     if (eventType == kPM_EventEnteringSleep)
     {
+#ifdef CONFIG_NCP_UART
         if (powerState == PM_LP_STATE_PM3)
         {
-
-#ifdef CONFIG_NCP_UART
              usart_suspend_flag = true;
+        }
 #endif
-             while(ncp_intf_pm_enter((int32_t)powerState) == NCP_PM_STATUS_NOT_READY)
-                ;
+        while(ncp_intf_pm_enter((int32_t)powerState) == NCP_PM_STATUS_NOT_READY)
+            ;
+        if (powerState == PM_LP_STATE_PM3)
+        {
 #ifdef CONFIG_NCP_BRIDGE_DEBUG
 #ifdef CONFIG_UART_INTERRUPT
             cli_uart_notify();
@@ -129,6 +131,8 @@ status_t powerManager_BoardNotify(pm_event_type_t eventType, uint8_t powerState,
             usart_suspend_flag = false;
 #endif
         }
+        else if (powerState == PM_LP_STATE_PM2)
+            ncp_intf_pm_exit((int32_t)PM_LP_STATE_PM2);
         else
         {
             /* Do Nothing */

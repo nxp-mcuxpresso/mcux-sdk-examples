@@ -28,13 +28,9 @@
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
-typedef struct
-{
-    uint32_t block_type;
-    uint32_t command_sz;
-    void     *cmd_buff;
-} ble_ncp_command_t;
+typedef struct ncp_cmd_t ble_ncp_command_t;
 
+extern int ble_ncp_L2capInit(void);
 /*******************************************************************************
  * Variables
  ******************************************************************************/
@@ -151,6 +147,7 @@ static void ble_ncp_task(void *pvParameters)
         else
         {
             cmd_buf = cmd_item.cmd_buff;
+            OSA_SemaphoreWait(ble_ncp_lock, osaWaitForever_c);
             ble_ncp_command_handle_input(cmd_buf);
             OSA_MemoryFree(cmd_buf);
             cmd_buf = NULL;
@@ -186,23 +183,32 @@ int ble_ncp_init(void)
     ret = OSA_MsgQCreate(ble_ncp_command_queue, BLE_NCP_COMMAND_QUEUE_NUM,  sizeof(ble_ncp_command_t));
     if (ret != NCP_BRIDGE_CMD_RESULT_OK)
     {
-        ncp_e("failed to create wifi ncp command queue: %d", ret);
+        ncp_e("failed to create ble ncp command queue: %d", ret);
         return NCP_BRIDGE_CMD_RESULT_ERROR;
     }
 
     ret = OSA_SemaphoreCreateBinary(ble_ncp_lock);
     if (ret != kStatus_Success)
     {
-        ncp_e("failed to create wifi_ncp_lock: %d", ret);
+        ncp_e("failed to create ble_ncp_lock: %d", ret);
         return ret;
     }
-    
+    else
+    {
+        OSA_SemaphorePost(ble_ncp_lock);
+    }
+    ret = ble_ncp_L2capInit();
+    if (ret != NCP_BRIDGE_CMD_RESULT_OK)
+    {
+        ncp_e("failed to init the ncp l2cap: %d", ret);
+        return NCP_BRIDGE_CMD_RESULT_ERROR;
+    }
     ncp_tlv_install_handler(GET_CMD_CLASS(NCP_BRIDGE_CMD_BLE), (void *)ble_ncp_callback);
     
     ret = OSA_TaskCreate((osa_task_handle_t) ble_ncp_handle, OSA_TASK(ble_ncp_task), NULL);
     if (ret != NCP_BRIDGE_CMD_RESULT_OK)
     {
-        ncp_e("failed to create ncp wifi task: %d", ret);
+        ncp_e("failed to create ncp ble task: %d", ret);
         return NCP_BRIDGE_CMD_RESULT_ERROR;
     }
     if (bt_init() != NCP_BRIDGE_CMD_RESULT_OK)

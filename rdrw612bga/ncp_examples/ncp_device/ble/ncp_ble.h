@@ -32,6 +32,7 @@ extern bool is_create_conn_cmd;
 void ncp_ble_task(void *pvParameters);
 
 uint8_t bt_init(void);
+int ble_ncp_init(void);
 
 int ble_ncp_send_response(uint8_t *pbuf);
 

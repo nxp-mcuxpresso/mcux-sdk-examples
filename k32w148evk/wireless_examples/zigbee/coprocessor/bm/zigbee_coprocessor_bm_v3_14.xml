@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:examples xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd manifest.xsd">
+  <externalDefinitions>
+    <definition extID="middleware.wireless.zigbee.k32w1.K32W1480"/>
+    <definition extID="middleware.wireless.zigbee_core_libs.K32W1480"/>
+    <definition extID="middleware.wireless.zigbee.platform.k32w1.K32W1480"/>
+    <definition extID="middleware.wireless.zb_examples_common.K32W1480"/>
+    <definition extID="middleware.wireless.zb_examples_collaterals.K32W1480"/>
+    <definition extID="middleware.wireless.zb_serial_link.K32W1480"/>
+    <definition extID="component.osa_bm.K32W1480"/>
+    <definition extID="component.reset_adapter.K32W1480"/>
+    <definition extID="component.common_task.K32W1480"/>
+    <definition extID="component.mem_manager_light.K32W1480"/>
+    <definition extID="component.messaging.K32W1480"/>
+    <definition extID="component.panic.K32W1480"/>
+    <definition extID="component.lptmr_adapter.K32W1480"/>
+    <definition extID="component.timer_manager.K32W1480"/>
+    <definition extID="component.lptmr_time_stamp_adapter.K32W1480"/>
+    <definition extID="middleware.wireless.HWParameter.K32W1480"/>
+    <definition extID="middleware.wireless.framework.common.K32W1480"/>
+    <definition extID="middleware.wireless.framework.module_info.K32W1480"/>
+    <definition extID="middleware.wireless.framework.function_lib.K32W1480"/>
+    <definition extID="middleware.wireless.framework.fwk_debug.K32W1480"/>
+    <definition extID="component.gpio_adapter.K32W1480"/>
+    <definition extID="component.button.K32W1480"/>
+    <definition extID="component.led.K32W1480"/>
+    <definition extID="platform.drivers.clock.K32W1480"/>
+    <definition extID="platform.drivers.common.K32W1480"/>
+    <definition extID="device.K32W1480_CMSIS.K32W1480"/>
+    <definition extID="platform.devices.K32W1480.K32W1480"/>
+    <definition extID="device.K32W1480_startup_wireless.K32W1480"/>
+    <definition extID="platform.drivers.lpuart.K32W1480"/>
+    <definition extID="platform.drivers.lpuart_edma.K32W1480"/>
+    <definition extID="platform.drivers.lptmr.K32W1480"/>
+    <definition extID="platform.drivers.port.K32W1480"/>
+    <definition extID="platform.drivers.lpspi.K32W1480"/>
+    <definition extID="platform.drivers.gpio.K32W1480"/>
+    <definition extID="platform.drivers.flash_k4.K32W1480"/>
+    <definition extID="component.k4_flash_adapter.K32W1480"/>
+    <definition extID="component.lpuart_adapter.K32W1480"/>
+    <definition extID="platform.drivers.tpm.K32W1480"/>
+    <definition extID="platform.utilities.assert_lite.K32W1480"/>
+    <definition extID="utility.debug_console_lite.K32W1480"/>
+    <definition extID="utility.format.K32W1480"/>
+    <definition extID="component.serial_manager_uart.K32W1480"/>
+    <definition extID="component.serial_manager.K32W1480"/>
+    <definition extID="platform.drivers.imu.K32W1480"/>
+    <definition extID="component.lists.K32W1480"/>
+    <definition extID="middleware.wireless.framework.rpmsg_config.K32W1480"/>
+    <definition extID="component.rpmsg_adapter.K32W1480"/>
+    <definition extID="component.serial_manager_rpmsg.K32W1480"/>
+    <definition extID="platform.drivers.ltc.K32W1480"/>
+    <definition extID="middleware.wireless.framework.Sensors.K32W1480"/>
+    <definition extID="middleware.wireless.framework.platform.K32W1480"/>
+    <definition extID="device.K32W1480_utility.k32w148evk.K32W1480"/>
+    <definition extID="middleware.multicore.mcmgr.k32w1.K32W1480"/>
+    <definition extID="middleware.multicore.rpmsg_lite.k32w148evk_bm.K32W1480"/>
+    <definition extID="middleware.baremetal.K32W1480"/>
+    <definition extID="middleware.multicore.rpmsg_lite.bm.K32W1480"/>
+    <definition extID="middleware.multicore.rpmsg_lite.K32W1480"/>
+    <definition extID="component.log.K32W1480"/>
+    <definition extID="platform.drivers.wuu.K32W1480"/>
+    <definition extID="platform.drivers.cmc.K32W1480"/>
+    <definition extID="platform.drivers.spc.K32W1480"/>
+    <definition extID="platform.drivers.ccm32k.K32W1480"/>
+    <definition extID="platform.drivers.sfa.K32W1480"/>
+    <definition extID="middleware.wireless.framework.platform_lowpower.K32W1480"/>
+    <definition extID="middleware.wireless.framework.platform_lowpower_timer.K32W1480"/>
+    <definition extID="middleware.wireless.framework.platform_ics.K32W1480"/>
+    <definition extID="middleware.wireless.framework.platform_ot.K32W1480"/>
+    <definition extID="platform.drivers.elemu.K32W1480"/>
+    <definition extID="middleware.secure-subsystem.elemu.K32W1480"/>
+    <definition extID="middleware.secure-subsystem.port_kw45_k4w1.K32W1480"/>
+    <definition extID="middleware.wireless.framework.sec_lib_sss.K32W1480"/>
+    <definition extID="middleware.wireless.framework.rng.K32W1480"/>
+    <definition extID="middleware.wireless.framework.PDUM.K32W1480"/>
+    <definition extID="middleware.wireless.framework.PDM.K32W1480"/>
+    <definition extID="middleware.wireless.framework.nvm.K32W1480"/>
+    <definition extID="component.power_manager_evkk32w148.K32W1480"/>
+    <definition extID="middleware.wireless.framework.ota.K32W1480"/>
+    <definition extID="middleware.wireless.framework.lpm_K32W1480.K32W1480"/>
+    <definition extID="middleware.wireless.framework.lpm_K32W1480_systicks.K32W1480"/>
+    <definition extID="middleware.wireless.ieee.802.15.4_lib_split.K32W1480"/>
+    <definition extID="middleware.wireless.ieee.802.15.4_header.K32W1480"/>
+    <definition extID="platform.drivers.wdog32.K32W1480"/>
+    <definition extID="driver.nor_flash-controller-lpspi.K32W1480"/>
+    <definition extID="platform.utilities.misc_utilities.K32W1480"/>
+    <definition extID="component.osa_interface.K32W1480"/>
+    <definition extID="component.osa.K32W1480"/>
+    <definition extID="middleware.wireless.framework_swo_dbg.K32W1480"/>
+    <definition extID="CMSIS_Include_core_cm.K32W1480"/>
+    <definition extID="device.K32W1480_system.K32W1480"/>
+    <definition extID="platform.drivers.dma3.K32W1480"/>
+    <definition extID="utility.str.K32W1480"/>
+    <definition extID="middleware.wireless.framework.platform_sensors.K32W1480"/>
+    <definition extID="platform.drivers.lpadc.K32W1480"/>
+    <definition extID="platform.drivers.vref_1.K32W1480"/>
+    <definition extID="middleware.multicore.mcmgr.K32W1480"/>
+    <definition extID="middleware.wireless.framework.SFC.K32W1480"/>
+    <definition extID="middleware.secure-subsystem.mu.K32W1480"/>
+    <definition extID="middleware.secure-subsystem.K32W1480"/>
+    <definition extID="component.power_manager_core.K32W1480"/>
+    <definition extID="platform.drivers.crc.K32W1480"/>
+    <definition extID="middleware.wireless.framework.platform_ota.K32W1480"/>
+    <definition extID="middleware.wireless.framework.platform_extflash.K32W1480"/>
+    <definition extID="driver.nor_flash-common.K32W1480"/>
+    <definition extID="mcuxpresso"/>
+    <definition extID="com.nxp.mcuxpresso"/>
+    <definition extID="com.crt.advproject.config.exe.debug"/>
+    <definition extID="com.crt.advproject.config.exe.release"/>
+  </externalDefinitions>
+  <example id="k32w148evk_zigbee_coprocessor_bm" name="zigbee_coprocessor_bm" dependency="middleware.wireless.zigbee.k32w1.K32W1480 middleware.wireless.zigbee_core_libs.K32W1480 middleware.wireless.zigbee.platform.k32w1.K32W1480 middleware.wireless.zb_examples_common.K32W1480 middleware.wireless.zb_examples_collaterals.K32W1480 middleware.wireless.zb_serial_link.K32W1480 component.osa_bm.K32W1480 component.reset_adapter.K32W1480 component.common_task.K32W1480 component.mem_manager_light.K32W1480 component.messaging.K32W1480 component.panic.K32W1480 component.lptmr_adapter.K32W1480 component.timer_manager.K32W1480 component.lptmr_time_stamp_adapter.K32W1480 middleware.wireless.HWParameter.K32W1480 middleware.wireless.framework.common.K32W1480 middleware.wireless.framework.module_info.K32W1480 middleware.wireless.framework.function_lib.K32W1480 middleware.wireless.framework.fwk_debug.K32W1480 component.gpio_adapter.K32W1480 component.button.K32W1480 component.led.K32W1480 platform.drivers.clock.K32W1480 platform.drivers.common.K32W1480 device.K32W1480_CMSIS.K32W1480 platform.devices.K32W1480.K32W1480 device.K32W1480_startup_wireless.K32W1480 platform.drivers.lpuart.K32W1480 platform.drivers.lpuart_edma.K32W1480 platform.drivers.lptmr.K32W1480 platform.drivers.port.K32W1480 platform.drivers.lpspi.K32W1480 platform.drivers.gpio.K32W1480 platform.drivers.flash_k4.K32W1480 component.k4_flash_adapter.K32W1480 component.lpuart_adapter.K32W1480 platform.drivers.tpm.K32W1480 platform.utilities.assert_lite.K32W1480 utility.debug_console_lite.K32W1480 utility.format.K32W1480 component.serial_manager_uart.K32W1480 component.serial_manager.K32W1480 platform.drivers.imu.K32W1480 component.lists.K32W1480 middleware.wireless.framework.rpmsg_config.K32W1480 component.rpmsg_adapter.K32W1480 component.serial_manager_rpmsg.K32W1480 platform.drivers.ltc.K32W1480 middleware.wireless.framework.Sensors.K32W1480 middleware.wireless.framework.platform.K32W1480 device.K32W1480_utility.k32w148evk.K32W1480 middleware.multicore.mcmgr.k32w1.K32W1480 middleware.multicore.rpmsg_lite.k32w148evk_bm.K32W1480 middleware.baremetal.K32W1480 middleware.multicore.rpmsg_lite.bm.K32W1480 middleware.multicore.rpmsg_lite.K32W1480 component.log.K32W1480 platform.drivers.wuu.K32W1480 platform.drivers.cmc.K32W1480 platform.drivers.spc.K32W1480 platform.drivers.ccm32k.K32W1480 platform.drivers.sfa.K32W1480 middleware.wireless.framework.platform_lowpower.K32W1480 middleware.wireless.framework.platform_lowpower_timer.K32W1480 middleware.wireless.framework.platform_ics.K32W1480 middleware.wireless.framework.platform_ot.K32W1480 platform.drivers.elemu.K32W1480 middleware.secure-subsystem.elemu.K32W1480 middleware.secure-subsystem.port_kw45_k4w1.K32W1480 middleware.wireless.framework.sec_lib_sss.K32W1480 middleware.wireless.framework.rng.K32W1480 middleware.wireless.framework.PDUM.K32W1480 middleware.wireless.framework.PDM.K32W1480 middleware.wireless.framework.nvm.K32W1480 component.power_manager_evkk32w148.K32W1480 middleware.wireless.framework.ota.K32W1480 middleware.wireless.framework.lpm_K32W1480.K32W1480 middleware.wireless.framework.lpm_K32W1480_systicks.K32W1480 middleware.wireless.ieee.802.15.4_lib_split.K32W1480 middleware.wireless.ieee.802.15.4_header.K32W1480 platform.drivers.wdog32.K32W1480 driver.nor_flash-controller-lpspi.K32W1480 platform.utilities.misc_utilities.K32W1480 component.osa_interface.K32W1480 component.osa.K32W1480 middleware.wireless.framework_swo_dbg.K32W1480 CMSIS_Include_core_cm.K32W1480 device.K32W1480_system.K32W1480 platform.drivers.dma3.K32W1480 utility.str.K32W1480 middleware.wireless.framework.platform_sensors.K32W1480 platform.drivers.lpadc.K32W1480 platform.drivers.vref_1.K32W1480 middleware.multicore.mcmgr.K32W1480 middleware.wireless.framework.SFC.K32W1480 middleware.secure-subsystem.mu.K32W1480 middleware.secure-subsystem.K32W1480 component.power_manager_core.K32W1480 platform.drivers.crc.K32W1480 middleware.wireless.framework.platform_ota.K32W1480 middleware.wireless.framework.platform_extflash.K32W1480 driver.nor_flash-common.K32W1480" category="wireless_examples/zigbee/coprocessor/bm">
+    <projects>
+      <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
+    </projects>
+    <memory>
+      <memoryBlock id="PROGRAM_FLASH_" name="PROGRAM_FLASH" addr="00000000" size="00100000" type="Flash" access="RO"/>
+      <memoryBlock id="TCM_SYS_" name="TCM_SYS" addr="20000000" size="0001c000" type="RAM" access="RW"/>
+      <memoryBlock id="TCM_CODE_" name="TCM_CODE" addr="04000000" size="00004000" type="RAM" access="RW"/>
+    </memory>
+    <toolchainSettings>
+      <toolchainSetting id_refs="com.nxp.mcuxpresso">
+        <buildSteps>
+          <preBuildStep>sh ../tools/ZPSConfig/Source/ZPSConfig -n coordinator -f ../source/coordinator.zpscfg -y;sh ../tools/PDUMConfig/Source/PDUMConfig -z coordinator -e LITTLE_ENDIAN_PROCESSOR -f ../source/coordinator.zpscfg -o ../source;sh ../tools/ZPSConfig/Source/ZPSConfig -n coordinator -t JN518x -l ../libs/zigbee/libZPSNWK.a -a ../libs/zigbee/libZPSAPL.a  -e LITTLE_ENDIAN_PROCESSOR  -f ../source/coordinator.zpscfg -o ../source; sh ../source/build_version.sh</preBuildStep>
+        </buildSteps>
+        <option id="com.crt.advproject.gcc.exe.debug.option.optimization.level" type="enum">
+          <value>gnu.c.optimization.level.general</value>
+        </option>
+        <option id="com.crt.advproject.gcc.fpu" type="enum">
+          <value>com.crt.advproject.gcc.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="gnu.c.compiler.option.optimization.flags" type="string">
+          <value>-fno-common</value>
+        </option>
+        <option id="com.crt.advproject.c.misc.dialect" type="enum">
+          <value>com.crt.advproject.misc.dialect.gnu99</value>
+        </option>
+        <option id="gnu.c.compiler.option.misc.other" type="string">
+          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.toerrors" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
+          <value>CPU_K32W1480VFTA</value>
+          <value>FSL_OSA_MAIN_FUNC_ENABLE=1</value>
+          <value>GENERIC_LIST_LIGHT=0</value>
+          <value>USE_SMU2_AS_SYSTEM_MEMORY=1</value>
+          <value>TM_ENABLE_TIME_STAMP=1</value>
+          <value>BOARD_DEBUG_UART_BAUDRATE=1000000</value>
+          <value>NCP_COPRO=1</value>
+          <value>MAC_TYPE_SOC=1</value>
+          <value>ZB_COORD_DEVICE=1</value>
+          <value>HAL_RPMSG_SELECT_ROLE=0</value>
+          <value>USE_NBU=1</value>
+          <value>gRngUseSecureSubSystem_d=1</value>
+          <value>SSS_CONFIG_FILE='"fsl_sss_config_elemu.h"'</value>
+          <value>SSCP_CONFIG_FILE='"fsl_sscp_config_elemu.h"'</value>
+          <value>gMemManagerLightGuardsCheckEnable=1</value>
+          <value>gMemManagerLightExtendHeapAreaUsage=1</value>
+          <value>gNvStorageIncluded_d=1</value>
+          <value>gAppButtonCnt_c=1</value>
+          <value>FWK_RNG_DEPRECATED_API</value>
+          <value>gHwParamsProdDataPlacement_c=gHwParamsProdDataPlacementLegacyMode_c</value>
+          <value>USE_PB_RAM_AS_SYSTEM_MEMORY=1</value>
+          <value>gDebugConsoleEnable_d=1</value>
+          <value>DebugConsole_c=1</value>
+          <value>DISABLE_OTA=1</value>
+          <value>FSL_OSA_TASK_ENABLE=1</value>
+          <value>CPU_K32W1480VFTA_cm33</value>
+          <value>SDK_OS_BAREMETAL</value>
+          <value>SERIAL_PORT_TYPE_UART=1</value>
+          <value>SDK_DEBUGCONSOLE=1</value>
+          <value>CR_INTEGER_PRINTF</value>
+          <value>PRINTF_FLOAT_ENABLE=0</value>
+          <value>Router</value>
+          <value>PRINTF_ADVANCED_ENABLE=1</value>
+          <value>ZBPRO_DEVICE_TYPE=ZCR</value>
+          <value>cPWR_FullPowerDownMode=1</value>
+          <value>CLD_OTA_KEY='"1234567890ABCDEFA1B2C3D4E5F6F1B4"'</value>
+          <value>CLD_OTA_MANF_ID_VALUE=4151</value>
+          <value>OTA_INTERNAL_STORAGE</value>
+          <value>INTERNAL_ENCRYPTED</value>
+          <value>OTA_ENCRYPTED</value>
+          <value>BUILD_OTA</value>
+          <value>HEAP_SIZE=4000</value>
+          <value>LITTLE_ENDIAN_PROCESSOR</value>
+          <value>NDEBUG</value>
+          <value>vector_table_size=512</value>
+          <value>__ram_vector_table__=1</value>
+          <value>osNumberOfSemaphores=0</value>
+          <value>osNumberOfMutexes=0</value>
+          <value>osNumberOfMessageQs=0</value>
+          <value>osNumberOfMessages=0</value>
+          <value>osNumberOfEvents=0</value>
+          <value>gMainThreadStackSize_c=0</value>
+          <value>gMainThreadPriority_c=7</value>
+          <value>gTaskMultipleInstancesManagement_c=0</value>
+          <value>FSL_OSA_BM_TIMER_CONFIG=FSL_OSA_BM_TIMER_SYSTICK</value>
+          <value>ENABLE_RAM_VECTOR_TABLE</value>
+          <value>gFlashEraseDuringWrite=0</value>
+          <value>gInvalidateHeaderLength=336</value>
+          <value>gEepromType_d=gEepromDevice_InternalFlash_c</value>
+          <value>gOtaVerifyWrite_d=0</value>
+          <value>gEePromParams_BufferSize_c=512</value>
+          <value>gEepromParams_bufferedWrite_c=1</value>
+          <value>gEepromParams_CurrentOffset=0</value>
+          <value>SINGLE_CHANNEL=12</value>
+          <value>TRACE_APP=true</value>
+          <value>TRACE_ZCL=true</value>
+          <value>OM15081</value>
+          <value>ZIGBEE_USE_FRAMEWORK=1</value>
+          <value>gSupportBle=0</value>
+          <value>JN518x=5180</value>
+          <value>JENNIC_CHIP_FAMILY_NAME=_JN518x</value>
+          <value>JENNIC_CHIP_FAMILY=JN518x</value>
+          <value>JENNIC_CHIP_FAMILY_JN518x</value>
+          <value>__JN518X__</value>
+          <value>PDM_NO_RTOS</value>
+          <value>CPU_JN518X</value>
+          <value>__NEWLIB__</value>
+          <value>MCUXPRESSO_SDK</value>
+          <value>SERIAL_PORT_TYPE_RPMSG=1</value>
+          <value>HAL_UART_ADAPTER_LOWPOWER=1</value>
+          <value>MULTICORE_APP=1</value>
+          <value>DEBUG</value>
+        </option>
+        <option id="com.crt.advproject.link.fpu" type="enum">
+          <value>com.crt.advproject.link.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="com.crt.advproject.gas.hdrlib" type="enum">
+          <value>com.crt.advproject.gas.hdrlib.newlib</value>
+        </option>
+        <option id="com.crt.advproject.gas.specs" type="enum">
+          <value>com.crt.advproject.gas.specs.newlib</value>
+        </option>
+        <option id="com.crt.advproject.gcc.hdrlib" type="enum">
+          <value>com.crt.advproject.gcc.hdrlib.newlib</value>
+        </option>
+        <option id="com.crt.advproject.gcc.specs" type="enum">
+          <value>com.crt.advproject.gcc.specs.newlib</value>
+        </option>
+        <option id="com.crt.advproject.link.gcc.hdrlib" type="enum">
+          <value>com.crt.advproject.gcc.link.hdrlib.newlib.nohost</value>
+        </option>
+        <option id="gnu.c.link.option.other" type="stringList">
+          <value>--sort-section=alignment</value>
+          <value>--gc-sections</value>
+          <value>-print-memory-usage</value>
+          <value>-Map="${BuildArtifactFileBaseName}.map"</value>
+          <value>"--defsym=gUseInternalStorageLink_d=1"</value>
+          <value>"--defsym=__stack_size__=0x2000"</value>
+          <value>"--defsym=__heap_size__=0x8000"</value>
+          <value>"--defsym=gUseNVMLink_d=1"</value>
+          <value>--defsym=m_lowpower_flag_start=0x489C007C</value>
+          <value>--no-warn-rwx-segments</value>
+          <value>-no-warn-rwx-segments</value>
+        </option>
+        <option id="gnu.c.link.option.nostdlibs" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="com.crt.advproject.gas.fpu" type="enum">
+          <value>com.crt.advproject.gas.fpu.fpv5sp.hard</value>
+        </option>
+      </toolchainSetting>
+    </toolchainSettings>
+    <debug_configurations>
+      <debug_configuration id_refs="com.crt.advproject.config.exe.debug com.crt.advproject.config.exe.release">
+        <drivers>
+          <driver id_refs="PROGRAM_FLASH_">
+            <driverBinary path="../../../../../../devices/KW45B41Z83/mcuxpresso" project_relative_path="binary" type="binary">
+              <files mask="KW45B41.cfx"/>
+            </driverBinary>
+          </driver>
+        </drivers>
+      </debug_configuration>
+    </debug_configurations>
+    <include_paths>
+      <include_path path="." project_relative_path="board" type="c_include"/>
+      <include_path path="." project_relative_path="source" type="c_include"/>
+      <include_path path="." project_relative_path="ZigbeeCommon/Include" type="c_include"/>
+      <include_path path="." project_relative_path="platform/framework/Common" type="c_include"/>
+      <include_path path="." project_relative_path="platform/framework/PWRM/Include" type="c_include"/>
+      <include_path path="." project_relative_path="platform/framework/RNG/Interface" type="c_include"/>
+      <include_path path="." project_relative_path="platform/framework/SecLib" type="c_include"/>
+      <include_path path="." project_relative_path="platform" type="c_include"/>
+      <include_path path="." project_relative_path="platform/zb_common" type="c_include"/>
+      <include_path path="." project_relative_path="Dependencies/ZCIF/Include" type="c_include"/>
+      <include_path path="." project_relative_path="Dependencies/ZPSAPL/Include" type="c_include"/>
+      <include_path path="." project_relative_path="Dependencies/ZPSMAC/Include" type="c_include"/>
+      <include_path path="." project_relative_path="Dependencies/ZPSNWK/Include" type="c_include"/>
+      <include_path path="." project_relative_path="Dependencies/ZPSTSV/Include" type="c_include"/>
+      <include_path path="." project_relative_path="Dependencies/BDB/Include" type="c_include"/>
+      <include_path path="." project_relative_path="Dependencies/BDB/Source/OutOfBand" type="c_include"/>
+      <include_path path="." project_relative_path="Dependencies/ZCL/Devices/ZHA" type="c_include"/>
+      <include_path path="." project_relative_path="Dependencies/ZCL/Clusters/General/Include" type="c_include"/>
+      <include_path path="." project_relative_path="Dependencies/ZCL/Clusters/Commissioning/Include" type="c_include"/>
+      <include_path path="." project_relative_path="common" type="c_include"/>
+      <include_path path="../../zigbee_coprocessor" project_relative_path="source" type="c_include"/>
+    </include_paths>
+    <source path="." project_relative_path="source" type="c_include">
+      <files mask="SecLib.h"/>
+      <files mask="SecLib_ecp256.h"/>
+    </source>
+    <source path="../../../../../../middleware/wireless/zigbee/ZigbeeCommon/Source" project_relative_path="ZigbeeCommon/Source" type="src" exclude="true">
+      <files mask="port_JN516x.c"/>
+      <files mask="port_JN517x.c"/>
+      <files mask="usart_dma_rxbuffer.c"/>
+    </source>
+    <source path="tools/ZPSConfig/Source" project_relative_path="tools/ZPSConfig/Source" type="other">
+      <files mask="ZPSConfig"/>
+    </source>
+    <source path="tools/PDUMConfig/Source" project_relative_path="tools/PDUMConfig/Source" type="other">
+      <files mask="PDUMConfig"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include">
+      <files mask="app.h"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="hardware_init.c"/>
+      <files mask="board.c"/>
+      <files mask="board_comp.c"/>
+      <files mask="board_dcdc.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="clock_config.c"/>
+      <files mask="pin_mux.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="clock_config.h"/>
+      <files mask="pin_mux.h"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/ZCL/Devices/ZHA" type="c_include">
+      <files mask="base_device.h"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include">
+      <files mask="RNG_Interface.h"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include">
+      <files mask="PWR_Interface.h"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="fsl_adapter_rpmsg.h"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="fwk_platform.h"/>
+      <files mask="platform_genfsk.h"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="board_lp.h"/>
+      <files mask="board.h"/>
+      <files mask="board_extflash.h"/>
+      <files mask="board_platform.h"/>
+      <files mask="board_comp.h"/>
+      <files mask="board_dcdc.h"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="platform_genfsk.c"/>
+    </source>
+    <source path="../../../../../../core/devices/K32W1480/mcuxpresso" project_relative_path="startup" type="src" exclude="true">
+      <files mask="startup_k32w148.c"/>
+    </source>
+    <source path="." project_relative_path="ZigbeeCommon/Include" type="c_include">
+      <files mask="ZQueue.h"/>
+      <files mask="ZTimer.h"/>
+      <files mask="appZdpExtraction.h"/>
+      <files mask="appZpsBeaconHandler.h"/>
+      <files mask="portmacro.h"/>
+      <files mask="portmacro_JN516x.h"/>
+      <files mask="portmacro_JN517x.h"/>
+      <files mask="portmacro_JN518x.h"/>
+      <files mask="portmacro_linux.h"/>
+      <files mask="tlv.h"/>
+      <files mask="usart_dma_rxbuffer.h"/>
+    </source>
+    <source path="." project_relative_path="ZigbeeCommon/Source" type="src">
+      <files mask="ZQueue.c"/>
+      <files mask="ZTimer.c"/>
+      <files mask="appZdpExtraction.c"/>
+      <files mask="appZpsBeaconHandler.c"/>
+      <files mask="appZpsExtendedDebug.c"/>
+      <files mask="app_zps_link_keys.c"/>
+      <files mask="port_JN516x.c"/>
+      <files mask="port_JN517x.c"/>
+      <files mask="port_JN518x.c"/>
+      <files mask="tlv.c"/>
+      <files mask="usart_dma_rxbuffer.c"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/ZCIF/Include" type="c_include">
+      <files mask="dlist.h"/>
+      <files mask="zcl.h"/>
+      <files mask="zcl_customcommand.h"/>
+      <files mask="zcl_heap.h"/>
+      <files mask="zcl_internal_library_options.h"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/ZCL/Clusters/General/Include" type="c_include">
+      <files mask="Alarms.h"/>
+      <files mask="AnalogInputBasic.h"/>
+      <files mask="AnalogOutputBasic.h"/>
+      <files mask="Basic.h"/>
+      <files mask="BinaryInputBasic.h"/>
+      <files mask="BinaryOutputBasic.h"/>
+      <files mask="DeviceTemperatureConfiguration.h"/>
+      <files mask="Diagnostics.h"/>
+      <files mask="Groups.h"/>
+      <files mask="Identify.h"/>
+      <files mask="LevelControl.h"/>
+      <files mask="MultistateInputBasic.h"/>
+      <files mask="MultistateOutputBasic.h"/>
+      <files mask="OOSC.h"/>
+      <files mask="OnOff.h"/>
+      <files mask="PollControl.h"/>
+      <files mask="PowerConfiguration.h"/>
+      <files mask="PowerProfile.h"/>
+      <files mask="Scenes.h"/>
+      <files mask="TC.h"/>
+      <files mask="WWAH.h"/>
+      <files mask="ZclTime.h"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/ZCL/Clusters/Commissioning/Include" type="c_include">
+      <files mask="Commissioning.h"/>
+      <files mask="zll_commission.h"/>
+      <files mask="zll_utility.h"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/BDB/Include" type="c_include">
+      <files mask="bdb_api.h"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/BDB/Source/OutOfBand" type="c_include">
+      <files mask="bdb_DeviceCommissioning.h"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/ZPSAPL/Include" type="c_include">
+      <files mask="zps_apl.h"/>
+      <files mask="zps_apl_af.h"/>
+      <files mask="zps_apl_aib.h"/>
+      <files mask="zps_apl_aps.h"/>
+      <files mask="zps_apl_zdo.h"/>
+      <files mask="zps_apl_zdp.h"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/ZPSMAC/Include" type="c_include">
+      <files mask="mac_vs_sap.h"/>
+      <files mask="zps_mac.h"/>
+      <files mask="zps_mac_if_table.h"/>
+      <files mask="zps_mac_prv.h"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/ZPSNWK/Include" type="c_include">
+      <files mask="zps_nwk_config.h"/>
+      <files mask="zps_nwk_mac_sap.h"/>
+      <files mask="zps_nwk_nib.h"/>
+      <files mask="zps_nwk_pub.h"/>
+      <files mask="zps_nwk_sap.h"/>
+      <files mask="zps_nwk_sec.h"/>
+      <files mask="zps_nwk_slist.h"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/ZPSTSV/Include" type="c_include">
+      <files mask="zps_tsv.h"/>
+    </source>
+    <source path="." project_relative_path="source" type="src">
+      <files mask="app_coordinator.c"/>
+      <files mask="app_main.c"/>
+      <files mask="app_serial_commands.c"/>
+      <files mask="app_start.c"/>
+      <files mask="app_zb_stack_utils.c"/>
+      <files mask="pdum_gen.c"/>
+      <files mask="zps_gen.c"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include">
+      <files mask="app_coordinator.h"/>
+      <files mask="app_main.h"/>
+      <files mask="app_serial_commands.h"/>
+      <files mask="app_zcl_task.h"/>
+      <files mask="bdb_options.h"/>
+      <files mask="pdum_gen.h"/>
+      <files mask="zcl_options.h"/>
+      <files mask="zigbee_config.h"/>
+      <files mask="zps_gen.h"/>
+    </source>
+    <source path="." project_relative_path="source" type="script">
+      <files mask="build_version.sh"/>
+    </source>
+    <source path="." project_relative_path="source" type="other">
+      <files mask="coordinator.zpscfg"/>
+      <files mask="coordinator_subg.zpscfg"/>
+    </source>
+    <source path="." project_relative_path="source" type="asm_include">
+      <files mask="pdum_apdu.S"/>
+    </source>
+    <source path="." project_relative_path="source" type="doc">
+      <files mask="readme.txt"/>
+    </source>
+    <source path="../../../../../../middleware/wireless/zigbee/examples/zigbee_coprocessor/src" project_relative_path="doc" type="doc">
+      <files mask="readme.txt"/>
+    </source>
+    <source path="." project_relative_path="scripts" type="linker" toolchain="mcuxpresso">
+      <files mask="connectivity.ld"/>
+    </source>
+  </example>
+</ksdk:examples>

@@ -64,7 +64,9 @@ void USB_ControllerSuspended(void);
 usb_status_t USB_DeviceCdcVcomCallback(class_handle_t handle, uint32_t event, void *param);
 usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event, void *param);
 void USB_DeviceTask(void *handle);
+#if ((defined(USB_DEVICE_CONFIG_LOW_POWER_MODE)) && (USB_DEVICE_CONFIG_LOW_POWER_MODE > 0U))
 void usb_pm_task(void *handle);
+#endif
 /*******************************************************************************
  * Variables
  ******************************************************************************/
@@ -86,9 +88,11 @@ void USB_DeviceTaskFn(void *deviceHandle);
 static OSA_TASK_HANDLE_DEFINE(ncp_usb_device_thread);
 static OSA_TASK_DEFINE(USB_DeviceTask, OS_PRIO_2, 1, 1024, 0);
 
+#if ((defined(USB_DEVICE_CONFIG_LOW_POWER_MODE)) && (USB_DEVICE_CONFIG_LOW_POWER_MODE > 0U))
 /* NCP usb device pm task */
 static OSA_TASK_HANDLE_DEFINE(ncp_usb_pm_thread);
-static OSA_TASK_DEFINE(usb_pm_task, OS_PRIO_4, 1, 1024, 0);
+static OSA_TASK_DEFINE(usb_pm_task, OSA_TASK_PRIORITY_MIN, 1, 1024, 0);
+#endif
 #endif
 
 /* Line coding of cdc device */
@@ -738,6 +742,7 @@ void USB_DeviceTask(void *handle)
 }
 #endif
 
+#if ((defined(USB_DEVICE_CONFIG_LOW_POWER_MODE)) && (USB_DEVICE_CONFIG_LOW_POWER_MODE > 0U))
 void USB_PowerPreSwitchHook(void)
 {
     HW_TimerControl(0U);
@@ -860,6 +865,7 @@ void usb_pm_task(void *handle)
         vTaskDelay(1);
     }
 }
+#endif
 
 /*!
  * @brief Application task function.
@@ -883,7 +889,9 @@ int usb_device_init()
 #if USB_DEVICE_CONFIG_USE_TASK
     (void)OSA_TaskCreate((osa_task_handle_t)ncp_usb_device_thread, OSA_TASK(USB_DeviceTask), s_cdcVcom.deviceHandle);
 
+#if ((defined(USB_DEVICE_CONFIG_LOW_POWER_MODE)) && (USB_DEVICE_CONFIG_LOW_POWER_MODE > 0U))
     (void)OSA_TaskCreate((osa_task_handle_t)ncp_usb_pm_thread, OSA_TASK(usb_pm_task), (osa_task_param_t)NULL);
+#endif
 #endif
 
     return NCP_STATUS_SUCCESS;
@@ -893,7 +901,9 @@ int usb_device_deinit(void)
 {
     OSA_DisableScheduler();
     OSA_TaskDestroy(ncp_usb_device_thread);
+#if ((defined(USB_DEVICE_CONFIG_LOW_POWER_MODE)) && (USB_DEVICE_CONFIG_LOW_POWER_MODE > 0U))
     OSA_TaskDestroy(ncp_usb_pm_thread);
+#endif
     OSA_EnableScheduler();
 
     //	USB_DeviceIsrDisable();

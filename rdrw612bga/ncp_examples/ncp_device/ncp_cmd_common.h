@@ -4,7 +4,7 @@
  *
  *  Copyright 2008-2023 NXP
  *
- *  Licensed under the LA_OPT_NXP_Software_License.txt (the "Agreement")
+ *  SPDX-License-Identifier: BSD-3-Clause
  */
 
 #ifndef __NCP_CMD_COMMON_H__
@@ -28,9 +28,6 @@
 #define NCP_BRIDGE_CMD_15D4   0x02000000
 #define NCP_BRIDGE_CMD_MATTER 0x03000000
 #define NCP_BRIDGE_CMD_SYSTEM 0x04000000
-
-/* System NCP Bridge subclass */
-#define NCP_BRIDGE_CMD_SYSTEM_CONFIG   0x00000000
 
 /*NCP Bridge Message Type*/
 #define NCP_BRIDGE_MSG_TYPE_CMD   0x0000
@@ -114,6 +111,13 @@ struct cmd_class_t
     uint16_t subclass_len;
     /* Mapping of cmd list */
     uint8_t hash[NCP_HASH_TABLE_SIZE];
+};
+
+struct ncp_cmd_t
+{
+    uint32_t block_type;
+    uint32_t command_sz;
+    void     *cmd_buff;
 };
 
 int ncp_cmd_list_init(void);

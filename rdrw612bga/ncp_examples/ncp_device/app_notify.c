@@ -4,7 +4,7 @@
  *
  *  Copyright 2008-2023 NXP
  *
- *  Licensed under the LA_OPT_NXP_Software_License.txt (the "Agreement")
+ *  SPDX-License-Identifier: BSD-3-Clause
  */
 
 #include <wm_os.h>
@@ -182,6 +182,10 @@ static void app_notify_event_handler(void *argv)
                 /* Wait for USB re-init done */
                 OSA_TimeDelay(500);
 #endif
+#ifdef CONFIG_NCP_SDIO
+                /* Wait for SDIO re-init done */
+                OSA_TimeDelay(800);
+#endif
                 app_d("got MCU sleep exit report");
                 event_buf = wlan_bridge_evt_status(NCP_BRIDGE_EVENT_MCU_SLEEP_EXIT, &msg);
                 if (!event_buf)
@@ -237,11 +241,6 @@ static void app_notify_event_handler(void *argv)
             else
                 wifi_ncp_send_response((uint8_t *)ncp_bridge_get_response_buffer());
         }
-
-        if(msg.event == APP_EVT_SUSPEND)
-            suspend_notify_flag &= (~APP_NOTIFY_SUSPEND_CMDRESP);
-        else if (msg.event == APP_EVT_MCU_SLEEP_ENTER)
-            suspend_notify_flag &= (~APP_NOTIFY_SUSPEND_EVT);
 
         if (event_buf)
         {

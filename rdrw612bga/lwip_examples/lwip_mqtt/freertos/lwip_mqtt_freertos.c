@@ -206,7 +206,7 @@ int main(void)
     BOARD_InitDebugConsole();
     BOARD_InitModuleClock();
 
-    ENET_ResetHareware();
+    ENET_ResetHardware();
 
     GPIO_PortInit(GPIO, 0U);
     GPIO_PortInit(GPIO, 1U);

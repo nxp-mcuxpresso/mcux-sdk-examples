@@ -4,14 +4,14 @@
  *
  *  Copyright 2008-2023 NXP
  *
- *  Licensed under the LA_OPT_NXP_Software_License.txt (the "Agreement")
+ *  SPDX-License-Identifier: BSD-3-Clause
  */
 
 #include "ncp_cmd_common.h"
 
 extern struct cmd_subclass_t cmd_subclass_wlan[12];
 extern struct cmd_subclass_t cmd_subclass_ble[8];
-extern struct cmd_t system_cmd_config[3];
+extern struct cmd_subclass_t cmd_subclass_system[1];
 extern struct cmd_t error_ack_cmd;
 
 #define CMD_SUBCLASS_WLAN_LEN   (sizeof(cmd_subclass_wlan) / sizeof(struct cmd_subclass_t))
@@ -25,11 +25,6 @@ struct cmd_subclass_t cmd_subclass_15D4[] = {
 };
 
 struct cmd_subclass_t cmd_subclass_matter[] = {
-    {NCP_BRIDGE_CMD_INVALID, NULL},
-};
-
-struct cmd_subclass_t cmd_subclass_system[] = {
-    {NCP_BRIDGE_CMD_SYSTEM_CONFIG, system_cmd_config},
     {NCP_BRIDGE_CMD_INVALID, NULL},
 };
 
@@ -84,7 +79,7 @@ int ncp_register_class(struct cmd_class_t *cmd_class)
     return 0;
 }
 
-int ncp_cmd_list_init()
+int ncp_cmd_list_init(void)
 {
     int i;
     int ret;

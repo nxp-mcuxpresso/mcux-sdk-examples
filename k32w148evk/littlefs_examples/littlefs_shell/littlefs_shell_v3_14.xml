@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:examples xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd manifest.xsd">
+  <externalDefinitions>
+    <definition extID="component.mflash.k32w1.K32W1480"/>
+    <definition extID="platform.drivers.flash_k4.K32W1480"/>
+    <definition extID="platform.drivers.port.K32W1480"/>
+    <definition extID="middleware.littlefs.K32W1480"/>
+    <definition extID="utility.shell.K32W1480"/>
+    <definition extID="platform.drivers.clock.K32W1480"/>
+    <definition extID="platform.drivers.common.K32W1480"/>
+    <definition extID="device.K32W1480_CMSIS.K32W1480"/>
+    <definition extID="utility.debug_console.K32W1480"/>
+    <definition extID="component.lpuart_adapter.K32W1480"/>
+    <definition extID="component.serial_manager_uart.K32W1480"/>
+    <definition extID="component.serial_manager.K32W1480"/>
+    <definition extID="platform.drivers.lpuart.K32W1480"/>
+    <definition extID="component.lists.K32W1480"/>
+    <definition extID="platform.devices.K32W1480.K32W1480"/>
+    <definition extID="platform.drivers.gpio.K32W1480"/>
+    <definition extID="platform.drivers.ccm32k.K32W1480"/>
+    <definition extID="platform.drivers.spc.K32W1480"/>
+    <definition extID="platform.utilities.assert.K32W1480"/>
+    <definition extID="platform.utilities.misc_utilities.K32W1480"/>
+    <definition extID="component.mflash.common.K32W1480"/>
+    <definition extID="platform.drivers.mcm.K32W1480"/>
+    <definition extID="utility.str.K32W1480"/>
+    <definition extID="CMSIS_Include_core_cm.K32W1480"/>
+    <definition extID="device.K32W1480_system.K32W1480"/>
+    <definition extID="mcuxpresso"/>
+    <definition extID="com.nxp.mcuxpresso"/>
+    <definition extID="armgcc"/>
+  </externalDefinitions>
+  <example id="k32w148evk_littlefs_shell" name="littlefs_shell" dependency="component.mflash.k32w1.K32W1480 platform.drivers.flash_k4.K32W1480 platform.drivers.port.K32W1480 middleware.littlefs.K32W1480 utility.shell.K32W1480 platform.drivers.clock.K32W1480 platform.drivers.common.K32W1480 device.K32W1480_CMSIS.K32W1480 utility.debug_console.K32W1480 component.lpuart_adapter.K32W1480 component.serial_manager_uart.K32W1480 component.serial_manager.K32W1480 platform.drivers.lpuart.K32W1480 component.lists.K32W1480 platform.devices.K32W1480.K32W1480 platform.drivers.gpio.K32W1480 platform.drivers.ccm32k.K32W1480 platform.drivers.spc.K32W1480 platform.utilities.assert.K32W1480 platform.utilities.misc_utilities.K32W1480 component.mflash.common.K32W1480 platform.drivers.mcm.K32W1480 utility.str.K32W1480 CMSIS_Include_core_cm.K32W1480 device.K32W1480_system.K32W1480" category="littlefs_examples">
+    <projects>
+      <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
+    </projects>
+    <toolchainSettings>
+      <toolchainSetting id_refs="com.nxp.mcuxpresso">
+        <option id="com.crt.advproject.gas.hdrlib" type="enum">
+          <value>com.crt.advproject.gas.hdrlib.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.gas.specs" type="enum">
+          <value>com.crt.advproject.gas.specs.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.gcc.hdrlib" type="enum">
+          <value>com.crt.advproject.gcc.hdrlib.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.gcc.specs" type="enum">
+          <value>com.crt.advproject.gcc.specs.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.link.gcc.hdrlib" type="enum">
+          <value>com.crt.advproject.gcc.link.hdrlib.newlibnano.nohost</value>
+        </option>
+        <option id="com.crt.advproject.link.fpu" type="enum">
+          <value>com.crt.advproject.link.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="gnu.c.link.option.nostdlibs" type="boolean">
+          <value>true</value>
+        </option>
+        <option id="com.crt.advproject.link.memory.heapAndStack" type="string">
+          <value>&amp;Heap:Default;Default;0x1000&amp;Stack:Default;Default;0x1000</value>
+        </option>
+        <option id="gnu.c.link.option.other" type="stringList">
+          <value>-no-warn-rwx-segments</value>
+        </option>
+        <option id="com.crt.advproject.gas.fpu" type="enum">
+          <value>com.crt.advproject.gas.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="com.crt.advproject.gcc.fpu" type="enum">
+          <value>com.crt.advproject.gcc.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="gnu.c.compiler.option.optimization.flags" type="string">
+          <value>-fno-common</value>
+        </option>
+        <option id="com.crt.advproject.c.misc.dialect" type="enum">
+          <value>com.crt.advproject.misc.dialect.gnu99</value>
+        </option>
+        <option id="gnu.c.compiler.option.misc.other" type="string">
+          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.toerrors" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
+          <value>SERIAL_PORT_TYPE_UART=1</value>
+          <value>SDK_DEBUGCONSOLE=1</value>
+          <value>PRINTF_FLOAT_ENABLE=0</value>
+          <value>SCANF_FLOAT_ENABLE=0</value>
+          <value>PRINTF_ADVANCED_ENABLE=0</value>
+          <value>SCANF_ADVANCED_ENABLE=0</value>
+          <value>DEBUG_CONSOLE_RX_ENABLE=0</value>
+          <value>LFS_NO_INTRINSICS=1</value>
+          <value>MFLASH_FILE_BASEADDR=7340032</value>
+        </option>
+      </toolchainSetting>
+    </toolchainSettings>
+    <include_paths>
+      <include_path path="." project_relative_path="board" type="c_include"/>
+      <include_path path="." project_relative_path="source" type="c_include"/>
+      <include_path path="../../../../core/boards/k32w148evk" project_relative_path="board" type="c_include"/>
+    </include_paths>
+    <source path="." project_relative_path="source" type="src">
+      <files mask="littlefs_shell.c"/>
+      <files mask="lfs_mflash.c"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include">
+      <files mask="lfs_mflash.h"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="pin_mux.c"/>
+      <files mask="peripherals.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="pin_mux.h"/>
+      <files mask="peripherals.h"/>
+    </source>
+    <source path="../../../../core/boards/k32w148evk" project_relative_path="board" type="src">
+      <files mask="board.c"/>
+      <files mask="clock_config.c"/>
+    </source>
+    <source path="../../../../core/boards/k32w148evk" project_relative_path="board" type="c_include">
+      <files mask="board.h"/>
+      <files mask="clock_config.h"/>
+    </source>
+    <source path="." project_relative_path="doc" type="doc" toolchain="mcuxpresso armgcc">
+      <files mask="readme.md"/>
+    </source>
+  </example>
+</ksdk:examples>

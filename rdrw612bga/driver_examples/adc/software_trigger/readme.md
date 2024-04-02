@@ -26,7 +26,7 @@ Hardware requirements
 
 Board settings
 ==============
-- Remove R243, populate R159 to use ADC CH4 input signal J9-1(GPIO_46).
+- Remove R242, R243, populate R159 to use ADC CH4 input signal J9-1(GPIO_46).
 
 Prepare the Demo
 ================

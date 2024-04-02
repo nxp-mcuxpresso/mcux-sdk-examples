@@ -9,9 +9,11 @@
 #include "fsl_os_abstraction_free_rtos.h"
 
 #include "fsl_adapter_sdu.h"
-
+#include "fsl_power.h"
 #include "ncp_adapter.h"
 #include "ncp_intf_sdio.h"
+#include "fsl_gpio.h"
+#include "fsl_io_mux.h"
 
 /*******************************************************************************
  * Defines
@@ -65,6 +67,9 @@ typedef MLAN_PACK_START struct bridge_command_header
 
 //#define NCP_SDIO_TASK_PRIORITY    3
 //#define NCP_SDIO_TASK_STACK_SIZE  1024
+
+#define NCP_SDIO_GPIO_NOTIFY        27
+#define NCP_SDIO_GPIO_NOTIFY_MASK   0x8000000
 
 /*******************************************************************************
  * Variables
@@ -195,11 +200,43 @@ int ncp_sdio_send(uint8_t *tlv_buf, size_t tlv_sz, tlv_send_callback_t cb)
     return NCP_STATUS_SUCCESS;
 }
 
+static void ncp_sdio_notify_gpio_output(void)
+{
+    /* Toggle GPIO to notify sdio host that sdio device is ready for re-enumeration */
+    GPIO_PortToggle(GPIO, 0, NCP_SDIO_GPIO_NOTIFY_MASK);
+}
+
+static void ncp_sdio_notify_gpio_init(void)
+{
+    /* Define the init structure for the output switch pin */
+    gpio_pin_config_t sdio_output_pin = {
+        kGPIO_DigitalOutput,
+        1
+    };
+
+    IO_MUX_SetPinMux(IO_MUX_GPIO27);
+    GPIO_PortInit(GPIO, 0);
+    /* Init output GPIO. Default level is high */
+    /* After wakeup from PM3, sdio device use GPIO 27 to notify sdio host */
+    GPIO_PinInit(GPIO, 0, NCP_SDIO_GPIO_NOTIFY, &sdio_output_pin);
+}
+
 static int ncp_sdio_pm_enter(int32_t pm_state)
 {
     ncp_pm_status_t ret = NCP_PM_STATUS_SUCCESS;
 
-    if(pm_state == NCP_PM_STATE_PM3)
+    if(pm_state == NCP_PM_STATE_PM2)
+    {
+        //SDU_FN_CARD->FN_CARD_INTMASK = 0x1;
+        /* Enable host power up interrupt */
+        SDU_FN_CARD->CARD_INTMASK0 |= SDU_FN_CARD_CARD_INTSTATUS0_HOST_PWR_UP_INT_MASK;
+        /* Enable this bit so that hardware can send R5 immediately in sleep mode */
+        SDU_FN0_CARD->CARD_CTRL5 |= SDU_FN0_CARD_CARD_CTRL5_CMD52_RES_VALID_MODE_MASK;
+        POWER_ClearWakeupStatus(SDU_IRQn);
+        NVIC_ClearPendingIRQ(SDU_IRQn);
+        POWER_EnableWakeup(SDU_IRQn);
+    }
+    else if(pm_state == NCP_PM_STATE_PM3)
     {
         ret = ncp_sdio_deinit(NULL);
         if(ret != 0)
@@ -216,7 +253,13 @@ static int ncp_sdio_pm_exit(int32_t pm_state)
 {
     ncp_pm_status_t ret = NCP_PM_STATUS_SUCCESS;
 
-    if(pm_state == NCP_PM_STATE_PM3)
+    if(pm_state == NCP_PM_STATE_PM2)
+    {
+        POWER_DisableWakeup(SDU_IRQn);
+        SDU_FN0_CARD->CARD_CTRL5 &= (~SDU_FN0_CARD_CARD_CTRL5_CMD52_RES_VALID_MODE_MASK);
+        SDU_FN_CARD->CARD_INTMASK0 &= (~SDU_FN_CARD_CARD_INTSTATUS0_HOST_PWR_UP_INT_MASK);
+    }
+    else if(pm_state == NCP_PM_STATE_PM3)
     {
         ret = ncp_sdio_init(NULL);
         if(ret != 0)
@@ -224,6 +267,10 @@ static int ncp_sdio_pm_exit(int32_t pm_state)
             ncp_adap_e("Failed to init SDIO interface");
             return NCP_PM_STATUS_ERROR;
         }
+
+        /* After wakeup from PM3, sdio device notify sdio host to re-enumerate by gpio */
+        ncp_sdio_notify_gpio_init();
+        ncp_sdio_notify_gpio_output();
     }
     return (int)ret;
 }

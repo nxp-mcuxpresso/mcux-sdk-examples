@@ -213,7 +213,7 @@ void host_sleep_cli_notify(void)
 #endif
 }
 
-void host_sleep_pre_cfg(int mode)
+int host_sleep_pre_cfg(int mode)
 {
     POWER_ConfigWakeupPin(kPOWER_WakeupPin1, kPOWER_WakeupEdgeLow);
     NVIC_ClearPendingIRQ(PIN1_INT_IRQn);
@@ -255,6 +255,7 @@ void host_sleep_pre_cfg(int mode)
         /*Delay UART clock switch after resume from PM2 to avoid UART FIFO read error*/
         POWER_SetPowerSwitchCallback((power_switch_callback_t)host_sleep_pre_hook, NULL, NULL, NULL);
     }
+    return kStatus_Success;
 }
 
 void host_sleep_post_cfg(int mode)
@@ -383,7 +384,10 @@ int wlan_config_suspend_mode(int mode)
         lpm_pm3_exit_hw_reinit();
     }
     if (wlan_is_started())
-        wlan_cancel_host_sleep();
+    {
+        if(wlan_hs_send_event(HOST_SLEEP_EXIT, NULL) != 0)
+            return -1;
+    }
     host_sleep_post_cfg(mode);
     if (mode == 1)
     {

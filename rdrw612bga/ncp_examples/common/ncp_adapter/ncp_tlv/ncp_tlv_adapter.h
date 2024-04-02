@@ -159,7 +159,7 @@ typedef NCP_TLV_PACK_START struct
 
 /* ADAPTER TLV TASK PRIORITY */
 #ifdef CONFIG_NCP_WIFI
-#define NCP_TLV_TX_TASK_PRIORITY    6
+#define NCP_TLV_TX_TASK_PRIORITY    11
 #elif defined(CONFIG_NCP_BLE)      
 #define NCP_TLV_TX_TASK_PRIORITY    11
 #endif      

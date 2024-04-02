@@ -27,7 +27,7 @@ Hardware requirements
 
 Board settings
 ==============
-Load R485, R486, R487, R488, R489, R491, R490, R522, R521, R520, R524, R523, R508, R505
+Connect JP54. Load R520, R508, R505
 Remove R518, R507, R506
 
 

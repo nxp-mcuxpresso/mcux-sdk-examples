@@ -14,7 +14,7 @@
  * Definitions
  ******************************************************************************/
 /* Leave AON modules on in PM2 */
-#define WLAN_PM2_MEM_PU_CFG ((uint32_t)kPOWER_Pm2MemPuAon1 | (uint32_t)kPOWER_Pm2MemPuAon0)
+#define WLAN_PM2_MEM_PU_CFG ((uint32_t)kPOWER_Pm2MemPuAon1 | (uint32_t)kPOWER_Pm2MemPuAon0 | (uint32_t)kPOWER_Pm2MemPuSdio)
 /* All ANA in low power mode in PM2 */
 #ifdef CONFIG_NCP_BRIDGE
 #define WLAN_PM2_ANA_PU_CFG (10U)
@@ -42,18 +42,18 @@
 #define WAKEUP_BY_WLAN   0x1
 #define WAKEUP_BY_RTC    0x2
 #define WAKEUP_BY_PIN    0x4
-#ifdef CONFIG_NCP_BRIDGE
+#ifdef CONFIG_NCP_UART
 #define WAKEUP_BY_USART0 0x8
-#else
-#define WAKEUP_BY_USART3 0x8
 #endif
+
+#define CONFIG_WLAN_SUSPEND_STACK_SIZE 1024
 
 /*******************************************************************************
  * API
  ******************************************************************************/
 void host_sleep_cli_notify(void);
 void host_sleep_pre_hook(void);
-void host_sleep_pre_cfg(int mode);
+status_t host_sleep_pre_cfg(int mode);
 void host_sleep_post_cfg(int mode);
 void host_sleep_dump_wakeup_source();
 void test_wlan_suspend(int argc, char **argv);

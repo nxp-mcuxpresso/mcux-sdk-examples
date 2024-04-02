@@ -4,7 +4,7 @@
  *
  *  Copyright 2008-2023 NXP
  *
- *  Licensed under the LA_OPT_NXP_Software_License.txt (the "Agreement")
+ *  SPDX-License-Identifier: BSD-3-Clause
  */
 
 #ifndef __APP_NOTIFY_H__
@@ -61,8 +61,8 @@ typedef enum
     APP_EVT_REASON_FAILURE,
 } app_event_reason_t;
 
-#define APP_NOTIFY_SUSPEND_CMDRESP 0x1U
-#define APP_NOTIFY_SUSPEND_EVT 0x2U
+#define APP_NOTIFY_SUSPEND_EVT 0x1U
+#define APP_NOTIFY_SUSPEND_CFM 0x2U
 
 /* app notify event queue message */
 typedef struct

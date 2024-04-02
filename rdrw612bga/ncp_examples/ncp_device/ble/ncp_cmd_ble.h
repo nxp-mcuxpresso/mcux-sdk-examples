@@ -41,6 +41,8 @@
 
 
 /*BLE Gap command*/
+#define NCP_BRIDGE_CMD_BLE_GAP_SET_DATA_LEN         (NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GAP | 0x00000020) /* Set data len */
+#define NCP_BRIDGE_CMD_BLE_GAP_SET_PHY              (NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GAP | 0x0000001f) /* Set phy */
 #define NCP_BRIDGE_CMD_BLE_GAP_SET_ADV_DATA         (NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GAP | 0x0000001e) /* Set adv data */
 #define NCP_BRIDGE_CMD_BLE_GAP_SET_SCAN_PARAM       (NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GAP | 0x0000001d) /* Set scan parameter */
 #define NCP_BRIDGE_CMD_BLE_GAP_START_ADV            (NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GAP | 0x0000000a) /* Start advertising */
@@ -54,9 +56,8 @@
 #define NCP_BRIDGE_CMD_BLE_GAP_PAIR                 (NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GAP | 0x00000011) /* Enable encryption with peer or start pair process */
 
 /*BLE Gatt command*/
-#define NCP_BRIDGE_CMD_BLE_GATT_ADD_SERVICE         (NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | 0x00000002) /* Add a Primary or Secondary Service Attribute */
-#define NCP_BRIDGE_CMD_BLE_GATT_ADD_CHARACTERISTIC  (NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | 0x00000003) /* Add a New Characteristic Attribute */
-#define NCP_BRIDGE_CMD_BLE_GATT_ADD_DESCRIPTOR      (NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | 0x00000004) /* Add a Descriptor Attribute */
+#define NCP_BRIDGE_CMD_BLE_HOST_SERVICE_ADD         (NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | 0x00000002) /* Add Host Attribute to Device Gatt datebase and start, ble-host-service-start */
+#define NCP_BRIDGE_CMD_BLE_HOST_SERVICE_DISC        (NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | 0x00000003) /* Discover Primary Service/Characteristics/Descriptors */
 #define NCP_BRIDGE_CMD_BLE_GATT_SET_VALUE           (NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | 0x00000006) /* Set Characteristic/Descriptor Value */
 #define NCP_BRIDGE_CMD_BLE_GATT_START_SERVICE       (NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | 0x00000007) /* Start server with previously prepared attributes database. */
 #define NCP_BRIDGE_CMD_BLE_GATT_DISC_PRIM           (NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | GATT_DISC_PRIM_UUID) /* Discover Primary Service */
@@ -67,6 +68,14 @@
 #define NCP_BRIDGE_CMD_BLE_GATT_WRITE               (NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | GATT_WRITE) /* Write Characteristic/Descriptor */
 #define NCP_BRIDGE_CMD_BLE_GATT_REGISTER_SERVICE    (NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | 0x00000020)  /* register a profile service */
 #define NCP_BRIDGE_CMD_BLE_GATT_DESC_CHRC           (NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | GATT_DISC_DESC_UUID) /* Discover Descriptors */
+
+/*BLE L2CAP command*/
+#define NCP_BRIDGE_CMD_BLE_L2CAP_CONNECT            (NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_L2CAP | 0x00000002) /* L2CAP connect */
+#define NCP_BRIDGE_CMD_BLE_L2CAP_DISCONNECT         (NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_L2CAP | 0x00000003) /* L2CAP disconnect */
+#define NCP_BRIDGE_CMD_BLE_L2CAP_SEND               (NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_L2CAP | 0x00000004) /* L2CAP send */
+#define NCP_BRIDGE_CMD_BLE_L2CAP_REGISTER           (NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_L2CAP | 0x0000000a) /* L2CAP register*/
+#define NCP_BRIDGE_CMD_BLE_L2CAP_METRICS            (NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_L2CAP | 0x0000000b) /* L2CAP metrics */
+#define NCP_BRIDGE_CMD_BLE_L2CAP_RECEIVE            (NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_L2CAP | 0x0000000c) /* L2CAP receive */
 
 /*BLE Vendor command*/
 #define NCP_BRIDGE_CMD_BLE_VENDOR_POWER_MODE        (NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_VENDOR | 0x00000001) /* Enable/Disable power save mode */
@@ -86,10 +95,30 @@
 #define NCP_BRIDGE_EVENT_SEC_LEVEL_CHANGED          (NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_EVENT | GAP_EV_SEC_LEVEL_CHANGED) /* Security Level Changed event */
 #define NCP_BRIDGE_EVENT_PAIRING_FAILED             (NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_EVENT | GAP_EV_PAIRING_FAILED) /* GAP pairing failed event */
 #define NCP_BRIDGE_EVENT_BOND_LOST                  (NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_EVENT | GAP_EV_BOND_LOST) /* GAP bond lost */
+#define NCP_BRIDGE_EVENT_PHY_UPDATED                (NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_EVENT | GAP_EV_PHY_UPDATED) /* GAP phy updated */
+#define NCP_BRIDGE_EVENT_DATA_LEN_UPDATED           (NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_EVENT | GAP_EV_DATA_LEN_UPDATED) /* GAP data len updated */
 
 #define NCP_BRIDGE_EVENT_GATT_NOTIFICATION          (NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_EVENT | GATT_EV_NOTIFICATION | 0x200) /* GATT notification Receive event */
 #define NCP_BRIDGE_EVENT_ATTR_VALUE_CHANGED         (NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_EVENT | GATT_EV_ATTR_VALUE_CHANGED | 0x200) /* GATT Attribute Value Changed event */
 #define NCP_BRIDGE_EVENT_GATT_CCC_CFG_CHANGED       (NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_EVENT | GATT_EV_CCC_CFG_CHANGED | 0x200) /* GATT Client Characteristic Configuration Changed event */
+#define NCP_BRIDGE_EVENT_GATT_SUBSCRIPTION          (NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_EVENT | GATT_EV_SUBSCRIPTIONED | 0x200) /* GATT Client Subscription status event */
+#define NCP_BRIDGE_EVENT_GATT_DISC_PRIM             (NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_EVENT | 0x19 | 0x200) /* Discover Primary Service event */
+#define NCP_BRIDGE_EVENT_GATT_DISC_CHRC             (NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_EVENT | 0x20 | 0x200) /* Discover Characteristics event */
+#define NCP_BRIDGE_EVENT_GATT_DISC_DESC             (NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_EVENT | 0x21 | 0x200) /* Discover Descriptors event */
+
+#define NCP_BRIDGE_EVENT_L2CAP_CONNECT              (NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_EVENT | L2CAP_EV_CONNECT | 0x300) /* L2CAP Connect event */
+#define NCP_BRIDGE_EVENT_L2CAP_DISCONNECT           (NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_EVENT | L2CAP_EV_DISCONNECT | 0x300) /* L2CAP Disconnect event */
+#define NCP_BRIDGE_EVENT_L2CAP_RECEIVE              (NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_EVENT | L2CAP_EV_RECEIVE | 0x300) /* L2CAP Receive event */
+
+/*NCP Bridge BLE GATT TLV*/
+#define NCP_BRIDGE_CMD_GATT_ADD_SERVICE_TLV       0x0001
+#define NCP_BRIDGE_CMD_GATT_ADD_CHRC_TLV          0x0002
+#define NCP_BRIDGE_CMD_GATT_ADD_DESC_TLV          0x0003
+#define NCP_BRIDGE_CMD_GATT_START_SVC_TLV         0x0004
+
+#define NCP_BRIDGE_CMD_GATT_DISC_PRIM_TLV         0x0005
+#define NCP_BRIDGE_CMD_GATT_DISC_CHRC_TLV         0x0006
+#define NCP_BRIDGE_CMD_GATT_DISC_DESC_TLV         0x0007
 
 
 
@@ -382,6 +411,22 @@ typedef NCP_TLV_PACK_START struct gap_set_adv_data_cmd {
    uint8_t data[31];
 } NCP_TLV_PACK_END gap_set_adv_data_cmd_t;
 
+typedef NCP_TLV_PACK_START struct gap_set_data_len_cmd {
+   uint8_t  address_type;
+   uint8_t  address[6];
+   uint8_t  time_flag;
+   uint16_t tx_max_len;
+   uint16_t tx_max_time;
+} NCP_TLV_PACK_END gap_set_data_len_cmd_t;
+
+typedef NCP_TLV_PACK_START struct gap_set_phy_cmd {
+   uint8_t  address_type;
+   uint8_t  address[6];
+   uint16_t options;
+   uint8_t  pref_tx_phy;
+   uint8_t  pref_rx_phy;
+} NCP_TLV_PACK_END gap_set_phy_cmd_t;
+
 /* events */
 #define GAP_EV_NEW_SETTINGS   0x80
 typedef NCP_TLV_PACK_START struct gap_new_settings_ev {
@@ -484,6 +529,24 @@ typedef NCP_TLV_PACK_START struct gap_bond_pairing_failed_ev {
   uint8_t reason;
 } NCP_TLV_PACK_END gap_bond_pairing_failed_ev_t;
 
+#define GAP_EV_PHY_UPDATED  0x91
+typedef NCP_TLV_PACK_START struct gap_phy_updated_ev {
+  uint8_t address_type;
+  uint8_t address[6];
+  uint8_t tx_phy;
+  uint8_t rx_phy;
+} NCP_TLV_PACK_END gap_phy_updated_ev_t;
+
+#define GAP_EV_DATA_LEN_UPDATED  0x92
+typedef NCP_TLV_PACK_START struct gap_data_len_updated_ev {
+  uint8_t address_type;
+  uint8_t address[6];
+  uint16_t tx_max_len;
+  uint16_t tx_max_time;
+  uint16_t rx_max_len;
+  uint16_t rx_max_time;
+} NCP_TLV_PACK_END gap_data_len_updated_ev_t;
+
 /* L2CAP Service */
 /* commands */
 #define L2CAP_READ_SUPPORTED_COMMANDS   0x01
@@ -499,9 +562,8 @@ typedef NCP_TLV_PACK_START struct l2cap_connect_cmd_tag {
     uint8_t address_type;
     uint8_t address[6];
     uint16_t psm;
-    uint16_t mtu;
-    uint8_t num;
-    uint8_t options;
+    uint8_t sec;
+    uint8_t sec_flag;
 } NCP_TLV_PACK_END l2cap_connect_cmd_t;
 
 typedef NCP_TLV_PACK_START struct l2cap_connect_rp_tag {
@@ -511,14 +573,15 @@ typedef NCP_TLV_PACK_START struct l2cap_connect_rp_tag {
 
 #define L2CAP_DISCONNECT    0x03
 typedef NCP_TLV_PACK_START struct l2cap_disconnect_cmd_tag {
-    uint8_t chan_id;
+    uint8_t address_type;
+    uint8_t address[6];
 } NCP_TLV_PACK_END l2cap_disconnect_cmd_t;
 
 #define L2CAP_SEND_DATA     0x04
 typedef NCP_TLV_PACK_START struct l2cap_send_data_cmd_tag {
-    uint8_t chan_id;
-    uint16_t data_len;
-    uint8_t data[];
+    uint8_t address_type;
+    uint8_t address[6];
+    uint16_t times;
 } NCP_TLV_PACK_END l2cap_send_data_cmd_t;
 
 #define L2CAP_TRANSPORT_BREDR                       0x00
@@ -563,6 +626,25 @@ typedef NCP_TLV_PACK_START struct l2cap_disconnect_eatt_chans_cmd_tag {
     uint8_t address[6];
     uint8_t count;
 } NCP_TLV_PACK_END l2cap_disconnect_eatt_chans_cmd_t;
+
+#define L2CAP_REGISTER_PSM     0x0a
+typedef NCP_TLV_PACK_START struct l2cap_register_psm_cmd_tag {
+    uint16_t psm;
+    uint8_t sec_level;
+    uint8_t sec_flag;
+    uint8_t policy;
+    uint8_t policy_flag;
+} NCP_TLV_PACK_END l2cap_register_psm_cmd_t;
+
+#define L2CAP_METRICS    0x0b
+typedef NCP_TLV_PACK_START struct l2cap_metrics_cmd_tag {
+    bool metrics_flag;
+} NCP_TLV_PACK_END l2cap_metrics_cmd_t;
+
+#define L2CAP_RECV    0x0c
+typedef NCP_TLV_PACK_START struct l2cap_recv_cmd_tag {
+    uint32_t l2cap_recv_delay_ms;
+} NCP_TLV_PACK_END l2cap_recv_cmd_t;
 
 /* events */
 #define L2CAP_EV_CONNECTION_REQ     0x80
@@ -629,9 +711,10 @@ typedef NCP_TLV_PACK_START struct gatt_read_supported_commands_rp {
 
 #define GATT_ADD_SERVICE        0x02
 typedef NCP_TLV_PACK_START struct gatt_add_service_cmd {
+    TypeHeader_t header;
     uint8_t type;
     uint8_t uuid_length;
-    uint8_t uuid[];
+    uint8_t uuid[SERVER_MAX_UUID_LEN];
 } NCP_TLV_PACK_END gatt_add_service_cmd_t;
 typedef NCP_TLV_PACK_START struct gatt_add_service_rp {
     uint16_t svc_id;
@@ -639,6 +722,7 @@ typedef NCP_TLV_PACK_START struct gatt_add_service_rp {
 
 #define GATT_ADD_CHARACTERISTIC     0x03
 typedef NCP_TLV_PACK_START struct gatt_add_characteristic_cmd {
+    TypeHeader_t header;
     uint16_t svc_id;
     uint8_t properties;
     uint16_t permissions;
@@ -651,10 +735,11 @@ typedef NCP_TLV_PACK_START struct gatt_add_characteristic_rp {
 
 #define GATT_ADD_DESCRIPTOR     0x04
 typedef NCP_TLV_PACK_START struct gatt_add_descriptor_cmd {
+    TypeHeader_t header;
     uint16_t char_id;
     uint16_t permissions;
     uint8_t uuid_length;
-    uint8_t uuid[];
+    uint8_t uuid[SERVER_MAX_UUID_LEN];
 } NCP_TLV_PACK_END gatt_add_descriptor_cmd_t;
 typedef NCP_TLV_PACK_START struct gatt_add_descriptor_rp {
     uint16_t desc_id;
@@ -662,11 +747,36 @@ typedef NCP_TLV_PACK_START struct gatt_add_descriptor_rp {
 
 #define GATT_ADD_INCLUDED_SERVICE   0x05
 typedef NCP_TLV_PACK_START struct gatt_add_included_service_cmd {
+    TypeHeader_t header;
     uint16_t svc_id;
 } NCP_TLV_PACK_END gatt_add_included_service_cmd_t;
 typedef NCP_TLV_PACK_START struct gatt_add_included_service_rp {
     uint16_t included_service_id;
 } NCP_TLV_PACK_END gatt_add_included_service_rp_t;
+
+typedef NCP_TLV_PACK_START struct gatt_start_service_cmd {
+    TypeHeader_t header;
+    uint8_t started;
+} NCP_TLV_PACK_END gatt_start_service_cmd_t;
+
+typedef NCP_TLV_PACK_START struct _NCP_CMD_SERVICE_ADD
+{
+  uint32_t tlv_buf_len;
+  /**
+   * add service TLV, gatt_add_service_cmd_t
+   * add characteristic TLV, gatt_add_characteristic_cmd_t
+   * add descriptor TLV, gatt_add_descriptor_cmd_t
+   * add include service TLV, gatt_add_included_service_cmd_t (to be added in the future)
+   * start host servuce TLV, gatt_start_service_cmd_t
+  */
+  uint8_t tlv_buf[1];
+} NCP_TLV_PACK_END NCP_CMD_SERVICE_ADD;
+
+typedef NCP_TLV_PACK_START struct _NCP_CMD_START_SERVICE
+{
+  uint8_t form_host;
+  uint8_t svc_id;
+} NCP_TLV_PACK_END NCP_CMD_START_SERVICE;
 
 #define GATT_SET_VALUE          0x06
 typedef NCP_TLV_PACK_START struct gatt_set_value_cmd {
@@ -731,11 +841,12 @@ typedef NCP_TLV_PACK_START struct gatt_disc_all_prim_cmd {
 } NCP_TLV_PACK_END gatt_disc_all_prim_cmd_t;
 typedef NCP_TLV_PACK_START struct gatt_disc_all_prim_rp {
     uint8_t services_count;
-    gatt_service_t services[SERVER_MAX_SERVICES];
+    gatt_service_t services[];
 } NCP_TLV_PACK_END gatt_disc_all_prim_rp_t;
 
 #define GATT_DISC_PRIM_UUID     0x0c
 typedef NCP_TLV_PACK_START struct gatt_disc_prim_uuid_cmd {
+    TypeHeader_t header;
     uint8_t address_type;
     uint8_t address[6];
     uint8_t uuid_length;
@@ -743,7 +854,7 @@ typedef NCP_TLV_PACK_START struct gatt_disc_prim_uuid_cmd {
 } NCP_TLV_PACK_END gatt_disc_prim_uuid_cmd_t;
 typedef NCP_TLV_PACK_START struct gatt_disc_prim_rp {
     uint8_t services_count;
-    gatt_service_t services[SERVER_MAX_SERVICES];
+    gatt_service_t services[];
 } NCP_TLV_PACK_END gatt_disc_prim_rp_t;
 
 #define GATT_FIND_INCLUDED      0x0d
@@ -755,11 +866,12 @@ typedef NCP_TLV_PACK_START struct gatt_find_included_cmd {
 } NCP_TLV_PACK_END gatt_find_included_cmd_t;
 typedef NCP_TLV_PACK_START struct gatt_find_included_rp {
     uint8_t services_count;
-    gatt_included_t included[SERVER_MAX_SERVICES];
+    gatt_included_t included[];
 } NCP_TLV_PACK_END gatt_find_included_rp_t;
 
 #define GATT_DISC_ALL_CHRC      0x0e
 typedef NCP_TLV_PACK_START struct gatt_disc_all_chrc_cmd {
+    TypeHeader_t header;
     uint8_t address_type;
     uint8_t address[6];
     uint16_t start_handle;
@@ -767,11 +879,12 @@ typedef NCP_TLV_PACK_START struct gatt_disc_all_chrc_cmd {
 } NCP_TLV_PACK_END gatt_disc_all_chrc_cmd_t;
 typedef NCP_TLV_PACK_START struct gatt_disc_chrc_rp {
     uint8_t characteristics_count;
-    gatt_characteristic_t characteristics[SERVER_MAX_ATTRIBUTES];
+    gatt_characteristic_t characteristics[];
 } NCP_TLV_PACK_END gatt_disc_chrc_rp_t;
 
 #define GATT_DISC_CHRC_UUID     0x0f
 typedef NCP_TLV_PACK_START struct gatt_disc_chrc_uuid_cmd {
+    TypeHeader_t header;
     uint8_t address_type;
     uint8_t address[6];
     uint16_t start_handle;
@@ -789,11 +902,12 @@ typedef NCP_TLV_PACK_START struct gatt_disc_all_desc_cmd {
 } NCP_TLV_PACK_END gatt_disc_all_desc_cmd_t;
 typedef NCP_TLV_PACK_START struct gatt_disc_all_desc_rp {
     uint8_t descriptors_count;
-    gatt_descriptor_t descriptors[SERVER_MAX_ATTRIBUTES];
+    gatt_descriptor_t descriptors[];
 } NCP_TLV_PACK_END gatt_disc_all_desc_rp_t;
 
 #define GATT_DISC_DESC_UUID     0x21
 typedef NCP_TLV_PACK_START struct gatt_disc_desc_uuid_cmd {
+    TypeHeader_t header;
     uint8_t address_type;
     uint8_t address[6];
     uint16_t start_handle;
@@ -801,6 +915,17 @@ typedef NCP_TLV_PACK_START struct gatt_disc_desc_uuid_cmd {
     uint8_t uuid_length;
     uint8_t uuid[];
 } NCP_TLV_PACK_END gatt_disc_desc_uuid_cmd_t;
+
+typedef NCP_TLV_PACK_START struct _NCP_CMD_SERVICE_DISC
+{
+  uint32_t tlv_buf_len;
+  /**
+   * discover primary service TLV, gatt_disc_prim_uuid_cmd_t
+   * discover characteristic TLV, gatt_disc_chrc_uuid_cmd_t
+   * discover descriptor TLV, gatt_disc_desc_uuid_cmd_t
+  */
+  uint8_t tlv_buf[1];
+} NCP_TLV_PACK_END NCP_CMD_SERVICE_DISC;
 
 #define GATT_READ           0x11
 typedef NCP_TLV_PACK_START struct gatt_read_cmd {
@@ -989,6 +1114,7 @@ typedef NCP_TLV_PACK_START struct gatt_ncp_ble_add_service_cmd
 /* GATT events */
 #define GATT_EV_NOTIFICATION        0x80
 typedef NCP_TLV_PACK_START struct gatt_notification_ev {
+    uint8_t svc_id;
     uint8_t address_type;
     uint8_t address[6];
     uint8_t type;
@@ -1011,10 +1137,40 @@ typedef NCP_TLV_PACK_START struct gatt_ccc_cfg_changed_ev {
     uint8_t uuid[SERVER_MAX_UUID_LEN];
 } NCP_TLV_PACK_END gatt_ccc_cfg_changed_ev_t;
 
+#define GATT_EV_SUBSCRIPTIONED  0x85
+typedef NCP_TLV_PACK_START struct gatt_ncp_ble_svc_subscription_ev {
+    uint8_t svc_id;
+    uint8_t status;
+} NCP_TLV_PACK_END gatt_ncp_ble_svc_subscription_ev_t;
+
 typedef NCP_TLV_PACK_START struct gatt_ncp_ble_add_service_rp {
     uint8_t svc_length;
     uint8_t status[];
 } NCP_TLV_PACK_END gatt_ncp_ble_add_service_rp_t;
+
+/* l2cap events */
+#define L2CAP_EV_CONNECT        0x81
+typedef NCP_TLV_PACK_START struct l2cap_connect_ev {
+    uint8_t address_type;
+    uint8_t address[6];
+    uint16_t psm;
+} NCP_TLV_PACK_END l2cap_connect_ev_t;
+
+#define L2CAP_EV_DISCONNECT        0x82
+typedef NCP_TLV_PACK_START struct l2cap_disconnect_ev {
+    uint8_t address_type;
+    uint8_t address[6];
+    uint16_t psm;
+} NCP_TLV_PACK_END l2cap_disconnect_ev_t;
+
+#define L2CAP_EV_RECEIVE        0x83
+typedef NCP_TLV_PACK_START struct l2cap_reveive_ev {
+    uint8_t address_type;
+    uint8_t address[6];
+    uint16_t psm;
+    uint8_t len;
+    uint8_t data[256];
+} NCP_TLV_PACK_END l2cap_reveive_ev_t;
 
 typedef NCP_TLV_PACK_START struct _NCPCmd_DS_COMMAND
 {

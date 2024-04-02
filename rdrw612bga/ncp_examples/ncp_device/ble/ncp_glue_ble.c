@@ -4,7 +4,7 @@
  *
  *  Copyright 2008-2023 NXP
  *
- *  Licensed under the LA_OPT_NXP_Software_License.txt (the "Agreement")
+ *  SPDX-License-Identifier: BSD-3-Clause
  */
 
 #include <stdio.h>
@@ -34,13 +34,19 @@
 // extern void supported_services(const uint8_t *data, uint16_t len);
 extern void reset_board(const uint8_t *data, uint16_t len);
 extern void set_adv_data(const uint8_t *data, uint16_t len);
-extern void start_advertising(const uint8_t *data, uint16_t len);
+extern void start_advertising(void);
 extern void stop_advertising(const uint8_t *data, uint16_t len);
 extern void set_scan_parameter(const uint8_t *data, uint16_t len);
 extern void start_discovery(const uint8_t *data, uint16_t len);
 extern void stop_discovery(const uint8_t *data, uint16_t len);
 extern void ble_connect(const uint8_t *data, uint16_t len);
 extern void disconnect(const uint8_t *data, uint16_t len);
+#if (defined(CONFIG_BT_USER_DATA_LEN_UPDATE) && (CONFIG_BT_USER_DATA_LEN_UPDATE > 0))
+extern void set_data_len(const uint8_t *data, uint16_t len);
+#endif
+#if (defined(CONFIG_BT_USER_PHY_UPDATE) && ((CONFIG_BT_USER_PHY_UPDATE) > 0U))
+extern void set_phy(const uint8_t *data, uint16_t len);
+#endif
 extern void conn_param_update(const uint8_t *data, uint16_t len);
 extern void set_filter_list(const uint8_t *data, uint16_t len);
 extern void pair(const uint8_t *data, uint16_t len);
@@ -50,11 +56,18 @@ extern void disc_desc_uuid(uint8_t *data, uint16_t len);
 extern void disc_desc_uuid(uint8_t *data, uint16_t len);
 extern void config_subscription(uint8_t *data, uint16_t len, uint16_t op);
 
+//L2CAP
+extern void ble_l2cap_set_recv(uint8_t *data, uint16_t len);
+extern void ble_l2cap_metrics(uint8_t *data, uint16_t len);
+extern void bt_l2cap_register(uint8_t *data, uint16_t len);
+extern void ble_l2cap_connect(uint8_t *data, uint16_t len);
+extern void ble_l2cap_disconnect(uint8_t *data, uint16_t len);
+extern void ble_l2cap_send_data(uint8_t *data, uint16_t len);
 //GATT
-extern void add_service(uint8_t *data, uint16_t len);
-extern void add_characteristic(uint8_t *data, uint16_t len);
-extern void add_descriptor(uint8_t *data, uint16_t len);
-extern void start_server(uint8_t *data, uint16_t len);
+extern int add_service(const void *cmd, uint16_t cmd_len, void *rsp);
+extern int add_characteristic(const void *cmd, uint16_t cmd_len, void *rsp);
+extern int add_descriptor(const void *cmd, uint16_t cmd_len, void *rsp);
+extern int start_server(uint8_t *data, uint16_t len);
 extern void set_value(const uint8_t *data, uint16_t len);
 extern void read_data(const uint8_t *data, uint16_t len);
 extern void write_data(const uint8_t *data, uint16_t len);
@@ -199,7 +212,7 @@ static int ble_bridge_start_adv(void *tlv)
 {
     int ret = NCP_BRIDGE_CMD_RESULT_OK;
 
-    start_advertising(tlv, 0);
+    start_advertising();
 
     return ret;
 }
@@ -257,6 +270,28 @@ static int ble_bridge_disconnect(void *tlv)
 
     return ret;  
 }
+
+#if (defined(CONFIG_BT_USER_DATA_LEN_UPDATE) && (CONFIG_BT_USER_DATA_LEN_UPDATE > 0))
+static int ble_bridge_set_data_len(void *tlv)
+{
+    int ret = NCP_BRIDGE_CMD_RESULT_OK;
+
+    set_data_len(tlv, 0);
+
+    return ret;
+}
+#endif
+
+#if (defined(CONFIG_BT_USER_PHY_UPDATE) && ((CONFIG_BT_USER_PHY_UPDATE) > 0U))
+static int ble_bridge_set_phy(void *tlv)
+{
+    int ret = NCP_BRIDGE_CMD_RESULT_OK;
+
+    set_phy(tlv, 0);
+
+    return ret;
+}
+#endif
 
 static int ble_bridge_conn_param_update(void *tlv)
 {
@@ -349,6 +384,15 @@ static int ble_bridge_cfg_indicate(void *tlv)
     return ret;
 }
 
+static int ble_bridge_cfg_notify(void *tlv)
+{
+    int ret = NCP_BRIDGE_CMD_RESULT_OK;
+
+    config_subscription(tlv, 0, GATT_CFG_NOTIFY);
+
+    return ret;
+}
+
 static int ble_bridge_register(void *tlv)
 {
     gatt_ncp_ble_add_service_cmd_t *cmd = (gatt_ncp_ble_add_service_cmd_t*) tlv;
@@ -435,34 +479,97 @@ static int ble_bridge_config_multi_adv(void *tlv)
     return ret;
 }
 
-static int ble_bridge_add_service(void *tlv)
+static int ble_bridge_host_service_add(void *tlv)
 {
-    int ret = NCP_BRIDGE_CMD_RESULT_OK;
+    int ret = NCP_BRIDGE_CMD_RESULT_OK, tlv_buf_len = 0;
+    uint8_t *ptlv_pos                  = NULL;
+    NCP_BRIDGE_TLV_HEADER *ptlv_header = NULL;
+    uint8_t info[1], auto_start = 0;
+
+    struct bt_data data;
+    struct gap_set_adv_data_cmd adv; 
+    uint8_t adv_uuids[] = {0}, adv_uuid_all_len = 0;
+    uint16_t rsp = 0;
+
+    NCP_CMD_SERVICE_ADD *service_add = (NCP_CMD_SERVICE_ADD *)tlv;
+
+    (void)memset(info, 0, sizeof(info));
 
     if(!gatt_service_init)
     {
         ncp_ble_init_gatt();
         gatt_service_init = 1;
     }
-    add_service(tlv, 0);
 
-    return ret; 
-}
+    ptlv_pos    = service_add->tlv_buf;
+    tlv_buf_len = service_add->tlv_buf_len;
+    do
+    {
+        ptlv_header = (NCP_BRIDGE_TLV_HEADER *)ptlv_pos;
 
-static int ble_bridge_add_chra(void *tlv)
-{
-    int ret = NCP_BRIDGE_CMD_RESULT_OK;
+        switch(ptlv_header->type)
+        {
+            case NCP_BRIDGE_CMD_GATT_ADD_SERVICE_TLV:
+                if(!ncp_ble_test_bit(info, NCP_BRIDGE_CMD_GATT_ADD_SERVICE_TLV))
+                {
+                    gatt_add_service_cmd_t *add_service_tlv = (gatt_add_service_cmd_t *)ptlv_pos;
+                    ret = add_service(add_service_tlv, 0, &rsp);
+                    memcpy(&adv_uuids[adv_uuid_all_len], add_service_tlv->uuid, add_service_tlv->uuid_length);
+                    adv_uuid_all_len += add_service_tlv->uuid_length;
+                    ncp_ble_set_bit(info, NCP_BRIDGE_CMD_GATT_ADD_SERVICE_TLV);
+                }
+                break;
+            case NCP_BRIDGE_CMD_GATT_ADD_CHRC_TLV:
+                {
+                    gatt_add_characteristic_cmd_t * add_chrc_tlv = (gatt_add_characteristic_cmd_t *)ptlv_pos;
+                    add_chrc_tlv->svc_id = rsp;
 
-    add_characteristic(tlv, 0);
+                    ret = add_characteristic(add_chrc_tlv, 0, &rsp);
+                }
+                break;
+            case NCP_BRIDGE_CMD_GATT_ADD_DESC_TLV:
+                {
+                    gatt_add_descriptor_cmd_t * add_desc_tlv = (gatt_add_descriptor_cmd_t *)ptlv_pos;
+                    add_desc_tlv->char_id = rsp;
 
-    return ret; 
-}
+                    ret = add_descriptor(add_desc_tlv, 0, NULL);
+                }
+                break;
+            case NCP_BRIDGE_CMD_GATT_START_SVC_TLV:
+                {
+                    gatt_start_service_cmd_t *start_service_tlv = (gatt_start_service_cmd_t *)ptlv_pos;
+                    auto_start = start_service_tlv->started;
+                    ret = start_server(NULL, 0);
+                }
+                break;
+        }
 
-static int ble_bridge_add_descriptor(void *tlv)
-{
-    int ret = NCP_BRIDGE_CMD_RESULT_OK;
+        ptlv_pos += NCP_BRIDGE_TLV_HEADER_LEN + ptlv_header->size;
+        tlv_buf_len -= NCP_BRIDGE_TLV_HEADER_LEN + ptlv_header->size;
+    } while (tlv_buf_len > 0);
 
-    add_descriptor(tlv, 0);
+    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_HOST_SERVICE_ADD, ret, NULL, 0);
+
+    if (auto_start)
+    {
+        // set adv data
+        memset(&adv, 0, sizeof(struct gap_set_adv_data_cmd));
+        data = (struct bt_data)BT_DATA_BYTES(BT_DATA_FLAGS, (BT_LE_AD_GENERAL | BT_LE_AD_NO_BREDR));
+        bt_data_serialize(&data, &adv.data[adv.adv_data_len]);
+        adv.adv_data_len += bt_data_get_len(&data,1);
+
+        data = (struct bt_data)BT_DATA(BT_DATA_UUID16_ALL, adv_uuids, adv_uuid_all_len);
+        bt_data_serialize(&data, &adv.data[adv.adv_data_len]);
+        adv.adv_data_len += bt_data_get_len(&data, 1);
+
+        const char *name = bt_get_name();
+        data = (struct bt_data)BT_DATA(BT_DATA_NAME_COMPLETE, name, strlen(name));
+        bt_data_serialize(&data, &adv.data[adv.adv_data_len]);
+        adv.adv_data_len += bt_data_get_len(&data, 1);
+        set_adv_data((uint8_t *)&adv, 0);
+        // start adv
+        start_advertising();
+    }
 
     return ret; 
 }
@@ -470,10 +577,71 @@ static int ble_bridge_add_descriptor(void *tlv)
 static int ble_bridge_start_service(void *tlv)
 {
     int ret = NCP_BRIDGE_CMD_RESULT_OK;
+    NCP_CMD_START_SERVICE *cmd = (NCP_CMD_START_SERVICE*) tlv;
 
-    start_server(NULL, 0);
+    extern uint8_t host_svc;
+    host_svc = cmd->form_host;
+    ret = ncp_ble_register_service(cmd->svc_id);
+    
+#if 0
+    ret = start_server(NULL, 0);
+#endif
+    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GATT_START_SERVICE, ret, NULL, 0);
+    return ret;
+}
 
-    return ret; 
+static int ble_bridge_l2cap_connect(void *tlv)
+{
+    int ret = NCP_BRIDGE_CMD_RESULT_OK;
+
+    ble_l2cap_connect(tlv, 0);
+
+    return ret;
+}
+
+static int ble_bridge_l2cap_disconnect(void *tlv)
+{
+    int ret = NCP_BRIDGE_CMD_RESULT_OK;
+
+    ble_l2cap_disconnect(tlv, 0);
+
+    return ret;
+}
+
+static int ble_bridge_l2cap_register(void *tlv)
+{
+    int ret = NCP_BRIDGE_CMD_RESULT_OK;
+
+    bt_l2cap_register(tlv, 0);
+
+    return ret;
+}
+
+static int ble_bridge_l2cap_receive(void *tlv)
+{
+    int ret = NCP_BRIDGE_CMD_RESULT_OK;
+
+    ble_l2cap_set_recv(tlv, 0);
+
+    return ret;
+}
+
+static int ble_bridge_l2cap_send(void *tlv)
+{
+    int ret = NCP_BRIDGE_CMD_RESULT_OK;
+
+    ble_l2cap_send_data(tlv, 0);
+
+    return ret;
+}
+
+static int ble_bridge_l2cap_metrics(void *tlv)
+{
+    int ret = NCP_BRIDGE_CMD_RESULT_OK;
+
+    ble_l2cap_metrics(tlv, 0);
+
+    return ret;
 }
 
 NCPCmd_DS_COMMAND *ncp_bridge_get_ble_response_buffer()
@@ -524,17 +692,21 @@ struct cmd_t ble_cmd_gap[] = {
    {NCP_BRIDGE_CMD_BLE_GAP_STOP_SCAN, "stop discovery", ble_bridge_stop_scan, CMD_SYNC},
    {NCP_BRIDGE_CMD_BLE_GAP_CONNECT, "create a connection", ble_bridge_connect, CMD_SYNC},
    {NCP_BRIDGE_CMD_BLE_GAP_DISCONNECT, "terminate a connection", ble_bridge_disconnect, CMD_SYNC},
+#if (defined(CONFIG_BT_USER_DATA_LEN_UPDATE) && (CONFIG_BT_USER_DATA_LEN_UPDATE > 0))
+   {NCP_BRIDGE_CMD_BLE_GAP_SET_DATA_LEN, "set data len", ble_bridge_set_data_len, CMD_SYNC},
+#endif
+#if (defined(CONFIG_BT_USER_PHY_UPDATE) && ((CONFIG_BT_USER_PHY_UPDATE) > 0U))
+   {NCP_BRIDGE_CMD_BLE_GAP_SET_PHY, "set phy", ble_bridge_set_phy, CMD_SYNC},
+#endif
    {NCP_BRIDGE_CMD_BLE_GAP_CONN_PARAM_UPDATE, "connection parameters update", ble_bridge_conn_param_update, CMD_SYNC},
    {NCP_BRIDGE_CMD_BLE_GAP_SET_FILTER_LIST, "set filter accept list", ble_bridge_set_filter_list, CMD_SYNC},
    {NCP_BRIDGE_CMD_BLE_GAP_PAIR, "enable encryption with peer", ble_bridge_pair, CMD_SYNC}, 
    {NCP_BRIDGE_CMD_INVALID, NULL, NULL, NULL},
 };
 struct cmd_t ble_cmd_gatt[] = {
-   {NCP_BRIDGE_CMD_BLE_GATT_ADD_SERVICE, "add primary/secondary service", ble_bridge_add_service, CMD_SYNC}, 
-   {NCP_BRIDGE_CMD_BLE_GATT_ADD_CHARACTERISTIC, "add characteristic", ble_bridge_add_chra, CMD_SYNC}, 
-   {NCP_BRIDGE_CMD_BLE_GATT_ADD_DESCRIPTOR, "add descriptor", ble_bridge_add_descriptor, CMD_SYNC}, 
+   {NCP_BRIDGE_CMD_BLE_HOST_SERVICE_ADD, "host service add", ble_bridge_host_service_add, CMD_SYNC},
+   {NCP_BRIDGE_CMD_BLE_GATT_START_SERVICE, "start service", ble_bridge_start_service, CMD_SYNC},
    {NCP_BRIDGE_CMD_BLE_GATT_SET_VALUE, "set characteristic/descriptor Value", ble_bridge_set_value, CMD_SYNC}, 
-   {NCP_BRIDGE_CMD_BLE_GATT_START_SERVICE, "start service", ble_bridge_start_service, CMD_SYNC}, 
    {NCP_BRIDGE_CMD_BLE_GAP_SET_FILTER_LIST, "read characteristic/descriptor", ble_bridge_read_data, CMD_SYNC},
    {NCP_BRIDGE_CMD_BLE_GATT_REGISTER_SERVICE, "register profile services", ble_bridge_register, CMD_SYNC},
    {NCP_BRIDGE_CMD_BLE_GATT_READ, "read characteristic/descriptor", ble_bridge_read_data, CMD_SYNC},
@@ -542,12 +714,18 @@ struct cmd_t ble_cmd_gatt[] = {
    {NCP_BRIDGE_CMD_BLE_GATT_DISC_PRIM, "Discover Primary Service", ble_bridge_discover_prim_service, CMD_SYNC},
    {NCP_BRIDGE_CMD_BLE_GATT_DISC_CHRC, "Discover Characteristics", ble_bridge_discover_chrc, CMD_SYNC},
    {NCP_BRIDGE_CMD_BLE_GATT_DESC_CHRC, "Discover Descriptors", ble_bridge_discover_desc, CMD_SYNC},
+   {NCP_BRIDGE_CMD_BLE_GATT_CFG_NOTIFY, "Configure service notify", ble_bridge_cfg_notify, CMD_SYNC},
    {NCP_BRIDGE_CMD_BLE_GATT_CFG_INDICATE, "Configure service indicate", ble_bridge_cfg_indicate, CMD_SYNC},
    {NCP_BRIDGE_CMD_INVALID, NULL, NULL, NULL},
 };
 
 struct cmd_t ble_cmd_l2cap[] = {
-   {NCP_BRIDGE_CMD_INVALID, NULL, NULL, NULL},
+   {NCP_BRIDGE_CMD_BLE_L2CAP_CONNECT, "l2cap connect", ble_bridge_l2cap_connect, CMD_SYNC},
+   {NCP_BRIDGE_CMD_BLE_L2CAP_DISCONNECT, "l2cap disconnect", ble_bridge_l2cap_disconnect, CMD_SYNC},
+   {NCP_BRIDGE_CMD_BLE_L2CAP_REGISTER, "l2cap register", ble_bridge_l2cap_register, CMD_SYNC},
+   {NCP_BRIDGE_CMD_BLE_L2CAP_RECEIVE, "l2cap recieve", ble_bridge_l2cap_receive, CMD_SYNC},
+   {NCP_BRIDGE_CMD_BLE_L2CAP_SEND, "l2cap send", ble_bridge_l2cap_send, CMD_SYNC},
+   {NCP_BRIDGE_CMD_BLE_L2CAP_METRICS, "l2cap metrics", ble_bridge_l2cap_metrics, CMD_SYNC},
 };
 
 struct cmd_t ble_cmd_powermgmt[] = {
