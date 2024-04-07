@@ -175,6 +175,7 @@ static void APP_CSI_RGB565(void)
     }
 
     s_newFrameShown = true;
+    CAMERA_RECEIVER_SubmitEmptyBuffer(&cameraReceiver, cameraReceivedFrameAddr);
 
     g_dc.ops->enableLayer(&g_dc, 0);
 
