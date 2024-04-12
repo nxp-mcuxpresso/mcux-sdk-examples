@@ -18,7 +18,7 @@
  ******************************************************************************/
 
 
-#define APP_FRAME_BUFFER_COUNT 4
+#define APP_FRAME_BUFFER_COUNT 2
 /* Pixel format RGB565, bytesPerPixel is 2. */
 #define APP_BPP 2
 
