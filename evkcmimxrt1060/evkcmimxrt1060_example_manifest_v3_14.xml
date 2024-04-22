@@ -1538,16 +1538,6 @@
             <files mask="wifi_ipv4_ipv6_echo_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkcmimxrt1060_coex_cli" name="coex_cli" brief="The coex_cli." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="coex_examples" path="examples/evkcmimxrt1060/coex_examples/coex_cli">
-          <external path="coex_examples/coex_cli" type="xml">
-            <files mask="coex_cli_v3_14.xml"/>
-          </external>
-        </example>
-        <example id="evkcmimxrt1060_coex_wpa_supplicant" name="coex_wpa_supplicant" brief="The coex_wpa_supplicant." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="coex_examples" path="examples/evkcmimxrt1060/coex_examples/coex_wpa_supplicant">
-          <external path="coex_examples/coex_wpa_supplicant" type="xml">
-            <files mask="coex_wpa_supplicant_v3_14.xml"/>
-          </external>
-        </example>
         <example id="evkcmimxrt1060_maestro_playback" name="maestro_playback" brief="Audio maestro framework demo example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="audio_examples" path="examples/evkcmimxrt1060/audio_examples/maestro_playback">
           <external path="audio_examples/maestro_playback" type="xml">
             <files mask="maestro_playback_v3_14.xml"/>

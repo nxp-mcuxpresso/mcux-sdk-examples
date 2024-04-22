@@ -30704,6 +30704,91 @@ ${load}</script>
         <include_path relative_path="netxduo/addons/azure_iot/azure-sdk-for-c/sdk/inc/" type="c_include"/>
       </include_paths>
     </component>
+    <component id="middleware.multicore.erpc_common_multiprocessor.MIMXRT1062" name="erpc_common_multiprocessor" brief="erpc multiprocessor examples common files" version="1.0.0" full_name="erpc multiprocessor examples common files" category="Multicore/Remote Procedure Call" user_visible="true" type="middleware" package_base_path="middleware/multicore/" project_base_path="source">
+      <dependencies>
+        <any_of>
+          <board_dependency value="evkmimxrt1060"/>
+          <device_dependency value="MIMXRT1062xxxxA"/>
+          <device_dependency value="MIMXRT1062xxxxB"/>
+        </any_of>
+      </dependencies>
+      <source relative_path="example/multiprocessor_examples/erpc_common" project_relative_path="./" type="c_include">
+        <files mask="erpc_error_handler.h"/>
+      </source>
+      <source relative_path="example/multiprocessor_examples/erpc_common" project_relative_path="./" type="src">
+        <files mask="erpc_error_handler.cpp"/>
+      </source>
+      <source toolchain="armgcc" relative_path="./" type="workspace">
+        <files mask="middleware_multicore_erpc_common_multiprocessor.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="example/multiprocessor_examples/erpc_common" project_relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.multicore.erpc_common_multiprocessor_matrix_multiply_client.MIMXRT1062" name="erpc_common_multiprocessor_matrix_multiply_client" brief="erpc multiprocessor matrix_multiply_client examples common files" version="1.0.0" full_name="erpc multiprocessor matrix_multiply_client examples common files" category="Multicore/Remote Procedure Call" user_visible="true" type="middleware" package_base_path="middleware/multicore/" project_base_path="erpc/service">
+      <dependencies>
+        <any_of>
+          <board_dependency value="evkmimxrt1060"/>
+          <device_dependency value="MIMXRT1062xxxxA"/>
+          <device_dependency value="MIMXRT1062xxxxB"/>
+        </any_of>
+      </dependencies>
+      <source relative_path="example/multiprocessor_examples/erpc_common/erpc_matrix_multiply/service" project_relative_path="./" type="script">
+        <files mask="erpc_matrix_multiply.erpc"/>
+      </source>
+      <source relative_path="example/multiprocessor_examples/erpc_common/erpc_matrix_multiply/service" project_relative_path="./" type="c_include">
+        <files mask="erpc_matrix_multiply_common.h"/>
+        <files mask="c_erpc_matrix_multiply_client.h"/>
+      </source>
+      <source relative_path="example/multiprocessor_examples/erpc_common/erpc_matrix_multiply/service" project_relative_path="./" type="cpp_include">
+        <files mask="erpc_matrix_multiply_common.hpp"/>
+        <files mask="erpc_matrix_multiply_client.hpp"/>
+        <files mask="erpc_matrix_multiply_interface.hpp"/>
+      </source>
+      <source relative_path="example/multiprocessor_examples/erpc_common/erpc_matrix_multiply/service" project_relative_path="./" type="src">
+        <files mask="erpc_matrix_multiply_client.cpp"/>
+        <files mask="erpc_matrix_multiply_interface.cpp"/>
+        <files mask="c_erpc_matrix_multiply_client.cpp"/>
+      </source>
+      <source toolchain="armgcc" relative_path="./" type="workspace">
+        <files mask="middleware_multicore_erpc_common_multiprocessor_matrix_multiply_client.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="example/multiprocessor_examples/erpc_common/erpc_matrix_multiply/service" project_relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.multicore.erpc_common_multiprocessor_matrix_multiply_server.MIMXRT1062" name="erpc_common_multiprocessor_matrix_multiply_server" brief="erpc multiprocessor matrix_multiply_server examples common files" version="1.0.0" full_name="erpc multiprocessor matrix_multiply_server examples common files" category="Multicore/Remote Procedure Call" user_visible="true" type="middleware" package_base_path="middleware/multicore/" project_base_path="erpc/service">
+      <dependencies>
+        <any_of>
+          <board_dependency value="evkmimxrt1060"/>
+          <device_dependency value="MIMXRT1062xxxxA"/>
+          <device_dependency value="MIMXRT1062xxxxB"/>
+        </any_of>
+      </dependencies>
+      <source relative_path="example/multiprocessor_examples/erpc_common/erpc_matrix_multiply/service" project_relative_path="./" type="script">
+        <files mask="erpc_matrix_multiply.erpc"/>
+      </source>
+      <source relative_path="example/multiprocessor_examples/erpc_common/erpc_matrix_multiply/service" project_relative_path="./" type="c_include">
+        <files mask="erpc_matrix_multiply_common.h"/>
+        <files mask="c_erpc_matrix_multiply_server.h"/>
+      </source>
+      <source relative_path="example/multiprocessor_examples/erpc_common/erpc_matrix_multiply/service" project_relative_path="./" type="cpp_include">
+        <files mask="erpc_matrix_multiply_common.hpp"/>
+        <files mask="erpc_matrix_multiply_server.hpp"/>
+        <files mask="erpc_matrix_multiply_interface.hpp"/>
+      </source>
+      <source relative_path="example/multiprocessor_examples/erpc_common/erpc_matrix_multiply/service" project_relative_path="./" type="src">
+        <files mask="erpc_matrix_multiply_server.cpp"/>
+        <files mask="erpc_matrix_multiply_interface.cpp"/>
+        <files mask="c_erpc_matrix_multiply_server.cpp"/>
+      </source>
+      <source toolchain="armgcc" relative_path="./" type="workspace">
+        <files mask="middleware_multicore_erpc_common_multiprocessor_matrix_multiply_server.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="example/multiprocessor_examples/erpc_common/erpc_matrix_multiply/service" project_relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
     <component id="middleware.eiq.deepviewrt.nnlib.MIMXRT1062" name="DeepViewRT Lib" brief="DeepViewRT Runtime library" version="2.4.44" full_name="DeepViewRT Lib" category="Machine Learning/deepviewrt" user_visible="true" type="middleware" package_base_path="middleware/eiq" project_base_path="eiq">
       <dependencies>
         <any_of>
@@ -30865,91 +30950,6 @@ ${load}</script>
       </source>
       <include_paths>
         <include_path relative_path="deepviewrt/deps/stb/include" type="c_include"/>
-      </include_paths>
-    </component>
-    <component id="middleware.multicore.erpc_common_multiprocessor.MIMXRT1062" name="erpc_common_multiprocessor" brief="erpc multiprocessor examples common files" version="1.0.0" full_name="erpc multiprocessor examples common files" category="Multicore/Remote Procedure Call" user_visible="true" type="middleware" package_base_path="middleware/multicore/" project_base_path="source">
-      <dependencies>
-        <any_of>
-          <board_dependency value="evkmimxrt1060"/>
-          <device_dependency value="MIMXRT1062xxxxA"/>
-          <device_dependency value="MIMXRT1062xxxxB"/>
-        </any_of>
-      </dependencies>
-      <source relative_path="example/multiprocessor_examples/erpc_common" project_relative_path="./" type="c_include">
-        <files mask="erpc_error_handler.h"/>
-      </source>
-      <source relative_path="example/multiprocessor_examples/erpc_common" project_relative_path="./" type="src">
-        <files mask="erpc_error_handler.cpp"/>
-      </source>
-      <source toolchain="armgcc" relative_path="./" type="workspace">
-        <files mask="middleware_multicore_erpc_common_multiprocessor.cmake" hidden="true"/>
-      </source>
-      <include_paths>
-        <include_path relative_path="example/multiprocessor_examples/erpc_common" project_relative_path="./" type="c_include"/>
-      </include_paths>
-    </component>
-    <component id="middleware.multicore.erpc_common_multiprocessor_matrix_multiply_client.MIMXRT1062" name="erpc_common_multiprocessor_matrix_multiply_client" brief="erpc multiprocessor matrix_multiply_client examples common files" version="1.0.0" full_name="erpc multiprocessor matrix_multiply_client examples common files" category="Multicore/Remote Procedure Call" user_visible="true" type="middleware" package_base_path="middleware/multicore/" project_base_path="erpc/service">
-      <dependencies>
-        <any_of>
-          <board_dependency value="evkmimxrt1060"/>
-          <device_dependency value="MIMXRT1062xxxxA"/>
-          <device_dependency value="MIMXRT1062xxxxB"/>
-        </any_of>
-      </dependencies>
-      <source relative_path="example/multiprocessor_examples/erpc_common/erpc_matrix_multiply/service" project_relative_path="./" type="script">
-        <files mask="erpc_matrix_multiply.erpc"/>
-      </source>
-      <source relative_path="example/multiprocessor_examples/erpc_common/erpc_matrix_multiply/service" project_relative_path="./" type="c_include">
-        <files mask="erpc_matrix_multiply_common.h"/>
-        <files mask="c_erpc_matrix_multiply_client.h"/>
-      </source>
-      <source relative_path="example/multiprocessor_examples/erpc_common/erpc_matrix_multiply/service" project_relative_path="./" type="cpp_include">
-        <files mask="erpc_matrix_multiply_common.hpp"/>
-        <files mask="erpc_matrix_multiply_client.hpp"/>
-        <files mask="erpc_matrix_multiply_interface.hpp"/>
-      </source>
-      <source relative_path="example/multiprocessor_examples/erpc_common/erpc_matrix_multiply/service" project_relative_path="./" type="src">
-        <files mask="erpc_matrix_multiply_client.cpp"/>
-        <files mask="erpc_matrix_multiply_interface.cpp"/>
-        <files mask="c_erpc_matrix_multiply_client.cpp"/>
-      </source>
-      <source toolchain="armgcc" relative_path="./" type="workspace">
-        <files mask="middleware_multicore_erpc_common_multiprocessor_matrix_multiply_client.cmake" hidden="true"/>
-      </source>
-      <include_paths>
-        <include_path relative_path="example/multiprocessor_examples/erpc_common/erpc_matrix_multiply/service" project_relative_path="./" type="c_include"/>
-      </include_paths>
-    </component>
-    <component id="middleware.multicore.erpc_common_multiprocessor_matrix_multiply_server.MIMXRT1062" name="erpc_common_multiprocessor_matrix_multiply_server" brief="erpc multiprocessor matrix_multiply_server examples common files" version="1.0.0" full_name="erpc multiprocessor matrix_multiply_server examples common files" category="Multicore/Remote Procedure Call" user_visible="true" type="middleware" package_base_path="middleware/multicore/" project_base_path="erpc/service">
-      <dependencies>
-        <any_of>
-          <board_dependency value="evkmimxrt1060"/>
-          <device_dependency value="MIMXRT1062xxxxA"/>
-          <device_dependency value="MIMXRT1062xxxxB"/>
-        </any_of>
-      </dependencies>
-      <source relative_path="example/multiprocessor_examples/erpc_common/erpc_matrix_multiply/service" project_relative_path="./" type="script">
-        <files mask="erpc_matrix_multiply.erpc"/>
-      </source>
-      <source relative_path="example/multiprocessor_examples/erpc_common/erpc_matrix_multiply/service" project_relative_path="./" type="c_include">
-        <files mask="erpc_matrix_multiply_common.h"/>
-        <files mask="c_erpc_matrix_multiply_server.h"/>
-      </source>
-      <source relative_path="example/multiprocessor_examples/erpc_common/erpc_matrix_multiply/service" project_relative_path="./" type="cpp_include">
-        <files mask="erpc_matrix_multiply_common.hpp"/>
-        <files mask="erpc_matrix_multiply_server.hpp"/>
-        <files mask="erpc_matrix_multiply_interface.hpp"/>
-      </source>
-      <source relative_path="example/multiprocessor_examples/erpc_common/erpc_matrix_multiply/service" project_relative_path="./" type="src">
-        <files mask="erpc_matrix_multiply_server.cpp"/>
-        <files mask="erpc_matrix_multiply_interface.cpp"/>
-        <files mask="c_erpc_matrix_multiply_server.cpp"/>
-      </source>
-      <source toolchain="armgcc" relative_path="./" type="workspace">
-        <files mask="middleware_multicore_erpc_common_multiprocessor_matrix_multiply_server.cmake" hidden="true"/>
-      </source>
-      <include_paths>
-        <include_path relative_path="example/multiprocessor_examples/erpc_common/erpc_matrix_multiply/service" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
   </components>

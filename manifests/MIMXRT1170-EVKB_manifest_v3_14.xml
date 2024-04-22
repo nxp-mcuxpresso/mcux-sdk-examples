@@ -2927,16 +2927,6 @@ ${load}</script>
             <files mask="wifi_ipv4_ipv6_echo_cm7_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkbmimxrt1170_coex_cli_cm7" name="coex_cli_cm7" brief="The coex_cli." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="coex_examples" path="examples/evkbmimxrt1170/coex_examples/coex_cli/cm7">
-          <external path="examples/evkbmimxrt1170/coex_examples/coex_cli/cm7" type="xml">
-            <files mask="coex_cli_cm7_v3_14.xml"/>
-          </external>
-        </example>
-        <example id="evkbmimxrt1170_coex_wpa_supplicant_cm7" name="coex_wpa_supplicant_cm7" brief="The coex_wpa_supplicant." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="coex_examples" path="examples/evkbmimxrt1170/coex_examples/coex_wpa_supplicant/cm7">
-          <external path="examples/evkbmimxrt1170/coex_examples/coex_wpa_supplicant/cm7" type="xml">
-            <files mask="coex_wpa_supplicant_cm7_v3_14.xml"/>
-          </external>
-        </example>
         <example id="evkbmimxrt1170_puf_cm7" name="puf_cm7" brief="This driver example project demonstrates how to use driver for the PUF controller which provides a secure key storage." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/puf" path="examples/evkbmimxrt1170/driver_examples/puf/cm7">
           <external path="examples/evkbmimxrt1170/driver_examples/puf/cm7" type="xml">
             <files mask="puf_cm7_v3_14.xml"/>

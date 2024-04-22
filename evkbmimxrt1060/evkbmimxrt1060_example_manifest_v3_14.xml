@@ -1413,16 +1413,6 @@
             <files mask="wifi_ipv4_ipv6_echo_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkbmimxrt1060_coex_cli" name="coex_cli" brief="The coex_cli." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="coex_examples" path="examples/evkbmimxrt1060/coex_examples/coex_cli">
-          <external path="coex_examples/coex_cli" type="xml">
-            <files mask="coex_cli_v3_14.xml"/>
-          </external>
-        </example>
-        <example id="evkbmimxrt1060_coex_wpa_supplicant" name="coex_wpa_supplicant" brief="The coex_wpa_supplicant." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="coex_examples" path="examples/evkbmimxrt1060/coex_examples/coex_wpa_supplicant">
-          <external path="coex_examples/coex_wpa_supplicant" type="xml">
-            <files mask="coex_wpa_supplicant_v3_14.xml"/>
-          </external>
-        </example>
         <example id="evkbmimxrt1060_ccm_clockout" name="ccm_clockout" brief="The ccm_clockout driver example shows how to output the internal clock signal. In this driver example, users can choose the clock signal to be outputted, and the divider of the output clock signal. By probing the output pin, users can observe the selected internal clock signal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/ccm" path="examples/evkbmimxrt1060/driver_examples/clockout">
           <external path="driver_examples/clockout" type="xml">
             <files mask="ccm_clockout_v3_14.xml"/>
