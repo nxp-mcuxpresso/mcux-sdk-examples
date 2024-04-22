@@ -1,0 +1,38 @@
+        *(.data.$${memory.alias})
+        *(.data.$${memory.name})
+        *(.data.$${memory.alias}.*)
+        *(.data.$${memory.name}.*)
+
+        <#if memory.name=="SRAM_ITC_cm33">
+        *queue.o(.text*)
+        *tcp_out.o(.text*)
+        *mlan_sdio.o(.text*)
+        *mlan_11n.o(.text*)
+        *mlan_11n_aggr.o(.text*)
+        *mlan_11n_rxreorder.o(.text*)
+        *tcp_in.o(.text*)
+        *inet_chksum.o(.text*)
+        *timers.o(.text*)
+        *fsl_usdhc.o(.text*)
+        *port.o(.text*)
+        *wifi-sdio.o(.text*)
+        *startup_mimxrt1189_cm33.o(.text*)
+        *fsl_sdio.o(.text*)
+        *pbuf.o(.text*)
+        *tcp.o(.text*)
+        *udp.o(.text*)
+        *tcpip.o(.text*)
+        *sockets.o(.text*)
+        *tasks.o(.text*)
+        *libc_a-memset.o(.text*)
+        *fsl_cache.o(.text*)
+        *wifi.o(.text*)
+        *wifi_netif.o(.text*)
+        *fsl_os_abstraction_free_rtos.o(.text*)
+        *fsl_memcpy.o(.text*)
+        </#if>
+
+        <#if memory.name=="SRAM_DTC">
+        *(.data*)
+        *(.wlan_data*)
+        </#if>

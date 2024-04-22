@@ -1,0 +1,3 @@
+       *(EXCLUDE_FILE(*flexspi_nor_flash_ops.o *fsl_flexspi.o *fsl_flexspi_edma.o *fsl_edma.o *fsl_edma_soc.o) .text)
+       *(EXCLUDE_FILE(*flexspi_nor_flash_ops.o *fsl_flexspi.o *fsl_flexspi_edma.o *fsl_edma.o *fsl_edma_soc.o) .text.*)
+ 

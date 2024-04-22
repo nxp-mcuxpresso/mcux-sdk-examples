@@ -1,0 +1,4 @@
+       *(EXCLUDE_FILE(*fsl_i3c.o *fsl_i3c_edma.o *fsl_edma.o) .rodata)
+       *(EXCLUDE_FILE(*fsl_i3c.o *fsl_i3c_edma.o *fsl_edma.o) .rodata.*)
+       *(EXCLUDE_FILE(*fsl_i3c.o *fsl_i3c_edma.o *fsl_edma.o) .constdata)
+       *(EXCLUDE_FILE(*fsl_i3c.o *fsl_i3c_edma.o *fsl_edma.o) .constdata.*)
