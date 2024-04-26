@@ -11,6 +11,9 @@
  */
 
 #include <string.h>
+#if !(defined(__ARMCC_VERSION) || defined(__ICCARM__))
+#include <strings.h>
+#endif
 #include <ctype.h>
 #include <assert.h>
 #include <wm_os.h>

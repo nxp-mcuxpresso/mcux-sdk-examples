@@ -56,6 +56,7 @@
       <toolchainSetting id_refs="com.nxp.mcuxpresso">
         <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
           <value>FSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1</value>
+          <value>PRINTF_FLOAT_ENABLE=1</value>
           <value>CPU_RW612ETA2I</value>
           <value>MCUXPRESSO_SDK</value>
           <value>BOOT_HEADER_ENABLE=1</value>

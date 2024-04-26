@@ -240,7 +240,7 @@ void BluetoothLEHost_Init
 #endif /* gAppUseNvm_d */
 
         /* Create application event */
-        (void)OSA_EventCreate(mAppEvent, TRUE);
+        (void)OSA_EventCreate(mAppEvent, (uint8_t)TRUE);
 
         /* Prepare application input queue.*/
         MSG_QueueInit(&mHostAppInputQueue);
@@ -289,7 +289,7 @@ void BluetoothLEHost_HandleMessages(void)
     osa_event_flags_t event = 0U;
     (void)OSA_EventWait((osa_event_handle_t)mAppEvent,
                         osaEventFlagsAll_c,
-                        FALSE,
+                        (uint8_t)FALSE,
                         gAppTaskWaitTimeout_ms_c ,
                         &event);
 #endif /* SDK_OS_FREE_RTOS */

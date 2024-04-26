@@ -62,7 +62,7 @@ struct service_t svc_list[] = {
 struct service_cb_t svc_cb_connect[] = {
     {PERIPHERAL_HTS_SERVICE_ID, peripheral_hts_connect},
     {PERIPHERAL_HRS_SERVICE_ID, peripheral_hrs_connect},
-    {BAS_SERVICE_ID, NULL},
+    {BAS_SERVICE_ID, bas_connect},
     {CENTRAL_HTC_SERVICE_ID, central_htc_connect},
     {CENTRAL_HRC_SERVICE_ID, central_hrc_connect},
 };
@@ -70,7 +70,7 @@ struct service_cb_t svc_cb_connect[] = {
 struct service_cb_t svc_cb_disconnect[] = {
     {PERIPHERAL_HTS_SERVICE_ID, peripheral_hts_disconnect},
     {PERIPHERAL_HRS_SERVICE_ID, peripheral_hrs_disconnect},
-    {BAS_SERVICE_ID, NULL},
+    {BAS_SERVICE_ID, bas_disconnect},
     {CENTRAL_HTC_SERVICE_ID, central_htc_disconnect},
     {CENTRAL_HRC_SERVICE_ID, central_hrc_disconnect},
 };

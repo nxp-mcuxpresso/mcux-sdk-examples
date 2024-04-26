@@ -234,7 +234,7 @@
        each power down wakeup so only temporary data could be stored there.)
 	   Power down feature not supported. */
 
-#define gAppLowPowerConstraintInAdvertising_c          2
+#define gAppLowPowerConstraintInAdvertising_c          3
 /* Scanning not supported on peripheral */
 //#define gAppLowPowerConstraintInScanning_c             2
 #define gAppLowPowerConstraintInConnected_c            2

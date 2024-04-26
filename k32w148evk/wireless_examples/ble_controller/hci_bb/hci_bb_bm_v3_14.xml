@@ -210,8 +210,13 @@
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="c_include"/>
     </include_paths>
-    <source path="../../../../../middleware/wireless/ble_controller/bin" project_relative_path="source" type="binary">
-      <files mask="k32w1_nbu_ble_hosted.bin"/>
+    <source path="../../../../../middleware/wireless/ble_controller/bin" project_relative_path="source" type="other">
+      <files mask="k32w1_nbu_ble_1_9_13_0.xip"/>
+      <files mask="k32w1_nbu_ble_1_9_13_0.sb3"/>
+    </source>
+    <source path="../../../../../middleware/wireless/ble_controller/bin/experimental" project_relative_path="source" type="other">
+      <files mask="k32w1_nbu_ble_xp_1_9_13_0.xip"/>
+      <files mask="k32w1_nbu_ble_xp_1_9_13_0.sb3"/>
     </source>
     <source path="../../../../../middleware/wireless/ble_controller/application/hci_bb" project_relative_path="source" type="src">
       <files mask="hci_bb.c"/>

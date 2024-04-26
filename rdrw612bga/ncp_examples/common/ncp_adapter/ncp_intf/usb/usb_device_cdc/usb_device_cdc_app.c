@@ -556,12 +556,12 @@ usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event, void *
             }
             else if (USB_CDC_VCOM_CONFIGURE_INDEX == (*temp8))
             {
-                s_cdcVcom.attach               = 1;
                 s_cdcVcom.currentConfiguration = *temp8;
                 error                          = kStatus_USB_Success;
                 /* Schedule buffer for receive */
                 USB_DeviceCdcAcmRecv(s_cdcVcom.cdcAcmHandle, USB_CDC_VCOM_BULK_OUT_ENDPOINT, s_currRecvBuf,
                                      g_UsbDeviceCdcVcomDicEndpoints[1].maxPacketSize);
+                s_cdcVcom.attach               = 1;
             }
             else
             {

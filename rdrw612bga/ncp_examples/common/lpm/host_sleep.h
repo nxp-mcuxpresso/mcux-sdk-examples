@@ -48,6 +48,9 @@
 
 #define CONFIG_WLAN_SUSPEND_STACK_SIZE 1024
 
+#define NCP_NOTIFY_HOST_GPIO        27
+#define NCP_NOTIFY_HOST_GPIO_MASK   0x8000000
+
 /*******************************************************************************
  * API
  ******************************************************************************/
@@ -64,5 +67,6 @@ void powerManager_EnterLowPower();
 int host_sleep_cli_init(void);
 void ncp_gpio_init(void);
 int hostsleep_init(void);
-
+void ncp_notify_host_gpio_init(void);
+void ncp_notify_host_gpio_output(void);
 #endif /*_HOST_SLEEP_H_*/

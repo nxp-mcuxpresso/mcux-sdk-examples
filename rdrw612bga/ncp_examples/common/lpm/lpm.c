@@ -20,6 +20,8 @@
 #include "board.h"
 #include "ncp_intf_pm.h"
 #include "clock_config.h"
+#include "mflash_common.h"
+#include "mcux_pkc.h"
 
 /*******************************************************************************
  * Definitions
@@ -76,6 +78,7 @@ void lpm_pm3_exit_hw_reinit()
     }
     BOARD_InitDebugConsole();
     POWER_InitPowerConfig(&initCfg);
+    PKC_PowerDownWakeupInit(PKC);
 #ifdef CONFIG_CRC32_HW_ACCELERATE
     ncp_tlv_chksum_init();
 #endif
@@ -90,6 +93,7 @@ void lpm_pm3_exit_hw_reinit()
 #endif
     RTC_Init(RTC);
     ncp_gpio_init();
+    mflash_drv_init();
 }
 
 #ifdef CONFIG_POWER_MANAGER

@@ -49,8 +49,11 @@ typedef struct
 #define CONFIG_FILE_DIR           "etc"
 #define SYS_CONFIG_FILE_PATH      "/etc/sys_conf"
 #define PROV_CONFIG_FILE_PATH     "/etc/prov_conf"
-#define WLAN_STA_CONFIG_FILE_PATH "/etc/wlan_sta_conf"
-#define WLAN_UAP_CONFIG_FILE_PATH "/etc/wlan_uap_conf"
+#define WLAN_BSS_CONFIG_FILE_PATH "/etc/wlan_bss_conf"
+#define WLAN_BSS2_CONFIG_FILE_PATH "/etc/wlan_bssA_conf"
+#define WLAN_BSS3_CONFIG_FILE_PATH "/etc/wlan_bssB_conf"
+#define WLAN_BSS4_CONFIG_FILE_PATH "/etc/wlan_bssC_conf"
+#define WLAN_BSS5_CONFIG_FILE_PATH "/etc/wlan_bssD_conf"
 
 #define INITIAL_OFFSET 0
 
@@ -355,6 +358,8 @@ typedef enum
     WLAN_PASSPHRASE,
     WLAN_MFPC,
     WLAN_MFPR,
+    WLAN_ANONYMOUS_IDENTITY,
+    WLAN_CLIENT_KEY_PASSWD,
     WLAN_IP_ADDR_TYPE,
     WLAN_IP_ADDR,
     WLAN_NETMASK,
@@ -496,12 +501,36 @@ typedef enum
 #define WLAN_MFPR_DEF      "0"
 #define WLAN_MFPR_END      (WLAN_MFPR_OFT + WLAN_MFPR_NAME_LEN + WLAN_MFPR_MAX_LEN)
 
+/** Anonymous identity string for EAP
+ *
+ *  content: Anonymous identity string
+ *
+ */
+#define WLAN_ANONYMOUS_IDENTITY_OFT      WLAN_MFPR_END
+#define WLAN_ANONYMOUS_IDENTITY_NAME     "anonymous_identity="
+#define WLAN_ANONYMOUS_IDENTITY_NAME_LEN 19
+#define WLAN_ANONYMOUS_IDENTITY_MAX_LEN  64
+#define WLAN_ANONYMOUS_IDENTITY_DEF      "0"
+#define WLAN_ANONYMOUS_IDENTITY_END      (WLAN_ANONYMOUS_IDENTITY_OFT + WLAN_ANONYMOUS_IDENTITY_NAME_LEN + WLAN_ANONYMOUS_IDENTITY_MAX_LEN)
+
+/** Client key password
+ *
+ *  content: Client key password
+ *
+ */
+#define WLAN_CLIENT_KEY_PASSWD_OFT      WLAN_ANONYMOUS_IDENTITY_END
+#define WLAN_CLIENT_KEY_PASSWD_NAME     "client_key_passwd="
+#define WLAN_CLIENT_KEY_PASSWD_NAME_LEN 18
+#define WLAN_CLIENT_KEY_PASSWD_MAX_LEN  128
+#define WLAN_CLIENT_KEY_PASSWD_DEF      "0"
+#define WLAN_CLIENT_KEY_PASSWD_END      (WLAN_CLIENT_KEY_PASSWD_OFT + WLAN_CLIENT_KEY_PASSWD_NAME_LEN + WLAN_CLIENT_KEY_PASSWD_MAX_LEN)
+
 /** IP address type
  *
  *  content: "0", "1"
  *  value: 0 - static,1 - DHCP
  */
-#define WLAN_IP_ADDR_TYPE_OFT      WLAN_MFPR_END
+#define WLAN_IP_ADDR_TYPE_OFT      WLAN_CLIENT_KEY_PASSWD_END
 #define WLAN_IP_ADDR_TYPE_NAME     "ipaddr_type="
 #define WLAN_IP_ADDR_TYPE_NAME_LEN 12
 #define WLAN_IP_ADDR_TYPE_MAX_LEN  2
@@ -750,7 +779,9 @@ void ncp_config_reset_factory(void);
 
 /* set/get network configs */
 int wifi_set_network(struct wlan_network *network);
-int wifi_get_network(struct wlan_network *network, enum wlan_bss_role bss_role);
+int wifi_get_network(struct wlan_network *network, enum wlan_bss_role bss_role, char*net_name);
+/*set overwrite flag when a network is removed.*/
+int wifi_overwrite_network(char *removed_network);
 
 int ncp_bridge_set_conf(const char *mod_name, const char *var_name, const char *value);
 int ncp_bridge_get_conf(const char *mod_name, const char *var_name, char *value, uint32_t max_len);

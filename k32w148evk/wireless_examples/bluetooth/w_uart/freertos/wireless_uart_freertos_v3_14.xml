@@ -270,6 +270,19 @@
     <source path="." project_relative_path="source/common" type="src">
       <files mask="main.c"/>
     </source>
+    <source path="." project_relative_path="source/common" type="src">
+      <files mask="app_conn.c"/>
+      <files mask="ble_init.c"/>
+      <files mask="app_advertiser.c"/>
+      <files mask="app_connection.c"/>
+      <files mask="app_scanner.c"/>
+      <files mask="app_nvm.c"/>
+      <files mask="app_low_power.c"/>
+    </source>
+    <source path="." project_relative_path="source/common" type="c_include">
+      <files mask="app_conn.h"/>
+      <files mask="ble_init.h"/>
+    </source>
     <source path=".." project_relative_path="source" type="src">
       <files mask="app_config.c"/>
       <files mask="wireless_uart.c"/>
@@ -281,19 +294,6 @@
     </source>
     <source path="." project_relative_path="source" type="c_include" config="true">
       <files mask="FreeRTOSConfig.h"/>
-    </source>
-    <source path="." project_relative_path="source" type="src">
-      <files mask="ble_init.c"/>
-      <files mask="app_conn.c"/>
-      <files mask="app_connection.c"/>
-      <files mask="app_advertiser.c"/>
-      <files mask="app_scanner.c"/>
-      <files mask="app_nvm.c"/>
-      <files mask="app_low_power.c"/>
-    </source>
-    <source path="." project_relative_path="source" type="c_include">
-      <files mask="ble_init.h"/>
-      <files mask="app_conn.h"/>
     </source>
     <source path=".." project_relative_path="doc" type="doc">
       <files mask="readme.txt"/>
@@ -311,8 +311,9 @@
     <source path="." project_relative_path="source" type="c_include">
       <files mask="app_preinclude_common.h"/>
     </source>
-    <source path="../../../../../../middleware/wireless/ble_controller/bin" project_relative_path="source" type="binary">
-      <files mask="k32w1_nbu_ble_hosted.bin"/>
+    <source path="../../../../../../middleware/wireless/ble_controller/bin" project_relative_path="source" type="other">
+      <files mask="k32w1_nbu_ble_1_9_13_0.xip"/>
+      <files mask="k32w1_nbu_ble_1_9_13_0.sb3"/>
     </source>
   </example>
 </ksdk:examples>

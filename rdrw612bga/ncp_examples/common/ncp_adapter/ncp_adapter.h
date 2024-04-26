@@ -11,6 +11,25 @@
 #include "ncp_debug.h"
 #include "ncp_intf_pm.h"
 
+#ifdef __GNUC__
+/** Structure packing begins */
+#define NCP_TLV_PACK_START
+/** Structure packeing end */
+#define NCP_TLV_PACK_END __attribute__((packed))
+#else /* !__GNUC__ */
+#ifdef PRAGMA_PACK
+/** Structure packing begins */
+#define NCP_TLV_PACK_START
+/** Structure packeing end */
+#define NCP_TLV_PACK_END
+#else /* !PRAGMA_PACK */
+/** Structure packing begins */
+#define NCP_TLV_PACK_START __packed
+/** Structure packing end */
+#define NCP_TLV_PACK_END
+#endif /* PRAGMA_PACK */
+#endif /* __GNUC__ */
+
 #define ncp_adap_e(...) ncplog_e("NCP Adap", ##__VA_ARGS__)
 #define ncp_adap_w(...) ncplog_w("NCP Adap", ##__VA_ARGS__)
 #ifdef CONFIG_NCP_DEBUG_ADAP

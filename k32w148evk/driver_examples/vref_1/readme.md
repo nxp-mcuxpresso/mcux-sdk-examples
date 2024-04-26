@@ -15,6 +15,7 @@ SDK version
 
 Toolchain supported
 ===================
+- GCC ARM Embedded  12.2
 - MCUXpresso  11.8.0
 
 Hardware requirements

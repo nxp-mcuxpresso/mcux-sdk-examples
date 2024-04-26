@@ -12,8 +12,7 @@
 #include "fsl_power.h"
 #include "ncp_adapter.h"
 #include "ncp_intf_sdio.h"
-#include "fsl_gpio.h"
-#include "fsl_io_mux.h"
+#include "host_sleep.h"
 
 /*******************************************************************************
  * Defines
@@ -68,9 +67,6 @@ typedef MLAN_PACK_START struct bridge_command_header
 //#define NCP_SDIO_TASK_PRIORITY    3
 //#define NCP_SDIO_TASK_STACK_SIZE  1024
 
-#define NCP_SDIO_GPIO_NOTIFY        27
-#define NCP_SDIO_GPIO_NOTIFY_MASK   0x8000000
-
 /*******************************************************************************
  * Variables
  ******************************************************************************/
@@ -119,7 +115,7 @@ int ncp_sdio_init(void *argv)
     if (ret != kStatus_Success)
     {
         ncp_adap_e("Failed to initialize SDIO");
-        return NCP_STATUS_ERROR;
+        return (int)NCP_STATUS_ERROR;
     }
 
     SDU_InstallCallback(SDU_TYPE_FOR_WRITE_CMD, ncp_tlv_dispatch);
@@ -127,7 +123,7 @@ int ncp_sdio_init(void *argv)
 
     //(void)OSA_TaskCreate((osa_task_handle_t)ncp_sdioTaskHandle, OSA_TASK(ncp_sdio_intf_task), NULL);
 
-    return NCP_STATUS_SUCCESS;
+    return (int)NCP_STATUS_SUCCESS;
 }
 
 int ncp_sdio_deinit(void *argv)
@@ -136,7 +132,7 @@ int ncp_sdio_deinit(void *argv)
 
     SDU_Deinit();
 
-    return NCP_STATUS_SUCCESS;
+    return (int)NCP_STATUS_SUCCESS;
 }
 
 #if 0
@@ -150,7 +146,7 @@ int ncp_sdio_recv(uint8_t *tlv_buf, size_t *tlv_sz)
 
     NCP_SDIO_STATS_INC(rx);
 
-    return NCP_STATUS_SUCCESS;
+    return (int)NCP_STATUS_SUCCESS;
 }
 #endif
 
@@ -192,38 +188,17 @@ int ncp_sdio_send(uint8_t *tlv_buf, size_t tlv_sz, tlv_send_callback_t cb)
     {
         ncp_adap_d("%s: fail 0x%x", __FUNCTION__, ret);
         NCP_SDIO_STATS_INC(drop);
-        return NCP_STATUS_ERROR;
+        return (int)NCP_STATUS_ERROR;
     }
 
     NCP_SDIO_STATS_INC(tx);
 
-    return NCP_STATUS_SUCCESS;
-}
-
-static void ncp_sdio_notify_gpio_output(void)
-{
-    /* Toggle GPIO to notify sdio host that sdio device is ready for re-enumeration */
-    GPIO_PortToggle(GPIO, 0, NCP_SDIO_GPIO_NOTIFY_MASK);
-}
-
-static void ncp_sdio_notify_gpio_init(void)
-{
-    /* Define the init structure for the output switch pin */
-    gpio_pin_config_t sdio_output_pin = {
-        kGPIO_DigitalOutput,
-        1
-    };
-
-    IO_MUX_SetPinMux(IO_MUX_GPIO27);
-    GPIO_PortInit(GPIO, 0);
-    /* Init output GPIO. Default level is high */
-    /* After wakeup from PM3, sdio device use GPIO 27 to notify sdio host */
-    GPIO_PinInit(GPIO, 0, NCP_SDIO_GPIO_NOTIFY, &sdio_output_pin);
+    return (int)NCP_STATUS_SUCCESS;
 }
 
 static int ncp_sdio_pm_enter(int32_t pm_state)
 {
-    ncp_pm_status_t ret = NCP_PM_STATUS_SUCCESS;
+    int ret = (int)NCP_PM_STATUS_SUCCESS;
 
     if(pm_state == NCP_PM_STATE_PM2)
     {
@@ -242,7 +217,7 @@ static int ncp_sdio_pm_enter(int32_t pm_state)
         if(ret != 0)
         {
             ncp_adap_e("Failed to deinit SDIO interface");
-            return NCP_PM_STATUS_ERROR;
+            return (int)NCP_PM_STATUS_ERROR;
         }
     }
     
@@ -251,7 +226,7 @@ static int ncp_sdio_pm_enter(int32_t pm_state)
 
 static int ncp_sdio_pm_exit(int32_t pm_state)
 {
-    ncp_pm_status_t ret = NCP_PM_STATUS_SUCCESS;
+    int ret = (int)NCP_PM_STATUS_SUCCESS;
 
     if(pm_state == NCP_PM_STATE_PM2)
     {
@@ -265,14 +240,14 @@ static int ncp_sdio_pm_exit(int32_t pm_state)
         if(ret != 0)
         {
             ncp_adap_e("Failed to init SDIO interface");
-            return NCP_PM_STATUS_ERROR;
+            return (int)NCP_PM_STATUS_ERROR;
         }
 
         /* After wakeup from PM3, sdio device notify sdio host to re-enumerate by gpio */
-        ncp_sdio_notify_gpio_init();
-        ncp_sdio_notify_gpio_output();
+        ncp_notify_host_gpio_init();
+        ncp_notify_host_gpio_output();
     }
-    return (int)ret;
+    return ret;
 }
 
 static ncp_intf_pm_ops_t ncp_sdio_pm_ops =

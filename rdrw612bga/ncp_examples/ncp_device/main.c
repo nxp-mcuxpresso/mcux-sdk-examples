@@ -45,7 +45,7 @@
 #else
 #define TASK_MAIN_PRIO         OSA_TASK_PRIORITY_MIN - 2
 #endif
-#define TASK_MAIN_STACK_SIZE   2048
+#define TASK_MAIN_STACK_SIZE   3072
 
 /*******************************************************************************
  * Prototypes

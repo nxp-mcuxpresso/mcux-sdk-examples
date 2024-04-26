@@ -41,6 +41,8 @@ void BOARD_InitPins(void) {                                /*!< Function assigne
     IO_MUX_SetPinConfig(4U, IO_MUX_PinConfigNoPull);
     IO_MUX_SetPinMux(IO_MUX_GPIO27);
     IO_MUX_SetPinMux(IO_MUX_GPIO11);
+    IO_MUX_SetPinConfig(11U, IO_MUX_PinConfigNoPull);
+    IO_MUX_SetPinConfig(27U, IO_MUX_PinConfigNoPull);
 #else
     IO_MUX_SetPinMux(IO_MUX_FC0_USART_DATA);
 #endif

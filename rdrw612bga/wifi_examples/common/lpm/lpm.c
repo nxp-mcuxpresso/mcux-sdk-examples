@@ -18,6 +18,7 @@
 #include "wm_os.h"
 #include "wlan.h"
 #include "cli.h"
+#include "mcux_pkc.h"
 
 /*******************************************************************************
  * Definitions
@@ -80,6 +81,7 @@ void lpm_pm3_exit_hw_reinit()
     }
     BOARD_InitDebugConsole();
     POWER_InitPowerConfig(&initCfg);
+    PKC_PowerDownWakeupInit(PKC);
 #ifdef CONFIG_NCP_BRIDGE
 #ifdef CONFIG_CRC32_HW_ACCELERATE
     hw_crc32_init();

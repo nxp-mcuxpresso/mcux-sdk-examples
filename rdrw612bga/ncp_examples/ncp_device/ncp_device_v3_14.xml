@@ -273,6 +273,7 @@
       <include_path path="." project_relative_path="source" type="c_include"/>
       <include_path path="../.." project_relative_path="source" type="c_include"/>
       <include_path path="." project_relative_path="board" type="c_include"/>
+      <include_path path="../common" project_relative_path="source" type="c_include"/>
       <include_path path="../common/ncp_adapter" project_relative_path="ncp_common/ncp_adapter" type="c_include"/>
       <include_path path="../common/ncp_adapter/ncp_intf" project_relative_path="ncp_common/ncp_adapter/ncp_intf" type="c_include"/>
       <include_path path="../common/ncp_adapter/ncp_tlv" project_relative_path="ncp_common/ncp_adapter/ncp_tlv" type="c_include"/>
@@ -316,7 +317,6 @@
     </source>
     <source path="system" project_relative_path="source/system" type="c_include">
       <files mask="ncp_system.h"/>
-      <files mask="ncp_cmd_system.h"/>
       <files mask="ncp_glue_system.h"/>
     </source>
     <source path="system" project_relative_path="source/system" type="src">
@@ -329,7 +329,6 @@
     </source>
     <source path="wifi" project_relative_path="source/wifi" type="c_include">
       <files mask="ncp_wifi.h"/>
-      <files mask="ncp_cmd_wifi.h"/>
       <files mask="ncp_glue_wifi.h"/>
     </source>
     <source path="wifi" project_relative_path="source/wifi" type="c_include" config="true">
@@ -345,7 +344,6 @@
     <source path="ble" project_relative_path="source/ble" type="c_include">
       <files mask="ncp_ble.h"/>
       <files mask="ncp_glue_ble.h"/>
-      <files mask="ncp_cmd_ble.h"/>
     </source>
     <source path="ble" project_relative_path="source/ble" type="c_include" config="true">
       <files mask="app_bluetooth_config.h"/>
@@ -403,11 +401,14 @@
     <source path="." project_relative_path="source" type="c_include" config="true">
       <files mask="FreeRTOSConfig.h"/>
     </source>
-    <source path="." project_relative_path="source" type="c_include">
+    <source path="../common" project_relative_path="ncp_common" type="c_include">
       <files mask="ncp_cmd_common.h"/>
+      <files mask="ncp_cmd_system.h"/>
+      <files mask="ncp_cmd_wifi.h"/>
+      <files mask="ncp_cmd_ble.h"/>
       <files mask="app_notify.h"/>
     </source>
-    <source path="." project_relative_path="source" type="src">
+    <source path="../common" project_relative_path="ncp_common" type="src">
       <files mask="ncp_glue_common.c"/>
       <files mask="app_notify.c"/>
     </source>

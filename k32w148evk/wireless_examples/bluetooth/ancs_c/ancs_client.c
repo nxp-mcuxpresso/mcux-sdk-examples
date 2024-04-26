@@ -3491,7 +3491,7 @@ static void AmsClient_ProcessRcNotification(deviceId_t   deviceId,
 
     commandBitmask = 0x0000U;
 
-    for (idx = 0x00U; idx <= rcDataLength; idx++)
+    for (idx = 0x00U; idx < rcDataLength; idx++)
     {
         commandBitmask |= (0x01U << pRcData[idx]);
     }

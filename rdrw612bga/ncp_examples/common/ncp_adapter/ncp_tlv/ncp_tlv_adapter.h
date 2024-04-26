@@ -12,24 +12,6 @@
 #include "ncp_adapter.h"
 #include "fsl_os_abstraction.h"
 
-#ifdef __GNUC__
-/** Structure packing begins */
-#define NCP_TLV_PACK_START
-/** Structure packeing end */
-#define NCP_TLV_PACK_END __attribute__((packed))
-#else /* !__GNUC__ */
-#ifdef PRAGMA_PACK
-/** Structure packing begins */
-#define NCP_TLV_PACK_START
-/** Structure packeing end */
-#define NCP_TLV_PACK_END
-#else /* !PRAGMA_PACK */
-/** Structure packing begins */
-#define NCP_TLV_PACK_START __packed
-/** Structure packing end */
-#define NCP_TLV_PACK_END
-#endif /* PRAGMA_PACK */
-#endif /* __GNUC__ */
 
 #define TLV_CMD_HEADER_LEN      12
 #define TLV_CMD_SIZE_LOW_BYTES  4
@@ -37,7 +19,6 @@
 #define TLV_CMD_BUF_SIZE        4096
 #define NCP_CHKSUM_LEN          4
 #define NCP_MAX_CLASS           5
-
 
 
 #define NCP_GET_PEER_CHKSUM(tlv, tlv_sz)  (*((uint32_t *)((uint8_t *)tlv + tlv_sz)))

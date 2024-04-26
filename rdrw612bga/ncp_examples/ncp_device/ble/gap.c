@@ -1746,7 +1746,8 @@ void set_filter_list(const uint8_t *data, uint16_t len)
     (void)bt_le_filter_accept_list_clear();
 
     for (int i = 0; i < cmd->cnt; i++) {
-        err = bt_le_filter_accept_list_add(&cmd->addr[i]);
+        bt_addr_le_t *le_addr = (bt_addr_le_t *) &cmd->addr;
+        err = bt_le_filter_accept_list_add(&le_addr[i]);
         if (err < 0) {
             status = NCP_BRIDGE_CMD_RESULT_ERROR;
         }

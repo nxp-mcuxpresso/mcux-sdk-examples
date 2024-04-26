@@ -177,7 +177,7 @@ static uint8_t discover_func(struct bt_conn *conn,
             ev.svc_id = CENTRAL_HRC_SERVICE_ID;
             ev.status = (err && err != -EALREADY) ? NCP_BRIDGE_CMD_RESULT_ERROR : NCP_BRIDGE_CMD_RESULT_OK;
 
-            ble_bridge_prepare_status(NCP_BRIDGE_EVENT_GATT_SUBSCRIPTION, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *) &ev, sizeof(gatt_ncp_ble_svc_subscription_ev_t));
+            ble_bridge_prepare_status(NCP_BRIDGE_EVENT_GATT_SUBSCRIPTIONED, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *) &ev, sizeof(gatt_ncp_ble_svc_subscription_ev_t));
         }
 
 		return BT_GATT_ITER_STOP;

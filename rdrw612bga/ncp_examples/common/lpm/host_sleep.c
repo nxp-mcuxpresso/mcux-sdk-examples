@@ -24,6 +24,7 @@
 #include "fsl_rtc.h"
 #include "fsl_usart.h"
 #include "fsl_gpio.h"
+#include "fsl_io_mux.h"
 #include "ncp_cmd_wifi.h"
 #include "app_notify.h"
 #ifdef CONFIG_CRC32_HW_ACCELERATE
@@ -216,13 +217,16 @@ status_t host_sleep_pre_cfg(int mode)
         POWER_ClearWakeupStatus(USB_IRQn);
         POWER_EnableWakeup(USB_IRQn);
         CLOCK_AttachClk(kLPOSC_to_MAIN_CLK);
-#else
-#ifdef CONFIG_NCP_UART
+#elif defined(CONFIG_NCP_UART)
         /* Enable RX interrupt. */
         USART_EnableInterrupts(USART0, kUSART_RxLevelInterruptEnable | kUSART_RxErrorInterruptEnable);
         POWER_ClearWakeupStatus(FLEXCOMM0_IRQn);
         POWER_EnableWakeup(FLEXCOMM0_IRQn);
-#endif
+#elif defined(CONFIG_NCP_SPI)
+        SYSCTL0->HWWAKE = 0x10;
+        NVIC_ClearPendingIRQ(WKDEEPSLEEP_IRQn);
+        POWER_ClearWakeupStatus(WKDEEPSLEEP_IRQn);
+        POWER_EnableWakeup(WKDEEPSLEEP_IRQn);
 #endif
         /* Delay UART clock switch after resume from PM2 to avoid UART FIFO read error*/
         POWER_SetPowerSwitchCallback((power_switch_callback_t)host_sleep_pre_hook, NULL,
@@ -256,13 +260,17 @@ void host_sleep_post_cfg(int mode)
         CLOCK_AttachClk(kMAIN_PLL_to_MAIN_CLK);
         POWER_ClearWakeupStatus(USB_IRQn);
         POWER_DisableWakeup(USB_IRQn);
-#else
-#ifdef CONFIG_NCP_UART
+#elif defined(CONFIG_NCP_UART)
         if (POWER_GetWakeupStatus(FLEXCOMM0_IRQn))
             wakeup_by = WAKEUP_BY_USART0;
         POWER_ClearWakeupStatus(FLEXCOMM0_IRQn);
         POWER_DisableWakeup(FLEXCOMM0_IRQn);
-#endif
+#elif defined(CONFIG_NCP_SPI)
+        if (POWER_GetWakeupStatus(WKDEEPSLEEP_IRQn))
+            wakeup_by = WKDEEPSLEEP_IRQn;
+        POWER_ClearWakeupStatus(WKDEEPSLEEP_IRQn);
+        POWER_DisableWakeup(WKDEEPSLEEP_IRQn);
+        SYSCTL0->HWWAKE = 0x0;
 #endif
         POWER_SetPowerSwitchCallback(NULL, NULL, NULL, NULL);
 #ifndef CONFIG_NCP_SDIO
@@ -283,8 +291,7 @@ void host_sleep_post_cfg(int mode)
     if(global_power_config.subscribe_evt && 2 != mode)        
         app_notify_event(APP_EVT_MCU_SLEEP_EXIT, APP_EVT_REASON_SUCCESS, NULL, 0);
 #else
-    if(global_power_config.subscribe_evt)        
-        app_notify_event(APP_EVT_MCU_SLEEP_EXIT, APP_EVT_REASON_SUCCESS, NULL, 0);
+    app_notify_event(APP_EVT_MCU_SLEEP_EXIT, APP_EVT_REASON_SUCCESS, NULL, 0);
 #endif
     PRINTF("Exit low power mode\r\n");
 }
@@ -306,6 +313,13 @@ void host_sleep_dump_wakeup_source()
     {
         PRINTF("Woken up by SDIO\r\n");
         POWER_ClearWakeupStatus(SDU_IRQn);
+    }
+#endif
+#ifdef CONFIG_NCP_SPI
+    else if (POWER_GetWakeupStatus(WKDEEPSLEEP_IRQn))
+    {
+        PRINTF("Woken up by SPI DMA DEEPSLEEP\r\n");
+        POWER_ClearWakeupStatus(WKDEEPSLEEP_IRQn);
     }
 #endif
 }
@@ -369,7 +383,7 @@ static void wlan_suspend_task(void *argv)
         if (wlan_is_started())
         {
             if(wlan_hs_send_event(HOST_SLEEP_EXIT, NULL) != 0)
-            return;
+                break;
         }
         host_sleep_post_cfg(suspend_mode);
         if (suspend_mode == 1)
@@ -390,6 +404,10 @@ static void wlan_suspend_task(void *argv)
 int wlan_config_suspend_mode(int mode)
 {
     suspend_mode = mode;
+    
+    if (!wlan_is_manual)
+        return -WM_FAIL;
+    
     (void)os_event_notify_put(wlan_suspend_thread);
     return WM_SUCCESS;
 }
@@ -504,6 +522,27 @@ int hostsleep_init(void)
     }
     ncp_gpio_init();
     return 1;
+}
+
+void ncp_notify_host_gpio_init(void)
+{
+    /* Define the init structure for the output switch pin */
+    gpio_pin_config_t notify_output_pin = {
+        kGPIO_DigitalOutput,
+        1
+    };
+
+    IO_MUX_SetPinMux(IO_MUX_GPIO27);
+    GPIO_PortInit(GPIO, 0);
+    /* Init output GPIO. Default level is high */
+    /* After wakeup from PM3, usb device use GPIO 27 to notify usb host */
+    GPIO_PinInit(GPIO, 0, NCP_NOTIFY_HOST_GPIO, &notify_output_pin);
+}
+
+void ncp_notify_host_gpio_output(void)
+{
+    /* Toggle GPIO to notify usb host that device is ready for re-enumeration */
+    GPIO_PortToggle(GPIO, 0, NCP_NOTIFY_HOST_GPIO_MASK);
 }
 
 #endif /* CONFIG_HOST_SLEEP */

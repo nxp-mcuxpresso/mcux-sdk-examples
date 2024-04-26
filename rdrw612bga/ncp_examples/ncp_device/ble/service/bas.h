@@ -23,6 +23,9 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+void bas_disconnect(void *args);
+
+void bas_connect(void *args);
 
 /* register battery service */
 void peripheral_bas_task(void *args);

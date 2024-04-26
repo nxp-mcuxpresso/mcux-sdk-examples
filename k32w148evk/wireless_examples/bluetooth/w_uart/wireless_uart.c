@@ -718,7 +718,6 @@ static void BleApp_ConnectionCallback
             /* Unsubscribe client */
             (void)Wus_Unsubscribe();
             (void)Bas_Unsubscribe(&mBasServiceConfig, peerDeviceId);
-            (void)TM_Stop((timer_handle_t)mBatteryMeasurementTimerId);
 
             /* Reset Service Discovery to be sure*/
             BleServDisc_Stop(peerDeviceId);
@@ -729,6 +728,10 @@ static void BleApp_ConnectionCallback
             /* mark device id as invalid */
             maPeerInformation[peerDeviceId].deviceId = gInvalidDeviceId_c;
             mcActiveConnNo--;
+            if(mcActiveConnNo == 0U)
+            {
+                (void)TM_Stop((timer_handle_t)mBatteryMeasurementTimerId);
+            }
             /* recalculate minimum of maximum MTU's of all connected devices */
             mAppUartBufferSize                       = mAppUartBufferSize_c;
 
@@ -763,6 +766,17 @@ static void BleApp_ConnectionCallback
             {
                 BleApp_StateMachineHandler(peerDeviceId,
                                            mAppEvt_PairingComplete_c);
+            }
+        }
+        break;
+
+        case gConnEvtAuthenticationRejected_c:
+        {
+            if (mGapRole == gGapCentral_c)
+            {
+                /* Start Pairing Procedure 
+                 * peripheral could have lost the bond */
+                (void)Gap_Pair(peerDeviceId, &gPairingParameters);
             }
         }
         break;
@@ -870,8 +884,40 @@ static void BleApp_GattClientCallback
     switch (procedureResult)
     {
         case gGattProcError_c:
-            BleApp_StateMachineHandler(serverDeviceId, mAppEvt_GattProcError_c);
+        {
+            switch (error)
+            {
+#if (defined(gAppUsePairing_d) && (gAppUsePairing_d == 1U))
+                case gGattConnectionSecurityRequirementsNotMet_c:
+                {
+                    if (mGapRole == gGapCentral_c)
+                    {
+                        /* Start Pairing Procedure in central role
+                         * local bond could be lost */
+                        (void)Gap_Pair(serverDeviceId, &gPairingParameters);
+                    }
+                    else if (mGapRole == gGapPeripheral_c)
+                    {
+                        /* Send Security Request in peripheral role
+                         * peer bond could be lost */
+                        (void)Gap_SendPeripheralSecurityRequest(serverDeviceId, &gPairingParameters);
+                    }
+                    else
+                    {
+                        /* No action required */
+                    }
+                }
+                break;
+#endif /* gAppUsePairing_d */
+
+                default:
+                {
+                    BleApp_StateMachineHandler(serverDeviceId, mAppEvt_GattProcError_c);
+                }
+                break;
+            }
             break;
+        }
 
         case gGattProcSuccess_c:
             BleApp_StateMachineHandler(serverDeviceId, mAppEvt_GattProcComplete_c);

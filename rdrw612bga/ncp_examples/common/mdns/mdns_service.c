@@ -270,6 +270,11 @@ int app_mdns_deregister_iface(void *iface)
     {
         if (mdns_srv_config[i].iface_handle == iface)
         {
+            if (g_request_id != 0xff)
+            {
+                app_mdns_search_stop(g_request_id);
+            }
+
             app_mdns_remove_service_iface(&mdns_srv_config[i]);
 
             mdns_srv_config[i].iface_handle = NULL;
@@ -921,6 +926,7 @@ static void check_ip_addr(mdns_result_t *mdns_result_list, mdns_result_t *mdns_r
         if (temp == NULL)
         {
             mdns_result_list->ip_addr = app_add_ip_addr(mdns_res);
+            mdns_result_list->ip_count++;
             return;
         }
 
@@ -933,6 +939,7 @@ static void check_ip_addr(mdns_result_t *mdns_result_list, mdns_result_t *mdns_r
             if (temp->next == NULL)
             {
                 temp->next = app_add_ip_addr(mdns_res);
+                mdns_result_list->ip_count++;
                 return;
             }
 

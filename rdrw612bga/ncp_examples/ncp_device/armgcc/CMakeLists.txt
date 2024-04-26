@@ -53,12 +53,10 @@ include(${ProjDirPath}/config.cmake)
 add_executable(${MCUX_SDK_PROJECT_NAME} 
 "${ProjDirPath}/../system/ncp_system.h"
 "${ProjDirPath}/../system/ncp_system.c"
-"${ProjDirPath}/../system/ncp_cmd_system.h"
 "${ProjDirPath}/../system/ncp_glue_system.h"
 "${ProjDirPath}/../system/ncp_glue_system.c"
 "${ProjDirPath}/../wifi/ncp_wifi.c"
 "${ProjDirPath}/../wifi/ncp_wifi.h"
-"${ProjDirPath}/../wifi/ncp_cmd_wifi.h"
 "${ProjDirPath}/../wifi/ncp_glue_wifi.c"
 "${ProjDirPath}/../wifi/ncp_glue_wifi.h"
 "${ProjDirPath}/../wifi/wifi_config.h"
@@ -69,7 +67,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../ble/ncp_ble.h"
 "${ProjDirPath}/../ble/ncp_glue_ble.c"
 "${ProjDirPath}/../ble/ncp_glue_ble.h"
-"${ProjDirPath}/../ble/ncp_cmd_ble.h"
 "${ProjDirPath}/../ble/app_bluetooth_config.h"
 "${ProjDirPath}/../ble/service/gatt_server/peripheral_hrs.c"
 "${ProjDirPath}/../ble/service/gatt_server/peripheral_hrs.h"
@@ -92,10 +89,13 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../main.c"
 "${ProjDirPath}/../app_config.h"
 "${ProjDirPath}/../FreeRTOSConfig.h"
-"${ProjDirPath}/../ncp_cmd_common.h"
-"${ProjDirPath}/../ncp_glue_common.c"
-"${ProjDirPath}/../app_notify.h"
-"${ProjDirPath}/../app_notify.c"
+"${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/ncp_cmd_common.h"
+"${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/ncp_cmd_system.h"
+"${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/ncp_cmd_wifi.h"
+"${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/ncp_cmd_ble.h"
+"${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/ncp_glue_common.c"
+"${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/app_notify.h"
+"${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/app_notify.c"
 "${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/ncp_adapter/ncp_adapter.h"
 "${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/ncp_adapter/ncp_tlv/ncp_tlv_adapter.c"
 "${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/ncp_adapter/ncp_tlv/ncp_tlv_adapter.h"
@@ -177,6 +177,7 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/../system
     ${ProjDirPath}/../wifi
     ${SdkRootDirPath}/examples/rdrw612bga
+    ${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common
     ${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/ncp_adapter
     ${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/ncp_adapter/ncp_intf
     ${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/ncp_adapter/ncp_tlv
