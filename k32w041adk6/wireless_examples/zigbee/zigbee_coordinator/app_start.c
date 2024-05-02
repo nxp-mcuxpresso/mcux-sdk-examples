@@ -1,5 +1,5 @@
 /*
-* Copyright 2019, 2023 NXP
+* Copyright 2019, 2023-2024 NXP
 * All rights reserved.
 *
 * SPDX-License-Identifier: BSD-3-Clause
@@ -14,7 +14,7 @@
 #include "app_main.h"
 #include "zigbee_config.h"
 #include "PDM.h"
-#include "app_uart.h"
+#include "app_console.h"
 #include "app_coordinator.h"
 #include "bdb_api.h"
 #include "app_leds.h"
@@ -23,7 +23,6 @@
 #include "MDI_Programmer.h"
 #endif
 #ifdef NCP_HOST
-#include <pthread.h>
 #include "dbg.h"
 #include "serial_link_ctrl.h"
 #endif
@@ -55,7 +54,7 @@ static void APP_vCheckMtgState(void);
 /****************************************************************************/
 /***        Exported Functions                                            ***/
 /****************************************************************************/
-extern uint8* ZPS_pu8AplZdoGetVsOUI(void);
+
 /****************************************************************************
  *
  * NAME: vAppMain
@@ -69,26 +68,15 @@ extern uint8* ZPS_pu8AplZdoGetVsOUI(void);
  ****************************************************************************/
 void vAppMain(void)
 {
-	APP_vLedInitialise();
-	APP_vInitResources();
+#ifndef NCP_HOST
+    APP_vLedInitialise();
+#endif
+    APP_vInitResources();
     APP_vInitZigbeeResources();
     APP_vInitialise();
     BDB_vStart();
 }
 
-#ifdef NCP_HOST
-extern void HOST_TO_JN_UART_ISR(void);
-pthread_mutex_t host_to_jn_uart_isr_lock = PTHREAD_MUTEX_INITIALIZER;
-
-void *SL_thread_routine(void *param)
-{
-    while (1 != 0)
-    {
-        HOST_TO_JN_UART_ISR();
-    }
-    return NULL;
-}
-#endif
 /****************************************************************************/
 /***        Local Functions                                               ***/
 /****************************************************************************/
@@ -112,16 +100,11 @@ static void APP_vInitialise(void)
 #ifdef ENABLE_SUBG_IF
     APP_vCheckMtgState();
 #endif
-    UART_vInit();
+    APP_vConsoleInitialise();
 #ifdef NCP_HOST
     (void)eSL_SerialInit();
     DBG_vPrintf(TRUE, "serial Link initialised\n");
 
-    pthread_t cThread;
-    if (pthread_create(&cThread, NULL, SL_thread_routine, NULL))
-    {
-        perror("ERROR creating SL thread.");
-    }
     extern uint8_t rxDmaTimerHandle;
     ZTIMER_eStart(rxDmaTimerHandle, 100);
 #endif

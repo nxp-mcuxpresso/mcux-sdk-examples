@@ -111,7 +111,7 @@
           <value>-fno-common</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c  -ffunction-sections  -fdata-sections  -ffreestanding  -fno-builtin -include "${ProjDirPath}/source/app_preinclude.h"</value>
+          <value>--param=min-pagesize=0  -c  -ffunction-sections  -fdata-sections  -ffreestanding  -fno-builtin -include "${ProjDirPath}/source/app_preinclude.h"</value>
         </option>
         <option id="com.crt.advproject.link.fpu" type="enum">
           <value>com.crt.advproject.link.fpu.none</value>
@@ -132,10 +132,10 @@
           <value>--defsym=__app_stated_size__=294912</value>
           <value>--defsym=__app_id__=0</value>
           <value>--defsym=__rtos__=1</value>
+          <value>--no-warn-rwx-segments</value>
         </option>
         <option id="gnu.c.link.option.libs" type="stringList">
           <value>m</value>
-          <value>c</value>
           <value>gcc</value>
           <value>nosys</value>
         </option>

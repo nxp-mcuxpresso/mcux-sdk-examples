@@ -26,7 +26,7 @@
 #ifndef NCP_HOST
 #include "MicroSpecific.h"
 #endif
-#include "app_uart.h"
+#include "app_console.h"
 #if defined(FSL_RTOS_FREE_RTOS) &&  DEBUG_STACK_DEPTH
 #include "FreeRTOS.h"
 #include "task.h"
@@ -93,7 +93,7 @@ char * strings[] = {
 void APP_taskAtSerial( void)
 {
     uint8_t u8RxByte;
-    if ( UART_bBufferReceive ( &u8RxByte ) ) {
+    if ( APP_bConsoleReceiveChar ( &u8RxByte ) ) {
         vProcessRxChar ( u8RxByte);
     }
 }

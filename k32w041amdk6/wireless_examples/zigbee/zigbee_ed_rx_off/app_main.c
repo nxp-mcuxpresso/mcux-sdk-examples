@@ -14,7 +14,7 @@
 #include "ZTimer.h"
 #include "zigbee_config.h"
 #include "fsl_gpio.h"
-#include "RNG_Interface.h"
+#include "app_crypto.h"
 #include "SecLib.h"
 #ifdef K32W1480_SERIES
 #include "fwk_platform.h"
@@ -108,7 +108,7 @@ void main_task (uint32_t parameter)
         TMR_Init();
 #endif
 
-        RNG_Init();
+        CRYPTO_u8RandomInit();
         SecLib_Init();
         MEM_Init();
 

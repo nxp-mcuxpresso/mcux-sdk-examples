@@ -1,5 +1,5 @@
 /*
-* Copyright 2019 NXP
+* Copyright 2019,2024 NXP
 * All rights reserved.
 *
 * SPDX-License-Identifier: BSD-3-Clause
@@ -26,6 +26,10 @@
 #include "zigbee_config.h"
 #include "zps_gen.h"
 #include "app_ota_server.h"
+#ifdef NCP_HOST
+#include "app_common_ncp.h"
+#endif
+
 /****************************************************************************/
 /***        Macro Definitions                                             ***/
 /****************************************************************************/

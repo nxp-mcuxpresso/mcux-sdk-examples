@@ -1,5 +1,5 @@
 /*
-* Copyright 2019,2023 NXP
+* Copyright 2019, 2023 NXP
 * All rights reserved.
 *
 * SPDX-License-Identifier: BSD-3-Clause
@@ -57,7 +57,6 @@ extern void *_stack_low_water_mark;
 /***        Exported Functions                                            ***/
 /****************************************************************************/
 extern void OSA_TimeInit(void);
-extern uint8* ZPS_pu8AplZdoGetVsOUI(void);
 /****************************************************************************
  *
  * NAME: vAppMain

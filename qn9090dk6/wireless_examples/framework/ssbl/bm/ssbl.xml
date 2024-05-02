@@ -16,10 +16,11 @@
     <definition extID="platform.drivers.reset.QN9090"/>
     <definition extID="platform.drivers.sha.QN9090"/>
     <definition extID="platform.drivers.spifi.QN9090"/>
+    <definition extID="platform.drivers.wwdt.QN9090"/>
     <definition extID="iar"/>
     <definition extID="mcuxpresso"/>
   </externalDefinitions>
-  <example id="qn9090dk6_ssbl" name="ssbl" category="wireless_examples/framework/ssbl/bm" dependency="platform.drivers.aes.QN9090 platform.drivers.jn_iocon.QN9090 platform.drivers.sha.QN9090 platform.drivers.spifi.QN9090 platform.drivers.reset.QN9090 platform.drivers.jn_romapi.QN9090 platform.drivers.clock.QN9090 platform.drivers.common.QN9090 platform.drivers.jn_flash.QN9090 platform.drivers.lpc_gpio.QN9090 device.QN9090_startup.QN9090 device.QN9090_CMSIS.QN9090 platform.Include_core_cm4.QN9090 platform.Include_common.QN9090">
+  <example id="qn9090dk6_ssbl" name="ssbl" category="wireless_examples/framework/ssbl/bm" dependency="platform.drivers.aes.QN9090 platform.drivers.jn_iocon.QN9090 platform.drivers.sha.QN9090 platform.drivers.spifi.QN9090 platform.drivers.reset.QN9090 platform.drivers.jn_romapi.QN9090 platform.drivers.wwdt.QN9090 platform.drivers.clock.QN9090 platform.drivers.common.QN9090 platform.drivers.jn_flash.QN9090 platform.drivers.lpc_gpio.QN9090 device.QN9090_startup.QN9090 device.QN9090_CMSIS.QN9090 platform.Include_core_cm4.QN9090 platform.Include_common.QN9090">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -62,7 +63,7 @@
           <value>-fno-common</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-ffat-lto-objects  -c  -ffunction-sections  -fdata-sections  -ffreestanding  -fno-builtin</value>
+          <value>-ffat-lto-objects  --param=min-pagesize=0  -c  -ffunction-sections  -fdata-sections  -ffreestanding  -fno-builtin</value>
         </option>
         <option id="com.crt.advproject.gcc.lto" type="boolean">
           <value>true</value>
@@ -85,6 +86,7 @@
           <value>--gc-sections</value>
           <value>-print-memory-usage</value>
           <value>-Map="${BuildArtifactFileBaseName}.map"</value>
+          <value>--no-warn-rwx-segments</value>
         </option>
         <option id="com.crt.advproject.gcc.exe.release.option.debugging.level" type="enum">
           <value>gnu.c.debugging.level.none</value>

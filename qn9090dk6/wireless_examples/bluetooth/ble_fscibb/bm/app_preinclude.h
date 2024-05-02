@@ -106,6 +106,10 @@
  /*! Number of connections supported by the application */
 #define gAppMaxConnections_c            1
 
+/*! Enable use of pairing procedure : mandatory in the case of BLE FSCI Black Box so 
+ * as to support ECP256 fast operations */
+#define gAppUsePairing_d                1
+
 /*! *********************************************************************************
  * 	Framework Configuration
  ********************************************************************************** */

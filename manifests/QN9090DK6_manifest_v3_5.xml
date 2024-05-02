@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_QN9090DK6" name="QN9090DK6" brief="This is SDK version 2.6.13 manifest file. It describes the content of the QN9090DK6 and additional settings for tools that support SDK version 2.6.13" format_version="3.5" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.5.xsd">
-  <!--Timestamp (UTC): 2023-11-20 10:45:03.802482-->
-  <!--This manifest is generated based on sdk repo commit: 2c7e8a07c859775fe402a066863eced0af2878bf-->
+<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_QN9090DK6" name="QN9090DK6" brief="This is SDK version 2.6.14 manifest file. It describes the content of the QN9090DK6 and additional settings for tools that support SDK version 2.6.14" format_version="3.5" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.5.xsd">
+  <!--Timestamp (UTC): 2024-04-30 11:59:26.429011-->
+  <!--This manifest is generated based on sdk repo commit: 892e44084a7afa594f7e245abdb9da2fc5198c58-->
   <defines>
     <define name="CPU_$|package|" value=""/>
     <define name="CPU_$|package|_$|core|" value=""/>
@@ -9,7 +9,7 @@
   <externalDefinitions>
     <definition extID="uwbfinderv3"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK2613" name="MCUXpressoSDK2613" version="2.6.13"/>
+  <ksdk id="MCUXpressoSDK2614" name="MCUXpressoSDK2614" version="2.6.14"/>
   <compilers>
     <compiler id="compiler_gcc" name="gcc" type="gcc"/>
   </compilers>

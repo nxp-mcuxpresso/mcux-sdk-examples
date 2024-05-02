@@ -1,5 +1,5 @@
 /*
-* Copyright 2019,2023 NXP
+* Copyright 2019, 2023 NXP
 * All rights reserved.
 *
 * SPDX-License-Identifier: BSD-3-Clause
@@ -26,7 +26,7 @@
 #include "zigbee_config.h"
 #include "app_main.h"
 #ifdef LNT_MODE_APP
-#include "RNG_Interface.h"
+#include "app_crypto.h"
 #endif
 #ifdef KPI_MODE_APP
 #include "tp2.h"
@@ -205,7 +205,7 @@ void APP_vBdbCallback(BDB_tsBdbEvent *psBdbEvent)
 #ifdef LNT_MODE_APP
         #define LNT_TIME 1
             extern uint8 u8LntTimerTick;
-            ZTIMER_eStart(u8LntTimerTick, ZTIMER_TIME_SEC((LNT_TIME + (uint8)RND_u32GetRand(0, LNT_TIME))));
+            ZTIMER_eStart(u8LntTimerTick, ZTIMER_TIME_SEC((LNT_TIME + (uint8)CRYPTO_u32RandomGet(0, LNT_TIME))));
             break;
         #undef LNT_TIME
 #endif

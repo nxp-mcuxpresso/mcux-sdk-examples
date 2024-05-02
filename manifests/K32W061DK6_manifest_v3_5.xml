@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_K32W061DK6" name="K32W061DK6" brief="This is SDK version 2.6.13 manifest file. It describes the content of the K32W061DK6 and additional settings for tools that support SDK version 2.6.13" format_version="3.5" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.5.xsd">
-  <!--Timestamp (UTC): 2023-11-20 10:45:10.574437-->
-  <!--This manifest is generated based on sdk repo commit: 2c7e8a07c859775fe402a066863eced0af2878bf-->
+<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_K32W061DK6" name="K32W061DK6" brief="This is SDK version 2.6.14 manifest file. It describes the content of the K32W061DK6 and additional settings for tools that support SDK version 2.6.14" format_version="3.5" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.5.xsd">
+  <!--Timestamp (UTC): 2024-04-30 11:59:37.233328-->
+  <!--This manifest is generated based on sdk repo commit: 892e44084a7afa594f7e245abdb9da2fc5198c58-->
   <defines>
     <define name="CPU_$|package|" value=""/>
     <define name="CPU_$|package|_$|core|" value=""/>
   </defines>
-  <ksdk id="MCUXpressoSDK2613" name="MCUXpressoSDK2613" version="2.6.13"/>
+  <ksdk id="MCUXpressoSDK2614" name="MCUXpressoSDK2614" version="2.6.14"/>
   <compilers>
     <compiler id="compiler_gcc" name="gcc" type="gcc"/>
   </compilers>
@@ -679,14 +679,34 @@ ${load}</script>
             <files mask="zigbee_coordinator_freertos.xml"/>
           </external>
         </example>
+        <example id="k32w061dk6_zigbee_coordinator_r23_bm" name="zigbee_coordinator_r23_bm" brief="The BLE zigbee_coordinator application is a simple demonstration program based on the MCUXpresso SDK.This application implements zigbee_coordinator demo." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/zigbee/zigbee_coordinator/bm" path="examples/k32w061dk6/wireless_examples/zigbee/zigbee_coordinator/bm">
+          <external path="examples/k32w061dk6/wireless_examples/zigbee/zigbee_coordinator/bm" type="xml">
+            <files mask="zigbee_coordinator_r23_bm.xml"/>
+          </external>
+        </example>
+        <example id="k32w061dk6_zigbee_coprocessor_bm" name="zigbee_coprocessor_bm" brief="The BLE zigbee_coprocessor application is a simple demonstration program based on the MCUXpresso SDK.This application implements zigbee_coprocessor demo." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/zigbee/zigbee_coprocessor/bm" path="examples/k32w061dk6/wireless_examples/zigbee/zigbee_coprocessor/bm">
+          <external path="examples/k32w061dk6/wireless_examples/zigbee/zigbee_coprocessor/bm" type="xml">
+            <files mask="zigbee_coprocessor_bm.xml"/>
+          </external>
+        </example>
         <example id="k32w061dk6_zigbee_ed_rx_off_bm" name="zigbee_ed_rx_off_bm" brief="The BLE zigbee_ed_rx_off application is a simple demonstration program based on the MCUXpresso SDK.This application implements Zigbee ed rx  off demo." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/zigbee/zigbee_ed_rx_off/bm" path="examples/k32w061dk6/wireless_examples/zigbee/zigbee_ed_rx_off/bm">
           <external path="examples/k32w061dk6/wireless_examples/zigbee/zigbee_ed_rx_off/bm" type="xml">
             <files mask="zigbee_ed_rx_off_bm.xml"/>
           </external>
         </example>
+        <example id="k32w061dk6_zigbee_ed_rx_off_r23_bm" name="zigbee_ed_rx_off_r23_bm" brief="The BLE zigbee_ed_rx_off application is a simple demonstration program based on the MCUXpresso SDK.This application implements Zigbee ed rx  off demo." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/zigbee/zigbee_ed_rx_off/bm" path="examples/k32w061dk6/wireless_examples/zigbee/zigbee_ed_rx_off/bm">
+          <external path="examples/k32w061dk6/wireless_examples/zigbee/zigbee_ed_rx_off/bm" type="xml">
+            <files mask="zigbee_ed_rx_off_r23_bm.xml"/>
+          </external>
+        </example>
         <example id="k32w061dk6_zigbee_ed_rx_on_bm" name="zigbee_ed_rx_on_bm" brief="The BLE zigbee_ed_rx_on application is a simple demonstration program based on the MCUXpresso SDK.This application implements Zigbee ed rx on demo." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/zigbee/zigbee_ed_rx_on/bm" path="examples/k32w061dk6/wireless_examples/zigbee/zigbee_ed_rx_on/bm">
           <external path="examples/k32w061dk6/wireless_examples/zigbee/zigbee_ed_rx_on/bm" type="xml">
             <files mask="zigbee_ed_rx_on_bm.xml"/>
+          </external>
+        </example>
+        <example id="k32w061dk6_zigbee_ed_rx_on_r23_bm" name="zigbee_ed_rx_on_r23_bm" brief="The BLE zigbee_ed_rx_on application is a simple demonstration program based on the MCUXpresso SDK.This application implements Zigbee ed rx on demo." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/zigbee/zigbee_ed_rx_on/bm" path="examples/k32w061dk6/wireless_examples/zigbee/zigbee_ed_rx_on/bm">
+          <external path="examples/k32w061dk6/wireless_examples/zigbee/zigbee_ed_rx_on/bm" type="xml">
+            <files mask="zigbee_ed_rx_on_r23_bm.xml"/>
           </external>
         </example>
         <example id="k32w061dk6_zigbee_router_bm" name="zigbee_router_bm" brief="The BLE zigbee_router application is a simple demonstration program based on the MCUXpresso SDK.This application implements a zigbee router features." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/zigbee/zigbee_router/bm" path="examples/k32w061dk6/wireless_examples/zigbee/zigbee_router/bm">
@@ -697,6 +717,11 @@ ${load}</script>
         <example id="k32w061dk6_zigbee_router_freertos" name="zigbee_router_freertos" brief="The BLE zigbee_router application is a simple demonstration program based on the MCUXpresso SDK.This application implements a zigbee router features." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/zigbee/zigbee_router/freertos" path="examples/k32w061dk6/wireless_examples/zigbee/zigbee_router/freertos">
           <external path="examples/k32w061dk6/wireless_examples/zigbee/zigbee_router/freertos" type="xml">
             <files mask="zigbee_router_freertos.xml"/>
+          </external>
+        </example>
+        <example id="k32w061dk6_zigbee_router_r23_bm" name="zigbee_router_r23_bm" brief="The BLE zigbee_router application is a simple demonstration program based on the MCUXpresso SDK.This application implements a zigbee router features." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/zigbee/zigbee_router/bm" path="examples/k32w061dk6/wireless_examples/zigbee/zigbee_router/bm">
+          <external path="examples/k32w061dk6/wireless_examples/zigbee/zigbee_router/bm" type="xml">
+            <files mask="zigbee_router_r23_bm.xml"/>
           </external>
         </example>
       </examples>
@@ -4031,91 +4056,7 @@ ${load}</script>
         <files mask="JN-UG-3133-Core-Utilities.pdf"/>
         <files mask="JN-UG-3134-Zigbee3-Green-Power.pdf"/>
         <files mask="JN-UG-3135-Encyption-Tool.pdf"/>
-      </source>
-      <source path="core/docs/wireless/Zigbee/html/ZigBee Demo Applications User's Guide/ZBDAUG_files" target_path="src" type="doc">
-        <files mask="GUID-020F0A13-2BEF-47D7-ADEC-2B6BA9E2DDED.html"/>
-        <files mask="GUID-26B9923E-035A-4343-A108-FCFF74B35742.html"/>
-        <files mask="GUID-28968A64-692E-4FEC-84C5-472E54C8E774.html"/>
-        <files mask="GUID-2AF8980E-95E6-418D-996B-7166952540B6.html"/>
-        <files mask="GUID-41D29831-7239-423C-98E3-C19188052735.html"/>
-        <files mask="GUID-464B96F6-5827-484D-A0AB-68A421DF66BC.html"/>
-        <files mask="GUID-4F2CA7FA-66B9-477B-BA45-CBA9EA741A7A.html"/>
-        <files mask="GUID-50254D54-A349-40BA-9B96-EC625A6C30E7.html"/>
-        <files mask="GUID-50A93FF6-80A0-433A-902B-9387DB9EA778.html"/>
-        <files mask="GUID-5906402D-95E4-4FDE-9451-0B8CF4B4A981.html"/>
-        <files mask="GUID-75BED7E2-73A3-4708-AD30-B80DF3E743D9.html"/>
-        <files mask="GUID-7F7C12EB-3530-4DEA-ADD8-BA527854EC19.html"/>
-        <files mask="GUID-86F72119-6559-49DF-BCAE-E2F9D47ACA27.html"/>
-        <files mask="GUID-9189E7FF-1D3C-4137-BB16-7FC9995BA90F.html"/>
-        <files mask="GUID-921F07CA-F108-4146-8416-2A51D21695E8.html"/>
-        <files mask="GUID-962067B4-0A6A-430C-8FD2-834928E64548.html"/>
-        <files mask="GUID-A0250451-15EB-468F-978E-C5B5D66C8BFE.html"/>
-        <files mask="GUID-A63E6510-EC16-47C1-A162-C53AA73E8420.html"/>
-        <files mask="GUID-A6871A6F-F1DC-4134-97E7-7C1FBCBCE3FD.html"/>
-        <files mask="GUID-ACE054B3-51A1-47F2-B45F-9C0BBC564012.html"/>
-        <files mask="GUID-ADD3FDF8-9DF8-4831-B5E4-B15FEC5522F3.html"/>
-        <files mask="GUID-B01F29F9-6BDE-48E3-9C90-65CF6D707515.html"/>
-        <files mask="GUID-B266D4C8-709E-453C-9DA2-47D5D182A9F3.html"/>
-        <files mask="GUID-B4CAFEAC-DC0A-42F1-9545-D752EB9650DE.html"/>
-        <files mask="GUID-BA7A93A0-19D5-422E-B1FB-0BECA4B453AF.html"/>
-        <files mask="GUID-C61E753B-480D-4E12-B431-16B1D63190A0.html"/>
-        <files mask="GUID-C9417C39-F189-4415-8612-0C9FC46721DC.html"/>
-        <files mask="GUID-CA1FE15C-2D6D-4CD7-928E-F9F7C687C716.html"/>
-        <files mask="GUID-CF1235D0-2B03-4877-B3B1-1969142DB0D3.html"/>
-        <files mask="GUID-CFC63DB4-5816-4054-A073-340FD2867169.html"/>
-        <files mask="GUID-D26D676C-0AB9-4F53-AB69-4C556C625D80.html"/>
-        <files mask="GUID-D388E0CD-E455-4215-AE46-8A85B2E5CB5F.html"/>
-        <files mask="GUID-D4C1217C-123A-41C5-9E5B-4733887E59EB.html"/>
-        <files mask="GUID-DCC96BB8-4779-45FD-A632-89BEB87196C6.html"/>
-        <files mask="GUID-DD09309A-E2C9-4FC1-897C-7604BAA8B296.html"/>
-        <files mask="GUID-E1FEC103-1627-4BFA-B7A5-889D74A62D04.html"/>
-        <files mask="GUID-E333D1A2-4834-49B9-B7FB-BFC048BD4F2D.html"/>
-        <files mask="GUID-E9A70D79-B03F-4541-B9BA-73346E2163D5.html"/>
-        <files mask="GUID-EACDDA81-AC01-4126-AEE3-CDBB95287F8C.html"/>
-        <files mask="GUID-EB0B2DE4-0A20-47AA-BFFD-C3DAB198B120.html"/>
-        <files mask="GUID-FE8E17D4-C222-4E87-9C7E-7C3DAF6CEE3F.html"/>
-        <files mask="GUID-FF1D5079-6F5D-4B5B-926B-9ED657D09B11.html"/>
-        <files mask="commonltr.css"/>
-        <files mask="commonrtl.css"/>
-        <files mask="header.html"/>
-        <files mask="indexlist.css"/>
-        <files mask="indexpage.html"/>
-        <files mask="search.html"/>
-        <files mask="start.html"/>
-        <files mask="stylesheet.css"/>
-        <files mask="toc.html"/>
-        <files mask="webhelplayout.css"/>
-      </source>
-      <source path="core/docs/wireless/Zigbee/html/ZigBee Demo Applications User's Guide/ZBDAUG_files" target_path="src" type="image">
-        <files mask="GUID-EB94873E-DB8F-4A4C-AAB2-4830FA5D6028-high.jpg"/>
-        <files mask="ISHPUBLILLUSTRATIONMISSING-low.jpg"/>
-        <files mask="book.png"/>
-        <files mask="email.png"/>
-        <files mask="minus.png"/>
-        <files mask="next.png"/>
-        <files mask="plus.png"/>
-        <files mask="previous.png"/>
-        <files mask="print.png"/>
-        <files mask="space.png"/>
-        <files mask="tab_active.png"/>
-        <files mask="topic.png"/>
-      </source>
-      <source path="core/docs/wireless/Zigbee/html/ZigBee Demo Applications User's Guide/ZBDAUG_files" target_path="src" type="script">
-        <files mask="WebhelpMenu.js"/>
-        <files mask="docnavigation.js"/>
-        <files mask="index.js"/>
-        <files mask="search.js"/>
-        <files mask="searchdata.js"/>
-        <files mask="searchlabels.js"/>
-        <files mask="toc.js"/>
-      </source>
-      <source path="core/docs/wireless/Zigbee/html/ZigBee Demo Applications User's Guide/ZBDAUG_files" target_path="src" type="other">
-        <files mask="dita.list"/>
-        <files mask="dita.xml.properties"/>
-        <files mask="favicon.ico"/>
-      </source>
-      <source path="core/docs/wireless/Zigbee/html/ZigBee Demo Applications User's Guide" target_path="src" type="doc">
-        <files mask="index.html"/>
+        <files mask="ZigBee Demo Applications User's Guide.pdf"/>
       </source>
     </component>
     <component id="platform.drivers.aes.K32W061" name="aes" brief="AES Driver" version="2.0.2" full_name="AES Driver" devices="K32W061 K32W041" dependency="device.K32W061_CMSIS.K32W061 platform.Include_common.K32W061 platform.Include_core_cm4.K32W061 platform.drivers.clock.K32W061 platform.drivers.common.K32W061 platform.drivers.reset.K32W061" device_cores="cm4_K32W041 cm4_K32W061" user_visible="true" type="driver">
@@ -5812,12 +5753,138 @@ ${load}</script>
     <component id="middleware.wireless.zigbee.platform.k32w0.K32W061" name="Wireless zigbee examples" version="1.0.0" full_name="Wireless zigbee platform" devices="K32W061 K32W041" user_visible="false" type="middleware">
       <source path="middleware/wireless/zigbee/platform/K32W0/platform" target_path="platform/source" type="src">
         <files mask="buttons.c"/>
+        <files mask="console.c"/>
+        <files mask="crypto.c"/>
+        <files mask="leds.c"/>
+        <files mask="timer.c"/>
+        <files mask="uart.c"/>
+        <files mask="wdog.c"/>
+      </source>
+      <source path="middleware/wireless/zigbee/platform" target_path="platform/include" type="c_include">
+        <files mask="zb_platform.h"/>
+      </source>
+    </component>
+    <component id="middleware.wireless.zigbee.platform.ncp_host.K32W061" name="Wireless zigbee NCP Host examples" version="1.0.0" full_name="Wireless zigbee platform" devices="K32W061 K32W041" user_visible="false" type="middleware">
+      <source path="middleware/wireless/zigbee/platform/NCP_HOST/framework/Common" target_path="platform/include" type="c_include">
+        <files mask="MicroSpecific.h"/>
+        <files mask="app.h"/>
+        <files mask="dbg.h"/>
+        <files mask="glue.h"/>
+        <files mask="jendefs.h"/>
+      </source>
+      <source path="middleware/wireless/zigbee/platform/NCP_HOST/framework/OtaSupport/Interface" target_path="platform/include" type="c_include">
+        <files mask="OtaSupport.h"/>
+      </source>
+      <source path="middleware/wireless/zigbee/platform/NCP_HOST/framework/OtaSupport/Source/Posix" target_path="platform/source" type="src">
+        <files mask="OtaSupport_adapter.c"/>
+      </source>
+      <source path="middleware/wireless/zigbee/platform/NCP_HOST/framework/PDM/Interface" target_path="platform/include" type="c_include">
+        <files mask="PDM.h"/>
+      </source>
+      <source path="middleware/wireless/zigbee/platform/NCP_HOST/framework/PDM/Source/Posix" target_path="platform/source" type="src">
+        <files mask="PDM_adapter.c"/>
+      </source>
+      <source path="middleware/wireless/zigbee/platform/NCP_HOST/framework/PDUM/Include" target_path="platform/include" type="c_include">
+        <files mask="pdum_apl.h"/>
+        <files mask="pdum_common.h"/>
+        <files mask="pdum_nwk.h"/>
+      </source>
+      <source path="middleware/wireless/zigbee/platform/NCP_HOST/framework/PDUM/Source" target_path="platform/source" type="src">
+        <files mask="pdum.c"/>
+        <files mask="pdum_apl.c"/>
+        <files mask="pdum_dbg.c"/>
+        <files mask="pdum_nwk.c"/>
+      </source>
+      <source path="middleware/wireless/zigbee/platform/NCP_HOST/framework/PDUM/Source" target_path="platform/source" type="c_include">
+        <files mask="pdum_private.h"/>
+      </source>
+      <source path="middleware/wireless/zigbee/platform/NCP_HOST/framework/PWRM/Include" target_path="platform/include" type="c_include">
+        <files mask="pwrm.h"/>
+      </source>
+      <source path="middleware/wireless/zigbee/platform/NCP_HOST/ieee-802.15.4" target_path="platform/include" type="c_include">
+        <files mask="AppApi.h"/>
+        <files mask="MMAC.h"/>
+        <files mask="MiniMac.h"/>
+        <files mask="MiniMac_Pib.h"/>
+        <files mask="mac_pib.h"/>
+        <files mask="mac_sap.h"/>
+        <files mask="tsv_pub.h"/>
+      </source>
+      <source path="middleware/wireless/zigbee/platform/NCP_HOST/misc" target_path="platform/include" type="c_include">
+        <files mask="fsl_component_generic_list.h"/>
+      </source>
+      <source path="middleware/wireless/zigbee/platform/NCP_HOST/platform/Posix" target_path="platform/source" type="src">
+        <files mask="console.c"/>
+        <files mask="crypto.c"/>
+        <files mask="glue.c"/>
         <files mask="leds.c"/>
         <files mask="timer.c"/>
         <files mask="uart.c"/>
       </source>
-      <source path="middleware/wireless/zigbee/platform" target_path="platform/include" type="c_include">
-        <files mask="zb_platform.h"/>
+    </component>
+    <component id="middleware.wireless.zb_examples_collaterals.K32W061" name="Wireless zigbee examples collaterals" version="1.0.0" full_name="Wireless zigbee examples collaterals" devices="K32W061 K32W041" user_visible="false" type="middleware">
+      <source path="middleware/wireless/zigbee/examples/zb_common" target_path="zigbee/zigbee_coordinator/Linux/SL/inc" type="c_include">
+        <files mask="app_common_ncp.h"/>
+        <files mask="serial_link_cmds_ctrl.h"/>
+        <files mask="serial_link_ctrl.h"/>
+      </source>
+      <source path="middleware/wireless/zigbee/examples/zb_common" target_path="zigbee/zigbee_coordinator/Linux/SL/src" type="src">
+        <files mask="app_zigbee_config_ncp.c"/>
+        <files mask="serial_link_cmds_ctrl.c"/>
+        <files mask="serial_link_ctrl.c"/>
+      </source>
+    </component>
+    <component id="middleware.wireless.zb_linux_coordinator.K32W061" name="Wireless zigbee Linux coordinator" version="1.0.0" full_name="Wireless zigbee Linux coordinator" devices="K32W061 K32W041" user_visible="false" type="middleware">
+      <source path="middleware/wireless/zigbee/ZigbeeCommon/Include" target_path="zigbee/zigbee_coordinator/Linux/inc" type="c_include">
+        <files mask="portmacro_linux.h"/>
+      </source>
+      <source path="middleware/wireless/zigbee/ZigbeeCommon/Source" target_path="zigbee/zigbee_coordinator/Linux/SL/src" type="src">
+        <files mask="port_linux.c"/>
+      </source>
+      <source path="middleware/wireless/zigbee/examples/zb_common" target_path="zigbee/zigbee_coordinator/Linux/SL/src" type="src">
+        <files mask="serial_link_ctrl_linux.c"/>
+      </source>
+      <source path="middleware/wireless/zigbee/examples/zigbee_coordinator/build_linux" target_path="zigbee/zigbee_coordinator/Linux/build" type="doc">
+        <files mask="CMakeLists.txt"/>
+      </source>
+      <source path="middleware/wireless/zigbee/examples/zigbee_coordinator/build_linux" target_path="zigbee/zigbee_coordinator/Linux/build" type="script">
+        <files mask="CreatePDUMLib.cmake"/>
+      </source>
+      <source path="middleware/wireless/zigbee/examples/zigbee_coordinator/build_linux" target_path="zigbee/zigbee_coordinator/Linux/build" type="other">
+        <files mask="README.md"/>
+      </source>
+      <source path="middleware/wireless/zigbee/examples/zigbee_coordinator/src" target_path="zigbee/zigbee_coordinator/Linux/inc" type="c_include">
+        <files mask="app_coordinator.h"/>
+        <files mask="app_main.h"/>
+        <files mask="app_serial_commands.h"/>
+        <files mask="app_zcl_task.h"/>
+        <files mask="bdb_options.h"/>
+        <files mask="zcl_options.h"/>
+        <files mask="zigbee_config.h"/>
+      </source>
+      <source path="middleware/wireless/zigbee/examples/zigbee_coordinator/src" target_path="zigbee/zigbee_coordinator/Linux/src" type="src">
+        <files mask="app_coordinator_ncp.c"/>
+        <files mask="app_main.c"/>
+        <files mask="app_serial_commands.c"/>
+        <files mask="app_start.c"/>
+        <files mask="app_zcl_task.c"/>
+      </source>
+      <source path="middleware/wireless/zigbee/examples/zigbee_coordinator/src/linux" target_path="zigbee/zigbee_coordinator/Linux/src" type="c_include">
+        <files mask="linux_glue.h"/>
+        <files mask="pdum_gen.h"/>
+      </source>
+      <source path="middleware/wireless/zigbee/examples/zigbee_coordinator/src/linux" target_path="zigbee/zigbee_coordinator/Linux/src" type="src">
+        <files mask="pdum_gen_glue.c"/>
+      </source>
+    </component>
+    <component id="middleware.wireless.zb_serial_link.K32W061" name="Wireless zigbee serial link" version="1.0.0" full_name="Wireless zigbee serial link" devices="K32W061 K32W041" user_visible="false" type="middleware">
+      <source path="middleware/wireless/zigbee/examples/zb_common" target_path="zigbee/SerialLink/Source" type="src">
+        <files mask="serial_link_cmds_wkr.c"/>
+        <files mask="serial_link_wkr.c"/>
+      </source>
+      <source path="middleware/wireless/zigbee/examples/zb_common" target_path="zigbee/SerialLink/Include" type="c_include">
+        <files mask="serial_link_cmds_wkr.h"/>
+        <files mask="serial_link_wkr.h"/>
       </source>
     </component>
     <component id="middleware.wireless.zigbee_BuildConfig.K32W061" name="wireless zigbee BuildConfig#IDE will show this as component name" version="1.0.0" full_name="wireless zigbee BuildConfig" devices="K32W061 K32W041" user_visible="false" type="middleware">
@@ -6592,6 +6659,26 @@ ${load}</script>
         <files mask="libZPSIPAN.a"/>
         <files mask="libZPSMAC_Mini_SERIAL.a"/>
         <files mask="libZPSNWK.a"/>
+        <files mask="libZPSTSV.a"/>
+      </source>
+    </component>
+    <component id="middleware.wireless.zigbee_core_libs_ZED_r23.K32W061" name="wireless zigbee core lib#IDE will show this as component name" version="1.0.0" full_name="wireless zigbee core lib r23" devices="K32W061 K32W041" user_visible="false" type="middleware">
+      <source toolchain="mcuxpresso" path="middleware/wireless/zigbee/platform/K32W0/libs" target_path="libs" type="lib">
+        <files mask="libZPSAPL_R23.a"/>
+        <files mask="libZPSGP.a"/>
+        <files mask="libZPSIPAN.a"/>
+        <files mask="libZPSMAC_Mini_SOC.a"/>
+        <files mask="libZPSNWK_ZED_R23.a"/>
+        <files mask="libZPSTSV.a"/>
+      </source>
+    </component>
+    <component id="middleware.wireless.zigbee_core_libs_r23.K32W061" name="wireless zigbee core lib#IDE will show this as component name" version="1.0.0" full_name="wireless zigbee core lib r23" devices="K32W061 K32W041" user_visible="false" type="middleware">
+      <source toolchain="mcuxpresso" path="middleware/wireless/zigbee/platform/K32W0/libs" target_path="libs" type="lib">
+        <files mask="libZPSAPL_R23.a"/>
+        <files mask="libZPSGP.a"/>
+        <files mask="libZPSIPAN.a"/>
+        <files mask="libZPSMAC_Mini_SOC.a"/>
+        <files mask="libZPSNWK_R23.a"/>
         <files mask="libZPSTSV.a"/>
       </source>
     </component>

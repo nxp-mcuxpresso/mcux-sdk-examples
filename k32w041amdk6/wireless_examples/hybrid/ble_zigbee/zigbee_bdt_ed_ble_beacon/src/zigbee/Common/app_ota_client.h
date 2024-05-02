@@ -15,13 +15,13 @@
 /***        Macro Definitions                                             ***/
 /****************************************************************************/
 #ifndef OTA_DEMO_TIMINGS
-#define OTA_INIT_TIME_MS RND_u32GetRand(  2000,    7000) /* Time to wait after initialisation */
-#define OTA_BUSY_TIME_MS RND_u32GetRand(  2000,    3000) /* Time to wait when OTA state machine is busy */
-#define OTA_IDLE_TIME_MS RND_u32GetRand(900000, 1800000) /* Time to wait when OTA state machine is idle (15-30m) */
+#define OTA_INIT_TIME_MS CRYPTO_u32RandomGet(  2000,    7000) /* Time to wait after initialisation */
+#define OTA_BUSY_TIME_MS CRYPTO_u32RandomGet(  2000,    3000) /* Time to wait when OTA state machine is busy */
+#define OTA_IDLE_TIME_MS CRYPTO_u32RandomGet(900000, 1800000) /* Time to wait when OTA state machine is idle (15-30m) */
 #else
-#define OTA_INIT_TIME_MS RND_u32GetRand(  2000,    7000) /* Time to wait after initialisation */
-#define OTA_BUSY_TIME_MS RND_u32GetRand(  2000,    3000) /* Time to wait when OTA state machine is busy */
-#define OTA_IDLE_TIME_MS RND_u32GetRand(30000,  60000) /* Time to wait when OTA state machine is idle (30s-1m) */
+#define OTA_INIT_TIME_MS CRYPTO_u32RandomGet(  2000,    7000) /* Time to wait after initialisation */
+#define OTA_BUSY_TIME_MS CRYPTO_u32RandomGet(  2000,    3000) /* Time to wait when OTA state machine is busy */
+#define OTA_IDLE_TIME_MS CRYPTO_u32RandomGet(30000,  60000) /* Time to wait when OTA state machine is idle (30s-1m) */
 #endif
 
 #define MAX_SERVER_EPs 2

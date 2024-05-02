@@ -246,9 +246,6 @@ void APP_SetMaxTxPower();
 #undef HIGH_TX_PWR_LIMIT
 #define HIGH_TX_PWR_LIMIT 15	/* dBm */
 
-#ifdef NCP_HOST
-PUBLIC uint32_t GetTickCountMs(void);
-#endif
 /****************************************************************************/
 /***        External Variables                                            ***/
 /****************************************************************************/

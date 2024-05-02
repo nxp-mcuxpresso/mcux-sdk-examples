@@ -1,5 +1,5 @@
 /*
-* Copyright 2019,2023 NXP
+* Copyright 2019, 2023 NXP
 * All rights reserved.
 *
 * SPDX-License-Identifier: BSD-3-Clause
@@ -19,7 +19,7 @@
 #include "app_ota_client.h"
 #endif
 #include "dbg.h"
-#include "RNG_Interface.h"
+#include "app_crypto.h"
 #include "SecLib.h"
 #ifndef K32W1480_SERIES
 #include "MemManager.h"
@@ -77,7 +77,6 @@ static void vAppWakeup(void);
 /***        Exported Functions                                            ***/
 /****************************************************************************/
 extern void OSA_TimeInit(void);
-extern uint8* ZPS_pu8AplZdoGetVsOUI(void);
 
 #ifdef OT_ZB_SUPPORT
 extern void App_ZB_WakeCallBack(void);
@@ -165,6 +164,13 @@ void vAppPreSleep(void)
 #else
      /* Save LED state before deinit */
      led_states = APP_u8GetLedStates();
+
+     /*
+      * Since we want the lowest current in LP, turn off the LEDs and
+      * restore them at wake-up.
+      */
+     APP_vSetLed(APP_E_LEDS_LED_1, APP_E_LED_OFF);
+     APP_vSetLed(APP_E_LEDS_LED_2, APP_E_LED_OFF);
 #endif
 
 }
@@ -181,7 +187,7 @@ void vAppWakeup(void)
 
         vAppApiRestoreMacSettings();
         TMR_Init();
-        RNG_Init();
+        CRYPTO_u8RandomInit();
         SecLib_Init();
         MEM_Init();
         vAppMain(FALSE);

@@ -19,14 +19,10 @@
 #if defined(NCP_COPRO)
 #include "serial_link_cmds_wkr.h"
 #endif
-#if !(defined(K32W1480_SERIES) || defined(NCP_HOST) || defined(NCP_COPRO))
-#include "fsl_rng.h"
-#endif
+#include "fsl_common.h"
 #include "bdb_DeviceCommissioning.h"
+#include "zb_platform.h"
 
-#ifdef NCP_HOST
-#include "dbg.h"
-#endif
 uint8_t u8TimerZCL;
 
 #if !defined(NCP_COPRO)
@@ -36,13 +32,6 @@ tszQueue sAPP_msgZpsEvents;
 tszQueue APP_msgSerialRx;
 #endif
 
-#ifdef NCP_HOST
-uint8_t rxDmaTimerHandle;
-
-PRIVATE uint8 au8PdumBufferPool[ZB_BUFFER_SIZE] __attribute__ ((aligned (4)));
-
-PUBLIC void APP_vRxDmaTimerCallbackFnct(void *p_arg);
-#endif
 /****************************************************************************
 *
 * NAME: APP_vStopZigbeeTimers
@@ -80,7 +69,7 @@ void APP_vRunZigbee(void)
 #endif
 }
 
-#if !(defined(NCP_COPRO)) && !(defined(NCP_HOST))
+#if !(defined(NCP_COPRO))
 /****************************************************************************
  *
  * NAME: APP_vInitZigbeeResources
@@ -126,31 +115,8 @@ void APP_vInitZigbeeResources(void)
 
     PDUM_vInit();
 }
-#elif (defined(NCP_HOST))
-/****************************************************************************
- *
- * NAME: APP_vInitZigbeeResources
- *
- * DESCRIPTION:
- * Main  execution loop
- *
- * RETURNS:
- * Never
- *
- ****************************************************************************/
-void APP_vInitZigbeeResources(void)
-{
-    ZTIMER_eOpen(&u8TimerZCL,           APP_cbTimerZclTick ,    NULL, ZTIMER_FLAG_PREVENT_SLEEP);
-    ZQ_vQueueCreate(&APP_msgBdbEvents,	BDB_QUEUE_SIZE,          sizeof(BDB_tsZpsAfEvent),    NULL);
-    ZTIMER_eOpen(&rxDmaTimerHandle, APP_vRxDmaTimerCallbackFnct, NULL, ZTIMER_FLAG_PREVENT_SLEEP);
-
-    uint16_t u16NoOfBuffers;
-    bPdumInit(au8PdumBufferPool, APDU_PAYLOAD_SIZE, NUM_OF_APDU_BUFFERS,  sizeof(au8PdumBufferPool), &u16NoOfBuffers);
-    DBG_vPrintf(TRUE, "Allocated %d buffers in poll\n", u16NoOfBuffers);
-}
 #endif
 
-#ifndef NCP_HOST
 /* Out Of Band Commissioning */
 static struct dev_info app_dev_info;
 static bool_t valid_dev_info;
@@ -169,15 +135,13 @@ static void APP_dev_info_init()
 
         if (!bGetInstallCode(app_dev_info.instCode))
         {
-#if !(defined(K32W1480_SERIES))
-            trng_config_t trng_config;
-
+            int i;
             /* Generate random install code */
-            TRNG_GetDefaultConfig(&trng_config);
-            TRNG_Init(RNG, &trng_config);
-            TRNG_GetRandomData(RNG, app_dev_info.instCode, ZB_OOB_KEY_SIZE);
-            TRNG_Deinit(RNG);
-#endif
+            for (i = 0; i < ZB_OOB_KEY_SIZE / sizeof(uint32_t); i++)
+            {
+                *(((uint32_t *)&app_dev_info.instCode[0]) + i) =
+                        __builtin_bswap32(zbPlatCryptoRandom256Get());
+            }
         }
         app_dev_info.crc = ZPS_u16crc(app_dev_info.instCode, ZB_OOB_KEY_SIZE);
         valid_dev_info = TRUE;
@@ -324,7 +288,6 @@ void APP_SetMaxTxPower()
 	if (CHIP_IS_HITXPOWER_CAPABLE())
 		ZPS_eMacPlmeSet(PHY_PIB_ATTR_TX_POWER, HIGH_TX_PWR_LIMIT);
 }
-#endif
 /****************************************************************************/
 /***        END OF FILE                                                   ***/
 /****************************************************************************/

@@ -59,6 +59,10 @@ extern jmp_buf  *exception_buf;
 
 #define SSBL_SIZE 0x2000
 
+#ifndef SSBL_VERSION
+#define SSBL_VERSION 0
+#endif
+
 #define THUMB_ENTRY(x)                 (void*)((x) | 1)
 
 #define ROM_API_aesDeinit              THUMB_ENTRY(0x03001460)
@@ -70,6 +74,8 @@ extern jmp_buf  *exception_buf;
 #define ROM_API_BOOT_ResumeGetCfgWord  THUMB_ENTRY(0x03000ecc)
 #endif
 
+#define SHA256_SIZE_BYTES 32U
+
 /* Avoid using Fro_ClkSel_t that is being moved from fsl_clock.c to fsl_clock.h*/
 typedef enum
 {
@@ -79,6 +85,15 @@ typedef enum
     FRO64M_ENA_SHIFT,
     FRO96M_ENA_SHIFT,
 } FroClkSelBit_t;
+
+/* If OTA went wrong, prevent device to go into ISP and simply reset */
+#ifndef DISABLE_ISP
+#define DISABLE_ISP                    0
+#endif
+
+#ifndef USE_WATCHDOG
+#define USE_WATCHDOG                   0
+#endif
 
 #ifndef EXTERNAL_FLASH_DATA_OTA
 #define EXTERNAL_FLASH_DATA_OTA        0
@@ -98,10 +113,10 @@ typedef enum
  */
 typedef struct
 {
-    uint32_t extra_data_magic;        /*!< Identifier for extra section descriptor */
-    uint32_t extra_data_lma;        /*!< Extra data load machine address - typically External flash address*/
-    uint32_t extra_data_size;       /*!< Extra data size in Bytes */
-    uint8_t extra_data_hash[32];    /*!< Computed Hash of the extra data - 256 Bits (32 Bytes)*/
+    uint32_t extra_data_magic;                  /*!< Identifier for extra section descriptor */
+    uint32_t extra_data_lma;                    /*!< Extra data load machine address - typically External flash address*/
+    uint32_t extra_data_size;                   /*!< Extra data size in Bytes */
+    uint8_t extra_data_hash[SHA256_SIZE_BYTES]; /*!< Computed Hash of the extra data - 256 Bits (32 Bytes)*/
 } EXTRA_DATA_HEADER_T;
 
 #if defined(gOTAUseCustomOtaEntry) && (gOTAUseCustomOtaEntry == 1)
@@ -114,6 +129,25 @@ typedef struct
 
 #define ENABLE_FROCLK(x) PMC->FRO192M |= (1 << (PMC_FRO192M_DIVSEL_SHIFT+(x)))
 
+/*!
+ * @brief Simple hash verification flag (disabled by default).
+ *
+ * When secure boot is not used, this flag can be set to append a hash at the end of the image.
+ * The hash will be used in the simple hash verification mechanism, which ensures data integrity
+ * of the OTA image.The image hash will be placed right after the boot block data.
+ *
+ * The simple hash verification mechanism has the following responsabilities:
+ *   - check integrity of the OTA image (it can be app or SSBL) before copying.
+ *   - redundant check of the internal flash after the image was copied.
+ */
+#ifndef gSimpleHashVerification
+#define gSimpleHashVerification 0
+#endif
+
+#if USE_WATCHDOG
+#include "fsl_wwdt.h"
+#define WWDT_TIMEOUT_S 5 /* Set Watchdog timeout value to 5s */
+#endif
 /************************************************************************************
 *************************************************************************************
 * Private definitions
@@ -121,6 +155,7 @@ typedef struct
 ************************************************************************************/
 
 typedef enum {
+    StatusOta_simple_hash_error = -11,
     StatusOta_incorrect_extra_data = -10,
     StatusOta_fatal_error = -9,
     StatusOta_downgrade_error = -8,
@@ -188,6 +223,9 @@ const static BOOT_SetImageAddress_t BOOT_SetImageAddress   = (BOOT_SetImageAddre
 const static BOOT_SetCfgWord_t BOOT_SetCfgWord             = (BOOT_SetCfgWord_t)ROM_API_BOOT_SetCfgWord;
 const static BOOT_ResumeGetCfgWord_t BOOT_ResumeGetCfgWord = (BOOT_ResumeGetCfgWord_t)ROM_API_BOOT_ResumeGetCfgWord;
 #endif
+
+/* The SSBL version will be embedded in the binary, in .ro_version section. */
+volatile uint32_t ssblVersion __attribute__((section(".ro_version"))) = SSBL_VERSION;
 
 /******************************************************************************
 *******************************************************************************
@@ -512,6 +550,86 @@ static otaUtilsResult_t ssbl_RAM_WriteData(uint16_t nbBytes, uint32_t address, u
 }
 #endif
 
+#if EXTERNAL_FLASH_DATA_OTA || gSimpleHashVerification
+static otaUtilsResult_t ssbl_ComputeHash(uint32_t start_address,
+                                         uint32_t total_size,
+                                         uint8_t * cache_buffer,
+                                         uint16_t cache_size,
+                                         uint8_t * out_hash,
+                                         OtaUtils_ReadBytes pFunctionRead,
+                                         void * pReadFunctionParam,
+                                         OtaUtils_EEPROM_ReadData pFunctionEepromRead)
+{
+    otaUtilsResult_t res = gOtaUtilsError_c;
+    uint32_t nbPageToRead = total_size/cache_size;
+    uint32_t lastPageNbByteNumber = total_size - (nbPageToRead*cache_size);
+    uint32_t i = 0;
+
+    do
+    {
+        sha_ctx_t hash_ctx;
+        size_t sha_sz = SHA256_SIZE_BYTES;
+        /* Initialise SHA clock do not call SHA_ClkInit(SHA0) because the HAL pulls in too much code  */
+        SYSCON->AHBCLKCTRLSET[1] = SYSCON_AHBCLKCTRL1_HASH_MASK;
+        if (SHA_Init(SHA0, &hash_ctx, kSHA_Sha256) != kStatus_Success)
+        {
+            break;
+        }
+
+        for (i = 0; i < nbPageToRead; i++)
+        {
+            if (pFunctionRead(cache_size, start_address + (i*cache_size), cache_buffer, pReadFunctionParam, pFunctionEepromRead) != gOtaUtilsSuccess_c)
+            {
+                break;
+            }
+            if (SHA_Update(SHA0, &hash_ctx, cache_buffer, cache_size) != kStatus_Success)
+            {
+                break;
+            }
+        }
+
+        /* Read bytes located on the last page */
+        if (pFunctionRead(lastPageNbByteNumber, start_address + (i*cache_size), cache_buffer, pReadFunctionParam, pFunctionEepromRead) != gOtaUtilsSuccess_c)
+        {
+            break;
+        }
+        if (SHA_Update(SHA0, &hash_ctx, cache_buffer, lastPageNbByteNumber) != kStatus_Success)
+        {
+            break;
+        }
+        if (SHA_Finish(SHA0,  &hash_ctx, out_hash, &sha_sz) != kStatus_Success)
+        {
+            break;
+        }
+        /* Compare with the computed Hash */
+        res = gOtaUtilsSuccess_c;
+    } while (0);
+    SYSCON->AHBCLKCTRLCLR[1] =  SYSCON_AHBCLKCTRL1_HASH_MASK; /* equivalent to SHA_ClkDeinit(SHA0) */
+
+    return res;
+}
+
+static otaUtilsResult_t ssbl_VerifyHash(uint8_t *hash, uint8_t *expected_hash)
+{
+    otaUtilsResult_t res = gOtaUtilsSuccess_c;
+
+    size_t sha_sz = SHA256_SIZE_BYTES;
+    while (sha_sz)
+    {
+        if (*hash != *expected_hash)
+        {
+            res = gOtaUtilsError_c;
+            break;
+        }
+        expected_hash++;
+        hash++;
+        sha_sz--;
+    }
+
+    return res;
+}
+#endif // EXTERNAL_FLASH_DATA_OTA || gSimpleHashVerification
+
 #if EXTERNAL_FLASH_DATA_OTA
 static otaUtilsResult_t ssbl_ComputeExtraDataHash(uint32_t p_extra_data_addr,
                                                   uint32_t extra_data_size,
@@ -521,63 +639,102 @@ static otaUtilsResult_t ssbl_ComputeExtraDataHash(uint32_t p_extra_data_addr,
                                                   OtaUtils_EEPROM_ReadData pFunctionEepromRead)
 {
     otaUtilsResult_t res = gOtaUtilsError_c;
-    uint32_t nbPageToRead = extra_data_size/EXTRA_BUFFER_SHA_LENGTH;
-    uint32_t lastPageNbByteNumber = extra_data_size - (nbPageToRead*EXTRA_BUFFER_SHA_LENGTH);
-    uint32_t i = 0;
 
     do
     {
         uint8_t pageContent[EXTRA_BUFFER_SHA_LENGTH];
-        uint8_t digest[32];
-        sha_ctx_t hash_ctx;
-        size_t sha_sz = 32;
-        /* Initialise SHA clock do not call SHA_ClkInit(SHA0) because the HAL pulls in too much code  */
-        SYSCON->AHBCLKCTRLSET[1] = SYSCON_AHBCLKCTRL1_HASH_MASK;
-        if (SHA_Init(SHA0, &hash_ctx, kSHA_Sha256) != kStatus_Success)
+        uint8_t digest[SHA256_SIZE_BYTES];
+
+        res = ssbl_ComputeHash(p_extra_data_addr,
+                               extra_data_size,
+                               &pageContent[0],
+                               (uint16_t)EXTRA_BUFFER_SHA_LENGTH,
+                               &digest[0],
+                               pFunctionRead,
+                               pReadFunctionParam,
+                               pFunctionEepromRead);
+        if (gOtaUtilsSuccess_c != res)
         {
             break;
         }
-        for (i=0; i<nbPageToRead; i++)
+
+        res = ssbl_VerifyHash(&digest[0], p_computed_hash);
+    } while (0);
+
+    return res;
+}
+#endif
+
+#if gSimpleHashVerification
+static StatusOta_t ssbl_VerifySimpleHash(uint32_t img_addr_ota,
+                                         uint32_t img_size_ota,
+                                         uint8_t *p_expected_hash,
+                                         OtaUtils_ReadBytes pFunctionRead)
+{
+    StatusOta_t err = StatusOta_ok;
+    otaUtilsResult_t result = gOtaUtilsError_c;
+    uint8_t page_content_ota[FLASH_PAGE_SIZE];
+    uint8_t digest[SHA256_SIZE_BYTES];
+
+    /* Compute hash of image */
+    do
+    {
+        TRY
         {
-            if (pFunctionRead(sizeof(pageContent),  p_extra_data_addr+(i*EXTRA_BUFFER_SHA_LENGTH), &pageContent[0], pReadFunctionParam, pFunctionEepromRead) != gOtaUtilsSuccess_c)
+            result = ssbl_ComputeHash(img_addr_ota,
+                                img_size_ota,
+                                &page_content_ota[0],
+                                (uint16_t)FLASH_PAGE_SIZE,
+                                &digest[0],
+                                pFunctionRead,
+                                NULL,
+                                ssbl_EEPROM_ReadData);
+            if (gOtaUtilsSuccess_c != result)
             {
-            break;
-            }
-            if (SHA_Update(SHA0, &hash_ctx, (const uint8_t*)pageContent, EXTRA_BUFFER_SHA_LENGTH) != kStatus_Success)
-            {
-            break;
+                RAISE_ERROR(err, StatusOta_simple_hash_error);
             }
         }
-        /* Read bytes located on the last page */
-        if (pFunctionRead(lastPageNbByteNumber,  p_extra_data_addr+(i*EXTRA_BUFFER_SHA_LENGTH), &pageContent[0], pReadFunctionParam, pFunctionEepromRead) != gOtaUtilsSuccess_c)
+        CATCH(BUS_EXCEPTION)
         {
-        break;
+            RAISE_ERROR(err, StatusOta_bus_fault);
         }
-        if (SHA_Update(SHA0, &hash_ctx, (const uint8_t*)pageContent, lastPageNbByteNumber) != kStatus_Success)
+        YRT
+
+        result = ssbl_VerifyHash(&digest[0], p_expected_hash);
+        if (gOtaUtilsSuccess_c != result)
         {
-        break;
-        }
-        if (SHA_Finish(SHA0,  &hash_ctx, &digest[0], &sha_sz) != kStatus_Success)
-        {
-        break;
-        }
-        /* Compare with the computed Hash */
-        res = gOtaUtilsSuccess_c;
-        void *p_hash = &digest[0];
-        while (sha_sz)
-        {
-            if ( *((uint8_t *)p_hash) != *((uint8_t *)p_computed_hash))
-            {
-                res = gOtaUtilsError_c;
-                break;
-            }
-            p_computed_hash = (uint8_t* )p_computed_hash+1;
-            p_hash = (uint8_t* )p_hash+1;
-            sha_sz--;
+            RAISE_ERROR(err, StatusOta_simple_hash_error);
         }
     } while (0);
-    SYSCON->AHBCLKCTRLCLR[1] =  SYSCON_AHBCLKCTRL1_HASH_MASK; /* equivalent to SHA_ClkDeinit(SHA0) */
-    return res;
+
+    return err;
+}
+
+static bool_t ssbl_ValidateImageWithSimpleHash(uint32_t img_addr_ota, OtaUtils_ReadBytes pFunction_read, uint8_t *p_param)
+{
+    StatusOta_t err = StatusOta_ok;
+    IMG_HEADER_T img_header_ota;
+    BOOT_BLOCK_T boot_block_ota;
+    uint8_t expected_hash[SHA256_SIZE_BYTES];
+
+    do
+    {
+        TRY
+        {
+            pFunction_read(sizeof(IMG_HEADER_T), img_addr_ota, (uint8_t *)&img_header_ota, p_param, ssbl_EEPROM_ReadData);
+            pFunction_read(sizeof(BOOT_BLOCK_T), img_addr_ota + img_header_ota.bootBlockOffset, (uint8_t *)&boot_block_ota, p_param, ssbl_EEPROM_ReadData);
+            pFunction_read(SHA256_SIZE_BYTES, img_addr_ota + img_header_ota.bootBlockOffset + sizeof(BOOT_BLOCK_T), expected_hash, p_param, ssbl_EEPROM_ReadData);
+        }
+        CATCH(BUS_EXCEPTION)
+        {
+            RAISE_ERROR(err, StatusOta_bus_fault);
+        }
+        YRT
+
+        err = ssbl_VerifySimpleHash(img_addr_ota, boot_block_ota.img_len, expected_hash, pFunction_read);
+    } while (false);
+
+    return err == StatusOta_ok;
 }
 #endif
 
@@ -627,7 +784,6 @@ static uint32_t ssbl_GetValidImageAndFunctions(const image_directory_entry_t *p_
             }
 
         }
-
         /* If OTA partition was not provisioned in PSECT, continue the OTA for backward compatibility */
         if(!ssbl_CheckOtaEntryVsImgDir(img_directory, p_ota_entry->img_base_addr, p_ota_entry->img_nb_pages))
         {
@@ -636,6 +792,15 @@ static uint32_t ssbl_GetValidImageAndFunctions(const image_directory_entry_t *p_
 
         TRY
         {
+#if gSimpleHashVerification
+            /* If simple hash verification fails, stop the OTA. This prevents possible issues
+             * in multi-image context, when one hash verification passes, but another one fails.
+             * The images should only be applied if all the hash verifications pass. */
+            if (!ssbl_ValidateImageWithSimpleHash(p_ota_entry->img_base_addr, *pFunction_read, p_param))
+            {
+                break;
+            }
+#endif
             img_addr_targeted = OtaUtils_ValidateImage(*pFunction_read,
                                               p_param,
                                               ssbl_EEPROM_ReadData,
@@ -685,6 +850,11 @@ static StatusOta_t ssbl_GetOtaFile(const image_directory_entry_t * ota_entry,
     bool_t external_flash_ota = (ota_entry->img_base_addr >= FSL_FEATURE_SPIFI_START_ADDR);
 #endif
 
+#if USE_WATCHDOG
+    /* refresh watchdog before applying OTA entry */
+    WWDT_Refresh(WWDT);
+#endif /* USE_WATCHDOG */
+
     do
     {
         img_addr_targeted = ssbl_GetValidImageAndFunctions(ota_entry, img_directory, zigbee_password, root_cert, &cipher_method, &pFunction_read, p_param, &softKey);
@@ -732,6 +902,11 @@ static StatusOta_t ssbl_GetOtaFile(const image_directory_entry_t * ota_entry,
         {
             internal_img_size += sizeof(ImageSignature_t);
         }
+
+#if gSimpleHashVerification
+        internal_img_size += SHA256_SIZE_BYTES;
+#endif
+
         if (GET_PAGE_MULTIPLE_UP(internal_img_size, FLASH_PAGE_SIZE) > dest_dir_entry->img_nb_pages
                 || internal_img_size > dest_partition_size)
             RAISE_ERROR(err, StatusOta_incorrect_image_struct);
@@ -839,13 +1014,13 @@ static StatusOta_t ssbl_GetOtaFile(const image_directory_entry_t * ota_entry,
 
         /* Erase flash section needed before copying  - take the image partition size from PSECT
          * If image partition size exceed internal flash safe limit, use the size of the received image instead (if fits into the internal flash safe range) */
-        uint8_t * erase_end_addr = (uint8_t*)img_addr_targeted + dest_partition_size -1;
+        uint8_t * erase_end_addr = (uint8_t*)img_addr_targeted + dest_partition_size - 1;
         uint32_t max_modifiable_int_addr = OtaUtils_GetModifiableInternalFlashTopAddress();
         if ((uint32_t)erase_end_addr > max_modifiable_int_addr)
         {
             if(img_addr_targeted + ota_entry->img_nb_pages*FLASH_PAGE_SIZE < max_modifiable_int_addr)
             {
-                erase_end_addr = (uint8_t*)img_addr_targeted + ota_entry->img_nb_pages*FLASH_PAGE_SIZE -1;
+                erase_end_addr = (uint8_t*)img_addr_targeted + ota_entry->img_nb_pages*FLASH_PAGE_SIZE - 1;
             }
             else
             {
@@ -867,11 +1042,11 @@ static StatusOta_t ssbl_GetOtaFile(const image_directory_entry_t * ota_entry,
         }
 
         /* Copying the image */
-        for (int i= 0 ; i < ota_img_nb_pages; i++)
+        for (int i = 0; i < ota_img_nb_pages; i++)
         {
             TRY
             {
-                pFunction_read(sizeof(page_content_ota),  img_addr_ota+(i*FLASH_PAGE_SIZE), &page_content_ota[0], p_param, pFunction_eeprom_read);
+                pFunction_read(sizeof(page_content_ota), img_addr_ota + (i*FLASH_PAGE_SIZE), &page_content_ota[0], p_param, pFunction_eeprom_read);
             }
             CATCH(BUS_EXCEPTION)
             {
@@ -898,6 +1073,31 @@ static StatusOta_t ssbl_GetOtaFile(const image_directory_entry_t * ota_entry,
         if(err != StatusOta_ok_so_far)
             /* Exit on failure - Data already erased and issue occurs during programming - Directly go to ISP without clearing OTA entry */
             RAISE_ERROR(err, StatusOta_fatal_error);
+
+#if gSimpleHashVerification
+        uint8_t expected_hash[SHA256_SIZE_BYTES];
+
+        TRY
+        {
+            uint32_t expected_hash_addr = img_addr_ota + img_header_ota.bootBlockOffset + sizeof(BOOT_BLOCK_T);
+            pFunction_read(SHA256_SIZE_BYTES, expected_hash_addr, expected_hash, p_param, ssbl_EEPROM_ReadData);
+        }
+        CATCH(BUS_EXCEPTION)
+        {
+            RAISE_ERROR(err, StatusOta_bus_fault);
+        }
+        YRT
+
+        /* Do a new simple hash verification to ensure the data was copied correctly in internal flash.
+         * If this verification fails, the device should reset and retry copying the OTA image. */
+        err = ssbl_VerifySimpleHash(img_addr_targeted, internal_img_size - SHA256_SIZE_BYTES, expected_hash, OtaUtils_ReadFromInternalFlash);
+        if (StatusOta_ok != err)
+        {
+            SysReset();
+        }
+
+        err = StatusOta_ok_so_far;
+#endif
 
         if (ssblUpdate)
         {
@@ -1090,6 +1290,72 @@ static uint32_t ssbl_SearchBootableImage(
     return image_addr;
 }
 
+#if USE_WATCHDOG
+
+static void ssbl_InitWatchdog(void)
+{
+    wwdt_config_t wwdt_config;
+    uint32_t wdtFreq;
+
+    /* Enable FRO 32 KHz output */
+    PMC->PDRUNCFG |= PMC_PDRUNCFG_ENA_FRO32K_MASK;
+    SYSCON->OSC32CLKSEL &= ~SYSCON_OSC32CLKSEL_SEL32KHZ_MASK;
+
+    /* Configure WWDT clock */
+    SYSCON->PRESETCTRLSET[0] = SYSCON_PRESETCTRL0_RTC_RST_SHIFT; /* Hold WWDT under reset */
+    SYSCON->WDTCLKDIV |= SYSCON_WDTCLKDIV_HALT_MASK;
+    SYSCON->WDTCLKSEL = kCLOCK_WdtOsc32kClk;
+    SYSCON->WDTCLKDIV |= 0U;
+    SYSCON->WDTCLKDIV &= ~SYSCON_WDTCLKDIV_DIV_MASK;
+    SYSCON->WDTCLKDIV &= ~SYSCON_WDTCLKDIV_HALT_MASK;
+    SYSCON->AHBCLKCTRLSET[0] = SYSCON_AHBCLKCTRLSET0_WWDT_CLK_SET_MASK;
+    SYSCON->PRESETCTRLCLR[0] = SYSCON_PRESETCTRL0_WWDT_RST_SHIFT; /* Release WWDT reset */
+
+    /* enable WDTRESETENABLE bit in PMC CTRL */
+    PMC->CTRL |= PMC_CTRL_WDTRESETENABLE_MASK;
+
+    /* Catch previous WWDT reset */
+    if (WWDT_GetStatusFlags(WWDT) & kWWDT_TimeoutFlag)
+    {
+        WWDT_ClearStatusFlags(WWDT, kWWDT_TimeoutFlag);
+#ifdef WAIT_DEBUG
+        /* Loop here in order to wait for a debugger to be connected
+         * before running the SSBL */
+        volatile int vole = 0;
+        while (!vole);
+#endif
+    }
+
+    /* The WDT divides the input frequency by 4 - Input clock is FRO32M*/
+    wdtFreq = 32768UL/4;
+
+    /*
+     * Set watchdog feed time constant to WWDT_TIMEOUT_S (5s)
+     * Set no watchdog warning
+     * Set no watchdog window
+     */
+    WWDT_GetDefaultConfig(&wwdt_config);
+    wwdt_config.timeoutValue = wdtFreq * WWDT_TIMEOUT_S;
+    wwdt_config.warningValue = 0;
+    wwdt_config.windowValue  = 0xFFFFFF;
+    /* Configure WWDT to reset on timeout */
+    wwdt_config.enableWatchdogReset = true;
+    /* Setup watchdog clock frequency(Hz). */
+    wwdt_config.clockFreq_Hz = 32768UL;
+    WWDT_Init(WWDT, &wwdt_config);
+    NVIC_EnableIRQ(WDT_BOD_IRQn);
+
+    /* First refresh */
+    WWDT_Refresh(WWDT);
+}
+
+static void ssbl_DeinitWatchdog(void)
+{
+    SYSCON->AHBCLKCTRLCLRS[0] = SYSCON_AHBCLKCTRLCLR0_WWDT_CLK_CLR_MASK;
+    SYSCON->WDTCLKSEL = kCLOCK_WdtNoClock;
+}
+#endif /* USE_WATCHDOG */
+
 /******************************************************************************
 *******************************************************************************
 * Main function
@@ -1115,6 +1381,11 @@ int main(void)
 
     EnableBusFault();
     SYSCON->MEMORYREMAP = (SYSCON->MEMORYREMAP & 0xfffff) | 0xe400000;
+
+#if USE_WATCHDOG
+    ssbl_InitWatchdog();
+#endif /* USE_WATCHDOG */
+
     do
     {
         bool update_page0_required = false;
@@ -1327,6 +1598,11 @@ int main(void)
 
             psector_WriteUpdatePage(PSECTOR_PAGE0_PART, (psector_page_t *)&page[0]);
 
+#if USE_WATCHDOG
+            /* Disable the WWDT before reset */
+            ssbl_DeinitWatchdog();
+#endif /* USE_WATCHDOG */
+
             /* Provoke Reset now to force update of image address */
             SysReset();
         }
@@ -1408,6 +1684,11 @@ int main(void)
         /* Reset the vector table back to default */
         SET_SCB_VTOR(image_addr);
 
+#if USE_WATCHDOG
+        /* Disable the WWDT before reset */
+        ssbl_DeinitWatchdog();
+#endif /* USE_WATCHDOG */
+
         /* Load application stack pointer and jump to reset vector */
         asm volatile (
                 "mov sp, %0\n"
@@ -1419,6 +1700,9 @@ int main(void)
 
     if (status < 0)
     {
+#if DISABLE_ISP
+        SysReset();
+#else
         int status = ISP_Entry(ISP_INVALID_EXTENSION);
         if (!status)
         {
@@ -1429,6 +1713,7 @@ int main(void)
             //DBGOUT("No valid Image & ISP disabled - > dead state\n");
             while(1);
         }
+#endif /* DISABLE_ISP */
     }
     return 0;
 }

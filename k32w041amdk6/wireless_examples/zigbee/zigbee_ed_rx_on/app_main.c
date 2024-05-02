@@ -1,5 +1,5 @@
 /*
-* Copyright 2019,2023 NXP
+* Copyright 2019, 2023 NXP
 * All rights reserved.
 *
 * SPDX-License-Identifier: BSD-3-Clause
@@ -14,7 +14,7 @@
 #include "ZTimer.h"
 #include "zigbee_config.h"
 #include "fsl_gpio.h"
-#include "RNG_Interface.h"
+#include "app_crypto.h"
 #include "SecLib.h"
 #ifdef K32W1480_SERIES
 #include "fwk_platform.h"
@@ -99,7 +99,7 @@ void main_task (uint32_t parameter)
         PLATFORM_SwitchToOsc32k();
         PLATFORM_InitTimerManager();
 #endif
-        RNG_Init();
+        CRYPTO_u8RandomInit();
         SecLib_Init();
         MEM_Init();
 

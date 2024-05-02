@@ -28,9 +28,11 @@
 #include "app_router_node.h"
 #endif
 #include "app_common.h"
-#include "rnd_pub.h"
+#include "app_crypto.h"
 #ifndef NCP_HOST
+#ifndef K32W1480_SERIES
 #include "fsl_wwdt.h"
+#endif
 #endif
 #include "base_device.h"
 #include "app_leds.h"
@@ -243,12 +245,22 @@ static uint8_t nbBlob = 0;
     uint8_t u8SrcEp = APP_u8GetDeviceEndpoint();
     eZCL_Status = eOTA_UpdateClientAttributes(u8SrcEp,0);
 #if (defined OTA_INTERNAL_STORAGE)
+#ifndef K32W1480_SERIES
         /* Each Page on JN518x is 512 bytes , Flash size is 632K. Taking into account 31.5K for PDM (start page 1153) and 24K for customer data
          * usable for image is 576K
          * Split it into 2 sections to support OTA, so 288K becomes Max image size
          * Each 288K section would be 576 pages. This could be represented as 32K sectors to keep in line with legacy devices.*/
     uint8_t u8StartSector[1] = {9}; /* So next image starts at 9*32*1024 = 288K offset*/
     u8MaxSectorPerImage = 9 ;  /* 9 *32* 1024 = 288K is the maximum size of the image */
+#else
+    /*
+     * For K32W1 we are using FWK OTA which is using INT storage with relative addresing, meaning that
+     * reading first byte of the image should be accomplished by reading at address 0
+     * and not the absolute address.
+     */
+    uint8_t u8StartSector[1] = {0}; /* So next image starts at 0 offset*/
+    u8MaxSectorPerImage = 15;  /* 15 * 32 * 1024 = 480K is the maximum size of the image */
+#endif
 #else
     uint8 u8StartSector[1] = {0};
     u8MaxSectorPerImage = 146; /* Max allowed size 4096*146 = 584K. Could be changed if default SSBL size/PDM size is changed */
@@ -721,7 +733,7 @@ static uint8_t u8VerifyLinkKey(tsOTA_CallBackMessage *psCallBackMessage)
         uint8_t au8DownloadedLnkKey[0x10];
         uint8_t au8Key[0x10];
 
-        uint32_t u32LnkKeyLocation = (uint32_t)(&(_FlsLinkKey)) - (uint32_t)(&(_flash_start));
+        uint32_t u32LnkKeyLocation = u32OTA_DlLinkKeyOffset();
         #ifdef OTA_INTERNAL_STORAGE
                 /* For JN518x a segment has the same definition as a Page in this implementation
                    1 Page = 32 FLASH words = 32 * 16 = 512 Bytes AHI uses 32K sector sizes

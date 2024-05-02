@@ -126,8 +126,10 @@ extern uint32_t __top_RAM1[];
 * Private memory declarations
 *************************************************************************************
 ************************************************************************************/
+#if !defined(gOTA_UseSecLibAes) || (gOTA_UseSecLibAes == 0)
 static const efuse_LoadUniqueKey_t efuse_LoadUniqueKey     = (efuse_LoadUniqueKey_t) ROM_API_efuse_LoadUniqueKey;
 static const aesLoadKeyFromOTP_t aesLoadKeyFromOTP         = (aesLoadKeyFromOTP_t) ROM_API_aesLoadKeyFromOTP;
+#endif
 static const crc_update_t crc_update                       = (crc_update_t)ROM_API_crc_update;
 static const boot_CheckVectorSum_t boot_CheckVectorSum     = (boot_CheckVectorSum_t)ROM_API_boot_CheckVectorSum;
 static const flash_GetDmaccStatus_t flash_GetDmaccStatus   = (flash_GetDmaccStatus_t) ROM_API_flash_GetDmaccStatus;

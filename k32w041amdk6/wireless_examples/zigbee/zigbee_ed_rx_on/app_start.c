@@ -40,7 +40,6 @@ static void APP_vInitialise(void);
 /****************************************************************************/
 
 extern void *_stack_low_water_mark;
-extern uint8* ZPS_pu8AplZdoGetVsOUI(void);
 
 /****************************************************************************/
 /***        Local Variables                                               ***/

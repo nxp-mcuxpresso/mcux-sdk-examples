@@ -21,6 +21,10 @@
 #define UART                              (USART0)
 #endif
 
+#ifndef UART_DMA
+#define UART_DMA                          (0)
+#endif
+
 /* default BAUD rate 115200 */
 #ifndef UART_BAUD_RATE
 #define UART_BAUD_RATE                     (115200U)

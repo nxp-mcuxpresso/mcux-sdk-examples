@@ -16,10 +16,11 @@
     <definition extID="platform.drivers.reset.K32W061"/>
     <definition extID="platform.drivers.sha.K32W061"/>
     <definition extID="platform.drivers.spifi.K32W061"/>
+    <definition extID="platform.drivers.wwdt.K32W061"/>
     <definition extID="iar"/>
     <definition extID="mcuxpresso"/>
   </externalDefinitions>
-  <example id="k32w061dk6_ssbl" name="ssbl" category="wireless_examples/framework/ssbl/bm" dependency="platform.drivers.aes.K32W061 platform.drivers.jn_iocon.K32W061 platform.drivers.sha.K32W061 platform.drivers.spifi.K32W061 platform.drivers.reset.K32W061 platform.drivers.jn_romapi.K32W061 platform.drivers.clock.K32W061 platform.drivers.common.K32W061 platform.drivers.jn_flash.K32W061 platform.drivers.lpc_gpio.K32W061 device.K32W061_startup.K32W061 device.K32W061_CMSIS.K32W061 platform.Include_core_cm4.K32W061 platform.Include_common.K32W061">
+  <example id="k32w061dk6_ssbl" name="ssbl" category="wireless_examples/framework/ssbl/bm" dependency="platform.drivers.aes.K32W061 platform.drivers.jn_iocon.K32W061 platform.drivers.sha.K32W061 platform.drivers.spifi.K32W061 platform.drivers.reset.K32W061 platform.drivers.jn_romapi.K32W061 platform.drivers.wwdt.K32W061 platform.drivers.clock.K32W061 platform.drivers.common.K32W061 platform.drivers.jn_flash.K32W061 platform.drivers.lpc_gpio.K32W061 device.K32W061_startup.K32W061 device.K32W061_CMSIS.K32W061 platform.Include_core_cm4.K32W061 platform.Include_common.K32W061">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -62,7 +63,7 @@
           <value>-fno-common</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-ffat-lto-objects  -c  -ffunction-sections  -fdata-sections  -ffreestanding  -fno-builtin</value>
+          <value>-ffat-lto-objects  --param=min-pagesize=0  -c  -ffunction-sections  -fdata-sections  -ffreestanding  -fno-builtin</value>
         </option>
         <option id="com.crt.advproject.gcc.lto" type="boolean">
           <value>true</value>
@@ -85,6 +86,7 @@
           <value>--gc-sections</value>
           <value>-print-memory-usage</value>
           <value>-Map="${BuildArtifactFileBaseName}.map"</value>
+          <value>--no-warn-rwx-segments</value>
         </option>
         <option id="com.crt.advproject.gcc.exe.release.option.debugging.level" type="enum">
           <value>gnu.c.debugging.level.none</value>

@@ -237,6 +237,13 @@ SECTIONS
         . = ALIGN (0x10);
     } > IntFlash
 
+    .ro_version : ALIGN(4)
+    {
+        KEEP(*(.ro_version))
+        FILL(0xff)
+        . = ALIGN (0x10);
+    } > IntFlash
+
     /* MAIN TEXT SECTION */
     .data_bss : ALIGN(10)
     {

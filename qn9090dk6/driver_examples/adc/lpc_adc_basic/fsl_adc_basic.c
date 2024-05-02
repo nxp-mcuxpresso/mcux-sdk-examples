@@ -172,10 +172,4 @@ static void ADC_Configuration(void)
     CLOCK_uDelay(THREE_HUNDRED_MICROSECONDS);
 #endif                                       /* FSL_FEATURE_ADC_REQUIRE_DELAY */
     ADC_EnableConvSeqA(DEMO_ADC_BASE, true); /* Enable the conversion sequence A. */
-    /* Clear the result register. */
-    ADC_DoSoftwareTriggerConvSeqA(DEMO_ADC_BASE);
-    while (!ADC_GetChannelConversionResult(DEMO_ADC_BASE, DEMO_ADC_SAMPLE_CHANNEL_NUMBER, &adcResultInfoStruct))
-    {
-    }
-    ADC_GetConvSeqAGlobalConversionResult(DEMO_ADC_BASE, &adcResultInfoStruct);
 }
