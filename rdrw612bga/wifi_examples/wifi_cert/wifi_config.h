@@ -67,6 +67,7 @@
 #define CONFIG_SCAN_CHANNEL_GAP 1
 #define CONFIG_UNII4_BAND_SUPPORT
 #define CONFIG_FW_VDLLV2
+#define CONFIG_CAU_TEMPERATURE
 #endif
 
 //#define CONFIG_IPV6               1

@@ -11,6 +11,9 @@
 #include "cli.h"
 #include "httpc.h"
 #include <stdio.h>
+#if !(defined(__ARMCC_VERSION) || defined(__ICCARM__))
+#include <strings.h>
+#endif
 #include "serial_network.h"
 #include "serial_socket.h"
 #include "serial_httpc.h"

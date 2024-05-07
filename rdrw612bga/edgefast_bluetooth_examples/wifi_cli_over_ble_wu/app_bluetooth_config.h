@@ -38,6 +38,12 @@
 
 #define CONFIG_BT_MAX_PAIRED 16
 
+#if (defined(CONFIG_BT_SMP) && (CONFIG_BT_SMP > 0U))
+    #define CONFIG_BT_RX_STACK_SIZE 3000
+#else
+    #define CONFIG_BT_RX_STACK_SIZE 1024
+#endif
+
 #ifndef BOARD_USER_BUTTON_GPIO
 #define BOARD_USER_BUTTON_GPIO BOARD_SW2_GPIO_PORT
 #endif

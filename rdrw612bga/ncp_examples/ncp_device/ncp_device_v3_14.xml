@@ -264,6 +264,8 @@
       </debug_configuration>
     </debug_configurations>
     <include_paths>
+      <include_path path="system" project_relative_path="source/system" type="c_include"/>
+      <include_path path="wifi" project_relative_path="source/wifi" type="c_include"/>
       <include_path path="ble" project_relative_path="source" type="c_include"/>
       <include_path path="ble/service" project_relative_path="source" type="c_include"/>
       <include_path path="ble/service/gatt_client" project_relative_path="source" type="c_include"/>
@@ -271,6 +273,7 @@
       <include_path path="." project_relative_path="source" type="c_include"/>
       <include_path path="../.." project_relative_path="source" type="c_include"/>
       <include_path path="." project_relative_path="board" type="c_include"/>
+      <include_path path="../common" project_relative_path="source" type="c_include"/>
       <include_path path="../common/ncp_adapter" project_relative_path="ncp_common/ncp_adapter" type="c_include"/>
       <include_path path="../common/ncp_adapter/ncp_intf" project_relative_path="ncp_common/ncp_adapter/ncp_intf" type="c_include"/>
       <include_path path="../common/ncp_adapter/ncp_tlv" project_relative_path="ncp_common/ncp_adapter/ncp_tlv" type="c_include"/>
@@ -312,6 +315,25 @@
     <source path="../../../../core/devices/RW612" project_relative_path="./" type="workspace" toolchain="armgcc">
       <files mask="all_lib_device.cmake"/>
     </source>
+    <source path="system" project_relative_path="source/system" type="c_include">
+      <files mask="ncp_system.h"/>
+      <files mask="ncp_glue_system.h"/>
+    </source>
+    <source path="system" project_relative_path="source/system" type="src">
+      <files mask="ncp_system.c"/>
+      <files mask="ncp_glue_system.c"/>
+    </source>
+    <source path="wifi" project_relative_path="source/wifi" type="src">
+      <files mask="ncp_wifi.c"/>
+      <files mask="ncp_glue_wifi.c"/>
+    </source>
+    <source path="wifi" project_relative_path="source/wifi" type="c_include">
+      <files mask="ncp_wifi.h"/>
+      <files mask="ncp_glue_wifi.h"/>
+    </source>
+    <source path="wifi" project_relative_path="source/wifi" type="c_include" config="true">
+      <files mask="wifi_config.h"/>
+    </source>
     <source path="ble" project_relative_path="source/ble" type="src">
       <files mask="gap.c"/>
       <files mask="gatt.c"/>
@@ -322,16 +344,17 @@
     <source path="ble" project_relative_path="source/ble" type="c_include">
       <files mask="ncp_ble.h"/>
       <files mask="ncp_glue_ble.h"/>
-      <files mask="ncp_cmd_ble.h"/>
     </source>
     <source path="ble" project_relative_path="source/ble" type="c_include" config="true">
       <files mask="app_bluetooth_config.h"/>
     </source>
     <source path="ble/service/gatt_server" project_relative_path="source/ble/service/gatt_server" type="src">
       <files mask="peripheral_hrs.c"/>
+      <files mask="peripheral_hts.c"/>
     </source>
     <source path="ble/service/gatt_server" project_relative_path="source/ble/service/gatt_server" type="c_include">
       <files mask="peripheral_hrs.h"/>
+      <files mask="peripheral_hts.h"/>
     </source>
     <source path="ble/service/gatt_client" project_relative_path="source/ble/service/gatt_client" type="src">
       <files mask="central_hrc.c"/>
@@ -343,19 +366,14 @@
     </source>
     <source path="ble/service" project_relative_path="source/ble/service" type="src">
       <files mask="bas.c"/>
-      <files mask="hrs.c"/>
-      <files mask="hts.c"/>
       <files mask="service.c"/>
     </source>
     <source path="ble/service" project_relative_path="source/ble/service" type="c_include">
       <files mask="bas.h"/>
-      <files mask="hrs.h"/>
-      <files mask="hts.h"/>
       <files mask="service.h"/>
     </source>
     <source path="." project_relative_path="source" type="c_include" config="true">
       <files mask="lwipopts.h"/>
-      <files mask="wifi_config.h"/>
     </source>
     <source path="." project_relative_path="source" type="c_include">
       <files mask="lwippools.h"/>
@@ -383,14 +401,14 @@
     <source path="." project_relative_path="source" type="c_include" config="true">
       <files mask="FreeRTOSConfig.h"/>
     </source>
-    <source path="." project_relative_path="source" type="c_include">
+    <source path="../common" project_relative_path="ncp_common" type="c_include">
       <files mask="ncp_cmd_common.h"/>
+      <files mask="ncp_cmd_system.h"/>
       <files mask="ncp_cmd_wifi.h"/>
-      <files mask="ncp_glue_wifi.h"/>
+      <files mask="ncp_cmd_ble.h"/>
       <files mask="app_notify.h"/>
     </source>
-    <source path="." project_relative_path="source" type="src">
-      <files mask="ncp_glue_wifi.c"/>
+    <source path="../common" project_relative_path="ncp_common" type="src">
       <files mask="ncp_glue_common.c"/>
       <files mask="app_notify.c"/>
     </source>

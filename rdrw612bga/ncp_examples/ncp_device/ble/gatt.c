@@ -140,15 +140,9 @@ struct net_buf_simple_1 {
 /* Command handlers */
 #if 0
 static void supported_commands(uint8_t *data, uint16_t len);
-#endif
-void add_service(uint8_t *data, uint16_t len);
-void add_characteristic(uint8_t *data, uint16_t len);
-void add_descriptor(uint8_t *data, uint16_t len);
-#if 0
 static void add_included(uint8_t *data, uint16_t len);
 #endif
 void set_value(uint8_t *data, uint16_t len);
-void start_server(uint8_t *data, uint16_t len);
 #if 0
 static void set_enc_key_size(uint8_t *data, uint16_t len);
 static void exchange_mtu(uint8_t *data, uint16_t len);
@@ -204,18 +198,11 @@ static uint8_t btp2bt_uuid
     uint8_t len,
     struct bt_uuid *bt_uuid
 );
-static int alloc_characteristic(struct add_characteristic *ch);
 static ssize_t read_value(struct bt_conn *conn, const struct bt_gatt_attr *attr,
               void *buf, uint16_t len, uint16_t offset);
 static ssize_t write_value(struct bt_conn *conn,
                const struct bt_gatt_attr *attr, const void *buf,
                uint16_t len, uint16_t offset, uint8_t flags);
-static int alloc_descriptor(const struct bt_gatt_attr *attr,
-                struct add_descriptor *d);
-static struct bt_gatt_attr *get_base_chrc(struct bt_gatt_attr *attr);
-static struct bt_gatt_attr *add_cep(const struct bt_gatt_attr *attr_chrc);
-static struct bt_gatt_attr *add_ccc(const struct bt_gatt_attr *attr);
-static void ccc_cfg_changed(const struct bt_gatt_attr *attr, uint16_t value);
 static int alloc_included(struct bt_gatt_attr *attr,
                           uint16_t *included_service_id, uint16_t svc_handle);
 static uint8_t alloc_value(struct bt_gatt_attr *attr, struct set_value *data);
@@ -292,15 +279,14 @@ static uint8_t svc_count = 0;
 
 static bool ccc_added;
 static uint8_t ccc_value;
-static struct bt_gatt_attr ccc = BT_GATT_CCC(ccc_cfg_changed,
-                         BT_GATT_PERM_READ |
-                         BT_GATT_PERM_WRITE);
 
 static uint8_t ccc_ev_buf[sizeof(gatt_ccc_cfg_changed_ev_t)];
 
 
 struct bt_gatt_indicate_params indicate_params;
+#if 0
 static struct bt_gatt_exchange_params exchange_params;
+#endif
 static struct bt_gatt_discover_params discover_params;
 static uint8_t btp_opcode;
 static union uuid uuid;
@@ -310,8 +296,10 @@ static uint8_t ev_buf[sizeof(gatt_notification_ev_t) + MAX_NOTIF_DATA];
 static struct bt_gatt_subscribe_params subscriptions[MAX_SUBSCRIPTIONS];
 
 static struct bt_gatt_read_params read_params;
+#if 0
 static struct bt_gatt_read_params read_uuid_params;
 static struct bt_gatt_read_params read_long_params;
+#endif
 
 /*******************************************************************************
  * Code
@@ -342,145 +330,6 @@ response:
 	ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | GATT_EATT_CONNECT, status, NULL, 0);
 }
 #endif /* CONFIG_BT_EATT */
-
-#ifdef RAW_BT_TESTER
-/*
- * @brief   Tester App functionality
- */
-void ncp_ble_handle_gatt
-(
-    uint8_t opcode,
-    uint8_t index,
-    uint8_t *data,
-    uint16_t len
-)
-{
-    switch (opcode)
-    {
-        case GATT_READ_SUPPORTED_COMMANDS:
-            supported_commands(data, len);
-        break;
-
-        case GATT_ADD_SERVICE:
-            add_service(data, len);
-        break;
-
-        case GATT_ADD_CHARACTERISTIC:
-            add_characteristic(data, len);
-        break;
-
-        case GATT_ADD_DESCRIPTOR:
-            add_descriptor(data, len);
-        break;
-
-        case GATT_ADD_INCLUDED_SERVICE:
-            add_included(data, len);
-        break;
-
-        case GATT_SET_VALUE:
-            set_value(data, len);
-        break;
-
-        case GATT_START_SERVER:
-            start_server(data, len);
-        break;
-
-        case GATT_SET_ENC_KEY_SIZE:
-            set_enc_key_size(data, len);
-        break;
-
-        case GATT_EXCHANGE_MTU:
-            exchange_mtu(data, len);
-        break;
-
-        case GATT_DISC_ALL_PRIM:
-            disc_all_prim(data, len);
-        break;
-
-        case GATT_DISC_PRIM_UUID:
-            disc_prim_uuid(data, len);
-        break;
-
-        case GATT_FIND_INCLUDED:
-            find_included(data, len);
-        break;
-
-        case GATT_DISC_ALL_CHRC:
-            disc_all_chrc(data, len);
-        break;
-
-        case GATT_DISC_CHRC_UUID:
-            disc_chrc_uuid(data, len);
-        break;
-
-        case GATT_DISC_ALL_DESC:
-            disc_all_desc(data, len);
-        break;
-
-        case GATT_READ:
-            read_data(data, len);
-        break;
-
-        case GATT_READ_UUID:
-            read_uuid(data, len);
-        break;
-
-        case GATT_READ_LONG:
-            read_long(data, len);
-        break;
-
-        case GATT_READ_MULTIPLE:
-        case GATT_READ_MULTIPLE_VAR:
-            read_multiple(data, len, opcode);
-        break;
-
-        case GATT_WRITE_WITHOUT_RSP:
-            write_without_rsp(data, len, opcode, false);
-        break;
-
-        case GATT_SIGNED_WRITE_WITHOUT_RSP:
-            write_without_rsp(data, len, opcode, true);
-        break;
-
-        case GATT_WRITE:
-            write_data(data, len);
-        break;
-
-        case GATT_WRITE_LONG:
-            write_long(data, len);
-        break;
-
-        case GATT_CFG_NOTIFY:
-        case GATT_CFG_INDICATE:
-            config_subscription(data, len, opcode);
-        break;
-
-        case GATT_GET_ATTRIBUTES:
-            get_attrs(data, len);
-        break;
-
-        case GATT_GET_ATTRIBUTE_VALUE:
-            get_attr_val(data, len);
-        break;
-
-#if (defined(CONFIG_BT_EATT) && (CONFIG_BT_EATT > 0))
-	    case GATT_EATT_CONNECT:
-		    eatt_connect(data, len);
-		return;
-#endif /* CONFIG_BT_EATT */
-
-        case GATT_NOTIFY_MULTIPLE:
-            notify_mult(data, len, opcode);
-        break;
-
-        default:
-            ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | opcode, index,
-                       NCP_BLE_STATUS_UNKNOWN_CMD);
-        break;
-
-    }
-}
-#endif
 
 uint8_t ncp_ble_init_gatt(void)
 {
@@ -556,166 +405,381 @@ static void supported_commands(uint8_t *data, uint16_t len)
 /*
  * @brief   This command is used to add new service to GATT Server.
  */
-void add_service(uint8_t *data, uint16_t len)
+int add_service(const void *cmd, uint16_t cmd_len, void *rsp)
 {
-    const struct gatt_add_service_cmd *cmd = (void *) data;
-    gatt_add_service_rp_t rp;
+    const struct gatt_add_service_cmd *cp = cmd;
+    struct gatt_add_service_rp *rp = rsp;
     struct bt_gatt_attr *attr_svc = NULL;
-    union uuid local_uuid;
+    union uuid uuid;
     size_t uuid_size;
-    bool early_return = false;
 
-    if (btp2bt_uuid(cmd->uuid, cmd->uuid_length, &local_uuid.uuid))
-    {
-        ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GATT_ADD_SERVICE, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
+    // if ((cmd_len < sizeof(*cp)) ||
+    //     (cmd_len != sizeof(*cp) + cp->uuid_length)) {
+    //     return NCP_BRIDGE_CMD_RESULT_ERROR;
+    // }
+
+    if (btp2bt_uuid(cp->uuid, cp->uuid_length, &uuid.uuid)) {
+        return NCP_BRIDGE_CMD_RESULT_ERROR;
     }
-    else
-    {
-        uuid_size = local_uuid.uuid.type == BT_UUID_TYPE_16 ? sizeof(local_uuid.u16) :
-                                sizeof(local_uuid.u128);
 
-        /* Register last defined service */
-        if (svc_attr_count)
-        {
-            if (register_service())
-            {
-                early_return = true;
-                ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GATT_ADD_SERVICE, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
-            }
-        }
+    uuid_size = uuid.uuid.type == BT_UUID_TYPE_16 ? sizeof(uuid.u16) :
+                            sizeof(uuid.u128);
 
-        if (early_return == false)
-        {
-            svc_count++;
-
-            switch (cmd->type)
-            {
-                case GATT_SERVICE_PRIMARY:
-                    attr_svc = gatt_db_add(&(struct bt_gatt_attr)
-                                   BT_GATT_PRIMARY_SERVICE(&local_uuid.uuid),
-                                   uuid_size);
-                break;
-
-                case GATT_SERVICE_SECONDARY:
-                    attr_svc = gatt_db_add(&(struct bt_gatt_attr)
-                                   BT_GATT_SECONDARY_SERVICE(&local_uuid.uuid),
-                                   uuid_size);
-                break;
-
-                default:
-                break;
-            }
-
-            if (!attr_svc)
-            {
-                svc_count--;
-                ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GATT_ADD_SERVICE, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
-            }
-            else
-            {
-                rp.svc_id = sys_cpu_to_le16(attr_svc->handle);
-                ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GATT_ADD_SERVICE, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *) &rp, sizeof(rp));
-            }
+    /* Register last defined service */
+    if (svc_attr_count) {
+        if (register_service()) {
+            return NCP_BRIDGE_CMD_RESULT_ERROR;
         }
     }
+
+    svc_count++;
+
+    switch (cp->type) {
+    case GATT_SERVICE_PRIMARY:
+        attr_svc = gatt_db_add(&(struct bt_gatt_attr)
+                       BT_GATT_PRIMARY_SERVICE(&uuid.uuid),
+                       uuid_size);
+        break;
+    case GATT_SERVICE_SECONDARY:
+        attr_svc = gatt_db_add(&(struct bt_gatt_attr)
+                       BT_GATT_SECONDARY_SERVICE(&uuid.uuid),
+                       uuid_size);
+        break;
+    }
+
+    if (!attr_svc) {
+        svc_count--;
+        return NCP_BRIDGE_CMD_RESULT_ERROR;
+    }
+
+    if(rp != NULL) {
+        rp->svc_id = sys_cpu_to_le16(attr_svc->handle);
+    }
+
+    return NCP_BRIDGE_CMD_RESULT_OK;
 }
 
-void add_characteristic(uint8_t *data, uint16_t len)
+static int alloc_characteristic(struct add_characteristic *ch)
 {
-    const gatt_add_characteristic_cmd_t *cmd = (void *) data;
-    gatt_add_characteristic_rp_t rp;
+    struct bt_gatt_attr *attr_chrc, *attr_value;
+    struct bt_gatt_chrc *chrc_data;
+    struct gatt_value value;
+
+    /* Add Characteristic Declaration */
+    attr_chrc = gatt_db_add(&(struct bt_gatt_attr)
+                BT_GATT_ATTRIBUTE(BT_UUID_GATT_CHRC,
+                          BT_GATT_PERM_READ,
+                          bt_gatt_attr_read_chrc,
+                          NULL,
+                          (&(struct bt_gatt_chrc){0})),
+                sizeof(*chrc_data));
+
+    if (!attr_chrc)
+    {
+        return -EINVAL;
+    }
+
+    (void)memset(&value, 0, sizeof(value));
+
+    if (ch->permissions & GATT_PERM_READ_AUTHORIZATION)
+    {
+        ncp_ble_set_bit(value.flags, GATT_VALUE_READ_AUTHOR_FLAG);
+
+        /* To maintain backward compatibility, set Read Permission */
+        if (!(ch->permissions & GATT_PERM_ENC_READ_MASK))
+        {
+            ch->permissions |= BT_GATT_PERM_READ;
+        }
+    }
+
+    if (ch->permissions & GATT_PERM_WRITE_AUTHORIZATION)
+    {
+        ncp_ble_set_bit(value.flags, GATT_VALUE_WRITE_AUTHOR_FLAG);
+
+        /* To maintain backward compatibility, set Write Permission */
+        if (!(ch->permissions & GATT_PERM_ENC_WRITE_MASK))
+        {
+            ch->permissions |= BT_GATT_PERM_WRITE;
+        }
+    }
+
+    /* Allow prepare writes */
+    ch->permissions |= BT_GATT_PERM_PREPARE_WRITE;
+
+    /* Add Characteristic Value */
+    attr_value = gatt_db_add(&(struct bt_gatt_attr)
+                 BT_GATT_ATTRIBUTE(ch->uuid,
+                    ch->permissions & GATT_PERM_MASK,
+                    read_value, write_value, &value),
+                    sizeof(value));
+
+    if (!attr_value)
+    {
+        server_buf_pull(sizeof(*chrc_data));
+        /* Characteristic attribute uuid has constant length */
+        server_buf_pull(sizeof(uint16_t));
+        return -EINVAL;
+    }
+
+    chrc_data = attr_chrc->user_data;
+    chrc_data->properties = ch->properties;
+    chrc_data->uuid = attr_value->uuid;
+
+    ch->char_id = attr_chrc->handle;
+    return 0;
+}
+
+int add_characteristic(const void *cmd, uint16_t cmd_len, void *rsp)
+{
+    const gatt_add_characteristic_cmd_t *cp = cmd;
+    struct gatt_add_characteristic_rp *rp = rsp;
     struct add_characteristic cmd_data;
     union uuid uuid;
 
+    // if ((cmd_len < sizeof(*cp)) ||
+    //     (cmd_len != sizeof(*cp) + cp->uuid_length)) {
+    //     return NCP_BRIDGE_CMD_RESULT_ERROR;
+    // }
+
     /* Pre-set char_id */
     cmd_data.char_id = 0U;
-    cmd_data.permissions = cmd->permissions;
-    cmd_data.properties = cmd->properties;
+    cmd_data.permissions = cp->permissions;
+    cmd_data.properties = cp->properties;
     cmd_data.uuid = &uuid.uuid;
 
-    if (btp2bt_uuid(cmd->uuid, cmd->uuid_length, &uuid.uuid))
+	if (btp2bt_uuid(cp->uuid, cp->uuid_length, &uuid.uuid)) {
+		return NCP_BRIDGE_CMD_RESULT_ERROR;
+	}
+
+	/* characteristic must be added only sequential */
+	if (cp->svc_id) {
+		return NCP_BRIDGE_CMD_RESULT_ERROR;
+	}
+
+	if (alloc_characteristic(&cmd_data)) {
+		return NCP_BRIDGE_CMD_RESULT_ERROR;
+	}
+
+	ccc_added = false;
+
+    if(rp != NULL) {
+	    rp->char_id = sys_cpu_to_le16(cmd_data.char_id);
+    }
+
+	return NCP_BRIDGE_CMD_RESULT_OK;
+}
+
+static struct bt_gatt_attr *add_cep(const struct bt_gatt_attr *attr_chrc)
+{
+    struct bt_gatt_chrc *chrc = attr_chrc->user_data;
+    struct bt_gatt_cep cep_value;
+
+    /* Extended Properties bit shall be set */
+    if (!(chrc->properties & BT_GATT_CHRC_EXT_PROP))
     {
-        ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GATT_ADD_CHARACTERISTIC, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
+        return NULL;
+    }
+
+    cep_value.properties = 0x0000;
+
+    /* Add CEP descriptor to GATT database */
+    return gatt_db_add(&(struct bt_gatt_attr) BT_GATT_CEP(&cep_value),
+               sizeof(cep_value));
+}
+
+static void ccc_cfg_changed(const struct bt_gatt_attr *attr, uint16_t value)
+{
+    struct gatt_ccc_cfg_changed_ev *ev = (void *) ccc_ev_buf;
+
+    //need add a configure changed event
+    ev->ccc_value = value;
+    if(attr->uuid->type == BT_UUID_TYPE_16)
+    {
+        uint16_t u16 = sys_cpu_to_le16(BT_UUID_16(attr->uuid)->val);
+        ev->uuid_length = 2;
+        memcpy(ev->uuid, &u16, ev->uuid_length);
     }
     else
     {
-        /* characteristic must be added only sequential */
-        if (cmd->svc_id) {
-            ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GATT_ADD_CHARACTERISTIC, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
-        }
-        else
-        {
-            if (alloc_characteristic(&cmd_data)) {
-                ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GATT_ADD_CHARACTERISTIC, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
-            }
-            else
-            {
-                rp.char_id = sys_cpu_to_le16(cmd_data.char_id);
-                ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GATT_ADD_CHARACTERISTIC, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *) &rp, sizeof(rp));
-            }
-        }
+        ev->uuid_length = 16;
+        memcpy(ev->uuid, BT_UUID_128(attr->uuid)->val, ev->uuid_length);
     }
+    ccc_value = value;
+
+    ble_bridge_prepare_status(NCP_BRIDGE_EVENT_GATT_CCC_CFG_CHANGED, NCP_BRIDGE_CMD_RESULT_OK, ccc_ev_buf, sizeof(*ev));
 }
 
-void add_descriptor(uint8_t *data, uint16_t len)
+static struct bt_gatt_attr ccc = BT_GATT_CCC(ccc_cfg_changed,
+                         BT_GATT_PERM_READ |
+                         BT_GATT_PERM_WRITE);
+
+static struct bt_gatt_attr *add_ccc(const struct bt_gatt_attr *attr)
 {
-    const gatt_add_descriptor_cmd_t *cmd = (void *) data;
-    gatt_add_descriptor_rp_t rp;
+    struct bt_gatt_attr *attr_desc;
+    struct bt_gatt_chrc *chrc = attr->user_data;
+    struct gatt_value *value = NEXT_DB_ATTR(attr)->user_data;
+
+    /* Fail if another CCC already exist on server */
+    if (ccc_added)
+    {
+        return NULL;
+    }
+
+    /* Check characteristic properties */
+    if (!(chrc->properties &
+        (BT_GATT_CHRC_NOTIFY | BT_GATT_CHRC_INDICATE)))
+    {
+        return NULL;
+    }
+
+    /* Add CCC descriptor to GATT database */
+    attr_desc = gatt_db_add(&ccc, 0);
+    if (!attr_desc)
+    {
+        return NULL;
+    }
+
+    ncp_ble_set_bit(value->flags, GATT_VALUE_CCC_FLAG);
+    ccc_added = true;
+
+    return attr_desc;
+}
+
+static int alloc_descriptor(const struct bt_gatt_attr *attr,
+                struct add_descriptor *d)
+{
+    struct bt_gatt_attr *attr_desc;
+    struct gatt_value value;
+
+    if (!bt_uuid_cmp(d->uuid, BT_UUID_GATT_CEP))
+    {
+        attr_desc = add_cep(attr);
+    } else if (!bt_uuid_cmp(d->uuid, BT_UUID_GATT_CCC))
+    {
+        attr_desc = add_ccc(attr);
+    }
+    else
+    {
+        (void)memset(&value, 0, sizeof(value));
+
+        if (d->permissions & GATT_PERM_READ_AUTHORIZATION)
+        {
+            ncp_ble_set_bit(value.flags,
+                       GATT_VALUE_READ_AUTHOR_FLAG);
+
+            /*
+             * To maintain backward compatibility,
+             * set Read Permission
+             */
+            if (!(d->permissions & GATT_PERM_ENC_READ_MASK))
+            {
+                d->permissions |= BT_GATT_PERM_READ;
+            }
+        }
+
+        if (d->permissions & GATT_PERM_WRITE_AUTHORIZATION)
+        {
+            ncp_ble_set_bit(value.flags,
+                       GATT_VALUE_WRITE_AUTHOR_FLAG);
+
+            /*
+             * To maintain backward compatibility,
+             * set Write Permission
+             */
+            if (!(d->permissions & GATT_PERM_ENC_WRITE_MASK))
+            {
+                d->permissions |= BT_GATT_PERM_WRITE;
+            }
+        }
+
+        /* Allow prepare writes */
+        d->permissions |= BT_GATT_PERM_PREPARE_WRITE;
+
+        attr_desc = gatt_db_add(&(struct bt_gatt_attr)
+                    BT_GATT_DESCRIPTOR(d->uuid,
+                        d->permissions & GATT_PERM_MASK,
+                        read_value, write_value,
+                        &value), sizeof(value));
+    }
+
+    if (!attr_desc)
+    {
+        return -EINVAL;
+    }
+
+    d->desc_id = attr_desc->handle;
+    return 0;
+}
+
+static struct bt_gatt_attr *get_base_chrc(struct bt_gatt_attr *attr)
+{
+    struct bt_gatt_attr *tmp;
+
+    for (tmp = attr; tmp > server_db; tmp--)
+    {
+        /* Service Declaration cannot precede Descriptor declaration */
+        if (!bt_uuid_cmp(tmp->uuid, BT_UUID_GATT_PRIMARY) ||
+            !bt_uuid_cmp(tmp->uuid, BT_UUID_GATT_SECONDARY)) {
+            break;
+        }
+
+        if (!bt_uuid_cmp(tmp->uuid, BT_UUID_GATT_CHRC))
+        {
+            return tmp;
+        }
+    }
+
+    return NULL;
+}
+
+int add_descriptor(const void *cmd, uint16_t cmd_len, void *rsp)
+{
+    const gatt_add_descriptor_cmd_t *cp = cmd;
+    gatt_add_descriptor_rp_t *rp = rsp;
     struct add_descriptor cmd_data;
     struct bt_gatt_attr *chrc;
     union uuid uuid;
-    bool early_return = false;
+
+    // if ((cmd_len < sizeof(*cp)) ||
+    //     (cmd_len != sizeof(*cp) + cp->uuid_length)) {
+    //     return NCP_BRIDGE_CMD_RESULT_ERROR;
+    // }
 
     /* Must be declared first svc or at least 3 attrs (svc+char+char val) */
     if (!svc_count || attr_count < 3)
     {
-        ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GATT_ADD_DESCRIPTOR, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
+        return NCP_BRIDGE_CMD_RESULT_ERROR;
     }
-    else
-    {
-        /* Pre-set desc_id */
-        cmd_data.desc_id = 0U;
-        cmd_data.permissions = cmd->permissions;
-        cmd_data.uuid = &uuid.uuid;
 
-        if (btp2bt_uuid(cmd->uuid, cmd->uuid_length, &uuid.uuid)) {
-            ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GATT_ADD_DESCRIPTOR, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
-            early_return = true;
-        }
+	/* Pre-set desc_id */
+	cmd_data.desc_id = 0U;
+	cmd_data.permissions = cp->permissions;
+	cmd_data.uuid = &uuid.uuid;
 
-        if (early_return == false)
-        {
-            /* descriptor can be added only sequential */
-            if (cmd->char_id) {
-                ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GATT_ADD_DESCRIPTOR, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
-                early_return = true;
-            }
+	if (btp2bt_uuid(cp->uuid, cp->uuid_length, &uuid.uuid)) {
+		return NCP_BRIDGE_CMD_RESULT_ERROR;
+	}
 
-            if (early_return == false)
-            {
-                /* Lookup preceding Characteristic Declaration here */
-                chrc = get_base_chrc(LAST_DB_ATTR);
-                if (!chrc)
-                {
-                    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GATT_ADD_DESCRIPTOR, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
-                    early_return = true;
-                }
+	/* descriptor can be added only sequential */
+	if (cp->char_id) {
+		return NCP_BRIDGE_CMD_RESULT_ERROR;
+	}
 
-                if (early_return == false)
-                {
-                    if (alloc_descriptor(chrc, &cmd_data))
-                    {
-                        ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GATT_ADD_DESCRIPTOR, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
-                    }
-                    else
-                    {
-                        rp.desc_id = sys_cpu_to_le16(cmd_data.desc_id);
-                        ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GATT_ADD_DESCRIPTOR, NCP_BRIDGE_CMD_RESULT_OK,(uint8_t *) &rp, sizeof(rp));
-                    }
-                }
-            }
-        }
+	/* Lookup preceding Characteristic Declaration here */
+	chrc = get_base_chrc(LAST_DB_ATTR);
+	if (!chrc) {
+		return NCP_BRIDGE_CMD_RESULT_ERROR;
+	}
+
+	if (alloc_descriptor(chrc, &cmd_data)) {
+		return NCP_BRIDGE_CMD_RESULT_ERROR;
+	}
+
+    if(rp != NULL) {
+	    rp->desc_id = sys_cpu_to_le16(cmd_data.desc_id);
     }
+
+	return NCP_BRIDGE_CMD_RESULT_OK;
 }
 
 #if 0
@@ -774,7 +838,7 @@ void set_value(uint8_t *data, uint16_t len)
     ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GATT_SET_VALUE, status, NULL, 0);
 }
 
-void start_server(uint8_t *data, uint16_t len)
+int start_server(uint8_t *data, uint16_t len)
 {
     gatt_start_server_rp_t rp;
 
@@ -785,12 +849,11 @@ void start_server(uint8_t *data, uint16_t len)
     {
         if (register_service())
         {
-            ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GATT_START_SERVICE, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
-            return;
+            return NCP_BRIDGE_CMD_RESULT_ERROR;
         }
     }
 
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GATT_START_SERVICE, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *) &rp, sizeof(rp));
+    return NCP_BRIDGE_CMD_RESULT_OK;
 }
 
 #if 0
@@ -1635,75 +1698,6 @@ static uint8_t btp2bt_uuid
     return NCP_BRIDGE_CMD_RESULT_OK;
 }
 
-static int alloc_characteristic(struct add_characteristic *ch)
-{
-    struct bt_gatt_attr *attr_chrc, *attr_value;
-    struct bt_gatt_chrc *chrc_data;
-    struct gatt_value value;
-
-    /* Add Characteristic Declaration */
-    attr_chrc = gatt_db_add(&(struct bt_gatt_attr)
-                BT_GATT_ATTRIBUTE(BT_UUID_GATT_CHRC,
-                          BT_GATT_PERM_READ,
-                          bt_gatt_attr_read_chrc,
-                          NULL,
-                          (&(struct bt_gatt_chrc){0})),
-                sizeof(*chrc_data));
-
-    if (!attr_chrc)
-    {
-        return -EINVAL;
-    }
-
-    (void)memset(&value, 0, sizeof(value));
-
-    if (ch->permissions & GATT_PERM_READ_AUTHORIZATION)
-    {
-        ncp_ble_set_bit(value.flags, GATT_VALUE_READ_AUTHOR_FLAG);
-
-        /* To maintain backward compatibility, set Read Permission */
-        if (!(ch->permissions & GATT_PERM_ENC_READ_MASK))
-        {
-            ch->permissions |= BT_GATT_PERM_READ;
-        }
-    }
-
-    if (ch->permissions & GATT_PERM_WRITE_AUTHORIZATION)
-    {
-        ncp_ble_set_bit(value.flags, GATT_VALUE_WRITE_AUTHOR_FLAG);
-
-        /* To maintain backward compatibility, set Write Permission */
-        if (!(ch->permissions & GATT_PERM_ENC_WRITE_MASK))
-        {
-            ch->permissions |= BT_GATT_PERM_WRITE;
-        }
-    }
-
-    /* Allow prepare writes */
-    ch->permissions |= BT_GATT_PERM_PREPARE_WRITE;
-
-    /* Add Characteristic Value */
-    attr_value = gatt_db_add(&(struct bt_gatt_attr)
-                 BT_GATT_ATTRIBUTE(ch->uuid,
-                    ch->permissions & GATT_PERM_MASK,
-                    read_value, write_value, &value),
-                    sizeof(value));
-
-    if (!attr_value)
-    {
-        server_buf_pull(sizeof(*chrc_data));
-        /* Characteristic attribute uuid has constant length */
-        server_buf_pull(sizeof(uint16_t));
-        return -EINVAL;
-    }
-
-    chrc_data = attr_chrc->user_data;
-    chrc_data->properties = ch->properties;
-    chrc_data->uuid = attr_value->uuid;
-
-    ch->char_id = attr_chrc->handle;
-    return 0;
-}
 
 static ssize_t read_value(struct bt_conn *conn, const struct bt_gatt_attr *attr,
               void *buf, uint16_t len, uint16_t offset)
@@ -1783,93 +1777,6 @@ static void attr_value_changed_ev(uint16_t handle, const uint8_t *value, const u
     }
 }
 
-static int alloc_descriptor(const struct bt_gatt_attr *attr,
-                struct add_descriptor *d)
-{
-    struct bt_gatt_attr *attr_desc;
-    struct gatt_value value;
-
-    if (!bt_uuid_cmp(d->uuid, BT_UUID_GATT_CEP))
-    {
-        attr_desc = add_cep(attr);
-    } else if (!bt_uuid_cmp(d->uuid, BT_UUID_GATT_CCC))
-    {
-        attr_desc = add_ccc(attr);
-    }
-    else
-    {
-        (void)memset(&value, 0, sizeof(value));
-
-        if (d->permissions & GATT_PERM_READ_AUTHORIZATION)
-        {
-            ncp_ble_set_bit(value.flags,
-                       GATT_VALUE_READ_AUTHOR_FLAG);
-
-            /*
-             * To maintain backward compatibility,
-             * set Read Permission
-             */
-            if (!(d->permissions & GATT_PERM_ENC_READ_MASK))
-            {
-                d->permissions |= BT_GATT_PERM_READ;
-            }
-        }
-
-        if (d->permissions & GATT_PERM_WRITE_AUTHORIZATION)
-        {
-            ncp_ble_set_bit(value.flags,
-                       GATT_VALUE_WRITE_AUTHOR_FLAG);
-
-            /*
-             * To maintain backward compatibility,
-             * set Write Permission
-             */
-            if (!(d->permissions & GATT_PERM_ENC_WRITE_MASK))
-            {
-                d->permissions |= BT_GATT_PERM_WRITE;
-            }
-        }
-
-        /* Allow prepare writes */
-        d->permissions |= BT_GATT_PERM_PREPARE_WRITE;
-
-        attr_desc = gatt_db_add(&(struct bt_gatt_attr)
-                    BT_GATT_DESCRIPTOR(d->uuid,
-                        d->permissions & GATT_PERM_MASK,
-                        read_value, write_value,
-                        &value), sizeof(value));
-    }
-
-    if (!attr_desc)
-    {
-        return -EINVAL;
-    }
-
-    d->desc_id = attr_desc->handle;
-    return 0;
-}
-
-static struct bt_gatt_attr *get_base_chrc(struct bt_gatt_attr *attr)
-{
-    struct bt_gatt_attr *tmp;
-
-    for (tmp = attr; tmp > server_db; tmp--)
-    {
-        /* Service Declaration cannot precede Descriptor declaration */
-        if (!bt_uuid_cmp(tmp->uuid, BT_UUID_GATT_PRIMARY) ||
-            !bt_uuid_cmp(tmp->uuid, BT_UUID_GATT_SECONDARY)) {
-            break;
-        }
-
-        if (!bt_uuid_cmp(tmp->uuid, BT_UUID_GATT_CHRC))
-        {
-            return tmp;
-        }
-    }
-
-    return NULL;
-}
-
 static uint8_t get_chrc_index(const struct bt_uuid *uuid)
 {
     uint8_t index;
@@ -1883,78 +1790,6 @@ static uint8_t get_chrc_index(const struct bt_uuid *uuid)
         }
     }
     return index;
-}
-
-static struct bt_gatt_attr *add_cep(const struct bt_gatt_attr *attr_chrc)
-{
-    struct bt_gatt_chrc *chrc = attr_chrc->user_data;
-    struct bt_gatt_cep cep_value;
-
-    /* Extended Properties bit shall be set */
-    if (!(chrc->properties & BT_GATT_CHRC_EXT_PROP))
-    {
-        return NULL;
-    }
-
-    cep_value.properties = 0x0000;
-
-    /* Add CEP descriptor to GATT database */
-    return gatt_db_add(&(struct bt_gatt_attr) BT_GATT_CEP(&cep_value),
-               sizeof(cep_value));
-}
-
-static struct bt_gatt_attr *add_ccc(const struct bt_gatt_attr *attr)
-{
-    struct bt_gatt_attr *attr_desc;
-    struct bt_gatt_chrc *chrc = attr->user_data;
-    struct gatt_value *value = NEXT_DB_ATTR(attr)->user_data;
-
-    /* Fail if another CCC already exist on server */
-    if (ccc_added)
-    {
-        return NULL;
-    }
-
-    /* Check characteristic properties */
-    if (!(chrc->properties &
-        (BT_GATT_CHRC_NOTIFY | BT_GATT_CHRC_INDICATE)))
-    {
-        return NULL;
-    }
-
-    /* Add CCC descriptor to GATT database */
-    attr_desc = gatt_db_add(&ccc, 0);
-    if (!attr_desc)
-    {
-        return NULL;
-    }
-
-    ncp_ble_set_bit(value->flags, GATT_VALUE_CCC_FLAG);
-    ccc_added = true;
-
-    return attr_desc;
-}
-
-static void ccc_cfg_changed(const struct bt_gatt_attr *attr, uint16_t value)
-{
-    struct gatt_ccc_cfg_changed_ev *ev = (void *) ccc_ev_buf;
-
-    //need add a configure changed event
-    ev->ccc_value = value;
-    if(attr->uuid->type == BT_UUID_TYPE_16)
-    {
-        uint16_t u16 = sys_cpu_to_le16(BT_UUID_16(attr->uuid)->val);
-        ev->uuid_length = 2;
-        memcpy(ev->uuid, &u16, ev->uuid_length);
-    }
-    else
-    {
-        ev->uuid_length = 16;
-        memcpy(ev->uuid, BT_UUID_128(attr->uuid)->val, ev->uuid_length);
-    }
-    ccc_value = value;
-
-    ble_bridge_prepare_status(NCP_BRIDGE_EVENT_GATT_CCC_CFG_CHANGED, NCP_BRIDGE_CMD_RESULT_OK, ccc_ev_buf, sizeof(*ev));
 }
 
 static int alloc_included(struct bt_gatt_attr *attr,

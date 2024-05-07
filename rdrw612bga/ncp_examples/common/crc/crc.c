@@ -4,8 +4,9 @@
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
-
+#if defined(RW610)
 #include "fsl_crc.h"
+#endif
 #include "crc.h"
 
 #ifdef CONFIG_CRC32_HW_ACCELERATE
@@ -32,6 +33,8 @@ uint32_t ncp_tlv_chksum(uint8_t *buf, uint16_t len)
     return ~crc;
 }
 #else
+static uint32_t crc32_table[256] = {0,};
+
 void ncp_tlv_chksum_init(void)
 {
     int i, j;

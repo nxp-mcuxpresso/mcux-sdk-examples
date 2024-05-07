@@ -53,7 +53,7 @@
  ******************************************************************************/
 void host_sleep_cli_notify(void);
 void host_sleep_pre_hook(void);
-void host_sleep_pre_cfg(int mode);
+int host_sleep_pre_cfg(int mode);
 void host_sleep_post_cfg(int mode);
 void host_sleep_dump_wakeup_source();
 void test_wlan_suspend(int argc, char **argv);

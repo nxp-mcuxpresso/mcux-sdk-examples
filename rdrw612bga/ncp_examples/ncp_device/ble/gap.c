@@ -42,6 +42,11 @@ static void le_param_updated(struct bt_conn *conn, uint16_t interval,
                  uint16_t latency, uint16_t timeout);
 static void le_security_changed(struct bt_conn *conn, bt_security_t level,
                 enum bt_security_err err);
+static void le_data_len_updated(struct bt_conn *conn,
+			        struct bt_conn_le_data_len_info *info);
+static void le_phy_updated(struct bt_conn *conn,
+		           struct bt_conn_le_phy_info *info);
+
 void device_found
 (
     const bt_addr_le_t *addr,
@@ -59,7 +64,7 @@ static void set_connectable(uint8_t *data, uint16_t len);
 static void set_discoverable(uint8_t *data, uint16_t len);
 static void set_bondable(uint8_t *data, uint16_t len);
 #endif 
-void start_advertising(const uint8_t *data, uint16_t len);
+void start_advertising(void);
 void stop_advertising(const uint8_t *data, uint16_t len);
 void start_discovery(const uint8_t *data, uint16_t len);
 #if 0
@@ -146,24 +151,16 @@ static struct bt_le_oob oob_sc_remote = { 0 };
 #endif /* ((!defined(CONFIG_BT_SMP_OOB_LEGACY_PAIR_ONLY) ||
            ((defined(CONFIG_BT_SMP_OOB_LEGACY_PAIR_ONLY) && (CONFIG_BT_SMP_OOB_LEGACY_PAIR_ONLY == 0U))))) */
 #endif
-static uint8_t default_adv_data[15] = {
-    /* adv data */
-    BT_DATA_NAME_COMPLETE, // data field type
-    13, // data len
-    //0x54, 0x65, 0x73, 0x74, 0x65, 0x72, 0x5f, 0x45, 0x33, 0x31, 0x35, 0x45, 0x44, //"Tester_E315ED"
-    0x4e, 0x43, 0x50, 0x5f, 0x44, 0x45, 0x42, 0x55, 0x47, 0x31, 0x32, 0x33, 0x34,
-};
-
 /* Advertising flags */
 static uint8_t ad_flags = BT_LE_AD_GENERAL | BT_LE_AD_NO_BREDR;
 /* Advertising data */
+static uint8_t ad_data[31];
 static struct bt_data ad[10] = {
     BT_DATA(BT_DATA_FLAGS, &ad_flags, sizeof(ad_flags)),
-    BT_DATA(BT_DATA_NAME_COMPLETE, &default_adv_data[2], 13),
+    BT_DATA(BT_DATA_NAME_COMPLETE, CONFIG_BT_DEVICE_NAME, 7),
 };
 static uint8_t adv_data_num = 2;
 /* Scanning data */
-static struct bt_data sd[10];
 static uint8_t discovery_flags;
 static struct net_buf_simple *adv_buf = NET_BUF_SIMPLE(ADV_BUF_LEN);
 
@@ -201,6 +198,12 @@ static struct bt_conn_cb conn_callbacks = {
     .le_param_updated = le_param_updated,
 #if ((defined(CONFIG_BT_SMP) && (CONFIG_BT_SMP > 0U)) || (defined(CONFIG_BT_BREDR) && (CONFIG_BT_BREDR > 0U)))
     .security_changed = le_security_changed,
+#endif
+#if (defined(CONFIG_BT_USER_DATA_LEN_UPDATE) && (CONFIG_BT_USER_DATA_LEN_UPDATE > 0))
+    .le_data_len_updated = le_data_len_updated,
+#endif
+#if (defined(CONFIG_BT_USER_PHY_UPDATE) && (CONFIG_BT_USER_PHY_UPDATE > 0))
+    .le_phy_updated = le_phy_updated,
 #endif
 };
 
@@ -476,52 +479,30 @@ static void set_bondable(uint8_t *data, uint16_t len)
 /*
  * @brief   SThis command is used to start advertising.
  */
-void start_advertising(const uint8_t *data, uint16_t len)
+void start_advertising(void)
 {
-    const struct gap_start_advertising_cmd *cmd = (void *) data;
     gap_start_advertising_rp_t rp;
-    uint8_t adv_len, sd_len;
     bool adv_conn;
-    int i;
     bool early_return = false;
 
     if (early_return == false)
     {
-        for (sd_len = 0U; i < cmd->adv_data_len+cmd->scan_rsp_len; sd_len++)
-        {
-            if (sd_len >= ARRAY_SIZE(sd))
-            {
-                ncp_d("sd[] Out of memory");
-                early_return = true;
-                ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GAP_START_ADV, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
-                break;
-            }
+        adv_conn = atomic_test_bit(current_settings, GAP_SETTINGS_CONNECTABLE);
 
-            sd[sd_len].type = cmd->adv_sr_data[i++];
-            sd[sd_len].data_len = cmd->adv_sr_data[i++];
-            sd[sd_len].data = &cmd->adv_sr_data[i];
-            i += sd[sd_len].data_len;
+        /* NCP_BLE API don't allow to set empty scan response data. */
+        if (bt_le_adv_start(adv_conn ? BT_LE_ADV_CONN : BT_LE_ADV_NCONN,
+                    ad, adv_data_num, ad, adv_data_num) < 0)
+        {
+            early_return = true;
+            ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GAP_START_ADV, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
         }
 
         if (early_return == false)
         {
-            adv_conn = atomic_test_bit(current_settings, GAP_SETTINGS_CONNECTABLE);
+            atomic_set_bit(current_settings, GAP_SETTINGS_ADVERTISING);
+            rp.current_settings = sys_cpu_to_le32(current_settings[0]);
 
-            /* NCP_BLE API don't allow to set empty scan response data. */
-            if (bt_le_adv_start(adv_conn ? BT_LE_ADV_CONN : BT_LE_ADV_NCONN,
-                        ad, adv_data_num, sd_len ? sd : NULL, sd_len) < 0)
-            {
-                early_return = true;
-                ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GAP_START_ADV, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
-            }
-
-            if (early_return == false)
-            {
-                atomic_set_bit(current_settings, GAP_SETTINGS_ADVERTISING);
-                rp.current_settings = sys_cpu_to_le32(current_settings[0]);
-
-                ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GAP_START_ADV, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *) &rp, sizeof(rp));
-            }
+            ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GAP_START_ADV, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *) &rp, sizeof(rp));
         }
     }
 }
@@ -542,10 +523,10 @@ void set_adv_data(const uint8_t *data, uint16_t len)
             ncp_d("ad[] Out of memory");
             break;
         }
-
+        ad[adv_len].data_len = cmd->data[i++] - 1;
         ad[adv_len].type = cmd->data[i++];
-        ad[adv_len].data_len = cmd->data[i++];
-        memcpy((uint8_t*)ad[adv_len].data, &cmd->data[i], ad[adv_len].data_len);
+        memcpy((uint8_t*)&ad_data[i], &cmd->data[i], ad[adv_len].data_len);
+        ad[adv_len].data = &ad_data[i];
         i += ad[adv_len].data_len;
     }
     if (i == cmd->adv_data_len)
@@ -775,6 +756,96 @@ void disconnect(const uint8_t *data, uint16_t len)
     ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GAP_DISCONNECT, status, NULL, 0);
 }
 
+#if (defined(CONFIG_BT_USER_DATA_LEN_UPDATE) && (CONFIG_BT_USER_DATA_LEN_UPDATE > 0))
+static uint16_t tx_time_calc(uint8_t phy, uint16_t max_len)
+{
+	/* Access address + header + payload + MIC + CRC */
+	uint16_t total_len = 4 + 2 + max_len + 4 + 3;
+
+	switch (phy) {
+	case BT_GAP_LE_PHY_1M:
+		/* 1 byte preamble, 8 us per byte */
+		return 8 * (1 + total_len);
+	case BT_GAP_LE_PHY_2M:
+		/* 2 byte preamble, 4 us per byte */
+		return 4 * (2 + total_len);
+	case BT_GAP_LE_PHY_CODED:
+		/* S8: Preamble + CI + TERM1 + 64 us per byte + TERM2 */
+		return 80 + 16 + 24 + 64 * (total_len) + 24;
+	default:
+		return NCP_BRIDGE_CMD_RESULT_OK;
+	}
+}
+
+/*
+ * @brief   This command is used to set data len.
+ */
+void set_data_len(const uint8_t *data, uint16_t len)
+{
+    const struct gap_set_data_len_cmd *cmd = (void *) data;
+    struct bt_conn *conn;
+    struct bt_conn_le_data_len_param param;
+    uint8_t status = NCP_BRIDGE_CMD_RESULT_ERROR;
+    int err;
+
+    param.tx_max_len = cmd->tx_max_len;
+    conn = bt_conn_lookup_addr_le(BT_ID_DEFAULT, (bt_addr_le_t *)data);
+    if (conn)
+    {
+        if (cmd->time_flag == 1) {
+		param.tx_max_time = cmd->tx_max_time;
+	} else {
+		/* Assume 1M if not able to retrieve PHY */
+		uint8_t phy = BT_GAP_LE_PHY_1M;
+
+#if (defined(CONFIG_BT_USER_PHY_UPDATE) && (CONFIG_BT_USER_PHY_UPDATE > 0))
+		struct bt_conn_info info;
+
+		err = bt_conn_get_info(conn, &info);
+		if (!err) {
+			phy = info.le.phy->tx_phy;
+		}
+#endif
+		param.tx_max_time = tx_time_calc(phy, param.tx_max_len);
+                if (param.tx_max_time < 328)
+                {
+                  param.tx_max_time = 328;
+                }
+		ncp_d("Calculated tx time: %d phy: %d", param.tx_max_time, phy);
+	}
+        err = bt_conn_le_data_len_update(conn, &param);
+        bt_conn_unref(conn);
+        status = err < 0 ? NCP_BRIDGE_CMD_RESULT_ERROR : NCP_BRIDGE_CMD_RESULT_OK;
+    }
+    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GAP_SET_DATA_LEN, status, NULL, 0);
+}
+#endif
+
+#if (defined(CONFIG_BT_USER_PHY_UPDATE) && (CONFIG_BT_USER_PHY_UPDATE > 0))
+/*
+ * @brief   This command is used to set phy.
+ */
+void set_phy(const uint8_t *data, uint16_t len)
+{
+    const struct gap_set_phy_cmd *cmd = (void *) data;
+    struct bt_conn *conn;
+    struct bt_conn_le_phy_param param;
+    uint8_t status = NCP_BRIDGE_CMD_RESULT_ERROR;
+    int err;
+
+    param.pref_tx_phy = cmd->pref_tx_phy;
+    param.pref_rx_phy = cmd->pref_rx_phy;
+    param.options = cmd->options;
+    conn = bt_conn_lookup_addr_le(BT_ID_DEFAULT, (bt_addr_le_t *)data);
+    if (conn)
+    {
+        err = bt_conn_le_phy_update(conn, &param);
+        bt_conn_unref(conn);
+        status = err < 0 ? NCP_BRIDGE_CMD_RESULT_ERROR : NCP_BRIDGE_CMD_RESULT_OK;
+    }
+    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GAP_SET_PHY, status, NULL, 0);
+}
+#endif
 #if 0
 /*
  * @brief   This command is used to set I/O capabilities
@@ -1132,6 +1203,53 @@ static void le_param_updated(struct bt_conn *conn, uint16_t interval,
         ble_bridge_prepare_status(NCP_BRIDGE_EVENT_CONN_PARAM_UPDATE, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *) &ev, sizeof(ev));
     }
 }
+
+/*
+ * @brief   This event can be sent when the connection parameters have changed
+ */
+#if (defined(CONFIG_BT_USER_DATA_LEN_UPDATE) && (CONFIG_BT_USER_DATA_LEN_UPDATE > 0))
+static void le_data_len_updated(struct bt_conn *conn,
+			        struct bt_conn_le_data_len_info *info)
+{
+    struct gap_data_len_updated_ev ev = {0};
+    const bt_addr_le_t *addr = bt_conn_get_dst(conn);
+
+    if (addr != NULL)
+    {
+        memcpy(ev.address, addr->a.val, sizeof(ev.address));
+        ev.address_type = addr->type;
+    }
+    ev.tx_max_len = info->tx_max_len;
+    ev.tx_max_time = info->tx_max_time;
+    ev.rx_max_len = info->rx_max_len;
+    ev.rx_max_time = info->rx_max_time;
+
+    if(!is_create_conn_cmd) {
+        ble_bridge_prepare_status(NCP_BRIDGE_EVENT_DATA_LEN_UPDATED, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *) &ev, sizeof(ev));
+    }
+}
+#endif
+
+#if (defined(CONFIG_BT_USER_PHY_UPDATE) && (CONFIG_BT_USER_PHY_UPDATE > 0))
+static void le_phy_updated(struct bt_conn *conn,
+		           struct bt_conn_le_phy_info *info)
+{
+      struct gap_phy_updated_ev ev = {0};
+    const bt_addr_le_t *addr = bt_conn_get_dst(conn);
+
+    if (addr != NULL)
+    {
+        memcpy(ev.address, addr->a.val, sizeof(ev.address));
+        ev.address_type = addr->type;
+    }
+    ev.tx_phy = info->tx_phy;
+    ev.rx_phy = info->rx_phy;
+
+    if(!is_create_conn_cmd) {
+        ble_bridge_prepare_status(NCP_BRIDGE_EVENT_PHY_UPDATED, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *) &ev, sizeof(ev));
+    }
+}
+#endif
 
 /*
  * @brief   This event can be sent when the Security Level has changed
@@ -1628,7 +1746,8 @@ void set_filter_list(const uint8_t *data, uint16_t len)
     (void)bt_le_filter_accept_list_clear();
 
     for (int i = 0; i < cmd->cnt; i++) {
-        err = bt_le_filter_accept_list_add(&cmd->addr[i]);
+        bt_addr_le_t *le_addr = (bt_addr_le_t *) &cmd->addr;
+        err = bt_le_filter_accept_list_add(&le_addr[i]);
         if (err < 0) {
             status = NCP_BRIDGE_CMD_RESULT_ERROR;
         }

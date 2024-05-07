@@ -173,6 +173,7 @@ typedef struct mdns_result
     uint8_t txt_len; /* txt value len */
     char *txt;       /* txt value */
     /* A and AAAA */
+    uint8_t ip_count;
     mdns_ip_addr_t *ip_addr; /* linked list of IP addresses found */
 } mdns_result_t;
 

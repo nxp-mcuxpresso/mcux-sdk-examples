@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:examples xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd manifest.xsd">
+  <externalDefinitions>
+    <definition extID="platform.drivers.gpio.K32W1480"/>
+    <definition extID="utility.shell.K32W1480"/>
+    <definition extID="component.lists.K32W1480"/>
+    <definition extID="component.panic.K32W1480"/>
+    <definition extID="component.serial_manager_uart.K32W1480"/>
+    <definition extID="component.serial_manager.K32W1480"/>
+    <definition extID="component.osa_bm.K32W1480"/>
+    <definition extID="component.log.K32W1480"/>
+    <definition extID="component.log.backend.debugconsole.K32W1480"/>
+    <definition extID="component.log.backend.ringbuffer.K32W1480"/>
+    <definition extID="platform.drivers.clock.K32W1480"/>
+    <definition extID="platform.drivers.common.K32W1480"/>
+    <definition extID="device.K32W1480_CMSIS.K32W1480"/>
+    <definition extID="utility.debug_console.K32W1480"/>
+    <definition extID="component.lpuart_adapter.K32W1480"/>
+    <definition extID="platform.drivers.lpuart.K32W1480"/>
+    <definition extID="platform.devices.K32W1480.K32W1480"/>
+    <definition extID="platform.drivers.port.K32W1480"/>
+    <definition extID="platform.drivers.ccm32k.K32W1480"/>
+    <definition extID="platform.drivers.spc.K32W1480"/>
+    <definition extID="platform.utilities.assert.K32W1480"/>
+    <definition extID="platform.utilities.misc_utilities.K32W1480"/>
+    <definition extID="utility.str.K32W1480"/>
+    <definition extID="component.osa_interface.K32W1480"/>
+    <definition extID="CMSIS_Include_core_cm.K32W1480"/>
+    <definition extID="device.K32W1480_system.K32W1480"/>
+    <definition extID="armgcc"/>
+    <definition extID="mcuxpresso"/>
+    <definition extID="com.nxp.mcuxpresso"/>
+  </externalDefinitions>
+  <example id="k32w148evk_log_bm" name="log_bm" dependency="platform.drivers.gpio.K32W1480 utility.shell.K32W1480 component.lists.K32W1480 component.panic.K32W1480 component.serial_manager_uart.K32W1480 component.serial_manager.K32W1480 component.osa_bm.K32W1480 component.log.K32W1480 component.log.backend.debugconsole.K32W1480 component.log.backend.ringbuffer.K32W1480 platform.drivers.clock.K32W1480 platform.drivers.common.K32W1480 device.K32W1480_CMSIS.K32W1480 utility.debug_console.K32W1480 component.lpuart_adapter.K32W1480 platform.drivers.lpuart.K32W1480 platform.devices.K32W1480.K32W1480 platform.drivers.port.K32W1480 platform.drivers.ccm32k.K32W1480 platform.drivers.spc.K32W1480 platform.utilities.assert.K32W1480 platform.utilities.misc_utilities.K32W1480 utility.str.K32W1480 component.osa_interface.K32W1480 CMSIS_Include_core_cm.K32W1480 device.K32W1480_system.K32W1480" category="component_examples">
+    <projects>
+      <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
+    </projects>
+    <toolchainSettings>
+      <toolchainSetting id_refs="com.nxp.mcuxpresso">
+        <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
+          <value>CPU_K32W1480VFTA</value>
+          <value>MCUXPRESSO_SDK</value>
+          <value>DEBUG_CONSOLE_RX_ENABLE=0</value>
+          <value>SERIAL_PORT_TYPE_UART=1</value>
+        </option>
+        <option id="com.crt.advproject.gas.fpu" type="enum">
+          <value>com.crt.advproject.gas.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="com.crt.advproject.gcc.fpu" type="enum">
+          <value>com.crt.advproject.gcc.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="gnu.c.compiler.option.optimization.flags" type="string">
+          <value>-fno-common</value>
+        </option>
+        <option id="com.crt.advproject.c.misc.dialect" type="enum">
+          <value>com.crt.advproject.misc.dialect.gnu99</value>
+        </option>
+        <option id="gnu.c.compiler.option.misc.other" type="string">
+          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.toerrors" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="com.crt.advproject.link.fpu" type="enum">
+          <value>com.crt.advproject.link.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="gnu.c.link.option.nostdlibs" type="boolean">
+          <value>true</value>
+        </option>
+        <option id="gnu.c.link.option.other" type="stringList">
+          <value>-no-warn-rwx-segments</value>
+        </option>
+      </toolchainSetting>
+    </toolchainSettings>
+    <include_paths>
+      <include_path path="." project_relative_path="board" type="c_include"/>
+      <include_path path="../../../../../core/boards/k32w148evk" project_relative_path="board" type="c_include"/>
+    </include_paths>
+    <source path="armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">
+      <files mask="build_all.bat"/>
+      <files mask="build_all.sh"/>
+      <files mask="clean.bat"/>
+      <files mask="clean.sh"/>
+      <files mask="CMakeLists.txt"/>
+      <files mask="flags.cmake"/>
+      <files mask="config.cmake"/>
+      <files mask="build_debug.bat"/>
+      <files mask="build_debug.sh"/>
+      <files mask="build_release.bat"/>
+      <files mask="build_release.sh"/>
+    </source>
+    <source path="../../../../../core/devices/K32W1480" project_relative_path="./" type="workspace" toolchain="armgcc">
+      <files mask="all_lib_device.cmake"/>
+    </source>
+    <source path="." project_relative_path="source" type="src">
+      <files mask="log_main.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="pin_mux.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="pin_mux.h"/>
+    </source>
+    <source path="../../../../../core/boards/k32w148evk" project_relative_path="board" type="src">
+      <files mask="board.c"/>
+      <files mask="clock_config.c"/>
+    </source>
+    <source path="../../../../../core/boards/k32w148evk" project_relative_path="board" type="c_include">
+      <files mask="board.h"/>
+      <files mask="clock_config.h"/>
+    </source>
+    <source path="." project_relative_path="doc" type="doc" toolchain="mcuxpresso armgcc">
+      <files mask="readme.md"/>
+    </source>
+    <source path="armgcc" project_relative_path="K32W1480/gcc" type="linker" toolchain="armgcc">
+      <files mask="k32w148_flash.ld"/>
+    </source>
+  </example>
+</ksdk:examples>
