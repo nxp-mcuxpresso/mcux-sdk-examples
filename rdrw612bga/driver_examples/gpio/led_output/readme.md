@@ -54,4 +54,4 @@ The log below shows the output in the terminal window:
  Port state: 3
  ...
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-When press sw4 the fake LED BLUE will toggle on HD2 pin 3.
+When press sw4 the LED1 will toggle.

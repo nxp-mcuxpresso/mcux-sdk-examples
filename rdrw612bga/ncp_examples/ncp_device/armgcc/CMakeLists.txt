@@ -51,6 +51,15 @@ include(${ProjDirPath}/flags.cmake)
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
+"${ProjDirPath}/../system/ncp_system.h"
+"${ProjDirPath}/../system/ncp_system.c"
+"${ProjDirPath}/../system/ncp_glue_system.h"
+"${ProjDirPath}/../system/ncp_glue_system.c"
+"${ProjDirPath}/../wifi/ncp_wifi.c"
+"${ProjDirPath}/../wifi/ncp_wifi.h"
+"${ProjDirPath}/../wifi/ncp_glue_wifi.c"
+"${ProjDirPath}/../wifi/ncp_glue_wifi.h"
+"${ProjDirPath}/../wifi/wifi_config.h"
 "${ProjDirPath}/../ble/gap.c"
 "${ProjDirPath}/../ble/gatt.c"
 "${ProjDirPath}/../ble/l2cap.c"
@@ -58,20 +67,17 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../ble/ncp_ble.h"
 "${ProjDirPath}/../ble/ncp_glue_ble.c"
 "${ProjDirPath}/../ble/ncp_glue_ble.h"
-"${ProjDirPath}/../ble/ncp_cmd_ble.h"
 "${ProjDirPath}/../ble/app_bluetooth_config.h"
 "${ProjDirPath}/../ble/service/gatt_server/peripheral_hrs.c"
 "${ProjDirPath}/../ble/service/gatt_server/peripheral_hrs.h"
+"${ProjDirPath}/../ble/service/gatt_server/peripheral_hts.c"
+"${ProjDirPath}/../ble/service/gatt_server/peripheral_hts.h"
 "${ProjDirPath}/../ble/service/gatt_client/central_hrc.c"
 "${ProjDirPath}/../ble/service/gatt_client/central_hrc.h"
 "${ProjDirPath}/../ble/service/gatt_client/central_htc.c"
 "${ProjDirPath}/../ble/service/gatt_client/central_htc.h"
 "${ProjDirPath}/../ble/service/bas.c"
 "${ProjDirPath}/../ble/service/bas.h"
-"${ProjDirPath}/../ble/service/hrs.c"
-"${ProjDirPath}/../ble/service/hrs.h"
-"${ProjDirPath}/../ble/service/hts.c"
-"${ProjDirPath}/../ble/service/hts.h"
 "${ProjDirPath}/../ble/service/service.c"
 "${ProjDirPath}/../ble/service/service.h"
 "${ProjDirPath}/../lwipopts.h"
@@ -81,16 +87,15 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../app.h"
 "${ProjDirPath}/../main.c"
-"${ProjDirPath}/../wifi_config.h"
 "${ProjDirPath}/../app_config.h"
 "${ProjDirPath}/../FreeRTOSConfig.h"
-"${ProjDirPath}/../ncp_cmd_common.h"
-"${ProjDirPath}/../ncp_cmd_wifi.h"
-"${ProjDirPath}/../ncp_glue_wifi.h"
-"${ProjDirPath}/../ncp_glue_wifi.c"
-"${ProjDirPath}/../ncp_glue_common.c"
-"${ProjDirPath}/../app_notify.h"
-"${ProjDirPath}/../app_notify.c"
+"${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/ncp_cmd_common.h"
+"${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/ncp_cmd_system.h"
+"${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/ncp_cmd_wifi.h"
+"${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/ncp_cmd_ble.h"
+"${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/ncp_glue_common.c"
+"${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/app_notify.h"
+"${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/app_notify.c"
 "${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/ncp_adapter/ncp_adapter.h"
 "${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/ncp_adapter/ncp_tlv/ncp_tlv_adapter.c"
 "${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/ncp_adapter/ncp_tlv/ncp_tlv_adapter.h"
@@ -169,7 +174,10 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/../ble/service/gatt_client
     ${ProjDirPath}/../ble/service/gatt_server
     ${ProjDirPath}/..
+    ${ProjDirPath}/../system
+    ${ProjDirPath}/../wifi
     ${SdkRootDirPath}/examples/rdrw612bga
+    ${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common
     ${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/ncp_adapter
     ${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/ncp_adapter/ncp_intf
     ${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/ncp_adapter/ncp_tlv
@@ -188,9 +196,9 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${SdkRootDirPath}/core/boards/rdrw612bga
 )
 
+set_source_files_properties("${ProjDirPath}/../wifi/wifi_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_wifi_template")
 set_source_files_properties("${ProjDirPath}/../ble/app_bluetooth_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_edgefast_bluetooth_config_template")
 set_source_files_properties("${ProjDirPath}/../lwipopts.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_lwip_template")
-set_source_files_properties("${ProjDirPath}/../wifi_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_wifi_template")
 set_source_files_properties("${ProjDirPath}/../app_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_wifi_template")
 set_source_files_properties("${ProjDirPath}/../FreeRTOSConfig.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_freertos-kernel_template")
 set_source_files_properties("${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/ncp_adapter/ncp_intf/usb/usb_device_cdc/usb_device_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_usb_device_ehci_config_header")

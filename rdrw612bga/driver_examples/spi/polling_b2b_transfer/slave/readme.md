@@ -25,7 +25,7 @@ Hardware requirements
 
 Board settings
 ==============
-Connect JP30 1-2, JP9, JP19, JP23. Disconnect JP47 and connect JP47-1 to GND(J8-6).
+Connect JP30 1-2, JP9, JP19, JP23, JP51. Disconnect JP47 and connect JP47-1 to GND(J8-6).
 Extra rework is needed for the slave board besides the above connection, remove R97, R415, R594
 and install R409, R49, R13.
 

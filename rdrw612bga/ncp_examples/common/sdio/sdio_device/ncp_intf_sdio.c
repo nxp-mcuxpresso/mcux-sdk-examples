@@ -9,9 +9,10 @@
 #include "fsl_os_abstraction_free_rtos.h"
 
 #include "fsl_adapter_sdu.h"
-
+#include "fsl_power.h"
 #include "ncp_adapter.h"
 #include "ncp_intf_sdio.h"
+#include "host_sleep.h"
 
 /*******************************************************************************
  * Defines
@@ -114,7 +115,7 @@ int ncp_sdio_init(void *argv)
     if (ret != kStatus_Success)
     {
         ncp_adap_e("Failed to initialize SDIO");
-        return NCP_STATUS_ERROR;
+        return (int)NCP_STATUS_ERROR;
     }
 
     SDU_InstallCallback(SDU_TYPE_FOR_WRITE_CMD, ncp_tlv_dispatch);
@@ -122,7 +123,7 @@ int ncp_sdio_init(void *argv)
 
     //(void)OSA_TaskCreate((osa_task_handle_t)ncp_sdioTaskHandle, OSA_TASK(ncp_sdio_intf_task), NULL);
 
-    return NCP_STATUS_SUCCESS;
+    return (int)NCP_STATUS_SUCCESS;
 }
 
 int ncp_sdio_deinit(void *argv)
@@ -131,7 +132,7 @@ int ncp_sdio_deinit(void *argv)
 
     SDU_Deinit();
 
-    return NCP_STATUS_SUCCESS;
+    return (int)NCP_STATUS_SUCCESS;
 }
 
 #if 0
@@ -145,7 +146,7 @@ int ncp_sdio_recv(uint8_t *tlv_buf, size_t *tlv_sz)
 
     NCP_SDIO_STATS_INC(rx);
 
-    return NCP_STATUS_SUCCESS;
+    return (int)NCP_STATUS_SUCCESS;
 }
 #endif
 
@@ -187,25 +188,36 @@ int ncp_sdio_send(uint8_t *tlv_buf, size_t tlv_sz, tlv_send_callback_t cb)
     {
         ncp_adap_d("%s: fail 0x%x", __FUNCTION__, ret);
         NCP_SDIO_STATS_INC(drop);
-        return NCP_STATUS_ERROR;
+        return (int)NCP_STATUS_ERROR;
     }
 
     NCP_SDIO_STATS_INC(tx);
 
-    return NCP_STATUS_SUCCESS;
+    return (int)NCP_STATUS_SUCCESS;
 }
 
 static int ncp_sdio_pm_enter(int32_t pm_state)
 {
-    ncp_pm_status_t ret = NCP_PM_STATUS_SUCCESS;
+    int ret = (int)NCP_PM_STATUS_SUCCESS;
 
-    if(pm_state == NCP_PM_STATE_PM3)
+    if(pm_state == NCP_PM_STATE_PM2)
+    {
+        //SDU_FN_CARD->FN_CARD_INTMASK = 0x1;
+        /* Enable host power up interrupt */
+        SDU_FN_CARD->CARD_INTMASK0 |= SDU_FN_CARD_CARD_INTSTATUS0_HOST_PWR_UP_INT_MASK;
+        /* Enable this bit so that hardware can send R5 immediately in sleep mode */
+        SDU_FN0_CARD->CARD_CTRL5 |= SDU_FN0_CARD_CARD_CTRL5_CMD52_RES_VALID_MODE_MASK;
+        POWER_ClearWakeupStatus(SDU_IRQn);
+        NVIC_ClearPendingIRQ(SDU_IRQn);
+        POWER_EnableWakeup(SDU_IRQn);
+    }
+    else if(pm_state == NCP_PM_STATE_PM3)
     {
         ret = ncp_sdio_deinit(NULL);
         if(ret != 0)
         {
             ncp_adap_e("Failed to deinit SDIO interface");
-            return NCP_PM_STATUS_ERROR;
+            return (int)NCP_PM_STATUS_ERROR;
         }
     }
     
@@ -214,18 +226,28 @@ static int ncp_sdio_pm_enter(int32_t pm_state)
 
 static int ncp_sdio_pm_exit(int32_t pm_state)
 {
-    ncp_pm_status_t ret = NCP_PM_STATUS_SUCCESS;
+    int ret = (int)NCP_PM_STATUS_SUCCESS;
 
-    if(pm_state == NCP_PM_STATE_PM3)
+    if(pm_state == NCP_PM_STATE_PM2)
+    {
+        POWER_DisableWakeup(SDU_IRQn);
+        SDU_FN0_CARD->CARD_CTRL5 &= (~SDU_FN0_CARD_CARD_CTRL5_CMD52_RES_VALID_MODE_MASK);
+        SDU_FN_CARD->CARD_INTMASK0 &= (~SDU_FN_CARD_CARD_INTSTATUS0_HOST_PWR_UP_INT_MASK);
+    }
+    else if(pm_state == NCP_PM_STATE_PM3)
     {
         ret = ncp_sdio_init(NULL);
         if(ret != 0)
         {
             ncp_adap_e("Failed to init SDIO interface");
-            return NCP_PM_STATUS_ERROR;
+            return (int)NCP_PM_STATUS_ERROR;
         }
+
+        /* After wakeup from PM3, sdio device notify sdio host to re-enumerate by gpio */
+        ncp_notify_host_gpio_init();
+        ncp_notify_host_gpio_output();
     }
-    return (int)ret;
+    return ret;
 }
 
 static ncp_intf_pm_ops_t ncp_sdio_pm_ops =

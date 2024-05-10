@@ -1113,7 +1113,7 @@ static int do_sta_add_network(network_from nw_from, char *ssid, char *pass, char
             ret = -WM_FAIL;
             goto done;
         }
-        ret = wifi_get_network(sta_network, WLAN_BSS_ROLE_STA);
+        ret = wifi_get_network(sta_network, WLAN_BSS_ROLE_STA, DEF_STA_NETWORK_LABEL);
         if (ret || (strlen(sta_network->ssid) == 0))
         {
             uap_prov_e("do_sta_add_network: read fail %d or invalid ssid %s.", ret, sta_network->ssid);

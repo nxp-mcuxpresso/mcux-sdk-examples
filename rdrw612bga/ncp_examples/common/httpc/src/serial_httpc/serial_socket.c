@@ -13,6 +13,9 @@
 #include <websockets.h>
 #include <cli_utils.h>
 #include <stdio.h>
+#if defined(__GNUC__)
+#include <strings.h>
+#endif
 
 #define RECV_CHUNK_LEN 1024
 #define END_INDICATOR  "$$"

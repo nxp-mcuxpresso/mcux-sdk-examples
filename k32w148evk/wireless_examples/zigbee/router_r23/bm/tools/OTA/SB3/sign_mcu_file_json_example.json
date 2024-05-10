@@ -1,0 +1,23 @@
+{
+    "family": "kw45xx",
+    "inputImageFile": "placholder_input.bin",
+    "outputImageExecutionTarget": "xip",
+    "outputImageExecutionAddress": "0x0",
+    "outputImageAuthenticationType": "signed",
+    "outputImageSubtype": "default",
+    "firmwareVersion": "0x1",
+    "masterBootOutputFile": "placholder_output.bin",
+    "rootCertificate0File": "./keys_and_certs/ec_secp384r1_cert0.pem",
+    "rootCertificate1File": "./keys_and_certs/ec_secp384r1_cert1.pem",
+    "rootCertificate2File": "./keys_and_certs/ec_secp384r1_cert2.pem",
+    "rootCertificate3File": "./keys_and_certs/ec_secp384r1_cert3.pem",
+    "mainRootCertId": 0,
+    "mainRootCertPrivateKeyFile": "./keys_and_certs/ec_pk_secp384r1_cert0.pem",
+    "rootCertificateEllipticCurve": "secp384r1",
+    "useIsk": true,
+    "signingCertificateFile": "./keys_and_certs/ec_secp384r1_sign_cert.pem",
+    "signingCertificatePrivateKeyFile": "./keys_and_certs/ec_pk_secp384r1_sign_cert.pem",
+    "signingCertificateConstraint": "0x0",
+    "iskCertificateEllipticCurve": "secp384r1",
+    "signCertData": ""
+}

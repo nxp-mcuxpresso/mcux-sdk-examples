@@ -72,7 +72,8 @@
 #define CONFIG_BT_AUTO_PHY_UPDATE                   1
 #define CONFIG_BT_DATA_LEN_UPDATE                   1
 #define CONFIG_BT_AUTO_DATA_LEN_UPDATE              1
-
+#define CONFIG_BT_USER_PHY_UPDATE                   1
+#define CONFIG_BT_USER_DATA_LEN_UPDATE              1
 /*
  * Bluetooth buffer configuration
  */

@@ -546,11 +546,12 @@ static void lfs_config_do(lfs_file_t *file, int action, int type, int idx, void 
 
 static void lfs_config_handler(int argc, char **argv)
 {
-    int type;
+    int type = WIFI_CONFIG_WLAN_STA;
     int set;
     int idx;
     int res;
     lfs_file_t file;
+    char role[2];
 
     if (!lfs_mounted)
     {
@@ -585,24 +586,139 @@ static void lfs_config_handler(int argc, char **argv)
             return;
         }
     }
-    else if (!strcmp(argv[1], "wlan_sta"))
+    else if (!strcmp(argv[1], "wlan_bss1"))
     {
-        type = WIFI_CONFIG_WLAN_STA;
-        res  = lfs_file_open(&lfs, &file, WLAN_STA_CONFIG_FILE_PATH, LFS_O_RDWR);
+        res  = lfs_file_open(&lfs, &file, WLAN_BSS_CONFIG_FILE_PATH, LFS_O_RDWR);
         if (res != 0)
         {
-            PRINTF("open file %s fail res %d\r\n", WLAN_STA_CONFIG_FILE_PATH, res);
+            PRINTF("open file %s fail res %d\r\n", WLAN_BSS_CONFIG_FILE_PATH, res);
             return;
         }
+        res = wifi_load_wlan_uap_config(&file, WLAN_ROLE, role, sizeof(role));
+        if(res != 0)
+        {
+            PRINTF("open file %s, get bss role fail, res %d\r\n", WLAN_BSS_CONFIG_FILE_PATH, res);
+            return;
+        }
+        enum wlan_bss_role bss_role = (enum wlan_bss_role)atoi(role);
+        switch (bss_role)
+        {
+        case WLAN_BSS_ROLE_STA:
+            type = WIFI_CONFIG_WLAN_STA;
+            break;
+        case WLAN_BSS_ROLE_UAP:
+            type = WIFI_CONFIG_WLAN_UAP;
+            break;
+        default:
+            break;
+        }
     }
-    else if (!strcmp(argv[1], "wlan_uap"))
+    else if (!strcmp(argv[1], "wlan_bss2"))
     {
-        type = WIFI_CONFIG_WLAN_UAP;
-        res  = lfs_file_open(&lfs, &file, WLAN_UAP_CONFIG_FILE_PATH, LFS_O_RDWR);
+        res  = lfs_file_open(&lfs, &file, WLAN_BSS2_CONFIG_FILE_PATH, LFS_O_RDWR);
         if (res != 0)
         {
-            PRINTF("open file %s fail res %d\r\n", WLAN_UAP_CONFIG_FILE_PATH, res);
+            PRINTF("open file %s fail res %d\r\n", WLAN_BSS2_CONFIG_FILE_PATH, res);
             return;
+        }
+        res = wifi_load_wlan_uap_config(&file, WLAN_ROLE, role, sizeof(role));
+        if(res != 0)
+        {
+            PRINTF("open file %s, get bss role fail, res %d\r\n", WLAN_BSS2_CONFIG_FILE_PATH, res);
+            return;
+        }
+        enum wlan_bss_role bss_role = (enum wlan_bss_role)atoi(role);
+        switch (bss_role)
+        {
+        case WLAN_BSS_ROLE_STA:
+            type = WIFI_CONFIG_WLAN_STA;
+            break;
+        case WLAN_BSS_ROLE_UAP:
+            type = WIFI_CONFIG_WLAN_UAP;
+            break;
+        default:
+            break;
+        }
+    }
+    else if (!strcmp(argv[1], "wlan_bss3"))
+    {
+        res  = lfs_file_open(&lfs, &file, WLAN_BSS3_CONFIG_FILE_PATH, LFS_O_RDWR);
+        if (res != 0)
+        {
+            PRINTF("open file %s fail res %d\r\n", WLAN_BSS3_CONFIG_FILE_PATH, res);
+            return;
+        }
+        res = wifi_load_wlan_uap_config(&file, WLAN_ROLE, role, sizeof(role));
+        if(res != 0)
+        {
+            PRINTF("open file %s, get bss role fail, res %d\r\n", WLAN_BSS3_CONFIG_FILE_PATH, res);
+            return;
+        }
+        enum wlan_bss_role bss_role = (enum wlan_bss_role)atoi(role);
+        switch (bss_role)
+        {
+        case WLAN_BSS_ROLE_STA:
+            type = WIFI_CONFIG_WLAN_STA;
+            break;
+        case WLAN_BSS_ROLE_UAP:
+            type = WIFI_CONFIG_WLAN_UAP;
+            break;
+        default:
+            break;
+        }
+    }
+    else if (!strcmp(argv[1], "wlan_bss4"))
+    {
+        res  = lfs_file_open(&lfs, &file, WLAN_BSS4_CONFIG_FILE_PATH, LFS_O_RDWR);
+        if (res != 0)
+        {
+            PRINTF("open file %s fail res %d\r\n", WLAN_BSS4_CONFIG_FILE_PATH, res);
+            return;
+        }
+        res = wifi_load_wlan_uap_config(&file, WLAN_ROLE, role, sizeof(role));
+        if(res != 0)
+        {
+            PRINTF("open file %s, get bss role fail, res %d\r\n", WLAN_BSS4_CONFIG_FILE_PATH, res);
+            return;
+        }
+        enum wlan_bss_role bss_role = (enum wlan_bss_role)atoi(role);
+        switch (bss_role)
+        {
+        case WLAN_BSS_ROLE_STA:
+            type = WIFI_CONFIG_WLAN_STA;
+            break;
+        case WLAN_BSS_ROLE_UAP:
+            type = WIFI_CONFIG_WLAN_UAP;
+            break;
+        default:
+            break;
+        }
+    }
+    else if (!strcmp(argv[1], "wlan_bss5"))
+    {
+        res  = lfs_file_open(&lfs, &file, WLAN_BSS5_CONFIG_FILE_PATH, LFS_O_RDWR);
+        if (res != 0)
+        {
+            PRINTF("open file %s fail res %d\r\n", WLAN_BSS5_CONFIG_FILE_PATH, res);
+            return;
+        }
+        res = wifi_load_wlan_uap_config(&file, WLAN_ROLE, role, sizeof(role));
+        if(res != 0)
+        {
+            PRINTF("open file %s, get bss role fail, res %d\r\n", WLAN_BSS5_CONFIG_FILE_PATH, res);
+            return;
+        }
+        enum wlan_bss_role bss_role = (enum wlan_bss_role)atoi(role);
+        switch (bss_role)
+        {
+        case WLAN_BSS_ROLE_STA:
+            type = WIFI_CONFIG_WLAN_STA;
+            break;
+        case WLAN_BSS_ROLE_UAP:
+            type = WIFI_CONFIG_WLAN_UAP;
+            break;
+        default:
+            break;
         }
     }
     else

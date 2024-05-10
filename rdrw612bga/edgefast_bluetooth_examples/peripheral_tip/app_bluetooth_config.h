@@ -1,5 +1,5 @@
 /*
- *  Copyright 2022 NXP
+ *  Copyright 2022, 2024 NXP
  *  All rights reserved.
  *
  *  SPDX-License-Identifier: BSD-3-Clause
@@ -7,6 +7,7 @@
 
 #define USB_HOST_CONFIG_EHCI (1U)
 #define CONTROLLER_ID        kUSB_ControllerEhci0
+#define CONFIG_BT_RX_STACK_SIZE 3000
 
 #define CONFIG_BT_PERIPHERAL            1
 #define CONFIG_BT_DEVICE_NAME           "peripheral_tip"

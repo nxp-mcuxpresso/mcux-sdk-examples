@@ -25,6 +25,10 @@ void central_hrc_connect(void *args);
 
 void central_hrc_disconnect(void *args);
 
+bool hrc_adv_report_processed(struct adv_report_data *data, void *user_addr);
+
+void central_hrc_task(void *pvParameters);
+
 #ifdef __cplusplus
 }
 #endif

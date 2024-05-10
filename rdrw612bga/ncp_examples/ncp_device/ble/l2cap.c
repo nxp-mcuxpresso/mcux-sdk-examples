@@ -19,6 +19,17 @@ LOG_MODULE_DEFINE(LOG_MODULE_NAME, kLOG_LevelTrace);
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
+#define MAX_L2CAP_CHANNEL 1
+
+#define CREDITS			10
+#define DATA_MTU		(23 * CREDITS)
+
+#define L2CAP_POLICY_NONE		0x00
+#define L2CAP_POLICY_ALLOWLIST		0x01
+#define L2CAP_POLICY_16BYTE_KEY		0x02
+NET_BUF_POOL_FIXED_DEFINE(data_tx_pool, 1,
+			  BT_L2CAP_SDU_BUF_SIZE(DATA_MTU), NULL);
+NET_BUF_POOL_FIXED_DEFINE(data_rx_pool, 1, DATA_MTU, NULL);
 #if 0
 #define CONTROLLER_INDEX        0
 #define DATA_MTU_INITIAL        128
@@ -73,7 +84,15 @@ static int ble_l2cap_accept(struct bt_conn *conn, struct bt_l2cap_server *server
 static bool is_free_psm(uint16_t psm);
 static struct bt_l2cap_server *get_free_server(void);
 #endif
-
+static int l2cap_accept(struct bt_conn *conn, struct bt_l2cap_server *server,
+			struct bt_l2cap_chan **chan);
+void ble_l2cap_set_recv(uint8_t *data, uint16_t len);
+void ble_l2cap_metrics(uint8_t *data, uint16_t len);
+void bt_l2cap_register(uint8_t *data, uint16_t len);
+void ble_l2cap_connect(uint8_t *data, uint16_t len);
+void ble_l2cap_disconnect(uint8_t *data, uint16_t len);
+void ble_l2cap_send_data(uint8_t *data, uint16_t len);
+int ble_ncp_L2capInit(void);
 /*******************************************************************************
  * Variables
  ******************************************************************************/
@@ -99,6 +118,30 @@ static const struct bt_l2cap_chan_ops l2cap_ops = {
 };
 #endif
 
+static uint8_t l2cap_policy;
+
+static struct bt_conn *l2cap_allowlist[CONFIG_BT_MAX_CONN];
+static uint32_t l2cap_rate;
+static uint32_t l2cap_recv_delay_ms;
+osa_msgq_handle_t l2cap_recv_fifo;
+OSA_MSGQ_HANDLE_DEFINE(l2cap_recv_fifo_handle, CONFIG_BT_MSG_QUEUE_COUNT, sizeof(void*));
+static bool metrics;
+
+#define L2CH_CHAN(_chan) CONTAINER_OF(_chan, struct l2ch, ch.chan)
+#define L2CH_WORK(_work) CONTAINER_OF(_work, struct l2ch, recv_work)
+#define L2CAP_CHAN(_chan) _chan->ch.chan
+
+struct l2ch {
+	bool used;
+	struct k_work_delayable recv_work;
+	struct bt_l2cap_le_chan ch;
+};
+
+static struct l2ch l2ch_chan[MAX_L2CAP_CHANNEL];
+
+static struct bt_l2cap_server server = {
+	.accept		= l2cap_accept,
+};
 /*******************************************************************************
  * Code
  ******************************************************************************/
@@ -192,180 +235,472 @@ static void supported_commands(uint8_t *data, uint16_t len)
 
     ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_L2CAP) << 16) | L2CAP_READ_SUPPORTED_COMMANDS, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *) rp, sizeof(cmds));
 }
+#endif
+
+static void l2cap_channel_free(struct l2ch *chan)
+{
+	if (true == chan->used)
+	{
+		chan->used = false;
+	}
+}
+
+static int l2cap_recv_metrics(struct bt_l2cap_chan *chan, struct net_buf *buf)
+{
+	static uint32_t len;
+	static uint32_t cycle_stamp;
+	uint32_t delta;
+
+	delta = (uint32_t)OSA_TimeGetMsec() - cycle_stamp;
+	delta = (uint32_t)(delta * 1000);
+
+	/* if last data rx-ed was greater than 1 second in the past,
+	 * reset the metrics.
+	 */
+	if (delta > 1000000000) {
+		len = 0U;
+		l2cap_rate = 0U;
+		cycle_stamp = (uint32_t)OSA_TimeGetMsec();
+	} else {
+		len += buf->len;
+		l2cap_rate = ((uint64_t)len << 3) * 1000000000U / delta;
+	}
+        l2cap_rate = l2cap_rate/1000;
+	return NCP_BRIDGE_CMD_RESULT_OK;
+}
+
+static void l2cap_recv_cb(struct k_work *work)
+{
+	struct l2ch *c = L2CH_WORK(work);
+	struct net_buf *buf;
+
+	while ((buf = net_buf_get(l2cap_recv_fifo, osaWaitNone_c))) {
+		ncp_d("Confirming reception\n");
+		bt_l2cap_chan_recv_complete(&c->ch.chan, buf);
+	}
+}
+
+static void dump_hex(const void *data, unsigned len)
+{
+    (void)PRINTF("**** Dump @ %p Len: %d ****\n\r", data, len);
+
+    unsigned int i    = 0;
+    const char *data8 = (const char *)data;
+    while (i < len)
+    {
+        (void)PRINTF("%02x ", data8[i++]);
+        if (!(i % 16))
+        {
+            (void)PRINTF("\n\r");
+        }
+    }
+
+    (void)PRINTF("\n\r******** End Dump *******\n\r");
+}
+
+static int l2cap_recv(struct bt_l2cap_chan *chan, struct net_buf *buf)
+{
+    struct l2ch *l2ch = L2CH_CHAN(chan);
+    struct l2cap_reveive_ev ev = {0};
+    const bt_addr_le_t *addr = bt_conn_get_dst(chan->conn);
+
+    if (metrics) {
+	return l2cap_recv_metrics(chan, buf);
+    }
+
+    ncp_d("Incoming data channel %p len %u\n", chan, buf->len);
+#if 0
+    if (buf->len) {
+	dump_hex(buf->data, buf->len);
+    }
+#endif
+    if (addr != NULL)
+    {
+        memcpy(ev.address, addr->a.val, sizeof(ev.address));
+        ev.address_type = addr->type;
+    }
+    ev.psm = l2ch->ch.psm;
+    memcpy((uint8_t *)ev.data, buf->data, buf->len);
+    ev.len = buf->len;
+    ncp_d("sizeof(ev) len %d\n", sizeof(ev));
+    ble_bridge_prepare_status(NCP_BRIDGE_EVENT_L2CAP_RECEIVE, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *) &ev,10 + ev.len);
+
+    if (l2cap_recv_delay_ms > 0) {
+	/* Submit work only if queue is empty */
+	if (0 == OSA_MsgQAvailableMsgs(l2cap_recv_fifo)) {
+		ncp_d("Delaying response in %u ms...\n",
+	                            l2cap_recv_delay_ms);
+		bt_delayed_work_submit(&l2ch->recv_work,
+		                    BT_MSEC(l2cap_recv_delay_ms));
+	}
+	net_buf_put(l2cap_recv_fifo, buf);
+	return -EINPROGRESS;
+    }
+
+    return NCP_BRIDGE_CMD_RESULT_OK;
+}
+
+static void l2cap_sent(struct bt_l2cap_chan *chan)
+{
+    ncp_d("Outgoing data channel %p transmitted\n", chan);
+}
+
+static void l2cap_status(struct bt_l2cap_chan *chan, atomic_t *status)
+{
+    ncp_d("Channel %p status %u\n", chan, (uint32_t)*status);
+}
+
+static void l2cap_connected(struct bt_l2cap_chan *chan)
+{
+    struct l2ch *c = L2CH_CHAN(chan);
+    struct l2cap_connect_ev ev = {0};
+    const bt_addr_le_t *addr = bt_conn_get_dst(chan->conn);
+
+    bt_delayed_work_init(&c->recv_work, l2cap_recv_cb);
+    ncp_d("Channel %p connected\n", chan);
+    if (addr != NULL)
+    {
+        memcpy(ev.address, addr->a.val, sizeof(ev.address));
+        ev.address_type = addr->type;
+    }
+    ev.psm = c->ch.psm;
+
+    ble_bridge_prepare_status(NCP_BRIDGE_EVENT_L2CAP_CONNECT, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *) &ev, sizeof(ev));
+
+}
+
+static void l2cap_disconnected(struct bt_l2cap_chan *chan)
+{
+    struct l2ch *l2ch = L2CH_CHAN(chan);
+    struct l2cap_connect_ev ev = {0};
+    const bt_addr_le_t *addr = bt_conn_get_dst(chan->conn);
+
+    if (addr != NULL)
+    {
+        memcpy(ev.address, addr->a.val, sizeof(ev.address));
+        ev.address_type = addr->type;
+    }
+    ev.psm = l2ch->ch.psm;
+
+    ble_bridge_prepare_status(NCP_BRIDGE_EVENT_L2CAP_DISCONNECT, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *) &ev, sizeof(ev));
+
+    ncp_d("Channel %p disconnected\n", chan);
+    l2cap_channel_free(l2ch);
+}
+
+static struct net_buf *l2cap_alloc_buf(struct bt_l2cap_chan *chan)
+{
+	/* print if metrics is disabled */
+	if (!metrics) {
+		ncp_d("Channel %p requires buffer\n", chan);
+	}
+
+	return net_buf_alloc(&data_rx_pool, osaWaitForever_c);
+}
+
+static const struct bt_l2cap_chan_ops l2cap_ops = {
+	.alloc_buf	= l2cap_alloc_buf,
+	.recv		= l2cap_recv,
+	.sent		= l2cap_sent,
+	.status		= l2cap_status,
+	.connected	= l2cap_connected,
+	.disconnected	= l2cap_disconnected,
+};
+
+static struct l2ch * l2cap_channel_create_new(void)
+{
+	for (int i = 0;i < MAX_L2CAP_CHANNEL;i++)
+	{
+		if (false == l2ch_chan[i].used)
+		{
+			l2ch_chan[i].used = true;
+			return &l2ch_chan[i];
+		}
+	}
+	return NULL;
+}
+
+static struct l2ch * l2cap_channel_lookup_conn(struct bt_conn *conn)
+{
+	for (int i = 0;i < MAX_L2CAP_CHANNEL;i++)
+	{
+		if ((true == l2ch_chan[i].used) && (conn == l2ch_chan[i].ch.chan.conn))
+		{
+			return &l2ch_chan[i];
+		}
+	}
+	return NULL;
+}
+
+static void l2cap_allowlist_remove(struct bt_conn *conn, uint8_t reason)
+{
+	int i;
+
+	for (i = 0; i < ARRAY_SIZE(l2cap_allowlist); i++) {
+		if (l2cap_allowlist[i] == conn) {
+			bt_conn_unref(l2cap_allowlist[i]);
+			l2cap_allowlist[i] = NULL;
+		}
+	}
+}
+
+static struct bt_conn_cb l2cap_conn_callbacks = {
+	.disconnected = l2cap_allowlist_remove,
+};
+
+static int l2cap_accept_policy(struct bt_conn *conn)
+{
+	int i;
+
+	if (l2cap_policy == L2CAP_POLICY_16BYTE_KEY) {
+#if ((defined(CONFIG_BT_SMP) && ((CONFIG_BT_SMP) > 0U)) || (defined(CONFIG_BT_BREDR) && ((CONFIG_BT_BREDR) > 0U)))
+		uint8_t enc_key_size = bt_conn_enc_key_size(conn);
+
+		if (enc_key_size && enc_key_size < BT_ENC_KEY_SIZE_MAX) {
+			return -EPERM;
+		}
+#endif
+	} else if (l2cap_policy == L2CAP_POLICY_ALLOWLIST) {
+		for (i = 0; i < ARRAY_SIZE(l2cap_allowlist); i++) {
+			if (l2cap_allowlist[i] == conn) {
+				return 0;
+			}
+		}
+
+		return -EACCES;
+	}
+
+	return 0;
+}
+
+static int l2cap_accept(struct bt_conn *conn, struct bt_l2cap_server *server,
+			struct bt_l2cap_chan **chan)
+{
+	struct l2ch *l2cap_channel;
+	int err;
+
+	ncp_d("Incoming conn %p\n", conn);
+
+	err = l2cap_accept_policy(conn);
+	if (err < 0) {
+		return err;
+	}
+
+	l2cap_channel = l2cap_channel_create_new();
+	if (NULL == l2cap_channel) {
+		ncp_d("No channels available\n");
+		return -ENOMEM;
+	}
+
+	*chan = &l2cap_channel->ch.chan;
+
+	return 0;
+}
+
+/*
+ * @brief   recv set
+ */
+void ble_l2cap_set_recv(uint8_t *data, uint16_t len)
+{
+    const struct l2cap_recv_cmd_tag *cmd = (void *) data;
+
+    l2cap_recv_delay_ms = cmd->l2cap_recv_delay_ms;
+    ncp_d("l2cap receive delay: %u ms\n",l2cap_recv_delay_ms);
+    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_L2CAP_RECEIVE, NCP_BRIDGE_CMD_RESULT_OK, NULL, 0);
+}
+
+/*
+ * @brief   CMD METRICS
+ */
+void ble_l2cap_metrics(uint8_t *data, uint16_t len)
+{
+    const struct l2cap_metrics_cmd_tag *cmd = (void *) data;
+    uint8_t status = NCP_BRIDGE_CMD_RESULT_ERROR;
+
+    ncp_d("l2cap rate: %u bps.", l2cap_rate * 1000);
+    if (cmd->metrics_flag == true)
+    {
+        metrics = true;
+        status = NCP_BRIDGE_CMD_RESULT_OK;
+    }
+    else if (cmd->metrics_flag == false)
+    {
+        metrics = false;
+        status = NCP_BRIDGE_CMD_RESULT_OK;
+    }
+    else
+    {
+        status = NCP_BRIDGE_CMD_RESULT_ERROR;
+    }
+    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_L2CAP_METRICS, status, NULL, 0);
+}
+
+/*
+ * @brief   Register L2CAP PSM
+ */
+void bt_l2cap_register(uint8_t *data, uint16_t len)
+{
+    const struct l2cap_register_psm_cmd_tag *cmd = (void *) data;
+    uint8_t status = NCP_BRIDGE_CMD_RESULT_ERROR;
+    // int err;
+    // const char *policy;
+
+    if (server.psm)
+    {
+        ncp_e("Already registered\n");
+        goto sta;
+    }
+
+    server.psm = cmd->psm;
+    if(cmd->sec_flag == 1)
+    {
+        server.sec_level = (bt_security_t)cmd->sec_level;
+    }
+
+    if(cmd->policy_flag == 1)
+    {
+	l2cap_policy = L2CAP_POLICY_ALLOWLIST;
+    }
+    else if (cmd->policy_flag == 2)
+    {
+	l2cap_policy = L2CAP_POLICY_16BYTE_KEY;
+    }
+    else
+    {
+	//do nothing
+    }
+
+    if (bt_l2cap_server_register(&server) < 0)
+    {
+	ncp_e("Unable to register psm\n");
+	server.psm = 0U;
+    }
+    else
+    {
+	bt_conn_cb_register(&l2cap_conn_callbacks);
+        status = NCP_BRIDGE_CMD_RESULT_OK;
+	ncp_d("L2CAP psm %u sec_level %u registered\n",
+			    server.psm, server.sec_level);
+    }
+sta:
+    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_L2CAP_REGISTER, status, NULL, 0);
+}
 
 /*
  * @brief   Create an L2CAP channel
  */
-static void ble_l2cap_connect(uint8_t *data, uint16_t len)
+void ble_l2cap_connect(uint8_t *data, uint16_t len)
 {
-    const l2cap_connect_cmd_t *cmd = (void *) data;
-    l2cap_connect_rp_t *rp;
+    const struct l2cap_connect_cmd_tag *cmd = (void *) data;
     struct bt_conn *conn;
-    channel_t *chan = NULL;
+    uint8_t status = NCP_BRIDGE_CMD_RESULT_ERROR;
+    int err;
+    struct l2ch *l2cap_channel;
 
-#if (defined(CONFIG_BT_L2CAP_ECRED) && (CONFIG_BT_L2CAP_ECRED == 1)) || \
-    (defined(CONFIG_BT_L2CAP_DYNAMIC_CHANNEL) && (CONFIG_BT_L2CAP_DYNAMIC_CHANNEL > 0U))
-    struct bt_l2cap_chan *allocated_channels[5] = {0};
-#endif /* CONFIG_BT_L2CAP_ECRED || CONFIG_BT_L2CAP_DYNAMIC_CHANNEL */
-
-    uint16_t mtu = sys_le16_to_cpu(cmd->mtu);
-    uint8_t buf[sizeof(*rp) + CHANNELS];
-    bool ecfc = cmd->options & L2CAP_CONNECT_OPT_ECFC;
-    int32_t err;
-
-    if (cmd->num == 0 || cmd->num > CHANNELS || mtu > DATA_MTU_INITIAL)
-    {
-        goto fail;
+    l2cap_channel = l2cap_channel_create_new();
+    if (NULL == l2cap_channel) {
+         ncp_e("Channel already in use\n");
+         goto sta;
     }
-
     conn = bt_conn_lookup_addr_le(BT_ID_DEFAULT, (bt_addr_le_t *)data);
-    if (!conn)
+    if (conn)
     {
-        goto fail;
-    }
-
-    rp = (void *)buf;
-
-    for (uint8_t i = 0U; i < cmd->num; i++)
-    {
-        chan = get_free_channel();
-        if (!chan)
+	if (cmd->sec_flag == 1)
         {
-            goto fail;
-        }
-        chan->le.chan.ops = &l2cap_ops;
-        chan->le.rx.mtu = mtu;
-        rp->chan_id[i] = chan->chan_id;
-
-#if (defined(CONFIG_BT_L2CAP_ECRED) && (CONFIG_BT_L2CAP_ECRED == 1)) || \
-    (defined(CONFIG_BT_L2CAP_DYNAMIC_CHANNEL) && (CONFIG_BT_L2CAP_DYNAMIC_CHANNEL > 0U))
-        allocated_channels[i] = &chan->le.chan;
-#endif /* CONFIG_BT_L2CAP_ECRED || CONFIG_BT_L2CAP_DYNAMIC_CHANNEL */
-
-        chan->hold_credit = cmd->options & L2CAP_CONNECT_OPT_HOLD_CREDIT;
+#if (defined(CONFIG_BT_L2CAP_DYNAMIC_CHANNEL) && (CONFIG_BT_L2CAP_DYNAMIC_CHANNEL > 0))
+            l2cap_channel->ch.required_sec_level = (bt_security_t)cmd->sec;
+#endif
+	}
+	err = bt_l2cap_chan_connect(conn, &l2cap_channel->ch.chan, cmd->psm);
+        status = err < 0 ? NCP_BRIDGE_CMD_RESULT_ERROR : NCP_BRIDGE_CMD_RESULT_OK;
     }
-
-    if (cmd->num == 1 && !ecfc)
-    {
-        err = bt_l2cap_chan_connect(conn, &chan->le.chan, cmd->psm);
-        if (err < 0)
-        {
-            goto fail;
-        }
-    }
-    else if (ecfc)
-    {
-#if (defined(CONFIG_BT_L2CAP_ECRED) && (CONFIG_BT_L2CAP_ECRED == 1))
-        err = bt_l2cap_ecred_chan_connect(conn, allocated_channels,
-                                                cmd->psm);
-        if (err < 0)
-        {
-            goto fail;
-        }
-#else /* CONFIG_BT_L2CAP_ECRED */
-        goto fail;
-#endif /* CONFIG_BT_L2CAP_ECRED */
-    }
-    else
-    {
-        LOG_ERR("Invalid 'num' parameter value");
-        goto fail;
-    }
-
-    rp->num = cmd->num;
-
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_L2CAP) << 16) |L2CAP_CONNECT, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *)rp, sizeof(*rp) + rp->num);
-
-    return;
-
-fail:
-
-#if (defined(CONFIG_BT_L2CAP_DYNAMIC_CHANNEL) && (CONFIG_BT_L2CAP_DYNAMIC_CHANNEL > 0U))
-    for (uint8_t i = 0U; i < ARRAY_SIZE(allocated_channels); i++)
-    {
-        if (allocated_channels[i])
-        {
-			channels[BT_L2CAP_LE_CHAN(allocated_channels[i])->ident].in_use = false;
-        }
-    }
-#endif /* CONFIG_BT_L2CAP_DYNAMIC_CHANNEL */
-
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_L2CAP) << 16) | L2CAP_CONNECT, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
+sta:
+    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_L2CAP_CONNECT, status, NULL, 0);
 }
 
 /*
  * @brief   Close an L2CAP channel
  */
-static void disconnect(uint8_t *data, uint16_t len)
+void ble_l2cap_disconnect(uint8_t *data, uint16_t len)
 {
-    const l2cap_disconnect_cmd_t *cmd = (void *) data;
-    channel_t *chan = &channels[cmd->chan_id];
-    uint8_t status;
-    int32_t err;
+    struct bt_conn *conn;
+    uint8_t status = NCP_BRIDGE_CMD_RESULT_ERROR;
+    int err;
+    struct l2ch *l2cap_channel;
 
-    err = bt_l2cap_chan_disconnect(&chan->le.chan);
-    if (err)
+    conn = bt_conn_lookup_addr_le(BT_ID_DEFAULT, (bt_addr_le_t *)data);
+    if (conn)
     {
-        status = NCP_BRIDGE_CMD_RESULT_ERROR;
-        goto rsp;
+	l2cap_channel = l2cap_channel_lookup_conn(conn);
+	if (NULL == l2cap_channel) {
+		ncp_e("Channel is not found\n");
+                goto sta;
+	}
+
+	err = bt_l2cap_chan_disconnect(&l2cap_channel->ch.chan);
+	if (err) {
+		ncp_e("Unable to disconnect: %u\n", -err);
+	}
+        status = err < 0 ? NCP_BRIDGE_CMD_RESULT_ERROR : NCP_BRIDGE_CMD_RESULT_OK;
     }
-
-    status = NCP_BRIDGE_CMD_RESULT_OK;
-
-rsp:
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_L2CAP) << 16) | L2CAP_DISCONNECT, status, NULL, 0);
+sta:
+    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_L2CAP_DISCONNECT, status, NULL, 0);
 }
 
 /*
  * @brief   Send data over L2CAP channel
  */
-static void send_data(uint8_t *data, uint16_t len)
+void ble_l2cap_send_data(uint8_t *data, uint16_t len)
 {
-    l2cap_send_data_cmd_t *cmd = (void *) data;
-    channel_t *chan = &channels[cmd->chan_id];
+    const struct l2cap_send_data_cmd_tag *cmd = (void *) data;
+    struct bt_conn *conn;
+    uint8_t status = NCP_BRIDGE_CMD_RESULT_ERROR;
+    struct l2ch *l2cap_channel;
+    static uint8_t buf_data[DATA_MTU] = { [0 ... (DATA_MTU - 1)] = 0xff };
+    int ret, length, count = 1;
     struct net_buf *buf;
-    int32_t ret;
-    uint16_t data_len = sys_le16_to_cpu(cmd->data_len);
 
-    /* Fail if data length exceeds buffer length */
-    if (data_len > DATA_MTU)
+    conn = bt_conn_lookup_addr_le(BT_ID_DEFAULT, (bt_addr_le_t *)data);
+    if (conn)
     {
-        goto fail;
+
+	count = cmd->times;
+
+	l2cap_channel = l2cap_channel_lookup_conn(conn);
+	if (NULL == l2cap_channel) {
+	        ncp_e("Channel is not found\n");
+                goto sta;
+	}
+
+	length = MIN(l2cap_channel->ch.tx.mtu, DATA_MTU - BT_L2CAP_CHAN_SEND_RESERVE);
+
+	while (count--) {
+		ncp_d("Rem %d\n", count);
+		buf = net_buf_alloc(&data_tx_pool, BT_SECONDS(2));
+		if (!buf) {
+			if (l2ch_chan[0].ch.state != BT_L2CAP_CONNECTED) {
+				ncp_e("Channel disconnected, stopping TX\n");
+                                goto sta;
+			}
+			ncp_e("Allocation timeout, stopping TX\n");
+                        goto sta;
+		}
+		net_buf_reserve(buf, BT_L2CAP_SDU_CHAN_SEND_RESERVE);
+
+		net_buf_add_mem(buf, buf_data, length);
+		ret = bt_l2cap_chan_send(&l2cap_channel->ch.chan, buf);
+		if (ret < 0) {
+			ncp_e("Unable to send: %d\n", -ret);
+			net_buf_unref(buf);
+		}
+                status = ret < 0 ? NCP_BRIDGE_CMD_RESULT_ERROR : NCP_BRIDGE_CMD_RESULT_OK; 
+	}
     }
-
-    /* Fail if data length exceeds remote's L2CAP SDU */
-    if (data_len > chan->le.tx.mtu)
-    {
-        goto fail;
-    }
-
-    buf = net_buf_alloc(&data_pool, osaWaitForever_c);
-    if (buf != NULL)
-    {
-        net_buf_reserve(buf, BT_L2CAP_SDU_CHAN_SEND_RESERVE);
-
-        net_buf_add_mem(buf, cmd->data, data_len);
-        ret = bt_l2cap_chan_send(&chan->le.chan, buf);
-
-        if (ret < 0)
-        {
-            LOG_ERR("Unable to send data: %d", -ret);
-            net_buf_unref(buf);
-            goto fail;
-        }
-    }
-    else
-    {
-        goto fail;
-    }
-
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_L2CAP) << 16) | L2CAP_SEND_DATA, NCP_BRIDGE_CMD_RESULT_OK, NULL, 0);
-    return;
-
-fail:
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_L2CAP) << 16) | L2CAP_SEND_DATA, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
+sta:
+    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_L2CAP_SEND, status, NULL, 0);
 }
 
+#if 0
 /*
  * @brief   Register L2CAP PSM and listen for incoming data
  */
@@ -798,3 +1133,24 @@ static struct bt_l2cap_server *get_free_server(void)
     return pFreeServer;
 }
 #endif
+
+int ble_ncp_L2capInit(void)
+{
+    osa_status_t ret;
+
+    for (int i = 0;i < MAX_L2CAP_CHANNEL;i++)
+    {
+        l2ch_chan[i].ch.chan.ops = &l2cap_ops;
+        l2ch_chan[i].ch.rx.mtu = DATA_MTU;
+    }
+    ret = OSA_MsgQCreate((osa_msgq_handle_t)l2cap_recv_fifo_handle, CONFIG_BT_MSG_QUEUE_COUNT, sizeof(void *));
+    if (KOSA_StatusSuccess == ret)
+    {
+        l2cap_recv_fifo = (osa_msgq_handle_t)l2cap_recv_fifo_handle;
+    }
+    else
+    {
+        ncp_e("Message queue create failed (%d)!\n", ret);
+    }
+    return (int)ret;
+}

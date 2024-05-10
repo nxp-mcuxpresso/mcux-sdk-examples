@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 - 2023 NXP
+ * Copyright 2020-2024 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -13,13 +13,12 @@
 #if defined(APP_LOWPOWER_ENABLED) && (APP_LOWPOWER_ENABLED > 0)
 #include "PWR_Interface.h"
 #include "board_lp.h"
+#include "fsl_component_serial_manager.h"
 #endif
 
 #if defined(APP_USE_SENSORS) && (APP_USE_SENSORS > 0)
 #include "sensors.h"
 #endif
-
-#include "fsl_component_serial_manager.h"
 
 /* -------------------------------------------------------------------------- */
 /*                               Private memory                               */

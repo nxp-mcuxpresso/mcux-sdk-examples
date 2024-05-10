@@ -11,4 +11,4 @@ void peripheral_hrs_connect(void *args);
 
 void peripheral_hrs_disconnect(void *args);
 
-void peripheral_hrs_notify(void);
+void init_hrs_service(void);

@@ -17,6 +17,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#if !(defined(__ARMCC_VERSION) || defined(__ICCARM__))
+#include <strings.h>
+#endif
 #include <wm_net.h>
 #include "ncp_config.h"
 #include "littlefs_adapter.h"
@@ -59,6 +62,8 @@ const wifi_flash_table_type_t g_wifi_flash_table_wlan_sta[WLAN_STA_MAX_TYPE] = {
     {WLAN_PASSPHRASE_NAME, WLAN_PASSPHRASE_OFT, WLAN_PASSPHRASE_MAX_LEN},
     {WLAN_MFPC_NAME, WLAN_MFPC_OFT, WLAN_MFPC_MAX_LEN},
     {WLAN_MFPR_NAME, WLAN_MFPR_OFT, WLAN_MFPR_MAX_LEN},
+    {WLAN_ANONYMOUS_IDENTITY_NAME, WLAN_ANONYMOUS_IDENTITY_OFT, WLAN_ANONYMOUS_IDENTITY_MAX_LEN},
+    {WLAN_CLIENT_KEY_PASSWD_NAME, WLAN_CLIENT_KEY_PASSWD_OFT, WLAN_CLIENT_KEY_PASSWD_MAX_LEN},
     {WLAN_IP_ADDR_TYPE_NAME, WLAN_IP_ADDR_TYPE_OFT, WLAN_IP_ADDR_TYPE_MAX_LEN},
     {WLAN_IP_ADDR_NAME, WLAN_IP_ADDR_OFT, WLAN_IP_ADDR_MAX_LEN},
     {WLAN_NETMASK_NAME, WLAN_NETMASK_OFT, WLAN_NETMASK_MAX_LEN},
@@ -83,6 +88,8 @@ const wifi_flash_table_type_t g_wifi_flash_table_wlan_uap[WLAN_UAP_MAX_TYPE] = {
     {WLAN_PASSPHRASE_NAME, WLAN_PASSPHRASE_OFT, WLAN_PASSPHRASE_MAX_LEN},
     {WLAN_MFPC_NAME, WLAN_MFPC_OFT, WLAN_MFPC_MAX_LEN},
     {WLAN_MFPR_NAME, WLAN_MFPR_OFT, WLAN_MFPR_MAX_LEN},
+    {WLAN_ANONYMOUS_IDENTITY_NAME, WLAN_ANONYMOUS_IDENTITY_OFT, WLAN_ANONYMOUS_IDENTITY_MAX_LEN},
+    {WLAN_CLIENT_KEY_PASSWD_NAME, WLAN_CLIENT_KEY_PASSWD_OFT, WLAN_CLIENT_KEY_PASSWD_MAX_LEN},
     {WLAN_IP_ADDR_TYPE_NAME, WLAN_IP_ADDR_TYPE_OFT, WLAN_IP_ADDR_TYPE_MAX_LEN},
     {WLAN_IP_ADDR_NAME, WLAN_IP_ADDR_OFT, WLAN_IP_ADDR_MAX_LEN},
     {WLAN_NETMASK_NAME, WLAN_NETMASK_OFT, WLAN_NETMASK_MAX_LEN},
@@ -124,6 +131,15 @@ extern lfs_t lfs;
 /* Enabling NVM means using LittleFS to save configuration information. */
 static uint8_t is_nvm_enable = ENABLE_NVM;
 
+typedef struct
+{
+    char *config_path; // ncp lfs bss config path
+    int flag;  //write flag.
+}wifi_bss_config;
+
+char *wifi_bss_config_file[5] = {WLAN_BSS_CONFIG_FILE_PATH, WLAN_BSS2_CONFIG_FILE_PATH, WLAN_BSS3_CONFIG_FILE_PATH, WLAN_BSS4_CONFIG_FILE_PATH, WLAN_BSS5_CONFIG_FILE_PATH};
+
+wifi_bss_config wifi_lfs_bss_config[5];
 /*******************************************************************************
  * Code
  ******************************************************************************/
@@ -761,419 +777,299 @@ done:
     return ret;
 }
 
-/* try to read file "/etc/wlan_sta_conf", if not exist, create one and set default config */
-static int wifi_save_default_config_wlan_sta(void)
+/* try to read file "/etc/wlan_bss*_conf", if not exist, create one and set default config */
+static int wifi_save_default_config_wlan_bss(void)
 {
-    int res;
-    int ret = -WM_FAIL;
+    int res, index;
     lfs_file_t file;
     uint8_t buf[256] = {0};
+    char * path;
 
-    res = lfs_file_open(&lfs, &file, WLAN_STA_CONFIG_FILE_PATH, LFS_O_RDONLY);
-    if (res == 0)
+    for(index = 0; index < 5; index++)
     {
+        path = wifi_lfs_bss_config[index].config_path;
+        res = lfs_file_open(&lfs, &file, path, LFS_O_RDONLY);
+        if (res == 0)
+        {
+            res = lfs_file_close(&lfs, &file);
+            if (res != 0)
+            {
+                flash_log_e("%s close file %s fail res %d", __func__, path, res);
+                return -WM_FAIL;
+            }
+            continue;
+        }
+
+        flash_log_w("%s %s not exist, one-shot initialize default config", __func__, path);
+
+        res = lfs_file_open(&lfs, &file, path, LFS_O_WRONLY | LFS_O_CREAT | LFS_O_TRUNC);
+        if (res != 0)
+        {
+            flash_log_e("%s open file %s fail res %d", __func__, path, res);
+            return -WM_E_NOENT;
+        }
+
+        res = lfs_file_write(&lfs, &file, WLAN_MAC_NAME, WLAN_MAC_NAME_LEN);
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, WLAN_MAC_DEF, WLAN_MAC_MAX_LEN);
+        wifi_flash_check_rw_ret(res);
+
+        res = lfs_file_write(&lfs, &file, WLAN_CONFIGURED_NAME, WLAN_CONFIGURED_NAME_LEN);
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, WLAN_CONFIGURED_DEF, WLAN_CONFIGURED_MAX_LEN);
+        wifi_flash_check_rw_ret(res);
+
+        /* default string value length less than its max length, padding with 0 */
+        res = lfs_file_write(&lfs, &file, WLAN_SSID_NAME, WLAN_SSID_NAME_LEN);
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, WLAN_SSID_DEF, strlen(WLAN_SSID_DEF));
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, buf, WLAN_SSID_MAX_LEN - strlen(WLAN_SSID_DEF));
+        wifi_flash_check_rw_ret(res);
+
+        /* default bssid 0:0:0:0:0:0 */
+        res = lfs_file_write(&lfs, &file, WLAN_BSSID_NAME, WLAN_BSSID_NAME_LEN);
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, WLAN_BSSID_DEF, WLAN_BSSID_MAX_LEN);
+        wifi_flash_check_rw_ret(res);
+
+        /* default string value length less than its max length, padding with 0 */
+        res = lfs_file_write(&lfs, &file, WLAN_CHANNEL_NAME, WLAN_CHANNEL_NAME_LEN);
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, WLAN_CHANNEL_DEF, strlen(WLAN_CHANNEL_DEF));
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, buf, WLAN_CHANNEL_MAX_LEN - strlen(WLAN_CHANNEL_DEF));
+        wifi_flash_check_rw_ret(res);
+
+        /* default string value length less than its max length, padding with 0 */
+        res = lfs_file_write(&lfs, &file, WLAN_SECURITY_NAME, WLAN_SECURITY_NAME_LEN);
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, WLAN_SECURITY_DEF, strlen(WLAN_SECURITY_DEF));
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, buf, WLAN_SECURITY_MAX_LEN - strlen(WLAN_SECURITY_DEF));
+        wifi_flash_check_rw_ret(res);
+
+        /* default string value length less than its max length, padding with 0 */
+        res = lfs_file_write(&lfs, &file, WLAN_PSK_NAME, WLAN_PSK_NAME_LEN);
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, WLAN_PSK_DEF, strlen(WLAN_PSK_DEF));
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, buf, WLAN_PSK_MAX_LEN - strlen(WLAN_PSK_DEF));
+        wifi_flash_check_rw_ret(res);
+
+        /* default string value length less than its max length, padding with 0 */
+        res = lfs_file_write(&lfs, &file, WLAN_PASSPHRASE_NAME, WLAN_PASSPHRASE_NAME_LEN);
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, WLAN_PASSPHRASE_DEF, strlen(WLAN_PASSPHRASE_DEF));
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, buf, WLAN_PASSPHRASE_MAX_LEN - strlen(WLAN_PASSPHRASE_DEF));
+        wifi_flash_check_rw_ret(res);
+
+        res = lfs_file_write(&lfs, &file, WLAN_MFPC_NAME, WLAN_MFPC_NAME_LEN);
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, WLAN_MFPC_DEF, WLAN_MFPC_MAX_LEN);
+        wifi_flash_check_rw_ret(res);
+
+        res = lfs_file_write(&lfs, &file, WLAN_MFPR_NAME, WLAN_MFPR_NAME_LEN);
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, WLAN_MFPR_DEF, WLAN_MFPR_MAX_LEN);
+        wifi_flash_check_rw_ret(res);
+
+        res = lfs_file_write(&lfs, &file, WLAN_ANONYMOUS_IDENTITY_NAME, WLAN_ANONYMOUS_IDENTITY_NAME_LEN);
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, WLAN_ANONYMOUS_IDENTITY_DEF, strlen(WLAN_ANONYMOUS_IDENTITY_DEF));
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, buf, WLAN_ANONYMOUS_IDENTITY_MAX_LEN - strlen(WLAN_ANONYMOUS_IDENTITY_DEF));
+        wifi_flash_check_rw_ret(res);
+
+        res = lfs_file_write(&lfs, &file, WLAN_CLIENT_KEY_PASSWD_NAME, WLAN_CLIENT_KEY_PASSWD_NAME_LEN);
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, WLAN_CLIENT_KEY_PASSWD_DEF, strlen(WLAN_CLIENT_KEY_PASSWD_DEF));
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, buf, WLAN_CLIENT_KEY_PASSWD_MAX_LEN - strlen(WLAN_CLIENT_KEY_PASSWD_DEF));
+        wifi_flash_check_rw_ret(res);
+
+        res = lfs_file_write(&lfs, &file, WLAN_IP_ADDR_TYPE_NAME, WLAN_IP_ADDR_TYPE_NAME_LEN);
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, WLAN_IP_ADDR_TYPE_DEF, WLAN_IP_ADDR_TYPE_MAX_LEN);
+        wifi_flash_check_rw_ret(res);
+
+        /* default string value length less than its max length, padding with 0 */
+        res = lfs_file_write(&lfs, &file, WLAN_IP_ADDR_NAME, WLAN_IP_ADDR_NAME_LEN);
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, WLAN_IP_ADDR_DEF, strlen(WLAN_IP_ADDR_DEF));
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, buf, WLAN_IP_ADDR_MAX_LEN - strlen(WLAN_IP_ADDR_DEF));
+        wifi_flash_check_rw_ret(res);
+
+        /* default string value length less than its max length, padding with 0 */
+        res = lfs_file_write(&lfs, &file, WLAN_NETMASK_NAME, WLAN_NETMASK_NAME_LEN);
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, WLAN_NETMASK_DEF, strlen(WLAN_NETMASK_DEF));
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, buf, WLAN_NETMASK_MAX_LEN - strlen(WLAN_NETMASK_DEF));
+        wifi_flash_check_rw_ret(res);
+
+        /* default string value length less than its max length, padding with 0 */
+        res = lfs_file_write(&lfs, &file, WLAN_GATEWAY_NAME, WLAN_GATEWAY_NAME_LEN);
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, WLAN_GATEWAY_DEF, strlen(WLAN_GATEWAY_DEF));
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, buf, WLAN_GATEWAY_MAX_LEN - strlen(WLAN_GATEWAY_DEF));
+        wifi_flash_check_rw_ret(res);
+
+        /* default string value length less than its max length, padding with 0 */
+        res = lfs_file_write(&lfs, &file, WLAN_DNS1_NAME, WLAN_DNS1_NAME_LEN);
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, WLAN_DNS1_DEF, strlen(WLAN_DNS1_DEF));
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, buf, WLAN_DNS1_MAX_LEN - strlen(WLAN_DNS1_DEF));
+        wifi_flash_check_rw_ret(res);
+
+        /* default string value length less than its max length, padding with 0 */
+        res = lfs_file_write(&lfs, &file, WLAN_DNS2_NAME, WLAN_DNS2_NAME_LEN);
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, WLAN_DNS2_DEF, strlen(WLAN_DNS2_DEF));
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, buf, WLAN_DNS2_MAX_LEN - strlen(WLAN_DNS2_DEF));
+        wifi_flash_check_rw_ret(res);
+
+        res = lfs_file_write(&lfs, &file, WLAN_RECONNECT_ATTEMPTS_NAME, WLAN_RECONNECT_ATTEMPTS_NAME_LEN);
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, WLAN_RECONNECT_ATTEMPTS_DEF, WLAN_RECONNECT_ATTEMPTS_MAX_LEN);
+        wifi_flash_check_rw_ret(res);
+
+        res = lfs_file_write(&lfs, &file, WLAN_RECONNECT_DELAY_NAME, WLAN_RECONNECT_DELAY_NAME_LEN);
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, WLAN_RECONNECT_DELAY_DEF, WLAN_RECONNECT_DELAY_MAX_LEN);
+        wifi_flash_check_rw_ret(res);
+
+        res = lfs_file_write(&lfs, &file, WLAN_CHK_SERVER_CERT_NAME, WLAN_CHK_SERVER_CERT_NAME_LEN);
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, WLAN_CHK_SERVER_CERT_DEF, WLAN_CHK_SERVER_CERT_MAX_LEN);
+        wifi_flash_check_rw_ret(res);
+
+        res = lfs_file_write(&lfs, &file, WLAN_REGION_CODE_NAME, WLAN_REGION_CODE_NAME_LEN);
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, WLAN_REGION_CODE_DEF, WLAN_REGION_CODE_MAX_LEN);
+        wifi_flash_check_rw_ret(res);
+
+        /* default string value length less than its max length, padding with 0 */
+        res = lfs_file_write(&lfs, &file, WLAN_PROFILE_NAME, WLAN_PROFILE_NAME_LEN);
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, WLAN_PROFILE_NAME_DEF, strlen(WLAN_PROFILE_NAME_DEF));
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, buf, WLAN_PROFILE_NAME_MAX_LEN - strlen(WLAN_PROFILE_NAME_DEF));
+        wifi_flash_check_rw_ret(res);
+
+        res = lfs_file_write(&lfs, &file, WLAN_ROLE_NAME, WLAN_ROLE_NAME_LEN);
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, WLAN_ROLE_DEF, strlen(WLAN_ROLE_DEF));
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, buf, WLAN_ROLE_MAX_LEN - strlen(WLAN_ROLE_DEF));
+        wifi_flash_check_rw_ret(res);
+
+        res = lfs_file_write(&lfs, &file, WLAN_CAPA_NAME, WLAN_CAPA_NAME_LEN);
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, WLAN_CAPA_DEF, WLAN_CAPA_MAX_LEN);
+        wifi_flash_check_rw_ret(res);
+
+        res = lfs_file_write(&lfs, &file, WLAN_DTIM_NAME, WLAN_DTIM_NAME_LEN);
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, WLAN_DTIM_DEF, strlen(WLAN_DTIM_DEF));
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, buf, WLAN_DTIM_MAX_LEN - strlen(WLAN_DTIM_DEF));
+        wifi_flash_check_rw_ret(res);
+
+        res = lfs_file_write(&lfs, &file, WLAN_ACS_BAND_NAME, WLAN_ACS_BAND_NAME_LEN);
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, WLAN_ACS_BAND_DEF, WLAN_ACS_BAND_MAX_LEN);
+        wifi_flash_check_rw_ret(res);
+done:
         res = lfs_file_close(&lfs, &file);
         if (res != 0)
         {
-            flash_log_e("%s close file %s fail res %d", __func__, WLAN_STA_CONFIG_FILE_PATH, res);
+            flash_log_e("%s close file %s fail res %d", __func__, path, res);
             return -WM_FAIL;
         }
-        return WM_SUCCESS;
     }
 
-    flash_log_w("%s %s not exist, one-shot initialize default config", __func__, WLAN_STA_CONFIG_FILE_PATH);
-
-    res = lfs_file_open(&lfs, &file, WLAN_STA_CONFIG_FILE_PATH, LFS_O_WRONLY | LFS_O_CREAT | LFS_O_TRUNC);
-    if (res != 0)
-    {
-        flash_log_e("%s open file %s fail res %d", __func__, WLAN_STA_CONFIG_FILE_PATH, res);
-        return -WM_E_NOENT;
-    }
-
-    res = lfs_file_write(&lfs, &file, WLAN_MAC_NAME, WLAN_MAC_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_MAC_DEF, WLAN_MAC_MAX_LEN);
-    wifi_flash_check_rw_ret(res);
-
-    res = lfs_file_write(&lfs, &file, WLAN_CONFIGURED_NAME, WLAN_CONFIGURED_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_CONFIGURED_DEF, WLAN_CONFIGURED_MAX_LEN);
-    wifi_flash_check_rw_ret(res);
-
-    /* default string value length less than its max length, padding with 0 */
-    res = lfs_file_write(&lfs, &file, WLAN_SSID_NAME, WLAN_SSID_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_SSID_DEF, strlen(WLAN_SSID_DEF));
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, buf, WLAN_SSID_MAX_LEN - strlen(WLAN_SSID_DEF));
-    wifi_flash_check_rw_ret(res);
-
-    /* default bssid 0:0:0:0:0:0 */
-    res = lfs_file_write(&lfs, &file, WLAN_BSSID_NAME, WLAN_BSSID_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_BSSID_DEF, WLAN_BSSID_MAX_LEN);
-    wifi_flash_check_rw_ret(res);
-
-    /* default string value length less than its max length, padding with 0 */
-    res = lfs_file_write(&lfs, &file, WLAN_CHANNEL_NAME, WLAN_CHANNEL_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_CHANNEL_DEF, strlen(WLAN_CHANNEL_DEF));
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, buf, WLAN_CHANNEL_MAX_LEN - strlen(WLAN_CHANNEL_DEF));
-    wifi_flash_check_rw_ret(res);
-
-    /* default string value length less than its max length, padding with 0 */
-    res = lfs_file_write(&lfs, &file, WLAN_SECURITY_NAME, WLAN_SECURITY_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_SECURITY_DEF, strlen(WLAN_SECURITY_DEF));
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, buf, WLAN_SECURITY_MAX_LEN - strlen(WLAN_SECURITY_DEF));
-    wifi_flash_check_rw_ret(res);
-
-    /* default string value length less than its max length, padding with 0 */
-    res = lfs_file_write(&lfs, &file, WLAN_PSK_NAME, WLAN_PSK_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_PSK_DEF, strlen(WLAN_PSK_DEF));
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, buf, WLAN_PSK_MAX_LEN - strlen(WLAN_PSK_DEF));
-    wifi_flash_check_rw_ret(res);
-
-    /* default string value length less than its max length, padding with 0 */
-    res = lfs_file_write(&lfs, &file, WLAN_PASSPHRASE_NAME, WLAN_PASSPHRASE_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_PASSPHRASE_DEF, strlen(WLAN_PASSPHRASE_DEF));
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, buf, WLAN_PASSPHRASE_MAX_LEN - strlen(WLAN_PASSPHRASE_DEF));
-    wifi_flash_check_rw_ret(res);
-
-    res = lfs_file_write(&lfs, &file, WLAN_MFPC_NAME, WLAN_MFPC_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_MFPC_DEF, WLAN_MFPC_MAX_LEN);
-    wifi_flash_check_rw_ret(res);
-
-    res = lfs_file_write(&lfs, &file, WLAN_MFPR_NAME, WLAN_MFPR_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_MFPR_DEF, WLAN_MFPR_MAX_LEN);
-    wifi_flash_check_rw_ret(res);
-
-    res = lfs_file_write(&lfs, &file, WLAN_IP_ADDR_TYPE_NAME, WLAN_IP_ADDR_TYPE_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_IP_ADDR_TYPE_DEF, WLAN_IP_ADDR_TYPE_MAX_LEN);
-    wifi_flash_check_rw_ret(res);
-
-    /* default string value length less than its max length, padding with 0 */
-    res = lfs_file_write(&lfs, &file, WLAN_IP_ADDR_NAME, WLAN_IP_ADDR_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_IP_ADDR_DEF, strlen(WLAN_IP_ADDR_DEF));
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, buf, WLAN_IP_ADDR_MAX_LEN - strlen(WLAN_IP_ADDR_DEF));
-    wifi_flash_check_rw_ret(res);
-
-    /* default string value length less than its max length, padding with 0 */
-    res = lfs_file_write(&lfs, &file, WLAN_NETMASK_NAME, WLAN_NETMASK_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_NETMASK_DEF, strlen(WLAN_NETMASK_DEF));
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, buf, WLAN_NETMASK_MAX_LEN - strlen(WLAN_NETMASK_DEF));
-    wifi_flash_check_rw_ret(res);
-
-    /* default string value length less than its max length, padding with 0 */
-    res = lfs_file_write(&lfs, &file, WLAN_GATEWAY_NAME, WLAN_GATEWAY_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_GATEWAY_DEF, strlen(WLAN_GATEWAY_DEF));
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, buf, WLAN_GATEWAY_MAX_LEN - strlen(WLAN_GATEWAY_DEF));
-    wifi_flash_check_rw_ret(res);
-
-    /* default string value length less than its max length, padding with 0 */
-    res = lfs_file_write(&lfs, &file, WLAN_DNS1_NAME, WLAN_DNS1_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_DNS1_DEF, strlen(WLAN_DNS1_DEF));
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, buf, WLAN_DNS1_MAX_LEN - strlen(WLAN_DNS1_DEF));
-    wifi_flash_check_rw_ret(res);
-
-    /* default string value length less than its max length, padding with 0 */
-    res = lfs_file_write(&lfs, &file, WLAN_DNS2_NAME, WLAN_DNS2_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_DNS2_DEF, strlen(WLAN_DNS2_DEF));
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, buf, WLAN_DNS2_MAX_LEN - strlen(WLAN_DNS2_DEF));
-    wifi_flash_check_rw_ret(res);
-
-    res = lfs_file_write(&lfs, &file, WLAN_RECONNECT_ATTEMPTS_NAME, WLAN_RECONNECT_ATTEMPTS_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_RECONNECT_ATTEMPTS_DEF, WLAN_RECONNECT_ATTEMPTS_MAX_LEN);
-    wifi_flash_check_rw_ret(res);
-
-    res = lfs_file_write(&lfs, &file, WLAN_RECONNECT_DELAY_NAME, WLAN_RECONNECT_DELAY_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_RECONNECT_DELAY_DEF, WLAN_RECONNECT_DELAY_MAX_LEN);
-    wifi_flash_check_rw_ret(res);
-
-    res = lfs_file_write(&lfs, &file, WLAN_CHK_SERVER_CERT_NAME, WLAN_CHK_SERVER_CERT_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_CHK_SERVER_CERT_DEF, WLAN_CHK_SERVER_CERT_MAX_LEN);
-    wifi_flash_check_rw_ret(res);
-
-    res = lfs_file_write(&lfs, &file, WLAN_REGION_CODE_NAME, WLAN_REGION_CODE_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_REGION_CODE_DEF, WLAN_REGION_CODE_MAX_LEN);
-    wifi_flash_check_rw_ret(res);
-
-    /* default string value length less than its max length, padding with 0 */
-    res = lfs_file_write(&lfs, &file, WLAN_PROFILE_NAME, WLAN_PROFILE_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_PROFILE_NAME_DEF, strlen(WLAN_PROFILE_NAME_DEF));
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, buf, WLAN_PROFILE_NAME_MAX_LEN - strlen(WLAN_PROFILE_NAME_DEF));
-    wifi_flash_check_rw_ret(res);
-
-    res = lfs_file_write(&lfs, &file, WLAN_ROLE_NAME, WLAN_ROLE_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_ROLE_DEF, strlen(WLAN_ROLE_DEF));
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, buf, WLAN_ROLE_MAX_LEN - strlen(WLAN_ROLE_DEF));
-    wifi_flash_check_rw_ret(res);
-	
-    ret = WM_SUCCESS;
-done:
-    res = lfs_file_close(&lfs, &file);
-    if (res != 0)
-    {
-        flash_log_e("%s close file %s fail res %d", __func__, WLAN_STA_CONFIG_FILE_PATH, res);
-        return -WM_FAIL;
-    }
-    return ret;
+    return WM_SUCCESS;
 }
 
-/* try to read file "/etc/wlan_uap_conf", if not exist, create one and set default config */
-static int wifi_save_default_config_wlan_uap(void)
-{
-    int res;
-    int ret = -WM_FAIL;
-    lfs_file_t file;
-    uint8_t buf[256] = {0};
-
-    res = lfs_file_open(&lfs, &file, WLAN_UAP_CONFIG_FILE_PATH, LFS_O_RDONLY);
-    if (res == 0)
-    {
-        res = lfs_file_close(&lfs, &file);
-        if (res != 0)
-        {
-            flash_log_e("%s close file %s fail res %d", __func__, WLAN_UAP_CONFIG_FILE_PATH, res);
-            return -WM_FAIL;
-        }
-        return WM_SUCCESS;
-    }
-
-    flash_log_w("%s %s not exist, one-shot initialize default config", __func__, WLAN_UAP_CONFIG_FILE_PATH);
-
-    res = lfs_file_open(&lfs, &file, WLAN_UAP_CONFIG_FILE_PATH, LFS_O_WRONLY | LFS_O_CREAT | LFS_O_TRUNC);
-    if (res != 0)
-    {
-        flash_log_e("%s open file %s fail res %d", __func__, WLAN_UAP_CONFIG_FILE_PATH, res);
-        return -WM_E_NOENT;
-    }
-
-    res = lfs_file_write(&lfs, &file, WLAN_MAC_NAME, WLAN_MAC_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_MAC_DEF, WLAN_MAC_MAX_LEN);
-    wifi_flash_check_rw_ret(res);
-
-    res = lfs_file_write(&lfs, &file, WLAN_CONFIGURED_NAME, WLAN_CONFIGURED_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_CONFIGURED_DEF, WLAN_CONFIGURED_MAX_LEN);
-    wifi_flash_check_rw_ret(res);
-
-    /* default string value length less than its max length, padding with 0 */
-    res = lfs_file_write(&lfs, &file, WLAN_SSID_NAME, WLAN_SSID_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_SSID_DEF, strlen(WLAN_SSID_DEF));
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, buf, WLAN_SSID_MAX_LEN - strlen(WLAN_SSID_DEF));
-    wifi_flash_check_rw_ret(res);
-
-    /* default bssid 0:0:0:0:0:0 */
-    res = lfs_file_write(&lfs, &file, WLAN_BSSID_NAME, WLAN_BSSID_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_BSSID_DEF, WLAN_BSSID_MAX_LEN);
-    wifi_flash_check_rw_ret(res);
-
-    /* default string value length less than its max length, padding with 0 */
-    res = lfs_file_write(&lfs, &file, WLAN_CHANNEL_NAME, WLAN_CHANNEL_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_CHANNEL_DEF, strlen(WLAN_CHANNEL_DEF));
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, buf, WLAN_CHANNEL_MAX_LEN - strlen(WLAN_CHANNEL_DEF));
-    wifi_flash_check_rw_ret(res);
-
-    /* default string value length less than its max length, padding with 0 */
-    res = lfs_file_write(&lfs, &file, WLAN_SECURITY_NAME, WLAN_SECURITY_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_SECURITY_DEF, strlen(WLAN_SECURITY_DEF));
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, buf, WLAN_SECURITY_MAX_LEN - strlen(WLAN_SECURITY_DEF));
-    wifi_flash_check_rw_ret(res);
-
-    /* default string value length less than its max length, padding with 0 */
-    res = lfs_file_write(&lfs, &file, WLAN_PSK_NAME, WLAN_PSK_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_PSK_DEF, strlen(WLAN_PSK_DEF));
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, buf, WLAN_PSK_MAX_LEN - strlen(WLAN_PSK_DEF));
-    wifi_flash_check_rw_ret(res);
-
-    /* default string value length less than its max length, padding with 0 */
-    res = lfs_file_write(&lfs, &file, WLAN_PASSPHRASE_NAME, WLAN_PASSPHRASE_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_PASSPHRASE_DEF, strlen(WLAN_PASSPHRASE_DEF));
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, buf, WLAN_PASSPHRASE_MAX_LEN - strlen(WLAN_PASSPHRASE_DEF));
-    wifi_flash_check_rw_ret(res);
-
-    res = lfs_file_write(&lfs, &file, WLAN_MFPC_NAME, WLAN_MFPC_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_MFPC_DEF, WLAN_MFPC_MAX_LEN);
-    wifi_flash_check_rw_ret(res);
-
-    res = lfs_file_write(&lfs, &file, WLAN_MFPR_NAME, WLAN_MFPR_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_MFPR_DEF, WLAN_MFPR_MAX_LEN);
-    wifi_flash_check_rw_ret(res);
-
-    res = lfs_file_write(&lfs, &file, WLAN_IP_ADDR_TYPE_NAME, WLAN_IP_ADDR_TYPE_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_IP_ADDR_TYPE_DEF, WLAN_IP_ADDR_TYPE_MAX_LEN);
-    wifi_flash_check_rw_ret(res);
-
-    /* default string value length less than its max length, padding with 0 */
-    res = lfs_file_write(&lfs, &file, WLAN_IP_ADDR_NAME, WLAN_IP_ADDR_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_IP_ADDR_DEF, strlen(WLAN_IP_ADDR_DEF));
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, buf, WLAN_IP_ADDR_MAX_LEN - strlen(WLAN_IP_ADDR_DEF));
-    wifi_flash_check_rw_ret(res);
-
-    /* default string value length less than its max length, padding with 0 */
-    res = lfs_file_write(&lfs, &file, WLAN_NETMASK_NAME, WLAN_NETMASK_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_NETMASK_DEF, strlen(WLAN_NETMASK_DEF));
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, buf, WLAN_NETMASK_MAX_LEN - strlen(WLAN_NETMASK_DEF));
-    wifi_flash_check_rw_ret(res);
-
-    /* default string value length less than its max length, padding with 0 */
-    res = lfs_file_write(&lfs, &file, WLAN_GATEWAY_NAME, WLAN_GATEWAY_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_GATEWAY_DEF, strlen(WLAN_GATEWAY_DEF));
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, buf, WLAN_GATEWAY_MAX_LEN - strlen(WLAN_GATEWAY_DEF));
-    wifi_flash_check_rw_ret(res);
-
-    /* default string value length less than its max length, padding with 0 */
-    res = lfs_file_write(&lfs, &file, WLAN_DNS1_NAME, WLAN_DNS1_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_DNS1_DEF, strlen(WLAN_DNS1_DEF));
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, buf, WLAN_DNS1_MAX_LEN - strlen(WLAN_DNS1_DEF));
-    wifi_flash_check_rw_ret(res);
-
-    /* default string value length less than its max length, padding with 0 */
-    res = lfs_file_write(&lfs, &file, WLAN_DNS2_NAME, WLAN_DNS2_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_DNS2_DEF, strlen(WLAN_DNS2_DEF));
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, buf, WLAN_DNS2_MAX_LEN - strlen(WLAN_DNS2_DEF));
-    wifi_flash_check_rw_ret(res);
-
-    res = lfs_file_write(&lfs, &file, WLAN_RECONNECT_ATTEMPTS_NAME, WLAN_RECONNECT_ATTEMPTS_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_RECONNECT_ATTEMPTS_DEF, WLAN_RECONNECT_ATTEMPTS_MAX_LEN);
-    wifi_flash_check_rw_ret(res);
-
-    res = lfs_file_write(&lfs, &file, WLAN_RECONNECT_DELAY_NAME, WLAN_RECONNECT_DELAY_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_RECONNECT_DELAY_DEF, WLAN_RECONNECT_DELAY_MAX_LEN);
-    wifi_flash_check_rw_ret(res);
-
-    res = lfs_file_write(&lfs, &file, WLAN_CHK_SERVER_CERT_NAME, WLAN_CHK_SERVER_CERT_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_CHK_SERVER_CERT_DEF, WLAN_CHK_SERVER_CERT_MAX_LEN);
-    wifi_flash_check_rw_ret(res);
-
-    res = lfs_file_write(&lfs, &file, WLAN_REGION_CODE_NAME, WLAN_REGION_CODE_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_REGION_CODE_DEF, WLAN_REGION_CODE_MAX_LEN);
-    wifi_flash_check_rw_ret(res);
-
-    /* default string value length less than its max length, padding with 0 */
-    res = lfs_file_write(&lfs, &file, WLAN_PROFILE_NAME, WLAN_PROFILE_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_PROFILE_NAME_DEF, strlen(WLAN_PROFILE_NAME_DEF));
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, buf, WLAN_PROFILE_NAME_MAX_LEN - strlen(WLAN_PROFILE_NAME_DEF));
-    wifi_flash_check_rw_ret(res);
-
-    res = lfs_file_write(&lfs, &file, WLAN_ROLE_NAME, WLAN_ROLE_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_ROLE_DEF, strlen(WLAN_ROLE_DEF));
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, buf, WLAN_ROLE_MAX_LEN - strlen(WLAN_ROLE_DEF));
-    wifi_flash_check_rw_ret(res);	
-
-    res = lfs_file_write(&lfs, &file, WLAN_CAPA_NAME, WLAN_CAPA_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_CAPA_DEF, WLAN_CAPA_MAX_LEN);
-    wifi_flash_check_rw_ret(res);
-
-    res = lfs_file_write(&lfs, &file, WLAN_DTIM_NAME, WLAN_DTIM_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_DTIM_DEF, strlen(WLAN_DTIM_DEF));
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, buf, WLAN_DTIM_MAX_LEN - strlen(WLAN_DTIM_DEF));
-    wifi_flash_check_rw_ret(res);
-
-    res = lfs_file_write(&lfs, &file, WLAN_ACS_BAND_NAME, WLAN_ACS_BAND_NAME_LEN);
-    wifi_flash_check_rw_ret(res);
-    res = lfs_file_write(&lfs, &file, WLAN_ACS_BAND_DEF, WLAN_ACS_BAND_MAX_LEN);
-    wifi_flash_check_rw_ret(res);
-
-    ret = WM_SUCCESS;
-done:
-    res = lfs_file_close(&lfs, &file);
-    if (res != 0)
-    {
-        flash_log_e("%s close file %s fail res %d", __func__, WLAN_UAP_CONFIG_FILE_PATH, res);
-        return -WM_FAIL;
-    }
-    return ret;
-}
-
+int ncp_bss_index = 0;
+/*If a file doesn't exist in a sta config file path, create a new file in this path to save network information.
+    If files exist in all sta config file paths, find file paths with wifi_bss_config_file_index 0.
+    The newly added network will overwrite the earliest saved network if the board has just been started.
+    The new network will be added to the path of the deleted network if a network is deleted.*/
 int wifi_set_network(struct wlan_network *network)
 {
-    int res;
+    int res, i, index = 0;
     int ret = -WM_FAIL;
     char channel[4], security_type[3], mfpc[2], mfpr[2], addr_type[2];
     struct in_addr ip, gw, nm, dns1, dns2;
     char ip_addr_temp[17], configured[2], role[2];
     lfs_file_t file;
-    wifi_save_wlan_config_fn_t save_config = wifi_save_wlan_sta_config;
-    char *path                             = WLAN_STA_CONFIG_FILE_PATH;
+    char *path;
+    wifi_save_wlan_config_fn_t save_config;
+    flash_log_d("%s: network->name = %s\r\n",network->name);
 
-    if (network->role == WLAN_BSS_ROLE_UAP)
+    if(network->role == WLAN_BSS_ROLE_STA)
+    {
+        save_config = wifi_save_wlan_sta_config;
+    }
+    else
     {
         save_config = wifi_save_wlan_uap_config;
-        path        = WLAN_UAP_CONFIG_FILE_PATH;
     }
 
-    res = lfs_file_open(&lfs, &file, path, LFS_O_RDWR | LFS_O_CREAT);
+    for(i = 0; i < 5; i++)
+    {
+        path = wifi_lfs_bss_config[i].config_path;
+        /* If file exists, can open it with only read and write flag*/
+        res = lfs_file_open(&lfs, &file, path, LFS_O_RDWR);
+        if (res != 0)
+        {
+            flash_log_w("open file %s fail res %d", path, res);
+            /*Create new file in path to save network*/
+            res = lfs_file_open(&lfs, &file, path, LFS_O_RDWR | LFS_O_CREAT);
+            if (res != 0)
+            {
+                flash_log_e("create file %s fail res %d", path, res);
+                return -WM_FAIL;
+            }
+            index = i;
+            goto ncp_set_bss;
+        }
+        flash_log_d("%s: path = %s\r\n",__func__, path);
+        res = lfs_file_close(&lfs, &file);
+        if (res != 0)
+        {
+            flash_log_e("%s close file %s fail res %d", __func__, path, res);
+            return -WM_FAIL;
+        }
+    }
+
+    /*After removing old network, should */
+    for(i = 0; i < 5; i++)
+    {
+        if(wifi_lfs_bss_config[i].flag == 0)
+        {
+            index = i;
+            break;
+        }
+    }
+
+    path = wifi_lfs_bss_config[index].config_path; // Overwrite wifi_bss_config_file[ncp_bss_index] file.
+    flash_log_d("%s: path = %s\r\n",__func__, path);
+    res = lfs_file_open(&lfs, &file, path, LFS_O_RDWR);
     if (res != 0)
     {
         flash_log_e("open file %s fail res %d", path, res);
         return -WM_FAIL;
     }
 
+ncp_set_bss:
     res = save_config(&file, WLAN_PROFILE, network->name, sizeof(network->name));
     res += save_config(&file, WLAN_SSID, network->ssid, sizeof(network->ssid));
     res += save_config(&file, WLAN_BSSID, network->bssid, sizeof(network->bssid));
@@ -1187,6 +1083,10 @@ int wifi_set_network(struct wlan_network *network)
     res += save_config(&file, WLAN_MFPC, mfpc, sizeof(mfpc));
     snprintf(mfpr, sizeof(mfpr), "%u", network->security.mfpr);
     res += save_config(&file, WLAN_MFPR, mfpr, sizeof(mfpr));
+#ifdef CONFIG_EAP_TLS
+    res += save_config(&file, WLAN_ANONYMOUS_IDENTITY, network->security.anonymous_identity, sizeof(network->security.anonymous_identity));
+    res += save_config(&file, WLAN_CLIENT_KEY_PASSWD, network->security.client_key_passwd, sizeof(network->security.client_key_passwd));
+#endif
 
     if (network->ip.ipv4.addr_type == ADDR_TYPE_STATIC)
     {
@@ -1255,7 +1155,10 @@ int wifi_set_network(struct wlan_network *network)
 
         snprintf(acs_band, sizeof(acs_band), "%u", network->acs_band);
         ret += save_config(&file, WLAN_ACS_BAND, acs_band, sizeof(acs_band));
+
     }
+
+    ncp_bss_index++;
 
     if (res != 0)
     {
@@ -1267,6 +1170,9 @@ int wifi_set_network(struct wlan_network *network)
         ret = WM_SUCCESS;
     }
 
+    /*Set wifi_bss_config_file_index to 1 beacuse new network has been saved in this path.*/
+    wifi_lfs_bss_config[index].flag = 1;
+
     res = lfs_file_close(&lfs, &file);
     if (res != 0)
     {
@@ -1276,30 +1182,80 @@ int wifi_set_network(struct wlan_network *network)
     return ret;
 }
 
-int wifi_get_network(struct wlan_network *network, enum wlan_bss_role bss_role)
+int wifi_get_network(struct wlan_network *network, enum wlan_bss_role bss_role, char *net_name)
 {
-    int res;
+    int res, i;
     int ret = -WM_FAIL;
     char channel[4], security_type[3], mfpc[2], mfpr[2], addr_type[2];
     char ip_addr_temp[17], role[2];
     lfs_file_t file;
+    char *path;
     wifi_load_wlan_config_fn_t load_config = wifi_load_wlan_sta_config;
-    char *path                             = WLAN_STA_CONFIG_FILE_PATH;
 
-    if (bss_role == WLAN_BSS_ROLE_UAP)
+    if(net_name == NULL)
     {
-        load_config = wifi_load_wlan_uap_config;
-        path        = WLAN_UAP_CONFIG_FILE_PATH;
+        if(bss_role == WLAN_BSS_ROLE_UAP)
+        {
+            load_config = wifi_load_wlan_uap_config;
+        }
+
+        for (i = 0; i < 5; i++)
+        {
+            path = wifi_lfs_bss_config[i].config_path;
+            res = lfs_file_open(&lfs, &file, path, LFS_O_RDONLY);
+            if (res != 0)
+            {
+                flash_log_e("open file %s fail res %d", path, res);
+                return -WM_FAIL;
+            }
+            res = load_config(&file, WLAN_ROLE, role, sizeof(role));
+            network->role = (enum wlan_bss_role)atoi(role);
+            if(network->role == bss_role)
+                break;
+            
+            res = lfs_file_close(&lfs, &file);
+        }
+        if( i == 5)
+        {
+            flash_log_e("can't find %s bss in lfs file", bss_role == 0 ? "sta" : "uap");
+            return -WM_FAIL;
+        }
+
+        res = load_config(&file, WLAN_PROFILE, network->name, sizeof(network->name));
+    }
+    else
+    {
+        if(bss_role == WLAN_BSS_ROLE_UAP)
+        {
+            load_config = wifi_load_wlan_uap_config;
+        }
+        
+        for (i = 0; i < 5; i++)
+        {
+            path = wifi_bss_config_file[i];
+            
+            res = lfs_file_open(&lfs, &file, path, LFS_O_RDONLY);
+            if (res != 0)
+            {
+                flash_log_e("open file %s fail res %d", path, res);
+                return -WM_FAIL;
+            }
+            
+            res = load_config(&file, WLAN_PROFILE, network->name, sizeof(network->name));
+            flash_log_d("%s: network->name = %s\r\n", __func__, network->name);
+            if(strcmp(network->name, net_name) == 0)
+                goto ncp_get_bss;
+
+            res = lfs_file_close(&lfs, &file);
+            memset(network, 0, sizeof(struct wlan_network));
+        }
+        if(i == 5) // Can't find specified network, retrurn flase.
+        {
+            return -WM_FAIL;
+        }
     }
 
-    res = lfs_file_open(&lfs, &file, path, LFS_O_RDONLY);
-    if (res != 0)
-    {
-        flash_log_e("open file %s fail res %d", path, res);
-        return -WM_FAIL;
-    }
-
-    res = load_config(&file, WLAN_PROFILE, network->name, sizeof(network->name));
+ncp_get_bss:
     res += load_config(&file, WLAN_SSID, network->ssid, sizeof(network->ssid));
     res += load_config(&file, WLAN_BSSID, network->bssid, sizeof(network->bssid));
     res += load_config(&file, WLAN_CHANNEL, channel, sizeof(channel));
@@ -1328,6 +1284,11 @@ int wifi_get_network(struct wlan_network *network, enum wlan_bss_role bss_role)
     network->security.mfpc = atoi(mfpc);
     res += load_config(&file, WLAN_MFPR, mfpr, sizeof(mfpr));
     network->security.mfpr = atoi(mfpr);
+
+#ifdef CONFIG_EAP_TLS
+    res += load_config(&file, WLAN_ANONYMOUS_IDENTITY, network->security.anonymous_identity, sizeof(network->security.anonymous_identity));
+    res += load_config(&file, WLAN_CLIENT_KEY_PASSWD, network->security.client_key_passwd, sizeof(network->security.client_key_passwd));
+#endif
 
     res += load_config(&file, WLAN_IP_ADDR_TYPE, addr_type, sizeof(addr_type));
     network->ip.ipv4.addr_type = (enum address_types)atoi(addr_type);
@@ -1381,6 +1342,64 @@ int wifi_get_network(struct wlan_network *network, enum wlan_bss_role bss_role)
         flash_log_e("%s close file %s fail res %d", __func__, path, res);
         return -WM_FAIL;
     }
+    return ret;
+}
+
+int wifi_overwrite_network(char* removed_network)
+{
+    char *path = NULL;
+    char name[33] = {0};
+    int res, i;
+    int ret = WM_SUCCESS;
+    lfs_file_t file;
+
+    for (i = 0; i < 5; i++)
+    {
+        path = wifi_lfs_bss_config[i].config_path;
+            
+        res = lfs_file_open(&lfs, &file, path, LFS_O_RDONLY);
+        if (res != 0)
+        {
+            flash_log_e("open file %s fail res %d", path, res);
+            ret = -WM_FAIL;
+            goto done;
+        }
+            
+        res = wifi_load_wlan_sta_config(&file, WLAN_PROFILE, name, 33);
+        if (res != 0)
+        {
+            flash_log_e("open file %s, load name fail res %d", path, res);
+            ret = -WM_FAIL;
+            goto done;
+        }
+        if(strcmp(name, removed_network) == 0)
+        {
+            /*The network has been removed, this file can store new network.*/
+            wifi_lfs_bss_config[i].flag = 0;
+            break;
+        }
+
+        res = lfs_file_close(&lfs, &file);
+        if(res != 0)
+        {
+            flash_log_e("close file fail res %d", res);
+            ret = -WM_FAIL;
+            goto done;
+        }
+    }
+    if(i == 5) // Can't find specified network, retrurn flase.
+    {
+        ret = -WM_FAIL;
+    }
+
+done:
+    res = lfs_file_close(&lfs, &file);
+    if(res != 0)
+    {
+        flash_log_e("close file fail res %d", res);
+        ret = -WM_FAIL;
+    }
+
     return ret;
 }
 
@@ -1676,14 +1695,13 @@ int ncp_config_init(void)
         return -WM_FAIL;
     }
 
-    res = wifi_save_default_config_wlan_sta();
-    if (res != WM_SUCCESS)
+    for(int i = 0; i < 5; i++)
     {
-        flash_log_e("%s set wifi default STA config fail res %d\r\n", __func__, res);
-        return -WM_FAIL;
+        wifi_lfs_bss_config[i].config_path = wifi_bss_config_file[i];
+        wifi_lfs_bss_config[i].flag = 0;
     }
 
-    res = wifi_save_default_config_wlan_uap();
+    res = wifi_save_default_config_wlan_bss();
     if (res != WM_SUCCESS)
     {
         flash_log_e("%s set wifi default uAP config fail res %d\r\n", __func__, res);
