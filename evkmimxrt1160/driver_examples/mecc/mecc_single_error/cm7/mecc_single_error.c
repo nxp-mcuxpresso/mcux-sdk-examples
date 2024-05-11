@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019, 2023 NXP
  * All rights reserved.
  *
  *
@@ -27,10 +27,29 @@
 #define APP_MECC_OCRAM_SELECTED_BANK  0U                            /* Ocram bank 0 */
 #define APP_MECC_SINGLE_BIT_POSTION   2U                            /* 0-base */
 
+#if (APP_MECC_OCRAM_SELECTED_BANK == 0)
+#define APP_INTERRUPT_SOURCES     (kMECC_SingleError0InterruptEnable)
+#define APP_INTERRUPT_STATUS_FLAGS  (kMECC_SingleError0InterruptFlag)
 
+#elif (APP_MECC_OCRAM_SELECTED_BANK == 1)
+#define APP_INTERRUPT_SOURCES     (kMECC_SingleError1InterruptEnable)
+#define APP_INTERRUPT_STATUS_FLAGS  (kMECC_SingleError1InterruptFlag)
+
+#elif (APP_MECC_OCRAM_SELECTED_BANK == 2)
+#define APP_INTERRUPT_SOURCES     (kMECC_SingleError2InterruptEnable)
+#define APP_INTERRUPT_STATUS_FLAGS  (kMECC_SingleError2InterruptFlag)
+
+#elif (APP_MECC_OCRAM_SELECTED_BANK == 3)
+#define APP_INTERRUPT_SOURCES     (kMECC_SingleError3InterruptEnable)
+#define APP_INTERRUPT_STATUS_FLAGS  (kMECC_SingleError3InterruptFlag)
+
+#else
+#error "Wrong Bank Selected"
+#endif
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
+
 
 /*******************************************************************************
  * Variables
@@ -47,7 +66,7 @@ void APP_MECC_IRQ_HANDLER(void)
     intStatus = MECC_GetStatusFlags(APP_MECC);
     MECC_ClearStatusFlags(APP_MECC, intStatus);
 
-    if (intStatus & kMECC_SingleError0InterruptFlag)
+    if (intStatus & APP_INTERRUPT_STATUS_FLAGS)
     {
         s_mecc_ocram_single_error = true;
     }
@@ -94,8 +113,8 @@ int main(void)
 
     /* Enable MECC */
     config.enableMecc         = true;
-    config.Ocram1StartAddress = APP_MECC_OCRAM_START_ADDR;
-    config.Ocram1EndAddress   = APP_MECC_OCRAM_END_ADDR;
+    config.startAddress = APP_MECC_OCRAM_START_ADDR;
+    config.endAddress = APP_MECC_OCRAM_END_ADDR;
 
     /* Initialize mecc */
     MECC_Init(APP_MECC, &config);
@@ -123,7 +142,7 @@ int main(void)
     }
 
     /* Enable MECC OCRAM single error interrupt */
-    MECC_EnableInterrupts(APP_MECC, kMECC_SingleError0InterruptEnable);
+    MECC_EnableInterrupts(APP_MECC, APP_INTERRUPT_SOURCES);
 
     /* Single error injection at ocram bank 0 */
     lowSingleErrorData = 1 << singleErrorBitPosLow; /* Single error data: 0x44332215 */
@@ -139,7 +158,7 @@ int main(void)
     }
 
     /* Flush cache line to make sure data be in cache and be in main memory are latest.*/
-    L1CACHE_CleanInvalidateDCacheByRange(APP_MECC_OCRAM_START_ADDR + APP_MECC_OCRAM_ADDR_OFFSET, 32);
+    DCACHE_CleanInvalidateByRange(APP_MECC_OCRAM_START_ADDR + APP_MECC_OCRAM_ADDR_OFFSET, 32);
 
     /* Write original data */
     *ocramAddr = 0x1122334444332211;
@@ -150,7 +169,7 @@ int main(void)
     highRawData = 0U;
 
     /* Flush cache line to make sure data be in cache and be in main memory are latest.*/
-    L1CACHE_CleanInvalidateDCacheByRange(APP_MECC_OCRAM_START_ADDR + APP_MECC_OCRAM_ADDR_OFFSET, 32);
+    DCACHE_CleanInvalidateByRange(APP_MECC_OCRAM_START_ADDR + APP_MECC_OCRAM_ADDR_OFFSET, 32);
 
     temp        = *ocramAddr;
     lowRawData  = temp & 0xFFFFFFFF;
