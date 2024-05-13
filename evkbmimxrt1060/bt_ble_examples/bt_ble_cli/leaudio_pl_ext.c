@@ -26,9 +26,6 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-#if defined(CPU_MIMXRT1176DVMAA_cm7)
-//#define LE_AUDIO_SRC_SYNC_ENABLE		1U
-#endif
 
 #define LE_AUDIO_SRC_MEDIA_FILE_ROOT_DIR \
      BT_FOPS_PATH_JOIN \
@@ -36,6 +33,7 @@
          BT_FOPS_BASE, BT_FOPS_PATH_SEP "ga" \
      )
 
+#define LEAUDIO_SYNC_PULSE_WAIT_MS 1
 /*max audio configuration supported for le-audio source and sink*/
 #define LE_AUDIO_MAX_SAMPLE_RATE			48000U
 #define LE_AUDIO_MAX_CHAN_COUNT				2U
@@ -43,9 +41,9 @@
 #define LE_AUDIO_MAX_SAMPLES_PER_FRAME		(LE_AUDIO_MAX_SAMPLE_RATE / 100U * LE_AUDIO_MAX_BPS * LE_AUDIO_MAX_CHAN_COUNT)
 
 /*sink and source task stack and prio*/
-#define LE_AUDIO_SRC_TX_TASK_PRIO	 		(BT_TASK_PRIORITY + 2U)
+#define LE_AUDIO_SRC_TX_TASK_PRIO	 		(BT_TASK_PRIORITY - 2U)
 #define LE_AUDIO_SRC_TX_TASK_STACK	 		BT_TASK_STACK_DEPTH
-#define LE_AUDIO_SNK_TASK_PRIO				(BT_TASK_PRIORITY + 2U)
+#define LE_AUDIO_SNK_TASK_PRIO				(BT_TASK_PRIORITY - 2U)
 #define LE_AUDIO_SNK_TASK_STACK				BT_TASK_STACK_DEPTH
 
 
@@ -58,7 +56,7 @@
 /*buffer length calculated for source and sink*/
 #define LE_AUDIO_SRC_BUF_LEN				(LE_AUDIO_MAX_SAMPLES_PER_FRAME * 1U)
 #define LE_AUDIO_SNK_PCM_QUEUE_SIZE			(LE_AUDIO_MAX_SAMPLES_PER_FRAME * 30U)
-#define LE_AUDIO_SNK_SKIP_FRAME_CNT			10U
+#define LE_AUDIO_SNK_SKIP_FRAME_CNT			4U
 
 /*SAI buffers to tx/rx data over SAI through EDMA*/
 #define LE_AUDIO_SNK_MAX_SAI_QUEUE_CNT		1U
@@ -145,12 +143,22 @@ typedef struct
 	INT32 le_audio_snk_rx_stop;
 	INT32 le_audio_snk_available_buf_cnt;
 	UINT32 le_audio_snk_expected_frame_len;
+	UINT32 le_audio_snk_mute_frame_len;
 	INT32 le_audio_snk_pcm_q_rd_ptr;
 	INT32 le_audio_snk_pcm_q_wr_ptr;
 	INT32 le_audio_snk_sai_index;
 	UINT8 le_audio_snk_skip_frame;
 	UINT8 le_audio_snk_enqueue_start;
 } le_audio_snk_pl_data_t;
+
+
+typedef struct
+{
+	UINT32 iso_interval_us;
+	UINT32 big_cig_sync_delay_us;
+	UINT32 timestamp;
+	UINT32 sync_counter;
+} le_audio_src_host_controller_sync_info_t;
 
 typedef struct
 {
@@ -159,6 +167,7 @@ typedef struct
 #ifdef LE_AUDIO_SRC_SYNC_ENABLE
 	OSA_SEMAPHORE_HANDLE_DEFINE(le_audio_sync_signal);
 	GPIO_HANDLE_DEFINE(le_audio_src_sync_handle);
+	UINT8 le_audio_src_sync_configure_init;
 #endif /*LE_AUDIO_SRC_SYNC_ENABLE*/
 	BT_thread_type le_audio_rx_task_handle;
 	UINT8 le_audio_src_buf[LE_AUDIO_SRC_BUF_LEN];
@@ -171,11 +180,13 @@ typedef struct
 	UINT32 le_audio_file_remain;
 	UINT32 le_audio_file_len;
 	UINT32 le_audio_src_fd_in_us;
+	UINT32 le_audio_src_sdu_int_in_us;
 	UINT32 le_audio_src_sf;
 	UCHAR le_audio_src_bps;
 	UCHAR le_audio_src_nc;
 	UINT8 le_audio_src_tx_on;
 	UINT8 le_audio_src_tx_stop;
+	le_audio_src_host_controller_sync_info_t le_audio_src_sync_info;
 } le_audio_src_pl_data_t;
 /* --------------------------------------------- externs */
 void (* leaudio_snk_cb)(const UCHAR *data, UINT16 datlen);
@@ -231,8 +242,6 @@ DECL_STATIC void le_audio_pl_transmit_voice_frame(void);
 DECL_STATIC void le_audio_sink_sai_tx_cb(hal_audio_handle_t handle, hal_audio_status_t completionStatus, void *callbackParam);
 DECL_STATIC void le_audio_src_voice_sai_tx_cb(hal_audio_handle_t handle, hal_audio_status_t completionStatus, void *callbackParam);
 #ifdef LE_AUDIO_SRC_SYNC_ENABLE
-DECL_STATIC void le_audio_pl_src_sync_configure(void);
-DECL_STATIC void le_audio_pl_src_sync_deconfigure(void);
 DECL_STATIC void le_audio_pl_src_sync_isr(void *param);
 #endif /*LE_AUDIO_SRC_SYNC_ENABLE*/
 /*******************************************************************************
@@ -319,7 +328,7 @@ DECL_STATIC hal_audio_config_t le_audio_sai_sink_config = {
     .srcClock_Hz       = 11289600U,
     .sampleRate_Hz     = (uint32_t)LE_AUDIO_SAMPLING_RATE,
     .fifoWatermark     = FSL_FEATURE_SAI_FIFO_COUNTn(LE_AUDIO_CODEC_SAI) - 2U, //4bytes aligned
-    .masterSlave       = kHAL_AudioMaster,
+    .msaterSlave       = kHAL_AudioMaster,
     .bclkPolarity      = kHAL_AudioSampleOnRisingEdge,
     .frameSyncWidth    = kHAL_AudioFrameSyncWidthHalfFrame,
     .frameSyncPolarity = kHAL_AudioBeginAtFallingEdge,
@@ -355,8 +364,8 @@ DECL_STATIC hal_audio_config_t le_audio_sai_src_config = {
     .ipConfig          = (void *)&audioRxIpConfig,
     .srcClock_Hz       = 0,
     .sampleRate_Hz     = 0,
-    .fifoWatermark     = FSL_FEATURE_SAI_FIFO_COUNTn(LE_AUDIO_CODEC_SAI) / 2U, //4bytes aligned
-    .masterSlave       = kHAL_AudioMaster,
+    .fifoWatermark     = 2,/* Support both 7.5ms/10ms FD */
+    .msaterSlave       = kHAL_AudioMaster,
     .bclkPolarity      = kHAL_AudioSampleOnRisingEdge,
     .frameSyncWidth    = kHAL_AudioFrameSyncWidthHalfFrame,
     .frameSyncPolarity = kHAL_AudioBeginAtFallingEdge,
@@ -427,32 +436,80 @@ DECL_STATIC UINT32 le_audio_pl_switch_audio_pll(UINT32 sampleRate)
 }
 
 #ifdef LE_AUDIO_SRC_SYNC_ENABLE
-DECL_STATIC void le_audio_pl_src_sync_configure(void)
+void le_audio_pl_src_sync_configure(void)
 {
-	hal_gpio_pin_config_t src_sync_config =
+	if(!le_audio_src_pl_data.le_audio_src_sync_configure_init)
 	{
-		kHAL_GpioDirectionIn,
-		0,
-		LE_AUDIO_SRC_SYNC_INPUT_GPIO,
-		LE_AUDIO_SRC_SYNC_INPUT_PIN,
-	};
+		le_audio_src_pl_data.le_audio_src_sync_configure_init = 1;
 
-	IOMUXC_SetPinMux(LE_AUDIO_SRC_SYNC_INPUT_IOMUX, 0U);
-	IOMUXC_SetPinConfig(LE_AUDIO_SRC_SYNC_INPUT_IOMUX, 0x04U);
+		le_audio_src_pl_data.le_audio_src_sync_info.sync_counter = 0;
+		hal_gpio_pin_config_t src_sync_config =
+		{
+			kHAL_GpioDirectionIn,
+			0,
+			LE_AUDIO_SRC_SYNC_INPUT_GPIO,
+			LE_AUDIO_SRC_SYNC_INPUT_PIN,
+		};
 
-	HAL_GpioInit(le_audio_src_pl_data.le_audio_src_sync_handle, &src_sync_config);
-	HAL_GpioSetTriggerMode(le_audio_src_pl_data.le_audio_src_sync_handle, kHAL_GpioInterruptFallingEdge);
-	HAL_GpioInstallCallback(le_audio_src_pl_data.le_audio_src_sync_handle, le_audio_pl_src_sync_isr, NULL);
+		IOMUXC_SetPinMux(LE_AUDIO_SRC_SYNC_INPUT_IOMUX, 0U);
+		IOMUXC_SetPinConfig(LE_AUDIO_SRC_SYNC_INPUT_IOMUX, 0x04U);
+
+		HAL_GpioInit(le_audio_src_pl_data.le_audio_src_sync_handle, &src_sync_config);
+		HAL_GpioSetTriggerMode(le_audio_src_pl_data.le_audio_src_sync_handle, kHAL_GpioInterruptRisingEdge);
+		HAL_GpioInstallCallback(le_audio_src_pl_data.le_audio_src_sync_handle, le_audio_pl_src_sync_isr, NULL);
+	}
 }
 
-DECL_STATIC void le_audio_pl_src_sync_deconfigure(void)
+void le_audio_pl_src_sync_deconfigure(void)
 {
-	HAL_GpioDeinit (le_audio_src_pl_data.le_audio_src_sync_handle);
+	if(le_audio_src_pl_data.le_audio_src_sync_configure_init)
+	{
+	    le_audio_src_pl_data.le_audio_src_sync_configure_init = 0;
+	    HAL_GpioDeinit (le_audio_src_pl_data.le_audio_src_sync_handle);
+	}
 }
 
 DECL_STATIC void le_audio_pl_src_sync_isr(void *param)
 {
+	le_audio_src_pl_data.le_audio_src_sync_info.sync_counter++;
 	OSA_SemaphorePost(le_audio_src_pl_data.le_audio_sync_signal);
+}
+
+void le_audio_set_big_cig_sync_delay(UINT32 sync_delay)
+{
+	le_audio_src_pl_data.le_audio_src_sync_info.big_cig_sync_delay_us = sync_delay;
+}
+
+void le_audio_set_iso_interval(UINT32 iso_interval)
+{
+	le_audio_src_pl_data.le_audio_src_sync_info.iso_interval_us = iso_interval;
+}
+
+/* host send iso pkt to controler..counter 0
+ * isr will be triggered when sync with in iso interval+500us(host wait time) 10883us
+ */
+void le_audio_pl_ext_iso_tx_hook (UCHAR * buf)
+{
+#if (defined(WIFI_IW612_BOARD_MURATA_2EL_M2) || defined(WIFI_IW612_BOARD_RD_USD) )
+
+	/*wait is added for FC to send ISO SDU after SYNC pulse which has delta of 150us after NOCP*/
+#ifdef LE_AUDIO_SRC_SYNC_ENABLE
+		OSA_SemaphoreWait(le_audio_src_pl_data.le_audio_sync_signal, LEAUDIO_SYNC_PULSE_WAIT_MS);
+#else
+		EM_usleep(500);
+#endif
+		uint16_t seq_num = (buf[9U] << 8U) | buf[8U];
+
+		if(seq_num == 0)
+		{
+			le_audio_src_pl_data.le_audio_src_sync_info.timestamp = (le_audio_src_pl_data.le_audio_src_sync_info.sync_counter * le_audio_src_pl_data.le_audio_src_sync_info.iso_interval_us + le_audio_src_pl_data.le_audio_src_sync_info.big_cig_sync_delay_us) + le_audio_src_pl_data.le_audio_src_sync_info.iso_interval_us;
+		}
+		else
+		{
+			le_audio_src_pl_data.le_audio_src_sync_info.timestamp = le_audio_src_pl_data.le_audio_src_sync_info.timestamp + le_audio_src_pl_data.le_audio_src_sdu_int_in_us;
+		}
+		*(uint32_t *)(buf + 4) = le_audio_src_pl_data.le_audio_src_sync_info.timestamp;
+#endif /*WIFI_IW612_BOARD_MURATA_2EL_M2*/
 }
 #endif /*LE_AUDIO_SRC_SYNC_ENABLE*/
 
@@ -465,7 +522,6 @@ DECL_STATIC void le_audio_sink_sai_tx_cb(hal_audio_handle_t handle, hal_audio_st
     }
     else
     {
-    	le_audio_snk_pl_data.le_audio_snk_available_buf_cnt--;
     	OSA_SemaphorePost(le_audio_snk_pl_data.le_audio_snk_data_available);
     }
 }
@@ -550,10 +606,6 @@ DECL_STATIC void le_audio_hw_codec_start(UCHAR ep)
         /*HW Codec or SAI has failed, stop here?*/
         assert(0);
     }
-    else
-    {
-        isCodecConfigured = BT_TRUE;
-    }
 }
 
 DECL_STATIC void le_audio_snk_pcm_enqueue
@@ -572,12 +624,12 @@ DECL_STATIC void le_audio_snk_pcm_enqueue
         return;
     }
 
-    if (le_audio_snk_pl_data.le_audio_snk_skip_frame > 0)
-    {
-    	le_audio_snk_pl_data.le_audio_snk_skip_frame--;
-    	BT_thread_mutex_unlock(&le_audio_snk_pl_data.le_audio_snk_rx_lock);
-    	return;
-    }
+	if (le_audio_snk_pl_data.le_audio_snk_expected_frame_len != datalen)
+	{
+		/* Indicate the Bad frame reception*/
+		PRINTF ("@");
+		return;
+	}
 
     n_free = le_audio_snk_pl_data.le_audio_snk_pcm_q_rd_ptr - le_audio_snk_pl_data.le_audio_snk_pcm_q_wr_ptr;
 
@@ -586,49 +638,40 @@ DECL_STATIC void le_audio_snk_pcm_enqueue
         n_free = (LE_AUDIO_SNK_PCM_QUEUE_SIZE - le_audio_snk_pl_data.le_audio_snk_pcm_q_wr_ptr) + le_audio_snk_pl_data.le_audio_snk_pcm_q_rd_ptr;
     }
 
-    if ((n_free < 1) || (n_free < datalen))
-    {
-        /* Overflow ! */
-        PRINTF ("+ %d %d + ", n_free, datalen);
-    }
-    else
-    {
-    	if (le_audio_snk_pl_data.le_audio_snk_expected_frame_len != datalen)
-    	{
-            PRINTF ("@");
-    		return;
-    	}
+    if( (le_audio_snk_pl_data.le_audio_snk_available_buf_cnt > 0) && (n_free == LE_AUDIO_SNK_PCM_QUEUE_SIZE) )
+	{
+    	/* q is full,currently overwriting the latest write pointer index */
+    	n_free = 0;
+	}
 
-    	INT32 temp_wr_ptr = le_audio_snk_pl_data.le_audio_snk_pcm_q_wr_ptr;
-        for (count = 0U; count < datalen; count++)
-        {
-            le_audio_snk_pl_data.le_audio_snk_pcm_data_queue[temp_wr_ptr] = data[count];
-            temp_wr_ptr++;
+    if(n_free != 0)
+	{
+	    INT32 temp_wr_ptr = le_audio_snk_pl_data.le_audio_snk_pcm_q_wr_ptr;
+	    for (count = 0U; count < datalen; count++)
+	    {
+		    le_audio_snk_pl_data.le_audio_snk_pcm_data_queue[temp_wr_ptr] = data[count];
+		    temp_wr_ptr++;
 
-            if (temp_wr_ptr == LE_AUDIO_SNK_PCM_QUEUE_SIZE)
-            {
-            	temp_wr_ptr = 0;
-            }
-        }
-        le_audio_snk_pl_data.le_audio_snk_pcm_q_wr_ptr = temp_wr_ptr;
-    	le_audio_snk_pl_data.le_audio_snk_available_buf_cnt++;
+		    if (temp_wr_ptr == LE_AUDIO_SNK_PCM_QUEUE_SIZE)
+		    {
+			    temp_wr_ptr = 0;
+		    }
+	    }
+	    le_audio_snk_pl_data.le_audio_snk_pcm_q_wr_ptr = temp_wr_ptr;
+	    le_audio_snk_pl_data.le_audio_snk_available_buf_cnt++;
     }
 
     BT_thread_mutex_unlock(&le_audio_snk_pl_data.le_audio_snk_rx_lock);
     if (le_audio_snk_pl_data.le_audio_snk_enqueue_start)
     {
-        if ((le_audio_snk_pl_data.le_audio_snk_pcm_q_wr_ptr - le_audio_snk_pl_data.le_audio_snk_pcm_q_rd_ptr) > (le_audio_snk_pl_data.le_audio_snk_expected_frame_len * 8U))
-    	{
-            le_audio_snk_pl_data.le_audio_snk_enqueue_start = BT_FALSE;
-    	    /*start audio-sink*/
-    	    OSA_SemaphorePost(le_audio_snk_pl_data.le_audio_snk_start_rx);
-    	}
+		le_audio_snk_pl_data.le_audio_snk_enqueue_start = BT_FALSE;
+		/*start audio-sink*/
+		OSA_SemaphorePost(le_audio_snk_pl_data.le_audio_snk_start_rx);
     }
 }
 
 void leaudio_init_pl_ext (UCHAR role)
 {
-    //DECL_STATIC UCHAR task_init = 0x00U;
     DECL_STATIC UCHAR le_audio_src_task_init = 0x00U;
     DECL_STATIC UCHAR le_audio_snk_task_init = 0x00U;
 
@@ -699,7 +742,6 @@ void leaudio_init_pl_ext (UCHAR role)
         PRINTF ("le audio sink tasks initialized!\n");
         le_audio_snk_task_init = 1U;
     }
-
 }
 
 void leaudio_shutdown_pl_ext (void)
@@ -769,10 +811,14 @@ API_RESULT leaudio_setup_pl_ext
         is_sink_setup_done = BT_TRUE;
     }
 
-    if ((is_src_setup_done == BT_FALSE ) || ((is_sink_setup_done == BT_FALSE )))
+    if ((is_src_setup_done == BT_TRUE ) || ((is_sink_setup_done == BT_TRUE )))
     {
 		isCodecConfigured = BT_TRUE;
 	}
+    else
+    {
+    	isCodecConfigured = BT_FALSE;
+    }
 
     return result;
 }
@@ -933,6 +979,7 @@ DECL_STATIC void le_audio_pl_start_audio_rx(void)
     le_audio_snk_pl_data.le_audio_snk_fd_in_us =  appl_ga_utils_audio_snk_get_fd();
     audio_frame_length = ( (temp_sf / 100U) * appl_ga_utils_audio_snk_get_fd() * (leaudio_snk_bps / 8U) * leaudio_snk_nc ) / 100U;
     le_audio_snk_pl_data.le_audio_snk_expected_frame_len = audio_frame_length;
+    le_audio_snk_pl_data.le_audio_snk_mute_frame_len = le_audio_snk_pl_data.le_audio_snk_expected_frame_len / 4;
     le_audio_snk_pl_data.le_audio_snk_rx_stop = BT_FALSE;
     le_audio_snk_pl_data.le_audio_snk_enqueue_start = BT_TRUE;
     le_audio_snk_pl_data.le_audio_snk_sai_index = 0;
@@ -952,8 +999,8 @@ DECL_STATIC void le_audio_pl_start_tx(void)
 {
 	API_RESULT retval = API_FAILURE;
 	UINT32 temp_sf=0;
-	/* start audio/voice-tx */
 
+	/* start audio/voice-tx */
 	BT_thread_mutex_lock(&le_audio_src_pl_data.le_audio_src_tx_lock);
 
 	temp_sf = leaudio_src_sf;
@@ -962,6 +1009,7 @@ DECL_STATIC void le_audio_pl_start_tx(void)
 	    temp_sf = 48000;
     }
 
+    le_audio_src_pl_data.le_audio_src_sdu_int_in_us = appl_ga_utils_audio_src_get_sdu_int();
 	le_audio_src_pl_data.le_audio_src_sf = leaudio_src_sf;
 	le_audio_src_pl_data.le_audio_src_bps = leaudio_src_bps;
 	le_audio_src_pl_data.le_audio_src_nc = leaudio_src_nc;
@@ -1165,7 +1213,7 @@ DECL_STATIC API_RESULT le_audio_src_pl_prepare_file_name(UCHAR *file_name)
             break;
 
         case 48000:
-            BT_str_cat(file_name, "48000hz_");
+        		BT_str_cat(file_name, "48000hz_");
             break;
 
         default:
@@ -1261,14 +1309,6 @@ void audio_codec_setunmute_pl_ext()
     }
 }
 
-void le_audio_pl_ext_iso_tx_delay (void)
-{
-#ifdef WIFI_IW612_BOARD_MURATA_2EL_M2
-	/*wait is added for FC to send ISO SDU after SYNC pulese which has delta of 150us after NOCP*/
-	EM_usleep(500);
-#endif /*WIFI_IW612_BOARD_MURATA_2EL_M2*/
-}
-
 /*******************************************************************************
  * Code
  ******************************************************************************/
@@ -1278,7 +1318,6 @@ DECL_STATIC void le_audio_pl_transmit_voice_frame (void)
 	UINT32 temp_rd_ptr;
 	hal_audio_transfer_t xfer = {0};
 	le_audio_src_voice_obj_t *voice_data_obj = (le_audio_src_voice_obj_t*)&le_audio_src_pl_data.voice_data_obj;
-
 
 	if (voice_data_obj->le_audio_src_voice_start_render == BT_FALSE)
 	{
@@ -1340,9 +1379,7 @@ DECL_STATIC BT_THREAD_RETURN_TYPE le_audio_src_task (BT_THREAD_ARGS args)
 	BT_LOOP_FOREVER()
 	{
 		OSA_SemaphoreWait(le_audio_src_pl_data.le_audio_src_start_tx, osaWaitForever_c);
-#ifdef LE_AUDIO_SRC_SYNC_ENABLE
-        le_audio_pl_src_sync_configure ();
-#else
+#ifndef LE_AUDIO_SRC_SYNC_ENABLE
         /*wait at least for one frame-duration to complete data-path activities*/
           EM_usleep(100U * appl_ga_utils_audio_src_get_fd());
 #endif /*LE_AUDIO_SRC_SYNC_ENABLE*/
@@ -1350,10 +1387,6 @@ DECL_STATIC BT_THREAD_RETURN_TYPE le_audio_src_task (BT_THREAD_ARGS args)
 
 		BT_LOOP_FOREVER()
 		{
-#ifdef LE_AUDIO_SRC_SYNC_ENABLE
-	        OSA_SemaphoreWait(le_audio_src_pl_data.le_audio_sync_signal, osaWaitForever_c);
-#endif /*LE_AUDIO_SRC_SYNC_ENABLE*/
-
 			BT_thread_mutex_lock(&le_audio_src_pl_data.le_audio_src_tx_lock);
 			if (le_audio_src_pl_data.le_audio_src_tx_stop == BT_TRUE)
 			{
@@ -1388,18 +1421,13 @@ DECL_STATIC BT_THREAD_RETURN_TYPE le_audio_src_task (BT_THREAD_ARGS args)
 				timeout = 1000U * (appl_ga_utils_audio_src_get_fd() / 10U ) * 10U;
 			}
 
-                        BT_thread_mutex_unlock(&le_audio_src_pl_data.le_audio_src_tx_lock);
+            BT_thread_mutex_unlock(&le_audio_src_pl_data.le_audio_src_tx_lock);
 
-#ifndef LE_AUDIO_SRC_SYNC_ENABLE
 			if (le_audio_src_pl_data.le_audio_src_role == LE_AUDIO_SRC_ROLE_MEDIA)
 			{
 				EM_usleep(timeout);
 			}
-#endif /*LE_AUDIO_SRC_SYNC_ENABLE*/
 		}
-#ifdef LE_AUDIO_SRC_SYNC_ENABLE
-		le_audio_pl_src_sync_deconfigure ();
-#endif /*LE_AUDIO_SRC_SYNC_ENABLE*/
 		PRINTF ("audio-transmission is stopped now!\n");
 		if (le_audio_src_pl_data.le_audio_src_role == LE_AUDIO_SRC_ROLE_MEDIA)
 		{
@@ -1413,6 +1441,8 @@ DECL_STATIC BT_THREAD_RETURN_TYPE le_audio_sink_task (BT_THREAD_ARGS args)
 	INT32  temp_rd_ptr, index;
 	hal_audio_status_t ret;
 	hal_audio_transfer_t xfer = {0};
+	UINT32 remaining = 0;
+	UINT32 bytes_to_read = 0;
 
 	BT_LOOP_FOREVER()
 	{
@@ -1427,15 +1457,37 @@ DECL_STATIC BT_THREAD_RETURN_TYPE le_audio_sink_task (BT_THREAD_ARGS args)
 			if (le_audio_snk_pl_data.le_audio_snk_rx_stop == BT_TRUE)
 			{
 				/*audio-sink stopped!*/
+			    /*if ((isCodecConfigured == BT_TRUE) && CODEC_SetMute(&hwCodecHandle, kCODEC_PlayChannelHeadphoneRight | kCODEC_PlayChannelHeadphoneLeft, true) != kStatus_Success)
+			    {
+			        PRINTF("CODEC_SetMute(true) failed\r\n");
+			    }*/
+
 				BT_thread_mutex_unlock(&le_audio_snk_pl_data.le_audio_snk_rx_lock);
 				break;
 			}
 
+			if (le_audio_snk_pl_data.le_audio_snk_pcm_q_wr_ptr > le_audio_snk_pl_data.le_audio_snk_pcm_q_rd_ptr)
+			{
+				remaining = le_audio_snk_pl_data.le_audio_snk_pcm_q_wr_ptr - le_audio_snk_pl_data.le_audio_snk_pcm_q_rd_ptr;
+			}
+			else
+			{
+				remaining = LE_AUDIO_SNK_PCM_QUEUE_SIZE -
+					(le_audio_snk_pl_data.le_audio_snk_pcm_q_rd_ptr - le_audio_snk_pl_data.le_audio_snk_pcm_q_wr_ptr);
+			}
+
+			if( (le_audio_snk_pl_data.le_audio_snk_available_buf_cnt == 0) && (remaining == LE_AUDIO_SNK_PCM_QUEUE_SIZE) )//q empty
+			{
+				remaining = 0;
+			}
+
+			bytes_to_read = le_audio_snk_pl_data.le_audio_snk_expected_frame_len;
+
 			/*data frame received here*/
-			if (le_audio_snk_pl_data.le_audio_snk_available_buf_cnt > 0)
+			if( (remaining != 0) && (remaining >= bytes_to_read) )
 			{
 				temp_rd_ptr = le_audio_snk_pl_data.le_audio_snk_pcm_q_rd_ptr;
-				for (index = 0; index < le_audio_snk_pl_data.le_audio_snk_expected_frame_len; index++)
+				for (index = 0; index < bytes_to_read; index++)
 				{
 					le_audio_snk_pl_data.le_audio_snk_pcm_buf_ptr[index] = le_audio_snk_pl_data.le_audio_snk_pcm_data_queue[temp_rd_ptr];
 
@@ -1448,15 +1500,16 @@ DECL_STATIC BT_THREAD_RETURN_TYPE le_audio_sink_task (BT_THREAD_ARGS args)
 
 				/* Update the read pointer */
 				le_audio_snk_pl_data.le_audio_snk_pcm_q_rd_ptr = temp_rd_ptr;
-				xfer.dataSize = le_audio_snk_pl_data.le_audio_snk_expected_frame_len;
+				le_audio_snk_pl_data.le_audio_snk_available_buf_cnt--;
+				xfer.dataSize = bytes_to_read;
 				xfer.data = &le_audio_snk_pl_data.le_audio_snk_pcm_buf_ptr[0];
 			}
 			else
 			{
 				/*no enough data receive to play-off one silent-frame*/
 				PRINTF("!");
-				le_audio_snk_pl_data.le_audio_snk_available_buf_cnt++;
-				xfer.dataSize = le_audio_snk_pl_data.le_audio_snk_expected_frame_len;
+				xfer.dataSize = le_audio_snk_pl_data.le_audio_snk_mute_frame_len;
+				xfer.dataSize -= (xfer.dataSize % 4);
 				xfer.data = le_audio_snk_pl_data.le_audio_snk_dummy_buf_ptr;
 			}
 
@@ -1480,3 +1533,12 @@ DECL_STATIC BT_THREAD_RETURN_TYPE le_audio_sink_task (BT_THREAD_ARGS args)
 	}
 }
 
+void le_audio_src_set_cig_sdu_int(UINT32 cig_sdu_int)
+{
+	le_audio_src_pl_data.le_audio_src_sdu_int_in_us = cig_sdu_int;
+}
+
+UINT32 le_audio_src_get_cig_sdu_int()
+{
+    return le_audio_src_pl_data.le_audio_src_sdu_int_in_us;
+}

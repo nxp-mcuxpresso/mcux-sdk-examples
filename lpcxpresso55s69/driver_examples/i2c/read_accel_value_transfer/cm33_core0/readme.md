@@ -10,7 +10,7 @@ the virtual serial port on board.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

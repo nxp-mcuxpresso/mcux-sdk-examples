@@ -33,7 +33,7 @@ Please reference user manual for the detail of the feature.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

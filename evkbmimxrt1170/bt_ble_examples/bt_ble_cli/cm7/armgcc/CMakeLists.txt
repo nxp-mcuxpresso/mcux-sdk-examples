@@ -83,9 +83,17 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../wifi_config.h"
 "${ProjDirPath}/../sdk_ver.h"
 "${ProjDirPath}/../a2dp_pl_ext.c"
-"${ProjDirPath}/../leaudio_pl_ext.c"
-"${ProjDirPath}/../wav.c"
-"${ProjDirPath}/../wav.h"
+"${ProjDirPath}/../le_audio_pl/le_audio_pl_ext.c"
+"${ProjDirPath}/../le_audio_pl/le_audio_pl_sync.c"
+"${ProjDirPath}/../le_audio_pl/le_audio_pl_sync.h"
+"${ProjDirPath}/../le_audio_pl/wav.c"
+"${ProjDirPath}/../le_audio_pl/wav.h"
+"${ProjDirPath}/../le_audio_pl/le_audio_pl_i2s.c"
+"${ProjDirPath}/../le_audio_pl/le_audio_pl_i2s.h"
+"${ProjDirPath}/../le_audio_pl/asrc_sw/srCvtFrm.c"
+"${ProjDirPath}/../le_audio_pl/asrc_sw/srCvtFrm.h"
+"${ProjDirPath}/../le_audio_pl/asrc_sw/downSmplAllRates.dat"
+"${ProjDirPath}/../le_audio_pl/asrc_sw/upSmpl_32_32_rev.dat"
 "${ProjDirPath}/../sco_audio_pl_ext.c"
 "${ProjDirPath}/../ringtone.h"
 "${ProjDirPath}/../db_gen.c"
@@ -377,7 +385,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/ethal/ethal_timer.h"
 "${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/ethal/ethal_timer_internal.h"
 "${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/utils/sbc/sbc_api.h"
-"${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/utils/lc3/export/include/LC3_api.h"
 "${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/export/appl/reference/br/protocol_appl/appl_avctp.c"
 "${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/export/appl/reference/br/protocol_appl/appl_avctp.h"
 "${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/export/appl/reference/br/protocol_appl/appl_avdtp.c"
@@ -548,6 +555,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/profiles/ga/source/profiles/tmap/tmap_internal.h"
 "${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/lc3/mcuxpresso/intrinsics_map.h"
 "${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/lc3/mcuxpresso/lc3_common_internal.h"
+"${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/utils/lc3/export/include/LC3_api.h"
 "${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/utils/lc3/private/fixed/common/lc3_defines.h"
 "${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/utils/lc3/private/fixed/common/lc3_extern.h"
 "${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/utils/lc3/private/fixed/common/lc3_internal.h"
@@ -943,7 +951,9 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
+    ${ProjDirPath}/../le_audio_pl
     ${SdkRootDirPath}/examples/evkbmimxrt1170/bt_ble_examples/bt_ble_cli/appl/reference/cm7
+    ${ProjDirPath}/../le_audio_pl/asrc_sw
     ${SdkRootDirPath}/examples/evkbmimxrt1170
     ${SdkRootDirPath}/examples/evkbmimxrt1170/bt_ble_examples/bt_ble_cli/appl/lc3/cm7
     ${SdkRootDirPath}/examples/evkbmimxrt1170/bt_ble_examples/bt_ble_cli/appl/lc3/sim/cm7
@@ -988,7 +998,6 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${SdkRootDirPath}/middleware/wireless/ethermind/port/osal/src/freertos
     ${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux
     ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/utils/sbc
-    ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/utils/lc3/export/include
     ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/export/appl/reference/br/protocol_appl
     ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/export/appl/reference/br/al
     ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/export/appl/reference/ga/appl
@@ -1007,6 +1016,7 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${SdkRootDirPath}/middleware/wireless/ethermind/examples/ethermind
     ${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/toolspec/iar
     ${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/lc3/mcuxpresso
+    ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/utils/lc3/export/include
     ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/utils/lc3/private/fixed/common
     ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/utils/lc3/private/fixed/config
     ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/export/appl/reference/le

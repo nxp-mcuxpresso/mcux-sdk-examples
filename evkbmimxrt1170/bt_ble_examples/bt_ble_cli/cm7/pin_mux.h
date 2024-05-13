@@ -120,6 +120,18 @@ void BOARD_InitEnet1GPins(void);
  */
 void BOARD_InitPinsM2(void);                  /* Function assigned for the Cortex-M7F */
 
+/*!
+ * @brief Configures pin routing and optionally pin electrical features.
+ *
+ */
+void BOARD_InitGPT2Pins(void);                /* Function assigned for the Cortex-M7F */
+
+/*!
+ * @brief Configures pin routing and optionally pin electrical features.
+ *
+ */
+void BOARD_InitGPT3Pins(void);                /* Function assigned for the Cortex-M7F */
+
 #if defined(__cplusplus)
 }
 #endif

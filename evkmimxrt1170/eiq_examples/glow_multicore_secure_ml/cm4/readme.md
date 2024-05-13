@@ -9,7 +9,7 @@ then M4 core starts up using the image in SDRAM.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

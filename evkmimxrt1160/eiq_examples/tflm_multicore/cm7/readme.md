@@ -26,7 +26,7 @@ M7 core application depends on the M4 core, So user could build the M4 core appl
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

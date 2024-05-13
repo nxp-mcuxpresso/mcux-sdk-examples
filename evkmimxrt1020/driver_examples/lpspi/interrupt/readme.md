@@ -10,7 +10,7 @@ In this example , one lpspi instance used as LPSPI master and another lpspi inst
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

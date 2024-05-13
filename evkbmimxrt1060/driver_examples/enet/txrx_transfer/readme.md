@@ -16,7 +16,7 @@ in TWR-SERIAL board for the external PHY.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

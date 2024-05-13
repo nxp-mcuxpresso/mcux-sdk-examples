@@ -4,6 +4,8 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
+#if (LE_AUDIO_SRC_SYNC_ENABLE == 1U) && (LE_AUDIO_SINK_SYNC_ENABLE == 1U)
+
 #include "audio_pl.h"
 #include "clock_config.h"
 #include "board.h"
@@ -319,7 +321,7 @@ DECL_STATIC hal_audio_config_t le_audio_sai_sink_config = {
     .srcClock_Hz       = 11289600U,
     .sampleRate_Hz     = (uint32_t)LE_AUDIO_SAMPLING_RATE,
     .fifoWatermark     = FSL_FEATURE_SAI_FIFO_COUNTn(LE_AUDIO_CODEC_SAI) - 2U, //4bytes aligned
-    .masterSlave       = kHAL_AudioMaster,
+    .msaterSlave       = kHAL_AudioMaster,
     .bclkPolarity      = kHAL_AudioSampleOnRisingEdge,
     .frameSyncWidth    = kHAL_AudioFrameSyncWidthHalfFrame,
     .frameSyncPolarity = kHAL_AudioBeginAtFallingEdge,
@@ -356,7 +358,7 @@ DECL_STATIC hal_audio_config_t le_audio_sai_src_config = {
     .srcClock_Hz       = 0,
     .sampleRate_Hz     = 0,
     .fifoWatermark     = FSL_FEATURE_SAI_FIFO_COUNTn(LE_AUDIO_CODEC_SAI) / 2U, //4bytes aligned
-    .masterSlave       = kHAL_AudioMaster,
+    .msaterSlave       = kHAL_AudioMaster,
     .bclkPolarity      = kHAL_AudioSampleOnRisingEdge,
     .frameSyncWidth    = kHAL_AudioFrameSyncWidthHalfFrame,
     .frameSyncPolarity = kHAL_AudioBeginAtFallingEdge,
@@ -1465,3 +1467,5 @@ DECL_STATIC BT_THREAD_RETURN_TYPE le_audio_sink_task (BT_THREAD_ARGS args)
 		PRINTF ("audio-sink is stopped!\n");
 	}
 }
+
+#endif /*#if (LE_AUDIO_SRC_SYNC_ENABLE == 1U) && (LE_AUDIO_SINK_SYNC_ENABLE == 1U)*/

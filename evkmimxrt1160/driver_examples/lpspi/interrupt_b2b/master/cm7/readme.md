@@ -10,7 +10,7 @@ This example does not use the transactional API in LPSPI driver. It's a demonstr
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

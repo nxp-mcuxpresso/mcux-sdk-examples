@@ -5,7 +5,7 @@ and then access the external memory to demo single error interrupt.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

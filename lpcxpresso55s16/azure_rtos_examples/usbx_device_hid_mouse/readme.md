@@ -5,7 +5,7 @@ This example works as a USB HID device. It will appear as a USB mouse device on 
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

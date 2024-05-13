@@ -5,7 +5,7 @@ Application demonstrating how to use the a2dp source feature.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

@@ -121,6 +121,7 @@
 #define CONFIG_BT_BAP_BROADCAST_ASSISTANT 0
 #define CONFIG_BT_CAP_ACCEPTOR            0
 #define CONFIG_BT_CAP_INITIATOR           0
+#define CONFIG_BT_CAP_COMMANDER           0
 #define CONFIG_BT_CSIP_SET_MEMBER         0
 #define CONFIG_BT_CSIP_SET_COORDINATOR    0
 #define CONFIG_BT_HAS                     0
@@ -142,6 +143,9 @@
 #define CONFIG_BT_OTS                     0
 #define CONFIG_BT_OTS_CLIENT              0
 #define CONFIG_BT_TMAP                    0
+#define CONFIG_BT_GMAP                    0
+#define CONFIG_BT_PBP                     0
+
 #endif
 
 #if CONFIG_BT_BAP_BROADCAST_ASSISTANT
@@ -211,7 +215,7 @@
 #endif
 
 #if CONFIG_BT_MPL
-#define CONFIG_BT_DEBUG_MPL 1
+#define CONFIG_BT_MPL_LOG_LEVEL_DBG 1
 #define CONFIG_BT_TESTING   1
 #define CONFIG_BT_MPL_OBJECTS 1
 #endif

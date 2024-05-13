@@ -74,8 +74,20 @@
 /* Hook function related definitions. */
 #define configUSE_IDLE_HOOK                0
 #define configUSE_TICK_HOOK                0
+#if defined (APP_CONFIG_ENABLE_STACK_OVERFLOW_FREERTOS_HOOK) \
+        && (APP_CONFIG_ENABLE_STACK_OVERFLOW_FREERTOS_HOOK == 1U)
 #define configCHECK_FOR_STACK_OVERFLOW     1
-#define configUSE_MALLOC_FAILED_HOOK       1
+#else
+#define configCHECK_FOR_STACK_OVERFLOW     0
+#endif /*defined (APP_CONFIG_ENABLE_STACK_OVERFLOW_FREERTOS_HOOK) && (APP_CONFIG_ENABLE_STACK_OVERFLOW_FREERTOS_HOOK == 1U)*/
+
+#if defined (APP_CONFIG_ENABLE_MALLOC_FAILURE_FREERTOS_HOOK) \
+        && (APP_CONFIG_ENABLE_MALLOC_FAILURE_FREERTOS_HOOK == 1U)
+#define configUSE_MALLOC_FAILED_HOOK     1
+#else
+#define configUSE_MALLOC_FAILED_HOOK     0
+#endif /*defined (APP_CONFIG_ENABLE_MALLOC_FAILURE_FREERTOS_HOOK) && (APP_CONFIG_ENABLE_MALLOC_FAILURE_FREERTOS_HOOK == 1U)*/
+
 #define configUSE_DAEMON_TASK_STARTUP_HOOK 0
 
 /* Run time and task stats gathering related definitions. */

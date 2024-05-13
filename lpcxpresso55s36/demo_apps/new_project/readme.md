@@ -5,7 +5,7 @@ The new project is provided as empty project with device/board setup prepared. U
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

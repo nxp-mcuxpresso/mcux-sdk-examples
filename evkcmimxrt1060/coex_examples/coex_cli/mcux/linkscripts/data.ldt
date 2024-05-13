@@ -1,4 +1,11 @@
         <#if memory.name=="SRAM_DTC">
         *fsl_flexspi.o(.text*)
         *mflash_drv.o(.text*)
+        *libethermind_lc3_common.a(.text .text* .rodata .rodata*)
+        *libethermind_lc3_encoder.a(.text .text* .rodata .rodata*)
+        *libethermind_lc3_decoder.a(.text .text* .rodata .rodata*)
+        *fsl_edma.o(.text .text* .rodata .rodata*)
+        *fsl_sai.o(.text .text* .rodata .rodata*)
+        *fsl_sai_edma.o(.text .text* .rodata .rodata*)
+        *leaudio_pl_ext.o(.text .text* .rodata .rodata*)
         </#if>

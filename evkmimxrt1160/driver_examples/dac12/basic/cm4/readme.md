@@ -10,7 +10,7 @@ outputs the DAC12 output voltage through DAC12 output pin.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

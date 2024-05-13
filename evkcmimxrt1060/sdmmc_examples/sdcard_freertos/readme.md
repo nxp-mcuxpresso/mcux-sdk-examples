@@ -8,7 +8,7 @@ Note: If DATA3 is used as the card detect PIN, please make sure DATA3 is pull do
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

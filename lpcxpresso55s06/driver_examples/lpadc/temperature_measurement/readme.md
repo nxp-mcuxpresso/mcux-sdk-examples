@@ -11,7 +11,7 @@ then the temperature can be calculated within the two results and a specific for
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

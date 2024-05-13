@@ -5,7 +5,7 @@ This example works as a USB host CDC ACM. It can communicate with a USB CDC ACM 
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

@@ -492,7 +492,7 @@ int controller_hci_uart_get_configuration(controller_hci_uart_config_t *config)
     config->clockSrc         = BOARD_BT_UART_CLK_FREQ;
     config->defaultBaudrate  = 115200u;
     config->runningBaudrate  = BOARD_BT_UART_BAUDRATE;
-    config->instance         = BOARD_BT_UART_INSTANCE;
+    config->instance         = 2;
     config->enableRxRTS      = 1u;
     config->enableTxCTS      = 1u;
 #if (defined(HAL_UART_DMA_ENABLE) && (HAL_UART_DMA_ENABLE > 0U))
@@ -570,8 +570,6 @@ extern usb_status_t USB_HostTestEvent(usb_device_handle deviceHandle,
  * Prototypes
  ******************************************************************************/
 
-static struct wlan_network network;
-void coex_controller_init();
 
 void delay(void)
 {
@@ -603,6 +601,13 @@ static void printSeparator(void)
     PRINTF("========================================\r\n");
 }
 
+static struct wlan_network sta_network;
+static struct wlan_network uap_network;
+
+/* Callback Function passed to WLAN Connection Manager. The callback function
+ * gets called when there are WLAN Events that need to be handled by the
+ * application.
+ */
 int wlan_event_callback(enum wlan_event_reason reason, void *data)
 {
     int ret;
@@ -689,7 +694,7 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
 
             net_inet_ntoa(addr.ipv4.address, ip);
 
-            ret = wlan_get_current_network(&network);
+            ret = wlan_get_current_network(&sta_network);
             if (ret != WM_SUCCESS)
             {
                 PRINTF("Failed to get External AP network\r\n");
@@ -697,7 +702,7 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
             }
 
             PRINTF("Connected to following BSS:\r\n");
-            PRINTF("SSID = [%s]\r\n", network.ssid);
+            PRINTF("SSID = [%s]\r\n", sta_network.ssid);
             if (addr.ipv4.address != 0U)
             {
                 PRINTF("IPv4 Address: [%s]\r\n", ip);
@@ -708,7 +713,8 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
             {
                 if (ip6_addr_isvalid(addr.ipv6[i].addr_state))
                 {
-                    (void)PRINTF("IPv6 Address: %-13s:\t%s (%s)\r\n", ipv6_addr_type_to_desc((struct net_ipv6_config *)&addr.ipv6[i]),
+                    (void)PRINTF("IPv6 Address: %-13s:\t%s (%s)\r\n",
+                                 ipv6_addr_type_to_desc((struct net_ipv6_config *)&addr.ipv6[i]),
                                  inet6_ntoa(addr.ipv6[i].address), ipv6_addr_state_to_desc(addr.ipv6[i].addr_state));
                 }
             }
@@ -750,7 +756,7 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
             break;
         case WLAN_REASON_UAP_SUCCESS:
             PRINTF("app_cb: WLAN: UAP Started\r\n");
-            ret = wlan_get_current_network(&network);
+            ret = wlan_get_current_uap_network(&uap_network);
 
             if (ret != WM_SUCCESS)
             {
@@ -759,7 +765,7 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
             }
 
             printSeparator();
-            PRINTF("Soft AP \"%s\" started successfully\r\n", network.ssid);
+            PRINTF("Soft AP \"%s\" started successfully\r\n", uap_network.ssid);
             printSeparator();
             if (dhcp_server_start(net_get_uap_handle()))
                 PRINTF("Error in starting dhcp server\r\n");
@@ -775,6 +781,14 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
             PRINTF("Associated with Soft AP\r\n");
             printSeparator();
             break;
+        case WLAN_REASON_UAP_CLIENT_CONN:
+            PRINTF("app_cb: WLAN: UAP a Client Connected\r\n");
+            printSeparator();
+            PRINTF("Client => ");
+            print_mac((const char *)data);
+            PRINTF("Connected with Soft AP\r\n");
+            printSeparator();
+            break;
         case WLAN_REASON_UAP_CLIENT_DISSOC:
             printSeparator();
             PRINTF("app_cb: WLAN: UAP a Client Dissociated:");
@@ -787,7 +801,7 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
         case WLAN_REASON_UAP_STOPPED:
             PRINTF("app_cb: WLAN: UAP Stopped\r\n");
             printSeparator();
-            PRINTF("Soft AP \"%s\" stopped successfully\r\n", network.ssid);
+            PRINTF("Soft AP \"%s\" stopped successfully\r\n", uap_network.ssid);
             printSeparator();
 
             dhcp_server_stop();
@@ -796,10 +810,8 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
             printSeparator();
             break;
         case WLAN_REASON_PS_ENTER:
-            PRINTF("app_cb: WLAN: PS_ENTER\r\n");
             break;
         case WLAN_REASON_PS_EXIT:
-            PRINTF("app_cb: WLAN: PS EXIT\r\n");
             break;
         default:
             PRINTF("app_cb: WLAN: Unknown Event: %d\r\n", reason);
@@ -929,7 +941,7 @@ int main(void)
     EDMA_Init(DMA0, &dmaConfig);
     DMAMUX_Init(DMAMUX0);
 
-    PRINTF("        coex wpa supplicant\r\n");
+    PRINTF("       coex wpa supplicant\r\n");
     printSeparator();
 
 
@@ -943,7 +955,10 @@ int main(void)
     assert(pdPASS == result);
 #endif
 
+#if defined (APP_CONFIG_ENABLE_STACK_OVERFLOW_FREERTOS_HOOK) \
+        && (APP_CONFIG_ENABLE_STACK_OVERFLOW_FREERTOS_HOOK == 1U)
     EM_register_sof_handler(stackOverflowHookHandler);
+#endif /* #if defined (APP_CONFIG_ENABLE_STACK_OVERFLOW_FREERTOS_HOOK) && (APP_CONFIG_ENABLE_STACK_OVERFLOW_FREERTOS_HOOK == 1U) */
 
     vTaskStartScheduler();
     for (;;)

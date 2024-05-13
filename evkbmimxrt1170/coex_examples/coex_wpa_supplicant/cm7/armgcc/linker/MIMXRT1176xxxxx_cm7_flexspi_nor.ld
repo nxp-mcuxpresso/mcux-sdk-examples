@@ -27,6 +27,12 @@
 /* Entry Point */
 ENTRY(Reset_Handler)
 
+/* NVM */
+/* By default, the NVM is not used. */
+UseNVMLink = DEFINED(gUseNVMLink_d) ? gUseNVMLink_d : 0;
+EraseNVMLink = DEFINED(gEraseNVMLink_d) ? gEraseNVMLink_d : 0;
+NVMSectorCountLink = DEFINED(gNVMSectorCountLink_d) ? gNVMSectorCountLink_d : 4;
+
 _ROM_START_ = 0x30002400;
 _ROM_END_ = 0x30DBFFFF;
 
@@ -36,6 +42,16 @@ STORAGE_AREA_START = _ROM_END_ - STORAGE_AREA_SIZE + 1;
 m_text_end         = STORAGE_AREA_START -1;
 m_text_start       = _ROM_START_;
 m_text_size        = STORAGE_AREA_START - m_text_start;
+
+/*** NVM Configuration Start ***/
+NVM_AREA_START = STORAGE_AREA_START;
+
+NV_STORAGE_SECTOR_SIZE = 0x1000;  /* 4k flash sector size */
+NV_STORAGE_MAX_SECTORS = NVMSectorCountLink;
+NVM_AREA_SIZE = NV_STORAGE_SECTOR_SIZE * NV_STORAGE_MAX_SECTORS;
+NV_STORAGE_END_ADDRESS = NVM_AREA_START + NVM_AREA_SIZE - 1;
+NV_STORAGE_START_ADDRESS = NVM_AREA_START;
+/*** NVM Configuration End ***/
 
 /*** littleFS configuration Start ***/
 EDGEFAST_BT_LITTLEFS_STORAGE_START_ADDRESS = _ROM_END_ + 1;
@@ -55,6 +71,7 @@ MEMORY
   m_ivt                 (RX)  : ORIGIN = 0x30001000, LENGTH = 0x00001000
   m_interrupts          (RX)  : ORIGIN = 0x30002000, LENGTH = 0x00000400
   m_text                (RX)  : ORIGIN = m_text_start, LENGTH = m_text_size
+  NVM_region            (RW)  : ORIGIN = STORAGE_AREA_START, LENGTH = STORAGE_AREA_SIZE
   m_qacode              (RX)  : ORIGIN = 0x00000000, LENGTH = 0x00040000
   m_data                (RW)  : ORIGIN = 0x20000000, LENGTH = 0x00040000
   m_data2               (RW)  : ORIGIN = 0x20240000 + RPMSG_SHMEM_SIZE, LENGTH = 0x00120000 - RPMSG_SHMEM_SIZE
@@ -121,13 +138,58 @@ SECTIONS
     . = ALIGN(4);
     *(EXCLUDE_FILE(
         /* Exclude flash and frequently executed functions from XIP */
+        */fsl_adapter_flexspi_nor_flash.c.obj
+        */NV_Flash.c.obj
         */mflash_drv.c.obj
         */fsl_flexspi.c.obj
+        */libethermind_lc3_common.a
+        */libethermind_lc3_encoder.a
+        */libethermind_lc3_decoder.a
+        */fsl_edma.obj
+	    */fsl_sai.obj
+	    */fsl_sai_edma.obj
+	    */fsl_sai_edma.obj
+		*/leaudio_pl_ext.obj
     ) .text)                 /* .text sections (code) */
     *(EXCLUDE_FILE(
         /* Exclude flash and frequently executed functions from XIP */
+        */fsl_adapter_flexspi_nor_flash.c.obj
+        */NV_Flash.c.obj
         */mflash_drv.c.obj
         */fsl_flexspi.c.obj
+        */libethermind_lc3_common.a
+        */libethermind_lc3_encoder.a
+        */libethermind_lc3_decoder.a
+        */fsl_edma.obj
+        */fsl_sai.obj
+        */fsl_sai_edma.obj
+        */fsl_sai_edma.obj
+        */leaudio_pl_ext.obj
+        *queue.c.obj
+        *tcp_out.c.obj
+        *mlan_sdio.c.obj
+        *mlan_11n.c.obj
+        *mlan_11n_aggr.c.obj
+        *mlan_11n_rxreorder.c.obj
+        *tcp_in.c.obj
+        *inet_chksum.c.obj
+        *timers.c.obj
+        *fsl_usdhc.c.obj
+        *port.c.obj
+        *wifi-sdio.c.obj
+        *fsl_sdio.c.obj
+        *pbuf.c.obj
+        *tcp.c.obj
+        *udp.c.obj
+        *tcpip.c.obj
+        *sockets.c.obj
+        *tasks.c.obj
+        *lib_a-memset.o
+        *fsl_cache.c.obj
+        *wifi.c.obj
+        *wifi_netif.c.obj
+        *fsl_os_abstraction_free_rtos.c.obj
+        *fsl_memcpy.S.obj
     ) .text*)                /* .text* sections (code) */
     *(.rodata)               /* .rodata sections (constants, strings, etc.) */
     *(.rodata*)              /* .rodata* sections (constants, strings, etc.) */
@@ -136,6 +198,10 @@ SECTIONS
     *(.eh_frame)
     KEEP (*(.init))
     KEEP (*(.fini))
+    . = ALIGN(4);
+    PROVIDE(__start_NVM_ADAPTER_TABLE = .);
+    KEEP(*(.NVM_ADAPTER_TABLE));
+    PROVIDE(__stop_NVM_ADAPTER_TABLE = .);
     . = ALIGN(4);
   } > m_text
   ._bt_settings_area :
@@ -277,12 +343,32 @@ SECTIONS
     __data_start__ = .;      /* create a global symbol at data start */
     *(m_usb_dma_init_data)
     /* Explicit placement of flash and frequently executed functions in RAM */
+    */fsl_adapter_flexspi_nor_flash.c.obj
+    */NV_Flash.c.obj
     */mflash_drv.c.obj
     */fsl_flexspi.c.obj
+    */libethermind_lc3_common.a
+    */libethermind_lc3_encoder.a
+    */libethermind_lc3_decoder.a
+    */fsl_edma.obj
+    */fsl_sai.obj
+    */fsl_sai_edma.obj
+    */fsl_sai_edma.obj
+	*/leaudio_pl_ext.obj
+    *(.wlan_data* .wlan_data)
     *(.data)                 /* .data sections */
     *(.data*)                /* .data* sections */
+    *(DataQuickAccess)       /* quick access data section */
     *(.wlan_data .wlan_data.*)                /* .data* sections */
     KEEP(*(.jcr*))
+    . = ALIGN(4);
+    PROVIDE(__start_NVM_TABLE = .);
+    KEEP(*(.NVM_TABLE));
+    PROVIDE(__stop_NVM_TABLE = .);
+    . = ALIGN(4);
+    PROVIDE(__start_NVM_ADAPTER_TABLE = .);
+    KEEP(*(.NVM_ADAPTER_TABLE));
+    PROVIDE(__stop_NVM_ADAPTER_TABLE = .);
     . = ALIGN(4);
     _k_mem_slab_list_start = .;
     KEEP(*(SORT(._k_mem_slab*)))
@@ -292,7 +378,7 @@ SECTIONS
     KEEP(*(SORT(._net_buf_pool*)))
     . = ALIGN(4);
     __data_end__ = .;        /* define a global symbol at data end */
-  } > m_data
+  } > m_data2
 
   __ram_function_flash_start = __DATA_ROM + (__data_end__ - __data_start__); /* Symbol is used by startup for TCM data initialization */
 
@@ -301,6 +387,31 @@ SECTIONS
     . = ALIGN(32);
     __ram_function_start__ = .;
     *(CodeQuickAccess)
+    *queue.c.obj(.text*)
+    *tcp_out.c.obj(.text*)
+    *mlan_sdio.c.obj(.text*)
+    *mlan_11n.c.obj(.text*)
+    *mlan_11n_aggr.c.obj(.text*)
+    *mlan_11n_rxreorder.c.obj(.text*)
+    *tcp_in.c.obj(.text*)
+    *inet_chksum.c.obj(.text*)
+    *timers.c.obj(.text*)
+    *fsl_usdhc.c.obj(.text*)
+    *port.c.obj(.text*)
+    *wifi-sdio.c.obj(.text*)
+    *fsl_sdio.c.obj(.text*)
+    *pbuf.c.obj(.text*)
+    *tcp.c.obj(.text*)
+    *udp.c.obj(.text*)
+    *tcpip.c.obj(.text*)
+    *sockets.c.obj(.text*)
+    *tasks.c.obj(.text*)
+    *lib_a-memset.o(.text*)
+    *fsl_cache.c.obj(.text*)
+    *wifi.c.obj(.text*)
+    *wifi_netif.c.obj(.text*)
+    *fsl_os_abstraction_free_rtos.c.obj(.text*)
+    *fsl_memcpy.S.obj(.text)
     . = ALIGN(128);
     __ram_function_end__ = .;
   } > m_qacode
@@ -340,7 +451,14 @@ SECTIONS
     __bss_end__ = .;
     __END_BSS = .;
   } > m_data2
-
+  .NVM_TABLE :
+  {
+    . = ALIGN(4);
+    PROVIDE(__start_NVM_TABLE = .);
+    KEEP(*(.NVM_TABLE));
+    PROVIDE(__stop_NVM_TABLE = .);
+    . = ALIGN(4);
+  } > m_data
   .heap :
   {
     . = ALIGN(8);
@@ -350,7 +468,7 @@ SECTIONS
     . += HEAP_SIZE;
     __HeapLimit = .;
     __heap_limit = .; /* Add for _sbrk */
-  } > m_data
+  } > m_data2
 
   .stack :
   {
@@ -359,10 +477,16 @@ SECTIONS
   } > m_data2
 
   /* Initializes stack on the end of block */
-  __StackTop   = ORIGIN(m_data) + LENGTH(m_data);
+  __StackTop   = ORIGIN(m_data2) + LENGTH(m_data2);
   __StackLimit = __StackTop - STACK_SIZE;
   PROVIDE(__stack = __StackTop);
-
+  /* Remove this section to keep the nvm section on writting the device */
+  .NVM :
+  {
+    FILL(0xFFFFFFFF);
+    . = ORIGIN(NVM_region) + LENGTH(NVM_region) - 1;
+    BYTE(0xFF)
+  } > NVM_region
   .ARM.attributes 0 : { *(.ARM.attributes) }
 
   ASSERT(__StackLimit >= __HeapLimit, "region m_data2 overflowed with stack and heap")

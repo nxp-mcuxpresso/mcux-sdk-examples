@@ -13,7 +13,7 @@ Note: If the sdio card need WL_REG_ON, please connect WL_REG_ON to the sdio card
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

@@ -18,7 +18,7 @@ processor: MIMXRT1176xxxxx
 package_id: MIMXRT1176DVMAA
 mcu_data: ksdk2_0
 processor_version: 12.0.1
-board: MIMXRT1170-EVK
+board: MIMXRT1170-EVKB
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 
@@ -812,6 +812,60 @@ void BOARD_InitEnet1GPins(void) {
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_SetPinMux(
       IOMUXC_GPIO_EMC_B2_20_ENET_1G_MDIO,     /* GPIO_EMC_B2_20 is configured as ENET_1G_MDIO */
+      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+}
+
+/*
+ * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+BOARD_InitGPT2Pins:
+- options: {callFromInitBoot: 'true', coreID: cm7, enableClock: 'true'}
+- pin_list:
+  - {pin_num: N12, peripheral: GPT2, signal: 'gpt_capture, 1', pin_signal: GPIO_AD_00}
+  - {pin_num: R14, peripheral: GPT2, signal: 'gpt_capture, 2', pin_signal: GPIO_AD_01}
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
+ */
+
+/* FUNCTION ************************************************************************************************************
+ *
+ * Function Name : BOARD_InitGPT2Pins, assigned for the Cortex-M7F core.
+ * Description   : Configures pin routing and optionally pin electrical features.
+ *
+ * END ****************************************************************************************************************/
+void BOARD_InitGPT2Pins(void) {
+  CLOCK_EnableClock(kCLOCK_Iomuxc);           /* LPCG on: LPCG is ON. */
+
+  IOMUXC_SetPinMux(
+      IOMUXC_GPIO_AD_00_GPT2_CAPTURE1,        /* GPIO_AD_00 is configured as GPT2_CAPTURE1 */
+      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+  IOMUXC_SetPinMux(
+      IOMUXC_GPIO_AD_01_GPT2_CAPTURE2,        /* GPIO_AD_01 is configured as GPT2_CAPTURE2 */
+      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+}
+
+/*
+ * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+BOARD_InitGPT3Pins:
+- options: {callFromInitBoot: 'true', coreID: cm7, enableClock: 'true'}
+- pin_list:
+  - {pin_num: N13, peripheral: GPT3, signal: 'gpt_capture, 1', pin_signal: GPIO_AD_06}
+  - {pin_num: T17, peripheral: GPT3, signal: 'gpt_capture, 2', pin_signal: GPIO_AD_07}
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
+ */
+
+/* FUNCTION ************************************************************************************************************
+ *
+ * Function Name : BOARD_InitGPT3Pins, assigned for the Cortex-M7F core.
+ * Description   : Configures pin routing and optionally pin electrical features.
+ *
+ * END ****************************************************************************************************************/
+void BOARD_InitGPT3Pins(void) {
+  CLOCK_EnableClock(kCLOCK_Iomuxc);           /* LPCG on: LPCG is ON. */
+
+  IOMUXC_SetPinMux(
+      IOMUXC_GPIO_AD_06_GPT3_CAPTURE1,        /* GPIO_AD_06 is configured as GPT3_CAPTURE1 */
+      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+  IOMUXC_SetPinMux(
+      IOMUXC_GPIO_AD_07_GPT3_CAPTURE2,        /* GPIO_AD_07 is configured as GPT3_CAPTURE2 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
 }
 

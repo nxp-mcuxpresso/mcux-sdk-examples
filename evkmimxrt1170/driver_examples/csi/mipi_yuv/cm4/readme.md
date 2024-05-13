@@ -8,7 +8,7 @@ is used to convert the XYUV to RGB565 and show in the LCD panel.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

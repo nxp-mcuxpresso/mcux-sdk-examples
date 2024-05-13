@@ -308,9 +308,9 @@
 /*! @brief Media player debug
  * Enables debug logs for the media player
  */	
-	#ifndef CONFIG_BT_DEBUG_MPL
-		#define CONFIG_BT_DEBUG_MPL 0
-	#endif/*CONFIG_BT_DEBUG_MPL*/
+	#ifndef CONFIG_BT_MPL_LOG_LEVEL_DBG
+		#define CONFIG_BT_MPL_LOG_LEVEL_DBG 0
+	#endif/*CONFIG_BT_MPL_LOG_LEVEL_DBG*/
 	
 /*PACS*/
 

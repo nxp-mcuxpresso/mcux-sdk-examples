@@ -6,7 +6,7 @@ In this example, pdm gathers eight channels' audio data though edma, then sai se
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

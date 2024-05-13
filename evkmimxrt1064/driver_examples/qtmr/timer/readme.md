@@ -15,7 +15,7 @@ interrupt occurs every 65.5 seconds.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

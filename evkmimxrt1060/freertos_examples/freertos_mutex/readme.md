@@ -19,7 +19,7 @@ unlocked and second instance of write_task_2 is executed.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

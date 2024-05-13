@@ -50,7 +50,7 @@ GND      |  P11 b/w two jacks GND pin    |   J26(pin 1)    |    GND             
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================
@@ -11780,3 +11780,10 @@ BT Only Independent Reset :
     download success!
     IR exit with state = 0
     *** select option-3 to turn-on BT again!!***
+
+Note for simultaneous testing of A2DP streaming along with Inquiry & LE Scan:
+    Its recommended to disable the debug logs before testing this scenario so as to avoid performance impact on A2DP
+    stream caused  due to dumping scan and inquiry data on UART console.
+    We can achive this by using below option befor starting A2DP streaming:
+- 280. Disable Logging. ->This option is available on "Main Menu" CLI Interface.
+Please make a note that after "Disable Logging" command all the events related to A2DP (A2DP_START_IND, A2DP_SUSPEND_IND) would not be logged on console.

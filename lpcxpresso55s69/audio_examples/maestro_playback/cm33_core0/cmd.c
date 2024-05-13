@@ -428,7 +428,7 @@ void cmdVolume(int32_t argc, char **argv)
         if (value >= 0 && value <= 100)
         {
             get_app_data()->volume    = value;
-            get_app_data()->lastError = volume();
+            get_app_data()->lastError = set_volume();
         }
         else
         {

@@ -26,7 +26,7 @@ It is necessary to have installed tools capable of sending and receiving data ov
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

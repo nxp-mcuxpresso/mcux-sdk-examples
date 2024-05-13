@@ -686,11 +686,13 @@ void task_main(void *param)
     }
 }
 
+#if defined (APP_CONFIG_ENABLE_STACK_OVERFLOW_FREERTOS_HOOK) \
+        && (APP_CONFIG_ENABLE_STACK_OVERFLOW_FREERTOS_HOOK == 1U)
 void stackOverflowHookHandler(void* task_name)
 {
 	printf("stack-overflow exception from task: %s\r\n",(char*)task_name);
 }
-
+#endif /*defined (APP_CONFIG_ENABLE_STACK_OVERFLOW_FREERTOS_HOOK) && (APP_CONFIG_ENABLE_STACK_OVERFLOW_FREERTOS_HOOK == 1U)*/
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -716,6 +718,7 @@ int main(void)
     GPIO_PinInit(CM7_GPIO3, 15U, &wifi_reset_config);
 #elif defined(WIFI_BT_USE_M2_INTERFACE)
     BOARD_InitM2UARTPins();
+    BOARD_InitPinsM2();
 #else
     BOARD_InitArduinoUARTPins();
 #endif
@@ -770,8 +773,10 @@ int main(void)
     assert(pdPASS == result);
 #endif
 
+#if defined (APP_CONFIG_ENABLE_STACK_OVERFLOW_FREERTOS_HOOK) \
+        && (APP_CONFIG_ENABLE_STACK_OVERFLOW_FREERTOS_HOOK == 1U)
     EM_register_sof_handler(stackOverflowHookHandler);
-
+#endif /*defined (APP_CONFIG_ENABLE_STACK_OVERFLOW_FREERTOS_HOOK) && (APP_CONFIG_ENABLE_STACK_OVERFLOW_FREERTOS_HOOK == 1U)*/
     vTaskStartScheduler();
     for (;;)
     {

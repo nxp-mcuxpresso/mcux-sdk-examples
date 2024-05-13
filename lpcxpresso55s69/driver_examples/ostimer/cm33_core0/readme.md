@@ -7,7 +7,7 @@ to trigger the interrupt while the timer count tick reach the match value about 
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

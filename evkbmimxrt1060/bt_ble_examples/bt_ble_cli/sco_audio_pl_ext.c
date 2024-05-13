@@ -106,8 +106,8 @@ static HAL_AUDIO_HANDLE_DEFINE(tx_speaker_handle);
 static HAL_AUDIO_HANDLE_DEFINE(rx_mic_handle);
 static HAL_AUDIO_HANDLE_DEFINE(tx_mic_handle);
 static HAL_AUDIO_HANDLE_DEFINE(rx_speaker_handle);
-OSA_SEMAPHORE_HANDLE_DEFINE(xSemaphoreScoAudio);
-
+static OSA_MUTEX_HANDLE_DEFINE(audioInfLock);
+static OSA_SEMAPHORE_HANDLE_DEFINE(xSemaphoreScoAudio);
 AT_NONCACHEABLE_SECTION_ALIGN(static uint8_t MicBuffer[BUFFER_NUMBER * BUFFER_SIZE], 4);
 AT_NONCACHEABLE_SECTION_ALIGN(static uint8_t SpeakerBuffer[BUFFER_NUMBER * BUFFER_SIZE], 4);
 AT_NONCACHEABLE_SECTION(uint32_t g_AudioTxDummyBuffer[AUDIO_DUMMY_SIZE / 4U]);
@@ -234,7 +234,7 @@ static hal_audio_config_t txSpeakerConfig = {
  .srcClock_Hz       = 0,
  .sampleRate_Hz     = 0,
  .fifoWatermark     = FSL_FEATURE_SAI_FIFO_COUNTn(HFP_CODEC_SAI) / 2U,
- .masterSlave       = kHAL_AudioMaster,
+ .msaterSlave       = kHAL_AudioMaster,
  .bclkPolarity      = kHAL_AudioSampleOnRisingEdge,
  .frameSyncWidth    = kHAL_AudioFrameSyncWidthHalfFrame,
  .frameSyncPolarity = kHAL_AudioBeginAtRisingEdge,
@@ -271,7 +271,7 @@ static hal_audio_config_t rxMicConfig = {
  .srcClock_Hz       = 0,
  .sampleRate_Hz     = 0,
  .fifoWatermark     = FSL_FEATURE_SAI_FIFO_COUNTn(HFP_CODEC_SAI) / 2U,
- .masterSlave       = kHAL_AudioMaster,
+ .msaterSlave       = kHAL_AudioMaster,
  .bclkPolarity      = kHAL_AudioSampleOnRisingEdge,
  .frameSyncWidth    = kHAL_AudioFrameSyncWidthHalfFrame,
  .frameSyncPolarity = kHAL_AudioBeginAtRisingEdge,
@@ -313,7 +313,7 @@ static hal_audio_config_t txMicConfig = {
  .srcClock_Hz       = 0,
  .sampleRate_Hz     = 0,
  .fifoWatermark     = FSL_FEATURE_SAI_FIFO_COUNTn(HFP_CODEC_SAI) / 2U,
- .masterSlave       = kHAL_AudioSlave,
+ .msaterSlave       = kHAL_AudioSlave,
  .bclkPolarity      = kHAL_AudioSampleOnFallingEdge,
  .frameSyncWidth    = kHAL_AudioFrameSyncWidthOneBitClk,
  .frameSyncPolarity = kHAL_AudioBeginAtRisingEdge,
@@ -355,7 +355,7 @@ static hal_audio_config_t rxSpeakerConfig = {
  .srcClock_Hz       = 0,
  .sampleRate_Hz     = 0,
  .fifoWatermark     = FSL_FEATURE_SAI_FIFO_COUNTn(HFP_CODEC_SAI) / 2U,
- .masterSlave       = kHAL_AudioSlave,
+ .msaterSlave       = kHAL_AudioSlave,
  .bclkPolarity      = kHAL_AudioSampleOnFallingEdge,
  .frameSyncWidth    = kHAL_AudioFrameSyncWidthOneBitClk,
  .frameSyncPolarity = kHAL_AudioBeginAtRisingEdge,
@@ -631,6 +631,7 @@ static void rxSpeakerCallback(hal_audio_handle_t handle, hal_audio_status_t comp
 
 static void Deinit_Board_Audio(void)
 {
+    (void)OSA_MutexLock((osa_mutex_handle_t)audioInfLock, osaWaitForever_c);
     CODEC_SetMute(&codec_handle, kCODEC_PlayChannelHeadphoneRight | kCODEC_PlayChannelHeadphoneLeft, true);
     HAL_AudioTxDeinit((hal_audio_handle_t)&tx_speaker_handle[0]);
     HAL_AudioRxDeinit((hal_audio_handle_t)&rx_mic_handle[0]);
@@ -638,6 +639,7 @@ static void Deinit_Board_Audio(void)
     HAL_AudioRxDeinit((hal_audio_handle_t)&rx_speaker_handle[0]);
     (void)BOARD_SwitchAudioFreq(0U);
     CODEC_Deinit (&codec_handle);
+    (void)OSA_MutexUnlock((osa_mutex_handle_t)audioInfLock);
 }
 
 /*Initialize sco audio interface and codec.*/
@@ -648,6 +650,7 @@ static void Init_Board_Sco_Audio(uint32_t samplingRate, UCHAR bitWidth)
     if (samplingRate > 0U)
     {
         PRINTF("Init Audio SCO SAI and CODEC samplingRate :%d  bitWidth:%d \r\n", samplingRate, bitWidth);
+        (void)OSA_MutexLock((osa_mutex_handle_t)audioInfLock, osaWaitForever_c);
         src_clk_hz = BOARD_SwitchAudioFreq(samplingRate);
 
 #if (defined FSL_FEATURE_SAI_HAS_MCLKDIV_REGISTER && FSL_FEATURE_SAI_HAS_MCLKDIV_REGISTER) || \
@@ -685,16 +688,20 @@ static void Init_Board_Sco_Audio(uint32_t samplingRate, UCHAR bitWidth)
         HAL_AudioTxInstallCallback((hal_audio_handle_t)&tx_mic_handle[0], txMicCallback, NULL);
         HAL_AudioRxInstallCallback((hal_audio_handle_t)&rx_speaker_handle[0], rxSpeakerCallback, NULL);
 
+
+        PRINTF("Initialization of codec for SCO\n");
         /* Codec Init*/
         if (CODEC_Init(&codec_handle, &boardCodecScoConfig) != kStatus_Success)
         {
             PRINTF("codec init failed!\r\n");
+            assert(0);
         }
         CODEC_SetMute(&codec_handle, kCODEC_PlayChannelHeadphoneRight | kCODEC_PlayChannelHeadphoneLeft, true);
         CODEC_SetFormat(&codec_handle, txSpeakerConfig.srcClock_Hz, txSpeakerConfig.sampleRate_Hz, txSpeakerConfig.bitWidth);
         CODEC_SetVolume(&codec_handle, kCODEC_VolumeDAC, HFP_CODEC_DAC_VOLUME);
         CODEC_SetVolume(&codec_handle, kCODEC_VolumeHeadphoneLeft | kCODEC_VolumeHeadphoneRight, HFP_CODEC_HP_VOLUME);
         CODEC_SetMute(&codec_handle, kCODEC_PlayChannelHeadphoneRight | kCODEC_PlayChannelHeadphoneLeft, false);
+        (void)OSA_MutexUnlock((osa_mutex_handle_t)audioInfLock);
     }
 }
 
@@ -705,6 +712,8 @@ static void Init_Board_RingTone_Audio(uint32_t samplingRate, UCHAR bitWidth)
     if (samplingRate > 0U)
     {
         PRINTF("Init Audio CODEC for RingTone\r\n");
+
+        (void)OSA_MutexLock((osa_mutex_handle_t)audioInfLock, osaWaitForever_c);
         src_clk_hz = BOARD_SwitchAudioFreq(samplingRate);
 
         /* Audio streamer */
@@ -728,11 +737,14 @@ static void Init_Board_RingTone_Audio(uint32_t samplingRate, UCHAR bitWidth)
         CODEC_SetVolume(&codec_handle, kCODEC_VolumeDAC, HFP_CODEC_DAC_VOLUME);
         CODEC_SetVolume(&codec_handle, kCODEC_VolumeHeadphoneLeft | kCODEC_VolumeHeadphoneRight, HFP_CODEC_HP_VOLUME);
         CODEC_SetMute(&codec_handle, kCODEC_PlayChannelHeadphoneRight | kCODEC_PlayChannelHeadphoneLeft, false);
+        (void)OSA_MutexUnlock((osa_mutex_handle_t)audioInfLock);
     }
 }
 
 static API_RESULT audio_setup_pl_ext(uint8_t isRing, SCO_AUDIO_EP_INFO *ep_info)
 {
+    static uint32_t isLockCreated = 0;
+
     txMic_index     = 0U;
     rxMic_index     = 0U;
     txSpeaker_index = 0U;
@@ -740,9 +752,17 @@ static API_RESULT audio_setup_pl_ext(uint8_t isRing, SCO_AUDIO_EP_INFO *ep_info)
     emptyMicBlock   = BUFFER_NUMBER;
     emptySpeakerBlock = BUFFER_NUMBER;
 
-#if (defined(CPU_MIMXRT1062DVMAA_cm7) || defined(CPU_MIMXRT1062DVL6A_cm7) || defined(CPU_MIMXRT1062DVL6B_cm7))
+#if (defined(CPU_MIMXRT1062DVL6A_cm7))
     BOARD_InitScoPins();
+#elif (defined(CPU_MIMXRT1062DVMAA_cm7) || defined(CPU_MIMXRT1062DVL6B_cm7))
+    BOARD_InitM2ScoPins();
 #endif
+
+	if (isLockCreated == 0)
+	{
+        OSA_MutexCreate((osa_mutex_handle_t)audioInfLock);
+        isLockCreated = 1U;
+	}
 
     if (isRing)
     {
@@ -763,6 +783,12 @@ void SCO_Edma_Task(void *handle)
     while (1)
     {
         OSA_SemaphoreWait(xSemaphoreScoAudio, osaWaitForever_c);
+        (void)OSA_MutexLock((osa_mutex_handle_t)audioInfLock, osaWaitForever_c);
+        if ((s_ringTone == 0) && (sco_audio_setup == 0))
+        {
+            (void)OSA_MutexUnlock((osa_mutex_handle_t)audioInfLock);
+            continue;
+        }
         count++;
 #ifdef SCO_DEBUG_MSG
         if (count % 300 == 0)
@@ -807,6 +833,7 @@ void SCO_Edma_Task(void *handle)
             {
                 rxMic_index++;
             }
+
             if (rxMic_index == BUFFER_NUMBER)
             {
                 rxMic_index = 0U;
@@ -843,6 +870,7 @@ void SCO_Edma_Task(void *handle)
 
 #endif /*CODEC_SAI_LOOPBACK*/
 #endif /*SCO_SAI_LOOPBACK*/
+        (void)OSA_MutexUnlock((osa_mutex_handle_t)audioInfLock);
     }
 }
 
@@ -858,12 +886,16 @@ void sco_audio_shutdown_pl_ext(void)
 
 API_RESULT sco_audio_setup_pl_ext(SCO_AUDIO_EP_INFO *ep_info)
 {
-    sco_audio_setup = 1;
-    if (s_ringTone == 0U)
+    if (sco_audio_setup == 0)
     {
-        audio_setup_pl_ext(false, ep_info);
+        if (s_ringTone == 0U)
+        {
+            audio_setup_pl_ext(false, ep_info);
+        }
+        memcpy(&s_ep_info, ep_info, sizeof(SCO_AUDIO_EP_INFO));
+        sco_audio_setup = 1U;
     }
-    memcpy(&s_ep_info, ep_info, sizeof(SCO_AUDIO_EP_INFO));
+
     return API_SUCCESS;
 }
 
@@ -882,11 +914,14 @@ API_RESULT sco_audio_start_pl_ext(void)
     if (taskCreated == 0)
     {
         OSA_SemaphoreCreate(xSemaphoreScoAudio, 0);
-        result = xTaskCreate(SCO_Edma_Task, "SCO_Edma", 1024, NULL, 6U, NULL);
+        result = xTaskCreate(SCO_Edma_Task, "SCO_Edma", 1024, NULL, 5U, NULL);
         assert(pdPASS == result);
         taskCreated = 1U;
         (void)result;
     }
+
+	(void)OSA_MutexLock((osa_mutex_handle_t)audioInfLock, osaWaitForever_c);
+
     for (uint8_t index = 0; index < BUFFER_NUMBER; ++index)
     {
         xfer.data     = MicBuffer + rxMic_index * BUFFER_SIZE;
@@ -927,6 +962,8 @@ API_RESULT sco_audio_start_pl_ext(void)
     xfer.data     = (uint8_t *)&g_AudioTxDummyBuffer[0];
     HAL_AudioTransferSendNonBlocking((hal_audio_handle_t)&tx_mic_handle[0], &xfer);
 
+    (void)OSA_MutexUnlock((osa_mutex_handle_t)audioInfLock);
+
     return API_SUCCESS;
 }
 
@@ -935,10 +972,8 @@ API_RESULT sco_audio_stop_pl_ext(void)
     if (sco_audio_setup == 1)
     {
         Deinit_Board_Audio();
+        sco_audio_setup = 0;
     }
-
-    sco_audio_setup = 0;
-    EM_usleep(200U * 1000U);
     return API_SUCCESS;
 }
 
@@ -978,6 +1013,7 @@ API_RESULT platform_audio_play_inband_ringtone()
     }
     if (emptyMicBlock < BUFFER_NUMBER)
     {
+        (void)OSA_MutexLock((osa_mutex_handle_t)audioInfLock, osaWaitForever_c);
         /*  xfer structure */
         xfer.data     = (uint8_t *)&MicBuffer[BUFFER_SIZE_INBAND * (tx_index % BUFFER_NUMBER)];
         xfer.dataSize = BUFFER_SIZE_INBAND;
@@ -986,6 +1022,7 @@ API_RESULT platform_audio_play_inband_ringtone()
         {
             tx_index++;
         }
+        (void)OSA_MutexUnlock((osa_mutex_handle_t)audioInfLock);
         emptyMicBlock++;
     }
     return API_SUCCESS;
@@ -1022,6 +1059,7 @@ API_RESULT platform_audio_play_ringtone()
     }
     if (emptySpeakerBlock < BUFFER_NUMBER)
     {
+        (void)OSA_MutexLock((osa_mutex_handle_t)audioInfLock, osaWaitForever_c);
         /*  xfer structure */
         xfer.data     = (uint8_t *)&SpeakerBuffer[BUFFER_SIZE * (tx_index % BUFFER_NUMBER)];
         xfer.dataSize = BUFFER_SIZE;
@@ -1031,6 +1069,8 @@ API_RESULT platform_audio_play_ringtone()
             tx_index++;
         }
         emptySpeakerBlock++;
+        (void)OSA_MutexUnlock((osa_mutex_handle_t)audioInfLock);
+
     }
     return API_SUCCESS;
 }

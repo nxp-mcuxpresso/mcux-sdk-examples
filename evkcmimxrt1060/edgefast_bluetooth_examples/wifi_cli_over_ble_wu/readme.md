@@ -6,7 +6,7 @@ To test the service/profile the "IoT Toolbox" application can be used which is a
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

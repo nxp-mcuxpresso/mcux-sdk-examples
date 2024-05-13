@@ -8,6 +8,6 @@
 #ifndef _SDK_VER__
 #define _SDK_VER__
 
-#define BT_DRV_VERSION "v1.3.r47.p15"
+#define BT_DRV_VERSION "v1.3.r47.p20"
 
 #endif /*_SDK_VER__*/

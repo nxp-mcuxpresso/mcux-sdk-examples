@@ -43,11 +43,11 @@
  * Supported controller list,
  * WIFI_IW416_BOARD_MURATA_1XK_M2
  * WIFI_88W8987_BOARD_MURATA_1ZM_M2
- * WIFI_IW61x_BOARD_MURATA_2EL_M2
+ * WIFI_IW612_BOARD_MURATA_2EL_M2
  *
  * If Murata Type 1XK module(EAR00385 M2 only) used, define macro WIFI_IW416_BOARD_MURATA_1XK_M2 in following.
  * If Murata Type 1ZM module(EAR00364 M2 only) used , define macro WIFI_88W8987_BOARD_MURATA_1ZM_M2 in following.
- * If Murata Type 2EL module(Rev-A1 M2 only) used , define macro WIFI_IW61x_BOARD_MURATA_2EL_M2 in following.
+ * If Murata Type 2EL module(Rev-A1 M2 only) used , define macro WIFI_IW612_BOARD_MURATA_2EL_M2 in following.
  */
 
 /* @TEST_ANCHOR */
@@ -55,7 +55,7 @@
 /* @END_TEST_ANCHOR */
 /*#define WIFI_IW416_BOARD_MURATA_1XK_M2*/
 /*#define WIFI_88W8987_BOARD_MURATA_1ZM_M2*/
-/*#define WIFI_IW61x_BOARD_MURATA_2EL_M2*/
+/*#define WIFI_IW612_BOARD_MURATA_2EL_M2*/
 
 #if (defined(WIFI_IW416_BOARD_MURATA_1XK_M2) || defined(WIFI_88W8987_BOARD_MURATA_1ZM_M2) || \
      defined(WIFI_IW612_BOARD_MURATA_2EL_M2))

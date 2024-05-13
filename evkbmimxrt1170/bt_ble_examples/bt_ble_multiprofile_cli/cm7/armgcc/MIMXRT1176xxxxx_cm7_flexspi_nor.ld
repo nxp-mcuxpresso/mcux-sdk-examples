@@ -147,7 +147,8 @@ SECTIONS
 	    */fsl_sai.obj
 	    */fsl_sai_edma.obj
 	    */fsl_sai_edma.obj
-		*/leaudio_pl_ext.obj
+		*/le_audio_pl_ext.obj
+		*/fsl_gpt.obj
     ) .text)                 /* .text sections (code) */
     *(EXCLUDE_FILE(
         /* Exclude flash and frequently executed functions from XIP */
@@ -161,7 +162,8 @@ SECTIONS
 	    */fsl_sai.obj
 	    */fsl_sai_edma.obj
 	    */fsl_sai_edma.obj
-		*/leaudio_pl_ext.obj
+		*/le_audio_pl_ext.obj
+		*/fsl_gpt.obj
     ) .text*)                /* .text* sections (code) */
     *(.rodata)               /* .rodata sections (constants, strings, etc.) */
     *(.rodata*)              /* .rodata* sections (constants, strings, etc.) */
@@ -277,7 +279,8 @@ SECTIONS
     */fsl_sai.obj
     */fsl_sai_edma.obj
     */fsl_sai_edma.obj
-	*/leaudio_pl_ext.obj
+	*/le_audio_pl_ext.obj
+    */fsl_gpt.obj
     *(.wlan_data* .wlan_data)
     *(.data)                 /* .data sections */
     *(.data*)                /* .data* sections */

@@ -139,6 +139,7 @@
           <value>LPUART_RING_BUFFER_SIZE=1024U</value>
           <value>CPU_MIMXRT1062DVL6B_cm7</value>
           <value>HAL_UART_DMA_ENABLE=1</value>
+          <value>HAL_AUDIO_DMA_INIT_ENABLE=0</value>
           <value>LFS_NO_INTRINSICS=1</value>
           <value>LFS_NO_ERROR=1</value>
           <value>CONFIG_ARM=1</value>
@@ -156,8 +157,8 @@
           <value>MFLASH_FILE_BASEADDR=7340032</value>
           <value>LWIP_DNS=1</value>
           <value>LWIP_NETIF_HOSTNAME=1</value>
-          <value>LWIP_NETIF_STATUS_CALLBACK=1</value>
           <value>LWIP_IGMP=1</value>
+          <value>_XOPEN_SOURCE=500</value>
           <value>MBEDTLS_CONFIG_FILE='"ksdk_mbedtls_config.h"'</value>
         </option>
         <option id="com.crt.advproject.gas.hdrlib" type="enum">
@@ -186,7 +187,7 @@
           <value>isd=*(NonCacheable);region=SRAM_DTC;type=.bss</value>
         </option>
         <option id="com.crt.advproject.link.memory.heapAndStack" type="string">
-          <value>&amp;Heap:Default;Default;0x1000&amp;Stack:Default;Default;0x1000</value>
+          <value>&amp;Heap:Default;Default;0x1000&amp;Stack:SRAM_DTC;End;0x1000</value>
         </option>
         <option id="gnu.c.link.option.other" type="stringList">
           <value>-no-warn-rwx-segments</value>

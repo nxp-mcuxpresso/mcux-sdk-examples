@@ -50,7 +50,7 @@ GND      |  P11 b/w two jacks GND pin    |   J26(pin 1)    |    GND             
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================
@@ -128,6 +128,41 @@ The hardware should be reworked according to the hardware rework guide for evkbm
 Note:
 After downloaded binary into qspiflash and boot from qspiflash directly, 
 please reset the board by pressing SW4 or power off and on the board to run the application.
+
+## LE-Audio Host-Controller Source/Sink Synchronization Pin Connections , and configurations macro settings
+
+1) Pin Connection for FC RD A1 + RT1170-EVKB:
+---------------------------------------------------------------------------------------------------------
+PIN NAME 	|  FC-RD-A1    | 	RT1170-EVKB		   	| Details
+---------------------------------------------------------------------------------------------------------
+sync-signal	|  HD6(pin-8)  |    J10.2				| controller's sync-signal (GPIO27), capture-2
+---------------------------------------------------------------------------------------------------------
+sai1-fsync	|    NO        |  J97 to J9.10  	    | Keep J97 shorted, Codec I/F Starts, capture-1
+---------------------------------------------------------------------------------------------------------
+
+2) Pin Connection for 2EL (secured/unsecured) + RT1170-EVKB:
+---------------------------------------------------------------------------------------------------------
+PIN NAME 	|  2EL		        | 	RT1170-EVKB		   	| Details
+---------------------------------------------------------------------------------------------------------
+sync-signal	|  module-tape-out  |    J25.13		    	| controller's sync-signal (GPIO27),  capture-2
+---------------------------------------------------------------------------------------------------------
+sai1-fsync	|    NO        		|  J97 to J25.15		| Keep J97 shorted, Codec I/F Starts,  capture-1
+---------------------------------------------------------------------------------------------------------
+
+3) Confirm if below Macro enabled in app_config.h, by default these are enabled for RT1170.
+- LE_AUDIO_SRC_SYNC_ENABLE
+- LE_AUDIO_SINK_SYNC_ENABLE
+
+4) Please add/remove below macro from preprocessor settings of mcuxpresso ide.
+- Remove: CR_INTEGER_PRINTF
+- Add : PRINTF_FLOAT_ENABLE=1
+
+Notes related to LE Audio: 
+- Please monitor TX, RX and "sync_signal" for both Source and Sink device while testing end to end audio.
+- Please DONOT touch sync_trigger and dai1-fsync fly-wires, any lose connection may impact the tests. 
+- A2DP Sink can't be run with build settings of LE AUDIO due to DTCM memory limitation. Please disable "LE_AUDIO_SINK_SYNC_ENABLE" to make A2DP Sink works correctly.
+- HFP can't be run with build settings of LE AUDIO due to DTCM memory limitation. Please disable "LE_AUDIO_SRC_SYNC_ENABLE" to make HFP work correctly.
+- Currently LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING is 0U for streaming, suspend, resume. Enable it only for debug purpose.
 Prepare the Demo
 ================
 
@@ -11798,3 +11833,10 @@ BT Only Independent Reset :
     download success!
     IR exit with state = 0
     *** select option-3 to turn-on BT again!!***
+
+Note for simultaneous testing of A2DP streaming along with Inquiry & LE Scan:
+    Its recommended to disable the debug logs before testing this scenario so as to avoid performance impact on A2DP
+    stream caused  due to dumping scan and inquiry data on UART console.
+    We can achive this by using below option befor starting A2DP streaming:
+- 280. Disable Logging. ->This option is available on "Main Menu" CLI Interface.
+Please make a note that after "Disable Logging" command all the events related to A2DP (A2DP_START_IND, A2DP_SUSPEND_IND) would not be logged on console.

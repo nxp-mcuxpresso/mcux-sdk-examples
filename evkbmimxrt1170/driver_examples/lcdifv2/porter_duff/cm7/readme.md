@@ -7,7 +7,7 @@ mode changes and the panel shows the different blend result.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

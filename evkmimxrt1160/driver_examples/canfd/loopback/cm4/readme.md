@@ -9,7 +9,7 @@ throuth internal loopback interconnect and print out the Message payload to term
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

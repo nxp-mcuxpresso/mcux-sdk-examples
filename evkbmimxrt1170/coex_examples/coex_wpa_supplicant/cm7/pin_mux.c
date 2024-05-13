@@ -18,7 +18,10 @@ processor: MIMXRT1176xxxxx
 package_id: MIMXRT1176DVMAA
 mcu_data: ksdk2_0
 processor_version: 12.0.1
-board: MIMXRT1170-EVK
+board: MIMXRT1170-EVKB
+pin_labels:
+- {pin_num: N17, pin_signal: GPIO_AD_16, label: 'SPDIF_OUT/WIFI_RST_B/U354[3]', identifier: SPDIF_OUT;SDIO_RST}
+- {pin_num: J17, pin_signal: GPIO_AD_31, label: 'LPSPI1_SDI/U27[2]/J10[10]/WDOG1_RESET_B_DEB', identifier: LPSPI1_SDI;WL_RST}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 
@@ -38,6 +41,8 @@ void BOARD_InitBootPins(void) {
     BOARD_InitDEBUG_UARTPins();
     BOARD_InitUSDHCPins();
     BOARD_InitSPIPins();
+    BOARD_InitM2UARTPins();
+    BOARD_InitM2WifiResetPins();
 }
 
 /*
@@ -160,7 +165,7 @@ void BOARD_InitUSDHCPins(void) {
       IOMUXC_GPIO_SD_B1_05_USDHC1_DATA3,      /* GPIO_SD_B1_05 is configured as USDHC1_DATA3 */
       1U);                                    /* Software Input On Field: Force input path of pad GPIO_SD_B1_05 */
   IOMUXC_GPR->GPR43 = ((IOMUXC_GPR->GPR43 &
-    (~(IOMUXC_GPR_GPR43_GPIO_MUX3_GPIO_SEL_HIGH_MASK))) /* Mask bits to zero which are setting */
+    (~(BOARD_INITUSDHCPINS_IOMUXC_GPR_GPR43_GPIO_MUX3_GPIO_SEL_HIGH_MASK))) /* Mask bits to zero which are setting */
       | IOMUXC_GPR_GPR43_GPIO_MUX3_GPIO_SEL_HIGH(0x8000U) /* GPIO3 and CM7_GPIO3 share same IO MUX function, GPIO_MUX3 selects one GPIO function: 0x8000U */
     );
   IOMUXC_SetPinConfig(
@@ -472,7 +477,7 @@ void BOARD_InitM2WifiResetPins(void) {
       IOMUXC_GPIO_AD_16_GPIO_MUX3_IO15,       /* GPIO_AD_16 is configured as GPIO_MUX3_IO15 */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_GPR->GPR42 = ((IOMUXC_GPR->GPR42 &
-    (~(IOMUXC_GPR_GPR42_GPIO_MUX3_GPIO_SEL_LOW_MASK))) /* Mask bits to zero which are setting */
+    (~(BOARD_INITM2WIFIRESETPINS_IOMUXC_GPR_GPR42_GPIO_MUX3_GPIO_SEL_LOW_MASK))) /* Mask bits to zero which are setting */
       | IOMUXC_GPR_GPR42_GPIO_MUX3_GPIO_SEL_LOW(0x8000U) /* GPIO3 and CM7_GPIO3 share same IO MUX function, GPIO_MUX3 selects one GPIO function: 0x8000U */
     );
 }
@@ -502,6 +507,7 @@ BOARD_InitM2ScoPins:
  * END ****************************************************************************************************************/
 void BOARD_InitM2ScoPins(void) {
   CLOCK_EnableClock(kCLOCK_Iomuxc);           /* LPCG on: LPCG is ON. */
+  CLOCK_EnableClock(kCLOCK_Iomuxc_Lpsr);      /* LPCG on: LPCG is ON. */
 
   IOMUXC_SetPinMux(
       IOMUXC_GPIO_EMC_B2_13_SAI3_RX_DATA,     /* GPIO_EMC_B2_13 is configured as SAI3_RX_DATA */
@@ -522,7 +528,12 @@ void BOARD_InitM2ScoPins(void) {
     (~(IOMUXC_GPR_GPR2_SAI3_MCLK_DIR_MASK)))  /* Mask bits to zero which are setting */
       | IOMUXC_GPR_GPR2_SAI3_MCLK_DIR(0x01U)  /* SAI3_MCLK signal direction control: 0x01U */
     );
-
+  IOMUXC_SetPinMux(
+      IOMUXC_GPIO_LPSR_04_LPI2C5_SDA,         /* GPIO_LPSR_04 is configured as LPI2C5_SDA */
+      1U);                                    /* Software Input On Field: Force input path of pad GPIO_LPSR_04 */
+  IOMUXC_SetPinMux(
+      IOMUXC_GPIO_LPSR_05_LPI2C5_SCL,         /* GPIO_LPSR_05 is configured as LPI2C5_SCL */
+      1U);                                    /* Software Input On Field: Force input path of pad GPIO_LPSR_05 */
   IOMUXC_SetPinConfig(
       IOMUXC_GPIO_EMC_B2_13_SAI3_RX_DATA,     /* GPIO_EMC_B2_13 PAD functional properties : */
       0x08U);                                 /* PDRV Field: high drive strength
@@ -556,6 +567,24 @@ void BOARD_InitM2ScoPins(void) {
       0x08U);                                 /* PDRV Field: high drive strength
                                                  Pull Down Pull Up Field: Internal pulldown resistor enabled
                                                  Open Drain Field: Disabled
+                                                 Domain write protection: Both cores are allowed
+                                                 Domain write protection lock: Neither of DWP bits is locked */
+  IOMUXC_SetPinConfig(
+      IOMUXC_GPIO_LPSR_04_LPI2C5_SDA,         /* GPIO_LPSR_04 PAD functional properties : */
+      0x0AU);                                 /* Slew Rate Field: Slow Slew Rate
+                                                 Drive Strength Field: high driver
+                                                 Pull Select Field: Pull Disable
+                                                 Pull Up / Down Config. Field: Weak pull up
+                                                 Open Drain LPSR Field: Disabled
+                                                 Domain write protection: Both cores are allowed
+                                                 Domain write protection lock: Neither of DWP bits is locked */
+  IOMUXC_SetPinConfig(
+      IOMUXC_GPIO_LPSR_05_LPI2C5_SCL,         /* GPIO_LPSR_05 PAD functional properties : */
+      0x0AU);                                 /* Slew Rate Field: Slow Slew Rate
+                                                 Drive Strength Field: high driver
+                                                 Pull Select Field: Pull Disable
+                                                 Pull Up / Down Config. Field: Weak pull up
+                                                 Open Drain LPSR Field: Disabled
                                                  Domain write protection: Both cores are allowed
                                                  Domain write protection lock: Neither of DWP bits is locked */
 }
@@ -696,8 +725,8 @@ void BOARD_InitM2CodecPins(void) {
 BOARD_InitPinsM2:
 - options: {callFromInitBoot: 'false', prefix: BOARD_INITPINSM2_, coreID: cm7, enableClock: 'true'}
 - pin_list:
-  - {pin_num: N17, peripheral: GPIO9, signal: 'gpio_io, 15', pin_signal: GPIO_AD_16, direction: OUTPUT}
-  - {pin_num: J17, peripheral: GPIO9, signal: 'gpio_io, 30', pin_signal: GPIO_AD_31, direction: OUTPUT}
+  - {pin_num: N17, peripheral: GPIO9, signal: 'gpio_io, 15', pin_signal: GPIO_AD_16, identifier: SDIO_RST, direction: OUTPUT}
+  - {pin_num: J17, peripheral: GPIO9, signal: 'gpio_io, 30', pin_signal: GPIO_AD_31, identifier: WL_RST, direction: OUTPUT}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 

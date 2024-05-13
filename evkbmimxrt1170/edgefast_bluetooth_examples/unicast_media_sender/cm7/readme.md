@@ -9,7 +9,7 @@ UMR: receive one of CIS channel and render it.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================
@@ -50,7 +50,7 @@ Prepare the Demo
 
 4.  Save a wav music file to a USB disk's root directory and named as "music_16_2.wav".
 
-5.  Connect the USB disk to USB OTG1 port.
+5.  Connect the USB disk to USB OTG port.
 
 6.  Open a serial terminal on PC for OpenSDA serial device with these settings:
     - 115200 baud rate

@@ -184,6 +184,7 @@ static void a2dp_pl_start_playback_timer(void)
     a2dp_src_timer = NULL;
     a2dp_src_timer = xTimerCreate("a2dp play", (A2DP_SRC_PERIOD_MS / portTICK_PERIOD_MS),
                                   pdTRUE, NULL, a2dp_pl_playback_timeout_handler);
+	a2dp_src_sent_ms = 0;
     xTimerStart(a2dp_src_timer, 0);
 }
 

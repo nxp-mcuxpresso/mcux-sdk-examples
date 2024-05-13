@@ -16,7 +16,7 @@ Set the macro to a little bit higher than the device can receive or "0" for no l
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

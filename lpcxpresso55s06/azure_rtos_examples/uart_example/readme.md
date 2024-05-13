@@ -1,6 +1,6 @@
 Overview
 ========
-The example demonstrates how to use the UART driver in Azure RTOS. For i.mx RT,
+The example demonstrates how to use the UART driver. For i.mx RT,
 it's the LPUART driver. For LPC, it's the USART driver.
 
 The example writes the welcome message into the default UART port. Read 4 characters
@@ -9,7 +9,7 @@ for the port, then write them back.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

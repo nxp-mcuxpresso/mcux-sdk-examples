@@ -5,7 +5,7 @@ all three angles (pitch, roll, and yaw or compass heading).
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

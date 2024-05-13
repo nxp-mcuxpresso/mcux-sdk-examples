@@ -29,7 +29,7 @@ Print the content of the file using 'cat mynewdir/foo.txt'. The expected output 
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

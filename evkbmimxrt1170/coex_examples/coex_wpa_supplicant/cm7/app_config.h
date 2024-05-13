@@ -18,6 +18,10 @@
 #include "wifi_bt_module_config.h"
 #include "wifi_config.h"
 
+/*        Feature        */
+#define APP_CONFIG_ENABLE_STACK_OVERFLOW_FREERTOS_HOOK 1U
+#define APP_CONFIG_ENABLE_MALLOC_FAILURE_FREERTOS_HOOK 1U
+
 #ifdef WIFI_IW612_BOARD_MURATA_2EL_M2
 #define PCAL6408A_IO_EXP_ENABLE
 #endif /*WIFI_IW612_BOARD_MURATA_2EL_M2*/

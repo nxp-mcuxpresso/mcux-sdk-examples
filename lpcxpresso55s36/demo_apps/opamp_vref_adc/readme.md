@@ -6,7 +6,7 @@ out. When VREF out change, the OPAMP changes accordingly.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

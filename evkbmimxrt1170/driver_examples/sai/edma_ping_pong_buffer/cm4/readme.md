@@ -6,7 +6,7 @@ In this example, one sai instance playbacks the audio data received from externa
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

@@ -16,7 +16,7 @@ This example uses INDEX to response the external event. When running the project
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

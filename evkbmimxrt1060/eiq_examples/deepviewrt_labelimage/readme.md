@@ -25,7 +25,7 @@ The library is based on DeepView RT version 2.4.44.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

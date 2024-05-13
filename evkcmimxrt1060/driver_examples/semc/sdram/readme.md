@@ -7,7 +7,7 @@ The sdramc example shows how to use SEMC controller driver to initialize the ext
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

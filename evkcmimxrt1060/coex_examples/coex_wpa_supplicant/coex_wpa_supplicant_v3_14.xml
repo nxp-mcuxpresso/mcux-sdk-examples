@@ -174,8 +174,8 @@
           <value>SO_REUSE=1</value>
           <value>LWIP_DNS=1</value>
           <value>LWIP_NETIF_HOSTNAME=1</value>
-          <value>LWIP_NETIF_STATUS_CALLBACK=1</value>
           <value>LWIP_IGMP=1</value>
+          <value>_XOPEN_SOURCE=500</value>
         </option>
         <option id="com.crt.advproject.gas.hdrlib" type="enum">
           <value>com.crt.advproject.gas.hdrlib.newlibnano</value>
@@ -296,7 +296,6 @@
       <include_path path="../../../../middleware/wireless/ethermind/port/osal/src/freertos" project_relative_path="ethermind/port/osal/src/freertos" type="c_include"/>
       <include_path path="../../../../middleware/wireless/ethermind/port/pal/mcux" project_relative_path="ethermind/port/pal/mcux" type="c_include"/>
       <include_path path="../../../../middleware/wireless/ethermind/bluetooth/private/utils/sbc" project_relative_path="ethermind/bluetooth/private/utils/sbc" type="c_include"/>
-      <include_path path="../../../../middleware/wireless/ethermind/bluetooth/private/utils/lc3/export/include" project_relative_path="ethermind/bluetooth/private/utils/lc3/export/include" type="c_include"/>
       <include_path path="../../../../middleware/wireless/ethermind/bluetooth/export/appl/reference/br/protocol_appl" project_relative_path="source/appl/reference/br/protocol_appl" type="c_include"/>
       <include_path path="../../../../middleware/wireless/ethermind/bluetooth/export/appl/reference/br/al" project_relative_path="source/appl/reference/br/al" type="c_include"/>
       <include_path path="../../../../middleware/wireless/ethermind/bluetooth/export/appl/reference/ga/appl" project_relative_path="source/appl/reference/ga/appl" type="c_include"/>
@@ -315,6 +314,7 @@
       <include_path path="../../../../middleware/wireless/ethermind/examples/ethermind" project_relative_path="ethermind/examples/ethermind" type="c_include"/>
       <include_path path="../../../../middleware/wireless/ethermind/port/pal/mcux/toolspec/iar" project_relative_path="ethermind/port/pal/mcux/toolspec/iar" type="c_include"/>
       <include_path path="../../../../middleware/wireless/ethermind/port/pal/mcux/lc3/mcuxpresso" project_relative_path="ethermind/port/pal/mcux/lc3/mcuxpresso" toolchain="mcuxpresso armgcc" type="c_include"/>
+      <include_path path="../../../../middleware/wireless/ethermind/bluetooth/private/utils/lc3/export/include" project_relative_path="ethermind/bluetooth/private/utils/lc3/export/include" type="c_include"/>
       <include_path path="../../../../middleware/wireless/ethermind/bluetooth/private/utils/lc3/private/fixed/common" project_relative_path="ethermind/bluetooth/private/utils/lc3/private/fixed/common" type="c_include"/>
       <include_path path="../../../../middleware/wireless/ethermind/bluetooth/private/utils/lc3/private/fixed/config" project_relative_path="ethermind/bluetooth/private/utils/lc3/private/fixed/config" type="c_include"/>
       <include_path path="../../../../middleware/wireless/ethermind/bluetooth/export/appl/reference/le" project_relative_path="source/appl/reference/le" type="c_include"/>
@@ -854,9 +854,6 @@
     </source>
     <source path="../../../../middleware/wireless/ethermind/bluetooth/private/utils/sbc" project_relative_path="ethermind/bluetooth/private/utils/sbc" type="c_include">
       <files mask="sbc_api.h"/>
-    </source>
-    <source path="../../../../middleware/wireless/ethermind/bluetooth/private/utils/lc3/export/include" project_relative_path="ethermind/bluetooth/private/utils/lc3" type="c_include">
-      <files mask="LC3_api.h"/>
     </source>
     <source path="../../../../middleware/wireless/ethermind/bluetooth/export/appl/reference/br/protocol_appl" project_relative_path="source/appl/reference/br/protocol_appl" type="src">
       <files mask="appl_avctp.c"/>

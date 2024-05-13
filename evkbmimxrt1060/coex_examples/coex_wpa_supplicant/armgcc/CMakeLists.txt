@@ -375,7 +375,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/ethal/ethal_timer.h"
 "${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/ethal/ethal_timer_internal.h"
 "${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/utils/sbc/sbc_api.h"
-"${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/utils/lc3/export/include/LC3_api.h"
 "${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/bluetooth/controller/controller.h"
 "${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/bluetooth/controller/controller_hci_uart.h"
 "${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/export/appl/reference/br/protocol_appl/appl_avctp.c"
@@ -548,6 +547,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/profiles/ga/source/profiles/tmap/tmap_internal.h"
 "${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/lc3/mcuxpresso/intrinsics_map.h"
 "${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/lc3/mcuxpresso/lc3_common_internal.h"
+"${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/utils/lc3/export/include/LC3_api.h"
 "${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/utils/lc3/private/fixed/common/lc3_defines.h"
 "${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/utils/lc3/private/fixed/common/lc3_extern.h"
 "${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/utils/lc3/private/fixed/common/lc3_internal.h"
@@ -987,7 +987,6 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${SdkRootDirPath}/middleware/wireless/ethermind/port/osal/src/freertos
     ${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux
     ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/utils/sbc
-    ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/utils/lc3/export/include
     ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/export/appl/reference/br/protocol_appl
     ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/export/appl/reference/br/al
     ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/export/appl/reference/ga/appl
@@ -1006,6 +1005,7 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${SdkRootDirPath}/middleware/wireless/ethermind/examples/ethermind
     ${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/toolspec/iar
     ${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/lc3/mcuxpresso
+    ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/utils/lc3/export/include
     ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/utils/lc3/private/fixed/common
     ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/utils/lc3/private/fixed/config
     ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/export/appl/reference/le

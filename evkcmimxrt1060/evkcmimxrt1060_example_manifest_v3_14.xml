@@ -4,7 +4,7 @@
   <externalDefinitions>
     <definition extID="MIMXRT1062DVL6B"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK2150_evkcmimxrt1060_examples_manifest_v3_14" name="MCUXpressoSDK2150_evkcmimxrt1060_examples_manifest_v3_14" version="2.15.0" revision="2.15.0"/>
+  <ksdk id="MCUXpressoSDK215100_evkcmimxrt1060_examples_manifest_v3_14" name="MCUXpressoSDK215100_evkcmimxrt1060_examples_manifest_v3_14" version="2.15.100" revision="2.15.100"/>
   <boards>
     <board id="evkcmimxrt1060" name="MIMXRT1060-EVKC" version="1.0.0" package="MIMXRT1062DVL6B">
       <examples>
@@ -91,6 +91,46 @@
         <example id="evkcmimxrt1060_wifi_cli_over_ble_wu" name="wifi_cli_over_ble_wu" brief="wifi_cli_over_ble_wu" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/wifi_cli_over_ble_wu">
           <external path="edgefast_bluetooth_examples/wifi_cli_over_ble_wu" type="xml">
             <files mask="wifi_cli_over_ble_wu_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkcmimxrt1060_broadcast_media_sender" name="broadcast_media_sender" brief="The Edgefast Bluetooth pxm example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/broadcast_media_sender">
+          <external path="edgefast_bluetooth_examples/broadcast_media_sender" type="xml">
+            <files mask="broadcast_media_sender_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkcmimxrt1060_broadcast_media_receiver" name="broadcast_media_receiver" brief="The Edgefast Bluetooth pxm example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/broadcast_media_receiver">
+          <external path="edgefast_bluetooth_examples/broadcast_media_receiver" type="xml">
+            <files mask="broadcast_media_receiver_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkcmimxrt1060_unicast_media_sender" name="unicast_media_sender" brief="The Edgefast Bluetooth pxm example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/unicast_media_sender">
+          <external path="edgefast_bluetooth_examples/unicast_media_sender" type="xml">
+            <files mask="unicast_media_sender_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkcmimxrt1060_unicast_media_receiver" name="unicast_media_receiver" brief="The Edgefast Bluetooth pxm example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/unicast_media_receiver">
+          <external path="edgefast_bluetooth_examples/unicast_media_receiver" type="xml">
+            <files mask="unicast_media_receiver_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkcmimxrt1060_tmap_peripheral" name="tmap_peripheral" brief="The Edgefast Bluetooth pxm example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/tmap_peripheral">
+          <external path="edgefast_bluetooth_examples/tmap_peripheral" type="xml">
+            <files mask="tmap_peripheral_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkcmimxrt1060_tmap_central" name="tmap_central" brief="The Edgefast Bluetooth pxm example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/tmap_central">
+          <external path="edgefast_bluetooth_examples/tmap_central" type="xml">
+            <files mask="tmap_central_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkcmimxrt1060_call_gateway" name="call_gateway" brief="The Edgefast Bluetooth call gateway example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/call_gateway">
+          <external path="edgefast_bluetooth_examples/call_gateway" type="xml">
+            <files mask="call_gateway_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkcmimxrt1060_call_terminal" name="call_terminal" brief="The Edgefast Bluetooth call terminal example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/call_terminal">
+          <external path="edgefast_bluetooth_examples/call_terminal" type="xml">
+            <files mask="call_terminal_v3_14.xml"/>
           </external>
         </example>
         <example id="evkcmimxrt1060_cmsis_lpi2c_edma_b2b_transfer_master" name="cmsis_lpi2c_edma_b2b_transfer_master" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_i2c_edma_b2b_transfer_master example shows how to use i2c driver as master to do board to board transfer with EDMA:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/lpi2c" path="examples/evkcmimxrt1060/cmsis_driver_examples/lpi2c/edma_b2b_transfer/master">

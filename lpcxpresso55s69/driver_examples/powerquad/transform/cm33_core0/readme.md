@@ -5,7 +5,7 @@ The powerquad driver API results are compared to the reference result.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

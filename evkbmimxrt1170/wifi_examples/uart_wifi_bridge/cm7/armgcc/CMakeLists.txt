@@ -61,7 +61,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../mfg_wifi_bt_firmware/sd8801_mfg_wlan.h"
 "${ProjDirPath}/../mfg_wifi_bt_firmware/sduart8987_mfg_wlan_bt.h"
 "${ProjDirPath}/../mfg_wifi_bt_firmware/sduartIW416_mfg_wlan_bt.h"
-"${ProjDirPath}/../mfg_wifi_bt_firmware/sduart_nw61x_mfg.h"
 "${ProjDirPath}/../mfg_wifi_bt_firmware/sduart_nw61x_mfg_se.h"
 "${ProjDirPath}/../FreeRTOSConfig.h"
 "${ProjDirPath}/../sdmmc_config.c"

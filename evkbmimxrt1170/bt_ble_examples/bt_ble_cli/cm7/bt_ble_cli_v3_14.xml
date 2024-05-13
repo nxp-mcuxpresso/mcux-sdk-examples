@@ -8,6 +8,7 @@
     <definition extID="platform.devices.MIMXRT1176_startup.MIMXRT1176"/>
     <definition extID="platform.drivers.lpuart.MIMXRT1176"/>
     <definition extID="platform.drivers.lpuart_edma.MIMXRT1176"/>
+    <definition extID="platform.drivers.gpt.MIMXRT1176"/>
     <definition extID="platform.drivers.igpio.MIMXRT1176"/>
     <definition extID="component.lpuart_adapter.MIMXRT1176"/>
     <definition extID="platform.utilities.assert.MIMXRT1176"/>
@@ -102,7 +103,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkbmimxrt1170_bt_ble_cli" name="bt_ble_cli" device_core="cm7_MIMXRT1176xxxxx" dependency="platform.drivers.clock.MIMXRT1176 platform.drivers.common.MIMXRT1176 platform.devices.MIMXRT1176_CMSIS.MIMXRT1176 platform.devices.MIMXRT1176_startup.MIMXRT1176 platform.drivers.lpuart.MIMXRT1176 platform.drivers.lpuart_edma.MIMXRT1176 platform.drivers.igpio.MIMXRT1176 component.lpuart_adapter.MIMXRT1176 platform.utilities.assert.MIMXRT1176 utility.debug_console.MIMXRT1176 platform.drivers.xip_device.MIMXRT1176 platform.drivers.xip_board.evkbmimxrt1170.MIMXRT1176 platform.drivers.iomuxc.MIMXRT1176 component.serial_manager_uart.MIMXRT1176 component.serial_manager.MIMXRT1176 component.lists.MIMXRT1176 middleware.sdmmc.host.usdhc.MIMXRT1176 middleware.sdmmc.sdio.MIMXRT1176 middleware.sdmmc.host.usdhc.freertos.MIMXRT1176 driver.phy-device-ksz8081.MIMXRT1176 driver.phy-device-rtl8211f.MIMXRT1176 platform.drivers.gpc_3.MIMXRT1176 platform.drivers.soc_src.MIMXRT1176 platform.drivers.mu.MIMXRT1176 platform.drivers.cache_armv7_m7.MIMXRT1176 platform.drivers.lpi2c.MIMXRT1176 driver.wm8962.MIMXRT1176 component.wm8962_adapter.MIMXRT1176 driver.codec.MIMXRT1176 component.lpi2c_adapter.MIMXRT1176 component.codec_i2c.MIMXRT1176 platform.drivers.sai.MIMXRT1176 platform.drivers.sai_edma.MIMXRT1176 platform.drivers.dmamux.MIMXRT1176 platform.drivers.edma.MIMXRT1176 middleware.usb.host_controller_ehci.MIMXRT1176 middleware.usb.host.stack.MIMXRT1176 middleware.usb.phy.MIMXRT1176 middleware.fatfs.usb.MIMXRT1176 middleware.fatfs.MIMXRT1176 middleware.mbedtls.MIMXRT1176 middleware.mbedtls.port.ksdk.MIMXRT1176 middleware.lwip.contrib.ping.MIMXRT1176 middleware.lwip.kinetis_ethernetif.MIMXRT1176 middleware.lwip.MIMXRT1176 platform.drivers.enet.MIMXRT1176 platform.drivers.dcdc_soc.MIMXRT1176 component.mem_manager.MIMXRT1176 component.messaging.MIMXRT1176 component.software_rng_adapter.MIMXRT1176 component.igpio_adapter.MIMXRT1176 component.audio_sai_edma_adapter.MIMXRT1176 component.log.MIMXRT1176 component.osa.MIMXRT1176 middleware.freertos-kernel.heap_4.MIMXRT1176 middleware.wifi.fwdnld.MIMXRT1176 middleware.freertos-kernel.MIMXRT1176 platform.drivers.flexspi.MIMXRT1176 component.flexspi_nor_flash_adapter_rt1170evkb.MIMXRT1176 middleware.wireless.framework.function_lib.MIMXRT1176 middleware.wireless.framework.common.MIMXRT1176 middleware.littlefs.MIMXRT1176 platform.utilities.misc_utilities.MIMXRT1176 platform.drivers.anatop_ai.MIMXRT1176 platform.drivers.pmu_1.MIMXRT1176 CMSIS_Include_core_cm.MIMXRT1176 platform.devices.MIMXRT1176_system.MIMXRT1176 middleware.sdmmc.common.MIMXRT1176 middleware.sdmmc.osa.freertos.MIMXRT1176 middleware.sdmmc.usdhc.template.MIMXRT1176 middleware.sdmmc.host.usdhc.cache.MIMXRT1176 platform.drivers.usdhc.MIMXRT1176 component.osa_free_rtos.MIMXRT1176 component.osa_interface.MIMXRT1176 platform.drivers.memory.MIMXRT1176 driver.phy-common.MIMXRT1176 middleware.usb.host.ehci_config_header.MIMXRT1176 middleware.usb.host.common_header.MIMXRT1176 middleware.usb.common_header.MIMXRT1176 middleware.fatfs.template_usb.MIMXRT1176 middleware.usb.host_msd.MIMXRT1176 middleware.mbedtls.template.MIMXRT1176 platform.drivers.caam.MIMXRT1176 middleware.lwip.template.MIMXRT1176 component.mem_manager_light.MIMXRT1176 utility.str.MIMXRT1176 middleware.wifi.template.MIMXRT1176 middleware.wifi.mlan_sdio.MIMXRT1176 middleware.wifi.common_files.MIMXRT1176 middleware.wifi.fwdnld_intf_abs.MIMXRT1176 component.wifi_bt_module.tx_pwr_limits.MIMXRT1176 component.wifi_bt_module.config.MIMXRT1176 middleware.freertos-kernel.template.MIMXRT1176 middleware.freertos-kernel.extension.MIMXRT1176" category="bt_ble_examples">
+  <example id="evkbmimxrt1170_bt_ble_cli" name="bt_ble_cli" device_core="cm7_MIMXRT1176xxxxx" dependency="platform.drivers.clock.MIMXRT1176 platform.drivers.common.MIMXRT1176 platform.devices.MIMXRT1176_CMSIS.MIMXRT1176 platform.devices.MIMXRT1176_startup.MIMXRT1176 platform.drivers.lpuart.MIMXRT1176 platform.drivers.lpuart_edma.MIMXRT1176 platform.drivers.gpt.MIMXRT1176 platform.drivers.igpio.MIMXRT1176 component.lpuart_adapter.MIMXRT1176 platform.utilities.assert.MIMXRT1176 utility.debug_console.MIMXRT1176 platform.drivers.xip_device.MIMXRT1176 platform.drivers.xip_board.evkbmimxrt1170.MIMXRT1176 platform.drivers.iomuxc.MIMXRT1176 component.serial_manager_uart.MIMXRT1176 component.serial_manager.MIMXRT1176 component.lists.MIMXRT1176 middleware.sdmmc.host.usdhc.MIMXRT1176 middleware.sdmmc.sdio.MIMXRT1176 middleware.sdmmc.host.usdhc.freertos.MIMXRT1176 driver.phy-device-ksz8081.MIMXRT1176 driver.phy-device-rtl8211f.MIMXRT1176 platform.drivers.gpc_3.MIMXRT1176 platform.drivers.soc_src.MIMXRT1176 platform.drivers.mu.MIMXRT1176 platform.drivers.cache_armv7_m7.MIMXRT1176 platform.drivers.lpi2c.MIMXRT1176 driver.wm8962.MIMXRT1176 component.wm8962_adapter.MIMXRT1176 driver.codec.MIMXRT1176 component.lpi2c_adapter.MIMXRT1176 component.codec_i2c.MIMXRT1176 platform.drivers.sai.MIMXRT1176 platform.drivers.sai_edma.MIMXRT1176 platform.drivers.dmamux.MIMXRT1176 platform.drivers.edma.MIMXRT1176 middleware.usb.host_controller_ehci.MIMXRT1176 middleware.usb.host.stack.MIMXRT1176 middleware.usb.phy.MIMXRT1176 middleware.fatfs.usb.MIMXRT1176 middleware.fatfs.MIMXRT1176 middleware.mbedtls.MIMXRT1176 middleware.mbedtls.port.ksdk.MIMXRT1176 middleware.lwip.contrib.ping.MIMXRT1176 middleware.lwip.kinetis_ethernetif.MIMXRT1176 middleware.lwip.MIMXRT1176 platform.drivers.enet.MIMXRT1176 platform.drivers.dcdc_soc.MIMXRT1176 component.mem_manager.MIMXRT1176 component.messaging.MIMXRT1176 component.software_rng_adapter.MIMXRT1176 component.igpio_adapter.MIMXRT1176 component.audio_sai_edma_adapter.MIMXRT1176 component.log.MIMXRT1176 component.osa.MIMXRT1176 middleware.freertos-kernel.heap_4.MIMXRT1176 middleware.wifi.fwdnld.MIMXRT1176 middleware.freertos-kernel.MIMXRT1176 platform.drivers.flexspi.MIMXRT1176 component.flexspi_nor_flash_adapter_rt1170evkb.MIMXRT1176 middleware.wireless.framework.function_lib.MIMXRT1176 middleware.wireless.framework.common.MIMXRT1176 middleware.littlefs.MIMXRT1176 platform.utilities.misc_utilities.MIMXRT1176 platform.drivers.anatop_ai.MIMXRT1176 platform.drivers.pmu_1.MIMXRT1176 CMSIS_Include_core_cm.MIMXRT1176 platform.devices.MIMXRT1176_system.MIMXRT1176 middleware.sdmmc.common.MIMXRT1176 middleware.sdmmc.osa.freertos.MIMXRT1176 middleware.sdmmc.usdhc.template.MIMXRT1176 middleware.sdmmc.host.usdhc.cache.MIMXRT1176 platform.drivers.usdhc.MIMXRT1176 component.osa_free_rtos.MIMXRT1176 component.osa_interface.MIMXRT1176 platform.drivers.memory.MIMXRT1176 driver.phy-common.MIMXRT1176 middleware.usb.host.ehci_config_header.MIMXRT1176 middleware.usb.host.common_header.MIMXRT1176 middleware.usb.common_header.MIMXRT1176 middleware.fatfs.template_usb.MIMXRT1176 middleware.usb.host_msd.MIMXRT1176 middleware.mbedtls.template.MIMXRT1176 platform.drivers.caam.MIMXRT1176 middleware.lwip.template.MIMXRT1176 component.mem_manager_light.MIMXRT1176 utility.str.MIMXRT1176 middleware.wifi.template.MIMXRT1176 middleware.wifi.mlan_sdio.MIMXRT1176 middleware.wifi.common_files.MIMXRT1176 middleware.wifi.fwdnld_intf_abs.MIMXRT1176 component.wifi_bt_module.tx_pwr_limits.MIMXRT1176 component.wifi_bt_module.config.MIMXRT1176 middleware.freertos-kernel.template.MIMXRT1176 middleware.freertos-kernel.extension.MIMXRT1176" category="bt_ble_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -190,8 +191,8 @@
           <value>CACHE_MODE_WRITE_THROUGH=1</value>
           <value>LWIP_DNS=1</value>
           <value>LWIP_NETIF_HOSTNAME=1</value>
-          <value>LWIP_NETIF_STATUS_CALLBACK=1</value>
           <value>LWIP_IGMP=1</value>
+          <value>_XOPEN_SOURCE=500</value>
         </option>
         <option id="com.crt.advproject.gas.hdrlib" type="enum">
           <value>com.crt.advproject.gas.hdrlib.newlibnano</value>
@@ -272,6 +273,8 @@
       <include_path path="../appl/reference/cm7" project_relative_path="source/appl/reference" type="c_include"/>
       <include_path path="../appl/lc3/cm7" project_relative_path="source/appl/lc3" type="c_include"/>
       <include_path path="../appl/lc3/sim/cm7" project_relative_path="source/appl/lc3/sim" type="c_include"/>
+      <include_path path="le_audio_pl" project_relative_path="source/appl/le_audio_pl" type="c_include"/>
+      <include_path path="le_audio_pl/asrc_sw" project_relative_path="source/appl/le_audio_pl/asrc_sw" type="c_include"/>
       <include_path path="../../../../../core/boards/evkbmimxrt1170" project_relative_path="board" type="c_include"/>
       <include_path path="../../../../../middleware/wireless/ethermind/bluetooth/export/appl/reference/le/profile_appl/server/hts" project_relative_path="source/appl/reference/le/profile_appl/server/hts" type="c_include"/>
       <include_path path="../../../../../middleware/wireless/ethermind/bluetooth/export/appl/reference/le/profile_appl/server/pxr" project_relative_path="source/appl/reference/le/profile_appl/server/pxr" type="c_include"/>
@@ -315,7 +318,6 @@
       <include_path path="../../../../../middleware/wireless/ethermind/port/osal/src/freertos" project_relative_path="ethermind/port/osal/src/freertos" type="c_include"/>
       <include_path path="../../../../../middleware/wireless/ethermind/port/pal/mcux" project_relative_path="ethermind/port/pal/mcux" type="c_include"/>
       <include_path path="../../../../../middleware/wireless/ethermind/bluetooth/private/utils/sbc" project_relative_path="ethermind/bluetooth/private/utils/sbc" type="c_include"/>
-      <include_path path="../../../../../middleware/wireless/ethermind/bluetooth/private/utils/lc3/export/include" project_relative_path="ethermind/bluetooth/private/utils/lc3/export/include" type="c_include"/>
       <include_path path="../../../../../middleware/wireless/ethermind/bluetooth/export/appl/reference/br/protocol_appl" project_relative_path="source/appl/reference/br/protocol_appl" type="c_include"/>
       <include_path path="../../../../../middleware/wireless/ethermind/bluetooth/export/appl/reference/br/al" project_relative_path="source/appl/reference/br/al" type="c_include"/>
       <include_path path="../../../../../middleware/wireless/ethermind/bluetooth/export/appl/reference/ga/appl" project_relative_path="source/appl/reference/ga/appl" type="c_include"/>
@@ -334,6 +336,7 @@
       <include_path path="../../../../../middleware/wireless/ethermind/examples/ethermind" project_relative_path="ethermind/examples/ethermind" type="c_include"/>
       <include_path path="../../../../../middleware/wireless/ethermind/port/pal/mcux/toolspec/iar" project_relative_path="ethermind/port/pal/mcux/toolspec/iar" type="c_include"/>
       <include_path path="../../../../../middleware/wireless/ethermind/port/pal/mcux/lc3/mcuxpresso" project_relative_path="ethermind/port/pal/mcux/lc3/mcuxpresso" toolchain="mcuxpresso armgcc" type="c_include"/>
+      <include_path path="../../../../../middleware/wireless/ethermind/bluetooth/private/utils/lc3/export/include" project_relative_path="ethermind/bluetooth/private/utils/lc3/export/include" type="c_include"/>
       <include_path path="../../../../../middleware/wireless/ethermind/bluetooth/private/utils/lc3/private/fixed/common" project_relative_path="ethermind/bluetooth/private/utils/lc3/private/fixed/common" type="c_include"/>
       <include_path path="../../../../../middleware/wireless/ethermind/bluetooth/private/utils/lc3/private/fixed/config" project_relative_path="ethermind/bluetooth/private/utils/lc3/private/fixed/config" type="c_include"/>
       <include_path path="../../../../../middleware/wireless/ethermind/bluetooth/export/appl/reference/le" project_relative_path="source/appl/reference/le" type="c_include"/>
@@ -364,7 +367,9 @@
       <include_path path="../../../../../middleware/wireless/ethermind/bluetooth/tools/resources/pan" project_relative_path="ethermind/bluetooth/tools/resources/pan" type="c_include"/>
       <include_path path="../../../../../middleware/wireless/ethermind/bluetooth/tools/resources/pbap" project_relative_path="ethermind/bluetooth/tools/resources/pbap" type="c_include"/>
       <include_path path="." project_relative_path="source" type="asm_include"/>
+      <include_path path="le_audio_pl" project_relative_path="source/appl/le_audio_pl" type="asm_include"/>
       <include_path path="../appl/reference/cm7" project_relative_path="source" type="asm_include"/>
+      <include_path path="le_audio_pl/asrc_sw" project_relative_path="source/appl/le_audio_pl/asrc_sw" type="asm_include"/>
     </include_paths>
     <source path="armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">
       <files mask="build_all.bat"/>
@@ -460,13 +465,31 @@
     </source>
     <source path="." project_relative_path="source/appl" type="src">
       <files mask="a2dp_pl_ext.c"/>
-      <files mask="leaudio_pl_ext.c"/>
-      <files mask="wav.c"/>
       <files mask="sco_audio_pl_ext.c"/>
       <files mask="db_gen.c"/>
     </source>
-    <source path="." project_relative_path="source/appl" type="c_include">
+    <source path="le_audio_pl" project_relative_path="source/appl/le_audio_pl" type="src">
+      <files mask="le_audio_pl_ext.c"/>
+      <files mask="le_audio_pl_sync.c"/>
+      <files mask="wav.c"/>
+      <files mask="le_audio_pl_i2s.c"/>
+    </source>
+    <source path="le_audio_pl" project_relative_path="source/appl/le_audio_pl" type="c_include">
+      <files mask="le_audio_pl_sync.h"/>
       <files mask="wav.h"/>
+      <files mask="le_audio_pl_i2s.h"/>
+    </source>
+    <source path="le_audio_pl/asrc_sw" project_relative_path="source/appl/le_audio_pl/asrc_sw" type="src">
+      <files mask="srCvtFrm.c"/>
+    </source>
+    <source path="le_audio_pl/asrc_sw" project_relative_path="source/appl/le_audio_pl/asrc_sw" type="c_include">
+      <files mask="srCvtFrm.h"/>
+    </source>
+    <source path="le_audio_pl/asrc_sw" project_relative_path="source/appl/le_audio_pl/asrc_sw" type="other">
+      <files mask="downSmplAllRates.dat"/>
+      <files mask="upSmpl_32_32_rev.dat"/>
+    </source>
+    <source path="." project_relative_path="source/appl" type="c_include">
       <files mask="ringtone.h"/>
     </source>
     <source path="." project_relative_path="board" type="src">
@@ -876,9 +899,6 @@
     </source>
     <source path="../../../../../middleware/wireless/ethermind/bluetooth/private/utils/sbc" project_relative_path="ethermind/bluetooth/private/utils/sbc" type="c_include">
       <files mask="sbc_api.h"/>
-    </source>
-    <source path="../../../../../middleware/wireless/ethermind/bluetooth/private/utils/lc3/export/include" project_relative_path="ethermind/bluetooth/private/utils/lc3" type="c_include">
-      <files mask="LC3_api.h"/>
     </source>
     <source path="../../../../../middleware/wireless/ethermind/bluetooth/export/appl/reference/br/protocol_appl" project_relative_path="source/appl/reference/br/protocol_appl" type="src">
       <files mask="appl_avctp.c"/>

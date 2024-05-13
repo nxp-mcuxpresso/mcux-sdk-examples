@@ -5,7 +5,7 @@ This example can do network iperf test through a USB Ethernet adapter.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

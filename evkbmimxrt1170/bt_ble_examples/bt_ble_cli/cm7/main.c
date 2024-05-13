@@ -632,22 +632,6 @@ void task_main(void *param)
 
     controller_init();
 
-#if defined(PCAL6408A_IO_EXP_ENABLE)
-    pcal6408a_pins_cfg_t config;
-    status_t ret = PCAL6408A_Init(&config);
-    printf ("2EL's i2c-io-expander initialized, %d\n", ret);
-/*    printf ("#### IO Expander Reg Values ####\nIO-Configured:%x\nInput-Port:%x\nOutput-Port:%x\nOP-Port-Config:%x\nPolarity:%x\nPullupSelected:%x\nPullUp-Enabled:%x\nOP-Drive-Strength1:%x\nOP-Drive-Strength2:%x\n######################\n",
-															config.configured, \
-															config.input_port_value, \
-	 														config.output_port_value, \
-															config.output_port_config, \
-															config.polarity, \
-															config.pull_ups_selected, \
-															config.pulls_enabled, \
-															config.ouput_drive_strength1, \
-															config.ouput_drive_strength2);*/
-#endif /*defined(PCAL6408A_IO_EXP_ENABLE)*/
-
 #ifdef OOB_WAKEUP
     extern void Configure_H2C_gpio(void);
     extern void C2H_sleep_gpio_cfg(void);
@@ -681,10 +665,13 @@ void task_main(void *param)
     }
 }
 
+#if defined (APP_CONFIG_ENABLE_STACK_OVERFLOW_FREERTOS_HOOK) \
+        && (APP_CONFIG_ENABLE_STACK_OVERFLOW_FREERTOS_HOOK == 1U)
 void stackOverflowHookHandler(void* task_name)
 {
 	printf("stack-overflow exception from task: %s\r\n",(char*)task_name);
 }
+#endif /*defined (APP_CONFIG_ENABLE_STACK_OVERFLOW_FREERTOS_HOOK) && (APP_CONFIG_ENABLE_STACK_OVERFLOW_FREERTOS_HOOK == 1U)*/
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -710,6 +697,7 @@ int main(void)
     GPIO_PinInit(CM7_GPIO3, 15U, &wifi_reset_config);
 #elif defined(WIFI_BT_USE_M2_INTERFACE)
     BOARD_InitM2UARTPins();
+    BOARD_InitPinsM2();
 #else
     BOARD_InitArduinoUARTPins();
 #endif
@@ -718,7 +706,17 @@ int main(void)
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     BOARD_InitModuleClock();
-#if defined(WIFI_BOARD_AW_CM358)
+#if defined (LE_AUDIO_ENABLE_SYNC_SIG_SUPP) && (LE_AUDIO_ENABLE_SYNC_SIG_SUPP > 0)
+#if defined(WIFI_IW612_BOARD_MURATA_2EL_M2)
+    /* 2EL use GPT2 as SyncTimer. */
+    BOARD_InitGPT2Pins();
+#elif defined(WIFI_IW612_BOARD_RD_USD)
+    /* RD_USD use GPT3 as SyncTimer. */
+    BOARD_InitGPT3Pins();
+#endif /*defined(WIFI_IW612_BOARD_MURATA_2EL_M2)*/
+#endif /*defined (LE_AUDIO_ENABLE_SYNC_SIG_SUPP) && (LE_AUDIO_ENABLE_SYNC_SIG_SUPP > 0)*/
+
+    #if defined(WIFI_BOARD_AW_CM358)
     /* Wirte GPIO pin value on GPIO_AD_16 (pin N17) */
     GPIO_PinWrite(CM7_GPIO3, 15U, 1U);
 #endif
@@ -754,7 +752,10 @@ int main(void)
     printSeparator();
 #endif /* LC3_TEST */
 
+#if defined (APP_CONFIG_ENABLE_STACK_OVERFLOW_FREERTOS_HOOK) \
+        && (APP_CONFIG_ENABLE_STACK_OVERFLOW_FREERTOS_HOOK == 1U)
     EM_register_sof_handler(stackOverflowHookHandler);
+#endif /*defined (APP_CONFIG_ENABLE_STACK_OVERFLOW_FREERTOS_HOOK) && (APP_CONFIG_ENABLE_STACK_OVERFLOW_FREERTOS_HOOK == 1U)*/
 
     result =
         xTaskCreate(task_main, "main", TASK_MAIN_STACK_SIZE, task_main_stack, TASK_MAIN_PRIO, &task_main_task_handler);

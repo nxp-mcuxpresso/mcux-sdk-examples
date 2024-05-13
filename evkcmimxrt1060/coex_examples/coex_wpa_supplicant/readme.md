@@ -43,7 +43,7 @@ GND      |  P11 b/w two jacks GND pin    |   J26(pin 1)    |    GND             
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

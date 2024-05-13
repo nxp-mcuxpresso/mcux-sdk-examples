@@ -7,7 +7,7 @@ In this example, pdm will trigger interrupt to transfer data when watermark valu
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

@@ -1,6 +1,6 @@
 Overview
 ========
-The example shows how to use SPI driver with Azure RTOS. In this example,
+The example shows how to use SPI driver. In this example,
 one SPI instance used as master and another SPI instance used as slave.
 
 Before running the example, need to connect the master SPI to the slave SPI
@@ -9,7 +9,7 @@ by a cable.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

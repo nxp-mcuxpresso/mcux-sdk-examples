@@ -6,7 +6,7 @@ In this example, one sai instance reocrd and playbacks the audio data in TDM for
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

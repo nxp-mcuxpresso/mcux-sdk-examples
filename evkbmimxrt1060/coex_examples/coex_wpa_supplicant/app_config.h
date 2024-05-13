@@ -15,6 +15,8 @@
 
 /*        Feature        */
 /*#define CONFIG_BT_IND_DNLD*/
+#define APP_CONFIG_ENABLE_STACK_OVERFLOW_FREERTOS_HOOK 1U
+#define APP_CONFIG_ENABLE_MALLOC_FAILURE_FREERTOS_HOOK 1U
 
 #include "wifi_bt_module_config.h"
 #include "wifi_config.h"

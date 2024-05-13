@@ -5,7 +5,7 @@ This ota_mcuboot_sdcard application demonstrates an OTA update process using MCU
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

@@ -11,7 +11,7 @@ for the transfer to be done and print the latest ADC conversion word and ADC con
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

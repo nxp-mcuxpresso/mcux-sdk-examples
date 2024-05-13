@@ -17,7 +17,7 @@ eRPC documentation can be also found in: http://embeddedrpc.github.io
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

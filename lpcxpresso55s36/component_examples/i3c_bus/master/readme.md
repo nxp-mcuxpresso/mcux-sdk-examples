@@ -4,7 +4,7 @@ The example shows how to use i3c component as bus master and demo the hand-off p
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

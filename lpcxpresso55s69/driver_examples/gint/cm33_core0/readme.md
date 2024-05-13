@@ -4,7 +4,7 @@ This example shows how to use SDK drivers to use the Group GPIO input interrupt 
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

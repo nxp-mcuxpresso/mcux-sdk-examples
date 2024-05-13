@@ -56,12 +56,6 @@ void BOARD_InitPins(void);
  */
 void BOARD_InitDEBUG_UARTPins(void);
 
-/*!
- * @brief Configures pin routing and optionally pin electrical features.
- *
- */
-void BOARD_InitSDRAMPins(void);
-
 #define BOARD_INITUSDHCPINS_IOMUXC_GPR_GPR27_GPIO_MUX2_GPIO_SEL_MASK 0x10000000U /*!< GPIO2 and GPIO7 share same IO MUX function, GPIO_MUX2 selects one GPIO function: affected bits mask */
 
 /*!
@@ -128,7 +122,7 @@ void BOARD_InitCodecPins(void);
  * @brief Configures pin routing and optionally pin electrical features.
  *
  */
-void BOARD_InitScoPins(void);
+void BOARD_InitM2ScoPins(void);
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

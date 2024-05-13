@@ -148,7 +148,7 @@ int STREAMER_Read(uint8_t *data, uint32_t size);
 app_error_code_t play();
 app_error_code_t pause();
 app_error_code_t resume();
-app_error_code_t volume();
+app_error_code_t set_volume();
 app_error_code_t seek();
 app_error_code_t stop();
 void destroy();

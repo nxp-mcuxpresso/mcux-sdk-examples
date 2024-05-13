@@ -178,11 +178,11 @@ void appl_dump_bytes (UCHAR *buffer, UINT16 length)
     UINT16 offset, count;
     UCHAR c;
 
-    printf("\n");
-    printf("-- Dumping %d Bytes --\n",
+    LOG_DEBUG("\n");
+    LOG_DEBUG("-- Dumping %d Bytes --\n",
     (int)length);
 
-    printf(
+    LOG_DEBUG(
     "-------------------------------------------------------------------\n");
 
     count = 0U;
@@ -210,7 +210,7 @@ void appl_dump_bytes (UCHAR *buffer, UINT16 length)
             count = 0U;
             offset = 0U;
 
-            printf("%s   %s\n",
+            LOG_DEBUG("%s   %s\n",
             hex_stream, char_stream);
 
             BT_mem_set(hex_stream, 0, 49U);
@@ -223,14 +223,14 @@ void appl_dump_bytes (UCHAR *buffer, UINT16 length)
         char_stream[count] = '\0';
 
         /* Maintain the alignment */
-        printf("%-48s   %s\n",
+        LOG_DEBUG("%-48s   %s\n",
         hex_stream, char_stream);
     }
 
-    printf(
+    LOG_DEBUG(
     "-------------------------------------------------------------------\n");
 
-    printf("\n");
+    LOG_DEBUG("\n");
 #endif /* APPL_LIMIT_LOGS */
 
     return;
@@ -244,11 +244,11 @@ void appl_dump_bytes_no_limit_logs (UCHAR *buffer, UINT16 length)
     UINT16 offset, count;
     UCHAR c;
 
-    printf("\n");
-    printf("-- Dumping %d Bytes --\n",
+    LOG_DEBUG("\n");
+    LOG_DEBUG("-- Dumping %d Bytes --\n",
     (int)length);
 
-    printf(
+    LOG_DEBUG(
     "-------------------------------------------------------------------\n");
 
     count = 0U;
@@ -276,7 +276,7 @@ void appl_dump_bytes_no_limit_logs (UCHAR *buffer, UINT16 length)
             count = 0U;
             offset = 0U;
 
-            printf("%s   %s\n",
+            LOG_DEBUG("%s   %s\n",
             hex_stream, char_stream);
 
             BT_mem_set(hex_stream, 0, 49U);
@@ -289,14 +289,14 @@ void appl_dump_bytes_no_limit_logs (UCHAR *buffer, UINT16 length)
         char_stream[count] = '\0';
 
         /* Maintain the alignment */
-        printf("%-48s   %s\n",
+        LOG_DEBUG("%-48s   %s\n",
         hex_stream, char_stream);
     }
 
-    printf(
+    LOG_DEBUG(
     "-------------------------------------------------------------------\n");
 
-    printf("\n");
+    LOG_DEBUG("\n");
     return;
 }
 

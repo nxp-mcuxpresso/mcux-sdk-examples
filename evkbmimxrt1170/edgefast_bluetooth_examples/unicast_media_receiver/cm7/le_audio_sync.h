@@ -13,7 +13,8 @@
 #include "le_audio_common.h"
 
 void le_audio_sync_init(void);
-void le_audio_sync_start(uint32_t iso_interval_us, uint32_t sync_delay_us, int sample_rate, int samples_per_frame, uint32_t presentation_delay_us, uint32_t sync_index_init);
+void le_audio_sync_start(int sample_rate, int samples_per_frame);
+void le_audio_sync_set(uint32_t iso_interval_us, uint32_t sync_delay_us, uint32_t presentation_delay_us);
 void le_audio_sync_process(frame_packet_t *frame);
 void le_audio_sync_stop(void);
 

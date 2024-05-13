@@ -142,8 +142,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/export/appl/multiprofile/appl_hfp_unit_standalone.h"
 "${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/bluetooth/hps_pl.c"
 "${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/bluetooth/hps_pl.h"
-"${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/bluetooth/https_pl.c"
-"${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/bluetooth/https_pl.h"
 "${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/bluetooth/ipsp_pl.c"
 "${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/bluetooth/ipsp_pl.h"
 "${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/bluetooth/ipspr_ping.c"
@@ -317,7 +315,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/ethal/ethal_timer.h"
 "${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/ethal/ethal_timer_internal.h"
 "${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/utils/sbc/sbc_api.h"
-"${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/utils/lc3/export/include/LC3_api.h"
 "${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/export/appl/reference/ga/appl/appl_aics.c"
 "${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/export/appl/reference/ga/appl/appl_aics.h"
 "${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/export/appl/reference/ga/appl/appl_bass.c"
@@ -449,6 +446,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/profiles/ga/source/profiles/tmap/tmap_internal.h"
 "${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/lc3/mcuxpresso/intrinsics_map.h"
 "${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/lc3/mcuxpresso/lc3_common_internal.h"
+"${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/utils/lc3/export/include/LC3_api.h"
 "${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/utils/lc3/private/fixed/common/lc3_defines.h"
 "${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/utils/lc3/private/fixed/common/lc3_extern.h"
 "${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/utils/lc3/private/fixed/common/lc3_internal.h"
@@ -759,7 +757,6 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${SdkRootDirPath}/middleware/wireless/ethermind/port/osal/src/freertos
     ${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux
     ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/utils/sbc
-    ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/utils/lc3/export/include
     ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/export/appl/reference/ga/appl
     ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/export/appl/reference/ga/bearer
     ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/profiles/ga/eOSAL
@@ -776,6 +773,7 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${SdkRootDirPath}/middleware/wireless/ethermind/examples/ethermind
     ${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/toolspec/iar
     ${SdkRootDirPath}/middleware/wireless/ethermind/port/pal/mcux/lc3/mcuxpresso
+    ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/utils/lc3/export/include
     ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/utils/lc3/private/fixed/common
     ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/utils/lc3/private/fixed/config
     ${SdkRootDirPath}/middleware/wireless/ethermind/bluetooth/private/lib/mcux/default/config
@@ -804,11 +802,11 @@ set_source_files_properties("${ProjDirPath}/../ffconf.h" PROPERTIES COMPONENT_CO
 set_source_files_properties("${ProjDirPath}/../usb_host_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_usb_host_ehci_config_header")
 
 if(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_debug)
-     target_compile_definitions(${MCUX_SDK_PROJECT_NAME}  PRIVATE MBEDTLS_CONFIG_FILE="mbedtls_config_client.h")
+     target_compile_definitions(${MCUX_SDK_PROJECT_NAME}  PRIVATE MBEDTLS_CONFIG_FILE="ksdk_mbedtls_config.h")
 endif(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_debug)
 
 if(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_release)
-     target_compile_definitions(${MCUX_SDK_PROJECT_NAME}  PRIVATE MBEDTLS_CONFIG_FILE="mbedtls_config_client.h")
+     target_compile_definitions(${MCUX_SDK_PROJECT_NAME}  PRIVATE MBEDTLS_CONFIG_FILE="ksdk_mbedtls_config.h")
 endif(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_release)
 
 include(${SdkRootDirPath}/core/devices/MIMXRT1176/all_lib_device.cmake)

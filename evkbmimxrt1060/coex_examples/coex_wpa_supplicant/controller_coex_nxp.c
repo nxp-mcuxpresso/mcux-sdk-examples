@@ -75,6 +75,7 @@
 #include "fsl_adapter_uart.h"
 #include "fsl_os_abstraction.h"
 #include "controller_hci_uart.h"
+#include "wifi_bt_config.h"
 
 /*******************************************************************************
  * Definitions
@@ -113,9 +114,9 @@ void coex_controller_init(void)
 #ifndef CONTROLLER_INIT_ESCAPE
     int result;
     (void) result;
+    BOARD_WIFI_BT_Enable(true);
 #if defined(CONFIG_BT_IND_DNLD) || defined(CONFIG_WIFI_IND_DNLD)
     /* BTonly firmware download over UART */
-    BOARD_WIFI_BT_Enable(true);
     void *intf = uart_init_interface();
     assert(intf != NULL);
     result = firmware_download(bt_fw_bin, bt_fw_bin_len, intf, 0);

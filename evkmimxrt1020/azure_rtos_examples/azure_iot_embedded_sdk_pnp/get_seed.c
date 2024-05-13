@@ -30,9 +30,8 @@ uint32_t get_seed(void)
 
     return random_val;
 }
-#endif
 
-#if defined(FSL_FEATURE_SOC_CAAM_COUNT) && (FSL_FEATURE_SOC_CAAM_COUNT > 0)
+#elif defined(FSL_FEATURE_SOC_CAAM_COUNT) && (FSL_FEATURE_SOC_CAAM_COUNT > 0)
 #include "fsl_caam.h"
 
 AT_NONCACHEABLE_SECTION(static caam_job_ring_interface_t s_jrif0);
@@ -59,4 +58,14 @@ __WEAK uint32_t get_seed(void)
 
     return random_val;
 }
+
+#else
+
+#include "tx_api.h"
+
+__WEAK uint32_t get_seed(void)
+{
+    return (uint32_t)tx_time_get();
+}
+
 #endif

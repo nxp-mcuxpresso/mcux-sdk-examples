@@ -19,7 +19,7 @@ In State 0, there is only PWM0 output, in State 1, there are both PWM0 and PWM1 
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

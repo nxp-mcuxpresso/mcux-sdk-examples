@@ -7,7 +7,7 @@ them to the terminal by using EDMA mode. so, you can see the your pressed charac
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

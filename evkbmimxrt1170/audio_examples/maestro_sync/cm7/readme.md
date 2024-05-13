@@ -50,7 +50,7 @@ please use https://vit.nxp.com/
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

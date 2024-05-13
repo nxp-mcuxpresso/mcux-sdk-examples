@@ -45,6 +45,7 @@ void BOARD_InitBootPins(void) {
     BOARD_InitPinsM2();
     BOARD_InitM2UARTPins();
     BOARD_InitCodecPins();
+    BOARD_InitEnetPins();
 }
 
 /*
@@ -485,7 +486,7 @@ void BOARD_InitM2UARTPins(void) {
 
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
-BOARD_InitM2ScoPins:
+BOARD_InitScoPins:
 - options: {callFromInitBoot: 'true', coreID: core0, enableClock: 'true'}
 - pin_list:
   - {pin_num: F11, peripheral: SAI2, signal: sai_tx_sync, pin_signal: GPIO_AD_B0_04, software_input_on: Enable, hysteresis_enable: Disable, pull_up_down_config: Pull_Down_100K_Ohm,
@@ -494,7 +495,7 @@ BOARD_InitM2ScoPins:
     pull_keeper_select: Keeper, pull_keeper_enable: Enable, open_drain: Disable, speed: MHZ_100, drive_strength: R0_6, slew_rate: Slow}
   - {pin_num: F13, peripheral: SAI2, signal: sai_rx_data, pin_signal: GPIO_AD_B0_08, software_input_on: Enable, hysteresis_enable: Disable, pull_up_down_config: Pull_Down_100K_Ohm,
     pull_keeper_select: Keeper, pull_keeper_enable: Enable, open_drain: Disable, speed: MHZ_100, drive_strength: R0_6, slew_rate: Slow}
-  - {pin_num: F14, peripheral: SAI2, signal: sai_tx_data, pin_signal: GPIO_AD_B0_09, software_input_on: Enable, hysteresis_enable: Disable, pull_up_down_config: Pull_Down_100K_Ohm,
+  - {pin_num: F2, peripheral: SAI2, signal: sai_tx_data, pin_signal: GPIO_EMC_04, software_input_on: Enable, hysteresis_enable: Disable, pull_up_down_config: Pull_Down_100K_Ohm,
     pull_keeper_select: Keeper, pull_keeper_enable: Enable, open_drain: Disable, speed: MHZ_100, drive_strength: R0_6, slew_rate: Slow}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
@@ -511,11 +512,11 @@ void BOARD_InitScoPins(void) {
   IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B0_04_SAI2_TX_SYNC, 1U);
   IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B0_05_SAI2_TX_BCLK, 1U);
   IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B0_08_SAI2_RX_DATA, 1U);
-  IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B0_09_SAI2_TX_DATA, 1U);
+  IOMUXC_SetPinMux(IOMUXC_GPIO_EMC_04_SAI2_TX_DATA, 1U);
   IOMUXC_SetPinConfig(IOMUXC_GPIO_AD_B0_04_SAI2_TX_SYNC, 0x10B0U);
   IOMUXC_SetPinConfig(IOMUXC_GPIO_AD_B0_05_SAI2_TX_BCLK, 0x10B0U);
   IOMUXC_SetPinConfig(IOMUXC_GPIO_AD_B0_08_SAI2_RX_DATA, 0x10B0U);
-  IOMUXC_SetPinConfig(IOMUXC_GPIO_AD_B0_09_SAI2_TX_DATA, 0x10B0U);
+  IOMUXC_SetPinConfig(IOMUXC_GPIO_EMC_04_SAI2_TX_DATA, 0x10B0U);
 }
 
 /*
@@ -596,7 +597,7 @@ void BOARD_InitEnetPins(void) {
       IOMUXC_GPIO_EMC_41_ENET_MDIO,           /* GPIO_EMC_41 is configured as ENET_MDIO */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
   IOMUXC_GPR->GPR26 = ((IOMUXC_GPR->GPR26 &
-    (~(IOMUXC_GPR_GPR26_GPIO_MUX1_GPIO_SEL_MASK))) /* Mask bits to zero which are setting */
+    (~(BOARD_INITENETPINS_IOMUXC_GPR_GPR26_GPIO_MUX1_GPIO_SEL_MASK))) /* Mask bits to zero which are setting */
       | IOMUXC_GPR_GPR26_GPIO_MUX1_GPIO_SEL(0x00U) /* GPIO1 and GPIO6 share same IO MUX function, GPIO_MUX1 selects one GPIO function: 0x00U */
     );
   IOMUXC_SetPinConfig(

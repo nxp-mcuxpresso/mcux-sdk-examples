@@ -6,7 +6,7 @@ Except that this application specifically looks for HPS Server and programs a se
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.15.100
 
 Toolchain supported
 ===================

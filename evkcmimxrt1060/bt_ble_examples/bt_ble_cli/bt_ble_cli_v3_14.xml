@@ -164,8 +164,8 @@
           <value>CHECKSUM_CHECK_ICMP6=1</value>
           <value>LWIP_DNS=1</value>
           <value>LWIP_NETIF_HOSTNAME=1</value>
-          <value>LWIP_NETIF_STATUS_CALLBACK=1</value>
           <value>LWIP_IGMP=1</value>
+          <value>_XOPEN_SOURCE=500</value>
         </option>
         <option id="com.crt.advproject.gas.hdrlib" type="enum">
           <value>com.crt.advproject.gas.hdrlib.newlibnano</value>
@@ -244,6 +244,8 @@
       <include_path path="appl/reference" project_relative_path="source/appl/reference" type="c_include"/>
       <include_path path="appl/lc3" project_relative_path="source/appl/lc3" type="c_include"/>
       <include_path path="appl/lc3/sim" project_relative_path="source/appl/lc3/sim" type="c_include"/>
+      <include_path path="le_audio_pl" project_relative_path="source/appl/le_audio_pl" type="c_include"/>
+      <include_path path="le_audio_pl/asrc_sw" project_relative_path="source/appl/le_audio_pl/asrc_sw" type="c_include"/>
       <include_path path="../../../../core/boards/evkcmimxrt1060" project_relative_path="board" type="c_include"/>
       <include_path path="../../../../middleware/wireless/ethermind/bluetooth/export/appl/reference/br/profile_appl" project_relative_path="source/appl/reference/br/profile_appl" type="c_include"/>
       <include_path path="../../../../middleware/wireless/ethermind/bluetooth/export/appl/reference/le/profile_appl/client" project_relative_path="source/appl/reference/le/profile_appl/client" type="c_include"/>
@@ -287,7 +289,6 @@
       <include_path path="../../../../middleware/wireless/ethermind/port/osal/src/freertos" project_relative_path="ethermind/port/osal/src/freertos" type="c_include"/>
       <include_path path="../../../../middleware/wireless/ethermind/port/pal/mcux" project_relative_path="ethermind/port/pal/mcux" type="c_include"/>
       <include_path path="../../../../middleware/wireless/ethermind/bluetooth/private/utils/sbc" project_relative_path="ethermind/bluetooth/private/utils/sbc" type="c_include"/>
-      <include_path path="../../../../middleware/wireless/ethermind/bluetooth/private/utils/lc3/export/include" project_relative_path="ethermind/bluetooth/private/utils/lc3/export/include" type="c_include"/>
       <include_path path="../../../../middleware/wireless/ethermind/bluetooth/export/appl/reference/br/protocol_appl" project_relative_path="source/appl/reference/br/protocol_appl" type="c_include"/>
       <include_path path="../../../../middleware/wireless/ethermind/bluetooth/export/appl/reference/br/al" project_relative_path="source/appl/reference/br/al" type="c_include"/>
       <include_path path="../../../../middleware/wireless/ethermind/bluetooth/export/appl/reference/ga/appl" project_relative_path="source/appl/reference/ga/appl" type="c_include"/>
@@ -306,6 +307,7 @@
       <include_path path="../../../../middleware/wireless/ethermind/examples/ethermind" project_relative_path="ethermind/examples/ethermind" type="c_include"/>
       <include_path path="../../../../middleware/wireless/ethermind/port/pal/mcux/toolspec/iar" project_relative_path="ethermind/port/pal/mcux/toolspec/iar" type="c_include"/>
       <include_path path="../../../../middleware/wireless/ethermind/port/pal/mcux/lc3/mcuxpresso" project_relative_path="ethermind/port/pal/mcux/lc3/mcuxpresso" toolchain="mcuxpresso armgcc" type="c_include"/>
+      <include_path path="../../../../middleware/wireless/ethermind/bluetooth/private/utils/lc3/export/include" project_relative_path="ethermind/bluetooth/private/utils/lc3/export/include" type="c_include"/>
       <include_path path="../../../../middleware/wireless/ethermind/bluetooth/private/utils/lc3/private/fixed/common" project_relative_path="ethermind/bluetooth/private/utils/lc3/private/fixed/common" type="c_include"/>
       <include_path path="../../../../middleware/wireless/ethermind/bluetooth/private/utils/lc3/private/fixed/config" project_relative_path="ethermind/bluetooth/private/utils/lc3/private/fixed/config" type="c_include"/>
       <include_path path="../../../../middleware/wireless/ethermind/bluetooth/export/appl/reference/le" project_relative_path="source/appl/reference/le" type="c_include"/>
@@ -336,7 +338,9 @@
       <include_path path="../../../../middleware/wireless/ethermind/bluetooth/tools/resources/pan" project_relative_path="ethermind/bluetooth/tools/resources/pan" type="c_include"/>
       <include_path path="../../../../middleware/wireless/ethermind/bluetooth/tools/resources/pbap" project_relative_path="ethermind/bluetooth/tools/resources/pbap" type="c_include"/>
       <include_path path="." project_relative_path="source" type="asm_include"/>
+      <include_path path="le_audio_pl" project_relative_path="source/appl/le_audio_pl" type="asm_include"/>
       <include_path path="appl/reference" project_relative_path="source" type="asm_include"/>
+      <include_path path="le_audio_pl/asrc_sw" project_relative_path="source/appl/le_audio_pl/asrc_sw" type="asm_include"/>
     </include_paths>
     <source path="armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">
       <files mask="build_all.bat"/>
@@ -432,13 +436,31 @@
     </source>
     <source path="." project_relative_path="source/appl" type="src">
       <files mask="a2dp_pl_ext.c"/>
-      <files mask="leaudio_pl_ext.c"/>
-      <files mask="wav.c"/>
       <files mask="sco_audio_pl_ext.c"/>
       <files mask="db_gen.c"/>
     </source>
-    <source path="." project_relative_path="source/appl" type="c_include">
+    <source path="le_audio_pl" project_relative_path="source/appl/le_audio_pl" type="src">
+      <files mask="le_audio_pl_ext.c"/>
+      <files mask="le_audio_pl_sync.c"/>
+      <files mask="wav.c"/>
+      <files mask="le_audio_pl_i2s.c"/>
+    </source>
+    <source path="le_audio_pl" project_relative_path="source/appl/le_audio_pl" type="c_include">
+      <files mask="le_audio_pl_sync.h"/>
       <files mask="wav.h"/>
+      <files mask="le_audio_pl_i2s.h"/>
+    </source>
+    <source path="le_audio_pl/asrc_sw" project_relative_path="source/appl/le_audio_pl/asrc_sw" type="src">
+      <files mask="srCvtFrm.c"/>
+    </source>
+    <source path="le_audio_pl/asrc_sw" project_relative_path="source/appl/le_audio_pl/asrc_sw" type="c_include">
+      <files mask="srCvtFrm.h"/>
+    </source>
+    <source path="le_audio_pl/asrc_sw" project_relative_path="source/appl/le_audio_pl/asrc_sw" type="other">
+      <files mask="downSmplAllRates.dat"/>
+      <files mask="upSmpl_32_32_rev.dat"/>
+    </source>
+    <source path="." project_relative_path="source/appl" type="c_include">
       <files mask="ringtone.h"/>
     </source>
     <source path="." project_relative_path="board" type="src">
@@ -848,9 +870,6 @@
     </source>
     <source path="../../../../middleware/wireless/ethermind/bluetooth/private/utils/sbc" project_relative_path="ethermind/bluetooth/private/utils/sbc" type="c_include">
       <files mask="sbc_api.h"/>
-    </source>
-    <source path="../../../../middleware/wireless/ethermind/bluetooth/private/utils/lc3/export/include" project_relative_path="ethermind/bluetooth/private/utils/lc3" type="c_include">
-      <files mask="LC3_api.h"/>
     </source>
     <source path="../../../../middleware/wireless/ethermind/bluetooth/export/appl/reference/br/protocol_appl" project_relative_path="source/appl/reference/br/protocol_appl" type="src">
       <files mask="appl_avctp.c"/>
