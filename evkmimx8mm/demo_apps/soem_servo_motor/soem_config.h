@@ -7,7 +7,6 @@
 
 #ifndef __SOEM__CONFIG__H__
 #define __SOEM__CONFIG__H__
-#include <sys/time.h>
 
 /** max. etries in EtherCAT error list */
 #define EC_MAXELIST       64
@@ -53,5 +52,4 @@
 #define MAX_SOEM_TASK_STACK 256
 #define MAX_SOEM_MUTE 1
 
-void osal_gettime(struct timeval *);
 #endif
