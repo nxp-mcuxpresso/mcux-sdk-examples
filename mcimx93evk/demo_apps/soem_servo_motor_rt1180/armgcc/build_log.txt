@@ -1,0 +1,174 @@
+Scanning dependencies of target soem_servo_motor.elf
+[  4%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/examples/mcimx93evk/demo_apps/soem_servo_motor_rt1180/soem_servo_motor.c.obj
+[  4%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/examples/mcimx93evk/demo_apps/soem_servo_motor_rt1180/axis_nc.c.obj
+[  6%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/examples/mcimx93evk/demo_apps/soem_servo_motor_rt1180/servo.c.obj
+[  8%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/examples/mcimx93evk/demo_apps/soem_servo_motor_rt1180/pin_mux.c.obj
+[ 10%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/examples/mcimx93evk/demo_apps/soem_servo_motor_rt1180/cia402.c.obj
+[ 12%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/boards/mcimx93evk/board.c.obj
+[ 14%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/boards/mcimx93evk/clock_config.c.obj
+[ 18%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/drivers/common/fsl_common.c.obj
+[ 18%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/components/phy/device/phyrtl8211f/fsl_phyrtl8211f.c.obj
+[ 20%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/drivers/rgpio/fsl_rgpio.c.obj
+[ 22%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/drivers/common/fsl_common_arm.c.obj
+[ 25%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/drivers/cache/lmem/fsl_cache.c.obj
+[ 27%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/utilities/str/fsl_str.c.obj
+[ 29%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/utilities/debug_console/fsl_debug_console.c.obj
+[ 31%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/components/serial_manager/fsl_component_serial_manager.c.obj
+/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/examples/mcimx93evk/demo_apps/soem_servo_motor_rt1180/axis_nc.c: In function 'parameter_parser':
+/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/examples/mcimx93evk/demo_apps/soem_servo_motor_rt1180/axis_nc.c:35:34: warning: format '%d' expects argument of type 'int *', but argument 3 has type 'int32_t *' {aka 'long int *'} [-Wformat=]
+   35 |                 n = sscanf(s, "=%d", parameter);
+      |                                 ~^   ~~~~~~~~~
+      |                                  |   |
+      |                                  |   int32_t * {aka long int *}
+      |                                  int *
+      |                                 %ld
+/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/examples/mcimx93evk/demo_apps/soem_servo_motor_rt1180/axis_nc.c: In function 'Tp_arrays_parser':
+/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/examples/mcimx93evk/demo_apps/soem_servo_motor_rt1180/axis_nc.c:254:34: warning: format '%d' expects argument of type 'int *', but argument 3 has type 'int32_t *' {aka 'long int *'} [-Wformat=]
+  254 |                 n = sscanf(p, "(%d:%d)", &value, &time);
+      |                                 ~^       ~~~~~~
+      |                                  |       |
+      |                                  int *   int32_t * {aka long int *}
+      |                                 %ld
+/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/examples/mcimx93evk/demo_apps/soem_servo_motor_rt1180/axis_nc.c:254:37: warning: format '%d' expects argument of type 'int *', but argument 4 has type 'uint32_t *' {aka 'long unsigned int *'} [-Wformat=]
+  254 |                 n = sscanf(p, "(%d:%d)", &value, &time);
+      |                                    ~^            ~~~~~
+      |                                     |            |
+      |                                     int *        uint32_t * {aka long unsigned int *}
+      |                                    %ld
+/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/examples/mcimx93evk/demo_apps/soem_servo_motor_rt1180/axis_nc.c:271:42: warning: format '%d' expects argument of type 'int *', but argument 3 has type 'int32_t *' {aka 'long int *'} [-Wformat=]
+  271 |                 n = sscanf(tp_arrays, "(%d:%d)", &value, &time);
+      |                                         ~^       ~~~~~~
+      |                                          |       |
+      |                                          int *   int32_t * {aka long int *}
+      |                                         %ld
+/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/examples/mcimx93evk/demo_apps/soem_servo_motor_rt1180/axis_nc.c:271:45: warning: format '%d' expects argument of type 'int *', but argument 4 has type 'uint32_t *' {aka 'long unsigned int *'} [-Wformat=]
+  271 |                 n = sscanf(tp_arrays, "(%d:%d)", &value, &time);
+      |                                            ~^            ~~~~~
+      |                                             |            |
+      |                                             int *        uint32_t * {aka long unsigned int *}
+      |                                            %ld
+[ 33%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/components/lists/fsl_component_generic_list.c.obj
+[ 35%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/utilities/assert/fsl_assert.c.obj
+[ 37%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/components/silicon_id/fsl_silicon_id.c.obj
+[ 39%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/components/silicon_id/socs/imx93/fsl_silicon_id_soc.c.obj
+[ 41%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/devices/MIMX9352/drivers/fsl_clock.c.obj
+[ 43%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/drivers/lpi2c/fsl_lpi2c.c.obj
+[ 45%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/components/uart/fsl_adapter_lpuart.c.obj
+[ 47%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/drivers/lpuart/fsl_lpuart.c.obj
+[ 50%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/drivers/enet/fsl_enet.c.obj
+[ 52%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/components/serial_manager/fsl_component_serial_port_uart.c.obj
+[ 54%] Building ASM object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/devices/MIMX9352/gcc/startup_MIMX9352_cm33.S.obj
+[ 56%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/drivers/cache/xcache/fsl_cache.c.obj
+[ 58%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/drivers/pcal6524/fsl_pcal6524.c.obj
+[ 60%] Building ASM object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/utilities/misc_utilities/fsl_memcpy.S.obj
+[ 62%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/utilities/misc_utilities/fsl_sbrk.c.obj
+[ 64%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/utilities/misc_utilities/fsl_syscall_stub.c.obj
+[ 66%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/drivers/tpm/fsl_tpm.c.obj
+[ 68%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/devices/MIMX9352/system_MIMX9352_cm33.c.obj
+[ 70%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/components/SOEM/soem/ethercatcoe.c.obj
+[ 72%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/components/SOEM/soem/ethercatbase.c.obj
+/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/examples/mcimx93evk/demo_apps/soem_servo_motor_rt1180/cia402.c:32:9: warning: excess elements in array initializer
+   32 |         0x60600010  // op_mode
+      |         ^~~~~~~~~~
+/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/examples/mcimx93evk/demo_apps/soem_servo_motor_rt1180/cia402.c:32:9: note: (near initialization for 'rx_pdo_entry[0]')
+[ 75%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/components/SOEM/soem/ethercatconfig.c.obj
+[ 77%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/components/SOEM/soem/ethercatdc.c.obj
+[ 79%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/components/SOEM/soem/ethercateoe.c.obj
+[ 81%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/components/SOEM/soem/ethercatfoe.c.obj
+[ 83%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/components/SOEM/soem/ethercatmain.c.obj
+[ 85%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/components/SOEM/soem/ethercatprint.c.obj
+[ 87%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/components/SOEM/soem/ethercatsoe.c.obj
+/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/examples/mcimx93evk/demo_apps/soem_servo_motor_rt1180/soem_servo_motor.c: In function 'osal_gettime':
+/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/examples/mcimx93evk/demo_apps/soem_servo_motor_rt1180/soem_servo_motor.c:316:18: warning: unused variable 'sys_time_ns' [-Wunused-variable]
+  316 |         uint64_t sys_time_ns;
+      |                  ^~~~~~~~~~~
+/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/examples/mcimx93evk/demo_apps/soem_servo_motor_rt1180/soem_servo_motor.c: In function 'if_port_init':
+/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/examples/mcimx93evk/demo_apps/soem_servo_motor_rt1180/soem_servo_motor.c:376:30: warning: assignment discards 'const' qualifier from pointer target type [-Wdiscarded-qualifiers]
+  376 |         if_port.bufferConfig = buffConfig;
+      |                              ^
+/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/examples/mcimx93evk/demo_apps/soem_servo_motor_rt1180/soem_servo_motor.c: In function 'control_task':
+/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/examples/mcimx93evk/demo_apps/soem_servo_motor_rt1180/soem_servo_motor.c:497:29: warning: unused variable 'led' [-Wunused-variable]
+  497 |                         int led = 0;
+      |                             ^~~
+[ 89%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/components/SOEM/oshw/mcux-sdk/nicdrv.c.obj
+[ 91%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/components/SOEM/oshw/mcux-sdk/soem_port.c.obj
+[ 93%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/components/SOEM/oshw/mcux-sdk/oshw.c.obj
+[ 95%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/components/SOEM/osal/baremetal/osal.c.obj
+[ 97%] Building C object CMakeFiles/soem_servo_motor.elf.dir/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/components/SOEM/oshw/mcux-sdk/enet/enet.c.obj
+In file included from /home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/drivers/cache/lmem/fsl_cache.c:8:
+/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/drivers/cache/lmem/fsl_cache.h: In function 'ICACHE_InvalidateByRange':
+/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/drivers/cache/lmem/fsl_cache.h:284:5: warning: implicit declaration of function 'L1CACHE_InvalidateICacheByRange'; did you mean 'ICACHE_InvalidateByRange'? [-Wimplicit-function-declaration]
+  284 |     L1CACHE_InvalidateICacheByRange(address, size_byte);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |     ICACHE_InvalidateByRange
+In file included from /home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/boards/mcimx93evk/board.c:8:
+/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/drivers/cache/lmem/./fsl_cache.h: In function 'ICACHE_InvalidateByRange':
+/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/drivers/cache/lmem/./fsl_cache.h:284:5: warning: implicit declaration of function 'L1CACHE_InvalidateICacheByRange'; did you mean 'ICACHE_InvalidateByRange'? [-Wimplicit-function-declaration]
+  284 |     L1CACHE_InvalidateICacheByRange(address, size_byte);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |     ICACHE_InvalidateByRange
+/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/drivers/cache/lmem/fsl_cache.h: In function 'DCACHE_InvalidateByRange':
+/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/drivers/cache/lmem/fsl_cache.h:299:5: warning: implicit declaration of function 'L1CACHE_InvalidateDCacheByRange'; did you mean 'DCACHE_InvalidateByRange'? [-Wimplicit-function-declaration]
+  299 |     L1CACHE_InvalidateDCacheByRange(address, size_byte);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |     DCACHE_InvalidateByRange
+/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/drivers/cache/lmem/./fsl_cache.h: In function 'DCACHE_InvalidateByRange':
+/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/drivers/cache/lmem/./fsl_cache.h:299:5: warning: implicit declaration of function 'L1CACHE_InvalidateDCacheByRange'; did you mean 'DCACHE_InvalidateByRange'? [-Wimplicit-function-declaration]
+  299 |     L1CACHE_InvalidateDCacheByRange(address, size_byte);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |     DCACHE_InvalidateByRange
+/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/drivers/cache/lmem/fsl_cache.h: In function 'DCACHE_CleanByRange':
+/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/drivers/cache/lmem/fsl_cache.h:314:5: warning: implicit declaration of function 'L1CACHE_CleanDCacheByRange'; did you mean 'DCACHE_CleanByRange'? [-Wimplicit-function-declaration]
+  314 |     L1CACHE_CleanDCacheByRange(address, size_byte);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~
+      |     DCACHE_CleanByRange
+/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/drivers/cache/lmem/./fsl_cache.h: In function 'DCACHE_CleanByRange':
+/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/drivers/cache/lmem/./fsl_cache.h:314:5: warning: implicit declaration of function 'L1CACHE_CleanDCacheByRange'; did you mean 'DCACHE_CleanByRange'? [-Wimplicit-function-declaration]
+  314 |     L1CACHE_CleanDCacheByRange(address, size_byte);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~
+      |     DCACHE_CleanByRange
+/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/drivers/cache/lmem/fsl_cache.h: In function 'DCACHE_CleanInvalidateByRange':
+/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/drivers/cache/lmem/fsl_cache.h:329:5: warning: implicit declaration of function 'L1CACHE_CleanInvalidateDCacheByRange'; did you mean 'DCACHE_CleanInvalidateByRange'? [-Wimplicit-function-declaration]
+  329 |     L1CACHE_CleanInvalidateDCacheByRange(address, size_byte);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |     DCACHE_CleanInvalidateByRange
+/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/drivers/cache/lmem/fsl_cache.c: At top level:
+/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/drivers/cache/lmem/fsl_cache.c:411:6: warning: conflicting types for 'L1CACHE_InvalidateICacheByRange'; have 'void(uint32_t,  uint32_t)' {aka 'void(long unsigned int,  long unsigned int)'}
+  411 | void L1CACHE_InvalidateICacheByRange(uint32_t address, uint32_t size_byte)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/drivers/cache/lmem/fsl_cache.h:284:5: note: previous implicit declaration of 'L1CACHE_InvalidateICacheByRange' with type 'void(uint32_t,  uint32_t)' {aka 'void(long unsigned int,  long unsigned int)'}
+  284 |     L1CACHE_InvalidateICacheByRange(address, size_byte);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/drivers/cache/lmem/fsl_cache.c:446:6: warning: conflicting types for 'L1CACHE_CleanDCacheByRange'; have 'void(uint32_t,  uint32_t)' {aka 'void(long unsigned int,  long unsigned int)'}
+  446 | void L1CACHE_CleanDCacheByRange(uint32_t address, uint32_t size_byte)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/drivers/cache/lmem/fsl_cache.h:314:5: note: previous implicit declaration of 'L1CACHE_CleanDCacheByRange' with type 'void(uint32_t,  uint32_t)' {aka 'void(long unsigned int,  long unsigned int)'}
+  314 |     L1CACHE_CleanDCacheByRange(address, size_byte);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/drivers/cache/lmem/fsl_cache.c:481:6: warning: conflicting types for 'L1CACHE_CleanInvalidateDCacheByRange'; have 'void(uint32_t,  uint32_t)' {aka 'void(long unsigned int,  long unsigned int)'}
+  481 | void L1CACHE_CleanInvalidateDCacheByRange(uint32_t address, uint32_t size_byte)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/drivers/cache/lmem/fsl_cache.h:329:5: note: previous implicit declaration of 'L1CACHE_CleanInvalidateDCacheByRange' with type 'void(uint32_t,  uint32_t)' {aka 'void(long unsigned int,  long unsigned int)'}
+  329 |     L1CACHE_CleanInvalidateDCacheByRange(address, size_byte);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/drivers/cache/lmem/./fsl_cache.h: In function 'DCACHE_CleanInvalidateByRange':
+/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/drivers/cache/lmem/./fsl_cache.h:329:5: warning: implicit declaration of function 'L1CACHE_CleanInvalidateDCacheByRange'; did you mean 'DCACHE_CleanInvalidateByRange'? [-Wimplicit-function-declaration]
+  329 |     L1CACHE_CleanInvalidateDCacheByRange(address, size_byte);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |     DCACHE_CleanInvalidateByRange
+/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/boards/mcimx93evk/board.c: In function 'BOARD_ConfigMPU':
+/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/boards/mcimx93evk/board.c:335:5: warning: implicit declaration of function 'XCACHE_DisableCache' [-Wimplicit-function-declaration]
+  335 |     XCACHE_DisableCache(LPCAC_PC);
+      |     ^~~~~~~~~~~~~~~~~~~
+/home/qizhang/work/yocto/yocto-real-time-edge-2.9/build-imx93-evk/tmp/work/armv8a-poky-linux/soem-servo-motor/2.14.0/git/core/boards/mcimx93evk/board.c:413:5: warning: implicit declaration of function 'XCACHE_EnableCache' [-Wimplicit-function-declaration]
+  413 |     XCACHE_EnableCache(LPCAC_PC);
+      |     ^~~~~~~~~~~~~~~~~~
+[100%] Linking C executable release/soem_servo_motor.elf
+Memory region         Used Size  Region Size  %age Used
+    m_interrupts:        1140 B       1144 B     99.65%
+          m_text:       98824 B     129928 B     76.06%
+m_m33_suspend_ram:          0 GB         8 KB      0.00%
+m_a55_suspend_ram:          0 GB         4 KB      0.00%
+          m_data:       94648 B       108 KB     85.58%
+       m_rsc_tbl:          0 GB         4 KB      0.00%
+[100%] Built target soem_servo_motor.elf
