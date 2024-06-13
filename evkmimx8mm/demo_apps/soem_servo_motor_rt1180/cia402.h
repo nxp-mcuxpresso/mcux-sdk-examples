@@ -12,27 +12,28 @@
 
 #define status_word_offset 0
 #define actual_position_offset 2
-#define op_mode_display_offset 6
-#define actual_velocity_offset 7
+#define actual_velocity_offset 6
+#define op_mode_display_offset 10
 
 #define control_word_offset 0
-#define op_mode_offset 2
-#define targe_position_offset 3 
+#define target_position_offset 2 
+#define target_velocity_offset 6
+#define op_mode_offset 10
 
-#define txpdos_axis_size 11 
-#define rxpdos_axis_size 7 
+#define txpdos_axis_size 12 
+#define rxpdos_axis_size  12
 
 #define PDO_write_control_word(si, value) 		*((uint16 *)((si)->output_offset + control_word_offset)) = (value)
-#define PDO_write_op_mode(si, value) 			*((uint8 *)((si)->output_offset + op_mode_offset)) = (value)
-#define PDO_write_targe_position(si, value) 	*((int32 *)((si)->output_offset + targe_position_offset)) = (value)
+#define PDO_write_op_mode(si, value) 			*((uint16 *)((si)->output_offset + op_mode_offset)) = (value)
+#define PDO_write_targe_position(si, value) 	*((int32 *)((si)->output_offset + target_position_offset)) = (value)
 
 #define PDO_read_control_word(si) 		*((uint16 *)((si)->output_offset + control_word_offset))
-#define PDO_read_op_mode(si) 			*((uint8 *)((si)->output_offset + op_mode_offset))
-#define PDO_read_targe_position(si) 	*((uint32 *)((si)->output_offset + targe_position_offset))
+#define PDO_read_op_mode(si) 			*((uint16 *)((si)->output_offset + op_mode_offset))
+#define PDO_read_targe_position(si) 	*((uint32 *)((si)->output_offset + target_position_offset))
 
 #define PDO_read_status_word(si) 		*((uint16 *)((si)->input_offset + status_word_offset))
 #define PDO_read_actual_position(si) 	*((uint32 *)((si)->input_offset + actual_position_offset))
-#define PDO_read_op_mode_display(si) 	*((uint8 *)((si)->input_offset + op_mode_display_offset))
+#define PDO_read_op_mode_display(si) 	*((uint16 *)((si)->input_offset + op_mode_display_offset))
 #define PDO_read_actual_velocity(si) 	*((uint32 *)((si)->input_offset + actual_velocity_offset))
 
 #define	no_ready_to_switch_on 0
@@ -55,5 +56,6 @@
 #define    op_mode_cst  10
 
 int servo_pdo_remap(struct servo_t *servo);
+int servo_pdo_activate_map(struct servo_t *servo);
 int axis_start(struct axis_t *axis, uint8_t mode);
 #endif
