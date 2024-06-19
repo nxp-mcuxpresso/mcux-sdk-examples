@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:examples xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd manifest.xsd">
+  <externalDefinitions>
+    <definition extID="cm33_MCXA156"/>
+    <definition extID="platform.drivers.flexio.MCXA156"/>
+    <definition extID="platform.drivers.flexio_uart.MCXA156"/>
+    <definition extID="platform.drivers.common.MCXA156"/>
+    <definition extID="platform.drivers.clock.MCXA156"/>
+    <definition extID="platform.drivers.inputmux.MCXA156"/>
+    <definition extID="platform.drivers.port.MCXA156"/>
+    <definition extID="platform.drivers.reset.MCXA156"/>
+    <definition extID="platform.drivers.lpuart.MCXA156"/>
+    <definition extID="platform.drivers.gpio.MCXA156"/>
+    <definition extID="component.lpuart_adapter.MCXA156"/>
+    <definition extID="component.lists.MCXA156"/>
+    <definition extID="platform.utilities.misc_utilities.MCXA156"/>
+    <definition extID="device.MCXA156_CMSIS.MCXA156"/>
+    <definition extID="device.MCXA156_startup.MCXA156"/>
+    <definition extID="utility.debug_console_lite.MCXA156"/>
+    <definition extID="platform.utilities.assert_lite.MCXA156"/>
+    <definition extID="platform.drivers.mcx_spc.MCXA156"/>
+    <definition extID="platform.drivers.inputmux_connections.MCXA156"/>
+    <definition extID="CMSIS_Include_core_cm.MCXA156"/>
+    <definition extID="device.MCXA156_system.MCXA156"/>
+    <definition extID="utility.str.MCXA156"/>
+    <definition extID="armgcc"/>
+    <definition extID="mcuxpresso"/>
+    <definition extID="com.nxp.mcuxpresso"/>
+  </externalDefinitions>
+  <example id="frdmmcxa156_flexio_uart_interrupt_transfer" name="flexio_uart_interrupt_transfer" device_core="cm33_MCXA156" dependency="platform.drivers.flexio.MCXA156 platform.drivers.flexio_uart.MCXA156 platform.drivers.common.MCXA156 platform.drivers.clock.MCXA156 platform.drivers.inputmux.MCXA156 platform.drivers.port.MCXA156 platform.drivers.reset.MCXA156 platform.drivers.lpuart.MCXA156 platform.drivers.gpio.MCXA156 component.lpuart_adapter.MCXA156 component.lists.MCXA156 platform.utilities.misc_utilities.MCXA156 device.MCXA156_CMSIS.MCXA156 device.MCXA156_startup.MCXA156 utility.debug_console_lite.MCXA156 platform.utilities.assert_lite.MCXA156 platform.drivers.mcx_spc.MCXA156 platform.drivers.inputmux_connections.MCXA156 CMSIS_Include_core_cm.MCXA156 device.MCXA156_system.MCXA156 utility.str.MCXA156" category="driver_examples/flexio">
+    <projects>
+      <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
+    </projects>
+    <toolchainSettings>
+      <toolchainSetting id_refs="com.nxp.mcuxpresso">
+        <buildSteps>
+          <postBuildStep>arm-none-eabi-size '${BuildArtifactFileName}'; arm-none-eabi-objcopy -v -O binary '${BuildArtifactFileName}' '${BuildArtifactFileBaseName}.bin'</postBuildStep>
+        </buildSteps>
+        <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
+          <value>DEBUG</value>
+          <value>CPU_MCXA156VLL</value>
+          <value>MCUXPRESSO_SDK</value>
+        </option>
+        <option id="com.crt.advproject.gas.fpu" type="enum">
+          <value>com.crt.advproject.gas.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="com.crt.advproject.gcc.fpu" type="enum">
+          <value>com.crt.advproject.gcc.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="gnu.c.compiler.option.optimization.flags" type="string">
+          <value>-fno-common</value>
+        </option>
+        <option id="com.crt.advproject.c.misc.dialect" type="enum">
+          <value>com.crt.advproject.misc.dialect.gnu99</value>
+        </option>
+        <option id="gnu.c.compiler.option.misc.other" type="string">
+          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.toerrors" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="com.crt.advproject.link.fpu" type="enum">
+          <value>com.crt.advproject.link.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="gnu.c.link.option.nostdlibs" type="boolean">
+          <value>true</value>
+        </option>
+        <option id="gnu.c.link.option.other" type="stringList">
+          <value>-no-warn-rwx-segments</value>
+        </option>
+      </toolchainSetting>
+    </toolchainSettings>
+    <include_paths>
+      <include_path path="." project_relative_path="board" type="c_include"/>
+      <include_path path="../../../../../../core/boards/frdmmcxa156" project_relative_path="board" type="c_include"/>
+      <include_path path="../../../../../../core/boards/frdmmcxa156" project_relative_path="." type="c_include"/>
+    </include_paths>
+    <source path="armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">
+      <files mask="build_all.bat"/>
+      <files mask="build_all.sh"/>
+      <files mask="clean.bat"/>
+      <files mask="clean.sh"/>
+      <files mask="CMakeLists.txt"/>
+      <files mask="flags.cmake"/>
+      <files mask="config.cmake"/>
+      <files mask="build_debug.bat"/>
+      <files mask="build_debug.sh"/>
+      <files mask="build_release.bat"/>
+      <files mask="build_release.sh"/>
+    </source>
+    <source path="../../../../../../core/devices/MCXA156" project_relative_path="./" type="workspace" toolchain="armgcc">
+      <files mask="all_lib_device.cmake"/>
+    </source>
+    <source path="." project_relative_path="source" type="src">
+      <files mask="flexio_uart_interrupt_transfer.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="pin_mux.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="pin_mux.h"/>
+    </source>
+    <source path="../../../../../../core/boards/frdmmcxa156" project_relative_path="board" type="src">
+      <files mask="board.c"/>
+      <files mask="clock_config.c"/>
+    </source>
+    <source path="../../../../../../core/boards/frdmmcxa156" project_relative_path="board" type="c_include">
+      <files mask="board.h"/>
+      <files mask="clock_config.h"/>
+    </source>
+    <source path="." project_relative_path="doc" type="doc" toolchain="mcuxpresso armgcc">
+      <files mask="readme.md"/>
+    </source>
+    <source path="armgcc" project_relative_path="MCXA156/gcc" type="linker" toolchain="armgcc">
+      <files mask="MCXA156_flash.ld"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="board.c"/>
+      <files mask="clock_config.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="board.h"/>
+      <files mask="clock_config.h"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="pin_mux.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="pin_mux.h"/>
+    </source>
+  </example>
+</ksdk:examples>
