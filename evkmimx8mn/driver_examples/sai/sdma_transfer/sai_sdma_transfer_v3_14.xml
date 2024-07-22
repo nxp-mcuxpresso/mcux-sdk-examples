@@ -19,6 +19,7 @@
     <definition extID="component.lists.MIMX8MN6"/>
     <definition extID="device.MIMX8MN6_startup.MIMX8MN6"/>
     <definition extID="platform.utilities.misc_utilities.MIMX8MN6"/>
+    <definition extID="utility.str.MIMX8MN6"/>
     <definition extID="platform.drivers.memory.MIMX8MN6"/>
     <definition extID="CMSIS_Include_core_cm.MIMX8MN6"/>
     <definition extID="device.MIMX8MN6_system.MIMX8MN6"/>
@@ -26,7 +27,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="evkmimx8mn_sai_sdma_transfer" name="sai_sdma_transfer" dependency="driver.wm8524.MIMX8MN6 platform.drivers.igpio.MIMX8MN6 platform.drivers.sai_sdma.MIMX8MN6 component.wm8524_adapter.MIMX8MN6 driver.codec.MIMX8MN6 utility.debug_console_lite.MIMX8MN6 platform.utilities.assert_lite.MIMX8MN6 platform.drivers.clock.MIMX8MN6 platform.drivers.sai.MIMX8MN6 platform.drivers.sdma.MIMX8MN6 platform.drivers.common.MIMX8MN6 platform.drivers.rdc.MIMX8MN6 device.MIMX8MN6_CMSIS.MIMX8MN6 component.iuart_adapter.MIMX8MN6 platform.drivers.iuart.MIMX8MN6 component.lists.MIMX8MN6 device.MIMX8MN6_startup.MIMX8MN6 platform.utilities.misc_utilities.MIMX8MN6 platform.drivers.memory.MIMX8MN6 CMSIS_Include_core_cm.MIMX8MN6 device.MIMX8MN6_system.MIMX8MN6" category="driver_examples/sai">
+  <example id="evkmimx8mn_sai_sdma_transfer" name="sai_sdma_transfer" dependency="driver.wm8524.MIMX8MN6 platform.drivers.igpio.MIMX8MN6 platform.drivers.sai_sdma.MIMX8MN6 component.wm8524_adapter.MIMX8MN6 driver.codec.MIMX8MN6 utility.debug_console_lite.MIMX8MN6 platform.utilities.assert_lite.MIMX8MN6 platform.drivers.clock.MIMX8MN6 platform.drivers.sai.MIMX8MN6 platform.drivers.sdma.MIMX8MN6 platform.drivers.common.MIMX8MN6 platform.drivers.rdc.MIMX8MN6 device.MIMX8MN6_CMSIS.MIMX8MN6 component.iuart_adapter.MIMX8MN6 platform.drivers.iuart.MIMX8MN6 component.lists.MIMX8MN6 device.MIMX8MN6_startup.MIMX8MN6 platform.utilities.misc_utilities.MIMX8MN6 utility.str.MIMX8MN6 platform.drivers.memory.MIMX8MN6 CMSIS_Include_core_cm.MIMX8MN6 device.MIMX8MN6_system.MIMX8MN6" category="driver_examples/sai">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -53,7 +54,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

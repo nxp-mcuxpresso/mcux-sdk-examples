@@ -11,17 +11,14 @@
 #include "fsl_device_registers.h"
 #include "fsl_debug_console.h"
 
-#include "fsl_dma.h"
-#include "fsl_i2s_dma.h"
-#include "fsl_dmic.h"
-#include "fsl_dmic_dma.h"
-
-#include "pin_mux.h"
 #include "board_fusionf1.h"
 #include "fsl_common.h"
 #include "fsl_gpio.h"
 #include "fsl_inputmux.h"
-#include "fsl_i2s.h"
+#include "pin_mux.h"
+#include "fsl_dmic.h"
+#include "fsl_i2s_dma.h"
+#include "fsl_dmic_dma.h"
 #include "dsp_config.h"
 /*******************************************************************************
  * Definitions
@@ -52,9 +49,12 @@
 /*******************************************************************************
  * Variables
  ******************************************************************************/
-static i2s_config_t tx_config;
-static uint32_t volatile s_writeIndex = 0U;
+extern int NonCacheable_start, NonCacheable_end;
+extern int NonCacheable_init_start, NonCacheable_init_end;
+static uint32_t volatile s_writeIndex = 0;
 static uint32_t volatile s_emptyBlock = BUFFER_NUM;
+
+static i2s_config_t tx_config;
 static dma_handle_t s_i2sTxDmaHandle;
 static i2s_dma_handle_t s_i2sTxHandle;
 static dmic_dma_handle_t s_dmicDmaHandle;
@@ -86,8 +86,15 @@ static dmic_transfer_t s_receiveXfer[2U] = {
         .linkTransfer           = &s_receiveXfer[0],
     },
 };
+
 /*******************************************************************************
  * Prototypes
+ ******************************************************************************/
+void BOARD_LoopbackFunc(void);
+
+
+/*******************************************************************************
+ * Code
  ******************************************************************************/
 void dmic_Callback(DMIC_Type *base, dmic_dma_handle_t *handle, status_t status, void *userData)
 {
@@ -105,9 +112,6 @@ void i2s_Callback(I2S_Type *base, i2s_dma_handle_t *handle, status_t completionS
     }
 }
 
-/*******************************************************************************
- * Code
- ******************************************************************************/
 static void XOS_Init(void)
 {
     xos_set_clock_freq(XOS_CLOCK_FREQ);
@@ -201,44 +205,9 @@ static void BOARD_Init_I2S(void)
 }
 
 
-/*!
- * @brief Main function
- */
-int main(void)
+void BOARD_LoopbackFunc()
 {
     i2s_transfer_t i2sTxTransfer;
-
-    XOS_Init();
-    BOARD_InitPins();
-    BOARD_InitClock();
-    BOARD_InitDebugConsole();
-
-    /* Map DMA IRQ handler to INPUTMUX selection DSP_INT0_SEL18
-     * EXTINT19 = DSP INT 23 */
-    xos_register_interrupt_handler(XCHAL_EXTINT19_NUM, (XosIntFunc *)DMA_IRQHandle, DMA1);
-    xos_interrupt_enable(XCHAL_EXTINT19_NUM);
-
-    /* Initialize DMA. */
-    BOARD_Init_DMA();
-
-    /* Initialize DMIC */
-    BOARD_Init_DMIC();
-
-    /* Initialize I2S */
-    BOARD_Init_I2S();
-
-    xos_start_main("main", 7, 0);
-
-    PRINTF("[DSP Main] DSP starts on core '%s'\r\n", XCHAL_CORE_ID);
-
-    DMA_CreateHandle(&s_i2sTxDmaHandle, DEMO_DMA, DEMO_I2S_TX_CHANNEL);
-    DMA_CreateHandle(&s_dmicRxDmaHandle, DEMO_DMA, DEMO_DMIC_RX_CHANNEL);
-
-    I2S_TxTransferCreateHandleDMA(DEMO_I2S_TX, &s_i2sTxHandle, &s_i2sTxDmaHandle, i2s_Callback, NULL);
-    DMIC_TransferCreateHandleDMA(DMIC0, &s_dmicDmaHandle, dmic_Callback, NULL, &s_dmicRxDmaHandle);
-    DMIC_InstallDMADescriptorMemory(&s_dmicDmaHandle, s_dmaDescriptorPingpong, 2U);
-    DMIC_TransferReceiveDMA(DMIC0, &s_dmicDmaHandle, s_receiveXfer, DEMO_DMIC_CHANNEL);
-
     PRINTF("[DSP Main] DMIC->DMA->I2S->CODEC running \r\n\r\n");
     while (1)
     {
@@ -255,4 +224,43 @@ int main(void)
             }
         }
     }
+}
+
+/*!
+ * @brief Main function
+ */
+int main(void)
+{
+    xos_start_main("main", 7, 0);
+
+    XOS_Init();
+    BOARD_InitBootPins();
+    BOARD_InitDebugConsole();
+    BOARD_InitClock();
+
+    /* Map DMA IRQ handler to INPUTMUX selection DSP_INT0_SEL18
+     * EXTINT19 = DSP INT 23 */
+    xos_register_interrupt_handler(XCHAL_EXTINT19_NUM, (XosIntFunc *)DMA_IRQHandle, DMA1);
+    xos_interrupt_enable(XCHAL_EXTINT19_NUM);
+
+    /* Initialize DMA. */
+    BOARD_Init_DMA();
+
+    /* Initialize DMIC */
+    BOARD_Init_DMIC();
+
+    /* Initialize I2S */
+    BOARD_Init_I2S();
+
+    DMA_CreateHandle(&s_i2sTxDmaHandle, DEMO_DMA, DEMO_I2S_TX_CHANNEL);
+    DMA_CreateHandle(&s_dmicRxDmaHandle, DEMO_DMA, DEMO_DMIC_RX_CHANNEL);
+
+    I2S_TxTransferCreateHandleDMA(DEMO_I2S_TX, &s_i2sTxHandle, &s_i2sTxDmaHandle, i2s_Callback, NULL);
+    DMIC_TransferCreateHandleDMA(DMIC0, &s_dmicDmaHandle, dmic_Callback, NULL, &s_dmicRxDmaHandle);
+    DMIC_InstallDMADescriptorMemory(&s_dmicDmaHandle, s_dmaDescriptorPingpong, 2U);
+    DMIC_TransferReceiveDMA(DMIC0, &s_dmicDmaHandle, s_receiveXfer, DEMO_DMIC_CHANNEL);
+
+    PRINTF("[DSP Main] DSP starts on core '%s'\r\n", XCHAL_CORE_ID);
+
+    BOARD_LoopbackFunc();
 }

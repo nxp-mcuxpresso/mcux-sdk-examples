@@ -1,7 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2017, 2020 NXP
- * All rights reserved.
+ * Copyright 2016-2017, 2020, 2023 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -20,6 +19,9 @@
 #define DEMO_PINT_PIN_INT1_SRC kINPUTMUX_GpioPort0Pin10ToPintsel /* SW2 */
 #define DEMO_PINT_PIN_INT2_SRC kINPUTMUX_GpioPort0Pin3ToPintsel
 #define DEMO_PIN_NUM           3
+#ifndef EXAMPLE_PINT_BASE
+#define EXAMPLE_PINT_BASE PINT
+#endif
 
 /*******************************************************************************
  * Prototypes
@@ -66,25 +68,25 @@ int main(void)
     PRINTF("\f\r\nPINT Pin interrupt example\r\n");
 
     /* Initialize PINT */
-    PINT_Init(PINT);
+    PINT_Init(EXAMPLE_PINT_BASE);
 
     /* Setup Pin Interrupt 0 for rising edge */
-    PINT_PinInterruptConfig(PINT, kPINT_PinInt0, kPINT_PinIntEnableRiseEdge, pint_intr_callback);
+    PINT_PinInterruptConfig(EXAMPLE_PINT_BASE, kPINT_PinInt0, kPINT_PinIntEnableRiseEdge, pint_intr_callback);
     /* Enable callbacks for PINT0 by Index */
-    PINT_EnableCallbackByIndex(PINT, kPINT_PinInt0);
+    PINT_EnableCallbackByIndex(EXAMPLE_PINT_BASE, kPINT_PinInt0);
 
 #if (DEMO_PIN_NUM > 1U)
     /* Setup Pin Interrupt 1 for falling edge */
-    PINT_PinInterruptConfig(PINT, kPINT_PinInt1, kPINT_PinIntEnableFallEdge, pint_intr_callback);
+    PINT_PinInterruptConfig(EXAMPLE_PINT_BASE, kPINT_PinInt1, kPINT_PinIntEnableFallEdge, pint_intr_callback);
     /* Enable callbacks for PINT1 by Index */
-    PINT_EnableCallbackByIndex(PINT, kPINT_PinInt1);
+    PINT_EnableCallbackByIndex(EXAMPLE_PINT_BASE, kPINT_PinInt1);
 #endif
 
 #if (DEMO_PIN_NUM > 2U)
     /* Setup Pin Interrupt 2 for falling edge */
-    PINT_PinInterruptConfig(PINT, kPINT_PinInt2, kPINT_PinIntEnableFallEdge, pint_intr_callback);
+    PINT_PinInterruptConfig(EXAMPLE_PINT_BASE, kPINT_PinInt2, kPINT_PinIntEnableFallEdge, pint_intr_callback);
     /* Enable callbacks for PINT2 by Index */
-    PINT_EnableCallbackByIndex(PINT, kPINT_PinInt2);
+    PINT_EnableCallbackByIndex(EXAMPLE_PINT_BASE, kPINT_PinInt2);
 #endif
 
     PRINTF("\r\nPINT Pin Interrupt events are configured\r\n");

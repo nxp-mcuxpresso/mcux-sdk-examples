@@ -31,6 +31,7 @@
     <definition extID="platform.utilities.misc_utilities.MIMXRT685S"/>
     <definition extID="CMSIS_Driver_Include.USART.MIMXRT685S"/>
     <definition extID="RTE_Device.MIMXRT685S"/>
+    <definition extID="utility.str.MIMXRT685S"/>
     <definition extID="middleware.multicore.erpc.common.MIMXRT685S"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT685S"/>
     <definition extID="armgcc"/>
@@ -39,7 +40,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt685_erpc_server_matrix_multiply_uart" name="erpc_server_matrix_multiply_uart" device_core="cm33_MIMXRT685S" dependency="platform.drivers.flexcomm_usart.MIMXRT685S platform.drivers.lpc_dma.MIMXRT685S platform.drivers.flexcomm_usart_dma.MIMXRT685S platform.drivers.flexcomm_usart_cmsis.MIMXRT685S utility.debug_console_lite.MIMXRT685S platform.utilities.assert_lite.MIMXRT685S middleware.multicore.erpc.eRPC_server.MIMXRT685S middleware.multicore.erpc.eRPC_uart_cmsis_transport.MIMXRT685S middleware.multicore.erpc.eRPC_port_stdlib.MIMXRT685S middleware.multicore.erpc.doc.MIMXRT685S middleware.multicore.erpc_common_multiprocessor.MIMXRT685S middleware.multicore.erpc_common_multiprocessor_matrix_multiply_server.MIMXRT685S platform.drivers.clock.MIMXRT685S platform.drivers.common.MIMXRT685S device.MIMXRT685S_CMSIS.MIMXRT685S component.usart_adapter.MIMXRT685S platform.drivers.power.MIMXRT685S platform.drivers.flash_config.evkmimxrt685.MIMXRT685S platform.drivers.flexspi.MIMXRT685S platform.drivers.cache_cache64.MIMXRT685S component.lists.MIMXRT685S device.MIMXRT685S_startup.MIMXRT685S platform.drivers.flexcomm.MIMXRT685S platform.drivers.lpc_iopctl.MIMXRT685S platform.drivers.lpc_gpio.MIMXRT685S platform.drivers.reset.MIMXRT685S platform.utilities.misc_utilities.MIMXRT685S CMSIS_Driver_Include.USART.MIMXRT685S RTE_Device.MIMXRT685S middleware.multicore.erpc.common.MIMXRT685S CMSIS_Include_core_cm.MIMXRT685S" category="multiprocessor_examples">
+  <example id="evkmimxrt685_erpc_server_matrix_multiply_uart" name="erpc_server_matrix_multiply_uart" device_core="cm33_MIMXRT685S" dependency="platform.drivers.flexcomm_usart.MIMXRT685S platform.drivers.lpc_dma.MIMXRT685S platform.drivers.flexcomm_usart_dma.MIMXRT685S platform.drivers.flexcomm_usart_cmsis.MIMXRT685S utility.debug_console_lite.MIMXRT685S platform.utilities.assert_lite.MIMXRT685S middleware.multicore.erpc.eRPC_server.MIMXRT685S middleware.multicore.erpc.eRPC_uart_cmsis_transport.MIMXRT685S middleware.multicore.erpc.eRPC_port_stdlib.MIMXRT685S middleware.multicore.erpc.doc.MIMXRT685S middleware.multicore.erpc_common_multiprocessor.MIMXRT685S middleware.multicore.erpc_common_multiprocessor_matrix_multiply_server.MIMXRT685S platform.drivers.clock.MIMXRT685S platform.drivers.common.MIMXRT685S device.MIMXRT685S_CMSIS.MIMXRT685S component.usart_adapter.MIMXRT685S platform.drivers.power.MIMXRT685S platform.drivers.flash_config.evkmimxrt685.MIMXRT685S platform.drivers.flexspi.MIMXRT685S platform.drivers.cache_cache64.MIMXRT685S component.lists.MIMXRT685S device.MIMXRT685S_startup.MIMXRT685S platform.drivers.flexcomm.MIMXRT685S platform.drivers.lpc_iopctl.MIMXRT685S platform.drivers.lpc_gpio.MIMXRT685S platform.drivers.reset.MIMXRT685S platform.utilities.misc_utilities.MIMXRT685S CMSIS_Driver_Include.USART.MIMXRT685S RTE_Device.MIMXRT685S utility.str.MIMXRT685S middleware.multicore.erpc.common.MIMXRT685S CMSIS_Include_core_cm.MIMXRT685S" category="multiprocessor_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.ccnature"/>
     </projects>
@@ -72,7 +73,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="com.crt.advproject.cpp.fpu" type="enum">
           <value>com.crt.advproject.cpp.fpu.fpv5sp.hard</value>
@@ -84,7 +85,7 @@
           <value>com.crt.advproject.misc.dialect.gnupp11</value>
         </option>
         <option id="gnu.cpp.compiler.option.other.other" type="string">
-          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin -fno-rtti -fno-exceptions</value>
+          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -fno-builtin -fno-rtti -fno-exceptions</value>
         </option>
         <option id="gnu.cpp.compiler.option.warnings.toerrors" type="boolean">
           <value>false</value>

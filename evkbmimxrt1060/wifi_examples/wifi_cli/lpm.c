@@ -6,12 +6,13 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-#ifdef CONFIG_HOST_SLEEP
+#include "host_sleep.h"
+
+#if CONFIG_HOST_SLEEP
 
 #include "lpm.h"
 #include "fsl_gpc.h"
 #include "fsl_dcdc.h"
-#include "host_sleep.h"
 #include "specific.h"
 
 /*******************************************************************************

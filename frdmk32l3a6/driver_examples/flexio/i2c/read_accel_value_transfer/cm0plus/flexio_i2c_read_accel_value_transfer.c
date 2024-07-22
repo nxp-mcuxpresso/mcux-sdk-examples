@@ -86,13 +86,13 @@ uint8_t g_whoami_reg_addr[SENSOR_MODEL_NUMBERS] = {ACCEL_WHOAMI_REG, ACCEL_WHOAM
  * FXOS8700(0x1c, 0x1d, 0x1e, 0x1f),
  * MMA8451(0x1c, 0x1d, 0x1e, 0x1f ),
  * LSM6SDO(0x6a, 0x6b).
- * FXL8974(0x18).
+ * FXL8974(0x18, 0x19).
  */
 const uint8_t g_accel_addr[SENSOR_MODEL_NUMBERS][4] = {
     {0x1CU, 0x1DU, 0x1EU, 0x1FU}, /* FXOS8700 */
     {0x1CU, 0x1DU, 0x1EU, 0x1FU}, /* MMA8451 */
     {0x6AU, 0x6BU, 0x00U, 0x00U}, /* LSM6SDO */
-    {0x18U, 0x00U, 0x00U, 0x00U}  /* FXL8974 */
+    {0x18U, 0x19U, 0x00U, 0x00U}  /* FXL8974 */
 };
 
 /* Each entry in a regWriteList is composed of: register address, value to write, bit-mask to apply to write */

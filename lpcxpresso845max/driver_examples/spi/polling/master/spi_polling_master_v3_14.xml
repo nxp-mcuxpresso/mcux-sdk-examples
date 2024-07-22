@@ -18,6 +18,7 @@
     <definition extID="platform.drivers.lpc_iocon_lite.LPC845"/>
     <definition extID="platform.drivers.inputmux_connections.LPC845"/>
     <definition extID="platform.utilities.misc_utilities.LPC845"/>
+    <definition extID="utility.str.LPC845"/>
     <definition extID="platform.drivers.reset.LPC845"/>
     <definition extID="platform.drivers.swm_connections.LPC845"/>
     <definition extID="platform.drivers.syscon_connections.LPC845"/>
@@ -27,7 +28,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="lpcxpresso845max_spi_polling_master" name="spi_polling_master" dependency="utility.debug_console_lite.LPC845 platform.utilities.assert_lite.LPC845 platform.drivers.lpc_minispi.LPC845 platform.drivers.common.LPC845 platform.drivers.clock.LPC845 platform.drivers.power_no_lib.LPC845 platform.drivers.lpc_gpio.LPC845 platform.drivers.inputmux.LPC845 platform.drivers.swm.LPC845 platform.drivers.syscon.LPC845 device.LPC845_CMSIS.LPC845 component.miniusart_adapter.LPC845 device.LPC845_startup.LPC845 platform.drivers.lpc_miniusart.LPC845 platform.drivers.lpc_iocon_lite.LPC845 platform.drivers.inputmux_connections.LPC845 platform.utilities.misc_utilities.LPC845 platform.drivers.reset.LPC845 platform.drivers.swm_connections.LPC845 platform.drivers.syscon_connections.LPC845 CMSIS_Include_core_cm.LPC845 device.LPC845_system.LPC845" category="driver_examples/spi">
+  <example id="lpcxpresso845max_spi_polling_master" name="spi_polling_master" dependency="utility.debug_console_lite.LPC845 platform.utilities.assert_lite.LPC845 platform.drivers.lpc_minispi.LPC845 platform.drivers.common.LPC845 platform.drivers.clock.LPC845 platform.drivers.power_no_lib.LPC845 platform.drivers.lpc_gpio.LPC845 platform.drivers.inputmux.LPC845 platform.drivers.swm.LPC845 platform.drivers.syscon.LPC845 device.LPC845_CMSIS.LPC845 component.miniusart_adapter.LPC845 device.LPC845_startup.LPC845 platform.drivers.lpc_miniusart.LPC845 platform.drivers.lpc_iocon_lite.LPC845 platform.drivers.inputmux_connections.LPC845 platform.utilities.misc_utilities.LPC845 utility.str.LPC845 platform.drivers.reset.LPC845 platform.drivers.swm_connections.LPC845 platform.drivers.syscon_connections.LPC845 CMSIS_Include_core_cm.LPC845 device.LPC845_system.LPC845" category="driver_examples/spi">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -50,7 +51,7 @@
           <value>com.crt.advproject.gcc.fpu.none</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

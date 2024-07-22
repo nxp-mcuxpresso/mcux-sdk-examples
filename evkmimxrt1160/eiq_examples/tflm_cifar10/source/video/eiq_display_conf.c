@@ -61,6 +61,8 @@
 #define DEMO_VFP 16
 #define DEMO_VBP 14
 
+#else
+#error Unsupported display panel type!
 #endif
 
 #if (DEMO_DISPLAY_CONTROLLER == DEMO_DISPLAY_CONTROLLER_LCDIFV2)

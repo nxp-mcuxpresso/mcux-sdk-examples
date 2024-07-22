@@ -336,10 +336,9 @@ void APP_SDCARD_Task(void *param)
         {
             app->sdcardInsertedPrev = app->sdcardInserted;
 
-            SD_SetCardPower(&g_sd, false);
-
             if (app->sdcardInserted)
             {
+                SD_SetCardPower(&g_sd, false);
                 /* power on the card */
                 SD_SetCardPower(&g_sd, true);
                 if (f_mount(&app->fileSystem, driverNumberBuffer, 0U))
@@ -359,9 +358,10 @@ void APP_SDCARD_Task(void *param)
 
                 PRINTF("[APP_SDCARD_Task] SD card drive mounted\r\n");
 
-                xSemaphoreGive(app->sdcardSem);
-
-                (void)list_files(true);
+            }
+            else
+            {
+                PRINTF("[APP_SDCARD_Task] SD card removed\r\n");
             }
         }
     }

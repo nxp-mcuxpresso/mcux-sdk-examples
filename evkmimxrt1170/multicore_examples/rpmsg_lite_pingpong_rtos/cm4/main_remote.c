@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2020 NXP
+ * Copyright 2016-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -101,7 +101,7 @@ static void app_nameservice_isr_cb(uint32_t new_ept, const char *new_ept_name, u
 
 static void app_task(void *param)
 {
-    volatile uint32_t remote_addr;
+    volatile uint32_t remote_addr = 0U;
     volatile rpmsg_ns_handle ns_handle;
 
     /* Print the initial banner */

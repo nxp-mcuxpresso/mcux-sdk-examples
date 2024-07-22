@@ -13,7 +13,6 @@
     <definition extID="driver.wm8904.MIMXRT595S"/>
     <definition extID="platform.drivers.clock.MIMXRT595S"/>
     <definition extID="platform.drivers.flexcomm_i2c.MIMXRT595S"/>
-    <definition extID="utility.shell.MIMXRT595S"/>
     <definition extID="platform.drivers.lpc_gpio.MIMXRT595S"/>
     <definition extID="platform.drivers.common.MIMXRT595S"/>
     <definition extID="platform.drivers.power.MIMXRT595S"/>
@@ -34,8 +33,8 @@
     <definition extID="platform.drivers.lpc_iopctl.MIMXRT595S"/>
     <definition extID="platform.utilities.misc_utilities.MIMXRT595S"/>
     <definition extID="platform.drivers.inputmux_connections.MIMXRT595S"/>
-    <definition extID="utility.str.MIMXRT595S"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT595S"/>
+    <definition extID="utility.str.MIMXRT595S"/>
     <definition extID="platform.drivers.iap.MIMXRT595S"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
@@ -43,7 +42,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt595_dsp_audio_demo_bm_cm33" name="dsp_audio_demo_bm_cm33" device_core="cm33_MIMXRT595S" dependency="platform.drivers.dsp.MIMXRT595S platform.drivers.inputmux.MIMXRT595S driver.pca9420.MIMXRT595S component.wm8904_adapter.MIMXRT595S driver.codec.MIMXRT595S component.i3c_adapter.MIMXRT595S component.codec_i2c.MIMXRT595S platform.drivers.i3c.MIMXRT595S driver.wm8904.MIMXRT595S platform.drivers.clock.MIMXRT595S platform.drivers.flexcomm_i2c.MIMXRT595S utility.shell.MIMXRT595S platform.drivers.lpc_gpio.MIMXRT595S platform.drivers.common.MIMXRT595S platform.drivers.power.MIMXRT595S platform.drivers.reset.MIMXRT595S device.MIMXRT595S_CMSIS.MIMXRT595S utility.debug_console.MIMXRT595S platform.utilities.assert.MIMXRT595S component.usart_adapter.MIMXRT595S platform.drivers.flexspi.MIMXRT595S platform.drivers.cache_cache64.MIMXRT595S component.serial_manager_uart.MIMXRT595S component.serial_manager.MIMXRT595S platform.drivers.flexcomm_usart.MIMXRT595S component.lists.MIMXRT595S platform.drivers.flash_config.evkmimxrt595.MIMXRT595S device.MIMXRT595S_startup.MIMXRT595S platform.drivers.flexcomm.MIMXRT595S platform.drivers.lpc_iopctl.MIMXRT595S platform.utilities.misc_utilities.MIMXRT595S platform.drivers.inputmux_connections.MIMXRT595S utility.str.MIMXRT595S CMSIS_Include_core_cm.MIMXRT595S platform.drivers.iap.MIMXRT595S" category="dsp_examples">
+  <example id="evkmimxrt595_dsp_audio_demo_bm_cm33" name="dsp_audio_demo_bm_cm33" device_core="cm33_MIMXRT595S" dependency="platform.drivers.dsp.MIMXRT595S platform.drivers.inputmux.MIMXRT595S driver.pca9420.MIMXRT595S component.wm8904_adapter.MIMXRT595S driver.codec.MIMXRT595S component.i3c_adapter.MIMXRT595S component.codec_i2c.MIMXRT595S platform.drivers.i3c.MIMXRT595S driver.wm8904.MIMXRT595S platform.drivers.clock.MIMXRT595S platform.drivers.flexcomm_i2c.MIMXRT595S platform.drivers.lpc_gpio.MIMXRT595S platform.drivers.common.MIMXRT595S platform.drivers.power.MIMXRT595S platform.drivers.reset.MIMXRT595S device.MIMXRT595S_CMSIS.MIMXRT595S utility.debug_console.MIMXRT595S platform.utilities.assert.MIMXRT595S component.usart_adapter.MIMXRT595S platform.drivers.flexspi.MIMXRT595S platform.drivers.cache_cache64.MIMXRT595S component.serial_manager_uart.MIMXRT595S component.serial_manager.MIMXRT595S platform.drivers.flexcomm_usart.MIMXRT595S component.lists.MIMXRT595S platform.drivers.flash_config.evkmimxrt595.MIMXRT595S device.MIMXRT595S_startup.MIMXRT595S platform.drivers.flexcomm.MIMXRT595S platform.drivers.lpc_iopctl.MIMXRT595S platform.utilities.misc_utilities.MIMXRT595S platform.drivers.inputmux_connections.MIMXRT595S CMSIS_Include_core_cm.MIMXRT595S utility.str.MIMXRT595S platform.drivers.iap.MIMXRT595S" category="dsp_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -65,7 +64,6 @@
           <value>SDK_I3C_BASED_COMPONENT_USED=1</value>
           <value>BOARD_USE_CODEC=1</value>
           <value>CODEC_WM8904_ENABLE</value>
-          <value>DEBUG_CONSOLE_RX_ENABLE=0</value>
           <value>SERIAL_PORT_TYPE_UART=1</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
@@ -81,7 +79,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

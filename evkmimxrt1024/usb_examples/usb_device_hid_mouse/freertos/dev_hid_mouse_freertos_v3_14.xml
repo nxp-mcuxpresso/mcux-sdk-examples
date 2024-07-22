@@ -35,13 +35,14 @@
     <definition extID="middleware.freertos-kernel.extension.MIMXRT1024"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT1024"/>
     <definition extID="device.MIMXRT1024_system.MIMXRT1024"/>
+    <definition extID="utility.str.MIMXRT1024"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt1024_dev_hid_mouse_freertos" name="dev_hid_mouse_freertos" dependency="component.pit_adapter.MIMXRT1024 platform.drivers.cache_armv7_m7.MIMXRT1024 middleware.usb.device_controller_ehci.MIMXRT1024 middleware.usb.phy.MIMXRT1024 middleware.usb.phydcd.MIMXRT1024 middleware.freertos-kernel.MIMXRT1024 middleware.freertos-kernel.heap_4.MIMXRT1024 component.lists.MIMXRT1024 component.lpuart_adapter.MIMXRT1024 component.serial_manager_uart.MIMXRT1024 component.serial_manager.MIMXRT1024 platform.drivers.lpuart.MIMXRT1024 device.MIMXRT1024_CMSIS.MIMXRT1024 device.MIMXRT1024_startup.MIMXRT1024 platform.drivers.clock.MIMXRT1024 platform.drivers.common.MIMXRT1024 platform.drivers.igpio.MIMXRT1024 platform.drivers.iomuxc.MIMXRT1024 platform.drivers.xip_board.evkmimxrt1024.MIMXRT1024 platform.drivers.xip_device.MIMXRT1024 middleware.usb.device.controller.driver.MIMXRT1024 platform.utilities.assert.MIMXRT1024 utility.debug_console.MIMXRT1024 platform.utilities.misc_utilities.MIMXRT1024 platform.drivers.pit.MIMXRT1024 middleware.usb.device.ehci_config_header.MIMXRT1024 middleware.usb.device.common_header.MIMXRT1024 component.osa.MIMXRT1024 middleware.usb.common_header.MIMXRT1024 middleware.usb.phydcd_config_header.MIMXRT1024 middleware.freertos-kernel.template.MIMXRT1024 middleware.freertos-kernel.extension.MIMXRT1024 CMSIS_Include_core_cm.MIMXRT1024 device.MIMXRT1024_system.MIMXRT1024" category="usb_examples">
+  <example id="evkmimxrt1024_dev_hid_mouse_freertos" name="dev_hid_mouse_freertos" dependency="component.pit_adapter.MIMXRT1024 platform.drivers.cache_armv7_m7.MIMXRT1024 middleware.usb.device_controller_ehci.MIMXRT1024 middleware.usb.phy.MIMXRT1024 middleware.usb.phydcd.MIMXRT1024 middleware.freertos-kernel.MIMXRT1024 middleware.freertos-kernel.heap_4.MIMXRT1024 component.lists.MIMXRT1024 component.lpuart_adapter.MIMXRT1024 component.serial_manager_uart.MIMXRT1024 component.serial_manager.MIMXRT1024 platform.drivers.lpuart.MIMXRT1024 device.MIMXRT1024_CMSIS.MIMXRT1024 device.MIMXRT1024_startup.MIMXRT1024 platform.drivers.clock.MIMXRT1024 platform.drivers.common.MIMXRT1024 platform.drivers.igpio.MIMXRT1024 platform.drivers.iomuxc.MIMXRT1024 platform.drivers.xip_board.evkmimxrt1024.MIMXRT1024 platform.drivers.xip_device.MIMXRT1024 middleware.usb.device.controller.driver.MIMXRT1024 platform.utilities.assert.MIMXRT1024 utility.debug_console.MIMXRT1024 platform.utilities.misc_utilities.MIMXRT1024 platform.drivers.pit.MIMXRT1024 middleware.usb.device.ehci_config_header.MIMXRT1024 middleware.usb.device.common_header.MIMXRT1024 component.osa.MIMXRT1024 middleware.usb.common_header.MIMXRT1024 middleware.usb.phydcd_config_header.MIMXRT1024 middleware.freertos-kernel.template.MIMXRT1024 middleware.freertos-kernel.extension.MIMXRT1024 CMSIS_Include_core_cm.MIMXRT1024 device.MIMXRT1024_system.MIMXRT1024 utility.str.MIMXRT1024" category="usb_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -67,6 +68,7 @@
           <value>FSL_OSA_BM_TASK_ENABLE=0</value>
           <value>FSL_OSA_BM_TIMER_CONFIG=0</value>
           <value>MCUXPRESSO_SDK</value>
+          <value>TIMER_PORT_TYPE_PIT=1</value>
           <value>SDK_OS_FREE_RTOS</value>
           <value>SERIAL_PORT_TYPE_UART=1</value>
         </option>
@@ -83,7 +85,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

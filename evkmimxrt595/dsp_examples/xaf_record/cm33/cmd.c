@@ -27,6 +27,7 @@
 #include "VIT_Model_ja.h"
 #include "VIT_Model_ko.h"
 #include "VIT_Model_tr.h"
+#include "VIT_Model_pt.h"
 #endif
 /*${header:end}*/
 
@@ -197,6 +198,17 @@ static shell_status_t shellRecDMIC(shell_handle_t shellHandle, int32_t argc, cha
         msg.param[3] = (uint32_t)&VIT_Model_tr;
         msg.param[4] = (uint32_t)sizeof(VIT_Model_tr);
         PRINTF("[CM33 CMD] Setting VIT language to tr\r\n");
+    }
+    else if (strcmp(argv[1], "pt") == 0)
+    {
+        msg.param[3] = (uint32_t)&VIT_Model_pt;
+        msg.param[4] = (uint32_t)sizeof(VIT_Model_pt);
+        PRINTF("[CM33 CMD] Setting VIT language to pt\r\n");
+    }
+    else
+    {
+        PRINTF("[CM33 CMD] Wrong language selected.\r\n");
+        return kStatus_SHELL_Success;
     }
 #endif
 

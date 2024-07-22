@@ -60,6 +60,10 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../version.h"
 "${ProjDirPath}/../crypto_support.c"
 "${ProjDirPath}/../crypto_support.h"
+"${SdkRootDirPath}/core/boards/lpcxpresso55s69/board.c"
+"${SdkRootDirPath}/core/boards/lpcxpresso55s69/board.h"
+"${SdkRootDirPath}/core/boards/lpcxpresso55s69/clock_config.c"
+"${SdkRootDirPath}/core/boards/lpcxpresso55s69/clock_config.h"
 "${ProjDirPath}/../mcuboot_app_support.c"
 "${ProjDirPath}/../mcuboot_app_support.h"
 "${ProjDirPath}/../bootutil_port/board_specific/flash_partitioning.h"
@@ -69,21 +73,16 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../bootutil_port/mcuboot_config/mcuboot_logging.h"
 "${ProjDirPath}/../bootutil_port/flash_map.h"
 "${ProjDirPath}/../bootutil_port/sysflash/sysflash.h"
-"${ProjDirPath}/../bootutil_port/sbldef.h"
-"${SdkRootDirPath}/core/boards/lpcxpresso55s69/board.c"
-"${SdkRootDirPath}/core/boards/lpcxpresso55s69/board.h"
-"${SdkRootDirPath}/core/boards/lpcxpresso55s69/clock_config.c"
-"${SdkRootDirPath}/core/boards/lpcxpresso55s69/clock_config.h"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${SdkRootDirPath}/examples/lpcxpresso55s69/ota_examples/ota_mcuboot_sdcard
     ${ProjDirPath}/..
+    ${SdkRootDirPath}/core/boards/lpcxpresso55s69
     ${ProjDirPath}/../bootutil_port
     ${ProjDirPath}/../bootutil_port/mcuboot_config
     ${ProjDirPath}/../bootutil_port/sysflash
     ${ProjDirPath}/../bootutil_port/board_specific
-    ${SdkRootDirPath}/core/boards/lpcxpresso55s69
 )
 
 set_source_files_properties("${ProjDirPath}/../ffconf.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_fatfs_template_sd")

@@ -4,7 +4,7 @@
   <externalDefinitions>
     <definition extID="MKE17Z256VLL7"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK2150_frdmke17z_examples_manifest_v3_14" name="MCUXpressoSDK2150_frdmke17z_examples_manifest_v3_14" version="2.15.0" revision="2.15.0"/>
+  <ksdk id="MCUXpressoSDK216000_frdmke17z_examples_manifest_v3_14" name="MCUXpressoSDK216000_frdmke17z_examples_manifest_v3_14" version="2.16.000" revision="2.16.000"/>
   <boards>
     <board id="frdmke17z" name="FRDM-KE17Z" href="https://www.nxp.com/pip/FRDM-KE17Z" version="1.0.0" package="MKE17Z256VLL7">
       <examples>
@@ -528,7 +528,7 @@
             <files mask="freertos_generic_v3_14.xml"/>
           </external>
         </example>
-        <example id="frdmke17z_freertos_hello" name="freertos_hello" brief="The Hello World project is a simple demonstration program that uses the SDK UART drivere incombination with FreeRTOS. The purpose of this demo is to show how to use the debug console and toprovide a simple project for debugging and further development.The example application creates one task called hello_task. This task print &quot;Hello world.&quot; messagevia debug console utility and suspend itself." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="freertos_examples" path="examples/frdmke17z/freertos_examples/freertos_hello">
+        <example id="frdmke17z_freertos_hello" name="freertos_hello" brief="The Hello World project is a simple demonstration program that uses the SDK UART driver in combination with FreeRTOS. The purpose of this demo is to show how to use the debug console and toprovide a simple project for debugging and further development.The example application creates one task called hello_task. This task print &quot;Hello world.&quot; messagevia debug console utility and suspend itself." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="freertos_examples" path="examples/frdmke17z/freertos_examples/freertos_hello">
           <external path="freertos_examples/freertos_hello" type="xml">
             <files mask="freertos_hello_v3_14.xml"/>
           </external>
@@ -551,11 +551,6 @@
         <example id="frdmke17z_freertos_swtimer" name="freertos_swtimer" brief="This document explains the freertos_swtimer example. It shows usage of software timer and itscallback.The example application creates one software timer SwTimer. The timer's callback SwTimerCallback isperiodically executed and text &quot;Tick.&quot; is printed to terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="freertos_examples" path="examples/frdmke17z/freertos_examples/freertos_swtimer">
           <external path="freertos_examples/freertos_swtimer" type="xml">
             <files mask="freertos_swtimer_v3_14.xml"/>
-          </external>
-        </example>
-        <example id="frdmke17z_freertos_tickless" name="freertos_tickless" brief="This document explains the freertos_tickless example. It shows the CPU enter at sleep mode and then it is waked up by expired time delay that using timer module." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="freertos_examples" path="examples/frdmke17z/freertos_examples/freertos_tickless">
-          <external path="freertos_examples/freertos_tickless" type="xml">
-            <files mask="freertos_tickless_v3_14.xml"/>
           </external>
         </example>
       </examples>

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2015, Freescale Semiconductor, Inc.
- * Copyright 2016-2017 NXP
+ * Copyright 2016-2017, 2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -8,7 +8,6 @@
 
 #include "fsl_common.h"
 #include "fsl_sema42.h"
-#include "fsl_mu.h"
 #include "pin_mux.h"
 #include "board.h"
 #include "fsl_debug_console.h"
@@ -16,6 +15,7 @@
 #include "fsl_port.h"
 #include "fsl_gpio.h"
 #include "fsl_xrdc.h"
+#include "fsl_mu.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -43,10 +43,33 @@
 #endif
 
 /*
+ * Use device specific way to boot core 1.
+ * When set to 0, Core 0 uses MU to boot Core 1.
+ * When set to 1, Core 0 uses a device specific way to boot Core 1.
+ */
+#ifndef CORE0_BOOT_CORE1_SPECIFIC_WAY
+#define CORE0_BOOT_CORE1_SPECIFIC_WAY 0
+#endif
+
+/*
  * Use static domain ID or dynamic domain ID.
  */
 #ifndef USE_STATIC_DOMAIN_ID
 #define USE_STATIC_DOMAIN_ID 1
+#endif
+
+/*
+ * Use MU peripheral for inter-core notifications.
+ */
+#ifndef USE_MU_NOTIFICATIONS
+#define USE_MU_NOTIFICATIONS 1
+#endif
+
+/*
+ * The static domain ID used.
+ */
+#ifndef APP_STATIC_DOMAIN_ID
+#define APP_STATIC_DOMAIN_ID 0
 #endif
 
 /*
@@ -64,10 +87,19 @@ void APP_DeinitDomain(void);
 #if USE_STATIC_DOMAIN_ID
 uint8_t APP_GetCore0DomainID(void)
 {
-    return 0U;
+    return APP_STATIC_DOMAIN_ID;
 }
 #else
 uint8_t APP_GetCore0DomainID(void);
+#endif
+
+#if CORE0_BOOT_CORE1_SPECIFIC_WAY
+void APP_BootCore1(void);
+#else
+void APP_BootCore1(void)
+{
+    MU_BootOtherCore(APP_MU, APP_CORE1_BOOT_MODE);
+}
 #endif
 
 /*******************************************************************************
@@ -214,6 +246,35 @@ static void BOARD_InitLedPin(void)
 }
 
 /*!
+ * @brief Function to copy core1 image to execution address.
+ */
+static void APP_CopyCore1Image(void)
+{
+#ifdef CORE1_IMAGE_COPY_TO_RAM
+    /* Calculate size of the image  - not required on MCUXpresso IDE. MCUXpresso copies the secondary core
+       image to the target memory during startup automatically */
+    uint32_t core1_image_size = get_core1_image_size();
+
+    PRINTF("Copy Secondary core image to address: 0x%x, size: %d\r\n", CORE1_BOOT_ADDRESS, core1_image_size);
+
+    /* Copy Secondary core application from FLASH to the target memory. */
+#if defined(__DCACHE_PRESENT) && (__DCACHE_PRESENT == 1U)
+    SCB_CleanInvalidateDCache_by_Addr((void *)CORE1_BOOT_ADDRESS, core1_image_size);
+#endif
+#ifdef CORE1_IMAGE_FLUSH_CACHE
+    CORE1_IMAGE_FLUSH_CACHE(CORE1_BOOT_ADDRESS, core1_image_size);
+#endif
+    memcpy((void *)CORE1_BOOT_ADDRESS, (void *)CORE1_IMAGE_START, core1_image_size);
+#if defined(__DCACHE_PRESENT) && (__DCACHE_PRESENT == 1U)
+    SCB_CleanInvalidateDCache_by_Addr((void *)CORE1_BOOT_ADDRESS, core1_image_size);
+#endif
+#ifdef CORE1_IMAGE_FLUSH_CACHE
+    CORE1_IMAGE_FLUSH_CACHE(CORE1_BOOT_ADDRESS, core1_image_size);
+#endif
+#endif
+}
+
+/*!
  * @brief Main function
  */
 int main(void)
@@ -224,13 +285,20 @@ int main(void)
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     BOARD_InitLedPin();
+
+    APP_CopyCore1Image();
+
 #if APP_BOARD_HAS_LED
     /* Initialize LED */
     LED_INIT();
 #endif
 
+#if USE_MU_NOTIFICATIONS
     /* MUA init */
     MU_Init(APP_MU);
+#else
+    APP_InitInterCoreNotifications();
+#endif
 
     /* Print the initial banner */
     PRINTF("\r\nSema42 example!\r\n");
@@ -243,15 +311,23 @@ int main(void)
 #if CORE0_BOOT_CORE1
     APP_InitDomain();
     /* Boot Core 1. */
-    MU_BootCoreB(APP_MU, APP_CORE1_BOOT_MODE);
+    APP_BootCore1();
 #else
     APP_InitCore0Domain();
 #endif
 
+#if USE_MU_NOTIFICATIONS
     MU_SetFlags(APP_MU, BOOT_FLAG);
+#else
+    APP_SetInterCoreNotificationsData((uint32_t)BOOT_FLAG);
+#endif
 
     /* Wait Core 1 is Boot Up */
+#if USE_MU_NOTIFICATIONS
     while (BOOT_FLAG != MU_GetFlags(APP_MU))
+#else
+    while (BOOT_FLAG != APP_GetInterCoreNotificationsData())
+#endif
     {
     }
 
@@ -260,7 +336,11 @@ int main(void)
     /* Lock the sema42 gate. */
     SEMA42_Lock(APP_SEMA42, SEMA42_GATE, domainId);
 
+#if USE_MU_NOTIFICATIONS
     MU_SetFlags(APP_MU, SEMA42_LOCK_FLAG);
+#else
+    APP_SetInterCoreNotificationsData((uint32_t)SEMA42_LOCK_FLAG);
+#endif
 
     /* Wait until user press any key */
 #if APP_BOARD_HAS_LED
@@ -279,7 +359,11 @@ int main(void)
     PRINTF("Wait for core 1 lock the semaphore\r\n");
 #endif
     /* Wait for core 1 lock the sema */
+#if USE_MU_NOTIFICATIONS
     while (SEMA42_CORE1_LOCK_FLAG != MU_GetFlags(APP_MU))
+#else
+    while (SEMA42_CORE1_LOCK_FLAG != APP_GetInterCoreNotificationsData())
+#endif
     {
     }
 

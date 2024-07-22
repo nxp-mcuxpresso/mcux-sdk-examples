@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_EVK-MIMX8MQ_manifest_v3_14" name="2.15.0 GitHub SDK" brief="SDK Superset" format_version="3.14" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.14.xsd">
+<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_EVK-MIMX8MQ_manifest_v3_14" name="SDK Version Superset" brief="SDK Superset" format_version="3.14" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.14.xsd">
 
   <externalDefinitions>
     <definition extID="QSPI_FLASH_MIMX8MQ6xxxHZ"/>
     <definition extID="QSPI_FLASH_MIMX8MQ6xxxJZ"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK2150" name="MCUXpresso SDK2150" version="2.15.0" revision="2.15.0"/>
+  <ksdk id="MCUXpressoSDK216000" name="MCUXpresso SDK216000" version="2.16.000" revision="2.16.000"/>
   <compilers>
     <compiler id="compiler_gcc" name="gcc" type="gcc"/>
   </compilers>
   <toolchainSettings>
-    <toolchainSetting id="com.nxp.mcuxpresso" name="mcuxpresso" version="11.8.0" full_name="MCUXpresso IDE" compiler="compiler_gcc" toolchain="mcuxpresso">
+    <toolchainSetting id="com.nxp.mcuxpresso" name="mcuxpresso" version="11.10.0" full_name="MCUXpresso IDE" compiler="compiler_gcc" toolchain="mcuxpresso">
       <option id="gnu.cpp.compiler.option.optimization.flags" type="string" user_name="">
         <value>-fno-common</value>
       </option>
@@ -32,8 +32,8 @@
     </toolchainSetting>
   </toolchainSettings>
   <toolchains>
-    <toolchain id="armgcc" name="GCC_ARM_Embedded_10-2021.10" version="12.2" full_name="GCC ARM Embedded 10-2021.10" compiler="compiler_gcc" type="armgcc" vendor="GCC ARM Embedded" vendor_url="http://launchpad.net/gcc-arm-embedded"/>
-    <toolchain id="mcuxpresso" name="MCUXpresso_IDE" version="11.8.0" full_name="MCUXpresso IDE" compiler="compiler_gcc" type="mcuxpresso" vendor="NXP Semiconductors" vendor_url="http://www.nxp.com">
+    <toolchain id="armgcc" name="GCC_ARM_Embedded_13-2023.10" version="13.2.1" full_name="GCC ARM Embedded 13-2023.10" compiler="compiler_gcc" type="armgcc" vendor="GCC ARM Embedded" vendor_url="https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads"/>
+    <toolchain id="mcuxpresso" name="MCUXpresso_IDE" version="11.10.0" full_name="MCUXpresso IDE" compiler="compiler_gcc" type="mcuxpresso" vendor="NXP Semiconductors" vendor_url="http://www.nxp.com">
       <debug>
         <debug_configuration id="com.crt.advproject.config.exe.release" name="Release Configuration" probe="LinkServer">
           <scripts>
@@ -212,6 +212,11 @@ ${load}</script>
             <files mask="qspi_polling_transfer_v3_14.xml"/>
           </external>
         </example>
+        <example id="evkmimx8mq_qspi_wevk_polling_transfer" name="qspi_wevk_polling_transfer" brief="The qspi_polling example shows how to use qspi driver with polling:In this example, qspi will send data and operate the external flash connected with QSPI. Some simple flash command will be executed, such as Write Enable, Erase sector, Program page. Example will first erase the sector and programe a page into the flash, at last check if the data in flash is correct.Notice: While do program, it is not suggested to make the flash write frequency bigger than the core clock frequency.In some tool chain's Debug version, this may cause core do not have enough speed to send data to flash.The flash write frequency equals to QSPI working frequency plus data line number. For example, if QSPI working in 48MHz,program command uses quad mode, the write frequency is 48MHz * 4 = 192MHz." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/qspi" path="examples/evkmimx8mq/driver_examples/qspi/wevk_polling_transfer">
+          <external path="examples/evkmimx8mq/driver_examples/qspi/wevk_polling_transfer" type="xml">
+            <files mask="qspi_wevk_polling_transfer_v3_14.xml"/>
+          </external>
+        </example>
         <example id="evkmimx8mq_rpmsg_lite_pingpong_rtos_linux_remote" name="rpmsg_lite_pingpong_rtos_linux_remote" brief="The Multicore RPMsg-Lite pingpong RTOS project is a simple demonstration program that uses theMCUXpresso SDK software and the RPMsg-Lite library and shows how to implement the inter-corecommunicaton between cores of the multicore system. The primary core releases the secondary corefrom the reset and then the inter-core communication is established. Once the RPMsg is initializedand endpoints are created the message exchange starts, incrementing a virtual counter that is partof the message payload. The message pingpong finishes when the counter reaches the value of 100.Then the RPMsg-Lite is deinitialized and the procedure of the data exchange is repeated again.Shared memory usageThis multicore example uses the shared memory for data exchange. The shared memory region isdefined and the size can be adjustable in the linker file. The shared memory region start addressand the size have to be defined in linker file for each core equally. The shared memory startaddress is then exported from the linker to the application." toolchain="armgcc" compiler="compiler_gcc" category="multicore_examples" path="examples/evkmimx8mq/multicore_examples/rpmsg_lite_pingpong_rtos/linux_remote">
           <external path="examples/evkmimx8mq/multicore_examples/rpmsg_lite_pingpong_rtos/linux_remote" type="xml">
             <files mask="rpmsg_lite_pingpong_rtos_linux_remote_v3_14.xml"/>
@@ -222,7 +227,7 @@ ${load}</script>
             <files mask="rpmsg_lite_str_echo_rtos_imxcm4_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkmimx8mq_freertos_hello" name="freertos_hello" brief="The Hello World project is a simple demonstration program that uses the SDK UART drivere incombination with FreeRTOS. The purpose of this demo is to show how to use the debug console and toprovide a simple project for debugging and further development.The example application creates one task called hello_task. This task print &quot;Hello world.&quot; messagevia debug console utility and suspend itself." toolchain="armgcc" compiler="compiler_gcc" category="freertos_examples" path="examples/evkmimx8mq/freertos_examples/freertos_hello">
+        <example id="evkmimx8mq_freertos_hello" name="freertos_hello" brief="The Hello World project is a simple demonstration program that uses the SDK UART driver in combination with FreeRTOS. The purpose of this demo is to show how to use the debug console and toprovide a simple project for debugging and further development.The example application creates one task called hello_task. This task print &quot;Hello world.&quot; messagevia debug console utility and suspend itself." toolchain="armgcc" compiler="compiler_gcc" category="freertos_examples" path="examples/evkmimx8mq/freertos_examples/freertos_hello">
           <external path="examples/evkmimx8mq/freertos_examples/freertos_hello" type="xml">
             <files mask="freertos_hello_v3_14.xml"/>
           </external>
@@ -460,7 +465,7 @@ ${load}</script>
         <files mask="mcux_config.cmake"/>
       </source>
     </component>
-    <component id="CMSIS_Include_core_cm.MIMX8MQ6" name="CMSIS_Include_CM" brief="CMSIS-CORE for Cortex-M, ARMv8-M, ARMv8.1-M" version="5.5.0" full_name="CMSIS Include For Cortex-M, ARMv8-M, ARMv8.1-M" category="CMSIS/CORE" user_visible="true" type="CMSIS_Include" package_base_path="core/CMSIS/Core/Include" project_base_path="CMSIS">
+    <component id="CMSIS_Include_core_cm.MIMX8MQ6" name="CMSIS_Include_CM" brief="CMSIS-CORE for Cortex-M, ARMv8-M, ARMv8.1-M" version="5.9.0" full_name="CMSIS Include For Cortex-M, ARMv8-M, ARMv8.1-M" category="CMSIS/CORE" user_visible="true" type="CMSIS_Include" package_base_path="core/CMSIS/Core/Include" project_base_path="CMSIS">
       <dependencies>
         <any_of>
           <device_dependency value="MIMX8MQ6xxxHZ"/>
@@ -505,11 +510,13 @@ ${load}</script>
     <files mask="BasicMathFunctionsF16.c"/>
     <files mask="arm_abs_f16.c"/>
     <files mask="arm_abs_f32.c"/>
+    <files mask="arm_abs_f64.c"/>
     <files mask="arm_abs_q15.c"/>
     <files mask="arm_abs_q31.c"/>
     <files mask="arm_abs_q7.c"/>
     <files mask="arm_add_f16.c"/>
     <files mask="arm_add_f32.c"/>
+    <files mask="arm_add_f64.c"/>
     <files mask="arm_add_q15.c"/>
     <files mask="arm_add_q31.c"/>
     <files mask="arm_add_q7.c"/>
@@ -523,16 +530,19 @@ ${load}</script>
     <files mask="arm_clip_q7.c"/>
     <files mask="arm_dot_prod_f16.c"/>
     <files mask="arm_dot_prod_f32.c"/>
+    <files mask="arm_dot_prod_f64.c"/>
     <files mask="arm_dot_prod_q15.c"/>
     <files mask="arm_dot_prod_q31.c"/>
     <files mask="arm_dot_prod_q7.c"/>
     <files mask="arm_mult_f16.c"/>
     <files mask="arm_mult_f32.c"/>
+    <files mask="arm_mult_f64.c"/>
     <files mask="arm_mult_q15.c"/>
     <files mask="arm_mult_q31.c"/>
     <files mask="arm_mult_q7.c"/>
     <files mask="arm_negate_f16.c"/>
     <files mask="arm_negate_f32.c"/>
+    <files mask="arm_negate_f64.c"/>
     <files mask="arm_negate_q15.c"/>
     <files mask="arm_negate_q31.c"/>
     <files mask="arm_negate_q7.c"/>
@@ -541,6 +551,7 @@ ${load}</script>
     <files mask="arm_not_u8.c"/>
     <files mask="arm_offset_f16.c"/>
     <files mask="arm_offset_f32.c"/>
+    <files mask="arm_offset_f64.c"/>
     <files mask="arm_offset_q15.c"/>
     <files mask="arm_offset_q31.c"/>
     <files mask="arm_offset_q7.c"/>
@@ -549,6 +560,7 @@ ${load}</script>
     <files mask="arm_or_u8.c"/>
     <files mask="arm_scale_f16.c"/>
     <files mask="arm_scale_f32.c"/>
+    <files mask="arm_scale_f64.c"/>
     <files mask="arm_scale_q15.c"/>
     <files mask="arm_scale_q31.c"/>
     <files mask="arm_scale_q7.c"/>
@@ -557,6 +569,7 @@ ${load}</script>
     <files mask="arm_shift_q7.c"/>
     <files mask="arm_sub_f16.c"/>
     <files mask="arm_sub_f32.c"/>
+    <files mask="arm_sub_f64.c"/>
     <files mask="arm_sub_q15.c"/>
     <files mask="arm_sub_q31.c"/>
     <files mask="arm_sub_q7.c"/>
@@ -587,14 +600,18 @@ ${load}</script>
     <files mask="arm_cmplx_dot_prod_q31.c"/>
     <files mask="arm_cmplx_mag_f16.c"/>
     <files mask="arm_cmplx_mag_f32.c"/>
+    <files mask="arm_cmplx_mag_f64.c"/>
+    <files mask="arm_cmplx_mag_fast_q15.c"/>
     <files mask="arm_cmplx_mag_q15.c"/>
     <files mask="arm_cmplx_mag_q31.c"/>
     <files mask="arm_cmplx_mag_squared_f16.c"/>
     <files mask="arm_cmplx_mag_squared_f32.c"/>
+    <files mask="arm_cmplx_mag_squared_f64.c"/>
     <files mask="arm_cmplx_mag_squared_q15.c"/>
     <files mask="arm_cmplx_mag_squared_q31.c"/>
     <files mask="arm_cmplx_mult_cmplx_f16.c"/>
     <files mask="arm_cmplx_mult_cmplx_f32.c"/>
+    <files mask="arm_cmplx_mult_cmplx_f64.c"/>
     <files mask="arm_cmplx_mult_cmplx_q15.c"/>
     <files mask="arm_cmplx_mult_cmplx_q31.c"/>
     <files mask="arm_cmplx_mult_real_f16.c"/>
@@ -619,15 +636,22 @@ ${load}</script>
     <files mask="arm_canberra_distance_f32.c"/>
     <files mask="arm_chebyshev_distance_f16.c"/>
     <files mask="arm_chebyshev_distance_f32.c"/>
+    <files mask="arm_chebyshev_distance_f64.c"/>
     <files mask="arm_cityblock_distance_f16.c"/>
     <files mask="arm_cityblock_distance_f32.c"/>
+    <files mask="arm_cityblock_distance_f64.c"/>
     <files mask="arm_correlation_distance_f16.c"/>
     <files mask="arm_correlation_distance_f32.c"/>
     <files mask="arm_cosine_distance_f16.c"/>
     <files mask="arm_cosine_distance_f32.c"/>
+    <files mask="arm_cosine_distance_f64.c"/>
     <files mask="arm_dice_distance.c"/>
+    <files mask="arm_dtw_distance_f32.c"/>
+    <files mask="arm_dtw_init_window_q7.c"/>
+    <files mask="arm_dtw_path_f32.c"/>
     <files mask="arm_euclidean_distance_f16.c"/>
     <files mask="arm_euclidean_distance_f32.c"/>
+    <files mask="arm_euclidean_distance_f64.c"/>
     <files mask="arm_hamming_distance.c"/>
     <files mask="arm_jaccard_distance.c"/>
     <files mask="arm_jensenshannon_distance_f16.c"/>
@@ -642,10 +666,15 @@ ${load}</script>
     <files mask="arm_yule_distance.c"/>
     <files mask="FastMathFunctions.c"/>
     <files mask="FastMathFunctionsF16.c"/>
+    <files mask="arm_atan2_f16.c"/>
+    <files mask="arm_atan2_f32.c"/>
+    <files mask="arm_atan2_q15.c"/>
+    <files mask="arm_atan2_q31.c"/>
     <files mask="arm_cos_f32.c"/>
     <files mask="arm_cos_q15.c"/>
     <files mask="arm_cos_q31.c"/>
     <files mask="arm_divide_q15.c"/>
+    <files mask="arm_divide_q31.c"/>
     <files mask="arm_sin_f32.c"/>
     <files mask="arm_sin_q15.c"/>
     <files mask="arm_sin_q31.c"/>
@@ -653,9 +682,13 @@ ${load}</script>
     <files mask="arm_sqrt_q31.c"/>
     <files mask="arm_vexp_f16.c"/>
     <files mask="arm_vexp_f32.c"/>
+    <files mask="arm_vexp_f64.c"/>
     <files mask="arm_vinverse_f16.c"/>
     <files mask="arm_vlog_f16.c"/>
     <files mask="arm_vlog_f32.c"/>
+    <files mask="arm_vlog_f64.c"/>
+    <files mask="arm_vlog_q15.c"/>
+    <files mask="arm_vlog_q31.c"/>
     <files mask="FilteringFunctions.c"/>
     <files mask="FilteringFunctionsF16.c"/>
     <files mask="arm_biquad_cascade_df1_32x64_init_q31.c"/>
@@ -700,6 +733,7 @@ ${load}</script>
     <files mask="arm_conv_q7.c"/>
     <files mask="arm_correlate_f16.c"/>
     <files mask="arm_correlate_f32.c"/>
+    <files mask="arm_correlate_f64.c"/>
     <files mask="arm_correlate_fast_opt_q15.c"/>
     <files mask="arm_correlate_fast_q15.c"/>
     <files mask="arm_correlate_fast_q31.c"/>
@@ -718,10 +752,12 @@ ${load}</script>
     <files mask="arm_fir_decimate_q31.c"/>
     <files mask="arm_fir_f16.c"/>
     <files mask="arm_fir_f32.c"/>
+    <files mask="arm_fir_f64.c"/>
     <files mask="arm_fir_fast_q15.c"/>
     <files mask="arm_fir_fast_q31.c"/>
     <files mask="arm_fir_init_f16.c"/>
     <files mask="arm_fir_init_f32.c"/>
+    <files mask="arm_fir_init_f64.c"/>
     <files mask="arm_fir_init_q15.c"/>
     <files mask="arm_fir_init_q31.c"/>
     <files mask="arm_fir_init_q7.c"/>
@@ -785,6 +821,9 @@ ${load}</script>
     <files mask="arm_spline_interp_init_f32.c"/>
     <files mask="MatrixFunctions.c"/>
     <files mask="MatrixFunctionsF16.c"/>
+    <files mask="arm_householder_f16.c"/>
+    <files mask="arm_householder_f32.c"/>
+    <files mask="arm_householder_f64.c"/>
     <files mask="arm_mat_add_f16.c"/>
     <files mask="arm_mat_add_f32.c"/>
     <files mask="arm_mat_add_q15.c"/>
@@ -802,6 +841,7 @@ ${load}</script>
     <files mask="arm_mat_cmplx_trans_q31.c"/>
     <files mask="arm_mat_init_f16.c"/>
     <files mask="arm_mat_init_f32.c"/>
+    <files mask="arm_mat_init_f64.c"/>
     <files mask="arm_mat_init_q15.c"/>
     <files mask="arm_mat_init_q31.c"/>
     <files mask="arm_mat_inverse_f16.c"/>
@@ -814,9 +854,13 @@ ${load}</script>
     <files mask="arm_mat_mult_f64.c"/>
     <files mask="arm_mat_mult_fast_q15.c"/>
     <files mask="arm_mat_mult_fast_q31.c"/>
+    <files mask="arm_mat_mult_opt_q31.c"/>
     <files mask="arm_mat_mult_q15.c"/>
     <files mask="arm_mat_mult_q31.c"/>
     <files mask="arm_mat_mult_q7.c"/>
+    <files mask="arm_mat_qr_f16.c"/>
+    <files mask="arm_mat_qr_f32.c"/>
+    <files mask="arm_mat_qr_f64.c"/>
     <files mask="arm_mat_scale_f16.c"/>
     <files mask="arm_mat_scale_f32.c"/>
     <files mask="arm_mat_scale_q15.c"/>
@@ -874,14 +918,31 @@ ${load}</script>
     <files mask="StatisticsFunctionsF16.c"/>
     <files mask="arm_absmax_f16.c"/>
     <files mask="arm_absmax_f32.c"/>
+    <files mask="arm_absmax_f64.c"/>
+    <files mask="arm_absmax_no_idx_f16.c"/>
+    <files mask="arm_absmax_no_idx_f32.c"/>
+    <files mask="arm_absmax_no_idx_f64.c"/>
+    <files mask="arm_absmax_no_idx_q15.c"/>
+    <files mask="arm_absmax_no_idx_q31.c"/>
+    <files mask="arm_absmax_no_idx_q7.c"/>
     <files mask="arm_absmax_q15.c"/>
     <files mask="arm_absmax_q31.c"/>
     <files mask="arm_absmax_q7.c"/>
     <files mask="arm_absmin_f16.c"/>
     <files mask="arm_absmin_f32.c"/>
+    <files mask="arm_absmin_f64.c"/>
+    <files mask="arm_absmin_no_idx_f16.c"/>
+    <files mask="arm_absmin_no_idx_f32.c"/>
+    <files mask="arm_absmin_no_idx_f64.c"/>
+    <files mask="arm_absmin_no_idx_q15.c"/>
+    <files mask="arm_absmin_no_idx_q31.c"/>
+    <files mask="arm_absmin_no_idx_q7.c"/>
     <files mask="arm_absmin_q15.c"/>
     <files mask="arm_absmin_q31.c"/>
     <files mask="arm_absmin_q7.c"/>
+    <files mask="arm_accumulate_f16.c"/>
+    <files mask="arm_accumulate_f32.c"/>
+    <files mask="arm_accumulate_f64.c"/>
     <files mask="arm_entropy_f16.c"/>
     <files mask="arm_entropy_f32.c"/>
     <files mask="arm_entropy_f64.c"/>
@@ -894,23 +955,43 @@ ${load}</script>
     <files mask="arm_logsumexp_f32.c"/>
     <files mask="arm_max_f16.c"/>
     <files mask="arm_max_f32.c"/>
+    <files mask="arm_max_f64.c"/>
     <files mask="arm_max_no_idx_f16.c"/>
     <files mask="arm_max_no_idx_f32.c"/>
+    <files mask="arm_max_no_idx_f64.c"/>
+    <files mask="arm_max_no_idx_q15.c"/>
+    <files mask="arm_max_no_idx_q31.c"/>
+    <files mask="arm_max_no_idx_q7.c"/>
     <files mask="arm_max_q15.c"/>
     <files mask="arm_max_q31.c"/>
     <files mask="arm_max_q7.c"/>
     <files mask="arm_mean_f16.c"/>
     <files mask="arm_mean_f32.c"/>
+    <files mask="arm_mean_f64.c"/>
     <files mask="arm_mean_q15.c"/>
     <files mask="arm_mean_q31.c"/>
     <files mask="arm_mean_q7.c"/>
     <files mask="arm_min_f16.c"/>
     <files mask="arm_min_f32.c"/>
+    <files mask="arm_min_f64.c"/>
+    <files mask="arm_min_no_idx_f16.c"/>
+    <files mask="arm_min_no_idx_f32.c"/>
+    <files mask="arm_min_no_idx_f64.c"/>
+    <files mask="arm_min_no_idx_q15.c"/>
+    <files mask="arm_min_no_idx_q31.c"/>
+    <files mask="arm_min_no_idx_q7.c"/>
     <files mask="arm_min_q15.c"/>
     <files mask="arm_min_q31.c"/>
     <files mask="arm_min_q7.c"/>
+    <files mask="arm_mse_f16.c"/>
+    <files mask="arm_mse_f32.c"/>
+    <files mask="arm_mse_f64.c"/>
+    <files mask="arm_mse_q15.c"/>
+    <files mask="arm_mse_q31.c"/>
+    <files mask="arm_mse_q7.c"/>
     <files mask="arm_power_f16.c"/>
     <files mask="arm_power_f32.c"/>
+    <files mask="arm_power_f64.c"/>
     <files mask="arm_power_q15.c"/>
     <files mask="arm_power_q31.c"/>
     <files mask="arm_power_q7.c"/>
@@ -920,10 +1001,12 @@ ${load}</script>
     <files mask="arm_rms_q31.c"/>
     <files mask="arm_std_f16.c"/>
     <files mask="arm_std_f32.c"/>
+    <files mask="arm_std_f64.c"/>
     <files mask="arm_std_q15.c"/>
     <files mask="arm_std_q31.c"/>
     <files mask="arm_var_f16.c"/>
     <files mask="arm_var_f32.c"/>
+    <files mask="arm_var_f64.c"/>
     <files mask="arm_var_q15.c"/>
     <files mask="arm_var_q31.c"/>
     <files mask="SupportFunctions.c"/>
@@ -934,17 +1017,26 @@ ${load}</script>
     <files mask="arm_bubble_sort_f32.c"/>
     <files mask="arm_copy_f16.c"/>
     <files mask="arm_copy_f32.c"/>
+    <files mask="arm_copy_f64.c"/>
     <files mask="arm_copy_q15.c"/>
     <files mask="arm_copy_q31.c"/>
     <files mask="arm_copy_q7.c"/>
+    <files mask="arm_f16_to_f64.c"/>
     <files mask="arm_f16_to_float.c"/>
     <files mask="arm_f16_to_q15.c"/>
+    <files mask="arm_f64_to_f16.c"/>
+    <files mask="arm_f64_to_float.c"/>
+    <files mask="arm_f64_to_q15.c"/>
+    <files mask="arm_f64_to_q31.c"/>
+    <files mask="arm_f64_to_q7.c"/>
     <files mask="arm_fill_f16.c"/>
     <files mask="arm_fill_f32.c"/>
+    <files mask="arm_fill_f64.c"/>
     <files mask="arm_fill_q15.c"/>
     <files mask="arm_fill_q31.c"/>
     <files mask="arm_fill_q7.c"/>
     <files mask="arm_float_to_f16.c"/>
+    <files mask="arm_float_to_f64.c"/>
     <files mask="arm_float_to_q15.c"/>
     <files mask="arm_float_to_q31.c"/>
     <files mask="arm_float_to_q7.c"/>
@@ -953,12 +1045,15 @@ ${load}</script>
     <files mask="arm_merge_sort_f32.c"/>
     <files mask="arm_merge_sort_init_f32.c"/>
     <files mask="arm_q15_to_f16.c"/>
+    <files mask="arm_q15_to_f64.c"/>
     <files mask="arm_q15_to_float.c"/>
     <files mask="arm_q15_to_q31.c"/>
     <files mask="arm_q15_to_q7.c"/>
+    <files mask="arm_q31_to_f64.c"/>
     <files mask="arm_q31_to_float.c"/>
     <files mask="arm_q31_to_q15.c"/>
     <files mask="arm_q31_to_q7.c"/>
+    <files mask="arm_q7_to_f64.c"/>
     <files mask="arm_q7_to_float.c"/>
     <files mask="arm_q7_to_q15.c"/>
     <files mask="arm_q7_to_q31.c"/>
@@ -1007,6 +1102,14 @@ ${load}</script>
     <files mask="arm_dct4_init_q31.c"/>
     <files mask="arm_dct4_q15.c"/>
     <files mask="arm_dct4_q31.c"/>
+    <files mask="arm_mfcc_f16.c"/>
+    <files mask="arm_mfcc_f32.c"/>
+    <files mask="arm_mfcc_init_f16.c"/>
+    <files mask="arm_mfcc_init_f32.c"/>
+    <files mask="arm_mfcc_init_q15.c"/>
+    <files mask="arm_mfcc_init_q31.c"/>
+    <files mask="arm_mfcc_q15.c"/>
+    <files mask="arm_mfcc_q31.c"/>
     <files mask="arm_rfft_f32.c"/>
     <files mask="arm_rfft_fast_f16.c"/>
     <files mask="arm_rfft_fast_f32.c"/>
@@ -1019,6 +1122,47 @@ ${load}</script>
     <files mask="arm_rfft_init_q31.c"/>
     <files mask="arm_rfft_q15.c"/>
     <files mask="arm_rfft_q31.c"/>
+    <files mask="WindowFunctions.c"/>
+    <files mask="arm_bartlett_f32.c"/>
+    <files mask="arm_bartlett_f64.c"/>
+    <files mask="arm_blackman_harris_92db_f32.c"/>
+    <files mask="arm_blackman_harris_92db_f64.c"/>
+    <files mask="arm_hamming_f32.c"/>
+    <files mask="arm_hamming_f64.c"/>
+    <files mask="arm_hanning_f32.c"/>
+    <files mask="arm_hanning_f64.c"/>
+    <files mask="arm_hft116d_f32.c"/>
+    <files mask="arm_hft116d_f64.c"/>
+    <files mask="arm_hft144d_f32.c"/>
+    <files mask="arm_hft144d_f64.c"/>
+    <files mask="arm_hft169d_f32.c"/>
+    <files mask="arm_hft169d_f64.c"/>
+    <files mask="arm_hft196d_f32.c"/>
+    <files mask="arm_hft196d_f64.c"/>
+    <files mask="arm_hft223d_f32.c"/>
+    <files mask="arm_hft223d_f64.c"/>
+    <files mask="arm_hft248d_f32.c"/>
+    <files mask="arm_hft248d_f64.c"/>
+    <files mask="arm_hft90d_f32.c"/>
+    <files mask="arm_hft90d_f64.c"/>
+    <files mask="arm_hft95_f32.c"/>
+    <files mask="arm_hft95_f64.c"/>
+    <files mask="arm_nuttall3_f32.c"/>
+    <files mask="arm_nuttall3_f64.c"/>
+    <files mask="arm_nuttall3a_f32.c"/>
+    <files mask="arm_nuttall3a_f64.c"/>
+    <files mask="arm_nuttall3b_f32.c"/>
+    <files mask="arm_nuttall3b_f64.c"/>
+    <files mask="arm_nuttall4_f32.c"/>
+    <files mask="arm_nuttall4_f64.c"/>
+    <files mask="arm_nuttall4a_f32.c"/>
+    <files mask="arm_nuttall4a_f64.c"/>
+    <files mask="arm_nuttall4b_f32.c"/>
+    <files mask="arm_nuttall4b_f64.c"/>
+    <files mask="arm_nuttall4c_f32.c"/>
+    <files mask="arm_nuttall4c_f64.c"/>
+    <files mask="arm_welch_f32.c"/>
+    <files mask="arm_welch_f64.c"/>
   </source>
   <source relative_path="./" type="c_include">
     <files mask="Driver_CAN.h"/>
@@ -1046,29 +1190,13 @@ ${load}</script>
     <files mask="CMSIS.yml"/>
     <files mask="CMSIS_v2.yml"/>
     <files mask="CMSIS_v3.yml"/>
-    <files mask="arm_bitreversal2.S"/>
+    <files mask="README.md"/>
   </source>
   <source relative_path="./" type="doc">
     <files mask="LICENSE.txt"/>
-    <files mask="CMakeLists.txt"/>
-    <files mask="CMakeLists.txt"/>
-    <files mask="CMakeLists.txt"/>
-    <files mask="CMakeLists.txt"/>
-    <files mask="CMakeLists.txt"/>
-    <files mask="CMakeLists.txt"/>
-    <files mask="CMakeLists.txt"/>
-    <files mask="CMakeLists.txt"/>
-    <files mask="CMakeLists.txt"/>
-    <files mask="CMakeLists.txt"/>
-    <files mask="CMakeLists.txt"/>
-    <files mask="CMakeLists.txt"/>
-    <files mask="CMakeLists.txt"/>
-    <files mask="CMakeLists.txt"/>
-    <files mask="CMakeLists.txt"/>
-    <files mask="CMakeLists.txt"/>
   </source>
 </component>-->
-    <component id="CMSIS_DSP_Include.MIMX8MQ6" name="CMSIS_DSP_Library_Header" brief="CMSIS-DSP Library Header" version="1.9.0" full_name="CMSIS DSP Library Header" category="CMSIS/DSP" user_visible="true" type="CMSIS_driver" package_base_path="core/CMSIS/DSP" project_base_path="CMSIS/DSP">
+    <component id="CMSIS_DSP_Include.MIMX8MQ6" name="CMSIS_DSP_Library_Header" brief="CMSIS-DSP Library Header" version="1.15.0" full_name="CMSIS DSP Library Header" category="CMSIS/DSP" user_visible="true" type="CMSIS_driver" package_base_path="core/CMSIS/DSP" project_base_path="CMSIS/DSP">
       <dependencies>
         <any_of>
           <device_dependency value="MIMX8MQ6xxxHZ"/>
@@ -1080,11 +1208,11 @@ ${load}</script>
       </source>
       <source relative_path="Include" type="c_include">
         <files mask="arm_common_tables.h"/>
-        <files mask="arm_const_structs.h"/>
-        <files mask="arm_math.h"/>
         <files mask="arm_common_tables_f16.h"/>
+        <files mask="arm_const_structs.h"/>
         <files mask="arm_const_structs_f16.h"/>
         <files mask="arm_helium_utils.h"/>
+        <files mask="arm_math.h"/>
         <files mask="arm_math_f16.h"/>
         <files mask="arm_math_memory.h"/>
         <files mask="arm_math_types.h"/>
@@ -1103,6 +1231,7 @@ ${load}</script>
         <files mask="complex_math_functions_f16.h"/>
         <files mask="controller_functions.h"/>
         <files mask="controller_functions_f16.h"/>
+        <files mask="debug.h"/>
         <files mask="distance_functions.h"/>
         <files mask="distance_functions_f16.h"/>
         <files mask="fast_math_functions.h"/>
@@ -1113,6 +1242,7 @@ ${load}</script>
         <files mask="interpolation_functions_f16.h"/>
         <files mask="matrix_functions.h"/>
         <files mask="matrix_functions_f16.h"/>
+        <files mask="matrix_utils.h"/>
         <files mask="none.h"/>
         <files mask="quaternion_math_functions.h"/>
         <files mask="statistics_functions.h"/>
@@ -1125,6 +1255,7 @@ ${load}</script>
         <files mask="transform_functions.h"/>
         <files mask="transform_functions_f16.h"/>
         <files mask="utils.h"/>
+        <files mask="window_functions.h"/>
       </source>
       <source relative_path="PrivateInclude" type="c_include">
         <files mask="arm_sorting.h"/>
@@ -1139,7 +1270,7 @@ ${load}</script>
         <include_path relative_path="PrivateInclude" type="c_include"/>
       </include_paths>
     </component>
-    <component id="CMSIS_DSP_Source.MIMX8MQ6" name="CMSIS_DSP_Library_Source" brief="CMSIS-DSP Library" version="1.9.0" full_name="CMSIS DSP Library Source" category="CMSIS/DSP" user_visible="true" type="CMSIS_driver" package_base_path="core/CMSIS/DSP" project_base_path="CMSIS/DSP">
+    <component id="CMSIS_DSP_Source.MIMX8MQ6" name="CMSIS_DSP_Library_Source" brief="CMSIS-DSP Library" version="1.15.0" full_name="CMSIS DSP Library Source" category="CMSIS/DSP" user_visible="true" type="CMSIS_driver" package_base_path="core/CMSIS/DSP" project_base_path="CMSIS/DSP">
       <defines>
         <define name="DISABLEFLOAT16" value=""/>
       </defines>
@@ -1154,11 +1285,11 @@ ${load}</script>
       </source>
       <source relative_path="Include" type="c_include">
         <files mask="arm_common_tables.h"/>
-        <files mask="arm_const_structs.h"/>
-        <files mask="arm_math.h"/>
         <files mask="arm_common_tables_f16.h"/>
+        <files mask="arm_const_structs.h"/>
         <files mask="arm_const_structs_f16.h"/>
         <files mask="arm_helium_utils.h"/>
+        <files mask="arm_math.h"/>
         <files mask="arm_math_f16.h"/>
         <files mask="arm_math_memory.h"/>
         <files mask="arm_math_types.h"/>
@@ -1177,6 +1308,7 @@ ${load}</script>
         <files mask="complex_math_functions_f16.h"/>
         <files mask="controller_functions.h"/>
         <files mask="controller_functions_f16.h"/>
+        <files mask="debug.h"/>
         <files mask="distance_functions.h"/>
         <files mask="distance_functions_f16.h"/>
         <files mask="fast_math_functions.h"/>
@@ -1187,6 +1319,7 @@ ${load}</script>
         <files mask="interpolation_functions_f16.h"/>
         <files mask="matrix_functions.h"/>
         <files mask="matrix_functions_f16.h"/>
+        <files mask="matrix_utils.h"/>
         <files mask="none.h"/>
         <files mask="quaternion_math_functions.h"/>
         <files mask="statistics_functions.h"/>
@@ -1199,6 +1332,7 @@ ${load}</script>
         <files mask="transform_functions.h"/>
         <files mask="transform_functions_f16.h"/>
         <files mask="utils.h"/>
+        <files mask="window_functions.h"/>
       </source>
       <source relative_path="PrivateInclude" type="c_include">
         <files mask="arm_sorting.h"/>
@@ -1211,10 +1345,12 @@ ${load}</script>
       </source>
       <source exclude="true" relative_path="Source/BasicMathFunctions" type="src">
         <files mask="arm_abs_f32.c"/>
+        <files mask="arm_abs_f64.c"/>
         <files mask="arm_abs_q15.c"/>
         <files mask="arm_abs_q31.c"/>
         <files mask="arm_abs_q7.c"/>
         <files mask="arm_add_f32.c"/>
+        <files mask="arm_add_f64.c"/>
         <files mask="arm_add_q15.c"/>
         <files mask="arm_add_q31.c"/>
         <files mask="arm_add_q7.c"/>
@@ -1226,14 +1362,17 @@ ${load}</script>
         <files mask="arm_clip_q31.c"/>
         <files mask="arm_clip_q7.c"/>
         <files mask="arm_dot_prod_f32.c"/>
+        <files mask="arm_dot_prod_f64.c"/>
         <files mask="arm_dot_prod_q15.c"/>
         <files mask="arm_dot_prod_q31.c"/>
         <files mask="arm_dot_prod_q7.c"/>
         <files mask="arm_mult_f32.c"/>
+        <files mask="arm_mult_f64.c"/>
         <files mask="arm_mult_q15.c"/>
         <files mask="arm_mult_q31.c"/>
         <files mask="arm_mult_q7.c"/>
         <files mask="arm_negate_f32.c"/>
+        <files mask="arm_negate_f64.c"/>
         <files mask="arm_negate_q15.c"/>
         <files mask="arm_negate_q31.c"/>
         <files mask="arm_negate_q7.c"/>
@@ -1241,6 +1380,7 @@ ${load}</script>
         <files mask="arm_not_u32.c"/>
         <files mask="arm_not_u8.c"/>
         <files mask="arm_offset_f32.c"/>
+        <files mask="arm_offset_f64.c"/>
         <files mask="arm_offset_q15.c"/>
         <files mask="arm_offset_q31.c"/>
         <files mask="arm_offset_q7.c"/>
@@ -1248,6 +1388,7 @@ ${load}</script>
         <files mask="arm_or_u32.c"/>
         <files mask="arm_or_u8.c"/>
         <files mask="arm_scale_f32.c"/>
+        <files mask="arm_scale_f64.c"/>
         <files mask="arm_scale_q15.c"/>
         <files mask="arm_scale_q31.c"/>
         <files mask="arm_scale_q7.c"/>
@@ -1255,6 +1396,7 @@ ${load}</script>
         <files mask="arm_shift_q31.c"/>
         <files mask="arm_shift_q7.c"/>
         <files mask="arm_sub_f32.c"/>
+        <files mask="arm_sub_f64.c"/>
         <files mask="arm_sub_q15.c"/>
         <files mask="arm_sub_q31.c"/>
         <files mask="arm_sub_q7.c"/>
@@ -1303,12 +1445,16 @@ ${load}</script>
         <files mask="arm_cmplx_dot_prod_q15.c"/>
         <files mask="arm_cmplx_dot_prod_q31.c"/>
         <files mask="arm_cmplx_mag_f32.c"/>
+        <files mask="arm_cmplx_mag_f64.c"/>
+        <files mask="arm_cmplx_mag_fast_q15.c"/>
         <files mask="arm_cmplx_mag_q15.c"/>
         <files mask="arm_cmplx_mag_q31.c"/>
         <files mask="arm_cmplx_mag_squared_f32.c"/>
+        <files mask="arm_cmplx_mag_squared_f64.c"/>
         <files mask="arm_cmplx_mag_squared_q15.c"/>
         <files mask="arm_cmplx_mag_squared_q31.c"/>
         <files mask="arm_cmplx_mult_cmplx_f32.c"/>
+        <files mask="arm_cmplx_mult_cmplx_f64.c"/>
         <files mask="arm_cmplx_mult_cmplx_q15.c"/>
         <files mask="arm_cmplx_mult_cmplx_q31.c"/>
         <files mask="arm_cmplx_mult_real_f32.c"/>
@@ -1346,11 +1492,18 @@ ${load}</script>
         <files mask="arm_braycurtis_distance_f32.c"/>
         <files mask="arm_canberra_distance_f32.c"/>
         <files mask="arm_chebyshev_distance_f32.c"/>
+        <files mask="arm_chebyshev_distance_f64.c"/>
         <files mask="arm_cityblock_distance_f32.c"/>
+        <files mask="arm_cityblock_distance_f64.c"/>
         <files mask="arm_correlation_distance_f32.c"/>
         <files mask="arm_cosine_distance_f32.c"/>
+        <files mask="arm_cosine_distance_f64.c"/>
         <files mask="arm_dice_distance.c"/>
+        <files mask="arm_dtw_distance_f32.c"/>
+        <files mask="arm_dtw_init_window_q7.c"/>
+        <files mask="arm_dtw_path_f32.c"/>
         <files mask="arm_euclidean_distance_f32.c"/>
+        <files mask="arm_euclidean_distance_f64.c"/>
         <files mask="arm_hamming_distance.c"/>
         <files mask="arm_jaccard_distance.c"/>
         <files mask="arm_jensenshannon_distance_f32.c"/>
@@ -1362,8 +1515,8 @@ ${load}</script>
         <files mask="arm_sokalsneath_distance.c"/>
         <files mask="arm_yule_distance.c"/>
         <files mask="arm_braycurtis_distance_f16.c"/>
-        <files mask="arm_canberra_distance_f16.c"/>
         <files mask="arm_chebyshev_distance_f16.c"/>
+        <files mask="arm_canberra_distance_f16.c"/>
         <files mask="arm_cityblock_distance_f16.c"/>
         <files mask="arm_correlation_distance_f16.c"/>
         <files mask="arm_cosine_distance_f16.c"/>
@@ -1376,17 +1529,26 @@ ${load}</script>
         <files mask="FastMathFunctionsF16.c"/>
       </source>
       <source exclude="true" relative_path="Source/FastMathFunctions" type="src">
+        <files mask="arm_atan2_f32.c"/>
+        <files mask="arm_atan2_q15.c"/>
+        <files mask="arm_atan2_q31.c"/>
         <files mask="arm_cos_f32.c"/>
         <files mask="arm_cos_q15.c"/>
         <files mask="arm_cos_q31.c"/>
         <files mask="arm_divide_q15.c"/>
+        <files mask="arm_divide_q31.c"/>
         <files mask="arm_sin_f32.c"/>
         <files mask="arm_sin_q15.c"/>
         <files mask="arm_sin_q31.c"/>
         <files mask="arm_sqrt_q15.c"/>
         <files mask="arm_sqrt_q31.c"/>
         <files mask="arm_vexp_f32.c"/>
+        <files mask="arm_vexp_f64.c"/>
         <files mask="arm_vlog_f32.c"/>
+        <files mask="arm_vlog_f64.c"/>
+        <files mask="arm_vlog_q15.c"/>
+        <files mask="arm_vlog_q31.c"/>
+        <files mask="arm_atan2_f16.c"/>
         <files mask="arm_vexp_f16.c"/>
         <files mask="arm_vinverse_f16.c"/>
         <files mask="arm_vlog_f16.c"/>
@@ -1431,6 +1593,7 @@ ${load}</script>
         <files mask="arm_conv_q31.c"/>
         <files mask="arm_conv_q7.c"/>
         <files mask="arm_correlate_f32.c"/>
+        <files mask="arm_correlate_f64.c"/>
         <files mask="arm_correlate_fast_opt_q15.c"/>
         <files mask="arm_correlate_fast_q15.c"/>
         <files mask="arm_correlate_fast_q31.c"/>
@@ -1448,9 +1611,11 @@ ${load}</script>
         <files mask="arm_fir_decimate_q15.c"/>
         <files mask="arm_fir_decimate_q31.c"/>
         <files mask="arm_fir_f32.c"/>
+        <files mask="arm_fir_f64.c"/>
         <files mask="arm_fir_fast_q15.c"/>
         <files mask="arm_fir_fast_q31.c"/>
         <files mask="arm_fir_init_f32.c"/>
+        <files mask="arm_fir_init_f64.c"/>
         <files mask="arm_fir_init_q15.c"/>
         <files mask="arm_fir_init_q31.c"/>
         <files mask="arm_fir_init_q7.c"/>
@@ -1531,6 +1696,8 @@ ${load}</script>
         <files mask="MatrixFunctionsF16.c"/>
       </source>
       <source exclude="true" relative_path="Source/MatrixFunctions" type="src">
+        <files mask="arm_householder_f32.c"/>
+        <files mask="arm_householder_f64.c"/>
         <files mask="arm_mat_add_f32.c"/>
         <files mask="arm_mat_add_q15.c"/>
         <files mask="arm_mat_add_q31.c"/>
@@ -1543,6 +1710,7 @@ ${load}</script>
         <files mask="arm_mat_cmplx_trans_q15.c"/>
         <files mask="arm_mat_cmplx_trans_q31.c"/>
         <files mask="arm_mat_init_f32.c"/>
+        <files mask="arm_mat_init_f64.c"/>
         <files mask="arm_mat_init_q15.c"/>
         <files mask="arm_mat_init_q31.c"/>
         <files mask="arm_mat_inverse_f32.c"/>
@@ -1553,9 +1721,12 @@ ${load}</script>
         <files mask="arm_mat_mult_f64.c"/>
         <files mask="arm_mat_mult_fast_q15.c"/>
         <files mask="arm_mat_mult_fast_q31.c"/>
+        <files mask="arm_mat_mult_opt_q31.c"/>
         <files mask="arm_mat_mult_q15.c"/>
         <files mask="arm_mat_mult_q31.c"/>
         <files mask="arm_mat_mult_q7.c"/>
+        <files mask="arm_mat_qr_f32.c"/>
+        <files mask="arm_mat_qr_f64.c"/>
         <files mask="arm_mat_scale_f32.c"/>
         <files mask="arm_mat_scale_q15.c"/>
         <files mask="arm_mat_scale_q31.c"/>
@@ -1576,12 +1747,14 @@ ${load}</script>
         <files mask="arm_mat_vec_mult_q15.c"/>
         <files mask="arm_mat_vec_mult_q31.c"/>
         <files mask="arm_mat_vec_mult_q7.c"/>
+        <files mask="arm_householder_f16.c"/>
         <files mask="arm_mat_add_f16.c"/>
         <files mask="arm_mat_cholesky_f16.c"/>
         <files mask="arm_mat_cmplx_mult_f16.c"/>
         <files mask="arm_mat_cmplx_trans_f16.c"/>
         <files mask="arm_mat_init_f16.c"/>
         <files mask="arm_mat_inverse_f16.c"/>
+        <files mask="arm_mat_qr_f16.c"/>
         <files mask="arm_mat_mult_f16.c"/>
         <files mask="arm_mat_scale_f16.c"/>
         <files mask="arm_mat_solve_lower_triangular_f16.c"/>
@@ -1597,8 +1770,8 @@ ${load}</script>
         <files mask="arm_quaternion2rotation_f32.c"/>
         <files mask="arm_quaternion_conjugate_f32.c"/>
         <files mask="arm_quaternion_inverse_f32.c"/>
-        <files mask="arm_quaternion_norm_f32.c"/>
         <files mask="arm_quaternion_normalize_f32.c"/>
+        <files mask="arm_quaternion_norm_f32.c"/>
         <files mask="arm_quaternion_product_f32.c"/>
         <files mask="arm_quaternion_product_single_f32.c"/>
         <files mask="arm_rotation2quaternion_f32.c"/>
@@ -1631,13 +1804,27 @@ ${load}</script>
       </source>
       <source exclude="true" relative_path="Source/StatisticsFunctions" type="src">
         <files mask="arm_absmax_f32.c"/>
+        <files mask="arm_absmax_f64.c"/>
+        <files mask="arm_absmax_no_idx_f32.c"/>
+        <files mask="arm_absmax_no_idx_f64.c"/>
+        <files mask="arm_absmax_no_idx_q15.c"/>
+        <files mask="arm_absmax_no_idx_q31.c"/>
+        <files mask="arm_absmax_no_idx_q7.c"/>
         <files mask="arm_absmax_q15.c"/>
         <files mask="arm_absmax_q31.c"/>
         <files mask="arm_absmax_q7.c"/>
         <files mask="arm_absmin_f32.c"/>
+        <files mask="arm_absmin_f64.c"/>
+        <files mask="arm_absmin_no_idx_f32.c"/>
+        <files mask="arm_absmin_no_idx_f64.c"/>
+        <files mask="arm_absmin_no_idx_q15.c"/>
+        <files mask="arm_absmin_no_idx_q31.c"/>
+        <files mask="arm_absmin_no_idx_q7.c"/>
         <files mask="arm_absmin_q15.c"/>
         <files mask="arm_absmin_q31.c"/>
         <files mask="arm_absmin_q7.c"/>
+        <files mask="arm_accumulate_f32.c"/>
+        <files mask="arm_accumulate_f64.c"/>
         <files mask="arm_entropy_f32.c"/>
         <files mask="arm_entropy_f64.c"/>
         <files mask="arm_kullback_leibler_f32.c"/>
@@ -1645,19 +1832,37 @@ ${load}</script>
         <files mask="arm_logsumexp_dot_prod_f32.c"/>
         <files mask="arm_logsumexp_f32.c"/>
         <files mask="arm_max_f32.c"/>
+        <files mask="arm_max_f64.c"/>
         <files mask="arm_max_no_idx_f32.c"/>
+        <files mask="arm_max_no_idx_f64.c"/>
+        <files mask="arm_max_no_idx_q15.c"/>
+        <files mask="arm_max_no_idx_q31.c"/>
+        <files mask="arm_max_no_idx_q7.c"/>
         <files mask="arm_max_q15.c"/>
         <files mask="arm_max_q31.c"/>
         <files mask="arm_max_q7.c"/>
         <files mask="arm_mean_f32.c"/>
+        <files mask="arm_mean_f64.c"/>
         <files mask="arm_mean_q15.c"/>
         <files mask="arm_mean_q31.c"/>
         <files mask="arm_mean_q7.c"/>
         <files mask="arm_min_f32.c"/>
+        <files mask="arm_min_f64.c"/>
+        <files mask="arm_min_no_idx_f32.c"/>
+        <files mask="arm_min_no_idx_f64.c"/>
+        <files mask="arm_min_no_idx_q15.c"/>
+        <files mask="arm_min_no_idx_q31.c"/>
+        <files mask="arm_min_no_idx_q7.c"/>
         <files mask="arm_min_q15.c"/>
         <files mask="arm_min_q31.c"/>
         <files mask="arm_min_q7.c"/>
+        <files mask="arm_mse_f32.c"/>
+        <files mask="arm_mse_f64.c"/>
+        <files mask="arm_mse_q15.c"/>
+        <files mask="arm_mse_q31.c"/>
+        <files mask="arm_mse_q7.c"/>
         <files mask="arm_power_f32.c"/>
+        <files mask="arm_power_f64.c"/>
         <files mask="arm_power_q15.c"/>
         <files mask="arm_power_q31.c"/>
         <files mask="arm_power_q7.c"/>
@@ -1665,13 +1870,18 @@ ${load}</script>
         <files mask="arm_rms_q15.c"/>
         <files mask="arm_rms_q31.c"/>
         <files mask="arm_std_f32.c"/>
+        <files mask="arm_std_f64.c"/>
         <files mask="arm_std_q15.c"/>
         <files mask="arm_std_q31.c"/>
         <files mask="arm_var_f32.c"/>
+        <files mask="arm_var_f64.c"/>
         <files mask="arm_var_q15.c"/>
         <files mask="arm_var_q31.c"/>
         <files mask="arm_absmax_f16.c"/>
+        <files mask="arm_absmax_no_idx_f16.c"/>
         <files mask="arm_absmin_f16.c"/>
+        <files mask="arm_absmin_no_idx_f16.c"/>
+        <files mask="arm_accumulate_f16.c"/>
         <files mask="arm_entropy_f16.c"/>
         <files mask="arm_kullback_leibler_f16.c"/>
         <files mask="arm_logsumexp_dot_prod_f16.c"/>
@@ -1680,6 +1890,8 @@ ${load}</script>
         <files mask="arm_max_no_idx_f16.c"/>
         <files mask="arm_mean_f16.c"/>
         <files mask="arm_min_f16.c"/>
+        <files mask="arm_min_no_idx_f16.c"/>
+        <files mask="arm_mse_f16.c"/>
         <files mask="arm_power_f16.c"/>
         <files mask="arm_rms_f16.c"/>
         <files mask="arm_std_f16.c"/>
@@ -1694,13 +1906,20 @@ ${load}</script>
         <files mask="arm_bitonic_sort_f32.c"/>
         <files mask="arm_bubble_sort_f32.c"/>
         <files mask="arm_copy_f32.c"/>
+        <files mask="arm_copy_f64.c"/>
         <files mask="arm_copy_q15.c"/>
         <files mask="arm_copy_q31.c"/>
         <files mask="arm_copy_q7.c"/>
+        <files mask="arm_f64_to_float.c"/>
+        <files mask="arm_f64_to_q31.c"/>
+        <files mask="arm_f64_to_q15.c"/>
+        <files mask="arm_f64_to_q7.c"/>
         <files mask="arm_fill_f32.c"/>
+        <files mask="arm_fill_f64.c"/>
         <files mask="arm_fill_q15.c"/>
         <files mask="arm_fill_q31.c"/>
         <files mask="arm_fill_q7.c"/>
+        <files mask="arm_float_to_f64.c"/>
         <files mask="arm_float_to_q15.c"/>
         <files mask="arm_float_to_q31.c"/>
         <files mask="arm_float_to_q7.c"/>
@@ -1708,12 +1927,15 @@ ${load}</script>
         <files mask="arm_insertion_sort_f32.c"/>
         <files mask="arm_merge_sort_f32.c"/>
         <files mask="arm_merge_sort_init_f32.c"/>
+        <files mask="arm_q15_to_f64.c"/>
         <files mask="arm_q15_to_float.c"/>
         <files mask="arm_q15_to_q31.c"/>
         <files mask="arm_q15_to_q7.c"/>
+        <files mask="arm_q31_to_f64.c"/>
         <files mask="arm_q31_to_float.c"/>
         <files mask="arm_q31_to_q15.c"/>
         <files mask="arm_q31_to_q7.c"/>
+        <files mask="arm_q7_to_f64.c"/>
         <files mask="arm_q7_to_float.c"/>
         <files mask="arm_q7_to_q15.c"/>
         <files mask="arm_q7_to_q31.c"/>
@@ -1726,6 +1948,8 @@ ${load}</script>
         <files mask="arm_copy_f16.c"/>
         <files mask="arm_f16_to_float.c"/>
         <files mask="arm_f16_to_q15.c"/>
+        <files mask="arm_f16_to_f64.c"/>
+        <files mask="arm_f64_to_f16.c"/>
         <files mask="arm_fill_f16.c"/>
         <files mask="arm_float_to_f16.c"/>
         <files mask="arm_q15_to_f16.c"/>
@@ -1738,7 +1962,6 @@ ${load}</script>
       <source exclude="true" relative_path="Source/TransformFunctions" type="src">
         <files mask="arm_bitreversal.c"/>
         <files mask="arm_bitreversal2.c"/>
-        <files mask="arm_bitreversal2.S"/>
         <files mask="arm_cfft_f32.c"/>
         <files mask="arm_cfft_f64.c"/>
         <files mask="arm_cfft_init_f32.c"/>
@@ -1766,6 +1989,12 @@ ${load}</script>
         <files mask="arm_dct4_init_q31.c"/>
         <files mask="arm_dct4_q15.c"/>
         <files mask="arm_dct4_q31.c"/>
+        <files mask="arm_mfcc_f32.c"/>
+        <files mask="arm_mfcc_init_f32.c"/>
+        <files mask="arm_mfcc_init_q15.c"/>
+        <files mask="arm_mfcc_init_q31.c"/>
+        <files mask="arm_mfcc_q15.c"/>
+        <files mask="arm_mfcc_q31.c"/>
         <files mask="arm_rfft_f32.c"/>
         <files mask="arm_rfft_fast_f32.c"/>
         <files mask="arm_rfft_fast_f64.c"/>
@@ -1782,10 +2011,57 @@ ${load}</script>
         <files mask="arm_cfft_radix2_f16.c"/>
         <files mask="arm_cfft_radix2_init_f16.c"/>
         <files mask="arm_cfft_radix4_f16.c"/>
-        <files mask="arm_cfft_radix4_init_f16.c"/>
         <files mask="arm_cfft_radix8_f16.c"/>
+        <files mask="arm_mfcc_f16.c"/>
+        <files mask="arm_cfft_radix4_init_f16.c"/>
+        <files mask="arm_mfcc_init_f16.c"/>
         <files mask="arm_rfft_fast_f16.c"/>
         <files mask="arm_rfft_fast_init_f16.c"/>
+      </source>
+      <source relative_path="Source/WindowFunctions" type="src">
+        <files mask="WindowFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/WindowFunctions" type="src">
+        <files mask="arm_bartlett_f32.c"/>
+        <files mask="arm_bartlett_f64.c"/>
+        <files mask="arm_blackman_harris_92db_f32.c"/>
+        <files mask="arm_blackman_harris_92db_f64.c"/>
+        <files mask="arm_hamming_f32.c"/>
+        <files mask="arm_hamming_f64.c"/>
+        <files mask="arm_hanning_f32.c"/>
+        <files mask="arm_hanning_f64.c"/>
+        <files mask="arm_hft116d_f32.c"/>
+        <files mask="arm_hft116d_f64.c"/>
+        <files mask="arm_hft144d_f32.c"/>
+        <files mask="arm_hft144d_f64.c"/>
+        <files mask="arm_hft169d_f32.c"/>
+        <files mask="arm_hft169d_f64.c"/>
+        <files mask="arm_hft196d_f32.c"/>
+        <files mask="arm_hft196d_f64.c"/>
+        <files mask="arm_hft223d_f32.c"/>
+        <files mask="arm_hft223d_f64.c"/>
+        <files mask="arm_hft248d_f32.c"/>
+        <files mask="arm_hft248d_f64.c"/>
+        <files mask="arm_hft90d_f32.c"/>
+        <files mask="arm_hft90d_f64.c"/>
+        <files mask="arm_hft95_f32.c"/>
+        <files mask="arm_hft95_f64.c"/>
+        <files mask="arm_nuttall3a_f32.c"/>
+        <files mask="arm_nuttall3a_f64.c"/>
+        <files mask="arm_nuttall3b_f32.c"/>
+        <files mask="arm_nuttall3b_f64.c"/>
+        <files mask="arm_nuttall3_f32.c"/>
+        <files mask="arm_nuttall3_f64.c"/>
+        <files mask="arm_nuttall4a_f32.c"/>
+        <files mask="arm_nuttall4a_f64.c"/>
+        <files mask="arm_nuttall4b_f32.c"/>
+        <files mask="arm_nuttall4b_f64.c"/>
+        <files mask="arm_nuttall4c_f32.c"/>
+        <files mask="arm_nuttall4c_f64.c"/>
+        <files mask="arm_nuttall4_f32.c"/>
+        <files mask="arm_nuttall4_f64.c"/>
+        <files mask="arm_welch_f32.c"/>
+        <files mask="arm_welch_f64.c"/>
       </source>
       <source toolchain="armgcc" relative_path="./" type="workspace">
         <files mask="CMSIS_DSP_Source.cmake" hidden="true"/>
@@ -2097,7 +2373,7 @@ ${load}</script>
         <include_path relative_path="Include" type="c_include"/>
       </include_paths>
     </component>
-    <component id="CMSIS_Device_API_OSTick.MIMX8MQ6" name="CMSIS_Device_API_OSTick" brief="Device interrupt controller interface" version="1.0.1" full_name="CMSIS Device API OSTick" category="Device/OS Tick" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/RTOS2/Include" project_base_path="CMSIS/RTOS2/Include">
+    <component id="CMSIS_Device_API_OSTick.MIMX8MQ6" name="CMSIS_Device_API_OSTick" brief="Device interrupt controller interface" version="1.0.2" full_name="CMSIS Device API OSTick" category="Device/OS Tick" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/RTOS2/Include" project_base_path="CMSIS/RTOS2/Include">
       <dependencies>
         <any_of>
           <device_dependency value="MIMX8MQ6xxxHZ"/>
@@ -2149,7 +2425,7 @@ ${load}</script>
         <files mask="utilities_misc_utilities.MIMX8MQ6.cmake" hidden="true"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.extension.MIMX8MQ6" name="FreeRTOS NXP extension" brief="FreeRTOS NXP extension" version="10.5.1" full_name="FreeRTOS NXP extension" category="RTOS/TAD extension" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
+    <component id="middleware.freertos-kernel.extension.MIMX8MQ6" name="FreeRTOS NXP extension" brief="FreeRTOS NXP extension" version="11.0.1" full_name="FreeRTOS NXP extension" category="RTOS/TAD extension" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <dependencies>
         <any_of>
           <device_dependency value="MIMX8MQ6xxxHZ"/>
@@ -2166,7 +2442,7 @@ ${load}</script>
         <include_path relative_path="include" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.freertos-kernel.template.MIMX8MQ6" name="FreeRTOS configuration template" brief="Template configuration file to be edited by user. Provides also memory allocator (heap_x), change variant if needed." version="10.5.1" full_name="FreeRTOS configuration template" category="RTOS/freertos template" user_visible="false" type="project_template" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
+    <component id="middleware.freertos-kernel.template.MIMX8MQ6" name="FreeRTOS configuration template" brief="Template configuration file to be edited by user. Provides also memory allocator (heap_x), change variant if needed." version="11.0.1" full_name="FreeRTOS configuration template" category="RTOS/freertos template" user_visible="false" type="project_template" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <dependencies>
         <any_of>
           <device_dependency value="MIMX8MQ6xxxHZ"/>
@@ -2183,7 +2459,7 @@ ${load}</script>
         <include_path relative_path="template/ARM_CM4F_4_priority_bits" project_relative_path="../../source" type="c_include" device_cores="cm4_MIMX8MQ6xxxJZ cm4_MIMX8MQ6xxxHZ"/>
       </include_paths>
     </component>
-    <component id="middleware.multicore.MIMX8MQ6" name="multicore middleware" brief="Multicore SDK" version="2.15.0" full_name="Multicore Software Development Kit" category="Multicore/MulticoreSDK" user_visible="false" type="middleware" package_base_path="middleware/multicore" project_base_path="multicore">
+    <component id="middleware.multicore.MIMX8MQ6" name="multicore middleware" brief="Multicore SDK" version="2.16.0" full_name="Multicore Software Development Kit" category="Multicore/MulticoreSDK" user_visible="false" type="middleware" package_base_path="middleware/multicore" project_base_path="multicore">
       <dependencies>
         <any_of>
           <device_dependency value="MIMX8MQ6xxxHZ"/>
@@ -2218,7 +2494,7 @@ ${load}</script>
         <files mask="middleware_multicore_remoteproc_loadscript.cmake" hidden="true"/>
       </source>
     </component>
-    <component id="middleware.multicore.rpmsg_lite.bm.MIMX8MQ6" name="rpmsg_lite" brief="RPMsg-Lite BM environment sources" version="5.1.1" full_name="RPMsg-Lite baremetal environment layer sources" category="Multicore/Inter-Core Messaging System" user_visible="false" type="middleware" package_base_path="middleware/multicore" project_base_path="rpmsg_lite">
+    <component id="middleware.multicore.rpmsg_lite.bm.MIMX8MQ6" name="rpmsg_lite" brief="RPMsg-Lite BM environment sources" version="5.1.2" full_name="RPMsg-Lite baremetal environment layer sources" category="Multicore/Inter-Core Messaging System" user_visible="false" type="middleware" package_base_path="middleware/multicore" project_base_path="rpmsg_lite">
       <dependencies>
         <any_of>
           <device_dependency value="MIMX8MQ6xxxHZ"/>
@@ -2238,7 +2514,7 @@ ${load}</script>
         <include_path relative_path="rpmsg_lite/lib/include/environment/bm" project_relative_path="include/environment/bm" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.multicore.rpmsg_lite.freertos.MIMX8MQ6" name="rpmsg_lite" brief="RPMsg-Lite FreeRTOS environment sources" version="5.1.1" full_name="RPMsg-Lite FreeRTOS environment layer sources" category="Multicore/Inter-Core Messaging System" user_visible="false" type="middleware" package_base_path="middleware/multicore" project_base_path="rpmsg_lite">
+    <component id="middleware.multicore.rpmsg_lite.freertos.MIMX8MQ6" name="rpmsg_lite" brief="RPMsg-Lite FreeRTOS environment sources" version="5.1.2" full_name="RPMsg-Lite FreeRTOS environment layer sources" category="Multicore/Inter-Core Messaging System" user_visible="false" type="middleware" package_base_path="middleware/multicore" project_base_path="rpmsg_lite">
       <dependencies>
         <any_of>
           <device_dependency value="MIMX8MQ6xxxHZ"/>
@@ -2264,7 +2540,7 @@ ${load}</script>
         <include_path relative_path="rpmsg_lite/lib/include/environment/freertos" project_relative_path="include/environment/freertos" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.multicore.rpmsg_lite.xos.MIMX8MQ6" name="rpmsg_lite xos" brief="RPMsg-Lite XOS environment layer sources" version="1.0.0" full_name="RPMsg-Lite XOS environment layer sources" category="Multicore/Inter-Core Messaging System" user_visible="false" type="middleware" package_base_path="middleware/multicore" project_base_path="rpmsg_lite">
+    <component id="middleware.multicore.rpmsg_lite.xos.MIMX8MQ6" name="rpmsg_lite xos" brief="RPMsg-Lite XOS environment layer sources" version="5.1.2" full_name="RPMsg-Lite XOS environment layer sources" category="Multicore/Inter-Core Messaging System" user_visible="false" type="middleware" package_base_path="middleware/multicore" project_base_path="rpmsg_lite">
       <defines>
         <define name="FSL_RTOS_XOS" value="1"/>
       </defines>
@@ -2293,7 +2569,7 @@ ${load}</script>
         <include_path relative_path="rpmsg_lite/lib/include/environment/xos" project_relative_path="include/environment/xos" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.multicore.rpmsg_lite.azurertos.MIMX8MQ6" name="rpmsg_lite" brief="RPMsg-Lite Azure RTOS environment sources" version="5.1.1" full_name="RPMsg-Lite Azure RTOS environment layer sources" category="Multicore/Inter-Core Messaging System" user_visible="false" type="middleware" package_base_path="middleware/multicore" project_base_path="rpmsg_lite">
+    <component id="middleware.multicore.rpmsg_lite.azurertos.MIMX8MQ6" name="rpmsg_lite" brief="RPMsg-Lite Azure RTOS environment sources" version="5.1.2" full_name="RPMsg-Lite Azure RTOS environment layer sources" category="Multicore/Inter-Core Messaging System" user_visible="false" type="middleware" package_base_path="middleware/multicore" project_base_path="rpmsg_lite">
       <defines>
         <define name="FSL_RTOS_THREADX" value="1"/>
       </defines>
@@ -2363,13 +2639,26 @@ ${load}</script>
           <device_dependency value="MIMX8MQ6xxxJZ"/>
         </any_of>
       </dependencies>
-      <source relative_path="./" type="doc">
-        <files mask="MCUXpresso SDK USB Stack OTG Reference Manual.pdf"/>
-        <files mask="MCUXpresso SDK USB Stack Host Reference Manual.pdf"/>
-        <files mask="MCUXpresso SDK USB Stack Composite Host User's Guide.pdf"/>
-        <files mask="MCUXpresso SDK USB Type-C PD Stack Reference Manual.pdf"/>
-        <files mask="MCUXpresso SDK USB Type-C Power Delivery Stack User's Guide.pdf"/>
+    </component>
+    <component id="component.osa_zephyr.MIMX8MQ6" name="osa_zephyr" brief="Component osa_zephyr" version="1.0.0" full_name="Component osa_zephyr" category="NXP Component/OS Abstraction Layer" user_visible="true" type="software_component" package_base_path="core/components/osa" project_base_path="component/osa">
+      <dependencies>
+        <any_of>
+          <device_dependency value="MIMX8MQ6xxxHZ"/>
+          <device_dependency value="MIMX8MQ6xxxJZ"/>
+        </any_of>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_os_abstraction_zephyr.h"/>
       </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_os_abstraction_zephyr.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="./" type="workspace">
+        <files mask="component_osa_zephyr.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
     </component>
     <component id="project_template.MIMX8MQ6.MIMX8MQ6" name="MIMX8MQ6" brief="Devices_project_template MIMX8MQ6" version="1.0.0" full_name="Devices_project_template MIMX8MQ6" category="Board Support/SDK Project Template" user_visible="true" type="project_template" package_base_path="core/devices/MIMX8MQ6/project_template" project_base_path="board">
       <dependencies>
@@ -2529,14 +2818,9 @@ ${load}</script>
           </any_of>
           <component_dependency value="component.iuart_adapter.MIMX8MQ6"/>
           <component_dependency value="platform.drivers.common.MIMX8MQ6"/>
+          <component_dependency value="utility.str.MIMX8MQ6"/>
         </all>
       </dependencies>
-      <source relative_path="str" project_relative_path="./" type="src">
-        <files mask="fsl_str.c"/>
-      </source>
-      <source relative_path="str" project_relative_path="./" type="c_include">
-        <files mask="fsl_str.h"/>
-      </source>
       <source relative_path="debug_console_lite" project_relative_path="./" type="src">
         <files mask="fsl_debug_console.c"/>
       </source>
@@ -2547,7 +2831,6 @@ ${load}</script>
         <files mask="utility_debug_console_lite.MIMX8MQ6.cmake" hidden="true"/>
       </source>
       <include_paths>
-        <include_path relative_path="str" project_relative_path="./" type="c_include"/>
         <include_path relative_path="debug_console_lite" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
@@ -2599,29 +2882,32 @@ ${load}</script>
         <files mask="a00021.js"/>
         <files mask="a00022.html"/>
         <files mask="a00022.js"/>
-        <files mask="a00023.html"/>
-        <files mask="a00023.js"/>
+        <files mask="a00083.html"/>
+        <files mask="a00083.js"/>
+        <files mask="a00084.html"/>
+        <files mask="a00084.js"/>
+        <files mask="a00085.html"/>
+        <files mask="a00085.js"/>
+        <files mask="a00086.html"/>
+        <files mask="a00086.js"/>
         <files mask="a00087.html"/>
-        <files mask="a00087.js"/>
         <files mask="a00088.html"/>
-        <files mask="a00088.js"/>
         <files mask="a00089.html"/>
         <files mask="a00089.js"/>
         <files mask="a00090.html"/>
-        <files mask="a00090.js"/>
         <files mask="a00091.html"/>
-        <files mask="a00091.js"/>
         <files mask="a00092.html"/>
+        <files mask="a00092.js"/>
         <files mask="a00093.html"/>
         <files mask="a00093.js"/>
         <files mask="a00094.html"/>
-        <files mask="a00094.js"/>
         <files mask="a00095.html"/>
         <files mask="a00096.html"/>
         <files mask="a00096.js"/>
         <files mask="a00097.html"/>
         <files mask="a00097.js"/>
         <files mask="a00098.html"/>
+        <files mask="a00098.js"/>
         <files mask="a00099.html"/>
         <files mask="a00099.js"/>
         <files mask="a00100.html"/>
@@ -2631,22 +2917,16 @@ ${load}</script>
         <files mask="a00102.html"/>
         <files mask="a00102.js"/>
         <files mask="a00103.html"/>
-        <files mask="a00103.js"/>
         <files mask="a00104.html"/>
-        <files mask="a00104.js"/>
         <files mask="a00105.html"/>
         <files mask="a00105.js"/>
         <files mask="a00106.html"/>
         <files mask="a00107.html"/>
+        <files mask="a00107.js"/>
         <files mask="a00108.html"/>
         <files mask="a00108.js"/>
         <files mask="a00109.html"/>
-        <files mask="a00110.html"/>
-        <files mask="a00110.js"/>
         <files mask="a00111.html"/>
-        <files mask="a00111.js"/>
-        <files mask="a00112.html"/>
-        <files mask="a00114.html"/>
         <files mask="arm_logo.png"/>
         <files mask="bc_s.png"/>
         <files mask="bdwn.png"/>
@@ -2949,7 +3229,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="CMSIS_NN_Source.MIMX8MQ6" name="CMSIS_NN_Library_Source" brief="CMSIS-NN Library" version="3.0.0" full_name="CMSIS NN Library Source" category="CMSIS/NN" user_visible="true" type="CMSIS_driver" package_base_path="core/CMSIS/NN" project_base_path="CMSIS/NN">
+    <component id="CMSIS_NN_Source.MIMX8MQ6" name="CMSIS_NN_Library_Source" brief="CMSIS-NN Library" version="5.0.0" full_name="CMSIS NN Library Source" category="CMSIS/NN" user_visible="true" type="CMSIS_driver" package_base_path="core/CMSIS/NN" project_base_path="CMSIS/NN">
       <dependencies>
         <all>
           <any_of>
@@ -2963,20 +3243,26 @@ ${load}</script>
         <files mask="README.md" hidden="true"/>
       </source>
       <source relative_path="Include" type="c_include">
-        <files mask="arm_nn_tables.h"/>
-        <files mask="arm_nn_types.h"/>
         <files mask="arm_nnfunctions.h"/>
         <files mask="arm_nnsupportfunctions.h"/>
+        <files mask="arm_nn_math_types.h"/>
+        <files mask="arm_nn_tables.h"/>
+        <files mask="arm_nn_types.h"/>
+      </source>
+      <source relative_path="Include/Internal" type="c_include">
+        <files mask="arm_nn_compiler.h"/>
       </source>
       <source relative_path="Source/ActivationFunctions" type="src">
-        <files mask="arm_nn_activations_q15.c"/>
-        <files mask="arm_nn_activations_q7.c"/>
+        <files mask="arm_nn_activation_s16.c"/>
         <files mask="arm_relu6_s8.c"/>
         <files mask="arm_relu_q15.c"/>
         <files mask="arm_relu_q7.c"/>
       </source>
       <source relative_path="Source/BasicMathFunctions" type="src">
+        <files mask="arm_elementwise_add_s16.c"/>
         <files mask="arm_elementwise_add_s8.c"/>
+        <files mask="arm_elementwise_mul_s16.c"/>
+        <files mask="arm_elementwise_mul_s16_s8.c"/>
         <files mask="arm_elementwise_mul_s8.c"/>
       </source>
       <source relative_path="Source/ConcatenationFunctions" type="src">
@@ -2986,77 +3272,97 @@ ${load}</script>
         <files mask="arm_concatenation_s8_z.c"/>
       </source>
       <source relative_path="Source/ConvolutionFunctions" type="src">
-        <files mask="arm_convolve_1x1_HWC_q7_fast_nonsquare.c"/>
+        <files mask="arm_convolve_1x1_s4.c"/>
+        <files mask="arm_convolve_1x1_s4_fast.c"/>
+        <files mask="arm_convolve_1x1_s8.c"/>
         <files mask="arm_convolve_1x1_s8_fast.c"/>
         <files mask="arm_convolve_1_x_n_s8.c"/>
-        <files mask="arm_convolve_HWC_q15_basic.c"/>
-        <files mask="arm_convolve_HWC_q15_fast.c"/>
-        <files mask="arm_convolve_HWC_q15_fast_nonsquare.c"/>
-        <files mask="arm_convolve_HWC_q7_basic.c"/>
-        <files mask="arm_convolve_HWC_q7_basic_nonsquare.c"/>
-        <files mask="arm_convolve_HWC_q7_fast.c"/>
-        <files mask="arm_convolve_HWC_q7_fast_nonsquare.c"/>
-        <files mask="arm_convolve_HWC_q7_RGB.c"/>
+        <files mask="arm_convolve_fast_s16.c"/>
+        <files mask="arm_convolve_get_buffer_sizes_s16.c"/>
+        <files mask="arm_convolve_get_buffer_sizes_s4.c"/>
+        <files mask="arm_convolve_get_buffer_sizes_s8.c"/>
+        <files mask="arm_convolve_s16.c"/>
+        <files mask="arm_convolve_s4.c"/>
         <files mask="arm_convolve_s8.c"/>
+        <files mask="arm_convolve_wrapper_s16.c"/>
+        <files mask="arm_convolve_wrapper_s4.c"/>
         <files mask="arm_convolve_wrapper_s8.c"/>
         <files mask="arm_depthwise_conv_3x3_s8.c"/>
+        <files mask="arm_depthwise_conv_fast_s16.c"/>
+        <files mask="arm_depthwise_conv_get_buffer_sizes_s16.c"/>
+        <files mask="arm_depthwise_conv_get_buffer_sizes_s4.c"/>
+        <files mask="arm_depthwise_conv_get_buffer_sizes_s8.c"/>
+        <files mask="arm_depthwise_conv_s16.c"/>
+        <files mask="arm_depthwise_conv_s4.c"/>
+        <files mask="arm_depthwise_conv_s4_opt.c"/>
         <files mask="arm_depthwise_conv_s8.c"/>
         <files mask="arm_depthwise_conv_s8_opt.c"/>
-        <files mask="arm_depthwise_conv_u8_basic_ver1.c"/>
+        <files mask="arm_depthwise_conv_wrapper_s16.c"/>
+        <files mask="arm_depthwise_conv_wrapper_s4.c"/>
         <files mask="arm_depthwise_conv_wrapper_s8.c"/>
-        <files mask="arm_depthwise_separable_conv_HWC_q7.c"/>
-        <files mask="arm_depthwise_separable_conv_HWC_q7_nonsquare.c"/>
         <files mask="arm_nn_depthwise_conv_s8_core.c"/>
-        <files mask="arm_nn_mat_mult_kernel_q7_q15.c"/>
-        <files mask="arm_nn_mat_mult_kernel_q7_q15_reordered.c"/>
+        <files mask="arm_nn_mat_mult_kernel_s4_s16.c"/>
         <files mask="arm_nn_mat_mult_kernel_s8_s16.c"/>
-        <files mask="arm_nn_mat_mult_kernel_s8_s16_reordered.c"/>
         <files mask="arm_nn_mat_mult_s8.c"/>
+        <files mask="arm_transpose_conv_get_buffer_sizes_s8.c"/>
+        <files mask="arm_transpose_conv_s8.c"/>
       </source>
       <source relative_path="Source/FullyConnectedFunctions" type="src">
-        <files mask="arm_fully_connected_mat_q7_vec_q15.c"/>
-        <files mask="arm_fully_connected_mat_q7_vec_q15_opt.c"/>
-        <files mask="arm_fully_connected_q15.c"/>
-        <files mask="arm_fully_connected_q15_opt.c"/>
-        <files mask="arm_fully_connected_q7.c"/>
-        <files mask="arm_fully_connected_q7_opt.c"/>
+        <files mask="arm_fully_connected_get_buffer_sizes_s16.c"/>
+        <files mask="arm_fully_connected_get_buffer_sizes_s8.c"/>
+        <files mask="arm_fully_connected_s16.c"/>
+        <files mask="arm_fully_connected_s4.c"/>
         <files mask="arm_fully_connected_s8.c"/>
+        <files mask="arm_vector_sum_s8.c"/>
+      </source>
+      <source relative_path="Source/LSTMFunctions" type="src">
+        <files mask="arm_lstm_unidirectional_s8_s16.c"/>
       </source>
       <source relative_path="Source/NNSupportFunctions" type="src">
         <files mask="arm_nntables.c"/>
-        <files mask="arm_nn_accumulate_q7_to_q15.c"/>
-        <files mask="arm_nn_add_q7.c"/>
         <files mask="arm_nn_depthwise_conv_nt_t_padded_s8.c"/>
+        <files mask="arm_nn_depthwise_conv_nt_t_s16.c"/>
         <files mask="arm_nn_depthwise_conv_nt_t_s8.c"/>
+        <files mask="arm_nn_lstm_calculate_gate_s8_s16.c"/>
+        <files mask="arm_nn_lstm_step_s8_s16.c"/>
+        <files mask="arm_nn_lstm_update_cell_state_s16.c"/>
+        <files mask="arm_nn_lstm_update_output_s8_s16.c"/>
+        <files mask="arm_nn_mat_mult_nt_t_s4.c"/>
         <files mask="arm_nn_mat_mult_nt_t_s8.c"/>
+        <files mask="arm_nn_mat_mult_nt_t_s8_s32.c"/>
         <files mask="arm_nn_mat_mul_core_1x_s8.c"/>
         <files mask="arm_nn_mat_mul_core_4x_s8.c"/>
-        <files mask="arm_nn_mult_q15.c"/>
-        <files mask="arm_nn_mult_q7.c"/>
+        <files mask="arm_nn_mat_mul_kernel_s16.c"/>
+        <files mask="arm_nn_vec_mat_mult_t_s16.c"/>
+        <files mask="arm_nn_vec_mat_mult_t_s4.c"/>
         <files mask="arm_nn_vec_mat_mult_t_s8.c"/>
         <files mask="arm_nn_vec_mat_mult_t_svdf_s8.c"/>
-        <files mask="arm_q7_to_q15_no_shift.c"/>
-        <files mask="arm_q7_to_q15_reordered_no_shift.c"/>
-        <files mask="arm_q7_to_q15_reordered_with_offset.c"/>
+        <files mask="arm_nn_vec_mat_mul_result_acc_s8.c"/>
         <files mask="arm_q7_to_q15_with_offset.c"/>
+        <files mask="arm_s8_to_s16_unordered_with_offset.c"/>
       </source>
       <source relative_path="Source/PoolingFunctions" type="src">
+        <files mask="arm_avgpool_get_buffer_sizes_s16.c"/>
+        <files mask="arm_avgpool_get_buffer_sizes_s8.c"/>
+        <files mask="arm_avgpool_s16.c"/>
         <files mask="arm_avgpool_s8.c"/>
+        <files mask="arm_max_pool_s16.c"/>
         <files mask="arm_max_pool_s8.c"/>
-        <files mask="arm_pool_q7_HWC.c"/>
       </source>
       <source relative_path="Source/ReshapeFunctions" type="src">
         <files mask="arm_reshape_s8.c"/>
       </source>
       <source relative_path="Source/SoftmaxFunctions" type="src">
-        <files mask="arm_softmax_q15.c"/>
-        <files mask="arm_softmax_q7.c"/>
+        <files mask="arm_nn_softmax_common_s8.c"/>
+        <files mask="arm_softmax_s16.c"/>
         <files mask="arm_softmax_s8.c"/>
+        <files mask="arm_softmax_s8_s16.c"/>
         <files mask="arm_softmax_u8.c"/>
-        <files mask="arm_softmax_with_batch_q7.c"/>
       </source>
       <source relative_path="Source/SVDFunctions" type="src">
+        <files mask="arm_svdf_get_buffer_sizes_s8.c"/>
         <files mask="arm_svdf_s8.c"/>
+        <files mask="arm_svdf_state_s16_s8.c"/>
       </source>
       <source toolchain="armgcc" relative_path="./" type="workspace">
         <files mask="CMSIS_NN_Source.cmake" hidden="true"/>
@@ -3277,14 +3583,9 @@ ${load}</script>
           </any_of>
           <component_dependency value="component.serial_manager.MIMX8MQ6"/>
           <component_dependency value="platform.drivers.common.MIMX8MQ6"/>
+          <component_dependency value="utility.str.MIMX8MQ6"/>
         </all>
       </dependencies>
-      <source relative_path="str" project_relative_path="./" type="src">
-        <files mask="fsl_str.c"/>
-      </source>
-      <source relative_path="str" project_relative_path="./" type="c_include">
-        <files mask="fsl_str.h"/>
-      </source>
       <source relative_path="debug_console" project_relative_path="./" type="src">
         <files mask="fsl_debug_console.c"/>
       </source>
@@ -3296,11 +3597,10 @@ ${load}</script>
         <files mask="utility_debug_console.MIMX8MQ6.cmake" hidden="true"/>
       </source>
       <include_paths>
-        <include_path relative_path="str" project_relative_path="./" type="c_include"/>
         <include_path relative_path="debug_console" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.freertos-kernel.MIMX8MQ6" name="FreeRTOS kernel" brief="FreeRTOS kernel" version="10.5.1" full_name="FreeRTOS kernel" category="RTOS/Core" user_visible="true" type="OS" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
+    <component id="middleware.freertos-kernel.MIMX8MQ6" name="FreeRTOS kernel" brief="FreeRTOS kernel" version="11.0.1" full_name="FreeRTOS kernel" category="RTOS/Core" user_visible="true" type="OS" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <defines>
         <define name="SDK_OS_FREE_RTOS" value=""/>
       </defines>
@@ -3332,7 +3632,10 @@ ${load}</script>
         <files mask="list.h"/>
         <files mask="message_buffer.h"/>
         <files mask="mpu_prototypes.h"/>
+        <files mask="mpu_syscall_numbers.h"/>
         <files mask="mpu_wrappers.h"/>
+        <files mask="newlib-freertos.h"/>
+        <files mask="picolibc-freertos.h"/>
         <files mask="portable.h"/>
         <files mask="projdefs.h"/>
         <files mask="queue.h"/>
@@ -3364,9 +3667,10 @@ ${load}</script>
       <include_paths>
         <include_path relative_path="include" type="c_include"/>
         <include_path relative_path="portable/GCC/ARM_CM4F" toolchain="armgcc mcuxpresso" type="c_include" device_cores="cm4_MIMX8MQ6xxxJZ cm4_MIMX8MQ6xxxHZ"/>
+        <include_path relative_path="include" type="asm_include"/>
       </include_paths>
     </component>
-    <component id="middleware.freertos-kernel.heap_1.MIMX8MQ6" name="FreeRTOS heap 1" brief="FreeRTOS heap 1" version="10.5.1" full_name="FreeRTOS heap 1" category="RTOS/Heap" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
+    <component id="middleware.freertos-kernel.heap_1.MIMX8MQ6" name="FreeRTOS heap 1" brief="FreeRTOS heap 1" version="11.0.1" full_name="FreeRTOS heap 1" category="RTOS/Heap" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <dependencies>
         <all>
           <any_of>
@@ -3395,7 +3699,7 @@ ${load}</script>
         <files mask="middleware_freertos-kernel_heap_1.cmake" hidden="true"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.heap_2.MIMX8MQ6" name="FreeRTOS heap 2" brief="FreeRTOS heap 2" version="10.5.1" full_name="FreeRTOS heap 2" category="RTOS/Heap" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
+    <component id="middleware.freertos-kernel.heap_2.MIMX8MQ6" name="FreeRTOS heap 2" brief="FreeRTOS heap 2" version="11.0.1" full_name="FreeRTOS heap 2" category="RTOS/Heap" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <dependencies>
         <all>
           <any_of>
@@ -3424,7 +3728,7 @@ ${load}</script>
         <files mask="middleware_freertos-kernel_heap_2.cmake" hidden="true"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.heap_3.MIMX8MQ6" name="FreeRTOS heap 3" brief="FreeRTOS heap 3" version="10.5.1" full_name="FreeRTOS heap_3" category="RTOS/Heap" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
+    <component id="middleware.freertos-kernel.heap_3.MIMX8MQ6" name="FreeRTOS heap 3" brief="FreeRTOS heap 3" version="11.0.1" full_name="FreeRTOS heap_3" category="RTOS/Heap" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <dependencies>
         <all>
           <any_of>
@@ -3453,7 +3757,7 @@ ${load}</script>
         <files mask="middleware_freertos-kernel_heap_3.cmake" hidden="true"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.heap_4.MIMX8MQ6" name="FreeRTOS heap 4" brief="FreeRTOS heap 4" version="10.5.1" full_name="FreeRTOS heap 4" category="RTOS/Heap" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
+    <component id="middleware.freertos-kernel.heap_4.MIMX8MQ6" name="FreeRTOS heap 4" brief="FreeRTOS heap 4" version="11.0.1" full_name="FreeRTOS heap 4" category="RTOS/Heap" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <dependencies>
         <all>
           <any_of>
@@ -3482,7 +3786,7 @@ ${load}</script>
         <files mask="middleware_freertos-kernel_heap_4.cmake" hidden="true"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.heap_5.MIMX8MQ6" name="FreeRTOS heap 5" brief="FreeRTOS heap 5" version="10.5.1" full_name="FreeRTOS heap 5" category="RTOS/Heap" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
+    <component id="middleware.freertos-kernel.heap_5.MIMX8MQ6" name="FreeRTOS heap 5" brief="FreeRTOS heap 5" version="11.0.1" full_name="FreeRTOS heap 5" category="RTOS/Heap" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <dependencies>
         <all>
           <any_of>
@@ -3511,7 +3815,24 @@ ${load}</script>
         <files mask="middleware_freertos-kernel_heap_5.cmake" hidden="true"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.mpu_wrappers.MIMX8MQ6" name="FreeRTOS MPU wrappers" brief="FreeRTOS MPU wrappers" version="10.5.1" full_name="FreeRTOS MPU wrappers" category="RTOS/MPU wrappers" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
+    <component id="middleware.freertos-kernel.mpu_wrappers_v2.MIMX8MQ6" name="new V2 FreeRTOS MPU wrappers introduced in V10.6.0" brief="new V2 FreeRTOS MPU wrappers introduced in V10.6.0" version="11.0.1" full_name="new V2 FreeRTOS MPU wrappers introduced in V10.6.0" category="RTOS/MPU wrappers V2" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
+      <dependencies>
+        <all>
+          <any_of>
+            <device_dependency value="MIMX8MQ6xxxHZ"/>
+            <device_dependency value="MIMX8MQ6xxxJZ"/>
+          </any_of>
+          <component_dependency value="middleware.freertos-kernel.MIMX8MQ6"/>
+        </all>
+      </dependencies>
+      <source relative_path="portable/Common" type="src">
+        <files mask="mpu_wrappers_v2.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="./" type="workspace">
+        <files mask="middleware_freertos-kernel_mpu_wrappers_v2.cmake" hidden="true"/>
+      </source>
+    </component>
+    <component id="middleware.freertos-kernel.mpu_wrappers.MIMX8MQ6" name="old FreeRTOS MPU wrappers used before V10.6.0" brief="old FreeRTOS MPU wrappers used before V10.6.0" version="11.0.1" full_name="old FreeRTOS MPU wrappers used before V10.6.0" category="RTOS/MPU wrappers" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <dependencies>
         <all>
           <any_of>
@@ -3542,7 +3863,7 @@ ${load}</script>
         <files mask="Getting Started with MCUXpressoSDK and FreeRTOS OS.pdf"/>
       </source>
     </component>
-    <component id="docs.multicore.MIMX8MQ6" name="docs_multicore" brief="Collection of Multicore SDK documentation" version="2.14.0" full_name="Multicore SDK documentation" category="docs/multicore" user_visible="true" type="documentation" package_base_path="middleware/multicore/docs" project_base_path="docs">
+    <component id="docs.multicore.MIMX8MQ6" name="docs_multicore" brief="Collection of Multicore SDK documentation" version="2.16.0" full_name="Multicore SDK documentation" category="docs/multicore" user_visible="true" type="documentation" package_base_path="middleware/multicore/docs" project_base_path="docs">
       <dependencies>
         <all>
           <any_of>
@@ -3557,7 +3878,7 @@ ${load}</script>
         <files mask="Getting Started with Multicore SDK (MCSDK).pdf"/>
       </source>
     </component>
-    <component id="middleware.multicore.rpmsg_lite.imx8mq_m4_bm.MIMX8MQ6" name="rpmsg_lite_imx8mq_m4_bm" brief="RPMsg-Lite for evkmimx8mq baremetal application" version="5.1.1" full_name="Remote Procedure Messaging Lite porting layer for evkmimx8mq board" category="Multicore/Inter-Core Messaging System" user_visible="false" type="middleware" package_base_path="middleware/multicore" project_base_path="rpmsg_lite">
+    <component id="middleware.multicore.rpmsg_lite.imx8mq_m4_bm.MIMX8MQ6" name="rpmsg_lite_imx8mq_m4_bm" brief="RPMsg-Lite for evkmimx8mq baremetal application" version="5.1.2" full_name="Remote Procedure Messaging Lite porting layer for evkmimx8mq board" category="Multicore/Inter-Core Messaging System" user_visible="false" type="middleware" package_base_path="middleware/multicore" project_base_path="rpmsg_lite">
       <dependencies>
         <all>
           <any_of>
@@ -3580,7 +3901,7 @@ ${load}</script>
         <include_path relative_path="rpmsg_lite/lib/include/platform/imx8mq_m4" project_relative_path="include/platform/imx8mq_m4" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.multicore.rpmsg_lite.imx8mq_m4_freertos.MIMX8MQ6" name="rpmsg_lite_imx8mq_m4_freertos" brief="RPMsg-Lite for evkmimx8mq FreeRTOS application" version="5.1.1" full_name="Remote Procedure Messaging Lite porting layer for evkmimx8mq board" category="Multicore/Inter-Core Messaging System" user_visible="false" type="middleware" package_base_path="middleware/multicore" project_base_path="rpmsg_lite">
+    <component id="middleware.multicore.rpmsg_lite.imx8mq_m4_freertos.MIMX8MQ6" name="rpmsg_lite_imx8mq_m4_freertos" brief="RPMsg-Lite for evkmimx8mq FreeRTOS application" version="5.1.2" full_name="Remote Procedure Messaging Lite porting layer for evkmimx8mq board" category="Multicore/Inter-Core Messaging System" user_visible="false" type="middleware" package_base_path="middleware/multicore" project_base_path="rpmsg_lite">
       <dependencies>
         <all>
           <any_of>
@@ -3604,7 +3925,7 @@ ${load}</script>
         <include_path relative_path="rpmsg_lite/lib/include/platform/imx8mq_m4" project_relative_path="include/platform/imx8mq_m4" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.multicore.rpmsg_lite.bm.config.MIMX8MQ6" name="rpmsg_lite_bm_imx8mq_m4" brief="RPMsg-Lite baremetal for evkmimx8mq board" version="5.1.1" full_name="Remote Procedure Messaging Lite BM for evkmimx8mq board" category="Multicore/Inter-Core Messaging System" user_visible="true" type="middleware" package_base_path="middleware/multicore" project_base_path="source">
+    <component id="middleware.multicore.rpmsg_lite.bm.config.MIMX8MQ6" name="rpmsg_lite_bm_imx8mq_m4" brief="RPMsg-Lite baremetal for evkmimx8mq board" version="5.1.2" full_name="Remote Procedure Messaging Lite BM for evkmimx8mq board" category="Multicore/Inter-Core Messaging System" user_visible="true" type="middleware" package_base_path="middleware/multicore" project_base_path="source">
       <dependencies>
         <all>
           <any_of>
@@ -3626,7 +3947,7 @@ ${load}</script>
         <include_path relative_path="rpmsg_lite/template_application" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.multicore.rpmsg_lite.freertos.config.MIMX8MQ6" name="rpmsg_lite_freertos_imx8mq_m4" brief="RPMsg-Lite FreeRTOS for evkmimx8mq board" version="5.1.1" full_name="Remote Procedure Messaging Lite FreeRTOS for evkmimx8mq board" category="Multicore/Inter-Core Messaging System" user_visible="true" type="middleware" package_base_path="middleware/multicore" project_base_path="source">
+    <component id="middleware.multicore.rpmsg_lite.freertos.config.MIMX8MQ6" name="rpmsg_lite_freertos_imx8mq_m4" brief="RPMsg-Lite FreeRTOS for evkmimx8mq board" version="5.1.2" full_name="Remote Procedure Messaging Lite FreeRTOS for evkmimx8mq board" category="Multicore/Inter-Core Messaging System" user_visible="true" type="middleware" package_base_path="middleware/multicore" project_base_path="source">
       <dependencies>
         <all>
           <any_of>
@@ -3648,7 +3969,102 @@ ${load}</script>
         <include_path relative_path="rpmsg_lite/template_application" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.multicore.rpmsg_lite.MIMX8MQ6" name="rpmsg_lite" brief="RPMsg-Lite" version="5.1.1" full_name="Remote Procedure Messaging Lite library" category="Multicore/Inter-Core Messaging System" user_visible="false" type="middleware" package_base_path="middleware/multicore" project_base_path="rpmsg_lite">
+    <component id="middleware.multicore.rpmsg_lite.zephyr.MIMX8MQ6" name="rpmsg_lite zephyr" brief="RPMsg-Lite Zephyr environment sources" version="5.1.2" full_name="RPMsg-Lite Zephyr environment layer sources" category="Multicore/Inter-Core Messaging System" user_visible="false" type="middleware" package_base_path="middleware/multicore" project_base_path="rpmsg_lite">
+      <dependencies>
+        <all>
+          <any_of>
+            <device_dependency value="MIMX8MQ6xxxHZ"/>
+            <device_dependency value="MIMX8MQ6xxxJZ"/>
+          </any_of>
+          <component_dependency value="middleware.multicore.rpmsg_lite.MIMX8MQ6"/>
+        </all>
+      </dependencies>
+      <source relative_path="rpmsg_lite/lib/rpmsg_lite/porting/environment" project_relative_path="rpmsg_lite/porting/environment" type="src">
+        <files mask="rpmsg_env_zephyr.c"/>
+      </source>
+      <source relative_path="rpmsg_lite/lib/include" project_relative_path="include" type="c_include">
+        <files mask="rpmsg_queue.h"/>
+      </source>
+      <source relative_path="rpmsg_lite/lib/rpmsg_lite" project_relative_path="rpmsg_lite" type="src">
+        <files mask="rpmsg_queue.c"/>
+      </source>
+      <source relative_path="rpmsg_lite/lib/include/environment/zephyr" project_relative_path="include/environment/zephyr" type="c_include">
+        <files mask="rpmsg_env_specific.h"/>
+      </source>
+      <source relative_path="rpmsg_lite/zephyr" type="doc">
+        <files mask="CMakeLists.txt"/>
+        <files mask="README.md"/>
+      </source>
+      <source relative_path="rpmsg_lite/zephyr" type="other">
+        <files mask="module.yml"/>
+      </source>
+      <source relative_path="rpmsg_lite/zephyr" project_relative_path="zephyr" type="other">
+        <files mask="Kconfig" hidden="true"/>
+      </source>
+      <source relative_path="rpmsg_lite/zephyr/samples/rpmsglite_pingpong" type="doc">
+        <files mask="CMakeLists.txt"/>
+      </source>
+      <source relative_path="rpmsg_lite/zephyr/samples/rpmsglite_pingpong" type="other">
+        <files mask="Kconfig.sysbuild"/>
+        <files mask="README.rst"/>
+        <files mask="prj.conf"/>
+        <files mask="sample.yaml"/>
+      </source>
+      <source relative_path="rpmsg_lite/zephyr/samples/rpmsglite_pingpong" type="c_include">
+        <files mask="common.h"/>
+        <files mask="rpmsg_config.h"/>
+      </source>
+      <source relative_path="rpmsg_lite/zephyr/samples/rpmsglite_pingpong" type="script">
+        <files mask="sysbuild.cmake"/>
+      </source>
+      <source relative_path="rpmsg_lite/zephyr/samples/rpmsglite_pingpong" project_relative_path="zephyr/samples/rpmsglite_pingpong" type="other">
+        <files mask="Kconfig" hidden="true"/>
+      </source>
+      <source relative_path="rpmsg_lite/zephyr/samples/rpmsglite_pingpong/boards" project_relative_path="zephyr/samples/rpmsglite_pingpong/boards" type="other">
+        <files mask="lpcxpresso54114_m4.conf" hidden="true"/>
+        <files mask="lpcxpresso54114_m4.overlay" hidden="true"/>
+        <files mask="lpcxpresso55s69_cpu0.conf" hidden="true"/>
+        <files mask="lpcxpresso55s69_cpu0.overlay" hidden="true"/>
+        <files mask="mimxrt1160_evk_cm7.conf" hidden="true"/>
+        <files mask="mimxrt1160_evk_cm7.overlay" hidden="true"/>
+        <files mask="mimxrt1170_evk_cm7.conf" hidden="true"/>
+        <files mask="mimxrt1170_evk_cm7.overlay" hidden="true"/>
+        <files mask="mimxrt1170_evkb_cm7.conf" hidden="true"/>
+        <files mask="mimxrt1170_evkb_cm7.overlay" hidden="true"/>
+      </source>
+      <source relative_path="rpmsg_lite/zephyr/samples/rpmsglite_pingpong/remote" project_relative_path="zephyr/samples/rpmsglite_pingpong/remote" type="doc">
+        <files mask="CMakeLists.txt" hidden="true"/>
+      </source>
+      <source relative_path="rpmsg_lite/zephyr/samples/rpmsglite_pingpong/remote" project_relative_path="zephyr/samples/rpmsglite_pingpong/remote" type="other">
+        <files mask="prj.conf" hidden="true"/>
+        <files mask="sample.yaml" hidden="true"/>
+      </source>
+      <source relative_path="rpmsg_lite/zephyr/samples/rpmsglite_pingpong/remote/boards" project_relative_path="zephyr/samples/rpmsglite_pingpong/remote/boards" type="other">
+        <files mask="lpcxpresso54114_m0.conf" hidden="true"/>
+        <files mask="lpcxpresso54114_m0.overlay" hidden="true"/>
+        <files mask="lpcxpresso55s69_cpu1.conf" hidden="true"/>
+        <files mask="lpcxpresso55s69_cpu1.overlay" hidden="true"/>
+        <files mask="mimxrt1160_evk_cm4.conf" hidden="true"/>
+        <files mask="mimxrt1160_evk_cm4.overlay" hidden="true"/>
+        <files mask="mimxrt1170_evk_cm4.conf" hidden="true"/>
+        <files mask="mimxrt1170_evk_cm4.overlay" hidden="true"/>
+        <files mask="mimxrt1170_evkb_cm4.conf" hidden="true"/>
+        <files mask="mimxrt1170_evkb_cm4.overlay" hidden="true"/>
+      </source>
+      <source relative_path="rpmsg_lite/zephyr/samples/rpmsglite_pingpong/remote/src" project_relative_path="zephyr/samples/rpmsglite_pingpong/remote/src" type="src">
+        <files mask="main.c" hidden="true"/>
+      </source>
+      <source relative_path="rpmsg_lite/zephyr/samples/rpmsglite_pingpong/src" project_relative_path="zephyr/samples/rpmsglite_pingpong/src" type="src">
+        <files mask="main.c" hidden="true"/>
+      </source>
+      <source toolchain="armgcc" relative_path="./" type="workspace">
+        <files mask="middleware_multicore_rpmsg_lite_zephyr.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="rpmsg_lite/lib/include/environment/zephyr" project_relative_path="include/environment/zephyr" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.multicore.rpmsg_lite.MIMX8MQ6" name="rpmsg_lite" brief="RPMsg-Lite" version="5.1.2" full_name="Remote Procedure Messaging Lite library" category="Multicore/Inter-Core Messaging System" user_visible="false" type="middleware" package_base_path="middleware/multicore" project_base_path="rpmsg_lite">
       <dependencies>
         <all>
           <any_of>
@@ -3823,7 +4239,7 @@ ${load}</script>
         <include_path relative_path="rpmsg_lite/lib/include" project_relative_path="include" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.common_header.MIMX8MQ6" name="USB Common Header" brief="Middleware usb common_header" version="2.9.1" full_name="USB Common Header" category="USB/USB Common Header" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.common_header.MIMX8MQ6" name="USB Common Header" brief="Middleware usb common_header" version="2.10.0" full_name="USB Common Header" category="USB/USB Common Header" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <any_of>
@@ -3845,7 +4261,7 @@ ${load}</script>
         <include_path relative_path="include" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.common_header.MIMX8MQ6" name="USB Device Common Header" brief="Middleware usb device common_header" version="2.9.1" full_name="USB Device Common Header" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.common_header.MIMX8MQ6" name="USB Device Common Header" brief="Middleware usb device common_header" version="2.10.0" full_name="USB Device Common Header" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <any_of>
@@ -3940,6 +4356,29 @@ ${load}</script>
       </source>
       <source toolchain="armgcc" relative_path="./" type="workspace">
         <files mask="driver_cmsis_iuart.MIMX8MQ6.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="driver.pca6416a.MIMX8MQ6" name="pca6416a" brief="IO expander PCA6416A driver" version="1.0.0" full_name="Driver PCA6416A" category="Device/SDK Drivers" user_visible="false" type="board_component" package_base_path="core/components/pca6416a" project_base_path="components/pca6416a">
+      <dependencies>
+        <all>
+          <any_of>
+            <device_dependency value="MIMX8MQ6xxxHZ"/>
+            <device_dependency value="MIMX8MQ6xxxJZ"/>
+          </any_of>
+          <component_dependency value="platform.drivers.common.MIMX8MQ6"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_pca6416a.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_pca6416a.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="./" type="workspace">
+        <files mask="driver_pca6416a.MIMX8MQ6.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -4269,6 +4708,30 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
+    <component id="component.mem_manager_freertos.MIMX8MQ6" name="mem_manager_freertos" brief="Component mem_manager_freertos" version="1.0.0" full_name="Component mem_manager_freertos" category="Device/SDK Drivers" user_visible="true" type="software_component" package_base_path="core/components/mem_manager" project_base_path="component/mem_manager">
+      <dependencies>
+        <all>
+          <any_of>
+            <device_dependency value="MIMX8MQ6xxxHZ"/>
+            <device_dependency value="MIMX8MQ6xxxJZ"/>
+          </any_of>
+          <component_dependency value="platform.drivers.common.MIMX8MQ6"/>
+          <component_dependency value="middleware.freertos-kernel.MIMX8MQ6"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_component_mem_manager.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_component_mem_manager_freertos.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="./" type="workspace">
+        <files mask="component_mem_manager_freertos.MIMX8MQ6.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
     <component id="component.osa_bm.MIMX8MQ6" name="osa_bm" brief="Component osa_bm" version="1.0.0" full_name="Component osa_bm" category="NXP Component/OS Abstraction Layer" user_visible="true" type="software_component" package_base_path="core/components/osa" project_base_path="component/osa">
       <dependencies>
         <all>
@@ -4535,6 +4998,9 @@ ${load}</script>
       </include_paths>
     </component>
     <component id="component.gpt_adapter.MIMX8MQ6" name="gpt_adapter" brief="Component gpt_adapter" version="1.0.0" full_name="Component gpt_adapter" category="Device/SDK Drivers" user_visible="true" type="abstraction_layer" package_base_path="core/components/timer" project_base_path="component/timer">
+      <defines>
+        <define name="TIMER_PORT_TYPE_GPT" value="1"/>
+      </defines>
       <dependencies>
         <all>
           <any_of>
@@ -4635,7 +5101,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.common.MIMX8MQ6" name="common" brief="COMMON Driver" version="2.4.0" full_name="COMMON Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/common" project_base_path="drivers">
+    <component id="platform.drivers.common.MIMX8MQ6" name="common" brief="COMMON Driver" version="2.4.1" full_name="COMMON Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/common" project_base_path="drivers">
       <dependencies>
         <all>
           <any_of>
@@ -4688,7 +5154,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.ecspi.MIMX8MQ6" name="ecspi" brief="ECSPI Driver" version="2.3.2" full_name="ECSPI Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/ecspi" project_base_path="drivers">
+    <component id="platform.drivers.ecspi.MIMX8MQ6" name="ecspi" brief="ECSPI Driver" version="2.3.3" full_name="ECSPI Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/ecspi" project_base_path="drivers">
       <dependencies>
         <all>
           <any_of>
@@ -4711,7 +5177,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.ecspi_freertos.MIMX8MQ6" name="ecspi_freertos" brief="ECSPI Freertos Driver" version="2.2.0" full_name="ECSPI Freertos Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/ecspi" project_base_path="drivers/freertos">
+    <component id="platform.drivers.ecspi_freertos.MIMX8MQ6" name="ecspi_freertos" brief="ECSPI FreeRTOS Driver" version="2.2.0" full_name="ECSPI FreeRTOS Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/devices/MIMX8MQ6/drivers" project_base_path="drivers/freertos">
       <dependencies>
         <all>
           <any_of>
@@ -4735,7 +5201,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.gpt.MIMX8MQ6" name="gpt" brief="GPT Driver" version="2.0.4" full_name="GPT Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/gpt" project_base_path="drivers">
+    <component id="platform.drivers.gpt.MIMX8MQ6" name="gpt" brief="GPT Driver" version="2.0.5" full_name="GPT Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/gpt" project_base_path="drivers">
       <dependencies>
         <all>
           <any_of>
@@ -4801,7 +5267,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.ii2c_freertos.MIMX8MQ6" name="i2c_freertos" brief="I2C Freertos Driver" version="2.0.7" full_name="I2C Freertos Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/ii2c" project_base_path="drivers/freertos">
+    <component id="platform.drivers.ii2c_freertos.MIMX8MQ6" name="i2c_freertos" brief="I2C Freertos Driver" version="2.0.7" full_name="I2C Freertos Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/devices/MIMX8MQ6/drivers" project_base_path="drivers/freertos">
       <dependencies>
         <all>
           <any_of>
@@ -4865,7 +5331,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.iuart_freertos.MIMX8MQ6" name="iuart_freertos" brief="IUART Freertos Driver" version="2.1.1" full_name="IUART Freertos Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/iuart" project_base_path="drivers/freertos">
+    <component id="platform.drivers.iuart_freertos.MIMX8MQ6" name="iuart_freertos" brief="IUART Freertos Driver" version="2.1.1" full_name="IUART Freertos Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/devices/MIMX8MQ6/drivers" project_base_path="drivers/freertos">
       <dependencies>
         <all>
           <any_of>
@@ -4912,7 +5378,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.qspi.MIMX8MQ6" name="qspi" brief="QSPI Driver" version="2.2.4" full_name="QSPI Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/qspi" project_base_path="drivers">
+    <component id="platform.drivers.qspi.MIMX8MQ6" name="qspi" brief="QSPI Driver" version="2.2.5" full_name="QSPI Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/qspi" project_base_path="drivers">
       <dependencies>
         <all>
           <any_of>

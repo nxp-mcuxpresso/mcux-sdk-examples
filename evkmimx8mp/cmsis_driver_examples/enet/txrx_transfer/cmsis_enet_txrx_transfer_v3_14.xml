@@ -21,6 +21,7 @@
     <definition extID="device.MIMX8ML8_startup.MIMX8ML8"/>
     <definition extID="platform.utilities.misc_utilities.MIMX8ML8"/>
     <definition extID="driver.phy-common.MIMX8ML8"/>
+    <definition extID="utility.str.MIMX8ML8"/>
     <definition extID="platform.drivers.memory.MIMX8ML8"/>
     <definition extID="CMSIS_Driver_Include.Ethernet_MAC.MIMX8ML8"/>
     <definition extID="CMSIS_Driver_Include.Ethernet_PHY.MIMX8ML8"/>
@@ -32,7 +33,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="evkmimx8mp_cmsis_enet_txrx_transfer" name="cmsis_enet_txrx_transfer" dependency="driver.phy-device-rtl8211f.MIMX8ML8 platform.drivers.cache_armv7_m7.MIMX8ML8 platform.drivers.igpio.MIMX8ML8 utility.debug_console_lite.MIMX8ML8 platform.utilities.assert_lite.MIMX8ML8 component.silicon_id_imx8.MIMX8ML8 component.silicon_id.MIMX8ML8 platform.drivers.clock.MIMX8ML8 platform.drivers.enet.MIMX8ML8 platform.drivers.enet_cmsis.MIMX8ML8 platform.drivers.common.MIMX8ML8 platform.drivers.rdc.MIMX8ML8 platform.drivers.audiomix.MIMX8ML8 device.MIMX8ML8_CMSIS.MIMX8ML8 component.iuart_adapter.MIMX8ML8 platform.drivers.iuart.MIMX8ML8 component.lists.MIMX8ML8 device.MIMX8ML8_startup.MIMX8ML8 platform.utilities.misc_utilities.MIMX8ML8 driver.phy-common.MIMX8ML8 platform.drivers.memory.MIMX8ML8 CMSIS_Driver_Include.Ethernet_MAC.MIMX8ML8 CMSIS_Driver_Include.Ethernet_PHY.MIMX8ML8 CMSIS_Driver_Include.Ethernet.MIMX8ML8 RTE_Device.MIMX8ML8 CMSIS_Include_core_cm.MIMX8ML8 device.MIMX8ML8_system.MIMX8ML8" category="cmsis_driver_examples/enet">
+  <example id="evkmimx8mp_cmsis_enet_txrx_transfer" name="cmsis_enet_txrx_transfer" dependency="driver.phy-device-rtl8211f.MIMX8ML8 platform.drivers.cache_armv7_m7.MIMX8ML8 platform.drivers.igpio.MIMX8ML8 utility.debug_console_lite.MIMX8ML8 platform.utilities.assert_lite.MIMX8ML8 component.silicon_id_imx8.MIMX8ML8 component.silicon_id.MIMX8ML8 platform.drivers.clock.MIMX8ML8 platform.drivers.enet.MIMX8ML8 platform.drivers.enet_cmsis.MIMX8ML8 platform.drivers.common.MIMX8ML8 platform.drivers.rdc.MIMX8ML8 platform.drivers.audiomix.MIMX8ML8 device.MIMX8ML8_CMSIS.MIMX8ML8 component.iuart_adapter.MIMX8ML8 platform.drivers.iuart.MIMX8ML8 component.lists.MIMX8ML8 device.MIMX8ML8_startup.MIMX8ML8 platform.utilities.misc_utilities.MIMX8ML8 driver.phy-common.MIMX8ML8 utility.str.MIMX8ML8 platform.drivers.memory.MIMX8ML8 CMSIS_Driver_Include.Ethernet_MAC.MIMX8ML8 CMSIS_Driver_Include.Ethernet_PHY.MIMX8ML8 CMSIS_Driver_Include.Ethernet.MIMX8ML8 RTE_Device.MIMX8ML8 CMSIS_Include_core_cm.MIMX8ML8 device.MIMX8ML8_system.MIMX8ML8" category="cmsis_driver_examples/enet">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -57,7 +58,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

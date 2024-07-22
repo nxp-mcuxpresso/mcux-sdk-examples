@@ -260,7 +260,6 @@ int streamer_pcm_setparams(
 
 #if (defined(DEMO_CODEC_CS42448) && (DEMO_CODEC_CS42448 == 1))
     BOARD_CodecChangeSettings(pcmHandle.num_channels);
-    volume = CODEC_VOLUME_MAX_VALUE;
 #elif (defined(DEMO_CODEC_WM8962) && (DEMO_CODEC_WM8962 == 1))
     CODEC_Init(&codecHandle, &boardCodecConfig);
 #endif

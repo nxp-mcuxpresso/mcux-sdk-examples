@@ -27,6 +27,7 @@
     <definition extID="middleware.usb.host.common_header.MIMXRT1042"/>
     <definition extID="component.osa.MIMXRT1042"/>
     <definition extID="middleware.usb.common_header.MIMXRT1042"/>
+    <definition extID="utility.str.MIMXRT1042"/>
     <definition extID="middleware.fatfs.template_usb.MIMXRT1042"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT1042"/>
     <definition extID="device.MIMXRT1042_system.MIMXRT1042"/>
@@ -36,7 +37,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt1040_host_msd_fatfs_bm" name="host_msd_fatfs_bm" dependency="platform.drivers.cache_armv7_m7.MIMXRT1042 middleware.usb.host_controller_ehci.MIMXRT1042 middleware.usb.phy.MIMXRT1042 platform.utilities.assert_lite.MIMXRT1042 utility.debug_console_lite.MIMXRT1042 middleware.baremetal.MIMXRT1042 middleware.fatfs.usb.MIMXRT1042 middleware.fatfs.MIMXRT1042 middleware.usb.host_msd.MIMXRT1042 component.lists.MIMXRT1042 component.lpuart_adapter.MIMXRT1042 platform.drivers.lpuart.MIMXRT1042 device.MIMXRT1042_CMSIS.MIMXRT1042 device.MIMXRT1042_startup.MIMXRT1042 platform.drivers.clock.MIMXRT1042 platform.drivers.common.MIMXRT1042 platform.drivers.igpio.MIMXRT1042 platform.drivers.iomuxc.MIMXRT1042 platform.drivers.xip_board.evkmimxrt1040.MIMXRT1042 platform.drivers.xip_device.MIMXRT1042 middleware.usb.host.stack.MIMXRT1042 platform.utilities.misc_utilities.MIMXRT1042 middleware.usb.host.ehci_config_header.MIMXRT1042 middleware.usb.host.common_header.MIMXRT1042 component.osa.MIMXRT1042 middleware.usb.common_header.MIMXRT1042 middleware.fatfs.template_usb.MIMXRT1042 CMSIS_Include_core_cm.MIMXRT1042 device.MIMXRT1042_system.MIMXRT1042" category="usb_examples">
+  <example id="evkmimxrt1040_host_msd_fatfs_bm" name="host_msd_fatfs_bm" dependency="platform.drivers.cache_armv7_m7.MIMXRT1042 middleware.usb.host_controller_ehci.MIMXRT1042 middleware.usb.phy.MIMXRT1042 platform.utilities.assert_lite.MIMXRT1042 utility.debug_console_lite.MIMXRT1042 middleware.baremetal.MIMXRT1042 middleware.fatfs.usb.MIMXRT1042 middleware.fatfs.MIMXRT1042 middleware.usb.host_msd.MIMXRT1042 component.lists.MIMXRT1042 component.lpuart_adapter.MIMXRT1042 platform.drivers.lpuart.MIMXRT1042 device.MIMXRT1042_CMSIS.MIMXRT1042 device.MIMXRT1042_startup.MIMXRT1042 platform.drivers.clock.MIMXRT1042 platform.drivers.common.MIMXRT1042 platform.drivers.igpio.MIMXRT1042 platform.drivers.iomuxc.MIMXRT1042 platform.drivers.xip_board.evkmimxrt1040.MIMXRT1042 platform.drivers.xip_device.MIMXRT1042 middleware.usb.host.stack.MIMXRT1042 platform.utilities.misc_utilities.MIMXRT1042 middleware.usb.host.ehci_config_header.MIMXRT1042 middleware.usb.host.common_header.MIMXRT1042 component.osa.MIMXRT1042 middleware.usb.common_header.MIMXRT1042 utility.str.MIMXRT1042 middleware.fatfs.template_usb.MIMXRT1042 CMSIS_Include_core_cm.MIMXRT1042 device.MIMXRT1042_system.MIMXRT1042" category="usb_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -77,7 +78,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>
@@ -126,6 +127,10 @@
       <files mask="CMakeLists.txt"/>
       <files mask="flags.cmake"/>
       <files mask="config.cmake"/>
+      <files mask="build_sdram_debug.bat"/>
+      <files mask="build_sdram_debug.sh"/>
+      <files mask="build_sdram_release.bat"/>
+      <files mask="build_sdram_release.sh"/>
       <files mask="build_debug.bat"/>
       <files mask="build_debug.sh"/>
       <files mask="build_flexspi_nor_debug.bat"/>
@@ -134,10 +139,6 @@
       <files mask="build_flexspi_nor_release.sh"/>
       <files mask="build_release.bat"/>
       <files mask="build_release.sh"/>
-      <files mask="build_sdram_debug.bat"/>
-      <files mask="build_sdram_debug.sh"/>
-      <files mask="build_sdram_release.bat"/>
-      <files mask="build_sdram_release.sh"/>
     </source>
     <source path="../../../../../core/devices/MIMXRT1042" project_relative_path="./" type="workspace" toolchain="armgcc">
       <files mask="all_lib_device.cmake"/>
@@ -157,6 +158,17 @@
       <files mask="board.h"/>
       <files mask="clock_config.h"/>
       <files mask="dcd.h"/>
+    </source>
+    <source path="armgcc" project_relative_path="MIMXRT1042/gcc" type="linker" toolchain="armgcc">
+      <files mask="MIMXRT1042xxxxx_ram.ld"/>
+      <files mask="MIMXRT1042xxxxx_flexspi_nor.ld"/>
+    </source>
+    <source path="armgcc" project_relative_path="MIMXRT1042/gcc" type="linker" toolchain="armgcc">
+      <files mask="MIMXRT1042xxxxx_sdram.ld"/>
+    </source>
+    <source path="linker/mcux" project_relative_path="linkscripts" type="src" toolchain="mcuxpresso">
+      <files mask="main_data.ldt"/>
+      <files mask="main_bss.ldt"/>
     </source>
     <source path="." project_relative_path="evkmimxrt1040/usb_examples/usb_host_msd_fatfs/bm" type="doc">
       <files mask="readme.pdf" hidden="true"/>
@@ -178,11 +190,6 @@
     </source>
     <source path="." project_relative_path="doc" type="doc" toolchain="mcuxpresso">
       <files mask="readme.txt"/>
-    </source>
-    <source path="armgcc" project_relative_path="MIMXRT1042/gcc" type="linker" toolchain="armgcc">
-      <files mask="MIMXRT1042xxxxx_ram.ld"/>
-      <files mask="MIMXRT1042xxxxx_sdram.ld"/>
-      <files mask="MIMXRT1042xxxxx_flexspi_nor.ld"/>
     </source>
   </example>
 </ksdk:examples>

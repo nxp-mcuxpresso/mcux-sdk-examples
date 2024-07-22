@@ -18,13 +18,14 @@
     <definition extID="platform.drivers.uart.K32L2B31A"/>
     <definition extID="platform.drivers.smc.K32L2B31A"/>
     <definition extID="platform.utilities.misc_utilities.K32L2B31A"/>
+    <definition extID="utility.str.K32L2B31A"/>
     <definition extID="CMSIS_Include_core_cm.K32L2B31A"/>
     <definition extID="device.K32L2B31A_system.K32L2B31A"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="frdmk32l2b_slcd" name="slcd" dependency="driver.slcd_lcd_s401m16kr.K32L2B31A driver.slcd_engine.K32L2B31A utility.debug_console_lite.K32L2B31A platform.utilities.assert_lite.K32L2B31A platform.drivers.port.K32L2B31A platform.drivers.gpio.K32L2B31A platform.drivers.slcd.K32L2B31A platform.drivers.clock.K32L2B31A platform.drivers.common.K32L2B31A device.K32L2B31A_CMSIS.K32L2B31A component.lpuart_adapter.K32L2B31A platform.drivers.lpuart.K32L2B31A component.lists.K32L2B31A device.K32L2B31A_startup.K32L2B31A platform.drivers.uart.K32L2B31A platform.drivers.smc.K32L2B31A platform.utilities.misc_utilities.K32L2B31A CMSIS_Include_core_cm.K32L2B31A device.K32L2B31A_system.K32L2B31A" category="driver_examples/slcd">
+  <example id="frdmk32l2b_slcd" name="slcd" dependency="driver.slcd_lcd_s401m16kr.K32L2B31A driver.slcd_engine.K32L2B31A utility.debug_console_lite.K32L2B31A platform.utilities.assert_lite.K32L2B31A platform.drivers.port.K32L2B31A platform.drivers.gpio.K32L2B31A platform.drivers.slcd.K32L2B31A platform.drivers.clock.K32L2B31A platform.drivers.common.K32L2B31A device.K32L2B31A_CMSIS.K32L2B31A component.lpuart_adapter.K32L2B31A platform.drivers.lpuart.K32L2B31A component.lists.K32L2B31A device.K32L2B31A_startup.K32L2B31A platform.drivers.uart.K32L2B31A platform.drivers.smc.K32L2B31A platform.utilities.misc_utilities.K32L2B31A utility.str.K32L2B31A CMSIS_Include_core_cm.K32L2B31A device.K32L2B31A_system.K32L2B31A" category="driver_examples/slcd">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -50,7 +51,7 @@
           <value>com.crt.advproject.gcc.fpu.none</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

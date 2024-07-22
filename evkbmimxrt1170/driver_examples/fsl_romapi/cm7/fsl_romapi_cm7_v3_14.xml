@@ -19,10 +19,10 @@
     <definition extID="platform.drivers.iomuxc.MIMXRT1176"/>
     <definition extID="platform.drivers.igpio.MIMXRT1176"/>
     <definition extID="platform.drivers.xip_device.MIMXRT1176"/>
-    <definition extID="platform.drivers.xip_board.evkbmimxrt1170.MIMXRT1176"/>
     <definition extID="platform.drivers.pmu_1.MIMXRT1176"/>
     <definition extID="platform.drivers.dcdc_soc.MIMXRT1176"/>
     <definition extID="platform.utilities.misc_utilities.MIMXRT1176"/>
+    <definition extID="utility.str.MIMXRT1176"/>
     <definition extID="platform.drivers.anatop_ai.MIMXRT1176"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT1176"/>
     <definition extID="platform.devices.MIMXRT1176_system.MIMXRT1176"/>
@@ -32,7 +32,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkbmimxrt1170_fsl_romapi_cm7" name="fsl_romapi_cm7" device_core="cm7_MIMXRT1176xxxxx" dependency="utility.debug_console_lite.MIMXRT1176 platform.utilities.assert_lite.MIMXRT1176 driver.romapi.MIMXRT1176 platform.drivers.cache_armv7_m7.MIMXRT1176 platform.drivers.clock.MIMXRT1176 platform.drivers.common.MIMXRT1176 platform.devices.MIMXRT1176_CMSIS.MIMXRT1176 component.lpuart_adapter.MIMXRT1176 platform.drivers.lpuart.MIMXRT1176 component.lists.MIMXRT1176 platform.devices.MIMXRT1176_startup.MIMXRT1176 platform.drivers.gpc_3.MIMXRT1176 platform.drivers.soc_src.MIMXRT1176 platform.drivers.mu.MIMXRT1176 platform.drivers.iomuxc.MIMXRT1176 platform.drivers.igpio.MIMXRT1176 platform.drivers.xip_device.MIMXRT1176 platform.drivers.xip_board.evkbmimxrt1170.MIMXRT1176 platform.drivers.pmu_1.MIMXRT1176 platform.drivers.dcdc_soc.MIMXRT1176 platform.utilities.misc_utilities.MIMXRT1176 platform.drivers.anatop_ai.MIMXRT1176 CMSIS_Include_core_cm.MIMXRT1176 platform.devices.MIMXRT1176_system.MIMXRT1176" category="driver_examples/fsl_romapi">
+  <example id="evkbmimxrt1170_fsl_romapi_cm7" name="fsl_romapi_cm7" device_core="cm7_MIMXRT1176xxxxx" dependency="utility.debug_console_lite.MIMXRT1176 platform.utilities.assert_lite.MIMXRT1176 driver.romapi.MIMXRT1176 platform.drivers.cache_armv7_m7.MIMXRT1176 platform.drivers.clock.MIMXRT1176 platform.drivers.common.MIMXRT1176 platform.devices.MIMXRT1176_CMSIS.MIMXRT1176 component.lpuart_adapter.MIMXRT1176 platform.drivers.lpuart.MIMXRT1176 component.lists.MIMXRT1176 platform.devices.MIMXRT1176_startup.MIMXRT1176 platform.drivers.gpc_3.MIMXRT1176 platform.drivers.soc_src.MIMXRT1176 platform.drivers.mu.MIMXRT1176 platform.drivers.iomuxc.MIMXRT1176 platform.drivers.igpio.MIMXRT1176 platform.drivers.xip_device.MIMXRT1176 platform.drivers.pmu_1.MIMXRT1176 platform.drivers.dcdc_soc.MIMXRT1176 platform.utilities.misc_utilities.MIMXRT1176 utility.str.MIMXRT1176 platform.drivers.anatop_ai.MIMXRT1176 CMSIS_Include_core_cm.MIMXRT1176 platform.devices.MIMXRT1176_system.MIMXRT1176" category="driver_examples/fsl_romapi">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -69,7 +69,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>
@@ -104,6 +104,7 @@
       </debug_configuration>
     </debug_configurations>
     <include_paths>
+      <include_path path="../xip" project_relative_path="xip" type="c_include"/>
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="../../../../../devices/MIMXRT1176/drivers" project_relative_path="drivers" type="c_include"/>
       <include_path path="." project_relative_path="evkbmimxrt1170/driver_examples/fsl_romapi/cm7" type="c_include"/>
@@ -132,6 +133,12 @@
     </source>
     <source path="../../../../../core/devices/MIMXRT1176" project_relative_path="./" type="workspace" toolchain="armgcc">
       <files mask="all_lib_device.cmake"/>
+    </source>
+    <source path="." project_relative_path="xip" type="src">
+      <files mask="evkbmimxrt1170_flexspi_nor_config.c"/>
+    </source>
+    <source path="." project_relative_path="xip" type="c_include">
+      <files mask="evkbmimxrt1170_flexspi_nor_config.h"/>
     </source>
     <source path="." project_relative_path="source" type="src">
       <files mask="flexspi_romapi.c"/>

@@ -1,6 +1,6 @@
 
 /*
- * Copyright 2021 NXP
+ * Copyright 2021, 2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -55,11 +55,10 @@ extern hal_audio_config_t rxSpeakerConfig;
 
 extern uint32_t BOARD_SwitchAudioFreq(uint32_t sampleRate);
 
-static HAL_AUDIO_HANDLE_DEFINE(tx_speaker_handle);
-static HAL_AUDIO_HANDLE_DEFINE(rx_mic_handle);
-static HAL_AUDIO_HANDLE_DEFINE(tx_mic_handle);
-static HAL_AUDIO_HANDLE_DEFINE(rx_speaker_handle);
-
+AT_NONCACHEABLE_SECTION_ALIGN(static HAL_AUDIO_HANDLE_DEFINE(tx_speaker_handle), 4);
+AT_NONCACHEABLE_SECTION_ALIGN(static HAL_AUDIO_HANDLE_DEFINE(rx_mic_handle), 4);
+AT_NONCACHEABLE_SECTION_ALIGN(static HAL_AUDIO_HANDLE_DEFINE(tx_mic_handle), 4);
+AT_NONCACHEABLE_SECTION_ALIGN(static HAL_AUDIO_HANDLE_DEFINE(rx_speaker_handle), 4);
 static codec_handle_t codec_handle;
 
 AT_NONCACHEABLE_SECTION_ALIGN(static uint8_t MicBuffer[BUFFER_NUMBER * BUFFER_SIZE], 4);
@@ -68,10 +67,11 @@ AT_NONCACHEABLE_SECTION(uint32_t g_AudioTxDummyBuffer[AUDIO_DUMMY_SIZE / 4U]);
 
 OSA_SEMAPHORE_HANDLE_DEFINE(xSemaphoreScoAudio);
 
+static volatile uint8_t saiEnable= 0;
 static uint32_t txMic_index = 0U, rxMic_index = 0U;
-volatile uint32_t emptyMicBlock = BUFFER_NUMBER;
+volatile int32_t emptyMicBlock = BUFFER_NUMBER;
 static uint32_t txSpeaker_index = 0U, rxSpeaker_index = 0U;
-volatile uint32_t emptySpeakerBlock = BUFFER_NUMBER;
+volatile int32_t emptySpeakerBlock = BUFFER_NUMBER;
 static uint32_t rxSpeaker_test = 0U, rxMic_test = 0U;
 static volatile uint8_t s_ringTone = 0;
 static uint32_t cpy_index = 0U, tx_index = 0U;
@@ -414,6 +414,7 @@ static API_RESULT audio_setup_pl_ext(uint8_t isRing, SCO_AUDIO_EP_INFO *ep_info)
     {
         Init_Board_Sco_Audio(ep_info->sampl_freq, ep_info->sample_len);
     }
+    saiEnable = 1;
     return API_SUCCESS;
 }
 
@@ -426,6 +427,11 @@ void SCO_Edma_Task(void *handle)
     while (1)
     {
         OSA_SemaphoreWait(xSemaphoreScoAudio, osaWaitForever_c);
+        if(saiEnable == 0)
+        {
+            Deinit_Board_Audio();
+            continue;
+        }
         count++;
 #ifdef SCO_DEBUG_MSG
         if (count % 300 == 0)
@@ -599,9 +605,8 @@ API_RESULT sco_audio_start_pl_ext(void)
 
 API_RESULT sco_audio_stop_pl_ext(void)
 {
-    Deinit_Board_Audio();
     sco_audio_setup = 0;
-    EM_usleep(200U * 1000U);
+    saiEnable = 0;
     return API_SUCCESS;
 }
 

@@ -15,13 +15,14 @@
     <definition extID="platform.drivers.smc.MKM34ZA5"/>
     <definition extID="platform.drivers.gpio.MKM34ZA5"/>
     <definition extID="platform.utilities.misc_utilities.MKM34ZA5"/>
+    <definition extID="utility.str.MKM34ZA5"/>
     <definition extID="CMSIS_Include_core_cm.MKM34ZA5"/>
     <definition extID="device.MKM34ZA5_system.MKM34ZA5"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="twrkm34z50mv3_uart_polling" name="uart_polling" dependency="utility.debug_console_lite.MKM34ZA5 platform.utilities.assert_lite.MKM34ZA5 platform.drivers.port.MKM34ZA5 platform.drivers.uart.MKM34ZA5 platform.drivers.clock.MKM34ZA5 platform.drivers.common.MKM34ZA5 device.MKM34ZA5_CMSIS.MKM34ZA5 component.uart_adapter.MKM34ZA5 component.lists.MKM34ZA5 device.MKM34ZA5_startup.MKM34ZA5 platform.drivers.irtc.MKM34ZA5 platform.drivers.smc.MKM34ZA5 platform.drivers.gpio.MKM34ZA5 platform.utilities.misc_utilities.MKM34ZA5 CMSIS_Include_core_cm.MKM34ZA5 device.MKM34ZA5_system.MKM34ZA5" category="driver_examples/uart">
+  <example id="twrkm34z50mv3_uart_polling" name="uart_polling" dependency="utility.debug_console_lite.MKM34ZA5 platform.utilities.assert_lite.MKM34ZA5 platform.drivers.port.MKM34ZA5 platform.drivers.uart.MKM34ZA5 platform.drivers.clock.MKM34ZA5 platform.drivers.common.MKM34ZA5 device.MKM34ZA5_CMSIS.MKM34ZA5 component.uart_adapter.MKM34ZA5 component.lists.MKM34ZA5 device.MKM34ZA5_startup.MKM34ZA5 platform.drivers.irtc.MKM34ZA5 platform.drivers.smc.MKM34ZA5 platform.drivers.gpio.MKM34ZA5 platform.utilities.misc_utilities.MKM34ZA5 utility.str.MKM34ZA5 CMSIS_Include_core_cm.MKM34ZA5 device.MKM34ZA5_system.MKM34ZA5" category="driver_examples/uart">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -46,7 +47,7 @@
           <value>com.crt.advproject.gcc.fpu.none</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

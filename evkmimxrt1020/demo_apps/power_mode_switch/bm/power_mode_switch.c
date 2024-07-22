@@ -463,7 +463,7 @@ int main(void)
 {
     uint8_t ch;
     uint32_t freq;
-    bool needSetWakeup; /* Need to set wakeup. */
+    volatile bool needSetWakeup; /* Need to set wakeup. */
 
     /* Init board hardware. */
     BOARD_ConfigMPU();

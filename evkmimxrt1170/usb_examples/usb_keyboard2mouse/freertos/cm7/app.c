@@ -87,10 +87,6 @@ void USB_HostTaskFn(void *param);
 /*******************************************************************************
  * Variables
  ******************************************************************************/
-/* Allocate the memory for the heap. */
-#if defined(configAPPLICATION_ALLOCATED_HEAP) && (configAPPLICATION_ALLOCATED_HEAP)
-USB_DMA_NONINIT_DATA_ALIGN(USB_DATA_ALIGN_SIZE) uint8_t ucHeap[configTOTAL_HEAP_SIZE];
-#endif
 extern usb_host_keyboard_instance_t g_HostHidKeyboard;
 extern usb_device_class_config_list_struct_t g_UsbDeviceHidConfigList;
 usb_hid_mouse_struct_t g_UsbDeviceHidMouse;

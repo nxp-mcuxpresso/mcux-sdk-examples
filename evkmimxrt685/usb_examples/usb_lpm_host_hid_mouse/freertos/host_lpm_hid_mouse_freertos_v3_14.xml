@@ -43,13 +43,14 @@
     <definition extID="middleware.freertos-kernel.template.MIMXRT685S"/>
     <definition extID="middleware.freertos-kernel.extension.MIMXRT685S"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT685S"/>
+    <definition extID="utility.str.MIMXRT685S"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt685_host_lpm_hid_mouse_freertos" name="host_lpm_hid_mouse_freertos" device_core="cm33_MIMXRT685S" dependency="component.mrt_adapter.MIMXRT685S platform.drivers.flexcomm_i2c.MIMXRT685S platform.drivers.inputmux.MIMXRT685S platform.drivers.inputmux_connections.MIMXRT685S platform.drivers.lpc_iopctl.MIMXRT685S driver.pca9420.MIMXRT685S platform.drivers.pint.MIMXRT685S middleware.usb.host_controller_ip3516hs.MIMXRT685S middleware.usb.phy.MIMXRT685S platform.drivers.mrt.MIMXRT685S middleware.freertos-kernel.MIMXRT685S middleware.freertos-kernel.heap_4.MIMXRT685S middleware.usb.host_hid.MIMXRT685S component.lists.MIMXRT685S component.serial_manager_uart.MIMXRT685S component.serial_manager.MIMXRT685S platform.drivers.flexcomm_usart.MIMXRT685S component.usart_adapter.MIMXRT685S device.MIMXRT685S_CMSIS.MIMXRT685S device.MIMXRT685S_startup.MIMXRT685S platform.drivers.cache_cache64.MIMXRT685S platform.drivers.clock.MIMXRT685S platform.drivers.common.MIMXRT685S platform.drivers.flash_config.evkmimxrt685.MIMXRT685S platform.drivers.flexcomm.MIMXRT685S platform.drivers.flexspi.MIMXRT685S platform.drivers.lpc_gpio.MIMXRT685S platform.drivers.power.MIMXRT685S platform.drivers.reset.MIMXRT685S middleware.freertos-kernel.cm33_non_trustzone.MIMXRT685S middleware.usb.host.stack.MIMXRT685S platform.utilities.assert.MIMXRT685S utility.debug_console.MIMXRT685S platform.utilities.misc_utilities.MIMXRT685S middleware.usb.host.ip3516hs_config_header.MIMXRT685S middleware.usb.host.common_header.MIMXRT685S component.osa.MIMXRT685S middleware.usb.common_header.MIMXRT685S middleware.freertos-kernel.template.MIMXRT685S middleware.freertos-kernel.extension.MIMXRT685S CMSIS_Include_core_cm.MIMXRT685S" category="usb_examples">
+  <example id="evkmimxrt685_host_lpm_hid_mouse_freertos" name="host_lpm_hid_mouse_freertos" device_core="cm33_MIMXRT685S" dependency="component.mrt_adapter.MIMXRT685S platform.drivers.flexcomm_i2c.MIMXRT685S platform.drivers.inputmux.MIMXRT685S platform.drivers.inputmux_connections.MIMXRT685S platform.drivers.lpc_iopctl.MIMXRT685S driver.pca9420.MIMXRT685S platform.drivers.pint.MIMXRT685S middleware.usb.host_controller_ip3516hs.MIMXRT685S middleware.usb.phy.MIMXRT685S platform.drivers.mrt.MIMXRT685S middleware.freertos-kernel.MIMXRT685S middleware.freertos-kernel.heap_4.MIMXRT685S middleware.usb.host_hid.MIMXRT685S component.lists.MIMXRT685S component.serial_manager_uart.MIMXRT685S component.serial_manager.MIMXRT685S platform.drivers.flexcomm_usart.MIMXRT685S component.usart_adapter.MIMXRT685S device.MIMXRT685S_CMSIS.MIMXRT685S device.MIMXRT685S_startup.MIMXRT685S platform.drivers.cache_cache64.MIMXRT685S platform.drivers.clock.MIMXRT685S platform.drivers.common.MIMXRT685S platform.drivers.flash_config.evkmimxrt685.MIMXRT685S platform.drivers.flexcomm.MIMXRT685S platform.drivers.flexspi.MIMXRT685S platform.drivers.lpc_gpio.MIMXRT685S platform.drivers.power.MIMXRT685S platform.drivers.reset.MIMXRT685S middleware.freertos-kernel.cm33_non_trustzone.MIMXRT685S middleware.usb.host.stack.MIMXRT685S platform.utilities.assert.MIMXRT685S utility.debug_console.MIMXRT685S platform.utilities.misc_utilities.MIMXRT685S middleware.usb.host.ip3516hs_config_header.MIMXRT685S middleware.usb.host.common_header.MIMXRT685S component.osa.MIMXRT685S middleware.usb.common_header.MIMXRT685S middleware.freertos-kernel.template.MIMXRT685S middleware.freertos-kernel.extension.MIMXRT685S CMSIS_Include_core_cm.MIMXRT685S utility.str.MIMXRT685S" category="usb_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -74,6 +75,7 @@
           <value>FSL_OSA_BM_TIMER_CONFIG=0</value>
           <value>SDK_DEBUGCONSOLE=1</value>
           <value>MCUXPRESSO_SDK</value>
+          <value>TIMER_PORT_TYPE_MRT=1</value>
           <value>SDK_I2C_BASED_COMPONENT_USED=1</value>
           <value>SDK_OS_FREE_RTOS</value>
           <value>SERIAL_PORT_TYPE_UART=1</value>
@@ -88,7 +90,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-mno-unaligned-access -mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-mno-unaligned-access -mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

@@ -133,7 +133,7 @@ static void security_changed(struct bt_conn *conn, bt_security_t level,
 			     enum bt_security_err err)
 {
 	if (err == 0) {
-		printk("Security changed: %u\n", err);
+		printk("Security changed: %u, level %d\n", err, level);
 		OSA_SemaphorePost(sem_security_updated);
 	} else {
 		printk("Failed to set security level: %u", err);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2021-2023 NXP
+ * Copyright 2021-2024 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -20,37 +20,22 @@
  */
 
 #define HAL_ENABLE_DISPLAY
-#define HAL_ENABLE_DISPLAY_DEV_Lcdifv2Rk055ah   1
+#define HAL_ENABLE_DISPLAY_DEV_Lcdifv2Rk055     1
 #define HAL_ENABLE_2D_IMGPROC
 #define HAL_ENABLE_GFX_DEV_Pxp                  1
+#define HAL_ENABLE_GFX_DEV_Cpu                  0
+#define HAL_ENABLE_GFX_DEV_GPU                  0
 
 /**
  * This is the inference HAL configuration
  */
 
 /* enable TFlite by default */
-#if !defined(INFERENCE_ENGINE_GLOW) && !defined(INFERENCE_ENGINE_DeepViewRT)
 #define HAL_ENABLE_INFERENCE_TFLITE              1
-#define HAL_ENABLE_INFERENCE_GLOW                0
-#define HAL_ENABLE_INFERENCE_DVRT                0
-#elif defined(INFERENCE_ENGINE_GLOW)
-#define HAL_ENABLE_INFERENCE_TFLITE              0
-#define HAL_ENABLE_INFERENCE_GLOW                1
-#define HAL_ENABLE_INFERENCE_DVRT                0
-#elif defined(INFERENCE_ENGINE_DeepViewRT)
-#error "DeepViewRT inference is not supported in this application"
-#endif
-
 
 /* The size of Tensor Arena buffer for TensorFlowLite-Micro */
 /* minimum required arena size for Nanodet-M */
 #define HAL_TFLM_TENSOR_ARENA_SIZE_KB             2048
-
-/* The memory size used for weights and activations when using glow inference with Nanodet-M,
- * these macros should be adjusted when using another model*/
-#define HAL_GLOW_CONSTANT_WEIGHTS_MAX_MEMSIZE     216704
-#define HAL_GLOW_MUTABLE_WEIGHTS_MAX_MEMSIZE      352000
-#define HAL_GLOW_ACTIVATIONS_MAX_MEMSIZE          1075200
 
 /**
  * This is the PXP HAL configuration
@@ -90,7 +75,7 @@
 /* Set here all the static configuration of the Application */
 
 /* display parameters */
-#define APP_DISPLAY_NAME   "Lcdifv2Rk055ah"
+#define APP_DISPLAY_NAME   "Lcdifv2Rk055"
 #define APP_DISPLAY_WIDTH  720
 #define APP_DISPLAY_HEIGHT 1280
 #define APP_DISPLAY_FORMAT MPP_PIXEL_RGB565

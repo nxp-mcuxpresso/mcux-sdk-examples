@@ -1,5 +1,5 @@
 /*
- *  Copyright 2020-2023 NXP
+ *  Copyright 2020-2024 NXP
  *  All rights reserved.
  *
  *  SPDX-License-Identifier: BSD-3-Clause
@@ -132,6 +132,9 @@
 
 #endif
 
+#define CONFIG_LITTLE_ENDIAN 1
+
+#define CONFIG_BT_ATT_TX_COUNT 128
 #define CONFIG_BT_L2CAP_TX_BUF_COUNT 128
 
 #define CONFIG_BT_BUF_ACL_RX_COUNT 32
@@ -141,6 +144,8 @@
 #define CONFIG_WORK_QUEUE_MSG_QUEUE_COUNT 128
 
 #define LOG_MAX_BUFF_LOG_COUNT 128
+
+#define CONFIG_BT_MSG_QUEUE_COUNT 64
 
 #include "edgefast_bluetooth_config.h"
 #include "edgefast_bluetooth_audio_config.h"

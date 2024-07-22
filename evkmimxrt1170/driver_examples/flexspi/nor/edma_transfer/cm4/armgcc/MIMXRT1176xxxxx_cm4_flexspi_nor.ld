@@ -30,6 +30,9 @@ ENTRY(Reset_Handler)
 HEAP_SIZE  = DEFINED(__heap_size__)  ? __heap_size__  : 0x0400;
 STACK_SIZE = DEFINED(__stack_size__) ? __stack_size__ : 0x0400;
 VECTOR_RAM_SIZE = DEFINED(__ram_vector_table__) ? 0x00000400 : 0;
+NCACHE_HEAP_START = DEFINED(__heap_noncacheable__) ? 0x202C0000 - HEAP_SIZE : 0x20020000 - HEAP_SIZE;
+NCACHE_HEAP_SIZE  = DEFINED(__heap_noncacheable__) ? HEAP_SIZE : 0x0000;
+TEXT_SIZE = DEFINED(__use_flash64MB__) ? 0x03FFDC00 : 0x00FFDC00;
 
 /* Specify the memory areas */
 MEMORY
@@ -37,17 +40,19 @@ MEMORY
   m_flash_config        (RX)  : ORIGIN = 0x08000400, LENGTH = 0x00000C00
   m_ivt                 (RX)  : ORIGIN = 0x08001000, LENGTH = 0x00001000
   m_interrupts          (RX)  : ORIGIN = 0x08002000, LENGTH = 0x00000400
-  m_text                (RX)  : ORIGIN = 0x08002400, LENGTH = 0x00FFDC00
-  m_data                (RW)  : ORIGIN = 0x20220000, LENGTH = 0x00020000
-  m_ncache              (RW)  : ORIGIN = 0x20280000, LENGTH = 0x00040000
+  m_text                (RX)  : ORIGIN = 0x08002400, LENGTH = TEXT_SIZE
+  m_qacode              (RX)  : ORIGIN = 0x1FFE0000, LENGTH = 0x00020000
+  m_data                (RW)  : ORIGIN = 0x20000000, LENGTH = DEFINED(__heap_noncacheable__) ? 0x00020000 : 0x00020000 - HEAP_SIZE
   m_data2               (RW)  : ORIGIN = 0x20240000, LENGTH = 0x00040000
+  m_ncache              (RW)  : ORIGIN = 0x20280000, LENGTH = DEFINED(__heap_noncacheable__) ? 0x00040000 - HEAP_SIZE : 0x00040000
+  m_heap                (RW)  : ORIGIN = NCACHE_HEAP_START, LENGTH = HEAP_SIZE
 }
 
 /* Define output sections */
 SECTIONS
 {
   __NCACHE_REGION_START = ORIGIN(m_ncache);
-  __NCACHE_REGION_SIZE  = LENGTH(m_ncache);
+  __NCACHE_REGION_SIZE  = LENGTH(m_ncache) + NCACHE_HEAP_SIZE;
 
   .flash_config :
   {
@@ -62,9 +67,9 @@ SECTIONS
   .ivt : AT(ivt_begin)
   {
     . = ALIGN(4);
-      KEEP(* (.boot_hdr.ivt))           /* ivt section */
-      KEEP(* (.boot_hdr.boot_data))     /* boot section */
-      KEEP(* (.boot_hdr.dcd_data))      /* dcd section */
+    KEEP(* (.boot_hdr.ivt))           /* ivt section */
+    KEEP(* (.boot_hdr.boot_data))     /* boot section */
+    KEEP(* (.boot_hdr.dcd_data))      /* dcd section */
     . = ALIGN(4);
   } > m_ivt
 
@@ -82,39 +87,13 @@ SECTIONS
   .text :
   {
     . = ALIGN(4);
-    *(EXCLUDE_FILE(
-        /* Exclude flash and frequently executed functions from XIP */
-        */flexspi_nor_flash_ops.c.obj
-        */fsl_flexspi.c.obj
-        */fsl_flexspi_edma.c.obj
-        */fsl_edma.c.obj
-        */fsl_clock.c.obj
-    ) .text)                 /* .text sections (code) */
-    *(EXCLUDE_FILE(
-        /* Exclude flash and frequently executed functions from XIP */
-        */flexspi_nor_flash_ops.c.obj
-        */fsl_flexspi.c.obj
-        */fsl_flexspi_edma.c.obj
-        */fsl_edma.c.obj
-        */fsl_clock.c.obj
-    ) .text*)                /* .text* sections (code) */
-
-    *(EXCLUDE_FILE(
-        /* Exclude flash and frequently executed functions from XIP */
-        */flexspi_nor_flash_ops.c.obj
-        */fsl_flexspi.c.obj
-        */fsl_flexspi_edma.c.obj
-        */fsl_edma.c.obj
-        */fsl_clock.c.obj
-    ) .rodata)               /* .rodata sections (constants, strings, etc.) */
-    *(EXCLUDE_FILE(
-        /* Exclude flash and frequently executed functions from XIP */
-        */flexspi_nor_flash_ops.c.obj
-        */fsl_flexspi.c.obj
-        */fsl_flexspi_edma.c.obj
-        */fsl_edma.c.obj
-        */fsl_clock.c.obj
-    ) .rodata*)              /* .rodata* sections (constants, strings, etc.) */
+    EXCLUDE_FILE (
+        *flexspi_nor_flash_ops.c.obj
+        *fsl_flexspi.c.obj
+        *fsl_flexspi_edma.c.obj
+        *fsl_edma.c.obj
+        *fsl_edma_soc.c.obj)
+      *(.text .rdata .text* .rodata*)
     *(.glue_7)               /* glue arm to thumb code */
     *(.glue_7t)              /* glue thumb to arm code */
     *(.eh_frame)
@@ -216,19 +195,30 @@ SECTIONS
     __DATA_RAM = .;
     __data_start__ = .;      /* create a global symbol at data start */
     *(m_usb_dma_init_data)
-    /* Explicit placement of flash and frequently executed functions in RAM */
-    */flexspi_nor_flash_ops.c.obj(.text .text* .rodata .rodata*)
-    */fsl_flexspi.c.obj(.text .text* .rodata .rodata*)
-    */fsl_flexspi_edma.c.obj(.text .text* .rodata .rodata*)
-    */fsl_edma.c.obj(.text .text* .rodata .rodata*)
-    */fsl_clock.c.obj(.text .text* .rodata .rodata*)
     *(.data)                 /* .data sections */
     *(.data*)                /* .data* sections */
+    *(DataQuickAccess)       /* quick access data section */
     KEEP(*(.jcr*))
     . = ALIGN(4);
     __data_end__ = .;        /* define a global symbol at data end */
   } > m_data
-  __NDATA_ROM = __DATA_ROM + (__data_end__ - __data_start__);
+
+  __ram_function_flash_start = __DATA_ROM + (__data_end__ - __data_start__); /* Symbol is used by startup for TCM data initialization */
+
+  .ram_function : AT(__ram_function_flash_start)
+  {
+    . = ALIGN(32);
+    __ram_function_start__ = .;
+    *(CodeQuickAccess)
+    */flexspi_nor_flash_ops.c.obj(.text .text* .rodata .rodata*)
+    */fsl_flexspi.c.obj(.text .text* .rodata .rodata*)
+    */fsl_flexspi_edma.c.obj(.text .text* .rodata .rodata*)
+    */fsl_edma.c.obj(.text .text* .rodata .rodata*)
+    . = ALIGN(128);
+    __ram_function_end__ = .;
+  } > m_qacode
+
+  __NDATA_ROM = __ram_function_flash_start + (__ram_function_end__ - __ram_function_start__);
   .ncache.init : AT(__NDATA_ROM)
   {
     __noncachedata_start__ = .;   /* create a global symbol at ncache data start */
@@ -273,12 +263,13 @@ SECTIONS
     . += HEAP_SIZE;
     __HeapLimit = .;
     __heap_limit = .; /* Add for _sbrk */
-  } > m_data
+  } > m_heap
 
   .stack :
   {
     . = ALIGN(8);
     . += STACK_SIZE;
+    __StackEnd = .;
   } > m_data
 
   /* Initializes stack on the end of block */
@@ -288,6 +279,5 @@ SECTIONS
 
   .ARM.attributes 0 : { *(.ARM.attributes) }
 
-  ASSERT(__StackLimit >= __HeapLimit, "region m_data overflowed with stack and heap")
+  ASSERT(__StackLimit >= __StackEnd, "region m_data overflowed with stack and heap")
 }
-

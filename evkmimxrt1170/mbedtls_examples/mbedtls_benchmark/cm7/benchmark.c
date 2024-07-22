@@ -2,20 +2,8 @@
  *  Benchmark demonstration program
  *
  *  Copyright The Mbed TLS Contributors
- *  SPDX-License-Identifier: Apache-2.0
+ *  SPDX-License-Identifier: Apache-2.0 OR GPL-2.0-or-later
  *  Copyright 2017, 2021-2023 NXP. Not a Contribution
- *
- *  Licensed under the Apache License, Version 2.0 (the "License"); you may
- *  not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *  http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- *  WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
  */
 
 /*******************************************************************************
@@ -157,12 +145,12 @@ int main(void)
 #define HEADER_FORMAT   "  %-24s :  "
 #define TITLE_LEN       25
 
-#define OPTIONS                                                         \
-    "md4, md5, ripemd160, sha1, sha256, sha512,\n"                      \
-    "arc4, des3, des, camellia, blowfish, chacha20,\n"                  \
-    "aes_cbc, aes_gcm, aes_ccm, aes_xts, chachapoly,\n"                 \
-    "aes_cmac, des3_cmac, poly1305\n"                                   \
-    "havege, ctr_drbg, hmac_drbg\n"                                     \
+#define OPTIONS                                                               \
+    "md4, md5, ripemd160, sha1, sha256, sha512,\n"                            \
+    "arc4, des3, des, camellia, blowfish, chacha20,\n"                        \
+    "aes_cbc, aes_cfb128, aes_cfb8, aes_gcm, aes_ccm, aes_xts, chachapoly,\n" \
+    "aes_cmac, des3_cmac, poly1305\n"                                         \
+    "havege, ctr_drbg, hmac_drbg\n"                                           \
     "rsa, dhm, ecdsa, ecdh.\n"
 
 #if defined(MBEDTLS_ERROR_C)
@@ -370,7 +358,7 @@ static int set_ecp_curve(const char *string, mbedtls_ecp_curve_info *curve)
 typedef struct {
     char md4, md5, ripemd160, sha1, sha256, sha512,
          arc4, des3, des,
-         aes_cbc, aes_gcm, aes_ccm, aes_xts, chachapoly,
+         aes_cbc, aes_cfb128, aes_cfb8, aes_gcm, aes_ccm, aes_xts, chachapoly,
          aes_cmac, des3_cmac,
          aria, camellia, blowfish, chacha20,
          poly1305,
@@ -604,6 +592,10 @@ int main(int argc, char *argv[])
                 todo.des = 1;
             } else if (strcmp(argv[i], "aes_cbc") == 0) {
                 todo.aes_cbc = 1;
+            } else if (strcmp(argv[i], "aes_cfb128") == 0) {
+                todo.aes_cfb128 = 1;
+            } else if (strcmp(argv[i], "aes_cfb8") == 0) {
+                todo.aes_cfb8 = 1;
             } else if (strcmp(argv[i], "aes_xts") == 0) {
                 todo.aes_xts = 1;
             } else if (strcmp(argv[i], "aes_gcm") == 0) {
@@ -783,6 +775,58 @@ int main(int argc, char *argv[])
         }
         mbedtls_aes_free(&aes);
     }
+#endif
+#if defined(MBEDTLS_CIPHER_MODE_CFB)
+    if (todo.aes_cfb128) {
+        int keysize;
+        size_t iv_off = 0;
+        mbedtls_aes_context aes;
+
+        mbedtls_aes_init(&aes);
+        for (keysize = 128; keysize <= 256; keysize += 64) {
+#ifdef MBEDTLS_AES_ALT_NO_256
+            if (keysize == 256)
+            {
+                continue;
+            }
+#endif
+            mbedtls_snprintf(title, sizeof(title), "AES-CFB128-%d", keysize);
+
+            memset(buf, 0, sizeof(buf));
+            memset(tmp, 0, sizeof(tmp));
+            CHECK_AND_CONTINUE(mbedtls_aes_setkey_enc(&aes, tmp, keysize));
+
+            TIME_AND_TSC(title,
+                         mbedtls_aes_crypt_cfb128(&aes, MBEDTLS_AES_ENCRYPT, BUFSIZE,
+                                                  &iv_off, tmp, buf, buf));
+        }
+        mbedtls_aes_free(&aes);
+    }
+#if !defined(MBEDTLS_MCUX_ELE_S400)
+    if (todo.aes_cfb8) {
+        int keysize;
+        mbedtls_aes_context aes;
+
+        mbedtls_aes_init(&aes);
+        for (keysize = 128; keysize <= 256; keysize += 64) {
+#ifdef MBEDTLS_AES_ALT_NO_256
+            if (keysize == 256)
+            {
+                continue;
+            }
+#endif
+            mbedtls_snprintf(title, sizeof(title), "AES-CFB8-%d", keysize);
+
+            memset(buf, 0, sizeof(buf));
+            memset(tmp, 0, sizeof(tmp));
+            CHECK_AND_CONTINUE(mbedtls_aes_setkey_enc(&aes, tmp, keysize));
+
+            TIME_AND_TSC(title,
+                         mbedtls_aes_crypt_cfb8(&aes, MBEDTLS_AES_ENCRYPT, BUFSIZE, tmp, buf, buf));
+        }
+        mbedtls_aes_free(&aes);
+    }
+#endif
 #endif
 #if defined(MBEDTLS_CIPHER_MODE_XTS)
     if (todo.aes_xts) {
@@ -1444,13 +1488,14 @@ int main(int argc, char *argv[])
                 continue;
             }
 
-            mbedtls_ecdh_init(&ecdh_srv);
-            mbedtls_ecdh_init(&ecdh_cli);
-
             mbedtls_snprintf(title, sizeof(title), "ECDHE-%s", curve_info->name);
             TIME_PUBLIC(title,
                         "full handshake",
                         const unsigned char *p_srv = buf_srv;
+                        
+                        
+                        mbedtls_ecdh_init( &ecdh_srv );
+                        mbedtls_ecdh_init( &ecdh_cli );    
 
                         CHECK_AND_CONTINUE(mbedtls_ecdh_setup(&ecdh_srv, curve_info->grp_id));
                         CHECK_AND_CONTINUE(mbedtls_ecdh_make_params(&ecdh_srv, &olen, buf_srv,

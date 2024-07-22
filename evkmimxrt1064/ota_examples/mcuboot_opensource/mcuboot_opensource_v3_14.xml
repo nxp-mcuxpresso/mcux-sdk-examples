@@ -28,6 +28,7 @@
     <definition extID="component.mflash.common.MIMXRT1064"/>
     <definition extID="platform.drivers.flexspi.MIMXRT1064"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT1064"/>
+    <definition extID="utility.str.MIMXRT1064"/>
     <definition extID="device.MIMXRT1064_system.MIMXRT1064"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
@@ -35,7 +36,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt1064_mcuboot_opensource" name="mcuboot_opensource" dependency="platform.drivers.cache_armv7_m7.MIMXRT1064 middleware.mbedtls.port.ksdk.MIMXRT1064 component.mflash.rt1064.MIMXRT1064 middleware.mcuboot.bootutil.MIMXRT1064 middleware.mbedtls.MIMXRT1064 platform.drivers.clock.MIMXRT1064 platform.drivers.common.MIMXRT1064 device.MIMXRT1064_CMSIS.MIMXRT1064 utility.debug_console.MIMXRT1064 component.lpuart_adapter.MIMXRT1064 component.serial_manager_uart.MIMXRT1064 component.serial_manager.MIMXRT1064 platform.drivers.lpuart.MIMXRT1064 component.lists.MIMXRT1064 device.MIMXRT1064_startup.MIMXRT1064 platform.drivers.iomuxc.MIMXRT1064 platform.utilities.assert.MIMXRT1064 platform.drivers.igpio.MIMXRT1064 platform.drivers.xip_device.MIMXRT1064 platform.drivers.xip_board.evkmimxrt1064.MIMXRT1064 platform.utilities.misc_utilities.MIMXRT1064 middleware.mbedtls.template.MIMXRT1064 platform.drivers.dcp.MIMXRT1064 platform.drivers.trng.MIMXRT1064 component.mflash.common.MIMXRT1064 platform.drivers.flexspi.MIMXRT1064 CMSIS_Include_core_cm.MIMXRT1064 device.MIMXRT1064_system.MIMXRT1064" category="ota_examples">
+  <example id="evkmimxrt1064_mcuboot_opensource" name="mcuboot_opensource" dependency="platform.drivers.cache_armv7_m7.MIMXRT1064 middleware.mbedtls.port.ksdk.MIMXRT1064 component.mflash.rt1064.MIMXRT1064 middleware.mcuboot.bootutil.MIMXRT1064 middleware.mbedtls.MIMXRT1064 platform.drivers.clock.MIMXRT1064 platform.drivers.common.MIMXRT1064 device.MIMXRT1064_CMSIS.MIMXRT1064 utility.debug_console.MIMXRT1064 component.lpuart_adapter.MIMXRT1064 component.serial_manager_uart.MIMXRT1064 component.serial_manager.MIMXRT1064 platform.drivers.lpuart.MIMXRT1064 component.lists.MIMXRT1064 device.MIMXRT1064_startup.MIMXRT1064 platform.drivers.iomuxc.MIMXRT1064 platform.utilities.assert.MIMXRT1064 platform.drivers.igpio.MIMXRT1064 platform.drivers.xip_device.MIMXRT1064 platform.drivers.xip_board.evkmimxrt1064.MIMXRT1064 platform.utilities.misc_utilities.MIMXRT1064 middleware.mbedtls.template.MIMXRT1064 platform.drivers.dcp.MIMXRT1064 platform.drivers.trng.MIMXRT1064 component.mflash.common.MIMXRT1064 platform.drivers.flexspi.MIMXRT1064 CMSIS_Include_core_cm.MIMXRT1064 utility.str.MIMXRT1064 device.MIMXRT1064_system.MIMXRT1064" category="ota_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -55,6 +56,7 @@
           <value>XIP_EXTERNAL_FLASH=1</value>
           <value>XIP_BOOT_HEADER_ENABLE=1</value>
           <value>MBEDTLS_CONFIG_FILE='"mbedtls_config.h"'</value>
+          <value>PRINTF_ADVANCED_ENABLE=1</value>
           <value>MCUXPRESSO_SDK</value>
           <value>MFLASH_FILE_BASEADDR=3670016</value>
           <value>SERIAL_PORT_TYPE_UART=1</value>
@@ -100,7 +102,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-fomit-frame-pointer -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-fomit-frame-pointer -c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>
@@ -125,13 +127,13 @@
       </debug_configuration>
     </debug_configurations>
     <include_paths>
+      <include_path path="../../../../core/boards/evkmimxrt1064" project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="c_include"/>
       <include_path path="include" project_relative_path="include" type="c_include"/>
       <include_path path="include/mcuboot_config" project_relative_path="include/mcuboot_config" type="c_include"/>
       <include_path path="include/sysflash" project_relative_path="include/sysflash" type="c_include"/>
       <include_path path="keys" project_relative_path="keys" type="c_include"/>
       <include_path path="flash" project_relative_path="flash" type="c_include"/>
-      <include_path path="../../../../core/boards/evkmimxrt1064" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">
       <files mask="build_all.bat"/>
@@ -156,20 +158,28 @@
     <source path="armgcc" project_relative_path="evkmimxrt1064/linker" type="linker" toolchain="armgcc">
       <files mask="MIMXRT1064xxxxx_flexspi_nor.ld"/>
     </source>
+    <source path="../../../../core/boards/evkmimxrt1064" project_relative_path="board" type="src">
+      <files mask="board.c"/>
+      <files mask="clock_config.c"/>
+      <files mask="dcd.c"/>
+    </source>
+    <source path="../../../../core/boards/evkmimxrt1064" project_relative_path="board" type="c_include">
+      <files mask="board.h"/>
+      <files mask="clock_config.h"/>
+      <files mask="dcd.h"/>
+    </source>
+    <source path="." project_relative_path="doc" type="doc" toolchain="mcuxpresso armgcc">
+      <files mask="readme.md"/>
+    </source>
     <source path="." project_relative_path="source" type="src">
       <files mask="boot.c"/>
-      <files mask="bootutil_hooks.c"/>
       <files mask="keys.c"/>
-      <files mask="os.c"/>
-      <files mask="sbl_boot.c"/>
     </source>
     <source path="." project_relative_path="source" type="c_include">
       <files mask="boot.h"/>
     </source>
     <source path="include" project_relative_path="include" type="c_include">
       <files mask="mbedtls_config.h"/>
-      <files mask="sbl.h"/>
-      <files mask="sbldef.h"/>
       <files mask="flash_map.h"/>
     </source>
     <source path="include/mcuboot_config" project_relative_path="include/mcuboot_config" type="c_include">
@@ -186,8 +196,9 @@
       <files mask="sysflash.h"/>
     </source>
     <source path="keys" project_relative_path="keys" type="src" exclude="true">
+      <files mask="enc-rsa2048-priv-minimal.c"/>
       <files mask="sign-rsa2048-pub.c"/>
-      <files mask="sign-rsa2048-priv.c"/>
+      <files mask="sign-ecdsa-p256-pub.c"/>
     </source>
     <source path="flash" project_relative_path="flash" type="src">
       <files mask="flash_api.c"/>
@@ -211,19 +222,8 @@
     <source path="keys" project_relative_path="keys" type="other" exclude="true">
       <files mask="sign-rsa2048-pub.pem" hidden="true"/>
       <files mask="sign-rsa2048-priv.pem" hidden="true"/>
-    </source>
-    <source path="../../../../core/boards/evkmimxrt1064" project_relative_path="board" type="src">
-      <files mask="board.c"/>
-      <files mask="clock_config.c"/>
-      <files mask="dcd.c"/>
-    </source>
-    <source path="../../../../core/boards/evkmimxrt1064" project_relative_path="board" type="c_include">
-      <files mask="board.h"/>
-      <files mask="clock_config.h"/>
-      <files mask="dcd.h"/>
-    </source>
-    <source path="." project_relative_path="doc" type="doc" toolchain="mcuxpresso armgcc">
-      <files mask="readme.md"/>
+      <files mask="sign-ecdsa-p256-pub.pem" hidden="true"/>
+      <files mask="sign-ecdsa-p256-priv.pem" hidden="true"/>
     </source>
   </example>
 </ksdk:examples>

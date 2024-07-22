@@ -27,6 +27,7 @@
     <definition extID="middleware.sdmmc.sdif.template.LPC54S018M"/>
     <definition extID="component.osa_bm.LPC54S018M"/>
     <definition extID="component.osa_interface.LPC54S018M"/>
+    <definition extID="utility.str.LPC54S018M"/>
     <definition extID="middleware.fatfs.template_mmc.LPC54S018M"/>
     <definition extID="platform.drivers.reset.LPC54S018M"/>
     <definition extID="CMSIS_Include_core_cm.LPC54S018M"/>
@@ -35,7 +36,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="lpcxpresso54s018m_mmccard_fatfs" name="mmccard_fatfs" dependency="platform.drivers.lpc_iocon.LPC54S018M platform.drivers.sdif.LPC54S018M platform.drivers.flexcomm_usart.LPC54S018M middleware.sdmmc.host.sdif.LPC54S018M middleware.sdmmc.mmc.LPC54S018M middleware.sdmmc.host.sdif.interrupt.LPC54S018M utility.debug_console_lite.LPC54S018M platform.utilities.assert_lite.LPC54S018M middleware.fatfs.mmc.LPC54S018M middleware.fatfs.LPC54S018M platform.drivers.clock.LPC54S018M platform.drivers.common.LPC54S018M device.LPC54S018M_CMSIS.LPC54S018M component.usart_adapter.LPC54S018M component.lists.LPC54S018M device.LPC54S018M_startup.LPC54S018M platform.drivers.flexcomm.LPC54S018M platform.drivers.lpc_gpio.LPC54S018M platform.drivers.emc.LPC54S018M platform.drivers.power.LPC54S018M platform.utilities.misc_utilities.LPC54S018M middleware.sdmmc.common.LPC54S018M middleware.sdmmc.osa.bm.LPC54S018M middleware.sdmmc.sdif.template.LPC54S018M component.osa_bm.LPC54S018M component.osa_interface.LPC54S018M middleware.fatfs.template_mmc.LPC54S018M platform.drivers.reset.LPC54S018M CMSIS_Include_core_cm.LPC54S018M device.LPC54S018M_system.LPC54S018M" category="sdmmc_examples/mmccard_fatfs">
+  <example id="lpcxpresso54s018m_mmccard_fatfs" name="mmccard_fatfs" dependency="platform.drivers.lpc_iocon.LPC54S018M platform.drivers.sdif.LPC54S018M platform.drivers.flexcomm_usart.LPC54S018M middleware.sdmmc.host.sdif.LPC54S018M middleware.sdmmc.mmc.LPC54S018M middleware.sdmmc.host.sdif.interrupt.LPC54S018M utility.debug_console_lite.LPC54S018M platform.utilities.assert_lite.LPC54S018M middleware.fatfs.mmc.LPC54S018M middleware.fatfs.LPC54S018M platform.drivers.clock.LPC54S018M platform.drivers.common.LPC54S018M device.LPC54S018M_CMSIS.LPC54S018M component.usart_adapter.LPC54S018M component.lists.LPC54S018M device.LPC54S018M_startup.LPC54S018M platform.drivers.flexcomm.LPC54S018M platform.drivers.lpc_gpio.LPC54S018M platform.drivers.emc.LPC54S018M platform.drivers.power.LPC54S018M platform.utilities.misc_utilities.LPC54S018M middleware.sdmmc.common.LPC54S018M middleware.sdmmc.osa.bm.LPC54S018M middleware.sdmmc.sdif.template.LPC54S018M component.osa_bm.LPC54S018M component.osa_interface.LPC54S018M utility.str.LPC54S018M middleware.fatfs.template_mmc.LPC54S018M platform.drivers.reset.LPC54S018M CMSIS_Include_core_cm.LPC54S018M device.LPC54S018M_system.LPC54S018M" category="sdmmc_examples/mmccard_fatfs">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -61,7 +62,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

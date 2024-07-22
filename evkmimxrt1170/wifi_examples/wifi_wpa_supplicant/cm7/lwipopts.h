@@ -525,10 +525,8 @@ u32_t lwip_rand(void);
 
 #define LWIP_TCPIP_CORE_LOCKING 1
 
-#ifdef CONFIG_CLOUD_KEEP_ALIVE
 #ifndef LWIP_HOOK_FILENAME
 #define LWIP_HOOK_FILENAME                               "lwiphooks.h"
 #define LWIP_HOOK_TCP_OUT_ADD_TCPOPTS(p, hdr, pcb, opts) lwip_hook_tcp_out_add_tcpopts(p, hdr, pcb, opts)
-#endif
 #endif
 #endif /* __LWIPOPTS_H__ */

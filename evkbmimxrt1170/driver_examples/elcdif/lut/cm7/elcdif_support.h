@@ -20,6 +20,7 @@
 #define MIPI_PANEL_RK055AHD091 0 /* 720 * 1280 */
 #define MIPI_PANEL_RK055IQH091 1 /* 540 * 960  */
 #define MIPI_PANEL_RK055MHD091 2 /* 720 * 1280 */
+#define MIPI_PANEL_RASPI_7INCH 3 /* 800 * 480, Raspberry Pi 7" */
 
 #ifndef USE_MIPI_PANEL
 #define USE_MIPI_PANEL MIPI_PANEL_RK055MHD091
@@ -43,6 +44,15 @@
 #define APP_VSW          2
 #define APP_VFP          16
 #define APP_VBP          14
+#elif (USE_MIPI_PANEL == MIPI_PANEL_RASPI_7INCH)
+#define APP_PANEL_HEIGHT 480
+#define APP_PANEL_WIDTH  800
+#define APP_HSW          20
+#define APP_HFP          70
+#define APP_HBP          23
+#define APP_VSW          2
+#define APP_VFP          7
+#define APP_VBP          21
 #else
 #define APP_PANEL_HEIGHT 960
 #define APP_PANEL_WIDTH  540
@@ -62,8 +72,12 @@
 #define APP_IMG_WIDTH      APP_PANEL_WIDTH
 
 extern const MIPI_DSI_Type g_mipiDsi;
-#define APP_MIPI_DSI          (&g_mipiDsi)
+#define APP_MIPI_DSI (&g_mipiDsi)
+#if (USE_MIPI_PANEL == MIPI_PANEL_RASPI_7INCH)
+#define APP_MIPI_DSI_LANE_NUM 1
+#else
 #define APP_MIPI_DSI_LANE_NUM 2
+#endif
 
 /*
  * The DPHY bit clock must be fast enough to send out the pixels, it should be

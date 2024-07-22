@@ -1,5 +1,5 @@
 /*
- * Copyright 2021-2023 NXP
+ * Copyright 2021-2024 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -30,8 +30,6 @@
  * This is the inference HAL configuration
  */
 #define HAL_ENABLE_INFERENCE_TFLITE           0
-#define HAL_ENABLE_INFERENCE_GLOW             0
-#define HAL_ENABLE_INFERENCE_DVRT             0
 
 /**
  * This is the PXP HAL configuration

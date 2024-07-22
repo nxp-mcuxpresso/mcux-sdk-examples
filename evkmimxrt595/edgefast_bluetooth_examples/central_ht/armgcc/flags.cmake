@@ -66,10 +66,11 @@ SET(CMAKE_C_FLAGS_FLASH_DEBUG " \
     -DLOG_MAX_ARGUMENT_COUNT=10 \
     -DLOG_ENABLE_OVERWRITE=0 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
+    -DOSA_USED \
     -DLWIP_DNS=1 \
     -DLWIP_NETIF_HOSTNAME=1 \
-    -DLWIP_NETIF_STATUS_CALLBACK=1 \
     -DLWIP_IGMP=1 \
+    -D_XOPEN_SOURCE=500 \
     -DGENERIC_LIST_LIGHT=1 \
     -g \
     -O0 \
@@ -81,7 +82,6 @@ SET(CMAKE_C_FLAGS_FLASH_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
@@ -130,10 +130,11 @@ SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
     -DLOG_MAX_ARGUMENT_COUNT=10 \
     -DLOG_ENABLE_OVERWRITE=0 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
+    -DOSA_USED \
     -DLWIP_DNS=1 \
     -DLWIP_NETIF_HOSTNAME=1 \
-    -DLWIP_NETIF_STATUS_CALLBACK=1 \
     -DLWIP_IGMP=1 \
+    -D_XOPEN_SOURCE=500 \
     -DGENERIC_LIST_LIGHT=1 \
     -Os \
     -mcpu=cortex-m33 \
@@ -144,7 +145,6 @@ SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
@@ -168,7 +168,6 @@ SET(CMAKE_CXX_FLAGS_FLASH_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -fno-rtti \
@@ -190,7 +189,6 @@ SET(CMAKE_CXX_FLAGS_FLASH_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -fno-rtti \
@@ -206,7 +204,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -232,7 +229,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \

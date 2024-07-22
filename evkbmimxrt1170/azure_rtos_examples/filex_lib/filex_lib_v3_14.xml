@@ -26,7 +26,7 @@
           <value>gnu.c.debugging.level.none</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-Wno-unused-but-set-variable -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-Wno-unused-but-set-variable -c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.nowarn" type="boolean">
           <value>false</value>

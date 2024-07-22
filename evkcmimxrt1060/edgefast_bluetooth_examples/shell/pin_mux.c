@@ -42,6 +42,7 @@ void BOARD_InitBootPins(void) {
     BOARD_InitUSDHCPins();
     BOARD_InitQSPIPins();
     BOARD_InitPinsM2();
+    BOARD_InitIRPins();
     BOARD_InitM2UARTPins();
 }
 
@@ -284,6 +285,39 @@ void BOARD_InitQSPIPins(void) {
   IOMUXC_SetPinConfig(IOMUXC_GPIO_SD_B1_11_FLEXSPIA_DATA03, 0x10F1U); 
 }
 
+/*
+ * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+BOARD_InitIRPins:
+- options: {callFromInitBoot: 'true', coreID: core0, enableClock: 'true'}
+- pin_list:
+  - {pin_num: L11, peripheral: GPIO1, signal: 'gpio_io, 18', pin_signal: GPIO_AD_B1_02, identifier: '', direction: OUTPUT, gpio_init_state: 'true'}
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
+ */
+
+/* FUNCTION ************************************************************************************************************
+ *
+ * Function Name : BOARD_InitIRPins
+ * Description   : Configures pin routing and optionally pin electrical features.
+ *
+ * END ****************************************************************************************************************/
+void BOARD_InitIRPins(void) {
+  CLOCK_EnableClock(kCLOCK_Iomuxc);           
+
+  /* GPIO configuration on GPIO_AD_B1_02 (pin L11) */
+  gpio_pin_config_t gpio1_pinL11_config = {
+      .direction = kGPIO_DigitalOutput,
+      .outputLogic = 1U,
+      .interruptMode = kGPIO_NoIntmode
+  };
+  /* Initialize GPIO functionality on GPIO_AD_B1_02 (pin L11) */
+  GPIO_PinInit(GPIO1, 18U, &gpio1_pinL11_config);
+
+  IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B1_02_GPIO1_IO18, 0U); 
+  IOMUXC_GPR->GPR26 = ((IOMUXC_GPR->GPR26 &
+    (~(BOARD_INITIRPINS_IOMUXC_GPR_GPR26_GPIO_MUX1_GPIO_SEL_MASK))) 
+      | IOMUXC_GPR_GPR26_GPIO_MUX1_GPIO_SEL(0x00U) 
+    );
+}
 
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************

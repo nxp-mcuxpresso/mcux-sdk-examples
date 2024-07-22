@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 NXP
+ * Copyright 2023-2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -47,6 +47,8 @@
 
 #define MAX_AUDIO_CHANNEL_COUNT     2U
 #define BITS_RATES_OF_SAMPLE        16U
+
+#define HW_CHANNEL_COUNT            2U
 
 #define STREAM_RX_BUF_COUNT (CONFIG_BT_ASCS_ASE_SNK_COUNT * 8U)
 
@@ -126,6 +128,8 @@ struct sync_status
 {
     uint64_t output_length;
     uint64_t received_length;
+    uint32_t received_count;
+
     uint32_t presentation_delay_us;
     volatile double resampler_added_samples;
 
@@ -134,6 +138,8 @@ struct sync_status
 
     int32_t mute_frame_samples;
     uint32_t mute_frame_duration_us;
+
+    uint32_t start_ts;
 
     float sync_offset_us;
 
@@ -282,8 +288,8 @@ static const struct bt_bap_unicast_server_cb unicast_server_callbacks = {
 };
 
 static struct bt_audio_codec_cap unicast_server_codec =
-    BT_AUDIO_CODEC_CAP_LC3(BT_AUDIO_CODEC_LC3_FREQ_ANY, BT_AUDIO_CODEC_LC3_DURATION_10,
-             BT_AUDIO_CODEC_LC3_CHAN_COUNT_SUPPORT(2), 40u, 120u, 1u,
+    BT_AUDIO_CODEC_CAP_LC3(BT_AUDIO_CODEC_CAP_FREQ_ANY, BT_AUDIO_CODEC_CAP_DURATION_10,
+             BT_AUDIO_CODEC_CAP_CHAN_COUNT_SUPPORT(HW_CHANNEL_COUNT), 40u, 120u, 1u,
              (BT_AUDIO_CONTEXT_TYPE_CONVERSATIONAL | BT_AUDIO_CONTEXT_TYPE_MEDIA | BT_AUDIO_CONTEXT_TYPE_RINGTONE));
 
 static const struct bt_audio_codec_qos_pref qos_pref = BT_AUDIO_CODEC_QOS_PREF(true, BT_GAP_LE_PHY_2M, 0x02,
@@ -875,16 +881,15 @@ static void get_capability_from_codec(const struct bt_audio_codec_cfg *codec, st
 {
     int ret;
     enum bt_audio_location location;
-    uint32_t tempU32;
 
     PRINTF("Codec configurations:\n");
-    ret = bt_audio_codec_cfg_freq_to_freq_hz((enum bt_audio_codec_config_freq)bt_audio_codec_cfg_get_freq(codec));
+    ret = bt_audio_codec_cfg_freq_to_freq_hz((enum bt_audio_codec_cfg_freq)bt_audio_codec_cfg_get_freq(codec));
     if (ret >= 0)
     {
         cap->frequency = (uint32_t)ret;
     }
     PRINTF("    Frequency %d\n", cap->frequency);
-    ret = bt_audio_codec_cfg_get_frame_duration_us(codec);
+    ret = bt_audio_codec_cfg_frame_dur_to_frame_dur_us((enum bt_audio_codec_cfg_frame_dur)bt_audio_codec_cfg_get_frame_dur(codec));
     if (ret >= 0)
     {
         cap->duration = (uint32_t)ret;
@@ -903,23 +908,16 @@ static void get_capability_from_codec(const struct bt_audio_codec_cfg *codec, st
     }
     PRINTF("    Frame blocks per SDU %d\n", cap->frame_blocks_per_sdu);
     ret = bt_audio_codec_cfg_get_chan_allocation(codec, &location);
-
     if (ret >= 0)
-    {
-        cap->channel_count = 0U;
-        tempU32 = (uint32_t)location;
-        while (tempU32 > 0U)
-        {
-            tempU32 = tempU32 & (tempU32 - 1);
-            cap->channel_count ++;
-        }
-        PRINTF("    Location %d, channel count %d.", (uint32_t)location, cap->channel_count);
-        PRINTF("\n");
-    }
-    else
     {
         PRINTF("    Location is invalid\n");
     }
+    else
+    {
+        PRINTF("    Location %d\n", (uint32_t)location);
+    }
+    cap->channel_count = HW_CHANNEL_COUNT;
+    PRINTF("    Channel count %d.", cap->channel_count);
 }
 
 #if 0
@@ -997,6 +995,27 @@ static float System_Sync_offset(int sample_rate)
     }
 
     return us;
+}
+
+static uint32_t get_cig_sync_delay(void)
+{
+	struct bt_iso_info iso_info;
+
+	bt_iso_chan_get_info(&connection.src.stream.stream.ep->iso->chan, &iso_info);
+
+	return iso_info.unicast.cig_sync_delay;
+}
+
+static uint32_t get_iso_interval(void)
+{
+	struct bt_iso_info iso_info;
+	uint32_t ISO_Interval_us;
+
+	bt_iso_chan_get_info(&connection.src.stream.stream.ep->iso->chan, &iso_info);
+
+	ISO_Interval_us = iso_info.iso_interval * 1250;
+
+	return ISO_Interval_us;
 }
 #endif /* UNICAST_AUDIO_SYNC_MODE */
 
@@ -1119,6 +1138,11 @@ static void sink_recv_stream_task(void *param)
                 OSA_ENTER_CRITICAL();
                 if (0 == connection.snk.status.start_slot)
                 {
+                    /* Get cig_sync_delay_us */
+                    connection.info.cig_sync_delay_us = get_cig_sync_delay();
+                    /* Get iso_interval_us */
+                    connection.info.iso_interval_us = get_iso_interval();
+
                     /* Resampler have 16 samples delay. */
                     connection.snk.status.system_delay_us = connection.info.bits_pre_sample * connection.info.sample_duration_us;
                     /* LC3 decode delay. 0 for default */
@@ -1126,6 +1150,7 @@ static void sink_recv_stream_task(void *param)
                     /* Addition delay */
                     connection.snk.status.system_delay_us += System_Sync_offset(connection.info.sample_rate);
 
+                    connection.snk.status.start_ts = info->ts;
                     connection.snk.status.start_slot = (uint32_t)((info->ts + connection.snk.status.presentation_delay_us - connection.snk.status.system_delay_us - connection.info.cig_sync_delay_us) / connection.info.iso_interval_us);
                     connection.snk.status.mute_frame_duration_us = (uint32_t)((info->ts + connection.snk.status.presentation_delay_us) - (connection.snk.status.start_slot * connection.info.iso_interval_us + connection.info.cig_sync_delay_us + connection.snk.status.system_delay_us));
                     connection.snk.status.mute_frame_samples = (int)(connection.snk.status.mute_frame_duration_us / connection.info.sample_duration_us);
@@ -1168,6 +1193,7 @@ static void sink_recv_stream_task(void *param)
             OSA_ENTER_CRITICAL();
             connection.snk.status.output_length += output_length;
             connection.snk.status.received_length += received_length;
+            connection.snk.status.received_count ++;
             connection.snk.status.resampler_added_samples += resampler_added_samples;
             connection.snk.status.resampler_internal_samples = resampler_internal_samples;
             OSA_EXIT_CRITICAL();
@@ -1270,7 +1296,7 @@ static int stream_send_out(struct bt_conn * conn, struct net_buf *buf)
         return -EINVAL;
     }
 
-    ret = bt_bap_stream_send(&connection.src.stream.stream, buf, connection.src.seq_num++, BT_ISO_TIMESTAMP_NONE);
+    ret = bt_bap_stream_send(&connection.src.stream.stream, buf, connection.src.seq_num++);
     if (ret < 0)
     {
         PRINTF("Fail to send stream (error %d)\n", ret);
@@ -1555,45 +1581,12 @@ static void unicast_server_stream_recv(struct bt_bap_stream *stream,
     /* TODO: Handle the received stream data. */
 }
 
-#if defined(UNICAST_AUDIO_SYNC_MODE) && (UNICAST_AUDIO_SYNC_MODE > 0)
-static uint32_t get_cig_sync_delay(void)
-{
-	struct bt_iso_info iso_info;
-
-	bt_iso_chan_get_info(&connection.src.stream.stream.ep->iso->chan, &iso_info);
-
-	return iso_info.unicast.cig_sync_delay;
-}
-
-static uint32_t get_iso_interval(void)
-{
-	struct bt_iso_info iso_info;
-	uint32_t ISO_Interval_us;
-
-	bt_iso_chan_get_info(&connection.src.stream.stream.ep->iso->chan, &iso_info);
-
-	ISO_Interval_us = iso_info.iso_interval * 1250;
-
-	return ISO_Interval_us;
-}
-#endif /* UNICAST_AUDIO_SYNC_MODE */
-
 static void unicast_server_stream_started(struct bt_bap_stream *stream)
 {
 	PRINTF("Stream %p started\n", stream);
 
 #if (defined(UNICAST_AUDIO_SYNC_MODE) && (UNICAST_AUDIO_SYNC_MODE > 0))
-    if (sync_timer_started == 0U)
-    {
-        sync_timer_started = 1U;
-        connection.info.bits_pre_sample = BITS_RATES_OF_SAMPLE;
-        connection.info.sample_rate = snk_config_cap.frequency;
-        connection.info.sample_duration_us = 1000000.0 / (float)connection.info.sample_rate;
-        connection.info.cig_sync_delay_us = get_cig_sync_delay();
-        connection.info.iso_interval_us = get_iso_interval();
-
-        BORAD_SyncTimer_Start(connection.info.sample_rate, connection.info.bits_pre_sample * snk_config_cap.channel_count);
-    }
+    /* Start Sync timer before starting stream */
 #else
     BOARD_StartStream();
 #endif /* UNICAST_AUDIO_SYNC_MODE */
@@ -1629,6 +1622,7 @@ static void unicast_server_stream_started(struct bt_bap_stream *stream)
 
         connection.src.status.output_length = 0;
         connection.src.status.received_length = 0;
+        connection.src.status.received_count = 0;
 #endif /* UNICAST_AUDIO_SYNC_MODE_TX */
 
         atomic_set_bit(connection.src.stream.flags, BT_STREAM_STATE_STARTED);
@@ -1661,6 +1655,7 @@ static void unicast_server_stream_started(struct bt_bap_stream *stream)
 
         connection.snk.status.output_length = 0;
         connection.snk.status.received_length = 0;
+        connection.snk.status.received_count = 0;
 #endif /* UNICAST_AUDIO_SYNC_MODE */
 
         atomic_set_bit(connection.snk.stream.flags, BT_STREAM_STATE_STARTED);
@@ -1713,7 +1708,17 @@ static void unicast_server_stream_enabled(struct bt_bap_stream *stream)
             BOARD_StartCodec(codec_tx_callback, codec_rx_callback, snk_config_cap.frequency, BITS_RATES_OF_SAMPLE);
 #if (defined(UNICAST_AUDIO_SYNC_MODE) && (UNICAST_AUDIO_SYNC_MODE > 0))
             BOARD_SyncTimer_Init(sync_timer_callback);
+            if (sync_timer_started == 0U)
+            {
+                sync_timer_started = 1U;
+                connection.info.bits_pre_sample = BITS_RATES_OF_SAMPLE;
+                connection.info.sample_rate = snk_config_cap.frequency;
+                connection.info.sample_duration_us = 1000000.0 / (float)connection.info.sample_rate;
+
+                BORAD_SyncTimer_Start(connection.info.sample_rate, connection.info.bits_pre_sample * snk_config_cap.channel_count);
+            }
 #endif /* UNICAST_AUDIO_SYNC_MODE */
+
             atomic_set_bit(connection.snk.stream.flags, BT_STREAM_STATE_STARTED);
             PRINTF("Start: stream %p\n", stream);
         }

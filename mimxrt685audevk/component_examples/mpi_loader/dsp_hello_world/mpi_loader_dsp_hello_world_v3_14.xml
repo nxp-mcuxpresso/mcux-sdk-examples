@@ -25,12 +25,13 @@
     <definition extID="platform.drivers.reset.MIMXRT685S"/>
     <definition extID="platform.utilities.misc_utilities.MIMXRT685S"/>
     <definition extID="platform.drivers.inputmux_connections.MIMXRT685S"/>
+    <definition extID="utility.str.MIMXRT685S"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT685S"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="mimxrt685audevk_mpi_loader_dsp_hello_world" name="mpi_loader_dsp_hello_world" device_core="cm33_MIMXRT685S" dependency="platform.drivers.dsp.MIMXRT685S platform.drivers.inputmux.MIMXRT685S driver.pca9420.MIMXRT685S platform.drivers.flexcomm_i2c.MIMXRT685S driver.mpi_loader.MIMXRT685S utility.debug_console_lite.MIMXRT685S platform.utilities.assert_lite.MIMXRT685S platform.drivers.clock.MIMXRT685S platform.drivers.common.MIMXRT685S device.MIMXRT685S_CMSIS.MIMXRT685S component.usart_adapter.MIMXRT685S platform.drivers.power.MIMXRT685S platform.drivers.flexspi.MIMXRT685S platform.drivers.cache_cache64.MIMXRT685S platform.drivers.flexcomm_usart.MIMXRT685S component.lists.MIMXRT685S device.MIMXRT685S_startup.MIMXRT685S platform.drivers.flexcomm.MIMXRT685S platform.drivers.lpc_iopctl.MIMXRT685S platform.drivers.lpc_gpio.MIMXRT685S platform.drivers.reset.MIMXRT685S platform.utilities.misc_utilities.MIMXRT685S platform.drivers.inputmux_connections.MIMXRT685S CMSIS_Include_core_cm.MIMXRT685S" category="component_examples">
+  <example id="mimxrt685audevk_mpi_loader_dsp_hello_world" name="mpi_loader_dsp_hello_world" device_core="cm33_MIMXRT685S" dependency="platform.drivers.dsp.MIMXRT685S platform.drivers.inputmux.MIMXRT685S driver.pca9420.MIMXRT685S platform.drivers.flexcomm_i2c.MIMXRT685S driver.mpi_loader.MIMXRT685S utility.debug_console_lite.MIMXRT685S platform.utilities.assert_lite.MIMXRT685S platform.drivers.clock.MIMXRT685S platform.drivers.common.MIMXRT685S device.MIMXRT685S_CMSIS.MIMXRT685S component.usart_adapter.MIMXRT685S platform.drivers.power.MIMXRT685S platform.drivers.flexspi.MIMXRT685S platform.drivers.cache_cache64.MIMXRT685S platform.drivers.flexcomm_usart.MIMXRT685S component.lists.MIMXRT685S device.MIMXRT685S_startup.MIMXRT685S platform.drivers.flexcomm.MIMXRT685S platform.drivers.lpc_iopctl.MIMXRT685S platform.drivers.lpc_gpio.MIMXRT685S platform.drivers.reset.MIMXRT685S platform.utilities.misc_utilities.MIMXRT685S platform.drivers.inputmux_connections.MIMXRT685S utility.str.MIMXRT685S CMSIS_Include_core_cm.MIMXRT685S" category="component_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -62,7 +63,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

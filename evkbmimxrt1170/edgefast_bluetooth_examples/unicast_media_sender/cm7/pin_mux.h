@@ -114,6 +114,11 @@ void BOARD_InitM2CodecPins(void);             /* Function assigned for the Corte
  */
 void BOARD_InitPinsM2(void);               /* Function assigned for the Cortex-M7F */
 
+/*!
+ * @brief Configures pin routing and optionally pin electrical features.
+ *
+ */
+void BOARD_InitSyncSignalPins(void);          /* Function assigned for the Cortex-M7F */
 
 #if defined(__cplusplus)
 }

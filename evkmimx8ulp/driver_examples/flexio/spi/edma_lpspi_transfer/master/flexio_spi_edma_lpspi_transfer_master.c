@@ -214,6 +214,9 @@ int main(void)
 
     /* Init the EDMA module */
     EDMA_GetDefaultConfig(&config);
+#if defined(BOARD_GetEDMAConfig)
+    BOARD_GetEDMAConfig(config);
+#endif
     EDMA_Init(EXAMPLE_FLEXIO_SPI_DMA_LPSPI_BASEADDR, &config);
     EDMA_CreateHandle(&txHandle, EXAMPLE_FLEXIO_SPI_DMA_LPSPI_BASEADDR, FLEXIO_SPI_TX_DMA_LPSPI_CHANNEL);
     EDMA_CreateHandle(&rxHandle, EXAMPLE_FLEXIO_SPI_DMA_LPSPI_BASEADDR, FLEXIO_SPI_RX_DMA_LPSPI_CHANNEL);

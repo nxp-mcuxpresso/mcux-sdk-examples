@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2023 NXP
+ * Copyright 2016-2024 NXP
  * All rights reserved.
  *
  *
@@ -22,9 +22,6 @@
 #include "ethernetif.h"
 #include "pin_mux.h"
 #include "board.h"
-#ifndef configMAC_ADDR
-#include "fsl_silicon_id.h"
-#endif
 #include "fsl_phy.h"
 
 #include "lwip/netif.h"
@@ -123,6 +120,10 @@ extern phy_rtl8211f_resource_t g_phy_resource;
 /* ENET clock frequency. */
 #define EXAMPLE_CLOCK_FREQ CLOCK_GetRootClockFreq(kCLOCK_Root_Bus)
 
+/* Must be after include of app.h */
+#ifndef configMAC_ADDR
+#include "fsl_silicon_id.h"
+#endif
 #ifndef MDNS_HOSTNAME
 #define MDNS_HOSTNAME "lwip-http"
 #endif

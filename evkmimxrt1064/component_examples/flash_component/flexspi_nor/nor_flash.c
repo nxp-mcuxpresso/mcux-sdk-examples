@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019, 2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -20,6 +20,14 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
+/* To avoid build error in case of some device do not define following macros. */
+#ifndef EXAMPLE_DISABLE_CACHE_OF_FLASH
+#define EXAMPLE_DISABLE_CACHE_OF_FLASH
+#endif
+
+#ifndef EXAMPLE_ENABLE_CACHE_OF_FLASH
+#define EXAMPLE_ENABLE_CACHE_OF_FLASH
+#endif
 
 /*******************************************************************************
  * Prototypes
@@ -121,7 +129,9 @@ int main(void)
         uint32_t address = NOR_FLASH_START_ADDRESS + norHandle.bytesInPageSize * pageIndex;
 
         /* Erase Sector */
+        EXAMPLE_DISABLE_CACHE_OF_FLASH;
         status = Nor_Flash_Erase_Sector(&norHandle, address);
+        EXAMPLE_ENABLE_CACHE_OF_FLASH;
         if (status != kStatus_Success)
         {
             PRINTF("\r\n***NOR Flash Erase Sector Failed!***\r\n");
@@ -157,7 +167,9 @@ int main(void)
 
         PRINTF("\r\n");
 
+        EXAMPLE_DISABLE_CACHE_OF_FLASH;
         status = Nor_Flash_Page_Program(&norHandle, address, mem_writeBuffer);
+        EXAMPLE_ENABLE_CACHE_OF_FLASH;
         if (status != kStatus_Success)
         {
             PRINTF("\r\n***NOR Flash Page %d Program Failed!***\r\n", pageIndex);
@@ -185,7 +197,9 @@ int main(void)
         PRINTF("\r\n***NOR Flash Page %d Read/Write Success!***\r\n", pageIndex);
 
         /* Erase Sector */
+        EXAMPLE_DISABLE_CACHE_OF_FLASH;
         status = Nor_Flash_Erase_Sector(&norHandle, address);
+        EXAMPLE_ENABLE_CACHE_OF_FLASH;
         if (status != kStatus_Success)
         {
             PRINTF("\r\n***NOR Flash Erase Sector Failed!***\r\n");

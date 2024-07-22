@@ -26,6 +26,7 @@
     <definition extID="middleware.usb.device.common_header.LPC55S69"/>
     <definition extID="component.osa.LPC55S69"/>
     <definition extID="middleware.usb.common_header.LPC55S69"/>
+    <definition extID="utility.str.LPC55S69"/>
     <definition extID="CMSIS_Include_core_cm.LPC55S69"/>
     <definition extID="platform.devices.LPC55S69_system.LPC55S69"/>
     <definition extID="middleware.usb.device.ip3511hs_config_header.LPC55S69"/>
@@ -33,7 +34,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="lpcxpresso55s69_dev_msc_ramdisk_lite_bm" name="dev_msc_ramdisk_lite_bm" device_core="cm33_core0_LPC55S69" dependency="middleware.usb.device_controller_ip3511fs.LPC55S69 platform.utilities.assert_lite.LPC55S69 utility.debug_console_lite.LPC55S69 middleware.baremetal.LPC55S69 component.lists.LPC55S69 platform.drivers.flexcomm_usart.LPC55S69 component.usart_adapter.LPC55S69 platform.devices.LPC55S69_CMSIS.LPC55S69 platform.devices.LPC55S69_startup.LPC55S69 platform.drivers.power.LPC55S69 platform.drivers.clock.LPC55S69 platform.drivers.common.LPC55S69 platform.drivers.flexcomm.LPC55S69 platform.drivers.lpc_gpio.LPC55S69 platform.drivers.lpc_iocon.LPC55S69 platform.drivers.reset.LPC55S69 middleware.usb.device.controller.driver.LPC55S69 middleware.usb.device_controller_ip3511hs.LPC55S69 middleware.usb.phy.LPC55S69 platform.utilities.misc_utilities.LPC55S69 middleware.usb.device.ip3511fs_config_header.LPC55S69 middleware.usb.device.common_header.LPC55S69 component.osa.LPC55S69 middleware.usb.common_header.LPC55S69 CMSIS_Include_core_cm.LPC55S69 platform.devices.LPC55S69_system.LPC55S69 middleware.usb.device.ip3511hs_config_header.LPC55S69" category="usb_examples">
+  <example id="lpcxpresso55s69_dev_msc_ramdisk_lite_bm" name="dev_msc_ramdisk_lite_bm" device_core="cm33_core0_LPC55S69" dependency="middleware.usb.device_controller_ip3511fs.LPC55S69 platform.utilities.assert_lite.LPC55S69 utility.debug_console_lite.LPC55S69 middleware.baremetal.LPC55S69 component.lists.LPC55S69 platform.drivers.flexcomm_usart.LPC55S69 component.usart_adapter.LPC55S69 platform.devices.LPC55S69_CMSIS.LPC55S69 platform.devices.LPC55S69_startup.LPC55S69 platform.drivers.power.LPC55S69 platform.drivers.clock.LPC55S69 platform.drivers.common.LPC55S69 platform.drivers.flexcomm.LPC55S69 platform.drivers.lpc_gpio.LPC55S69 platform.drivers.lpc_iocon.LPC55S69 platform.drivers.reset.LPC55S69 middleware.usb.device.controller.driver.LPC55S69 middleware.usb.device_controller_ip3511hs.LPC55S69 middleware.usb.phy.LPC55S69 platform.utilities.misc_utilities.LPC55S69 middleware.usb.device.ip3511fs_config_header.LPC55S69 middleware.usb.device.common_header.LPC55S69 component.osa.LPC55S69 middleware.usb.common_header.LPC55S69 utility.str.LPC55S69 CMSIS_Include_core_cm.LPC55S69 platform.devices.LPC55S69_system.LPC55S69 middleware.usb.device.ip3511hs_config_header.LPC55S69" category="usb_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -60,7 +61,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-mno-unaligned-access -mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-mno-unaligned-access -mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

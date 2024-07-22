@@ -100,7 +100,7 @@ static void app_task(void *param)
     rpmsg_queue_handle my_queue;
     struct rpmsg_lite_instance *my_rpmsg;
     rpmsg_ns_handle ns_handle;
-    uint32_t len;
+    uint32_t len = 0U;
 
 #ifdef CORE1_IMAGE_COPY_TO_RAM
     /* This section ensures the secondary core image is copied from flash location to the target RAM memory.

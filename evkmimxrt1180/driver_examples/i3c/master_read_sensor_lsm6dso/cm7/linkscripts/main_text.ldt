@@ -1,0 +1,2 @@
+       *(EXCLUDE_FILE(*fsl_i3c.o) .text)
+       *(EXCLUDE_FILE(*fsl_i3c.o) .text.*)

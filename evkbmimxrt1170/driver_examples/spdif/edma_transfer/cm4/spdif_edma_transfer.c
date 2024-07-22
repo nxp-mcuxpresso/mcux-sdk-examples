@@ -10,7 +10,9 @@
 #include "board.h"
 #include "fsl_spdif_edma.h"
 #include "fsl_debug_console.h"
+#if defined(FSL_FEATURE_SOC_DMAMUX_COUNT) && FSL_FEATURE_SOC_DMAMUX_COUNT
 #include "fsl_dmamux.h"
+#endif
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -132,17 +134,26 @@ int main(void)
      * dmaConfig.enableDebugMode = false;
      */
     EDMA_GetDefaultConfig(&dmaConfig);
+#if defined(BOARD_GetEDMAConfig)
+    BOARD_GetEDMAConfig(dmaConfig);
+#endif
     EDMA_Init(EXAMPLE_DMA, &dmaConfig);
     EDMA_CreateHandle(&dmaTxLeftHandle, EXAMPLE_DMA, SPDIF_TX_LEFT_CHANNEL);
     EDMA_CreateHandle(&dmaRxLeftHandle, EXAMPLE_DMA, SPDIF_RX_LEFT_CHANNEL);
     EDMA_CreateHandle(&dmaTxRightHandle, EXAMPLE_DMA, SPDIF_TX_RIGHT_CHANNEL);
     EDMA_CreateHandle(&dmaRxRightHandle, EXAMPLE_DMA, SPDIF_RX_RIGHT_CHANNEL);
+#if defined(FSL_FEATURE_EDMA_HAS_CHANNEL_MUX) && FSL_FEATURE_EDMA_HAS_CHANNEL_MUX
+    EDMA_SetChannelMux(EXAMPLE_DMA, SPDIF_TX_LEFT_CHANNEL, SPDIF_TX_SOURCE);
+    EDMA_SetChannelMux(EXAMPLE_DMA, SPDIF_RX_LEFT_CHANNEL, SPDIF_RX_SOURCE);
+#endif
 
+#if defined(FSL_FEATURE_SOC_DMAMUX_COUNT) && FSL_FEATURE_SOC_DMAMUX_COUNT
     DMAMUX_Init(EXAMPLE_DMAMUX);
     DMAMUX_SetSource(EXAMPLE_DMAMUX, SPDIF_TX_LEFT_CHANNEL, SPDIF_TX_SOURCE);
     DMAMUX_EnableChannel(EXAMPLE_DMAMUX, SPDIF_TX_LEFT_CHANNEL);
     DMAMUX_SetSource(EXAMPLE_DMAMUX, SPDIF_RX_LEFT_CHANNEL, SPDIF_RX_SOURCE);
     DMAMUX_EnableChannel(EXAMPLE_DMAMUX, SPDIF_RX_LEFT_CHANNEL);
+#endif
 
     SPDIF_GetDefaultConfig(&config);
     SPDIF_Init(EXAMPLE_SPDIF, &config);

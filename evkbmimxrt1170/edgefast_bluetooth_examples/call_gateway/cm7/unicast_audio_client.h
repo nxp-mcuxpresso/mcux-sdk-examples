@@ -42,7 +42,7 @@ int unicast_client_stop_stream_unidirectional(uint8_t is_tx);
 
 int unicast_client_release_streams(void);
 
-int unicast_client_start_ringtone(const uint8_t *pcm, size_t pcm_length);
+int unicast_client_start_ringtone(const uint8_t *pcm, size_t pcm_length, uint8_t channel_count);
 
 int unicast_client_stop_ringtone(void);
 

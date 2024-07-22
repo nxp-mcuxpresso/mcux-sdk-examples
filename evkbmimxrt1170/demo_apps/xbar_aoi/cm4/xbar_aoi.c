@@ -12,10 +12,28 @@
 #else
 #include "fsl_cmp.h"
 #endif
+
+#if defined(FSL_FEATURE_SOC_PIT_COUNT) && FSL_FEATURE_SOC_PIT_COUNT
 #include "fsl_pit.h"
-#include "fsl_aoi.h"
+#endif
+
+#if defined(FSL_FEATURE_SOC_XBARA_COUNT) && FSL_FEATURE_SOC_XBARA_COUNT
 #include "fsl_xbara.h"
+#endif
+
+#if defined(FSL_FEATURE_SOC_XBARB_COUNT) && FSL_FEATURE_SOC_XBARB_COUNT
 #include "fsl_xbarb.h"
+#endif
+
+#if defined(FSL_FEATURE_SOC_LPIT_COUNT) && FSL_FEATURE_SOC_LPIT_COUNT
+#include "fsl_lpit.h"
+#endif
+
+#if defined(FSL_FEATURE_SOC_XBAR_DSC_COUNT) && FSL_FEATURE_SOC_XBAR_DSC_COUNT
+#include "fsl_xbar.h"
+#endif
+
+#include "fsl_aoi.h"
 #include "pin_mux.h"
 #include "board.h"
 
@@ -137,6 +155,7 @@ static void CMP_Configuration(void)
 #endif
 }
 
+#if defined(FSL_FEATURE_SOC_PIT_COUNT) && FSL_FEATURE_SOC_PIT_COUNT
 static void PIT_Configuration(void)
 {
     pit_config_t pitConfig;
@@ -149,6 +168,37 @@ static void PIT_Configuration(void)
     PIT_SetTimerPeriod(DEMO_PIT_BASEADDR, DEMO_PIT_CHANNEL, USEC_TO_COUNT(500000u, BUS_CLK_FREQ));
     PIT_StartTimer(DEMO_PIT_BASEADDR, DEMO_PIT_CHANNEL);
 }
+
+#elif defined(FSL_FEATURE_SOC_LPIT_COUNT) && FSL_FEATURE_SOC_LPIT_COUNT
+static void PIT_Configuration(void)
+{
+    lpit_config_t lpitConfig;
+    lpit_chnl_params_t lpitChannelConfig;
+
+    LPIT_GetDefaultConfig(&lpitConfig);
+    lpitConfig.enableRunInDebug = false;
+    LPIT_Init(DEMO_LPIT_BASE, &lpitConfig);
+
+    lpitChannelConfig.chainChannel          = false;
+    lpitChannelConfig.enableReloadOnTrigger = false;
+    lpitChannelConfig.enableStartOnTrigger  = false;
+    lpitChannelConfig.enableStopOnTimeout   = false;
+    lpitChannelConfig.timerMode             = kLPIT_PeriodicCounter;
+
+    /* Set default values for the trigger source */
+    lpitChannelConfig.triggerSelect = kLPIT_Trigger_TimerChn0;
+    lpitChannelConfig.triggerSource = kLPIT_TriggerSource_External;
+
+    LPIT_SetupChannel(DEMO_LPIT_BASE, DEMO_LPIT_CHANNEL, &lpitChannelConfig);
+
+    /* Set timer period to 0.5 second */
+    LPIT_SetTimerPeriod(DEMO_LPIT_BASE, DEMO_LPIT_CHANNEL, USEC_TO_COUNT(500000U, LPIT_SOURCECLOCK));
+
+    LPIT_StartTimer(DEMO_LPIT_BASE, DEMO_LPIT_CHANNEL);
+}
+#endif
+
+#if defined(FSL_FEATURE_SOC_XBARA_COUNT) && FSL_FEATURE_SOC_XBARA_COUNT && defined(FSL_FEATURE_SOC_XBARB_COUNT) && FSL_FEATURE_SOC_XBARB_COUNT
 
 static void XBAR_Configuration(void)
 {
@@ -171,6 +221,52 @@ static void XBAR_Configuration(void)
     /* Enable at the NVIC. */
     EnableIRQ(DEMO_XBARA_IRQ_ID);
 }
+
+void DEMO_XBARA_IRQ_HANDLER_FUNC(void)
+{
+    /* Clear interrupt flag */
+    XBARA_ClearStatusFlags(DEMO_XBARA_BASEADDR, kXBARA_EdgeDetectionOut0);
+    g_xbaraInterrupt = true;
+    SDK_ISR_EXIT_BARRIER;
+}
+
+#elif defined(FSL_FEATURE_SOC_XBAR_DSC_COUNT) && FSL_FEATURE_SOC_XBAR_DSC_COUNT
+
+static void XBAR_Configuration(void)
+{
+    xbar_control_config_t xbaraConfig;
+
+    /* Init XBAR module. */
+    XBAR_Init(kXBAR_DSC1);
+    XBAR_Init(kXBAR_DSC2);
+
+    /* Configure the XBAR signal connections */
+    XBAR_SetSignalsConnection(DEMO_XBAR_INPUT_CMP_SIGNAL, DEMO_XBAR_OUTPUT_AOI_SIGNAL_1);
+    XBAR_SetSignalsConnection(DEMO_XBAR_INPUT_PIT_SIGNAL, DEMO_XBAR_OUTPUT_AOI_SIGNAL_2);
+    XBAR_SetSignalsConnection(DEMO_XBAR_INPUT_AOI_SIGNAL, DEMO_XBAR_OUTPUT_SIGNAL);
+
+    /* Configure the XBAR interrupt */
+    xbaraConfig.activeEdge      = kXBAR_EdgeRising;
+    xbaraConfig.requestType     = kXBAR_RequestInterruptEnable;
+    XBAR_SetOutputSignalConfig(DEMO_XBAR_OUTPUT_SIGNAL, &xbaraConfig);
+    EnableIRQ(DEMO_XBAR_IRQ_ID);
+}
+
+void DEMO_XBAR_IRQ_HANDLER_FUNC(void)
+{
+    bool status;
+
+    XBAR_GetOutputStatusFlag(DEMO_XBAR_OUTPUT_SIGNAL, &status);
+    if (status)
+    {
+        XBAR_ClearOutputStatusFlag(DEMO_XBAR_OUTPUT_SIGNAL);
+    }
+    g_xbaraInterrupt = true;
+
+    SDK_ISR_EXIT_BARRIER;
+}
+
+#endif
 
 static void AOI_Configuration(void)
 {
@@ -200,14 +296,6 @@ static void AOI_Configuration(void)
     /* Init AOI module. */
     AOI_Init(DEMO_AOI_BASEADDR);
     AOI_SetEventLogicConfig(DEMO_AOI_BASEADDR, kAOI_Event0, &aoiEventLogicStruct);
-}
-
-void DEMO_XBARA_IRQ_HANDLER_FUNC(void)
-{
-    /* Clear interrupt flag */
-    XBARA_ClearStatusFlags(DEMO_XBARA_BASEADDR, kXBARA_EdgeDetectionOut0);
-    g_xbaraInterrupt = true;
-    SDK_ISR_EXIT_BARRIER;
 }
 
 int main(void)

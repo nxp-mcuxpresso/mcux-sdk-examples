@@ -7,50 +7,48 @@
 #ifndef _WIFI_CONFIG_H_
 #define _WIFI_CONFIG_H_
 
-#define CONFIG_WIFI_MAX_PRIO (configMAX_PRIORITIES - 1)
+#include "app_config.h"
+#ifndef RW610
+#include "wifi_bt_module_config.h"
+#endif
+
+#define CONFIG_IPV6 1
+#define CONFIG_MAX_IPV6_ADDRESSES 3
 
 #define CONFIG_MAX_AP_ENTRIES 10
-
-#if defined(SD8977) || defined(SD8978) || defined(SD8987) || defined(SD9177)
-#define CONFIG_5GHz_SUPPORT 1
-#endif
-
-#define CONFIG_SDIO_MULTI_PORT_RX_AGGR 1
-
-#if defined(SD8987) || defined(SD9177)
-#define CONFIG_11AC
-#undef CONFIG_WMM
-#endif
-
-#if defined(SD9177)
-#define CONFIG_11AX
-#define CONFIG_EXT_SCAN_SUPPORT 1
-#undef CONFIG_WIFI_CAPA
-#endif
+#define CONFIG_WIFI_CAPA 0
 
 #define CONFIG_UART_WIFI_BRIDGE 1
 
-/* Logs */
-#define CONFIG_ENABLE_ERROR_LOGS   1
-#define CONFIG_ENABLE_WARNING_LOGS 1
-
 /* WLCMGR debug */
-#undef CONFIG_WLCMGR_DEBUG
+#define CONFIG_WLCMGR_DEBUG 0
 
 /*
  * Wifi extra debug options
  */
-#undef CONFIG_WIFI_EXTRA_DEBUG
-#undef CONFIG_WIFI_EVENTS_DEBUG
-#undef CONFIG_WIFI_CMD_RESP_DEBUG
-#undef CONFIG_WIFI_SCAN_DEBUG
-#undef CONFIG_WIFI_IO_INFO_DUMP
-#undef CONFIG_WIFI_IO_DEBUG
-#undef CONFIG_WIFI_IO_DUMP
-#undef CONFIG_WIFI_MEM_DEBUG
-#undef CONFIG_WIFI_AMPDU_DEBUG
-#undef CONFIG_WIFI_TIMER_DEBUG
-#undef CONFIG_WIFI_SDIO_DEBUG
-#undef CONFIG_WIFI_FW_DEBUG
+#define CONFIG_WIFI_EXTRA_DEBUG 0
+#define CONFIG_WIFI_EVENTS_DEBUG 0
+#define CONFIG_WIFI_CMD_RESP_DEBUG 0
+#define CONFIG_WIFI_PKT_DEBUG 0
+#define CONFIG_WIFI_SCAN_DEBUG 0
+#define CONFIG_WIFI_IO_INFO_DUMP 0
+#define CONFIG_WIFI_IO_DEBUG 0
+#define CONFIG_WIFI_IO_DUMP 0
+#define CONFIG_WIFI_MEM_DEBUG 0
+#define CONFIG_WIFI_AMPDU_DEBUG 0
+#define CONFIG_WIFI_TIMER_DEBUG 0
+#define CONFIG_WIFI_SDIO_DEBUG 0
+#define CONFIG_WIFI_FW_DEBUG 0
+#define CONFIG_WIFI_UAP_DEBUG 0
+#define CONFIG_WPS_DEBUG 0
+#define CONFIG_FW_VDLL_DEBUG 0
+#define CONFIG_DHCP_SERVER_DEBUG 0
+#define CONFIG_FWDNLD_IO_DEBUG 0
+
+/*
+ * Heap debug options
+ */
+#define CONFIG_HEAP_DEBUG 0
+#define CONFIG_HEAP_STAT 0
 
 #endif /* _WIFI_CONFIG_H_ */

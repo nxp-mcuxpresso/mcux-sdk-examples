@@ -18,7 +18,7 @@ product: Pins v15.0
 processor: MIMXRT685S
 package_id: MIMXRT685SFVKB
 mcu_data: ksdk2_0
-processor_version: 0.15.6
+processor_version: 0.15.9
 board: MIMXRT685-AUD-EVK
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
@@ -50,7 +50,9 @@ void BOARD_InitBootPins(void)
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 BOARD_InitPins:
 - options: {callFromInitBoot: 'true', coreID: cm33, enableClock: 'true'}
-- pin_list: []
+- pin_list:
+  - {pin_num: M14, peripheral: USBHSH, signal: USB_OVERCURRENTN, pin_signal: PIO2_27/USB1_OVERCURRENTN, pupdena: enabled, pupdsel: pullUp, ibena: enabled}
+  - {pin_num: N15, peripheral: USBHSH, signal: USB_PORTPWRN, pin_signal: PIO2_28/USB1_PORTPWRN, pupdena: enabled, pupdsel: pullUp, ibena: disabled}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -64,6 +66,48 @@ BOARD_InitPins:
 /* Function assigned for the Cortex-M33 */
 void BOARD_InitPins(void)
 {
+
+    const uint32_t port2_pin27_config = (/* Pin is configured as USB1_OVERCURRENTN */
+                                         IOPCTL_PIO_FUNC1 |
+                                         /* Enable pull-up / pull-down function */
+                                         IOPCTL_PIO_PUPD_EN |
+                                         /* Enable pull-up function */
+                                         IOPCTL_PIO_PULLUP_EN |
+                                         /* Enables input buffer function */
+                                         IOPCTL_PIO_INBUF_EN |
+                                         /* Normal mode */
+                                         IOPCTL_PIO_SLEW_RATE_NORMAL |
+                                         /* Normal drive */
+                                         IOPCTL_PIO_FULLDRIVE_DI |
+                                         /* Analog mux is disabled */
+                                         IOPCTL_PIO_ANAMUX_DI |
+                                         /* Pseudo Output Drain is disabled */
+                                         IOPCTL_PIO_PSEDRAIN_DI |
+                                         /* Input function is not inverted */
+                                         IOPCTL_PIO_INV_DI);
+    /* PORT2 PIN27 (coords: M14) is configured as USB1_OVERCURRENTN */
+    IOPCTL_PinMuxSet(IOPCTL, 2U, 27U, port2_pin27_config);
+
+    const uint32_t port2_pin28_config = (/* Pin is configured as USB1_PORTPWRN */
+                                         IOPCTL_PIO_FUNC1 |
+                                         /* Enable pull-up / pull-down function */
+                                         IOPCTL_PIO_PUPD_EN |
+                                         /* Enable pull-up function */
+                                         IOPCTL_PIO_PULLUP_EN |
+                                         /* Disable input buffer function */
+                                         IOPCTL_PIO_INBUF_DI |
+                                         /* Normal mode */
+                                         IOPCTL_PIO_SLEW_RATE_NORMAL |
+                                         /* Normal drive */
+                                         IOPCTL_PIO_FULLDRIVE_DI |
+                                         /* Analog mux is disabled */
+                                         IOPCTL_PIO_ANAMUX_DI |
+                                         /* Pseudo Output Drain is disabled */
+                                         IOPCTL_PIO_PSEDRAIN_DI |
+                                         /* Input function is not inverted */
+                                         IOPCTL_PIO_INV_DI);
+    /* PORT2 PIN28 (coords: N15) is configured as USB1_PORTPWRN */
+    IOPCTL_PinMuxSet(IOPCTL, 2U, 28U, port2_pin28_config);
 }
 
 /* clang-format off */

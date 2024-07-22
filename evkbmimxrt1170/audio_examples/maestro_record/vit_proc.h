@@ -45,6 +45,9 @@ typedef enum
 #ifdef VIT_MODEL_KO
     KO,
 #endif
+#ifdef VIT_MODEL_PT
+    PT,
+#endif
 #ifdef VIT_MODEL_TR
     TR,
 #endif
@@ -52,3 +55,5 @@ typedef enum
 } VIT_Language_T;
 extern VIT_Language_T Vit_Language;
 #endif
+
+void DeInterleave32(const int16_t *pDataInput, int16_t *pDataOutput, uint16_t FrameSize, uint16_t ChannelNumber);

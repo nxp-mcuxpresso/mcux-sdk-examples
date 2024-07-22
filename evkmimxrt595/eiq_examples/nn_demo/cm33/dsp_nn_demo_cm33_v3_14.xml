@@ -38,6 +38,7 @@
     <definition extID="middleware.freertos-kernel.template.MIMXRT595S"/>
     <definition extID="middleware.freertos-kernel.extension.MIMXRT595S"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT595S"/>
+    <definition extID="utility.str.MIMXRT595S"/>
     <definition extID="platform.drivers.iap.MIMXRT595S"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
@@ -45,7 +46,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt595_dsp_nn_demo_cm33" name="dsp_nn_demo_cm33" device_core="cm33_MIMXRT595S" dependency="platform.drivers.dsp.MIMXRT595S platform.drivers.inputmux.MIMXRT595S middleware.multicore.rpmsg_lite.evkmimxrt595_freertos.MIMXRT595S platform.drivers.mu.MIMXRT595S driver.pca9420.MIMXRT595S platform.drivers.clock.MIMXRT595S platform.drivers.flexcomm_i2c.MIMXRT595S platform.drivers.i3c.MIMXRT595S middleware.multicore.rpmsg_lite.freertos.MIMXRT595S middleware.multicore.rpmsg_lite.MIMXRT595S middleware.freertos-kernel.cm33_non_trustzone.MIMXRT595S platform.drivers.common.MIMXRT595S platform.drivers.power.MIMXRT595S platform.drivers.reset.MIMXRT595S device.MIMXRT595S_CMSIS.MIMXRT595S utility.debug_console.MIMXRT595S platform.utilities.assert.MIMXRT595S component.usart_adapter.MIMXRT595S platform.drivers.flexspi.MIMXRT595S platform.drivers.cache_cache64.MIMXRT595S component.serial_manager_uart.MIMXRT595S component.serial_manager.MIMXRT595S platform.drivers.flexcomm_usart.MIMXRT595S component.lists.MIMXRT595S platform.drivers.flash_config.evkmimxrt595.MIMXRT595S device.MIMXRT595S_startup.MIMXRT595S platform.drivers.flexcomm.MIMXRT595S platform.drivers.lpc_iopctl.MIMXRT595S platform.drivers.lpc_gpio.MIMXRT595S platform.utilities.misc_utilities.MIMXRT595S platform.drivers.inputmux_connections.MIMXRT595S middleware.freertos-kernel.MIMXRT595S middleware.freertos-kernel.heap_4.MIMXRT595S middleware.freertos-kernel.template.MIMXRT595S middleware.freertos-kernel.extension.MIMXRT595S CMSIS_Include_core_cm.MIMXRT595S platform.drivers.iap.MIMXRT595S" category="eiq_examples">
+  <example id="evkmimxrt595_dsp_nn_demo_cm33" name="dsp_nn_demo_cm33" device_core="cm33_MIMXRT595S" dependency="platform.drivers.dsp.MIMXRT595S platform.drivers.inputmux.MIMXRT595S middleware.multicore.rpmsg_lite.evkmimxrt595_freertos.MIMXRT595S platform.drivers.mu.MIMXRT595S driver.pca9420.MIMXRT595S platform.drivers.clock.MIMXRT595S platform.drivers.flexcomm_i2c.MIMXRT595S platform.drivers.i3c.MIMXRT595S middleware.multicore.rpmsg_lite.freertos.MIMXRT595S middleware.multicore.rpmsg_lite.MIMXRT595S middleware.freertos-kernel.cm33_non_trustzone.MIMXRT595S platform.drivers.common.MIMXRT595S platform.drivers.power.MIMXRT595S platform.drivers.reset.MIMXRT595S device.MIMXRT595S_CMSIS.MIMXRT595S utility.debug_console.MIMXRT595S platform.utilities.assert.MIMXRT595S component.usart_adapter.MIMXRT595S platform.drivers.flexspi.MIMXRT595S platform.drivers.cache_cache64.MIMXRT595S component.serial_manager_uart.MIMXRT595S component.serial_manager.MIMXRT595S platform.drivers.flexcomm_usart.MIMXRT595S component.lists.MIMXRT595S platform.drivers.flash_config.evkmimxrt595.MIMXRT595S device.MIMXRT595S_startup.MIMXRT595S platform.drivers.flexcomm.MIMXRT595S platform.drivers.lpc_iopctl.MIMXRT595S platform.drivers.lpc_gpio.MIMXRT595S platform.utilities.misc_utilities.MIMXRT595S platform.drivers.inputmux_connections.MIMXRT595S middleware.freertos-kernel.MIMXRT595S middleware.freertos-kernel.heap_4.MIMXRT595S middleware.freertos-kernel.template.MIMXRT595S middleware.freertos-kernel.extension.MIMXRT595S CMSIS_Include_core_cm.MIMXRT595S utility.str.MIMXRT595S platform.drivers.iap.MIMXRT595S" category="eiq_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -84,7 +85,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>
@@ -148,6 +149,9 @@
       <files mask="dsp_reset_release.bin"/>
       <files mask="dsp_text_release.bin"/>
       <files mask="dsp_data_release.bin"/>
+    </source>
+    <source path="." project_relative_path="source" type="asm_include" toolchain="armgcc mcuxpresso">
+      <files mask="incbin.S"/>
     </source>
     <source path="." project_relative_path="board" type="src">
       <files mask="dsp_support.c"/>
@@ -235,9 +239,6 @@
       <files mask="srtm_config_audio.h"/>
       <files mask="srtm_config_nn.h"/>
       <files mask="rpmsg_config.h"/>
-    </source>
-    <source path="." project_relative_path="source" type="asm_include" toolchain="armgcc mcuxpresso">
-      <files mask="incbin.S"/>
     </source>
   </example>
 </ksdk:examples>

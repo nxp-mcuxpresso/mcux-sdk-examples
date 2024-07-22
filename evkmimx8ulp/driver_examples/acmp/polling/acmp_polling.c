@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2015,2020, Freescale Semiconductor, Inc.
+ * Copyright 2024 NXP
  * All rights reserved.
  *
  *
@@ -71,7 +72,9 @@ int main(void)
 
     /* Configure negative inputs are coming from 3v domain. */
     ACMP_GetDefaultDiscreteModeConfig(&acmpDiscreteconfig);
+#if defined(FSL_FEATURE_ACMP_HAS_C3_REG) && (FSL_FEATURE_ACMP_HAS_C3_REG == 1U)
     acmpDiscreteconfig.enableNegativeChannelDiscreteMode = true;
+#endif /* FSL_FEATURE_ACMP_HAS_C3_REG */
     ACMP_SetDiscreteModeConfig(DEMO_ACMP_BASEADDR, &acmpDiscreteconfig);
 
     /* Configure channel. Select the positive port input from DAC and negative port input from minus mux input. */

@@ -54,6 +54,12 @@ void USB_DeviceIsrEnable(void);
 void USB_DeviceTaskFn(void *deviceHandle);
 #endif
 
+#if (defined(USB_DEVICE_CONFIG_LPCIP3511HS) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U))
+#if !((defined FSL_FEATURE_SOC_USBPHY_COUNT) && (FSL_FEATURE_SOC_USBPHY_COUNT > 0U))
+void USB_DeviceHsPhyChirpIssueWorkaround(void);
+void USB_DeviceDisconnected(void);
+#endif
+#endif
 static usb_status_t USB_DeviceHidMouseAction(void);
 static usb_status_t USB_DeviceHidMouseCallback(class_handle_t handle, uint32_t event, void *param);
 static usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event, void *param);
@@ -196,11 +202,6 @@ void USB_PreLowpowerMode(void)
         CLOCK_DisableClock(kCLOCK_Usbh1);
     }
     NVIC_ClearPendingIRQ(USB1_NEEDCLK_IRQn);
-    CLOCK_EnableClock(kCLOCK_Usbh1);
-    /*According to reference mannual, device mode setting has to be set by access usb host register */
-    *((uint32_t *)(USBHSH_BASE + 0x50)) |= (USBHSH_PORTMODE_SW_CTRL_PDCOM_MASK);
-    *((uint32_t *)(USBHSH_BASE + 0x50)) |= USBHSH_PORTMODE_SW_PDCOM_MASK;
-    CLOCK_DisableClock(kCLOCK_Usbh1);
     /* add the following code to decrease power consumption, only for L2 suspend mode */
     USBPHY->ANACTRL_CLR          = USBPHY_ANACTRL_DEV_PULLDOWN_MASK;
     USBPHY->USB1_VBUS_DETECT_CLR = USBPHY_USB1_VBUS_DETECT_PWRUP_CMPS_MASK;
@@ -221,13 +222,6 @@ uint8_t USB_EnterLowpowerMode(void)
 void USB_PostLowpowerMode(void)
 {
     __enable_irq();
-#if ((defined(USB_DEVICE_CONFIG_LPCIP3511HS)) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U))
-    CLOCK_EnableClock(kCLOCK_Usbh1);
-    /*According to reference mannual, device mode setting has to be set by access usb host register */
-    *((uint32_t *)(USBHSH_BASE + 0x50)) &= ~USBHSH_PORTMODE_SW_PDCOM_MASK;
-    *((uint32_t *)(USBHSH_BASE + 0x50)) &= ~USBHSH_PORTMODE_SW_CTRL_PDCOM_MASK;
-    CLOCK_DisableClock(kCLOCK_Usbh1);
-#endif
 }
 void USB_ControllerSuspended(void)
 {
@@ -451,6 +445,16 @@ static usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event,
             g_UsbDeviceHidMouse.suspend              = kStatus_MouseIdle;
             g_UsbDeviceHidMouse.isResume             = 0U;
             error                                    = kStatus_USB_Success;
+
+#if (defined(USB_DEVICE_CONFIG_LPCIP3511HS) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U))
+#if !((defined FSL_FEATURE_SOC_USBPHY_COUNT) && (FSL_FEATURE_SOC_USBPHY_COUNT > 0U))
+            /* The work-around is used to fix the HS device Chirping issue.
+             * Please refer to the implementation for the detail information.
+             */
+            USB_DeviceHsPhyChirpIssueWorkaround();
+#endif
+#endif
+
 #if (defined(USB_DEVICE_CONFIG_EHCI) && (USB_DEVICE_CONFIG_EHCI > 0U)) || \
     (defined(USB_DEVICE_CONFIG_LPCIP3511HS) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U))
             /* Get USB speed to configure the device, including max packet size and interval of the endpoints. */
@@ -477,6 +481,11 @@ static usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event,
         break;
         case kUSB_DeviceEventDetach:
         {
+#if (defined(USB_DEVICE_CONFIG_LPCIP3511HS) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U))
+#if !((defined FSL_FEATURE_SOC_USBPHY_COUNT) && (FSL_FEATURE_SOC_USBPHY_COUNT > 0U))
+            USB_DeviceDisconnected();
+#endif
+#endif
             error                      = kStatus_USB_Success;
             g_UsbDeviceHidMouse.attach = 0;
 #if (defined(USB_DEVICE_CONFIG_LPCIP3511HS) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U)) || \

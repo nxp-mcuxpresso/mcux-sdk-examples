@@ -51,6 +51,8 @@ include(${ProjDirPath}/flags.cmake)
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
+"${ProjDirPath}/../evkmimxrt1020_flexspi_nor_config.c"
+"${ProjDirPath}/../evkmimxrt1020_flexspi_nor_config.h"
 "${ProjDirPath}/../flexspi_romapi.c"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
@@ -63,6 +65,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
+    ${ProjDirPath}/../xip
     ${ProjDirPath}/..
     ${SdkRootDirPath}/core/devices/MIMXRT1021/drivers
     ${SdkRootDirPath}/core/boards/evkmimxrt1020

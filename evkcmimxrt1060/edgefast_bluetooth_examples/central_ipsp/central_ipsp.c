@@ -19,7 +19,7 @@
 #define MSG_LEN             5
 
 NET_BUF_POOL_DEFINE(buf_pool, 1, MSG_LEN, USER_DATA_MIN, NULL);
-uint8_t msg[MSG_LEN] = {'h','e','l','l','o'};
+static uint8_t s_Msg[MSG_LEN] = {'h','e','l','l','o'};
 
 static void bt_ready(int err);
 static int scan_start(void);
@@ -331,7 +331,7 @@ void central_ipsp_task(void *pvParameters)
         buf = net_buf_alloc(&buf_pool, osaWaitNone_c);
         if (NULL != buf)
         {
-            net_buf_add_mem(buf, msg, MSG_LEN);
+            net_buf_add_mem(buf, s_Msg, MSG_LEN);
             err = ipsp_send(buf);
             if (err)
             {

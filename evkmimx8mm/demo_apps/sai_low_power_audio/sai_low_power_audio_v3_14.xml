@@ -37,6 +37,7 @@
     <definition extID="platform.drivers.ii2c.MIMX8MM6"/>
     <definition extID="driver.wm8524.MIMX8MM6"/>
     <definition extID="CMSIS_Include_core_cm.MIMX8MM6"/>
+    <definition extID="utility.str.MIMX8MM6"/>
     <definition extID="device.MIMX8MM6_system.MIMX8MM6"/>
     <definition extID="platform.drivers.memory.MIMX8MM6"/>
     <definition extID="driver.srtm.MIMX8MM6"/>
@@ -48,7 +49,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="evkmimx8mm_sai_low_power_audio" name="sai_low_power_audio" dependency="platform.drivers.igpio.MIMX8MM6 platform.drivers.iuart.MIMX8MM6 platform.drivers.gpc_2.MIMX8MM6 platform.drivers.gpt.MIMX8MM6 component.codec_adapters.MIMX8MM6 driver.codec.MIMX8MM6 platform.drivers.pdm_sdma.MIMX8MM6 component.ii2c_adapter.MIMX8MM6 component.codec_i2c.MIMX8MM6 component.ak4497_adapter.MIMX8MM6 component.wm8524_adapter.MIMX8MM6 middleware.multicore.rpmsg_lite.freertos.MIMX8MM6 middleware.multicore.rpmsg_lite.MIMX8MM6 platform.drivers.clock.MIMX8MM6 platform.drivers.sai.MIMX8MM6 platform.drivers.sai_sdma.MIMX8MM6 platform.drivers.common.MIMX8MM6 platform.drivers.rdc.MIMX8MM6 device.MIMX8MM6_CMSIS.MIMX8MM6 utility.debug_console.MIMX8MM6 component.iuart_adapter.MIMX8MM6 component.serial_manager_uart.MIMX8MM6 component.serial_manager.MIMX8MM6 component.lists.MIMX8MM6 device.MIMX8MM6_startup.MIMX8MM6 platform.utilities.assert.MIMX8MM6 platform.drivers.sdma.MIMX8MM6 platform.drivers.mu.MIMX8MM6 driver.ak4497.MIMX8MM6 driver.srtm.freertos.MIMX8MM6 middleware.multicore.rpmsg_lite.imx8mm_m4_freertos.MIMX8MM6 platform.utilities.misc_utilities.MIMX8MM6 platform.drivers.pdm.MIMX8MM6 platform.drivers.ii2c.MIMX8MM6 driver.wm8524.MIMX8MM6 CMSIS_Include_core_cm.MIMX8MM6 device.MIMX8MM6_system.MIMX8MM6 platform.drivers.memory.MIMX8MM6 driver.srtm.MIMX8MM6 middleware.freertos-kernel.MIMX8MM6 middleware.freertos-kernel.heap_4.MIMX8MM6 middleware.freertos-kernel.template.MIMX8MM6 middleware.freertos-kernel.extension.MIMX8MM6" category="demo_apps">
+  <example id="evkmimx8mm_sai_low_power_audio" name="sai_low_power_audio" dependency="platform.drivers.igpio.MIMX8MM6 platform.drivers.iuart.MIMX8MM6 platform.drivers.gpc_2.MIMX8MM6 platform.drivers.gpt.MIMX8MM6 component.codec_adapters.MIMX8MM6 driver.codec.MIMX8MM6 platform.drivers.pdm_sdma.MIMX8MM6 component.ii2c_adapter.MIMX8MM6 component.codec_i2c.MIMX8MM6 component.ak4497_adapter.MIMX8MM6 component.wm8524_adapter.MIMX8MM6 middleware.multicore.rpmsg_lite.freertos.MIMX8MM6 middleware.multicore.rpmsg_lite.MIMX8MM6 platform.drivers.clock.MIMX8MM6 platform.drivers.sai.MIMX8MM6 platform.drivers.sai_sdma.MIMX8MM6 platform.drivers.common.MIMX8MM6 platform.drivers.rdc.MIMX8MM6 device.MIMX8MM6_CMSIS.MIMX8MM6 utility.debug_console.MIMX8MM6 component.iuart_adapter.MIMX8MM6 component.serial_manager_uart.MIMX8MM6 component.serial_manager.MIMX8MM6 component.lists.MIMX8MM6 device.MIMX8MM6_startup.MIMX8MM6 platform.utilities.assert.MIMX8MM6 platform.drivers.sdma.MIMX8MM6 platform.drivers.mu.MIMX8MM6 driver.ak4497.MIMX8MM6 driver.srtm.freertos.MIMX8MM6 middleware.multicore.rpmsg_lite.imx8mm_m4_freertos.MIMX8MM6 platform.utilities.misc_utilities.MIMX8MM6 platform.drivers.pdm.MIMX8MM6 platform.drivers.ii2c.MIMX8MM6 driver.wm8524.MIMX8MM6 CMSIS_Include_core_cm.MIMX8MM6 utility.str.MIMX8MM6 device.MIMX8MM6_system.MIMX8MM6 platform.drivers.memory.MIMX8MM6 driver.srtm.MIMX8MM6 middleware.freertos-kernel.MIMX8MM6 middleware.freertos-kernel.heap_4.MIMX8MM6 middleware.freertos-kernel.template.MIMX8MM6 middleware.freertos-kernel.extension.MIMX8MM6" category="demo_apps">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -85,7 +86,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

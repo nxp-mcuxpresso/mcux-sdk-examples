@@ -22,15 +22,16 @@
 #include "fsl_component_serial_manager.h"
 
 #if defined(RW610_SERIES) || defined(RW612_SERIES)
-#include "fsl_adapter_rfimu.h"
+#include "fsl_adapter_imu.h"
 #include "fsl_usart_freertos.h"
 #include "fsl_loader.h"
+#include "fsl_ocotp.h"
 #else
 #include "mfg_wlan_bt_fw.h"
 #include "wlan.h"
 #include "wifi.h"
 #include "wm_net.h"
-#include <wm_os.h>
+#include <osa.h>
 #include "dhcp-server.h"
 #include "cli.h"
 #include "wifi_ping.h"
@@ -46,10 +47,28 @@
 #endif
 #endif
 
+#if CONFIG_WIFI_SMOKE_TESTS
+#include "fsl_iomuxc.h"
+#include "fsl_enet.h"
+#endif
+#if CONFIG_WIFI_SMOKE_TESTS
+#include "fsl_phyksz8081.h"
+#endif
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
 
+/* @TEST_ANCHOR */
+
+/* Ethernet configuration. */
+#if CONFIG_WIFI_SMOKE_TESTS
+extern phy_ksz8081_resource_t g_phy_resource;
+#define EXAMPLE_ENET         ENET
+#define EXAMPLE_PHY_ADDRESS  BOARD_ENET0_PHY_ADDRESS
+#define EXAMPLE_PHY_OPS      &phyksz8081_ops
+#define EXAMPLE_PHY_RESOURCE &g_phy_resource
+#define EXAMPLE_CLOCK_FREQ   CLOCK_GetFreq(kCLOCK_IpgClk)
+#endif
 #define SERIAL_PORT_NVIC_PRIO 5
 
 #if !defined(RW610_SERIES) && !defined(RW612_SERIES)
@@ -115,13 +134,13 @@
 #define WIFI_WRITE_REG32(reg, val) (WIFI_REG32(reg) = (val))
 
 /* Set default mode of fw download */
-#ifndef CONFIG_SUPPORT_WIFI
+#if !CONFIG_SUPPORT_WIFI
 #define CONFIG_SUPPORT_WIFI 1
 #endif
-#ifndef CONFIG_SUPPORT_BLE
+#if !CONFIG_SUPPORT_BLE
 #define CONFIG_SUPPORT_BLE 1
 #endif
-#ifndef CONFIG_SUPPORT_15D4
+#if !CONFIG_SUPPORT_15D4
 #define CONFIG_SUPPORT_15D4 1
 #endif
 
@@ -149,13 +168,13 @@ enum
 /*******************************************************************************
  * Variables
  ******************************************************************************/
-uint8_t background_buffer[UART_BUF_SIZE];
+static uint8_t background_buffer[UART_BUF_SIZE];
 #if defined(RW610_SERIES) || defined(RW612_SERIES)
 usart_rtos_handle_t handle;
 struct _usart_handle t_handle;
 TimerHandle_t g_wifi_cau_temperature_timer = NULL;
 
-struct rtos_usart_config usart_config = {
+static struct rtos_usart_config usart_config = {
     .baudrate    = 115200,
     .parity      = kUSART_ParityDisabled,
     .stopbits    = kUSART_OneStopBit,
@@ -163,10 +182,10 @@ struct rtos_usart_config usart_config = {
     .buffer_size = sizeof(background_buffer),
 };
 
-static RPMSG_HANDLE_DEFINE(bt_rpmsg_handle);
-static RPMSG_HANDLE_DEFINE(zigbee_rpmsg_handle);
-static hal_rpmsg_handle_t rpmsgHandleList[] = {(hal_rpmsg_handle_t)bt_rpmsg_handle,
-                                               (hal_rpmsg_handle_t)zigbee_rpmsg_handle};
+static IMUMC_HANDLE_DEFINE(bt_imumc_handle);
+static IMUMC_HANDLE_DEFINE(zigbee_imumc_handle);
+static hal_imumc_handle_t imumcHandleList[] = {(hal_imumc_handle_t)bt_imumc_handle,
+                                               (hal_imumc_handle_t)zigbee_imumc_handle};
 
 uint32_t remote_ept_list[] = {REMOTE_EPT_ADDR_BT, REMOTE_EPT_ADDR_ZIGBEE};
 uint32_t local_ept_list[]  = {LOCAL_EPT_ADDR_BT, LOCAL_EPT_ADDR_ZIGBEE};
@@ -208,7 +227,9 @@ typedef struct _uart_cb
 } uart_cb;
 
 static uart_cb uartcb;
+#if !defined(RW610_SERIES) && !defined(RW612_SERIES)
 static uart_cb uartcb_bt;
+#endif
 
 /** UART start pattern*/
 typedef struct _uart_header
@@ -234,6 +255,34 @@ typedef struct _cmd_header
     int reserved;
 } cmd_header;
 
+#if defined(RW610_SERIES) || defined(RW612_SERIES)
+#define INTF_HEADER_LEN 4U
+#define SDIO_OUTBUF_LEN 2048U
+
+/** HostCmd_DS_COMMAND */
+typedef struct _HostCmd_DS_COMMAND
+{
+    /** Command Header : Command */
+    uint16_t command;
+    /** Command Header : Size */
+    uint16_t size;
+    /** Command Header : Sequence number */
+    uint16_t seq_num;
+    /** Command Header : Result */
+    uint16_t result;
+    /** Command Body */
+} HostCmd_DS_COMMAND;
+
+/** SDIOPkt/IMUPkt only name difference, same definition */
+typedef struct _IMUPkt
+{
+    uint16_t size;
+    uint16_t pkttype;
+    HostCmd_DS_COMMAND hostcmd;
+} IMUPkt;
+
+#endif
+
 static uint8_t rx_buf[BUF_LEN];
 static cmd_header last_cmd_hdr;
 static uint8_t local_outbuf[BUF_LEN];
@@ -248,15 +297,41 @@ uint32_t resp_buf_len, reqd_resp_len;
 /*******************************************************************************
  * Code
  ******************************************************************************/
-#if defined(RW610_SERIES) || defined(RW612_SERIES)
-const int TASK_MAIN_PRIO = CONFIG_WIFI_MAX_PRIO - 3;
-#else
-const int TASK_MAIN_PRIO = OS_PRIO_3;
-#endif
-const int TASK_MAIN_STACK_SIZE = 3 * 2048;
+#if CONFIG_WIFI_SMOKE_TESTS
+phy_ksz8081_resource_t g_phy_resource;
 
-portSTACK_TYPE *task_main_stack = NULL;
-TaskHandle_t task_main_task_handler;
+void BOARD_InitModuleClock(void)
+{
+    const clock_enet_pll_config_t config = {.enableClkOutput = true, .enableClkOutput25M = false, .loopDivider = 1};
+    CLOCK_InitEnetPll(&config);
+}
+
+static void MDIO_Init(void)
+{
+    (void)CLOCK_EnableClock(s_enetClock[ENET_GetInstance(EXAMPLE_ENET)]);
+    ENET_SetSMI(EXAMPLE_ENET, EXAMPLE_CLOCK_FREQ, false);
+}
+
+static status_t MDIO_Write(uint8_t phyAddr, uint8_t regAddr, uint16_t data)
+{
+    return ENET_MDIOWrite(EXAMPLE_ENET, phyAddr, regAddr, data);
+}
+
+static status_t MDIO_Read(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
+{
+    return ENET_MDIORead(EXAMPLE_ENET, phyAddr, regAddr, pData);
+}
+#endif
+
+#define MAIN_TASK_STACK_SIZE 4096
+
+static void main_task(osa_task_param_t arg);
+
+static OSA_TASK_DEFINE(main_task, OSA_PRIORITY_NORMAL, 1, MAIN_TASK_STACK_SIZE, 0);
+
+OSA_TASK_HANDLE_DEFINE(main_task_Handle);
+
+#define SDK_VERSION "NXPSDK_2.15.0_r48.p1"
 
 static void uart_init_crc32(uart_cb *uartcb)
 {
@@ -295,19 +370,22 @@ static int send_response_to_uart(uart_cb *uart, uint8_t *resp, int type, uint32_
     int index;
     uint32_t payloadlen;
     uart_header *uart_hdr;
-
     int iface_len = 0;
-#if 0
+
+#if defined(RW610_SERIES) || defined(RW612_SERIES)
+    IMUPkt *imupkt = (IMUPkt *)resp;
+
     if (type == 2)
-        /* This is because, the last byte of the sdio header
+        /* This is because, the last byte of the imupkt header
          * (packet type) is also requried by the labtool, to
          * understand the type of packet and take appropriate action */
         iface_len = INTF_HEADER_LEN - 1;
     else
         iface_len = INTF_HEADER_LEN;
-#endif
-
+    payloadlen = imupkt->size - iface_len;
+#else
     payloadlen = reqd_resp_len;
+#endif
     memset(rx_buf, 0, BUF_LEN);
     memcpy(rx_buf + sizeof(uart_header) + sizeof(cmd_header), resp + iface_len, payloadlen);
 
@@ -397,20 +475,20 @@ int check_command_complete(uint8_t *buf)
 }
 
 #if defined(RW610_SERIES) || defined(RW612_SERIES)
-hal_rpmsg_status_t wifi_send_imu_raw_data(uint8_t *data, uint32_t length)
+hal_imumc_status_t wifi_send_imu_raw_data(uint8_t *data, uint32_t length)
 {
     if (data == NULL || length == 0)
-        return kStatus_HAL_RpmsgError;
+        return kStatus_HAL_ImumcError;
 
-    if (kStatus_HAL_RpmsgSuccess != (HAL_ImuSendCommand(kIMU_LinkCpu1Cpu3, data, length)))
+    if (kStatus_HAL_ImumcSuccess != (HAL_ImuSendCommand(kIMU_LinkCpu1Cpu3, data, length)))
     {
-        return kStatus_HAL_RpmsgError;
+        return kStatus_HAL_ImumcError;
     }
 
-    return kStatus_HAL_RpmsgSuccess;
+    return kStatus_HAL_ImumcSuccess;
 }
 
-int rpmsg_raw_packet_send(uint8_t *buf, int m_len, uint8_t t_type)
+int imumc_raw_packet_send(uint8_t *buf, int m_len, uint8_t t_type)
 {
     uint32_t payloadlen;
 
@@ -423,10 +501,10 @@ int rpmsg_raw_packet_send(uint8_t *buf, int m_len, uint8_t t_type)
 
     memcpy(&last_cmd_hdr, cmd_hd, sizeof(cmd_header));
 
-    if (kStatus_HAL_RpmsgSuccess !=
-        (HAL_RpmsgSend((hal_rpmsg_handle_t)rpmsgHandleList[t_type - 2], local_outbuf, payloadlen)))
+    if (kStatus_HAL_ImumcSuccess !=
+        (HAL_ImumcSend((hal_imumc_handle_t)imumcHandleList[t_type - 2], local_outbuf, payloadlen)))
     {
-        return kStatus_HAL_RpmsgError;
+        return kStatus_HAL_ImumcError;
     }
 
     memset(local_outbuf, 0, BUF_LEN);
@@ -499,9 +577,18 @@ int process_input_cmd(uint8_t *buf, int m_len)
         memset(local_outbuf, 0, BUF_LEN);
 
         uarthdr = (uart_header *)buf;
+#if defined(RW610_SERIES) || defined(RW612_SERIES)
+        IMUPkt *imupkt = (IMUPkt *)local_outbuf;
+        /* imupkt = local_outbuf */
+        imupkt->pkttype = SDIOPKTTYPE_CMD;
 
-        d = (uint8_t *)local_outbuf;
-        s = (uint8_t *)buf + sizeof(uart_header) + sizeof(cmd_header);
+        imupkt->size = m_len - sizeof(cmd_header) + INTF_HEADER_LEN;
+        d            = (uint8_t *)local_outbuf + INTF_HEADER_LEN;
+        s            = (uint8_t *)buf + sizeof(uart_header) + sizeof(cmd_header);
+#else
+        d   = (uint8_t *)local_outbuf;
+        s   = (uint8_t *)buf + sizeof(uart_header) + sizeof(cmd_header);
+#endif
 
         for (i = 0; i < uarthdr->length - sizeof(cmd_header); i++)
         {
@@ -534,7 +621,7 @@ int process_input_cmd(uint8_t *buf, int m_len)
     else if (cmd_hd->type == TYPE_BT)
     {
 #if defined(RW610_SERIES) || defined(RW612_SERIES)
-        ret = rpmsg_raw_packet_send(buf, m_len, RET_TYPE_BT);
+        ret = imumc_raw_packet_send(buf, m_len, RET_TYPE_BT);
 #else
         ret = bt_raw_packet_send(buf, m_len);
 #endif
@@ -542,7 +629,7 @@ int process_input_cmd(uint8_t *buf, int m_len)
     else if (cmd_hd->type == TYPE_15_4)
     {
 #if defined(RW610_SERIES) || defined(RW612_SERIES)
-        ret = rpmsg_raw_packet_send(buf, m_len, RET_TYPE_ZIGBEE);
+        ret = imumc_raw_packet_send(buf, m_len, RET_TYPE_ZIGBEE);
 #elif defined(MIMXRT1176_cm7_SERIES)
         ret = zigbee_raw_packet_send(buf, m_len);
 #endif
@@ -552,7 +639,7 @@ int process_input_cmd(uint8_t *buf, int m_len)
 }
 
 #if defined(RW610_SERIES) || defined(RW612_SERIES)
-void send_rpmsg_response_to_uart(uint8_t *resp, int msg_len)
+void send_imumc_response_to_uart(uint8_t *resp, int msg_len)
 {
     uint32_t bridge_chksum = 0;
     uint32_t msglen;
@@ -678,7 +765,7 @@ void send_zigbee_response_to_uart(uint8_t *rxData, uint32_t payloadlen)
  read and then sent through the uart to the Mfg application
 */
 #if defined(RW610_SERIES) || defined(RW612_SERIES)
-hal_rpmsg_status_t read_wlan_resp(IMU_Msg_t *pImuMsg, uint32_t len)
+hal_imumc_status_t read_wlan_resp(IMU_Msg_t *pImuMsg, uint32_t len)
 {
     assert(NULL != pImuMsg);
     assert(0 != len);
@@ -686,17 +773,17 @@ hal_rpmsg_status_t read_wlan_resp(IMU_Msg_t *pImuMsg, uint32_t len)
 
     uart_cb *uart = &uartcb;
 
-    send_response_to_uart(uart, (uint8_t *)(pImuMsg->PayloadPtr[0]), 1);
+    send_response_to_uart(uart, (uint8_t *)(pImuMsg->PayloadPtr[0]), 1, len);
 
-    return kStatus_HAL_RpmsgSuccess;
+    return kStatus_HAL_ImumcSuccess;
 }
 
-hal_rpmsg_return_status_t read_rpmsg_resp(void *param, uint8_t *packet, uint32_t len)
+hal_imumc_return_status_t read_imumc_resp(void *param, uint8_t *packet, uint32_t len)
 {
     assert(NULL != packet);
     assert(0 != len);
 
-    send_rpmsg_response_to_uart(packet, len);
+    send_imumc_response_to_uart(packet, len);
 
     return kStatus_HAL_RL_RELEASE;
 }
@@ -778,13 +865,13 @@ void read_zigbee_resp()
 #endif
 
 #if defined(RW610_SERIES) || defined(RW612_SERIES)
-static hal_rpmsg_status_t imu_wifi_config()
+static hal_imumc_status_t imu_wifi_config()
 {
-    hal_rpmsg_status_t state = kStatus_HAL_RpmsgSuccess;
+    hal_imumc_status_t state = kStatus_HAL_ImumcSuccess;
 
     /* Assign IMU channel for CPU1-CPU3 communication */
     state = HAL_ImuInit(kIMU_LinkCpu1Cpu3);
-    assert(kStatus_HAL_RpmsgSuccess == state);
+    assert(kStatus_HAL_ImumcSuccess == state);
 
     HAL_ImuInstallCallback(kIMU_LinkCpu1Cpu3, read_wlan_resp, IMU_MSG_COMMAND_RESPONSE);
 
@@ -793,48 +880,52 @@ static hal_rpmsg_status_t imu_wifi_config()
 
 #if (defined(CONFIG_SUPPORT_BLE) && (CONFIG_SUPPORT_BLE == 1)) || \
     (defined(CONFIG_SUPPORT_15D4) && (CONFIG_SUPPORT_15D4 == 1))
-static hal_rpmsg_status_t rpmsg_config(uint32_t linkId)
+static hal_imumc_status_t imumc_config(uint32_t linkId)
 {
-    hal_rpmsg_status_t state = kStatus_HAL_RpmsgSuccess;
+    hal_imumc_status_t state = kStatus_HAL_ImumcSuccess;
 
-    hal_rpmsg_config_t config = {0};
-    /* Init RPMSG/IMU Channel */
+    hal_imumc_config_t config = {0};
+    /* Init IMUMC/IMU Channel */
     config.local_addr  = local_ept_list[linkId];
     config.remote_addr = remote_ept_list[linkId];
     config.imuLink     = kIMU_LinkCpu2Cpu3;
-    state              = HAL_RpmsgInit((hal_rpmsg_handle_t)rpmsgHandleList[linkId], &config);
-    assert(kStatus_HAL_RpmsgSuccess == state);
+    state              = HAL_ImumcInit((hal_imumc_handle_t)imumcHandleList[linkId], &config);
+    assert(kStatus_HAL_ImumcSuccess == state);
 
-    /* RPMSG install rx callback */
-    state = HAL_RpmsgInstallRxCallback((hal_rpmsg_handle_t)rpmsgHandleList[linkId], read_rpmsg_resp, NULL);
-    assert(kStatus_HAL_RpmsgSuccess == state);
+    /* IMUMC install rx callback */
+    state = HAL_ImumcInstallRxCallback((hal_imumc_handle_t)imumcHandleList[linkId], read_imumc_resp, NULL);
+    assert(kStatus_HAL_ImumcSuccess == state);
 
     return state;
 }
 #endif
 
-static hal_rpmsg_status_t rpmsg_init()
+static hal_imumc_status_t imumc_init()
 {
 #if (defined(CONFIG_SUPPORT_BLE) && (CONFIG_SUPPORT_BLE == 1)) || \
     (defined(CONFIG_SUPPORT_15D4) && (CONFIG_SUPPORT_15D4 == 1))
     uint32_t linkId;
 #endif
-    hal_rpmsg_status_t state = kStatus_HAL_RpmsgSuccess;
+    hal_imumc_status_t state = kStatus_HAL_ImumcSuccess;
 
-    /* Init RPMSG/IMU Channel */
+    /* Init IMUMC/IMU Channel */
 #if defined(CONFIG_SUPPORT_BLE) && (CONFIG_SUPPORT_BLE == 1)
     linkId = 0;
-    state  = rpmsg_config(linkId);
+    state  = imumc_config(linkId);
 #endif
 #if defined(CONFIG_SUPPORT_15D4) && (CONFIG_SUPPORT_15D4 == 1)
     linkId = 1;
-    state  = rpmsg_config(linkId);
+    state  = imumc_config(linkId);
 #endif
 
     return state;
 }
 
-static void wifi_cau_temperature_enable()
+#define RW610_PACKAGE_TYPE_QFN 0
+#define RW610_PACKAGE_TYPE_CSP 1
+#define RW610_PACKAGE_TYPE_BGA 2
+
+void wifi_cau_temperature_enable()
 {
     uint32_t val;
 
@@ -844,11 +935,65 @@ static void wifi_cau_temperature_enable()
     WIFI_WRITE_REG32(WLAN_CAU_ENABLE_ADDR, val);
 }
 
-static void wifi_cau_temperature_write_to_firmware()
+static uint32_t wifi_get_board_type()
 {
-    uint32_t val;
+    status_t status;
+    static uint32_t wifi_rw610_package_type = 0xFFFFFFFF;
 
-    val = WIFI_REG32(WLAN_CAU_TEMPERATURE_ADDR);
+    if (0xFFFFFFFF == wifi_rw610_package_type)
+    {
+        OCOTP_OtpInit();
+        status = OCOTP_ReadPackage(&wifi_rw610_package_type);
+        if (status != kStatus_Success)
+        {
+            /*If status error, use BGA as default type*/
+            wifi_rw610_package_type = RW610_PACKAGE_TYPE_BGA;
+        }
+        OCOTP_OtpDeinit();
+    }
+
+    return wifi_rw610_package_type;
+}
+
+int32_t wifi_get_temperature(void)
+{
+    int32_t val                   = 0;
+    uint32_t reg_val              = 0;
+    uint32_t temp_Cau_Raw_Reading = 0;
+    uint32_t board_type           = 0;
+
+    reg_val              = WIFI_REG32(WLAN_CAU_TEMPERATURE_ADDR);
+    temp_Cau_Raw_Reading = ((reg_val & 0XFFC00) >> 10);
+    board_type           = wifi_get_board_type();
+
+    switch (board_type)
+    {
+        case RW610_PACKAGE_TYPE_QFN:
+            val = (((((int32_t)(temp_Cau_Raw_Reading)) * 484260) - 220040600) / 1000000);
+            break;
+
+        case RW610_PACKAGE_TYPE_CSP:
+            val = (((((int32_t)(temp_Cau_Raw_Reading)) * 480560) - 220707000) / 1000000);
+            break;
+
+        case RW610_PACKAGE_TYPE_BGA:
+            val = (((((int32_t)(temp_Cau_Raw_Reading)) * 480561) - 220707400) / 1000000);
+            break;
+
+        default:
+            PRINTF("Unknown board type, use BGA temperature \r\n");
+            val = (((((int32_t)(temp_Cau_Raw_Reading)) * 480561) - 220707400) / 1000000);
+            break;
+    }
+
+    return val;
+}
+
+void wifi_cau_temperature_write_to_firmware()
+{
+    int32_t val = 0;
+
+    val = wifi_get_temperature();
     WIFI_WRITE_REG32(WLAN_CAU_TEMPERATURE_FW_ADDR, val);
 }
 
@@ -867,7 +1012,7 @@ static void wifi_cau_temperature_timer_cb(TimerHandle_t timer)
  checks it for a complete command and sends the command to the
  wlan card
 */
-void task_main(void *param)
+static void main_task(osa_task_param_t arg)
 {
     int32_t result = 0;
     (void)result;
@@ -877,7 +1022,6 @@ void task_main(void *param)
 
 #if !defined(RW610_SERIES) && !defined(RW612_SERIES)
     result = wifi_init_fcc(wlan_fw_bin, wlan_fw_bin_len);
-
     if (result != 0)
     {
         switch (result)
@@ -958,27 +1102,29 @@ void task_main(void *param)
 #error \
     "One of CONFIG_SUPPORT_WIFI CONFIG_SUPPORT_15D4 and CONFIG_SUPPORT_BLE should be defined, or it will not download any formware!!"
 #endif
-#if defined(CONFIG_SUPPORT_WIFI) && (CONFIG_SUPPORT_WIFI == 1)
+#if (CONFIG_SUPPORT_WIFI) && (CONFIG_SUPPORT_WIFI == 1)
     sb3_fw_download(LOAD_WIFI_FIRMWARE, 1, 0);
 #endif
+
+    wifi_cau_temperature_enable();
+    wifi_cau_temperature_write_to_firmware();
+
     /* 15d4 single and 15d4+ble combo */
-#if defined(CONFIG_SUPPORT_15D4) && (CONFIG_SUPPORT_15D4 == 1)
+#if (CONFIG_SUPPORT_15D4) && (CONFIG_SUPPORT_15D4 == 1)
     sb3_fw_download(LOAD_15D4_FIRMWARE, 1, 0);
 #endif
     /* only ble, no 15d4 */
-#if defined(CONFIG_SUPPORT_15D4) && (CONFIG_SUPPORT_15D4 == 0) && defined(CONFIG_SUPPORT_BLE) && \
-    (CONFIG_SUPPORT_BLE == 1)
+#if (CONFIG_SUPPORT_15D4) && (CONFIG_SUPPORT_15D4 == 0) && (CONFIG_SUPPORT_BLE) && (CONFIG_SUPPORT_BLE == 1)
     sb3_fw_download(LOAD_BLE_FIRMWARE, 1, 0);
 #endif
 
     /* Initialize WIFI Driver */
     imu_wifi_config();
 
-    /* Initialize rpmsg */
-    rpmsg_init();
+    /* Initialize imumc */
+    imumc_init();
 
     /* Initialize CAU temperature timer */
-    wifi_cau_temperature_enable();
     g_wifi_cau_temperature_timer =
         xTimerCreate("CAU Timer", 5000 / portTICK_PERIOD_MS, pdTRUE, NULL, wifi_cau_temperature_timer_cb);
     if (g_wifi_cau_temperature_timer == NULL)
@@ -1081,8 +1227,10 @@ void task_main(void *param)
  ******************************************************************************/
 int main(void)
 {
-    BaseType_t result = 0;
-    (void)result;
+    osa_status_t status = KOSA_StatusSuccess;
+    (void)status;
+
+    OSA_Init();
 
 #if defined(MIMXRT1176_cm7_SERIES)
     BOARD_ConfigMPU();
@@ -1097,13 +1245,31 @@ int main(void)
     BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
+
+#if CONFIG_WIFI_SMOKE_TESTS
+    BOARD_InitModuleClock();
+
+    IOMUXC_EnableMode(IOMUXC_GPR, kIOMUXC_GPR_ENET1TxClkOutputDir, true);
+
+    gpio_pin_config_t gpio_config = {kGPIO_DigitalOutput, 0, kGPIO_NoIntmode};
+
+    GPIO_PinInit(GPIO1, 9, &gpio_config);
+    GPIO_PinInit(GPIO1, 10, &gpio_config);
+    /* Pull up the ENET_INT before RESET. */
+    GPIO_WritePinOutput(GPIO1, 10, 1);
+    GPIO_WritePinOutput(GPIO1, 9, 0);
+    SDK_DelayAtLeastUs(10000, CLOCK_GetFreq(kCLOCK_CpuClk));
+    GPIO_WritePinOutput(GPIO1, 9, 1);
+
+    MDIO_Init();
+    g_phy_resource.read  = MDIO_Read;
+    g_phy_resource.write = MDIO_Write;
+#endif
 #endif
 
-    result =
-        xTaskCreate(task_main, "main", TASK_MAIN_STACK_SIZE, task_main_stack, TASK_MAIN_PRIO, &task_main_task_handler);
-    assert(pdPASS == result);
+    status = OSA_TaskCreate((osa_task_handle_t)main_task_Handle, OSA_TASK(main_task), NULL);
 
-    vTaskStartScheduler();
-    for (;;)
-        ;
+    OSA_Start();
+
+    return 0;
 }

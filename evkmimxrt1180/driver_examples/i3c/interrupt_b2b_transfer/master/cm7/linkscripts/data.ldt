@@ -1,0 +1,3 @@
+        <#if memory.name=="SRAM_ITC_cm33">
+        *fsl_i3c.o(.text .text.* .rodata .rodata.* .constdata .constdata.*)
+        </#if>

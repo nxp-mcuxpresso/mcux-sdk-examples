@@ -4,7 +4,7 @@
  * This file is based on \src\include\lwip\opt.h
  ******************************************************************************
  * Copyright (c) 2013-2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2018, 2022-2023 NXP
+ * Copyright 2016-2018, 2022-2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -68,6 +68,13 @@
 #endif
 #endif
 
+#endif
+
+/**
+ * Limit maximal count of received packets being read out at once.
+ */
+#ifndef ETH_MAX_RX_PKTS_AT_ONCE
+#define ETH_MAX_RX_PKTS_AT_ONCE 5
 #endif
 
 /* ---------- Core locking ---------- */
@@ -173,7 +180,7 @@ void sys_check_core_locking(void);
 
 /* TCP receive window. */
 #ifndef TCP_WND
-#define TCP_WND (8 * TCP_MSS)
+#define TCP_WND (5 * TCP_MSS)
 #endif
 
 /* Enable backlog*/

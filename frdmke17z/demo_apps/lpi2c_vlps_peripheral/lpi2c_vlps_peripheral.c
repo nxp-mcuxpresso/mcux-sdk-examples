@@ -31,10 +31,10 @@
 #define ACCEL_RESET_PIN  (9U)
 /* FXLS8974 */
 #if defined(DEMO_ACCEL_FXLS8974) && (DEMO_ACCEL_FXLS8974 != 0U)
-#define ACCEL_REG_OUT_X_MSB    0x04 /* OUT_X_LSB_REG for FXLS8974 */
-#define ACCEL_REG_WHO_AM_I     0x13
-#define ACCEL_REG_CTRL1        0x15
-#define ACCEL_REG_CTRL2        0x16
+#define ACCEL_REG_OUT_X_MSB 0x04 /* OUT_X_LSB_REG for FXLS8974 */
+#define ACCEL_REG_WHO_AM_I  0x13
+#define ACCEL_REG_CTRL1     0x15
+#define ACCEL_REG_CTRL2     0x16
 #else
 /* FXOS8700 and MMA8451 have the same register address */
 #define ACCEL_REG_OUT_X_MSB    0x01
@@ -206,8 +206,13 @@ static void DEMO_ACCEL_ReadData(void)
     else
     {
         /* Create a software TCD, which will be chained after send data */
+#if defined FSL_EDMA_DRIVER_EDMA4 && FSL_EDMA_DRIVER_EDMA4
+        EDMA_TcdResetExt(DEMO_DMA_DMA_BASEADDR, tcd);
+        EDMA_TcdSetTransferConfigExt(DEMO_DMA_DMA_BASEADDR, tcd, &transferConfig, NULL);
+#else
         EDMA_TcdReset(tcd);
         EDMA_TcdSetTransferConfig(tcd, &transferConfig, NULL);
+#endif
         linkTcd = tcd;
     }
 

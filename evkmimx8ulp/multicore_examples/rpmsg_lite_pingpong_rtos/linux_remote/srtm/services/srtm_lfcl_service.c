@@ -1,5 +1,5 @@
 /*
- * Copyright 2017, NXP
+ * Copyright 2017, 2024, NXP
  * All rights reserved.
  *
  *
@@ -60,6 +60,9 @@ typedef struct _srtm_lfcl_service
     struct _srtm_service service;
     srtm_list_t subscribers; /*!< SRTM life cycle event subscribers */
     srtm_mutex_t mutex;
+#if defined(SRTM_STATIC_API) && SRTM_STATIC_API
+    srtm_mutex_buf_t mutexStatic;
+#endif
 } *srtm_lfcl_service_t;
 
 /*******************************************************************************
@@ -309,7 +312,11 @@ srtm_service_t SRTM_LfclService_Create(void)
     assert(handle);
 
     SRTM_List_Init(&handle->subscribers);
+#if defined(SRTM_STATIC_API) && SRTM_STATIC_API
+    handle->mutex = SRTM_Mutex_Create(&handle->mutexStatic);
+#else
     handle->mutex = SRTM_Mutex_Create();
+#endif
     assert(handle->mutex);
 
     SRTM_List_Init(&handle->service.node);

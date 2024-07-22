@@ -18,6 +18,3 @@
 /* @TEST_ANCHOR */
 #define WIFI_IW612_BOARD_MURATA_2EL_M2
 /* @END_TEST_ANCHOR */
-
-#include "wifi_bt_module_config.h"
-#include "wifi_config.h"

@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 NXP
+ * Copyright 2023-2024 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -22,7 +22,7 @@
 #define HAL_ENABLE_CAMERA
 #define HAL_ENABLE_CAMERA_DEV_MipiOv5640      1
 #define HAL_ENABLE_DISPLAY
-#define HAL_ENABLE_DISPLAY_DEV_Lcdifv2Rk055ah 1
+#define HAL_ENABLE_DISPLAY_DEV_Lcdifv2Rk055   1
 #define HAL_ENABLE_2D_IMGPROC
 #define HAL_ENABLE_GFX_DEV_Pxp                1
 
@@ -31,42 +31,11 @@
  */
 
 /* enable TFlite by default */
-#if !defined(INFERENCE_ENGINE_GLOW) && !defined(INFERENCE_ENGINE_DeepViewRT)
 #define HAL_ENABLE_INFERENCE_TFLITE           1
-#define HAL_ENABLE_INFERENCE_GLOW             0
-#define HAL_ENABLE_INFERENCE_DVRT             0
-#elif defined(INFERENCE_ENGINE_GLOW)
-#define HAL_ENABLE_INFERENCE_TFLITE           0
-#define HAL_ENABLE_INFERENCE_GLOW             1
-#define HAL_ENABLE_INFERENCE_DVRT             0
-#elif defined(INFERENCE_ENGINE_DeepViewRT)
-#define HAL_ENABLE_INFERENCE_TFLITE           0
-#define HAL_ENABLE_INFERENCE_GLOW             0
-#define HAL_ENABLE_INFERENCE_DVRT             1
-#endif
 
 /* The size of Tensor Arena buffer for TensorFlowLite-Micro */
 /* minimum required arena size for MobileNetv1 */
 #define HAL_TFLM_TENSOR_ARENA_SIZE_KB         512
-
-/* The memory size used for weights and activations when using glow inference with Mobilenet v1,
- * these macros should be adjusted when using another model*/
-#define HAL_GLOW_CONSTANT_WEIGHTS_MAX_MEMSIZE 479168
-#define HAL_GLOW_MUTABLE_WEIGHTS_MAX_MEMSIZE  53184
-#define HAL_GLOW_ACTIVATIONS_MAX_MEMSIZE      98368
-
-/* The mempool holds DeepViewRT intermediate buffers that can be multiple megabytes in size and therefore
- * should be stored in the SDRAM. It's allocated in the heap (not FreeRTOS's heap) */
-#define HAL_DVRT_MEMPOOL_SIZE_MB              5
-
-/* Cache is optionally used by DeepViewRT to optimize certain internal loops.
- * If  HAL_DVRT_USE_CACHE is set to 0 then it will be allocated on the heap using the provided HAL_DVRT_CACHE_SIZE_KB.
- * If  HAL_DVRT_USE_CACHE is set to 1 it will be placed in the fastest available memory defined by HAL_DVRT_CACHE_MEMORY
- * for maximum performance. */
-#define HAL_DVRT_USE_CACHE                    1
-#define HAL_DVRT_CACHE_SIZE_KB                256
-#define HAL_BOARD_SRAM_DTC_CM7                0x20000000              /* Board SRAM_DTC address */
-#define HAL_DVRT_CACHE_MEMORY                 HAL_BOARD_SRAM_DTC_CM7  /* DVRT cache will be allocated in the SRAM_DTC_CM7 */
 
 /**
  * This is the PXP HAL configuration
@@ -112,7 +81,7 @@
 #define APP_CAMERA_FORMAT  MPP_PIXEL_YUV1P444
 
 /* display parameters */
-#define APP_DISPLAY_NAME   "Lcdifv2Rk055ah"
+#define APP_DISPLAY_NAME   "Lcdifv2Rk055"
 #define APP_DISPLAY_WIDTH  720
 #define APP_DISPLAY_HEIGHT 1280
 #define APP_DISPLAY_FORMAT MPP_PIXEL_RGB565

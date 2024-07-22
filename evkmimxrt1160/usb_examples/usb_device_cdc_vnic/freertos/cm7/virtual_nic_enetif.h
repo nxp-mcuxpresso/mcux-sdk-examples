@@ -78,6 +78,14 @@ typedef signed char enet_err_t;
 #define ETHTYPE_IP 0x0800U
 #define ETHTYPE_VLAN 0x8100U
 
+#if defined(__GIC_PRIO_BITS)
+#define ENET_INTERRUPT_PRIORITY (25U)
+#elif defined(__NVIC_PRIO_BITS) && (__NVIC_PRIO_BITS >= 3)
+#define ENET_INTERRUPT_PRIORITY (6U)
+#else
+#define ENET_INTERRUPT_PRIORITY (3U)
+#endif
+
 /* Packet buffer definition. */
 typedef struct _pbuf
 {

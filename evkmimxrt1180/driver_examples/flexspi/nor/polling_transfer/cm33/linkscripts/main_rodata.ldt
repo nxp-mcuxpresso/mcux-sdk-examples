@@ -1,0 +1,5 @@
+       *(EXCLUDE_FILE(*flexspi_nor_flash_ops.o *fsl_flexspi.o) .rodata)
+       *(EXCLUDE_FILE(*flexspi_nor_flash_ops.o *fsl_flexspi.o) .rodata.*)
+       *(EXCLUDE_FILE(*flexspi_nor_flash_ops.o *fsl_flexspi.o) .constdata)
+       *(EXCLUDE_FILE(*flexspi_nor_flash_ops.o *fsl_flexspi.o) .constdata.*) 
+ 

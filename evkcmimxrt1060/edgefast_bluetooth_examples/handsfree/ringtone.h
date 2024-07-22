@@ -33,17 +33,16 @@
 #if defined(__ICCARM__)
 #pragma data_alignment = 4
 #endif
-__ALIGN_BEGIN int a __ALIGN_END;
 
 #define MUSIC_LEN (48000)
 
 #if defined DEMO_AUDIO_DATA_PUT_INTO_SECTION
-DEMO_AUDIO_DATA_PUT_INTO_SECTION(uint8_t music[], 4U) =
+DEMO_AUDIO_DATA_PUT_INTO_SECTION(static uint8_t music[], 4U) =
 #else
 #if defined FSL_FEATURE_SOC_MMDC_COUNT && FSL_FEATURE_SOC_MMDC_COUNT
-AT_NONCACHEABLE_SECTION_ALIGN_INIT(uint8_t music[], 4) =
+AT_NONCACHEABLE_SECTION_ALIGN_INIT(static uint8_t music[], 4) =
 #else
-__ALIGN_BEGIN const uint8_t music[] __ALIGN_END =
+__ALIGN_BEGIN static const uint8_t music[] __ALIGN_END =
 #endif
 #endif
     {

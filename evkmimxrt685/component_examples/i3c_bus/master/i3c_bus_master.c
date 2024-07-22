@@ -1,5 +1,5 @@
 /*
- * Copyright 2020, 2023 NXP
+ * Copyright 2020, 2023-2024 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -12,7 +12,6 @@
 #include "board.h"
 #include "fsl_debug_console.h"
 #include "fsl_component_i3c.h"
-#include "fsl_i3c.h"
 
 #include "fsl_component_i3c_adapter.h"
 /*******************************************************************************
@@ -31,6 +30,11 @@
 #ifndef EXAMPLE_I3C_PP_BAUDRATE
 #define EXAMPLE_I3C_PP_BAUDRATE 4000000U
 #endif
+#ifndef I3C_MASTER_SLAVE_ADDR_7BIT
+#define I3C_MASTER_SLAVE_ADDR_7BIT 0x1A
+#endif
+
+#define I3C_NXP_VENDOR_ID 0x11B
 
 /*******************************************************************************
  * Prototypes
@@ -40,8 +44,8 @@
 /*******************************************************************************
  * Variables
  ******************************************************************************/
-i3c_bus_t demo_i3cBus;
-i3c_device_t demo_masterDev;
+static i3c_bus_t demo_i3cBus;
+static i3c_device_t demo_masterDev;
 
 /*******************************************************************************
  * Code
@@ -57,7 +61,9 @@ i3c_device_control_info_t i3cMasterCtlInfo        = {
  */
 int main(void)
 {
+    i3c_device_information_t masterInfo;
     i3c_device_information_t devInfo;
+    i3c_bus_config_t busConfig;
     uint8_t slaveAddr;
     status_t result;
 
@@ -74,13 +80,12 @@ int main(void)
     PRINTF("\r\nI3C bus master example.\r\n");
 
     /* Create I3C bus. */
-    i3c_bus_config_t busConfig;
     I3C_BusGetDefaultBusConfig(&busConfig);
     busConfig.i2cBaudRate = EXAMPLE_I2C_BAUDRATE;
     busConfig.i3cOpenDrainBaudRate = EXAMPLE_I3C_OD_BAUDRATE;
     busConfig.i3cPushPullBaudRate = EXAMPLE_I3C_PP_BAUDRATE;
     I3C_BusCreate(&demo_i3cBus, &busConfig);
-    i3c_device_information_t masterInfo;
+
     memset(&masterInfo, 0, sizeof(masterInfo));
     masterInfo.staticAddr  = I3C_MASTER_SLAVE_ADDR_7BIT;
     masterInfo.bcr         = 0x60U;
@@ -89,7 +94,7 @@ int main(void)
 #endif
     masterInfo.dcr         = 0x00U;
     masterInfo.dynamicAddr = I3C_BusGetValidAddrSlot(&demo_i3cBus, 0);
-    masterInfo.vendorID    = 0x345U;
+    masterInfo.vendorID    = I3C_NXP_VENDOR_ID;
 
     extern i3c_device_control_info_t i3cMasterCtlInfo;
     result = I3C_BusMasterCreate(&demo_masterDev, &demo_i3cBus, &masterInfo, &i3cMasterCtlInfo);
@@ -110,7 +115,7 @@ int main(void)
         else
         {
             /* Find the connected I3C slave on the other board */
-            if (((i3c_device_t *)listItem)->info.vendorID == 0x346U)
+            if (((i3c_device_t *)listItem)->info.vendorID == I3C_NXP_VENDOR_ID)
             {
                 slaveAddr = ((i3c_device_t *)listItem)->info.dynamicAddr;
                 break;
@@ -119,6 +124,7 @@ int main(void)
     }
     if (slaveAddr == 0U)
     {
+        PRINTF("I3C dynamic address assignment fails.\r\n");
         return kStatus_Fail;
     }
 

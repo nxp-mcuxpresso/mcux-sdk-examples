@@ -67,6 +67,7 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
     ${SdkRootDirPath}/examples/evkmimx8ulp/driver_examples/lcdif
     ${SdkRootDirPath}/core/boards/evkmimx8ulp
+    ${SdkRootDirPath}/examples/evkmimx8ulp/driver_examples/lcdif
 )
 
 

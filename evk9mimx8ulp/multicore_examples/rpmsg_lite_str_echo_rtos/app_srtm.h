@@ -47,6 +47,7 @@ typedef enum
 
 #define APP_SRTM_SAI      (SAI0)
 #define APP_SRTM_SAI_IRQn SAI0_IRQn
+#define APP_SRTM_PDM_IRQn PDM_EVENT_IRQn
 
 #define APP_MS2TICK(ms)       ((ms + portTICK_PERIOD_MS - 1) / portTICK_PERIOD_MS)
 #define APP_DMA_IRQN(channel) (IRQn_Type)((uint32_t)DMA0_0_IRQn + channel)
@@ -80,6 +81,8 @@ enum
 #define APP_SAI_TX_DMA_IRQ_PRIO (5U)
 #define APP_SAI_RX_DMA_IRQ_PRIO (5U)
 #define APP_SAI_IRQ_PRIO        (5U)
+#define APP_PDM_RX_DMA_IRQ_PRIO (5U)
+#define APP_PDM_IRQ_PRIO        (5U)
 #define APP_GPIO_IRQ_PRIO       (5U)
 #define APP_WUU_IRQ_PRIO        (5U)
 #define APP_CMC1_IRQ_PRIO       (5U)
@@ -108,6 +111,7 @@ enum
 #define APP_SRTM_RTC_CHANNEL_NAME    "rpmsg-rtc-channel"
 #define APP_SRTM_LFCL_CHANNEL_NAME   "rpmsg-life-cycle-channel"
 #define APP_SRTM_SENSOR_CHANNEL_NAME "rpmsg-sensor-channel"
+#define APP_SRTM_PDM_CHANNEL_NAME    "rpmsg-micfil-channel"
 
 #define PEER_CORE_ID (1U)
 
@@ -170,6 +174,16 @@ enum
 #else
 #define APP_LSM6DSO_INT_TRIGGER_TYPE (kRGPIO_InterruptRisingEdge)
 #endif
+
+/* PDM service */
+#define APP_PDM_RX_DMA_CHANNEL                  0
+#define APP_PDM_RX_DMA_SOURCE                   (kDmaRequestMux0MICFIL)
+// #define APP_PDM_RX_DMA_CHANNEL_PRIORITY      (2U)
+#define APP_PDM_QUALITY_MODE                    (kPDM_QualityModeHigh)
+#define APP_PDM_CICOVERSAMPLE_RATE              (0U)
+#define APP_PDM_CHANNEL_GAIN                    (kPDM_DfOutputGain4)
+#define APP_PDM_CHANNEL_CUTOFF_FREQ             (kPDM_DcRemoverCutOff152Hz)
+#define APP_PDM_CLOCK                           (24000000U)
 
 extern int32_t RPMsg_MU0_A_IRQHandler(void);
 

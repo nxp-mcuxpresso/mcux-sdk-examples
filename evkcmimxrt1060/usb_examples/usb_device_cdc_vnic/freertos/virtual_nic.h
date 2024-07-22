@@ -129,6 +129,7 @@ typedef struct _usb_cdc_vnic
     volatile uint8_t attach;
     TaskHandle_t deviceTaskHandle;      /* USB device task handle. */
     TaskHandle_t applicationTaskHandle; /* Application task handle. */
+    EventGroupHandle_t eventHandle;
     uint8_t speed;
     nic_traffic_info_t nicTrafficInfo;
     uint8_t currentConfiguration;

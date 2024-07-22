@@ -11,17 +11,14 @@
 #include "fsl_device_registers.h"
 #include "fsl_debug_console.h"
 
-#include "fsl_dma.h"
-#include "fsl_i2s_dma.h"
-#include "fsl_dmic.h"
-#include "fsl_dmic_dma.h"
-
-#include "pin_mux.h"
 #include "board_hifi4.h"
 #include "fsl_common.h"
 #include "fsl_gpio.h"
 #include "fsl_inputmux.h"
-#include "fsl_i2s.h"
+#include "pin_mux.h"
+#include "fsl_dmic.h"
+#include "fsl_i2s_dma.h"
+#include "fsl_dmic_dma.h"
 #include "dsp_config.h"
 /*******************************************************************************
  * Definitions
@@ -54,11 +51,10 @@
  ******************************************************************************/
 extern int NonCacheable_start, NonCacheable_end;
 extern int NonCacheable_init_start, NonCacheable_init_end;
+static uint32_t volatile s_writeIndex = 0;
+static uint32_t volatile s_emptyBlock = BUFFER_NUM;
 
 static i2s_config_t tx_config;
-
-static uint32_t volatile s_writeIndex = 0U;
-static uint32_t volatile s_emptyBlock = BUFFER_NUM;
 static dma_handle_t s_i2sTxDmaHandle;
 static i2s_dma_handle_t s_i2sTxHandle;
 static dmic_dma_handle_t s_dmicDmaHandle;
@@ -90,8 +86,15 @@ static dmic_transfer_t s_receiveXfer[2U] = {
         .linkTransfer           = &s_receiveXfer[0],
     },
 };
+
 /*******************************************************************************
  * Prototypes
+ ******************************************************************************/
+void BOARD_LoopbackFunc(void);
+
+
+/*******************************************************************************
+ * Code
  ******************************************************************************/
 void dmic_Callback(DMIC_Type *base, dmic_dma_handle_t *handle, status_t status, void *userData)
 {
@@ -109,9 +112,6 @@ void i2s_Callback(I2S_Type *base, i2s_dma_handle_t *handle, status_t completionS
     }
 }
 
-/*******************************************************************************
- * Code
- ******************************************************************************/
 static void XOS_Init(void)
 {
     xos_set_clock_freq(XOS_CLOCK_FREQ);
@@ -196,12 +196,33 @@ static void BOARD_Init_I2S(void)
 }
 
 
+void BOARD_LoopbackFunc()
+{
+    i2s_transfer_t i2sTxTransfer;
+    PRINTF("[DSP Main] DMIC->DMA->I2S->CODEC running \r\n\r\n");
+    while (1)
+    {
+        if (s_emptyBlock < BUFFER_NUM)
+        {
+            i2sTxTransfer.data     = s_buffer + s_writeIndex * BUFFER_SIZE;
+            i2sTxTransfer.dataSize = BUFFER_SIZE;
+            if (I2S_TxTransferSendDMA(DEMO_I2S_TX, &s_i2sTxHandle, i2sTxTransfer) == kStatus_Success)
+            {
+                if (++s_writeIndex >= BUFFER_NUM)
+                {
+                    s_writeIndex = 0U;
+                }
+            }
+        }
+    }
+}
+
 /*!
  * @brief Main function
  */
 int main(void)
 {
-    i2s_transfer_t i2sTxTransfer;
+    xos_start_main("main", 7, 0);
 
     /* Disable DSP cache for noncacheable sections. */
     xthal_set_region_attribute((uint32_t *)&NonCacheable_start,
@@ -229,10 +250,6 @@ int main(void)
     /* Initialize I2S */
     BOARD_Init_I2S();
 
-    xos_start_main("main", 7, 0);
-
-    PRINTF("[DSP Main] DSP starts on core '%s'\r\n", XCHAL_CORE_ID);
-
     DMA_CreateHandle(&s_i2sTxDmaHandle, DEMO_DMA, DEMO_I2S_TX_CHANNEL);
     DMA_CreateHandle(&s_dmicRxDmaHandle, DEMO_DMA, DEMO_DMIC_RX_CHANNEL);
 
@@ -241,20 +258,7 @@ int main(void)
     DMIC_InstallDMADescriptorMemory(&s_dmicDmaHandle, s_dmaDescriptorPingpong, 2U);
     DMIC_TransferReceiveDMA(DMIC0, &s_dmicDmaHandle, s_receiveXfer, DEMO_DMIC_CHANNEL);
 
-    PRINTF("[DSP Main] DMIC->DMA->I2S->CODEC running \r\n\r\n");
-    while (1)
-    {
-        if (s_emptyBlock < BUFFER_NUM)
-        {
-            i2sTxTransfer.data     = s_buffer + s_writeIndex * BUFFER_SIZE;
-            i2sTxTransfer.dataSize = BUFFER_SIZE;
-            if (I2S_TxTransferSendDMA(DEMO_I2S_TX, &s_i2sTxHandle, i2sTxTransfer) == kStatus_Success)
-            {
-                if (++s_writeIndex >= BUFFER_NUM)
-                {
-                    s_writeIndex = 0U;
-                }
-            }
-        }
-    }
+    PRINTF("[DSP Main] DSP starts on core '%s'\r\n", XCHAL_CORE_ID);
+
+    BOARD_LoopbackFunc();
 }

@@ -46,6 +46,20 @@ static ctimer_match_config_t matchConfig1;
  * Code
  ******************************************************************************/
 
+/*
+ * ctimer_match0_callback and ctimer_match1_callback are just nomial callback function.
+ * They can be defined as MR1 and MR3 register match interrupt callback according to
+ * CTIMER_MAT0_OUT and CTIMER_MAT1_OUT definition.
+ * API CTIMER_GenericIRQHandler test every bit in IR register, each bit means MACTH0-3
+ * interrupt and CAPTURE0-3 interrupt flag, then invoke corresponding callback.
+ * When ctimer_match0_callback and ctimer_match1_callback are defined as MR1 and MR3
+ * register match interrupt callback, they can be defined as follow:
+ * 
+ * ctimer_callback_t ctimer_callback_table[] = {
+ *   NULL, ctimer_match0_callback, NULL, ctimer_match1_callback, NULL, NULL, NULL, NULL};
+ * 
+ * Each element in array relates to corresponding bit in IR register.
+ */
 void ctimer_match1_callback(uint32_t flags)
 {
     static uint32_t count            = 0;
@@ -153,7 +167,15 @@ int main(void)
     matchConfig1.outPinInitState    = true;
     matchConfig1.enableInterrupt    = true;
 
+    /* Create different ctimer_callback_table array for different CTimer instance. */
     CTIMER_RegisterCallBack(CTIMER, &ctimer_callback_table[0], kCTIMER_MultipleCallback);
+
+    /*
+     * Macros CTIMER_MAT0_OUT and CTIMER_MAT1_OUT are nominal match output, instead of
+     * hardware MR0 and MR1 register match output.
+     * So CTIMER_MAT0_OUT can be defined as kCTIMER_Match_1, CTIMER_MAT1_OUT can be defined
+     * as kCTIMER_Match_3, which means they are MR1 and MR3 register match output.
+     */
     CTIMER_SetupMatch(CTIMER, CTIMER_MAT0_OUT, &matchConfig0);
     CTIMER_SetupMatch(CTIMER, CTIMER_MAT1_OUT, &matchConfig1);
     CTIMER_StartTimer(CTIMER);

@@ -5,12 +5,12 @@ Application demonstrating the shell mode of the simplified Adapter APIs.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- MCUXpresso  11.8.0
-- GCC ARM Embedded  12.2
+- MCUXpresso  11.10.0
+- GCC ARM Embedded  13.2.1
 
 Hardware requirements
 =====================
@@ -680,5 +680,33 @@ RFCOMM Client Side,
 4. After rfcomm connection is created, input "rfcomm.send <count of sending>" to send data
 5. After rfcomm connection is created, input "rfcomm.disconnect" to disconnect with peer device
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Here is an example running In-band and Out-of-band independent reset
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1. Input "bt.init" to initialize bluetooth
+@bt> bt.init
+download starts(384072)
+.....................
+download success!
+@bt> Bluetooth initialized
+Settings Loaded
+2. Input "bt.ind_reset inband"  to run In-band independent reset
+@bt> bt.ind_reset inband
+IR configured successfully for mode 2, ir_state = 3
+EtherMind: Bluetooth OFF ...
+Sending Inband IR Trigger
+download starts(384072)
+.....................
+download success!
+IR exit with state = 0
+3. Input "bt.ind_reset oob"  to run  Out-of-band independent reset
+@bt> bt.ind_reset oob
+IR configured successfully for mode 1, ir_state = 3
+EtherMind: Bluetooth OFF ...
+Sending Out of Band IR Trigger
+download starts(384072)
+.....................
+download success!
+IR exit with state = 0
 
 

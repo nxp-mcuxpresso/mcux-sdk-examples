@@ -17,6 +17,7 @@
 #include "clock_config.h"
 #include "board.h"
 #include "timer.h"
+#include "app.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -35,6 +36,24 @@
 int64_t os_clock_now(){
     return TIMER_GetTimeInUS();
 }
+
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+int64_t getTime() { return os_clock_now(); }
+
+int gethostname(char *name)
+{
+    const char* host = "evkmimxrt685";
+    memcpy(name, host, strlen(host));
+    return 0;
+}
+
+#ifdef __cplusplus
+}
+#endif
 
 /*!
  * @brief Main function.

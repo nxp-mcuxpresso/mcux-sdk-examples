@@ -15,12 +15,13 @@
     <definition extID="device.MIMXRT595S_DSP.MIMXRT595S"/>
     <definition extID="platform.utilities.misc_utilities.MIMXRT595S"/>
     <definition extID="platform.drivers.flexcomm.MIMXRT595S"/>
+    <definition extID="utility.str.MIMXRT595S"/>
     <definition extID="device.MIMXRT595S_CMSIS.MIMXRT595S"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT595S"/>
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="evkmimxrt595_dsp_hello_world_usart_fusionf1" name="dsp_hello_world_usart_fusionf1" device_core="fusionf1_MIMXRT595S" dependency="component.usart_adapter.MIMXRT595S platform.drivers.flexcomm_usart.MIMXRT595S utility.debug_console_lite.MIMXRT595S platform.utilities.assert_lite.MIMXRT595S platform.drivers.lpc_gpio.MIMXRT595S component.lists.MIMXRT595S platform.drivers.lpc_iopctl.MIMXRT595S platform.drivers.common.MIMXRT595S platform.drivers.clock.MIMXRT595S platform.drivers.reset.MIMXRT595S device.MIMXRT595S_DSP.MIMXRT595S platform.utilities.misc_utilities.MIMXRT595S platform.drivers.flexcomm.MIMXRT595S device.MIMXRT595S_CMSIS.MIMXRT595S CMSIS_Include_core_cm.MIMXRT595S" category="dsp_examples">
+  <example id="evkmimxrt595_dsp_hello_world_usart_fusionf1" name="dsp_hello_world_usart_fusionf1" device_core="fusionf1_MIMXRT595S" dependency="component.usart_adapter.MIMXRT595S platform.drivers.flexcomm_usart.MIMXRT595S utility.debug_console_lite.MIMXRT595S platform.utilities.assert_lite.MIMXRT595S platform.drivers.lpc_gpio.MIMXRT595S component.lists.MIMXRT595S platform.drivers.lpc_iopctl.MIMXRT595S platform.drivers.common.MIMXRT595S platform.drivers.clock.MIMXRT595S platform.drivers.reset.MIMXRT595S device.MIMXRT595S_DSP.MIMXRT595S platform.utilities.misc_utilities.MIMXRT595S platform.drivers.flexcomm.MIMXRT595S utility.str.MIMXRT595S device.MIMXRT595S_CMSIS.MIMXRT595S CMSIS_Include_core_cm.MIMXRT595S" category="dsp_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>

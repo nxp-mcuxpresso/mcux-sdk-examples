@@ -12,9 +12,9 @@
 #include "fsl_flexio_i2s.h"
 #include "fsl_debug_console.h"
 #include "fsl_codec_common.h"
+#include "fsl_sai.h"
 
 #include "fsl_wm8960.h"
-#include "fsl_sai.h"
 #include "fsl_codec_adapter.h"
 /*******************************************************************************
  * Definitions

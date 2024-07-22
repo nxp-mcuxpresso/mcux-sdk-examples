@@ -391,8 +391,9 @@ int main(void)
 
     APP_SetTrdcGlobalConfig();
 #if defined(FSL_FEATURE_TRDC_HAS_MRC) && FSL_FEATURE_TRDC_HAS_MRC
-#ifdef CPU_KW45B41Z83AFTA
-    /* For KW45B41Z83 soc, The memory 0x48800000-0x48A00000 controlled by MRC0 belongs to the NBU flash memory,
+#if defined(KW45B41Z83_SERIES) || defined(KW45B41Z82_SERIES) || defined(KW45B41Z53_SERIES) || defined(KW45B41Z52_SERIES) || \
+    defined(K32W1480_SERIES) || defined(MCXW716A_SERIES) || defined(MCXW716C_SERIES)
+    /* For KW45B41Z/K32W1480/MCXW716 soc, The memory 0x48800000-0x48A00000 controlled by MRC0 belongs to the NBU flash memory,
        and CM33 core can only be able to access it if the silicon is NXP Fab or NXP Provisioned.
        Check the CLC bitfield of the LIFECYCLE register in MSCM peripheral to get the silicon revision. */
     if (((SMSCM->LIFECYCLE & SMSCM_LIFECYCLE_CLC_MASK) >> SMSCM_LIFECYCLE_CLC_SHIFT) < 7U)

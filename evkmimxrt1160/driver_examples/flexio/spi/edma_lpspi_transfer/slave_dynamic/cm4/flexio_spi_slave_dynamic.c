@@ -29,7 +29,7 @@
 #define MASTER_LPSPI_PCS_FOR_INIT     (kLPSPI_Pcs0)
 #define MASTER_LPSPI_PCS_FOR_TRANSFER (kLPSPI_MasterPcs0)
 
-#define MASTER_LPSPI_CLOCK_FREQUENCY (CLOCK_GetFreqFromObs(CCM_OBS_LPSPI1_CLK_ROOT))
+#define MASTER_LPSPI_CLOCK_FREQUENCY (CLOCK_GetRootClockFreq(kCLOCK_Root_Lpspi1))
 
 /*Slave related*/
 #define SLAVE_FLEXIO_SPI_BASEADDR   (FLEXIO2)
@@ -206,6 +206,9 @@ int main(void)
 
     /* Init the EDMA module */
     EDMA_GetDefaultConfig(&config);
+#if defined(BOARD_GetEDMAConfig)
+    BOARD_GetEDMAConfig(config);
+#endif
     EDMA_Init(EXAMPLE_FLEXIO_SPI_DMA_LPSPI_BASEADDR, &config);
 
     EDMA_CreateHandle(&txHandle, EXAMPLE_FLEXIO_SPI_DMA_LPSPI_BASEADDR, FLEXIO_SPI_TX_DMA_LPSPI_CHANNEL);

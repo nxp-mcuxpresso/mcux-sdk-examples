@@ -24,13 +24,14 @@
     <definition extID="middleware.usb.host.common_header.LPC55S36"/>
     <definition extID="component.osa.LPC55S36"/>
     <definition extID="middleware.usb.common_header.LPC55S36"/>
+    <definition extID="utility.str.LPC55S36"/>
     <definition extID="CMSIS_Include_core_cm.LPC55S36"/>
     <definition extID="device.LPC55S36_system.LPC55S36"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="lpcxpresso55s36_host_hid_mouse_bm" name="host_hid_mouse_bm" dependency="middleware.usb.host_controller_ohci.LPC55S36 platform.utilities.assert_lite.LPC55S36 utility.debug_console_lite.LPC55S36 middleware.baremetal.LPC55S36 middleware.usb.host_hid.LPC55S36 component.lists.LPC55S36 platform.drivers.flexcomm_usart.LPC55S36 component.usart_adapter.LPC55S36 device.LPC55S36_CMSIS.LPC55S36 device.LPC55S36_startup.LPC55S36 platform.drivers.clock.LPC55S36 platform.drivers.common.LPC55S36 platform.drivers.flexcomm.LPC55S36 platform.drivers.lpc_gpio.LPC55S36 platform.drivers.lpc_iocon.LPC55S36 platform.drivers.power.LPC55S36 platform.drivers.reset.LPC55S36 middleware.usb.host.stack.LPC55S36 platform.utilities.misc_utilities.LPC55S36 middleware.usb.host.ohci_config_header.LPC55S36 middleware.usb.host.common_header.LPC55S36 component.osa.LPC55S36 middleware.usb.common_header.LPC55S36 CMSIS_Include_core_cm.LPC55S36 device.LPC55S36_system.LPC55S36" category="usb_examples">
+  <example id="lpcxpresso55s36_host_hid_mouse_bm" name="host_hid_mouse_bm" dependency="middleware.usb.host_controller_ohci.LPC55S36 platform.utilities.assert_lite.LPC55S36 utility.debug_console_lite.LPC55S36 middleware.baremetal.LPC55S36 middleware.usb.host_hid.LPC55S36 component.lists.LPC55S36 platform.drivers.flexcomm_usart.LPC55S36 component.usart_adapter.LPC55S36 device.LPC55S36_CMSIS.LPC55S36 device.LPC55S36_startup.LPC55S36 platform.drivers.clock.LPC55S36 platform.drivers.common.LPC55S36 platform.drivers.flexcomm.LPC55S36 platform.drivers.lpc_gpio.LPC55S36 platform.drivers.lpc_iocon.LPC55S36 platform.drivers.power.LPC55S36 platform.drivers.reset.LPC55S36 middleware.usb.host.stack.LPC55S36 platform.utilities.misc_utilities.LPC55S36 middleware.usb.host.ohci_config_header.LPC55S36 middleware.usb.host.common_header.LPC55S36 component.osa.LPC55S36 middleware.usb.common_header.LPC55S36 utility.str.LPC55S36 CMSIS_Include_core_cm.LPC55S36 device.LPC55S36_system.LPC55S36" category="usb_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -56,7 +57,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-mno-unaligned-access -mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-mno-unaligned-access -mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

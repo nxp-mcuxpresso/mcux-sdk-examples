@@ -1,0 +1,7 @@
+<#if memory.name=="SRAM">
+       *fsl_flexspi_nor_flash.o(.text .text* .rodata .rodata*)
+       *nor_flash_ops.o(.text .text* .rodata .rodata*)
+       *fsl_flexspi.o(.text .text* .rodata .rodata*)
+       *fsl_clock.o(.text .text* .rodata .rodata*)
+</#if>
+       *(.data*)

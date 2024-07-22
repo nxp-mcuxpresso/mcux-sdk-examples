@@ -19,10 +19,28 @@
 #include "stdbool.h"
 
 #include "fsl_common.h"
+#if CONFIG_WIFI_SMOKE_TESTS
+#include "fsl_iomuxc.h"
+#include "fsl_enet.h"
+#endif
+#if CONFIG_WIFI_SMOKE_TESTS
+#include "fsl_phyksz8081.h"
+#endif
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
 
+/* @TEST_ANCHOR */
+
+/* Ethernet configuration. */
+#if CONFIG_WIFI_SMOKE_TESTS
+extern phy_ksz8081_resource_t g_phy_resource;
+#define EXAMPLE_ENET         ENET
+#define EXAMPLE_PHY_ADDRESS  BOARD_ENET0_PHY_ADDRESS
+#define EXAMPLE_PHY_OPS      &phyksz8081_ops
+#define EXAMPLE_PHY_RESOURCE &g_phy_resource
+#define EXAMPLE_CLOCK_FREQ   CLOCK_GetFreq(kCLOCK_IpgClk)
+#endif
 
 #ifndef main_task_PRIORITY
 #define main_task_PRIORITY 0
@@ -53,6 +71,32 @@ static void main_task(void *param);
 /*******************************************************************************
  * Code
  ******************************************************************************/
+#if CONFIG_WIFI_SMOKE_TESTS
+phy_ksz8081_resource_t g_phy_resource;
+
+void BOARD_InitModuleClock(void)
+{
+    const clock_enet_pll_config_t config = {.enableClkOutput = true, .enableClkOutput25M = false, .loopDivider = 1};
+    CLOCK_InitEnetPll(&config);
+}
+
+static void MDIO_Init(void)
+{
+    (void)CLOCK_EnableClock(s_enetClock[ENET_GetInstance(EXAMPLE_ENET)]);
+    ENET_SetSMI(EXAMPLE_ENET, EXAMPLE_CLOCK_FREQ, false);
+}
+
+static status_t MDIO_Write(uint8_t phyAddr, uint8_t regAddr, uint16_t data)
+{
+    return ENET_MDIOWrite(EXAMPLE_ENET, phyAddr, regAddr, data);
+}
+
+static status_t MDIO_Read(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
+{
+    return ENET_MDIORead(EXAMPLE_ENET, phyAddr, regAddr, pData);
+}
+#endif
+
 
 /* Link lost callback */
 static void LinkStatusChangeCallback(bool linkState)
@@ -212,6 +256,26 @@ int main(void)
     BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
+
+#if CONFIG_WIFI_SMOKE_TESTS
+    BOARD_InitModuleClock();
+
+    IOMUXC_EnableMode(IOMUXC_GPR, kIOMUXC_GPR_ENET1TxClkOutputDir, true);
+
+    gpio_pin_config_t gpio_config = {kGPIO_DigitalOutput, 0, kGPIO_NoIntmode};
+
+    GPIO_PinInit(GPIO1, 9, &gpio_config);
+    GPIO_PinInit(GPIO1, 10, &gpio_config);
+    /* Pull up the ENET_INT before RESET. */
+    GPIO_WritePinOutput(GPIO1, 10, 1);
+    GPIO_WritePinOutput(GPIO1, 9, 0);
+    SDK_DelayAtLeastUs(10000, CLOCK_GetFreq(kCLOCK_CpuClk));
+    GPIO_WritePinOutput(GPIO1, 9, 1);
+
+    MDIO_Init();
+    g_phy_resource.read  = MDIO_Read;
+    g_phy_resource.write = MDIO_Write;
+#endif
 
     /* Create the main Task */
     if (xTaskCreate(main_task, "main_task", main_task_STACK_DEPTH, NULL, main_task_PRIORITY, &mainTaskHandle) != pdPASS)

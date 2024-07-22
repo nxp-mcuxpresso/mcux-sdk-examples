@@ -16,6 +16,7 @@
     <definition extID="platform.drivers.xip_device.MIMXRT1052"/>
     <definition extID="platform.drivers.xip_board.evkbimxrt1050.MIMXRT1052"/>
     <definition extID="platform.utilities.misc_utilities.MIMXRT1052"/>
+    <definition extID="utility.str.MIMXRT1052"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT1052"/>
     <definition extID="device.MIMXRT1052_system.MIMXRT1052"/>
     <definition extID="armgcc"/>
@@ -24,7 +25,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkbimxrt1050_flexio_pwm" name="flexio_pwm" dependency="utility.debug_console_lite.MIMXRT1052 platform.utilities.assert_lite.MIMXRT1052 platform.drivers.clock.MIMXRT1052 platform.drivers.flexio.MIMXRT1052 platform.drivers.common.MIMXRT1052 device.MIMXRT1052_CMSIS.MIMXRT1052 component.lpuart_adapter.MIMXRT1052 platform.drivers.lpuart.MIMXRT1052 component.lists.MIMXRT1052 device.MIMXRT1052_startup.MIMXRT1052 platform.drivers.iomuxc.MIMXRT1052 platform.drivers.igpio.MIMXRT1052 platform.drivers.xip_device.MIMXRT1052 platform.drivers.xip_board.evkbimxrt1050.MIMXRT1052 platform.utilities.misc_utilities.MIMXRT1052 CMSIS_Include_core_cm.MIMXRT1052 device.MIMXRT1052_system.MIMXRT1052" category="driver_examples/flexio">
+  <example id="evkbimxrt1050_flexio_pwm" name="flexio_pwm" dependency="utility.debug_console_lite.MIMXRT1052 platform.utilities.assert_lite.MIMXRT1052 platform.drivers.clock.MIMXRT1052 platform.drivers.flexio.MIMXRT1052 platform.drivers.common.MIMXRT1052 device.MIMXRT1052_CMSIS.MIMXRT1052 component.lpuart_adapter.MIMXRT1052 platform.drivers.lpuart.MIMXRT1052 component.lists.MIMXRT1052 device.MIMXRT1052_startup.MIMXRT1052 platform.drivers.iomuxc.MIMXRT1052 platform.drivers.igpio.MIMXRT1052 platform.drivers.xip_device.MIMXRT1052 platform.drivers.xip_board.evkbimxrt1050.MIMXRT1052 platform.utilities.misc_utilities.MIMXRT1052 utility.str.MIMXRT1052 CMSIS_Include_core_cm.MIMXRT1052 device.MIMXRT1052_system.MIMXRT1052" category="driver_examples/flexio">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -58,7 +59,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

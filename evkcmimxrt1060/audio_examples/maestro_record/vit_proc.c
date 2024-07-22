@@ -40,6 +40,9 @@
 #ifdef VIT_MODEL_KO
 #include "VIT_Model_ko.h"
 #endif
+#ifdef VIT_MODEL_PT
+#include "VIT_Model_pt.h"
+#endif
 #ifdef VIT_MODEL_TR
 #include "VIT_Model_tr.h"
 #endif
@@ -64,6 +67,14 @@
 #elif defined(PLATFORM_LPC55S69)
 #define DEVICE_ID      VIT_LPC55S69
 #define MODEL_LOCATION VIT_MODEL_IN_FAST_MEM
+
+#elif defined(PLATFORM_MCXN947)
+#define DEVICE_ID      VIT_MCXN94X
+#define MODEL_LOCATION VIT_MODEL_IN_FAST_MEM
+
+#elif defined(PLATFORM_RW61X)
+#define DEVICE_ID VIT_RW610
+#define MODEL_LOCATION VIT_MODEL_IN_SLOW_MEM
 
 #else
 #error "No platform selected"
@@ -213,6 +224,11 @@ int VIT_Initialize(void *arg)
 #ifdef VIT_MODEL_KO
         case KO:
             VIT_Status = VIT_SetModel(VIT_Model_ko, MODEL_LOCATION);
+            break;
+#endif
+#ifdef VIT_MODEL_PT
+        case PT:
+            VIT_Status = VIT_SetModel(VIT_Model_pt, MODEL_LOCATION);
             break;
 #endif
 #ifdef VIT_MODEL_TR
@@ -367,6 +383,10 @@ int VIT_Execute(void *arg, void *inputBuffer, int size)
     VIT_WakeWord_st WakeWord;                                       // Wakeword info
     VIT_DetectionStatus_en VIT_DetectionResults = VIT_NO_DETECTION; // VIT detection result
 
+#if defined(PLATFORM_MCXN947)
+    int16_t output_buffer[VIT_SAMPLES_PER_30MS_FRAME];
+#endif
+
     if ((buf == NULL) || (pkt_hdr_size == NULL))
     {
         return VIT_INVALID_NULLADDRESS;
@@ -375,14 +395,21 @@ int VIT_Execute(void *arg, void *inputBuffer, int size)
     /* Initialization of the variables */
     buffer = (void *)(buf->buffer + *pkt_hdr_size);
 
+#if defined(PLATFORM_MCXN947)
+    DeInterleave32(buffer, output_buffer, VIT_SAMPLES_PER_30MS_FRAME, 1);
+#else
     if (size != SAMPLES_PER_FRAME * NUMBER_OF_CHANNELS * BYTE_DEPTH)
     {
         PRINTF("Input buffer format issue\r\n");
         return VIT_INVALID_FRAME_SIZE;
     }
-
+#endif
     VIT_Status = VIT_Process(VITHandle,
+#if defined(PLATFORM_MCXN947)
+                             (void*)output_buffer,
+#else
                              buffer, // temporal audio input data
+#endif
                              &VIT_DetectionResults);
 
     if (VIT_Status != VIT_SUCCESS)
@@ -468,6 +495,21 @@ int VIT_Deinit(void)
     }
     return VIT_Status;
 }
+
+#ifdef PLATFORM_MCXN947
+void DeInterleave32(const int16_t *pDataInput, int16_t *pDataOutput, uint16_t FrameSize, uint16_t ChannelNumber)
+{
+    for (uint16_t ichan = 0; ichan < ChannelNumber; ichan++)
+    {
+        for (uint16_t i = 0; i < FrameSize; i++)
+        {
+            /* Select the 16 MSB of the 32 input bits */
+            pDataOutput[i + (ichan * FrameSize)] = pDataInput[(i * 2 * ChannelNumber) + (ichan * 2) + 1];
+        }
+    }
+    return;
+}
+#endif
 
 VIT_Initialize_T VIT_Initialize_func = VIT_Initialize;
 VIT_Execute_T VIT_Execute_func       = VIT_Execute;

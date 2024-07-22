@@ -27,6 +27,7 @@
     <definition extID="middleware.usb.device.common_header.MIMXRT1062"/>
     <definition extID="component.osa.MIMXRT1062"/>
     <definition extID="middleware.usb.common_header.MIMXRT1062"/>
+    <definition extID="utility.str.MIMXRT1062"/>
     <definition extID="middleware.usb.phydcd_config_header.MIMXRT1062"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT1062"/>
     <definition extID="device.MIMXRT1062_system.MIMXRT1062"/>
@@ -36,7 +37,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkbmimxrt1060_dev_hid_mouse_lite_bm" name="dev_hid_mouse_lite_bm" dependency="component.pit_adapter.MIMXRT1062 platform.drivers.cache_armv7_m7.MIMXRT1062 middleware.usb.device_controller_ehci.MIMXRT1062 middleware.usb.phy.MIMXRT1062 platform.utilities.assert_lite.MIMXRT1062 utility.debug_console_lite.MIMXRT1062 middleware.usb.phydcd.MIMXRT1062 middleware.baremetal.MIMXRT1062 component.lists.MIMXRT1062 component.lpuart_adapter.MIMXRT1062 platform.drivers.lpuart.MIMXRT1062 device.MIMXRT1062_CMSIS.MIMXRT1062 device.MIMXRT1062_startup.MIMXRT1062 platform.drivers.clock.MIMXRT1062 platform.drivers.common.MIMXRT1062 platform.drivers.igpio.MIMXRT1062 platform.drivers.iomuxc.MIMXRT1062 platform.drivers.xip_board.evkbmimxrt1060.MIMXRT1062 platform.drivers.xip_device.MIMXRT1062 middleware.usb.device.controller.driver.MIMXRT1062 platform.utilities.misc_utilities.MIMXRT1062 platform.drivers.pit.MIMXRT1062 middleware.usb.device.ehci_config_header.MIMXRT1062 middleware.usb.device.common_header.MIMXRT1062 component.osa.MIMXRT1062 middleware.usb.common_header.MIMXRT1062 middleware.usb.phydcd_config_header.MIMXRT1062 CMSIS_Include_core_cm.MIMXRT1062 device.MIMXRT1062_system.MIMXRT1062" category="usb_examples">
+  <example id="evkbmimxrt1060_dev_hid_mouse_lite_bm" name="dev_hid_mouse_lite_bm" dependency="component.pit_adapter.MIMXRT1062 platform.drivers.cache_armv7_m7.MIMXRT1062 middleware.usb.device_controller_ehci.MIMXRT1062 middleware.usb.phy.MIMXRT1062 platform.utilities.assert_lite.MIMXRT1062 utility.debug_console_lite.MIMXRT1062 middleware.usb.phydcd.MIMXRT1062 middleware.baremetal.MIMXRT1062 component.lists.MIMXRT1062 component.lpuart_adapter.MIMXRT1062 platform.drivers.lpuart.MIMXRT1062 device.MIMXRT1062_CMSIS.MIMXRT1062 device.MIMXRT1062_startup.MIMXRT1062 platform.drivers.clock.MIMXRT1062 platform.drivers.common.MIMXRT1062 platform.drivers.igpio.MIMXRT1062 platform.drivers.iomuxc.MIMXRT1062 platform.drivers.xip_board.evkbmimxrt1060.MIMXRT1062 platform.drivers.xip_device.MIMXRT1062 middleware.usb.device.controller.driver.MIMXRT1062 platform.utilities.misc_utilities.MIMXRT1062 platform.drivers.pit.MIMXRT1062 middleware.usb.device.ehci_config_header.MIMXRT1062 middleware.usb.device.common_header.MIMXRT1062 component.osa.MIMXRT1062 middleware.usb.common_header.MIMXRT1062 utility.str.MIMXRT1062 middleware.usb.phydcd_config_header.MIMXRT1062 CMSIS_Include_core_cm.MIMXRT1062 device.MIMXRT1062_system.MIMXRT1062" category="usb_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -61,6 +62,7 @@
           <value>FSL_OSA_BM_TASK_ENABLE=0</value>
           <value>FSL_OSA_BM_TIMER_CONFIG=0</value>
           <value>MCUXPRESSO_SDK</value>
+          <value>TIMER_PORT_TYPE_PIT=1</value>
           <value>SDK_OS_BAREMETAL</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
@@ -76,7 +78,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

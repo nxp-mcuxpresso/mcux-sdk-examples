@@ -28,7 +28,7 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-#define DEMO_CODEC_VOLUME 100U
+#define DEMO_CODEC_VOLUME 92U
 #define APP_SEMA42        SEMA42
 #define SEMA_PRINTF_NUM   0
 #define SEMA_STARTUP_NUM  1

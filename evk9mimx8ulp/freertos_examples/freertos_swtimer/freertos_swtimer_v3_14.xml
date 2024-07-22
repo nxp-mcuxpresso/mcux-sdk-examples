@@ -4,37 +4,38 @@
     <definition extID="cm33_MIMX8UD5"/>
     <definition extID="middleware.freertos-kernel.cm33_non_trustzone.MIMX8UD5"/>
     <definition extID="middleware.freertos-kernel.heap_4.MIMX8UD5"/>
-    <definition extID="platform.drivers.clock.MIMX8UD5"/>
-    <definition extID="platform.drivers.common.MIMX8UD5"/>
-    <definition extID="platform.devices.MIMX8UD5_CMSIS.MIMX8UD5"/>
-    <definition extID="utility.debug_console.MIMX8UD5"/>
-    <definition extID="platform.utilities.assert.MIMX8UD5"/>
-    <definition extID="component.lpuart_adapter.MIMX8UD5"/>
-    <definition extID="platform.drivers.flexspi.MIMX8UD5"/>
-    <definition extID="component.serial_manager_uart.MIMX8UD5"/>
-    <definition extID="component.serial_manager.MIMX8UD5"/>
-    <definition extID="platform.drivers.lpuart.MIMX8UD5"/>
     <definition extID="component.lists.MIMX8UD5"/>
+    <definition extID="component.lpuart_adapter.MIMX8UD5"/>
+    <definition extID="component.serial_manager.MIMX8UD5"/>
+    <definition extID="component.serial_manager_uart.MIMX8UD5"/>
+    <definition extID="platform.devices.MIMX8UD5_CMSIS.MIMX8UD5"/>
     <definition extID="platform.devices.MIMX8UD5_startup.MIMX8UD5"/>
     <definition extID="platform.drivers.cache_cache64.MIMX8UD5"/>
-    <definition extID="platform.drivers.iomuxc.MIMX8UD5"/>
-    <definition extID="platform.drivers.reset.MIMX8UD5"/>
-    <definition extID="platform.drivers.upower.MIMX8UD5"/>
-    <definition extID="platform.drivers.rgpio.MIMX8UD5"/>
+    <definition extID="platform.drivers.clock.MIMX8UD5"/>
+    <definition extID="platform.drivers.common.MIMX8UD5"/>
+    <definition extID="platform.drivers.flexspi.MIMX8UD5"/>
     <definition extID="platform.drivers.fusion.MIMX8UD5"/>
-    <definition extID="platform.drivers.trdc.MIMX8UD5"/>
-    <definition extID="platform.drivers.sentinel.MIMX8UD5"/>
+    <definition extID="platform.drivers.iomuxc.MIMX8UD5"/>
+    <definition extID="platform.drivers.lpuart.MIMX8UD5"/>
     <definition extID="platform.drivers.mu1.MIMX8UD5"/>
+    <definition extID="platform.drivers.reset.MIMX8UD5"/>
+    <definition extID="platform.drivers.rgpio.MIMX8UD5"/>
+    <definition extID="platform.drivers.sentinel.MIMX8UD5"/>
+    <definition extID="platform.drivers.trdc.MIMX8UD5"/>
+    <definition extID="platform.drivers.upower.MIMX8UD5"/>
+    <definition extID="platform.utilities.assert.MIMX8UD5"/>
+    <definition extID="utility.debug_console.MIMX8UD5"/>
     <definition extID="platform.utilities.misc_utilities.MIMX8UD5"/>
     <definition extID="middleware.freertos-kernel.MIMX8UD5"/>
     <definition extID="middleware.freertos-kernel.template.MIMX8UD5"/>
     <definition extID="middleware.freertos-kernel.extension.MIMX8UD5"/>
     <definition extID="CMSIS_Include_core_cm.MIMX8UD5"/>
+    <definition extID="utility.str.MIMX8UD5"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="evk9mimx8ulp_freertos_swtimer" name="freertos_swtimer" device_core="cm33_MIMX8UD5" dependency="middleware.freertos-kernel.cm33_non_trustzone.MIMX8UD5 middleware.freertos-kernel.heap_4.MIMX8UD5 platform.drivers.clock.MIMX8UD5 platform.drivers.common.MIMX8UD5 platform.devices.MIMX8UD5_CMSIS.MIMX8UD5 utility.debug_console.MIMX8UD5 platform.utilities.assert.MIMX8UD5 component.lpuart_adapter.MIMX8UD5 platform.drivers.flexspi.MIMX8UD5 component.serial_manager_uart.MIMX8UD5 component.serial_manager.MIMX8UD5 platform.drivers.lpuart.MIMX8UD5 component.lists.MIMX8UD5 platform.devices.MIMX8UD5_startup.MIMX8UD5 platform.drivers.cache_cache64.MIMX8UD5 platform.drivers.iomuxc.MIMX8UD5 platform.drivers.reset.MIMX8UD5 platform.drivers.upower.MIMX8UD5 platform.drivers.rgpio.MIMX8UD5 platform.drivers.fusion.MIMX8UD5 platform.drivers.trdc.MIMX8UD5 platform.drivers.sentinel.MIMX8UD5 platform.drivers.mu1.MIMX8UD5 platform.utilities.misc_utilities.MIMX8UD5 middleware.freertos-kernel.MIMX8UD5 middleware.freertos-kernel.template.MIMX8UD5 middleware.freertos-kernel.extension.MIMX8UD5 CMSIS_Include_core_cm.MIMX8UD5" category="freertos_examples">
+  <example id="evk9mimx8ulp_freertos_swtimer" name="freertos_swtimer" device_core="cm33_MIMX8UD5" dependency="middleware.freertos-kernel.cm33_non_trustzone.MIMX8UD5 middleware.freertos-kernel.heap_4.MIMX8UD5 component.lists.MIMX8UD5 component.lpuart_adapter.MIMX8UD5 component.serial_manager.MIMX8UD5 component.serial_manager_uart.MIMX8UD5 platform.devices.MIMX8UD5_CMSIS.MIMX8UD5 platform.devices.MIMX8UD5_startup.MIMX8UD5 platform.drivers.cache_cache64.MIMX8UD5 platform.drivers.clock.MIMX8UD5 platform.drivers.common.MIMX8UD5 platform.drivers.flexspi.MIMX8UD5 platform.drivers.fusion.MIMX8UD5 platform.drivers.iomuxc.MIMX8UD5 platform.drivers.lpuart.MIMX8UD5 platform.drivers.mu1.MIMX8UD5 platform.drivers.reset.MIMX8UD5 platform.drivers.rgpio.MIMX8UD5 platform.drivers.sentinel.MIMX8UD5 platform.drivers.trdc.MIMX8UD5 platform.drivers.upower.MIMX8UD5 platform.utilities.assert.MIMX8UD5 utility.debug_console.MIMX8UD5 platform.utilities.misc_utilities.MIMX8UD5 middleware.freertos-kernel.MIMX8UD5 middleware.freertos-kernel.template.MIMX8UD5 middleware.freertos-kernel.extension.MIMX8UD5 CMSIS_Include_core_cm.MIMX8UD5 utility.str.MIMX8UD5" category="freertos_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -55,7 +56,7 @@
           <value>com.crt.advproject.gcc.fpu.none</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

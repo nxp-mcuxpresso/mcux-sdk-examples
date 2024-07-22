@@ -1,13 +1,12 @@
-/**************************************************************************/
-/*                                                                        */
-/*       Copyright (c) Microsoft Corporation. All rights reserved.        */
-/*                                                                        */
-/*       This software is licensed under the Microsoft Software License   */
-/*       Terms for Microsoft Azure RTOS. Full text of the license can be  */
-/*       found in the LICENSE file at https://aka.ms/AzureRTOS_EULA       */
-/*       and in the root directory of this software.                      */
-/*                                                                        */
-/**************************************************************************/
+/***************************************************************************
+ * Copyright (c) 2024 Microsoft Corporation 
+ * 
+ * This program and the accompanying materials are made available under the
+ * terms of the MIT License which is available at
+ * https://opensource.org/licenses/MIT.
+ * 
+ * SPDX-License-Identifier: MIT
+ **************************************************************************/
 
 #include <time.h>
 #include <stdlib.h>
@@ -199,7 +198,7 @@ uint32_t BOARD_GetMDIOClock(void)
 
 
 /* Define main entry point.  */
-void main(void)
+int main(void)
 {
     /* Init board hardware. */
     gpio_pin_config_t gpio_config = {kGPIO_DigitalOutput, 0, kGPIO_NoIntmode};
@@ -224,6 +223,8 @@ void main(void)
 
     /* Enter the ThreadX kernel.  */
     tx_kernel_enter();
+
+    return 0;
 }
 
 /* Define what the initial system looks like.  */
@@ -393,10 +394,10 @@ void sample_helper_thread_entry(ULONG parameter)
         PRINTF("SNTP Time Sync successfully.\r\n");
     }
     
-    /* Use time to init the seed.  */
+    /* Get the current time.  */
     unix_time_get(&unix_time);
-    /* Use real rand on device.  */
-    srand(get_seed());
+    /* Set the seed for a random generator.  */
+    srand(get_seed() + (unsigned int)unix_time);
 
     /* Start sample.  */
     sample_entry(&ip_0, &pool_0, &dns_0, unix_time_get);

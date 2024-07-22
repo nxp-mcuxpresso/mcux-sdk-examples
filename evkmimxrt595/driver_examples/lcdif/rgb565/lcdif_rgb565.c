@@ -15,9 +15,7 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-
-#define DEMO_BYTE_PER_PIXEL 2U
-
+#define DEMO_BYTE_PER_PIXEL     2U
 #define DEMO_IMG_HEIGHT         DEMO_PANEL_HEIGHT
 #define DEMO_IMG_WIDTH          DEMO_PANEL_WIDTH
 #define DEMO_IMG_BYTES_PER_LINE (DEMO_PANEL_WIDTH * DEMO_BYTE_PER_PIXEL)
@@ -29,10 +27,8 @@
 /*******************************************************************************
  * Variables
  ******************************************************************************/
-
 static uint32_t s_frameBufferAddr[2] = {DEMO_FB0_ADDR, DEMO_FB1_ADDR};
-
-static volatile bool s_frameDone = false;
+static volatile bool s_frameDone     = false;
 
 /*******************************************************************************
  * Code
@@ -169,9 +165,26 @@ void DEMO_LCDIF_RGB(void)
 
     LCDIF_FrameBufferGetDefaultConfig(&fbConfig);
 
+#if defined(FSL_FEATURE_LCDIF_VERSION_DC8000) & FSL_FEATURE_LCDIF_VERSION_DC8000
+    lcdif_panel_config_t config;
+    LCDIF_PanelGetDefaultConfig(&config);
+    LCDIF_SetPanelConfig(DEMO_LCDIF, 0, &config);
+
+    fbConfig.enable          = true;
+    fbConfig.inOrder         = kLCDIF_PixelInputOrderARGB;
+    fbConfig.rotateFlipMode  = kLCDIF_Rotate0;
+    fbConfig.format          = kLCDIF_PixelFormatRGB565;
+    fbConfig.alpha.enable    = false;
+    fbConfig.colorkey.enable = false;
+    fbConfig.topLeftX        = 0U;
+    fbConfig.topLeftY        = 0U;
+    fbConfig.width           = DEMO_IMG_WIDTH;
+    fbConfig.height          = DEMO_IMG_HEIGHT;
+#else
     fbConfig.enable      = true;
     fbConfig.enableGamma = false;
     fbConfig.format      = kLCDIF_PixelFormatRGB565;
+#endif
 
     DEMO_FillFrameBuffer(s_frameBufferAddr[frameBufferIndex]);
 
@@ -179,22 +192,27 @@ void DEMO_LCDIF_RGB(void)
 
     LCDIF_SetFrameBufferConfig(DEMO_LCDIF, 0, &fbConfig);
 
+#if defined(FSL_FEATURE_LCDIF_VERSION_DC8000) & FSL_FEATURE_LCDIF_VERSION_DC8000
+    LCDIF_Start(DEMO_LCDIF);
+#endif
+
     while (1)
     {
         frameBufferIndex ^= 1U;
-
-        DEMO_FillFrameBuffer(s_frameBufferAddr[frameBufferIndex]);
-
         /*
          * Wait for previous frame complete.
          * Interrupt happens when the last pixel sent out. New frame buffer configuration
          * load at the next VSYNC.
          */
-        s_frameDone = false;
         while (!s_frameDone)
         {
         }
-
+        
+#if defined(FSL_FEATURE_LCDIF_VERSION_DC8000) & FSL_FEATURE_LCDIF_VERSION_DC8000
+        LCDIF_SetUpdateReady(DEMO_LCDIF);
+#endif
+        s_frameDone = false;
+        DEMO_FillFrameBuffer(s_frameBufferAddr[frameBufferIndex]);
         LCDIF_SetFrameBufferAddr(DEMO_LCDIF, 0, (uint32_t)s_frameBufferAddr[frameBufferIndex]);
     }
 }

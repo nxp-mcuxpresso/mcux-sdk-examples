@@ -6,12 +6,12 @@ In this example, one sai instance playbacks the audio data stored in flash/SRAM 
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- MCUXpresso  11.8.0
-- GCC ARM Embedded  12.2
+- MCUXpresso  11.10.0
+- GCC ARM Embedded  13.2.1
 
 Hardware requirements
 =====================
@@ -45,6 +45,6 @@ note:This demo uses codec master mode(internal pll mode) and outputs 215HZ sine 
 When the demo runs successfully, you can hear the tone and the log would be seen on the OpenSDA terminal like:
 
 ~~~~~~~~~~~~~~~~~~~
-SAI example started!
+SAI EDMA example started!
 SAI EDMA example finished!
 ~~~~~~~~~~~~~~~~~~~

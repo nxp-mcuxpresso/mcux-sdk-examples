@@ -16,13 +16,14 @@
     <definition extID="platform.drivers.flexcomm.LPC51U68"/>
     <definition extID="platform.drivers.lpc_gpio.LPC51U68"/>
     <definition extID="platform.utilities.misc_utilities.LPC51U68"/>
+    <definition extID="utility.str.LPC51U68"/>
     <definition extID="CMSIS_Include_core_cm.LPC51U68"/>
     <definition extID="device.LPC51U68_system.LPC51U68"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="lpcxpresso51u68_hello_world" name="hello_world" dependency="utility.debug_console_lite.LPC51U68 platform.utilities.assert_lite.LPC51U68 platform.drivers.lpc_iocon.LPC51U68 platform.drivers.common.LPC51U68 platform.drivers.clock.LPC51U68 platform.drivers.power.LPC51U68 platform.drivers.reset.LPC51U68 device.LPC51U68_CMSIS.LPC51U68 component.usart_adapter.LPC51U68 platform.drivers.flexcomm_usart.LPC51U68 component.lists.LPC51U68 device.LPC51U68_startup.LPC51U68 platform.drivers.flexcomm.LPC51U68 platform.drivers.lpc_gpio.LPC51U68 platform.utilities.misc_utilities.LPC51U68 CMSIS_Include_core_cm.LPC51U68 device.LPC51U68_system.LPC51U68" category="demo_apps">
+  <example id="lpcxpresso51u68_hello_world" name="hello_world" dependency="utility.debug_console_lite.LPC51U68 platform.utilities.assert_lite.LPC51U68 platform.drivers.lpc_iocon.LPC51U68 platform.drivers.common.LPC51U68 platform.drivers.clock.LPC51U68 platform.drivers.power.LPC51U68 platform.drivers.reset.LPC51U68 device.LPC51U68_CMSIS.LPC51U68 component.usart_adapter.LPC51U68 platform.drivers.flexcomm_usart.LPC51U68 component.lists.LPC51U68 device.LPC51U68_startup.LPC51U68 platform.drivers.flexcomm.LPC51U68 platform.drivers.lpc_gpio.LPC51U68 platform.utilities.misc_utilities.LPC51U68 utility.str.LPC51U68 CMSIS_Include_core_cm.LPC51U68 device.LPC51U68_system.LPC51U68" category="demo_apps">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -47,7 +48,7 @@
           <value>com.crt.advproject.gcc.fpu.none</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>
@@ -94,9 +95,6 @@
     </source>
     <source path="." project_relative_path="board" type="c_include">
       <files mask="pin_mux.h"/>
-    </source>
-    <source path="." project_relative_path="." type="other">
-      <files mask="hello_world.mex"/>
     </source>
     <source path="." project_relative_path="lpcxpresso51u68/demo_apps/hello_world" type="binary">
       <files mask="hello_world.bin" hidden="true"/>

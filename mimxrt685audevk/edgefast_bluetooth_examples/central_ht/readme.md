@@ -6,12 +6,12 @@ Except that this application specifically looks for health thermometer sensor an
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- MCUXpresso  11.8.0
-- GCC ARM Embedded  12.2
+- MCUXpresso  11.10.0
+- GCC ARM Embedded  13.2.1
 
 Hardware requirements
 =====================
@@ -20,11 +20,15 @@ Hardware requirements
 - Personal Computer
 - One of the following modules:
   - WIFI_IW416_BOARD_MURATA_1XK_M2
+  - WIFI_88W8987_BOARD_MURATA_1ZM_M2
+  - WIFI_IW612_BOARD_MURATA_2EL_M2
 
 Board settings
 ==============
 Before building the example application select Wi-Fi module macro in the app_config.h. (see #define WIFI_<SoC Name>_BOARD_<Module Name>).
 If you want use the WIFI_IW416_BOARD_MURATA_1XK_M2, please change the macro to WIFI_IW416_BOARD_MURATA_1XK_M2.
+If you want use the WIFI_88W8987_BOARD_MURATA_1ZM_M2, please change the macro to WIFI_88W8987_BOARD_MURATA_1ZM_M2.
+If you want use the WIFI_IW612_BOARD_MURATA_2EL_M2, please change the macro to WIFI_IW612_BOARD_MURATA_2EL_M2.
 
 Murata Solution Board settings
 Murata uSD-M.2 adapter resource page: https://www.murata.com/en-us/products/connectivitymodule/wi-fi-bluetooth/overview/lineup/usd-m2-adapter
@@ -32,6 +36,7 @@ Murata uSD-M.2 adapter datasheet: https://www.murata.com/-/media/webrenewal/prod
 Embedded Artists M.2 module resource page: https://www.embeddedartists.com/m2
 Embedded Artists 1XK module datasheet: https://www.embeddedartists.com/doc/ds/1XK_M2_Datasheet.pdf
 Embedded Artists 1ZM module datasheet: https://www.embeddedartists.com/doc/ds/1ZM_M2_Datasheet.pdf
+Embedded Artists 2EL module datasheet: https://www.embeddedartists.com/doc/ds/2EL_M2_Datasheet.pdf
 
 Jumper settings for WIFI_IW416_BOARD_MURATA_1XK_M2:
   - J41 : from position (1-2) to position (2-3)

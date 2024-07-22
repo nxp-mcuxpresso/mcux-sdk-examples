@@ -26,8 +26,6 @@
 #include "httpsrv.h"
 #include "httpsrv_port.h"
 
-#include "mbedtls/certs.h"
-
 #include "mflash_drv.h"
 #include "timers.h"
 #include "fsl_debug_console.h"
@@ -38,7 +36,6 @@
 
 #include "fsl_enet.h"
 #include "network_cfg.h"
-#include "ksdk_mbedtls.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -57,10 +54,6 @@
 #define DEBUG_WS 0
 #endif
 
-#define OTA_UPDATE_PART     (BL_FEATURE_SECONDARY_IMG_START - FlexSPI_AMBA_BASE)
-#define OTA_MAX_IMAGE_SIZE  (BL_FEATURE_PRIMARY_IMG_PARTITION_SIZE - BL_IMG_HEADER_SIZE)
-#define OTA_IMAGE_LOAD_ADDR (BL_FEATURE_PRIMARY_IMG_START + BL_IMG_HEADER_SIZE)
-
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -72,8 +65,6 @@ static int cgi_ota_accept(HTTPSRV_CGI_REQ_STRUCT *param);
 static int ssi_ota_status(HTTPSRV_SSI_PARAM_STRUCT *param);
 static int ssi_ota_image_upload(HTTPSRV_SSI_PARAM_STRUCT *param);
 static int ssi_ota_image_info(HTTPSRV_SSI_PARAM_STRUCT *param);
-
-static int32_t mcuboot_image_size_sanity_check(const uint8_t *data, uint32_t size);
 
 /*******************************************************************************
  * Variables
@@ -690,65 +681,6 @@ static int cgi_ota_accept(HTTPSRV_CGI_REQ_STRUCT *param)
 static HTTPSRV_TLS_PARAM_STRUCT tls_params;
 #endif
 
-static int32_t mcuboot_image_size_sanity_check(const uint8_t *data, uint32_t size)
-{
-    struct image_header *ih;
-    struct image_tlv_info *it;
-    uint32_t decl_size;
-    uint32_t tlv_size;
-
-    ih = (struct image_header *)data;
-
-    /* do we have at least the header */
-    if (size < sizeof(struct image_header))
-    {
-        return 0;
-    }
-
-    /* check magic number */
-    if (ih->ih_magic != IMAGE_MAGIC)
-    {
-        return 0;
-    }
-
-    /* check that we have at least the amount of data declared by the header */
-    decl_size = ih->ih_img_size + ih->ih_hdr_size + ih->ih_protect_tlv_size;
-    if (size < decl_size)
-    {
-        return 0;
-    }
-
-    /* check protected TLVs if any */
-    if (ih->ih_protect_tlv_size > 0)
-    {
-        if (ih->ih_protect_tlv_size < sizeof(struct image_tlv_info))
-        {
-            return 0;
-        }
-        it = (struct image_tlv_info *)(data + ih->ih_img_size + ih->ih_hdr_size);
-        if ((it->it_magic != IMAGE_TLV_PROT_INFO_MAGIC) || (it->it_tlv_tot != ih->ih_protect_tlv_size))
-        {
-            return 0;
-        }
-    }
-
-    /* check for optional TLVs following the image as declared by the header */
-    tlv_size = size - decl_size;
-    if (tlv_size > 0)
-    {
-        if (tlv_size < sizeof(struct image_tlv_info))
-        {
-            return 0;
-        }
-        it = (struct image_tlv_info *)(data + decl_size);
-        if ((it->it_magic != IMAGE_TLV_INFO_MAGIC) || (it->it_tlv_tot != tlv_size))
-        {
-            return 0;
-        }
-    }
-
-    return 1;
-}
 
 /*!
  * @brief Initializes server.
@@ -862,7 +794,6 @@ int main(void)
     MDIO_Init();
     g_phy_resource.read  = MDIO_Read;
     g_phy_resource.write = MDIO_Write;
-    CRYPTO_InitHardware();
 
     mflash_drv_init();
 

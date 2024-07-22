@@ -17,8 +17,8 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-#define DEMO_CSI_CLK_FREQ          (CLOCK_GetFreqFromObs(CCM_OBS_BUS_CLK_ROOT))
-#define DEMO_MIPI_CSI2_UI_CLK_FREQ (CLOCK_GetFreqFromObs(CCM_OBS_CSI2_UI_CLK_ROOT))
+#define DEMO_CSI_CLK_FREQ          (CLOCK_GetRootClockFreq(kCLOCK_Root_Bus))
+#define DEMO_MIPI_CSI2_UI_CLK_FREQ (CLOCK_GetRootClockFreq(kCLOCK_Root_Csi2_Ui))
 
 /*******************************************************************************
  * Prototypes

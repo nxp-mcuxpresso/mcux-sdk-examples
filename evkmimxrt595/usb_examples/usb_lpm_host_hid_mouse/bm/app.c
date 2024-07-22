@@ -76,6 +76,9 @@ static void USB_HostApplicationInit(void);
 extern void USB_HostClockInit(void);
 extern void USB_HostIsrEnable(void);
 extern void USB_HostTaskFn(void *param);
+#if (defined(APP_IP3516HS_LPM_ERRATA_WORKAROUND) && (APP_IP3516HS_LPM_ERRATA_WORKAROUND))
+extern void USB_HostHidMouseCancelTransfer(void);
+#endif
 void BOARD_InitHardware(void);
 
 status_t DbgConsole_Deinit(void);
@@ -102,7 +105,9 @@ uint32_t g_halTimerHandle[(HAL_TIMER_HANDLE_SIZE + 3) / 4];
 /*! @brief USB host mouse instance global variable */
 extern usb_host_mouse_instance_t g_HostHidMouse;
 usb_host_handle g_HostHandle;
-
+#if (defined(APP_IP3516HS_LPM_ERRATA_WORKAROUND) && (APP_IP3516HS_LPM_ERRATA_WORKAROUND))
+extern volatile uint8_t g_prime_forbid;
+#endif
 /*******************************************************************************
  * Code
  ******************************************************************************/
@@ -558,6 +563,11 @@ static usb_status_t USB_HostEvent(usb_device_handle deviceHandle,
                 }
             }
             g_HostHidMouse.L1sleepResumeState = kStatus_Idle;
+            
+            /* allow host mouse to prime next transfer */
+#if (defined(APP_IP3516HS_LPM_ERRATA_WORKAROUND) && (APP_IP3516HS_LPM_ERRATA_WORKAROUND))
+            g_prime_forbid = 0U;
+#endif
             break;
         case kUSB_HostEventEnumerationFail:
             usb_echo("enumeration failed\r\n");
@@ -673,17 +683,22 @@ void USB_HostL1SleepResumeTask(void)
             }
             break;
         case kUSB_HostRunStartGetBOSDescriptor5:
+#if (!(defined(APP_IP3516HS_LPM_ERRATA_WORKAROUND) && (APP_IP3516HS_LPM_ERRATA_WORKAROUND)))
             if (1U == g_HostHidMouse.getBosretryDone)
             {
                 g_HostHidMouse.L1sleepResumeState = kUSB_HostRunGetBOSDescriptorDone;
             }
             else
+#endif
             {
                 g_HostHidMouse.L1sleepResumeState = kUSB_HostRunGetBOSDescriptor5;
             }
             break;
         case kUSB_HostRunGetBOSDescriptor5:
             g_HostHidMouse.L1sleepResumeState = kUSB_HostRunWaitGetBOSDescriptor5;
+#if (defined(APP_IP3516HS_LPM_ERRATA_WORKAROUND) && (APP_IP3516HS_LPM_ERRATA_WORKAROUND))
+           USB_HostHidMouseCancelTransfer();
+#endif
             if (kStatus_USB_Success != USB_HostControlGetBOSDescriptor(g_HostHandle, g_HostHidMouse.deviceHandle,
                                                                        USB_HostHidControlGetBOSCallback, g_HostHandle,
                                                                        (void *)&g_HostHidMouse.mouseBosHeadBuffer[0],

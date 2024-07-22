@@ -13,11 +13,10 @@ manifest_template = """
         "name": "",
         "version": ""
     },
-    "isDeployable": true,
     "compatibility": [
         {
-            "deviceManufacturer": "",
-            "deviceModel": ""
+            "manufacturer": "",
+            "model": ""
         }
     ],
     "instructions": {
@@ -44,7 +43,7 @@ manifest_template = """
         }
     ],
     "createdDateTime": "",
-    "manifestVersion": "4.0"
+    "manifestVersion": "5.0"
 }
 """
 
@@ -89,8 +88,8 @@ def generate_adu_manifest(infile,
     manifest["updateId"]["name"] = update_name
     manifest["updateId"]["version"] = fm_version
 
-    manifest["compatibility"][0]["deviceManufacturer"] = device_manufacturer
-    manifest["compatibility"][0]["deviceModel"] = device_model
+    manifest["compatibility"][0]["manufacturer"] = device_manufacturer
+    manifest["compatibility"][0]["model"] = device_model
 
     manifest["instructions"]["steps"][0]["files"][0] = infile_name
     manifest["instructions"]["steps"][0]["handlerProperties"]["installedCriteria"] = fm_version

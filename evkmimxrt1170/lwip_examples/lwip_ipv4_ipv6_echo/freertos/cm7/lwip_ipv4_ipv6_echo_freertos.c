@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2020, 2022-2023 NXP
+ * Copyright 2016-2020, 2022-2024 NXP
  * All rights reserved.
  *
  *
@@ -21,9 +21,6 @@
 
 #include "pin_mux.h"
 #include "board.h"
-#if !defined(configMAC_ADDR) || !defined(configMAC_ADDR1)
-#include "fsl_silicon_id.h"
-#endif
 #include "fsl_phy.h"
 
 #include "fsl_component_serial_manager.h"
@@ -155,6 +152,10 @@ extern phy_rtl8211f_resource_t g_phy1_resource;
 /* Tell the app to build 2 network interface configurations */
 #define BOARD_NETWORK_USE_DUAL_ENET
 
+/* Must be after include of app.h */
+#if !defined(configMAC_ADDR) || !defined(configMAC_ADDR1)
+#include "fsl_silicon_id.h"
+#endif
 
 /*! @brief Stack size of the temporary lwIP initialization thread. */
 #define INIT_THREAD_STACKSIZE 1024

@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_frdmmcxc041_examples_manifest_v3_14" name="SDK_2.x_frdmmcxc041_examples_manifest_v3_14" format_version="3.14" api_version="2.0.0" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.14.xsd">
+
+  <externalDefinitions>
+    <definition extID="MCXC041VFK"/>
+  </externalDefinitions>
+  <ksdk id="MCUXpressoSDK216000_frdmmcxc041_examples_manifest_v3_14" name="MCUXpressoSDK216000_frdmmcxc041_examples_manifest_v3_14" version="2.16.000" revision="2.16.000"/>
+  <boards>
+    <board id="frdmmcxc041" name="FRDM-MCXC041" version="1.0.0" package="MCXC041VFK">
+      <examples>
+        <example id="frdmmcxc041_hello_world" name="hello_world" brief="The HelloWorld demo prints the &quot;Hello World&quot; string to the terminal using the SDK UART drivers and repeat what user input. The purpose of this demo is to show how to use the UART, and to provide a simple project for debugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmmcxc041/demo_apps/hello_world">
+          <external path="demo_apps/hello_world" type="xml">
+            <files mask="hello_world_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmmcxc041_mcglite" name="mcglite" brief="The MCG_Lite example shows how to use MCG_Lite driver: 1. How to use the mode functions for MCG_Lite mode switch. 2. How to use the frequency functions to get current MCG_Lite frequency. 3. Work flow  Reset mode --&gt; LIRC8M    LIRC8M --&gt; HIRC    HIRC   --&gt; LIRC2M    LIRC2M --&gt; EXT    EXT    --&gt; HIRC    HIRC   --&gt; LIRC8M    LIRC8M --&gt; EXT    EXT    --&gt; LIRC2M    LIRC2M --&gt; HIRC    HIRC   --&gt; EXT    EXT    --&gt; LIRC8M    LIRC8M --&gt; LIRC2M    LIRC2M --&gt; LIRC8MIn this example, because the debug console's clock frequency may change,so the example running information is not output from debug console. Here theLED blinks to show that the example finished successfully." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/mcglite" path="examples/frdmmcxc041/driver_examples/mcglite">
+          <external path="driver_examples/mcglite" type="xml">
+            <files mask="mcglite_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmmcxc041_rtc" name="rtc" brief="The RTC project is a simple demonstration program of the SDK RTC driver. It sets up the RTChardware block to trigger an alarm after a user specified time period. The test will set the currentdate and time to a predefined value. The alarm will be set with reference to this predefined dateand time." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/rtc" path="examples/frdmmcxc041/driver_examples/rtc">
+          <external path="driver_examples/rtc" type="xml">
+            <files mask="rtc_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmmcxc041_gpio_led_output" name="gpio_led_output" brief="The GPIO Example project is a demonstration program that uses the KSDK software to manipulate the general-purposeoutputs.The example is supported by the set, clear, and toggle write-only registers for each port output data register. The example take turns to shine the LED." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/gpio" path="examples/frdmmcxc041/driver_examples/gpio/led_output">
+          <external path="driver_examples/gpio/led_output" type="xml">
+            <files mask="gpio_led_output_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmmcxc041_gpio_input_interrupt" name="gpio_input_interrupt" brief="The GPIO Example project is a demonstration program that uses the KSDK software to manipulate the general-purposeoutputs.The example is supported by the set, clear, and toggle write-only registers for each port output data register. The example uses the software button to control/toggle the LED." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/gpio" path="examples/frdmmcxc041/driver_examples/gpio/input_interrupt">
+          <external path="driver_examples/gpio/input_interrupt" type="xml">
+            <files mask="gpio_input_interrupt_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmmcxc041_tpm_pwm_twochannel" name="tpm_pwm_twochannel" brief="The TPM project is a simple demonstration program of the SDK TPM driver. It sets up the TPMhardware block to output PWM signals on two TPM channels. The PWM dutycycle on both channelsis manually updated. On boards that have an LED connected to the TPM pins, the user will seea change in LED brightness if user enter different values." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/tpm" path="examples/frdmmcxc041/driver_examples/tpm/pwm_twochannel">
+          <external path="driver_examples/tpm/pwm_twochannel" type="xml">
+            <files mask="tpm_pwm_twochannel_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmmcxc041_tpm_simple_pwm" name="tpm_simple_pwm" brief="The TPM project is a simple demonstration program of the SDK TPM driver. It sets up the TPMhardware block to output a center-aligned PWM signal. The PWM dutycycle is manually updated.On boards that have an LED connected to the TPM pins, the user will see a change in LEDbrightness if user enter different values." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/tpm" path="examples/frdmmcxc041/driver_examples/tpm/simple_pwm">
+          <external path="driver_examples/tpm/simple_pwm" type="xml">
+            <files mask="tpm_simple_pwm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmmcxc041_tpm_timer" name="tpm_timer" brief="The TPM project is a simple demonstration program of the SDK TPM driver to use TPM as a timer.It sets up the TPM hardware block to trigger an interrupt every 1 millisecond.When the TPM interrupt is triggered a message a printed on the UART terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/tpm" path="examples/frdmmcxc041/driver_examples/tpm/timer">
+          <external path="driver_examples/tpm/timer" type="xml">
+            <files mask="tpm_timer_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmmcxc041_tpm_output_compare" name="tpm_output_compare" brief="The TPM project is a demonstration program of the SDK TPM driver's output compare feature.It sets up one TPM channel to toggle the output when a match occurs with the channel value. The usershould probe the TPM output with a oscilloscope to see the signal toggling." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/tpm" path="examples/frdmmcxc041/driver_examples/tpm/output_compare">
+          <external path="driver_examples/tpm/output_compare" type="xml">
+            <files mask="tpm_output_compare_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmmcxc041_tpm_input_capture" name="tpm_input_capture" brief="The TPM project is a demonstration program of the SDK TPM driver's input capture feature.The example sets up a TPM channel for dual-edge capture. Once the input signal is received,this example will print the capture value." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/tpm" path="examples/frdmmcxc041/driver_examples/tpm/input_capture">
+          <external path="driver_examples/tpm/input_capture" type="xml">
+            <files mask="tpm_input_capture_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmmcxc041_adc16_interrupt" name="adc16_interrupt" brief="The adc16_interrupt example shows how to use interrupt with ADC16 driver.In this example, user should indicate a channel to provide a voltage signal (can be controlled by user) as the ADC16'ssample input. When running the project, typing any key into debug console would trigger the conversion. ADC interrupt would be asserted once the conversion is completed. In ADC ISR, the conversion completed flag would be cleared by reading the conversion result value. Also, the conversion result value is stored, and the ISR counter is increased. These information would be printed when the execution return to the main loop.The point is that the ADC16 interrupt configuration is set when configuring the ADC16's conversion channel. When in software trigger mode, the conversion would be launched by the operation of configuring channel, just like writing aconversion command. So if user wants to generate the interrupt every time the conversion is completed, the channel's configuration with enabling interrupt setting would be used for each conversion." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/adc16" path="examples/frdmmcxc041/driver_examples/adc16/interrupt">
+          <external path="driver_examples/adc16/interrupt" type="xml">
+            <files mask="adc16_interrupt_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmmcxc041_adc16_polling" name="adc16_polling" brief="The adc16_polling example shows the simplest way to use ADC16 driver.In this example, user should indicate a channel to provide a voltage signal (can be controlled by user) as the ADC16'ssample input. When running the project, typing any key into debug console would trigger the conversion. The execution would check the conversion completed flag in loop until the flag is asserted, which means the conversion is completed. Then read the conversion result value and print it to debug console.Note, the default setting of initialization for the ADC converter is just an available configuration. User can changethe configuration structure's setting in application to fit the special requirement.The auto-calibration is not essential but strongly recommended. It can help to adjust the converter itself and improvethe ADC16's performance." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/adc16" path="examples/frdmmcxc041/driver_examples/adc16/polling">
+          <external path="driver_examples/adc16/polling" type="xml">
+            <files mask="adc16_polling_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmmcxc041_lptmr" name="lptmr" brief="The LPTMR project is a simple demonstration program of the SDK LPTMR driver. It sets up the LPTMRhardware block to trigger a periodic interrupt after every 1 second. When the LPTMR interrupt is triggereda message a printed on the UART terminal and an LED is toggled on the board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/lptmr" path="examples/frdmmcxc041/driver_examples/lptmr">
+          <external path="driver_examples/lptmr" type="xml">
+            <files mask="lptmr_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmmcxc041_cop" name="cop" brief="The COP Example project is to demonstrate usage of the KSDK cop driver.In this example, after 10 times of refreshing, a timeout reset is generated.Please notice that because COP control registers are write-once only, so the COP_Init function and the COP_Disable function can be called only once after reset.In SystemInit() function which is called in startup code, there is an operation to disable the watchdog if macro DISABLE_WDOG is defined as 0, and by default if the DISABLE_WDOG is not defined, the DISABLE_WDOG is defined as 1. So this example has a special project setting that defines the DISABLE_WDOG macro to 0 so the startup code will skip the disable COP WDOG operation." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/cop" path="examples/frdmmcxc041/driver_examples/cop">
+          <external path="driver_examples/cop" type="xml">
+            <files mask="cop_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmmcxc041_rtc_func" name="rtc_func" brief="The RTC demo application demonstrates the important features of the RTC Module by using the RTC Peripheral Driver.The RTC demo supports the following features:- Calendar  + Get the current date time with Year, Month, Day, Hour, Minute, and Second.  + Set the current date time with Year, Month, Day, Hour, Minute, and Second.- Alarm  + Set the alarm based on the current time.  + Application prints a notification when the alarm expires.- Seconds interrupt  + Use second interrupt function to display a digital time blink every second." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmmcxc041/demo_apps/rtc_func">
+          <external path="demo_apps/rtc_func" type="xml">
+            <files mask="rtc_func_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmmcxc041_cmp_polling" name="cmp_polling" brief="The CMP polling Example shows the simplest way to use CMP driver and help user with a quick start.In this example, user should indicate an input channel to capture a voltage signal (can be controlled by user) as the CMP's positive channel input. On the negative side, the internal 6-bit DAC is used to generate the fixed voltage abouthalf value of reference voltage.When running the project, change the input voltage of user-defined channel, then the comparator's output would changebetween logic one and zero when the user's voltage crosses the internal DAC's value. The endless loop in main() functionwould detect the logic value of comparator's output, and change the LED. The LED would be turned on when the compareoutput is logic one, or turned off when zero." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/cmp" path="examples/frdmmcxc041/driver_examples/cmp/polling">
+          <external path="driver_examples/cmp/polling" type="xml">
+            <files mask="cmp_polling_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmmcxc041_cmp_interrupt" name="cmp_interrupt" brief="The CMP interrupt Example shows how to use interrupt with CMP driver.In this example, user should indicate an input channel to capture a voltage signal (can be controlled by user) as the CMP's positive channel input. On the negative side, the internal 6-bit DAC is used to generate the fixed voltage abouthalf value of reference voltage.When running the project, change the input voltage of user-defined channel, then the comparator's output would changebetween logic one and zero when the user-defined channel's voltage crosses the internal DAC's value. The change ofcomparator's output would generate the falling and rising edge events with their interrupts enabled. When any CMP interrupt happens, the CMP's ISR would turn on the LED light if detecting the output's rising edge, or turn off it whendetecting the output's falling edge." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/cmp" path="examples/frdmmcxc041/driver_examples/cmp/interrupt">
+          <external path="driver_examples/cmp/interrupt" type="xml">
+            <files mask="cmp_interrupt_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmmcxc041_pflash" name="pflash" brief="The pflash example shows how to use flash driver to operate program flash:" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/flash" path="examples/frdmmcxc041/driver_examples/flash/pflash">
+          <external path="driver_examples/flash/pflash" type="xml">
+            <files mask="pflash_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmmcxc041_lpuart_polling" name="lpuart_polling" brief="The lpuart_polling Example project is to demonstrate usage of the KSDK lpuart driver.In the example, you can send characters to the console back and they will be printed out onto console instantly." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/lpuart" path="examples/frdmmcxc041/driver_examples/lpuart/polling">
+          <external path="driver_examples/lpuart/polling" type="xml">
+            <files mask="lpuart_polling_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmmcxc041_lpuart_interrupt_transfer" name="lpuart_interrupt_transfer" brief="The lpuart_interrupt Example project is to demonstrate usage of the KSDK lpuart driver.In the example, you can send characters to the console back and they will be printed out onto console in a group of 8 characters." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/lpuart" path="examples/frdmmcxc041/driver_examples/lpuart/interrupt_transfer">
+          <external path="driver_examples/lpuart/interrupt_transfer" type="xml">
+            <files mask="lpuart_interrupt_transfer_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmmcxc041_lpuart_interrupt_rb_transfer" name="lpuart_interrupt_rb_transfer" brief="The lpuart_interrupt_ring_buffer Example project is to demonstrate usage of the KSDK lpuart driver.In the example, you can send characters to the console back and they will be printed out onto console in a group of 8 characters." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/lpuart" path="examples/frdmmcxc041/driver_examples/lpuart/interrupt_rb_transfer">
+          <external path="driver_examples/lpuart/interrupt_rb_transfer" type="xml">
+            <files mask="lpuart_interrupt_rb_transfer_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmmcxc041_lpuart_interrupt" name="lpuart_interrupt" brief="The lpuart_functioncal_interrupt example shows how to use lpuart driver functionalAPI to receive data with interrupt method:In this example, one lpuart instance connect to PC, the board willsend back all characters that PC send to the board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/lpuart" path="examples/frdmmcxc041/driver_examples/lpuart/interrupt">
+          <external path="driver_examples/lpuart/interrupt" type="xml">
+            <files mask="lpuart_interrupt_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmmcxc041_spi_polling_b2b_transfer_master" name="spi_polling_b2b_transfer_master" brief="The spi_polling_board2board_master example shows how to use spi driver as master to do board to board transfer with polling:In this example, one spi instance as master and another spi instance on othereboard as slave. Master sends a piece ofdata to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/frdmmcxc041/driver_examples/spi/polling_b2b_transfer/master">
+          <external path="driver_examples/spi/polling_b2b_transfer/master" type="xml">
+            <files mask="spi_polling_b2b_transfer_master_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmmcxc041_spi_polling_b2b_transfer_slave" name="spi_polling_b2b_transfer_slave" brief="The spi_polling_board2board_slave example shows how to use spi driver as slave to do board to board transfer withpolling:Notice: The SPI slave of this example uses interrupt mode, as there is no polling mode for SPI slave.In this example, one spi instance as slave and another spi instance on other board as master. Master sends a piece ofdata to slave, and receive a piece of data from slave. This example checks if the data received from master is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/frdmmcxc041/driver_examples/spi/polling_b2b_transfer/slave">
+          <external path="driver_examples/spi/polling_b2b_transfer/slave" type="xml">
+            <files mask="spi_polling_b2b_transfer_slave_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmmcxc041_spi_interrupt_b2b_transfer_master" name="spi_interrupt_b2b_transfer_master" brief="The spi_interrupt_board2board_master example shows how to use spi driver as master to do board to board transfer withinterrupt:In this example, one spi instance as master and another spi instance on othereboard as slave. Master sends a piece ofdata to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/frdmmcxc041/driver_examples/spi/interrupt_b2b_transfer/master">
+          <external path="driver_examples/spi/interrupt_b2b_transfer/master" type="xml">
+            <files mask="spi_interrupt_b2b_transfer_master_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmmcxc041_spi_interrupt_b2b_transfer_slave" name="spi_interrupt_b2b_transfer_slave" brief="The spi_interrupt_board2board_slave example shows how to use spi driver as slave to do board to board transfer with interrupt:In this example, one spi instance as slave and another spi instance on other board as master. Master sends a piece ofdata to slave, and receive a piece of data from slave. This example checks if the data received from master is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/frdmmcxc041/driver_examples/spi/interrupt_b2b_transfer/slave">
+          <external path="driver_examples/spi/interrupt_b2b_transfer/slave" type="xml">
+            <files mask="spi_interrupt_b2b_transfer_slave_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmmcxc041_adc16_low_power" name="adc16_low_power" brief="The ADC Low Power demo application demonstrates the usage of the ADC peripheral while in a low power mode. Themicrocontroller is first set to very low power stop (VLPS) mode. Every 500 ms, an interrupt wakes up the ADC module andreads the current temperature of the microcontroller. While the temperature remains within boundaries, both LEDs are on.If the core temperature is higher or lower than average, the LEDs change state respectively." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmmcxc041/demo_apps/adc16_low_power">
+          <external path="demo_apps/adc16_low_power" type="xml">
+            <files mask="adc16_low_power_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmmcxc041_bubble" name="bubble" brief="The bubble level demo demonstrates basic usage of the on-board accelerometer to implement a bubble level. A bubble level utilizes two axes to visually show deviation from a level plane (0 degrees) on a given axis." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmmcxc041/demo_apps/bubble">
+          <external path="demo_apps/bubble" type="xml">
+            <files mask="bubble_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmmcxc041_power_manager" name="power_manager" brief="The Power manager demo application demonstrates the use of power modes in the KSDK. The demo use the notification mechanismand prints the power mode menu through the debug console, where the user can set the MCU to a specific power mode. The usercan also set the wakeup source by following the debug console prompts. The purpose of this demo is to demonstrate theimplementation of a power mode manager. The callback can be registered to the framework. If a power mode transition happens,the callback will be called and user can do something. Tips: This demo is to show how the various power mode can switch to each other. However, in actual low power use case, to save energy and reduce the consumption even more, many things can be done including: - Disable the clock for unnecessary module during low power mode. That means, programmer can disable the clocks before entering the low power mode and re-enable them after exiting the low power mode when necessary. - Disable the function for unnecessary part of a module when other part would keep working in low power mode. At the most time, more powerful function means more power consumption. For example, disable the digital function for the unnecessary pin mux, and so on. - Set the proper pin state (direction and logic level) according to the actual application hardware. Otherwise, the pin cirrent would be activied unexpectedly waste some energy. - Other low power consideration based on the actual application hardware." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmmcxc041/demo_apps/power_manager">
+          <external path="demo_apps/power_manager" type="xml">
+            <files mask="power_manager_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmmcxc041_power_mode_switch" name="power_mode_switch" brief="The Power mode switch demo application demonstrates the use of power modes in the KSDK. The demo prints the power mode menuthrough the debug console, where the user can set the MCU to a specific power mode. The user can also set the wakeupsource by following the debug console prompts. The purpose of this demo is to show how to switch between different power modes, and how to configure a wakeup source and wakeup the MCU from low power modes. Tips: This demo is to show how the various power mode can switch to each other. However, in actual low power use case, to save energy and reduce the consumption even more, many things can be done including: - Disable the clock for unnecessary module during low power mode. That means, programmer can disable the clocks before entering the low power mode and re-enable them after exiting the low power mode when necessary. - Disable the function for unnecessary part of a module when other part would keep working in low power mode. At the most time, more powerful function means more power consumption. For example, disable the digital function for the unnecessary pin mux, and so on. - Set the proper pin state (direction and logic level) according to the actual application hardware. Otherwise, the pin cirrent would be activied unexpectedly waste some energy. - Other low power consideration based on the actual application hardware. - Debug pins(e.g SWD_DIO) would consume addtional power, had better to disable related pins or disconnect them. " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmmcxc041/demo_apps/power_mode_switch">
+          <external path="demo_apps/power_mode_switch" type="xml">
+            <files mask="power_mode_switch_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmmcxc041_i2c_interrupt_b2b_transfer_master" name="i2c_interrupt_b2b_transfer_master" brief="The i2c_interrupt_b2b_transfer_master example shows how to use i2c driver as master to do board to board transfer with interrupt:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/i2c" path="examples/frdmmcxc041/driver_examples/i2c/interrupt_b2b_transfer/master">
+          <external path="driver_examples/i2c/interrupt_b2b_transfer/master" type="xml">
+            <files mask="i2c_interrupt_b2b_transfer_master_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmmcxc041_i2c_interrupt_b2b_transfer_slave" name="i2c_interrupt_b2b_transfer_slave" brief="The i2c_interrupt_b2b_transfer_slave example shows how to use i2c driver as slave to do board to board transfer with interrupt:In this example, one i2c instance as slave and another i2c instance on the other board as master. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/i2c" path="examples/frdmmcxc041/driver_examples/i2c/interrupt_b2b_transfer/slave">
+          <external path="driver_examples/i2c/interrupt_b2b_transfer/slave" type="xml">
+            <files mask="i2c_interrupt_b2b_transfer_slave_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmmcxc041_i2c_polling_b2b_transfer_master" name="i2c_polling_b2b_transfer_master" brief="The i2c_polling_b2b_transfer_master example shows how to use i2c driver as master to do board to board transfer using polling method:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/i2c" path="examples/frdmmcxc041/driver_examples/i2c/polling_b2b_transfer/master">
+          <external path="driver_examples/i2c/polling_b2b_transfer/master" type="xml">
+            <files mask="i2c_polling_b2b_transfer_master_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmmcxc041_i2c_polling_b2b_transfer_slave" name="i2c_polling_b2b_transfer_slave" brief="The i2c_polling_b2b_transfer_slave example shows how to use i2c driver as slave to do board to board transfer with a polling master:In this example, one i2c instance as slave and another i2c instance on the other board as master. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/i2c" path="examples/frdmmcxc041/driver_examples/i2c/polling_b2b_transfer/slave">
+          <external path="driver_examples/i2c/polling_b2b_transfer/slave" type="xml">
+            <files mask="i2c_polling_b2b_transfer_slave_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmmcxc041_spi_interrupt_b2b_master" name="spi_interrupt_b2b_master" brief="The spi_interrupt_b2b_master example shows how to use spi functional API to do interrupt transfer as a master:In this example, the spi instance as master. Master sends a piece of data to slave, receive data from slave,and checkif the data master received is correct. This example needs to work with spi_interrupt_b2b_slave example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/frdmmcxc041/driver_examples/spi/interrupt_b2b/master">
+          <external path="driver_examples/spi/interrupt_b2b/master" type="xml">
+            <files mask="spi_interrupt_b2b_master_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmmcxc041_spi_interrupt_b2b_slave" name="spi_interrupt_b2b_slave" brief="The spi_interrupt_b2b_slave example shows how to use spi functional API to do interrupt transfer as a slave:In this example, the spi instance as slave. Slave receives data froma master and send a peiece of data to master,and check if the data slave received is correct. This example needs to work with spi_interrupt_b2b_master example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/spi" path="examples/frdmmcxc041/driver_examples/spi/interrupt_b2b/slave">
+          <external path="driver_examples/spi/interrupt_b2b/slave" type="xml">
+            <files mask="spi_interrupt_b2b_slave_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmmcxc041_shell" name="shell" brief="The Shell Demo application demonstrates to control Leds by commands." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmmcxc041/demo_apps/shell">
+          <external path="demo_apps/shell" type="xml">
+            <files mask="shell_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmmcxc041_cmsis_lpuart_interrupt_transfer" name="cmsis_lpuart_interrupt_transfer" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_uart_interrupt_transfer example shows how to use uart cmsis driver in interrupt way:In this example, one uart instance connect to PC through uart, the board willsend back all characters that PC send to the board.Note: The example echo every 8 characters, so input 8 characters every time." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/lpuart" path="examples/frdmmcxc041/cmsis_driver_examples/lpuart/interrupt_transfer">
+          <external path="cmsis_driver_examples/lpuart/interrupt_transfer" type="xml">
+            <files mask="cmsis_lpuart_interrupt_transfer_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmmcxc041_cmsis_spi_interrupt_b2b_transfer_master" name="cmsis_spi_interrupt_b2b_transfer_master" brief="The spi_interrupt_b2b_transfer example shows how to use spi CMSIS driver in interrupt way:In this example , we need two boards, one board used as spi master and another board used as spi slave.The file 'spi_interrupt_b2b_transfer_master.c' includes the spi master code.This example uses the transactional API in spi driver.1. spi master send/received data to/from spi slave in interrupt . " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/spi" path="examples/frdmmcxc041/cmsis_driver_examples/spi/interrupt_b2b_transfer/master">
+          <external path="cmsis_driver_examples/spi/interrupt_b2b_transfer/master" type="xml">
+            <files mask="cmsis_spi_interrupt_b2b_transfer_master_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmmcxc041_cmsis_spi_interrupt_b2b_transfer_slave" name="cmsis_spi_interrupt_b2b_transfer_slave" brief="The spi_interrupt_b2b_transfer example shows how to use SPI CMSIS driver in interrupt way:In this example , we need two boards, one board used as SPI master and another board used as SPI slave.The file 'spi_interrupt_b2b_transfer_slave.c' includes the SPI slave code.This example uses the transactional API in SPI driver.1. SPI master send/received data to/from SPI slave in interrupt . " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/spi" path="examples/frdmmcxc041/cmsis_driver_examples/spi/interrupt_b2b_transfer/slave">
+          <external path="cmsis_driver_examples/spi/interrupt_b2b_transfer/slave" type="xml">
+            <files mask="cmsis_spi_interrupt_b2b_transfer_slave_v3_14.xml"/>
+          </external>
+        </example>
+      </examples>
+    </board>
+  </boards>
+</ksdk:manifest>

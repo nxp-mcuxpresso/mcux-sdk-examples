@@ -25,7 +25,7 @@
 #define DEMO_I2S_RX_MODE                (kI2S_MasterSlaveNormalSlave)
 #define DEMO_I2S_TX_MODE                (kI2S_MasterSlaveNormalMaster)
 #define DEMO_CHANNEL_NUM                (2)
-#define DEMO_MIC_CHANNEL_NUM            (1)
+#define DEMO_MIC_CHANNEL_NUM            (2)
 #define DEMO_MIC_FRAME_SIZE             (30)
 #define DEMO_AUDIO_BIT_WIDTH            (16)
 #define DEMO_AUDIO_SAMPLE_RATE          (16000)

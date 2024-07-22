@@ -87,11 +87,15 @@ SECTIONS
         /* Exclude flash and frequently executed functions from XIP */
         */mflash_drv.c.obj
         */fsl_flexspi.c.obj
+        */fsl_bee.c.obj
+        */platform_enc_bee.c.obj
     ) .text)                 /* .text sections (code) */
     *(EXCLUDE_FILE(
         /* Exclude flash and frequently executed functions from XIP */
         */mflash_drv.c.obj
         */fsl_flexspi.c.obj
+        */fsl_bee.c.obj
+        */platform_enc_bee.c.obj
     ) .text*)                /* .text* sections (code) */
     *(.rodata)               /* .rodata sections (constants, strings, etc.) */
     *(.rodata*)              /* .rodata* sections (constants, strings, etc.) */
@@ -199,6 +203,8 @@ SECTIONS
     /* Explicit placement of flash and frequently executed functions in RAM */
     */mflash_drv.c.obj(.text .text* .rodata .rodata*)
     */fsl_flexspi.c.obj(.text .text* .rodata .rodata*)
+    */fsl_bee.c.obj(.text .text* .rodata .rodata*)
+    */platform_enc_bee.c.obj(.text .text* .rodata .rodata*)
     *(.data)                 /* .data sections */
     *(.data*)                /* .data* sections */
     *(DataQuickAccess)       /* quick access data section */

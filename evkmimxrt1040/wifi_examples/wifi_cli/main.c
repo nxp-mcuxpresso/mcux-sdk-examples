@@ -21,14 +21,19 @@
 #include "wlan.h"
 #include "wifi.h"
 #include "wm_net.h"
-#include <wm_os.h>
+#include <osa.h>
 #include "dhcp-server.h"
 #include "cli.h"
 #include "wifi_ping.h"
 #include "iperf.h"
+#ifndef RW610
 #include "wifi_bt_config.h"
+#else
+#include "fsl_power.h"
+#include "fsl_ocotp.h"
+#endif
 #include "cli_utils.h"
-#ifdef CONFIG_HOST_SLEEP
+#if CONFIG_HOST_SLEEP
 #include "host_sleep.h"
 #endif
 
@@ -50,19 +55,22 @@ int wlan_reset_cli_init(void);
  * Code
  ******************************************************************************/
 
-const int TASK_MAIN_PRIO = OS_PRIO_3;
-const int TASK_MAIN_STACK_SIZE = 800;
+#if CONFIG_WPS2
+#define MAIN_TASK_STACK_SIZE 6000
+#else
+#define MAIN_TASK_STACK_SIZE 4096
+#endif
 
-portSTACK_TYPE *task_main_stack = NULL;
-TaskHandle_t task_main_task_handler;
+static void main_task(osa_task_param_t arg);
+
+static OSA_TASK_DEFINE(main_task, OSA_PRIORITY_BELOW_NORMAL, 1, MAIN_TASK_STACK_SIZE, 0);
+
+OSA_TASK_HANDLE_DEFINE(main_task_Handle);
 
 static void printSeparator(void)
 {
     PRINTF("========================================\r\n");
 }
-
-static struct wlan_network sta_network;
-static struct wlan_network uap_network;
 
 /* Callback Function passed to WLAN Connection Manager. The callback function
  * gets called when there are WLAN Events that need to be handled by the
@@ -72,6 +80,7 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
 {
     int ret;
     struct wlan_ip_config addr;
+    char ssid[IEEEtypes_SSID_SIZE + 1] = {0};
     char ip[16];
     static int auth_fail                      = 0;
     wlan_uap_client_disassoc_t *disassoc_resp = data;
@@ -106,7 +115,18 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
             }
             PRINTF("ENHANCED WLAN CLIs are initialized\r\n");
             printSeparator();
-
+#ifdef RW610
+#if CONFIG_HOST_SLEEP
+            ret = host_sleep_cli_init();
+            if (ret != WM_SUCCESS)
+            {
+                PRINTF("Failed to initialize WLAN CLIs\r\n");
+                return 0;
+            }
+            PRINTF("HOST SLEEP CLIs are initialized\r\n");
+            printSeparator();
+#endif
+#endif
             ret = ping_cli_init();
             if (ret != WM_SUCCESS)
             {
@@ -150,7 +170,7 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
 
             net_inet_ntoa(addr.ipv4.address, ip);
 
-            ret = wlan_get_current_network(&sta_network);
+            ret = wlan_get_current_network_ssid(ssid);
             if (ret != WM_SUCCESS)
             {
                 PRINTF("Failed to get External AP network\r\n");
@@ -158,12 +178,12 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
             }
 
             PRINTF("Connected to following BSS:\r\n");
-            PRINTF("SSID = [%s]\r\n", sta_network.ssid);
+            PRINTF("SSID = [%s]\r\n", ssid);
             if (addr.ipv4.address != 0U)
             {
                 PRINTF("IPv4 Address: [%s]\r\n", ip);
             }
-#ifdef CONFIG_IPV6
+#if CONFIG_IPV6
             int i;
             for (i = 0; i < CONFIG_MAX_IPV6_ADDRESSES; i++)
             {
@@ -212,7 +232,7 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
             break;
         case WLAN_REASON_UAP_SUCCESS:
             PRINTF("app_cb: WLAN: UAP Started\r\n");
-            ret = wlan_get_current_uap_network(&uap_network);
+            ret = wlan_get_current_uap_network_ssid(ssid);
 
             if (ret != WM_SUCCESS)
             {
@@ -221,7 +241,7 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
             }
 
             printSeparator();
-            PRINTF("Soft AP \"%s\" started successfully\r\n", uap_network.ssid);
+            PRINTF("Soft AP \"%s\" started successfully\r\n", ssid);
             printSeparator();
             if (dhcp_server_start(net_get_uap_handle()))
                 PRINTF("Error in starting dhcp server\r\n");
@@ -257,7 +277,7 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
         case WLAN_REASON_UAP_STOPPED:
             PRINTF("app_cb: WLAN: UAP Stopped\r\n");
             printSeparator();
-            PRINTF("Soft AP \"%s\" stopped successfully\r\n", uap_network.ssid);
+            PRINTF("Soft AP stopped successfully\r\n");
             printSeparator();
 
             dhcp_server_stop();
@@ -269,7 +289,21 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
             break;
         case WLAN_REASON_PS_EXIT:
             break;
-#ifdef CONFIG_WIFI_IND_DNLD
+#if CONFIG_SUBSCRIBE_EVENT_SUPPORT
+        case WLAN_REASON_RSSI_HIGH:
+        case WLAN_REASON_SNR_LOW:
+        case WLAN_REASON_SNR_HIGH:
+        case WLAN_REASON_MAX_FAIL:
+        case WLAN_REASON_BEACON_MISSED:
+        case WLAN_REASON_DATA_RSSI_LOW:
+        case WLAN_REASON_DATA_RSSI_HIGH:
+        case WLAN_REASON_DATA_SNR_LOW:
+        case WLAN_REASON_DATA_SNR_HIGH:
+        case WLAN_REASON_LINK_QUALITY:
+        case WLAN_REASON_PRE_BEACON_LOST:
+            break;
+#endif
+#if CONFIG_WIFI_IND_DNLD
         case WLAN_REASON_FW_HANG:
         case WLAN_REASON_FW_RESET:
             break;
@@ -296,6 +330,7 @@ int wlan_driver_init(void)
     return result;
 }
 
+#ifndef RW610
 int wlan_driver_deinit(void)
 {
     int result = 0;
@@ -310,7 +345,7 @@ int wlan_driver_deinit(void)
 static void wlan_hw_reset(void)
 {
     BOARD_WIFI_BT_Enable(false);
-    os_thread_sleep(1);
+    OSA_TimeDelay(10);
     BOARD_WIFI_BT_Enable(true);
 }
 
@@ -334,7 +369,7 @@ static void test_wlan_reset(int argc, char **argv)
     (void)wlan_driver_reset();
 }
 
-#ifdef CONFIG_HOST_SLEEP
+#if CONFIG_HOST_SLEEP
 static void test_mcu_suspend(int argc, char **argv)
 {
     (void)mcu_suspend();
@@ -343,7 +378,7 @@ static void test_mcu_suspend(int argc, char **argv)
 
 static struct cli_command reset_commands[] = {
     {"wlan-reset", NULL, test_wlan_reset},
-#ifdef CONFIG_HOST_SLEEP
+#if CONFIG_HOST_SLEEP
     {"mcu-suspend", NULL, test_mcu_suspend},
 #endif
 };
@@ -362,9 +397,9 @@ int wlan_reset_cli_init(void)
 
     return 0;
 }
+#endif
 
-
-void task_main(void *param)
+static void main_task(osa_task_param_t arg)
 {
     int32_t result = 0;
     (void)result;
@@ -376,14 +411,19 @@ void task_main(void *param)
 
     assert(WM_SUCCESS == result);
 
+#ifndef RW610
     result = wlan_reset_cli_init();
 
     assert(WM_SUCCESS == result);
-
-#ifdef CONFIG_HOST_SLEEP
-    hostsleep_init(wlan_hs_pre_cfg, wlan_hs_post_cfg);
 #endif
 
+#if CONFIG_HOST_SLEEP
+#ifndef RW610
+    hostsleep_init(wlan_hs_pre_cfg, wlan_hs_post_cfg);
+#else
+    hostsleep_init();
+#endif
+#endif
 
     PRINTF("Initialize WLAN Driver\r\n");
     printSeparator();
@@ -393,36 +433,41 @@ void task_main(void *param)
 
     assert(WM_SUCCESS == result);
 
+#ifndef RW610
+    result = wlan_reset_cli_init();
+
+    assert(WM_SUCCESS == result);
+#endif
+
     while (1)
     {
         /* wait for interface up */
-        os_thread_sleep(os_msec_to_ticks(5000));
+        OSA_TimeDelay(5000);
     }
 }
 
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
-
 int main(void)
 {
-    BaseType_t result = 0;
-    (void)result;
+    OSA_Init();
 
     BOARD_ConfigMPU();
     BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
+#ifdef RW610
+    POWER_PowerOffBle();
+#endif
 
     printSeparator();
     PRINTF("wifi cli demo\r\n");
     printSeparator();
 
-    result =
-        xTaskCreate(task_main, "main", TASK_MAIN_STACK_SIZE, task_main_stack, TASK_MAIN_PRIO, &task_main_task_handler);
-    assert(pdPASS == result);
+    (void)OSA_TaskCreate((osa_task_handle_t)main_task_Handle, OSA_TASK(main_task), NULL);
 
-    vTaskStartScheduler();
-    for (;;)
-        ;
+    OSA_Start();
+
+    return 0;
 }

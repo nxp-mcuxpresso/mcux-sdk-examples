@@ -1,5 +1,5 @@
 /*
- * Copyright 2021, 2023 NXP
+ * Copyright 2021, 2023-2024 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -330,6 +330,10 @@ int main(void)
         }
     }
 
+    i3c_register_ibi_addr_t ibiRecord = {.address = {slaveAddr}, .ibiHasPayload = true};
+    I3C_MasterRegisterIBI(EXAMPLE_MASTER, &ibiRecord);
+    EXAMPLE_MASTER->MCTRL |= I3C_MCTRL_IBIRESP(kI3C_IbiRespAckMandatory);
+
     PRINTF("\r\nStart to do I3C master transfer in I3C SDR mode.\r\n");
     I3C_MasterStart(EXAMPLE_MASTER, kI3C_TypeI3CSdr, slaveAddr, kI3C_Write);
     result = i3c_master_transferBuff(g_master_txBuff, I3C_DATA_LENGTH, kI3C_Write);
@@ -341,14 +345,8 @@ int main(void)
 
     I3C_MasterStop(EXAMPLE_MASTER);
 
-    i3c_register_ibi_addr_t ibiRecord = {.address = {slaveAddr}, .ibiHasPayload = true};
-    I3C_MasterRegisterIBI(EXAMPLE_MASTER, &ibiRecord);
-    EXAMPLE_MASTER->MCTRL |= I3C_MCTRL_IBIRESP(kI3C_IbiRespAckMandatory);
-
     PRINTF("\r\nI3C master wait for slave IBI event to notify the slave transmit size.\r\n");
-
     result = i3c_master_pollIBIEvent();
-
     if (result != kStatus_Success)
     {
         return -1;

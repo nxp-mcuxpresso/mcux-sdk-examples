@@ -51,17 +51,19 @@ include(${ProjDirPath}/flags.cmake)
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
+"${SdkRootDirPath}/core/boards/evkmimxrt1160/board.c"
+"${SdkRootDirPath}/core/boards/evkmimxrt1160/board.h"
+"${SdkRootDirPath}/core/boards/evkmimxrt1160/clock_config.c"
+"${SdkRootDirPath}/core/boards/evkmimxrt1160/clock_config.h"
+"${SdkRootDirPath}/core/boards/evkmimxrt1160/dcd.c"
+"${SdkRootDirPath}/core/boards/evkmimxrt1160/dcd.h"
+"${ProjDirPath}/../evkmimxrt1160_connect_cm4_cm7side.jlinkscript"
 "${ProjDirPath}/../boot.c"
 "${ProjDirPath}/../boot.h"
-"${ProjDirPath}/../bootutil_hooks.c"
 "${ProjDirPath}/../keys.c"
-"${ProjDirPath}/../os.c"
-"${ProjDirPath}/../sbl_boot.c"
 "${ProjDirPath}/../include/mbedtls_config.h"
 "${ProjDirPath}/../include/mcuboot_config/mcuboot_config.h"
 "${ProjDirPath}/../include/mcuboot_config/mcuboot_logging.h"
-"${ProjDirPath}/../include/sbl.h"
-"${ProjDirPath}/../include/sbldef.h"
 "${ProjDirPath}/../include/flash_map.h"
 "${ProjDirPath}/../include/flash_map_backend/flash_map_backend.h"
 "${ProjDirPath}/../include/os/os_malloc.h"
@@ -73,23 +75,16 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../flash_partitioning.h"
 "${ProjDirPath}/../flash_partitioning.c"
-"${SdkRootDirPath}/core/boards/evkmimxrt1160/board.c"
-"${SdkRootDirPath}/core/boards/evkmimxrt1160/board.h"
-"${SdkRootDirPath}/core/boards/evkmimxrt1160/clock_config.c"
-"${SdkRootDirPath}/core/boards/evkmimxrt1160/clock_config.h"
-"${SdkRootDirPath}/core/boards/evkmimxrt1160/dcd.c"
-"${SdkRootDirPath}/core/boards/evkmimxrt1160/dcd.h"
-"${ProjDirPath}/../evkmimxrt1160_connect_cm4_cm7side.jlinkscript"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
+    ${SdkRootDirPath}/core/boards/evkmimxrt1160
     ${ProjDirPath}/..
     ${ProjDirPath}/../include
     ${ProjDirPath}/../include/mcuboot_config
     ${ProjDirPath}/../include/sysflash
     ${ProjDirPath}/../keys
     ${ProjDirPath}/../flash
-    ${SdkRootDirPath}/core/boards/evkmimxrt1160
 )
 
 

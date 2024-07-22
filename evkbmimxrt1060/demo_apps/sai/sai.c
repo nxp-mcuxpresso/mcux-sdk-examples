@@ -155,9 +155,14 @@ const clock_audio_pll_config_t audioPllConfig = {
     .numerator   = 768,  /* 30 bit numerator of fractional loop divider. */
     .denominator = 1000, /* 30 bit denominator of fractional loop divider */
 };
+#if defined(DEMO_QUICKACCESS_SECTION_CACHEABLE) && DEMO_QUICKACCESS_SECTION_CACHEABLE
+AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t txHandle);
+AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t rxHandle);
+#else
 AT_QUICKACCESS_SECTION_DATA(sai_edma_handle_t txHandle);
-edma_handle_t dmaTxHandle = {0};
 AT_QUICKACCESS_SECTION_DATA(sai_edma_handle_t rxHandle);
+#endif
+edma_handle_t dmaTxHandle = {0};
 edma_handle_t dmaRxHandle = {0};
 AT_NONCACHEABLE_SECTION_ALIGN(uint8_t audioBuff[BUFFER_SIZE * BUFFER_NUM], 4);
 extern codec_config_t boardCodecConfig;

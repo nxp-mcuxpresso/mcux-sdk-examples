@@ -69,7 +69,7 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${SdkRootDirPath}/core/boards/evkmimx8ulp
     ${ProjDirPath}/..
     ${SdkRootDirPath}/examples/evk9mimx8ulp/driver_examples/lcdif
-    ${SdkRootDirPath}/examples/evkmimx8ulp/driver_examples/lcdif/cursor_argb
+    ${SdkRootDirPath}/examples/evk9mimx8ulp/driver_examples/lcdif
 )
 
 

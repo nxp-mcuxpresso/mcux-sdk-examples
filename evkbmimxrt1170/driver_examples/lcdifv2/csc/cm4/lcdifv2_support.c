@@ -11,6 +11,7 @@
 #include "fsl_rm68191.h"
 #include "fsl_rm68200.h"
 #include "fsl_hx8394.h"
+#include "fsl_rpi.h"
 #include "lcdifv2_support.h"
 
 uint32_t mipiDsiTxEscClkFreq_Hz;
@@ -29,6 +30,17 @@ AT_NONCACHEABLE_SECTION_ALIGN(
     uint8_t s_frameBuffer[DEMO_BUFFER_COUNT][DEMO_PANEL_HEIGHT][DEMO_PANEL_WIDTH][DEMO_BUFFER_BYTE_PER_PIXEL],
     DEMO_FB_ALIGN);
 
+#if (USE_MIPI_PANEL == MIPI_PANEL_RASPI_7INCH)
+static status_t BOARD_ReadPanelStatus(uint8_t regAddr, uint8_t *value)
+{
+    return BOARD_LPI2C_Receive(BOARD_MIPI_PANEL_TOUCH_I2C_BASEADDR, RPI_ADDR, regAddr, 1U, value, 1U);
+}
+
+static status_t BOARD_WritePanelRegister(uint8_t regAddr, uint8_t value)
+{
+    return BOARD_LPI2C_Send(BOARD_MIPI_PANEL_TOUCH_I2C_BASEADDR, RPI_ADDR, regAddr, 1, &value, 1);
+}
+#else
 static void PANEL_PullResetPin(bool pullUp)
 {
     if (pullUp)
@@ -53,6 +65,7 @@ static void PANEL_PullPowerPin(bool pullUp)
         GPIO_PinWrite(BOARD_MIPI_PANEL_POWER_GPIO, BOARD_MIPI_PANEL_POWER_PIN, 0);
     }
 }
+#endif
 
 status_t PANEL_DSI_Transfer(dsi_transfer_t *xfer)
 {
@@ -95,6 +108,24 @@ static display_handle_t hx8394Handle = {
     .ops      = &hx8394_ops,
 };
 
+#elif (USE_MIPI_PANEL == MIPI_PANEL_RASPI_7INCH)
+
+static mipi_dsi_device_t dsiDevice = {
+    .virtualChannel = 0,
+    .xferFunc       = PANEL_DSI_Transfer,
+};
+
+static const rpi_resource_t rpiResource = {
+    .dsiDevice     = &dsiDevice,
+    .readStatus    = &BOARD_ReadPanelStatus,
+    .writeRegister = &BOARD_WritePanelRegister,
+};
+
+static display_handle_t rpiHandle = {
+    .resource = &rpiResource,
+    .ops      = &rpi_ops,
+};
+
 #else
 
 static mipi_dsi_device_t dsiDevice = {
@@ -122,13 +153,16 @@ void BOARD_InitLcdifClock(void)
      * Use PLL_528 as clock source.
      *
      * For 60Hz frame rate, the RK055IQH091 pixel clock should be 36MHz.
-     * the RK055AHD091 pixel clock should be 62MHz.
+     * the RK055AHD091 pixel clock should be 62MHz,
+     * and the RaspberryPi ixel clock should be 28MHz.
      */
     const clock_root_config_t lcdifv2ClockConfig = {
         .clockOff = false,
         .mux      = 4, /*!< PLL_528. */
 #if (USE_MIPI_PANEL == MIPI_PANEL_RK055AHD091) || (USE_MIPI_PANEL == MIPI_PANEL_RK055MHD091)
         .div = 9,
+#elif (USE_MIPI_PANEL == MIPI_PANEL_RASPI_7INCH)
+        .div = 19,
 #else
         .div = 15,
 #endif
@@ -143,8 +177,6 @@ static status_t BOARD_InitLcdPanel(void)
 {
     status_t status;
 
-    const gpio_pin_config_t pinConfig = {kGPIO_DigitalOutput, 0, kGPIO_NoIntmode};
-
     const display_config_t displayConfig = {
         .resolution   = FSL_VIDEO_RESOLUTION(DEMO_PANEL_WIDTH, DEMO_PANEL_HEIGHT),
         .hsw          = DEMO_HSW,
@@ -157,22 +189,32 @@ static status_t BOARD_InitLcdPanel(void)
         .dsiLanes     = DEMO_MIPI_DSI_LANE_NUM,
     };
 
+#if (USE_MIPI_PANEL == MIPI_PANEL_RASPI_7INCH)
+    BOARD_MIPIPanelTouch_I2C_Init();
+#else
+    const gpio_pin_config_t pinConfig = {kGPIO_DigitalOutput, 0, kGPIO_NoIntmode};
+
     GPIO_PinInit(BOARD_MIPI_PANEL_POWER_GPIO, BOARD_MIPI_PANEL_POWER_PIN, &pinConfig);
     GPIO_PinInit(BOARD_MIPI_PANEL_BL_GPIO, BOARD_MIPI_PANEL_BL_PIN, &pinConfig);
     GPIO_PinInit(BOARD_MIPI_PANEL_RST_GPIO, BOARD_MIPI_PANEL_RST_PIN, &pinConfig);
+#endif
 
 #if (USE_MIPI_PANEL == MIPI_PANEL_RK055AHD091)
     status = RM68200_Init(&rm68200Handle, &displayConfig);
 #elif (USE_MIPI_PANEL == MIPI_PANEL_RK055MHD091)
     status = HX8394_Init(&hx8394Handle, &displayConfig);
+#elif (USE_MIPI_PANEL == MIPI_PANEL_RASPI_7INCH)
+    status = RPI_Init(&rpiHandle, &displayConfig);
 #else
     status = RM68191_Init(&rm68191Handle, &displayConfig);
 #endif
 
+#if (USE_MIPI_PANEL != MIPI_PANEL_RASPI_7INCH)
     if (status == kStatus_Success)
     {
         GPIO_PinWrite(BOARD_MIPI_PANEL_BL_GPIO, BOARD_MIPI_PANEL_BL_PIN, 1);
     }
+#endif
 
     return status;
 }
@@ -219,19 +261,25 @@ static void BOARD_SetMipiDsiConfig(void)
     dsi_config_t dsiConfig;
     dsi_dphy_config_t dphyConfig;
 
-    const dsi_dpi_config_t dpiConfig = {.pixelPayloadSize = DEMO_PANEL_WIDTH,
-                                        .dpiColorCoding   = kDSI_Dpi24Bit,
-                                        .pixelPacket      = kDSI_PixelPacket24Bit,
-                                        .videoMode        = kDSI_DpiBurst,
-                                        .bllpMode         = kDSI_DpiBllpLowPower,
-                                        .polarityFlags    = kDSI_DpiVsyncActiveLow | kDSI_DpiHsyncActiveLow,
-                                        .hfp              = DEMO_HFP,
-                                        .hbp              = DEMO_HBP,
-                                        .hsw              = DEMO_HSW,
-                                        .vfp              = DEMO_VFP,
-                                        .vbp              = DEMO_VBP,
-                                        .panelHeight      = DEMO_PANEL_HEIGHT,
-                                        .virtualChannel   = 0};
+    const dsi_dpi_config_t dpiConfig = {
+        .pixelPayloadSize = DEMO_PANEL_WIDTH,
+        .dpiColorCoding   = kDSI_Dpi24Bit,
+        .pixelPacket      = kDSI_PixelPacket24Bit,
+#if (USE_MIPI_PANEL == MIPI_PANEL_RASPI_7INCH)
+        .videoMode = kDSI_DpiNonBurstWithSyncPulse,
+#else
+        .videoMode = kDSI_DpiBurst,
+#endif
+        .bllpMode       = kDSI_DpiBllpLowPower,
+        .polarityFlags  = kDSI_DpiVsyncActiveLow | kDSI_DpiHsyncActiveLow,
+        .hfp            = DEMO_HFP,
+        .hbp            = DEMO_HBP,
+        .hsw            = DEMO_HSW,
+        .vfp            = DEMO_VFP,
+        .vbp            = DEMO_VBP,
+        .panelHeight    = DEMO_PANEL_HEIGHT,
+        .virtualChannel = 0
+    };
 
     /*
      * dsiConfig.numLanes = 4;
@@ -243,8 +291,13 @@ static void BOARD_SetMipiDsiConfig(void)
      * dsiConfig.btaTo_ByteClk = 0;
      */
     DSI_GetDefaultConfig(&dsiConfig);
-    dsiConfig.numLanes       = DEMO_MIPI_DSI_LANE_NUM;
+    dsiConfig.numLanes = DEMO_MIPI_DSI_LANE_NUM;
+#if (USE_MIPI_PANEL == MIPI_PANEL_RASPI_7INCH)
+    dsiConfig.autoInsertEoTp           = false;
+    dsiConfig.enableNonContinuousHsClk = false;
+#else
     dsiConfig.autoInsertEoTp = true;
+#endif
 
     /* Init the DSI module. */
     DSI_Init(DEMO_MIPI_DSI, &dsiConfig);
@@ -262,9 +315,7 @@ static void BOARD_SetMipiDsiConfig(void)
      * Note that the DSI output pixel is 24bit per pixel.
      */
     mipiDsiDphyBitClkFreq_Hz = mipiDsiDpiClkFreq_Hz * (24 / DEMO_MIPI_DSI_LANE_NUM);
-
     mipiDsiDphyBitClkFreq_Hz = DEMO_MIPI_DPHY_BIT_CLK_ENLARGE(mipiDsiDphyBitClkFreq_Hz);
-
     DSI_GetDphyDefaultConfig(&dphyConfig, mipiDsiDphyBitClkFreq_Hz, mipiDsiTxEscClkFreq_Hz);
 
     mipiDsiDphyBitClkFreq_Hz = DSI_InitDphy(DEMO_MIPI_DSI, &dphyConfig, mipiDsiDphyRefClkFreq_Hz);

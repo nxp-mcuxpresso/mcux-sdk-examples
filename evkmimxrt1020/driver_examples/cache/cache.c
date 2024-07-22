@@ -126,6 +126,10 @@ int main(void)
         g_data[count]                   = 0xaa;
         *(uint8_t *)(startAddr + count) = 0;
     }
+
+    /* Make sure the initial data are put into the physical memory */
+    DCACHE_CleanByRange(startAddr, MEM_DMATRANSFER_LEN);
+
     /* Configure Cache. */
     APP_CacheConfig(true);
     /* Initialize DMA. */
@@ -138,7 +142,7 @@ int main(void)
         (void)readDummy;
     }
 
-    /* Update the new data in sdram with EDMA transfer. */
+    /* Update the new data in target memory with EDMA transfer. */
     APP_DMAMem2memTransfer(&g_data[0], sizeof(g_data[0]), (void *)startAddr, sizeof(g_data[0]), sizeof(g_data));
 
     /* Wait for EDMA transfer finished. */
@@ -185,13 +189,13 @@ int main(void)
         {
             if (memcmp((void *)&g_data[0], (void *)startAddr, MEM_DMATRANSFER_LEN) != 0)
             {
-                /* Push the memory to update the data in physical sdram address
-                 * at this moment, the real sdram data will be align with the
+                /* Push the memory to update the data in physical target memory address
+                 * at this moment, the real target memory data will be align with the
                  * data in cache.
                  */
                 DCACHE_CleanByRange(startAddr, MEM_DMATRANSFER_LEN);
 
-                /* Transfer from the sdram to data[]. */
+                /* Transfer from the target memory to data[]. */
                 g_Transfer_Done = false;
                 g_count         = 0;
                 APP_DMAMem2memTransfer((void *)startAddr, sizeof(g_data[0]), &g_data[0], sizeof(g_data[0]),

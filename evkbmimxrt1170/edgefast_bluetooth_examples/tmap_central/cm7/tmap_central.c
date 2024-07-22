@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 NXP
+ * Copyright 2023-2024 NXP
  *
  * SPDX-License-Identifier: Apache-2.0
  */
@@ -129,7 +129,7 @@ static void security_changed(struct bt_conn *conn, bt_security_t level,
 				enum bt_security_err err)
 {
 	if (err == 0) {
-		printk("Security changed: %u\n", err);
+		printk("Security changed: %u, level %d\n", err, level);
 		OSA_SemaphorePost(sem_security_updated);
 	} else {
 		printk("Failed to set security level: %u\n", err);
@@ -146,7 +146,7 @@ static bool check_audio_support_and_connect(struct bt_data *data, void *user_dat
 {
 	bt_addr_le_t *addr = user_data;
 	struct net_buf_simple tmas_svc_data;
-	struct bt_uuid *uuid;
+	const struct bt_uuid *uuid;
 	uint16_t uuid_val;
 	uint16_t peer_tmap_role = 0;
 	int err;

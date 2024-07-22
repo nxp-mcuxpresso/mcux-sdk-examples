@@ -116,7 +116,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>
@@ -156,10 +156,6 @@
       <files mask="build_flexspi_nor_sdram_debug.sh"/>
       <files mask="build_flexspi_nor_sdram_release.bat"/>
       <files mask="build_flexspi_nor_sdram_release.sh"/>
-      <files mask="build_sdram_debug.bat"/>
-      <files mask="build_sdram_debug.sh"/>
-      <files mask="build_sdram_release.bat"/>
-      <files mask="build_sdram_release.sh"/>
     </source>
     <source path="../../../../../../core/devices/MIMXRT1176" project_relative_path="./" type="workspace" toolchain="armgcc">
       <files mask="all_lib_device.cmake"/>
@@ -200,7 +196,6 @@
       <files mask="readme.md"/>
     </source>
     <source path="armgcc" project_relative_path="MIMXRT1176/gcc" type="linker" toolchain="armgcc">
-      <files mask="MIMXRT1176xxxxx_cm7_sdram.ld"/>
       <files mask="MIMXRT1176xxxxx_cm7_flexspi_nor_sdram.ld"/>
     </source>
     <source path="." project_relative_path="evkbmimxrt1170" type="other" toolchain="armgcc">

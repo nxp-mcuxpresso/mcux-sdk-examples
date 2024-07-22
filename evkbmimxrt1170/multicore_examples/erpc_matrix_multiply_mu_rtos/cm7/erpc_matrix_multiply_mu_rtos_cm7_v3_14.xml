@@ -34,6 +34,7 @@
     <definition extID="platform.drivers.dcdc_soc.MIMXRT1176"/>
     <definition extID="platform.drivers.cache_armv7_m7.MIMXRT1176"/>
     <definition extID="platform.utilities.misc_utilities.MIMXRT1176"/>
+    <definition extID="utility.str.MIMXRT1176"/>
     <definition extID="platform.drivers.anatop_ai.MIMXRT1176"/>
     <definition extID="middleware.multicore.erpc.common.MIMXRT1176"/>
     <definition extID="middleware.freertos-kernel.MIMXRT1176"/>
@@ -47,7 +48,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkbmimxrt1170_erpc_matrix_multiply_mu_rtos_cm7" name="erpc_matrix_multiply_mu_rtos_cm7" device_core="cm7_MIMXRT1176xxxxx" dependency="middleware.multicore.mcmgr.imxrt1170.MIMXRT1176 utility.debug_console_lite.MIMXRT1176 platform.utilities.assert_lite.MIMXRT1176 platform.drivers.clock.MIMXRT1176 middleware.multicore.erpc.eRPC_client.MIMXRT1176 middleware.multicore.erpc.eRPC_mu_c_wrapper.MIMXRT1176 middleware.multicore.erpc.eRPC_mu_rtos_transport.MIMXRT1176 middleware.multicore.erpc.eRPC_port_freertos.MIMXRT1176 middleware.multicore.mcmgr.MIMXRT1176 middleware.freertos-kernel.heap_4.MIMXRT1176 middleware.multicore.erpc.doc.MIMXRT1176 utility.incbin.MIMXRT1176 middleware.multicore.erpc_common_multicore.MIMXRT1176 middleware.multicore.erpc_common_multicore_matrix_multiply_client.MIMXRT1176 platform.drivers.common.MIMXRT1176 platform.devices.MIMXRT1176_CMSIS.MIMXRT1176 component.lpuart_adapter.MIMXRT1176 platform.drivers.lpuart.MIMXRT1176 component.lists.MIMXRT1176 platform.devices.MIMXRT1176_startup.MIMXRT1176 platform.drivers.gpc_3.MIMXRT1176 platform.drivers.soc_src.MIMXRT1176 platform.drivers.mu.MIMXRT1176 platform.drivers.iomuxc.MIMXRT1176 platform.drivers.igpio.MIMXRT1176 platform.drivers.xip_device.MIMXRT1176 platform.drivers.xip_board.evkbmimxrt1170.MIMXRT1176 platform.drivers.pmu_1.MIMXRT1176 platform.drivers.dcdc_soc.MIMXRT1176 platform.drivers.cache_armv7_m7.MIMXRT1176 platform.utilities.misc_utilities.MIMXRT1176 platform.drivers.anatop_ai.MIMXRT1176 middleware.multicore.erpc.common.MIMXRT1176 middleware.freertos-kernel.MIMXRT1176 middleware.freertos-kernel.template.MIMXRT1176 middleware.freertos-kernel.extension.MIMXRT1176 CMSIS_Include_core_cm.MIMXRT1176 platform.devices.MIMXRT1176_system.MIMXRT1176" linked_projects="evkbmimxrt1170_erpc_matrix_multiply_mu_rtos_cm4" category="multicore_examples">
+  <example id="evkbmimxrt1170_erpc_matrix_multiply_mu_rtos_cm7" name="erpc_matrix_multiply_mu_rtos_cm7" device_core="cm7_MIMXRT1176xxxxx" dependency="middleware.multicore.mcmgr.imxrt1170.MIMXRT1176 utility.debug_console_lite.MIMXRT1176 platform.utilities.assert_lite.MIMXRT1176 platform.drivers.clock.MIMXRT1176 middleware.multicore.erpc.eRPC_client.MIMXRT1176 middleware.multicore.erpc.eRPC_mu_c_wrapper.MIMXRT1176 middleware.multicore.erpc.eRPC_mu_rtos_transport.MIMXRT1176 middleware.multicore.erpc.eRPC_port_freertos.MIMXRT1176 middleware.multicore.mcmgr.MIMXRT1176 middleware.freertos-kernel.heap_4.MIMXRT1176 middleware.multicore.erpc.doc.MIMXRT1176 utility.incbin.MIMXRT1176 middleware.multicore.erpc_common_multicore.MIMXRT1176 middleware.multicore.erpc_common_multicore_matrix_multiply_client.MIMXRT1176 platform.drivers.common.MIMXRT1176 platform.devices.MIMXRT1176_CMSIS.MIMXRT1176 component.lpuart_adapter.MIMXRT1176 platform.drivers.lpuart.MIMXRT1176 component.lists.MIMXRT1176 platform.devices.MIMXRT1176_startup.MIMXRT1176 platform.drivers.gpc_3.MIMXRT1176 platform.drivers.soc_src.MIMXRT1176 platform.drivers.mu.MIMXRT1176 platform.drivers.iomuxc.MIMXRT1176 platform.drivers.igpio.MIMXRT1176 platform.drivers.xip_device.MIMXRT1176 platform.drivers.xip_board.evkbmimxrt1170.MIMXRT1176 platform.drivers.pmu_1.MIMXRT1176 platform.drivers.dcdc_soc.MIMXRT1176 platform.drivers.cache_armv7_m7.MIMXRT1176 platform.utilities.misc_utilities.MIMXRT1176 utility.str.MIMXRT1176 platform.drivers.anatop_ai.MIMXRT1176 middleware.multicore.erpc.common.MIMXRT1176 middleware.freertos-kernel.MIMXRT1176 middleware.freertos-kernel.template.MIMXRT1176 middleware.freertos-kernel.extension.MIMXRT1176 CMSIS_Include_core_cm.MIMXRT1176 platform.devices.MIMXRT1176_system.MIMXRT1176" linked_projects="evkbmimxrt1170_erpc_matrix_multiply_mu_rtos_cm4" category="multicore_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.ccnature"/>
     </projects>
@@ -133,7 +134,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="com.crt.advproject.cpp.fpu" type="enum">
           <value>com.crt.advproject.cpp.fpu.fpv5dp.hard</value>
@@ -145,7 +146,7 @@
           <value>com.crt.advproject.misc.dialect.gnupp11</value>
         </option>
         <option id="gnu.cpp.compiler.option.other.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin -fno-rtti -fno-exceptions</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin -fno-rtti -fno-exceptions</value>
         </option>
         <option id="gnu.cpp.compiler.option.warnings.toerrors" type="boolean">
           <value>false</value>

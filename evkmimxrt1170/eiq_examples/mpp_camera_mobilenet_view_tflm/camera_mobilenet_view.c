@@ -1,16 +1,22 @@
 /*
- * Copyright 2022-2023 NXP
+ * Copyright 2022-2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-/* @brief This example application shows usage of MultiMedia Pipeline to build a simple graph:
- * 2D camera -> split -> image converter -> draw labeled rectangle -> display
- *                   +-> image converter -> inference engine (model: MobileNet v1)
- * The camera view finder is displayed on screen
- * The model performs classification among a list of 1000 object types
+/* @brief This example application shows usage of MultiMedia Pipeline to build a simple graph with 2 branches:
+ * 2D camera -> split +-> image converter -> inference engine (model: MobileNet v1)
+ *                    +-> image converter(*) -> draw labeled rectangle -> display
+ * The camera view finder branch:
+ * displays captured content on screen;
+ * (*) image conversion may be skipped for cameras supporting same format as display;
+ * the pipeline may deal with stripes of images instead of full-frame to reduce memory footprint;
+ * this stripe mode can only be enabled when camera and display devices support it.
+ * The inference engine branch:
+ * performs a classification among a list of 1000 object types
  *(see models/mobilenet_v1_0.25_128_quant_int8_cm7/mobilenetv1_labels.h),
+ * the pipeline is configured to run inference engine in a background task.
  * the model output is displayed on UART console by application */
 
 /* FreeRTOS kernel includes. */
@@ -52,26 +58,16 @@ typedef struct _user_data_t {
  * Variables declaration
  ******************************************************************************/
 
-/* Use TensorFlowLite-Micro as an inference engine by default */
-#if !defined(INFERENCE_ENGINE_TFLM) && !defined(INFERENCE_ENGINE_DeepViewRT) && !defined(INFERENCE_ENGINE_GLOW)
-#define INFERENCE_ENGINE_TFLM
+#ifndef APP_STRIPE_MODE
+#define APP_STRIPE_MODE 0
 #endif
 
-/* Model data input (depends on inference engine) */
-#if defined(INFERENCE_ENGINE_TFLM)
+/* Model data input */
 #ifdef APP_USE_NEUTRON16_MODEL
 #include "models/mobilenet_v1_0.25_128_quant_int8/mobilenetv1_model_data_tflite_npu16.h"
 #else  // APP_USE_NEUTRON16_MODEL
 #include "models/mobilenet_v1_0.25_128_quant_int8/mobilenetv1_model_data_tflite.h"
 #endif  // APP_USE_NEUTRON16_MODEL
-#elif defined(INFERENCE_ENGINE_GLOW)
-#include "models/mobilenet_v1_0.25_128_quant_int8/mobilenet_v1_weights_glow_cm7.h"
-#include "models/mobilenet_v1_0.25_128_quant_int8/mobilenet_v1_glow_cm7.h"
-#elif defined(INFERENCE_ENGINE_DeepViewRT)
-#include <models/mobilenet_v1_0.25_128_quant_int8/mobilenet_model_data_dvrt.h>
-#else
-#error "ERROR: An inference engine must be selected"
-#endif
 
 /*
  * SWAP_DIMS = 1 if source/display dims are reversed
@@ -230,21 +226,19 @@ int mpp_event_listener(mpp_t mpp, mpp_evt_t evt, void *evt_data, void *user_data
 
 static void app_task(void *params)
 {
-    user_data_t user_data = {0};
+    static user_data_t user_data = {0};
     int ret;
+    bool stripe_mode = (APP_STRIPE_MODE > 0)? true : false;
 
     PRINTF("[%s]\r\n", mpp_get_version());
-#if defined(INFERENCE_ENGINE_TFLM)
     PRINTF("Inference Engine: TensorFlow-Lite Micro \r\n");
-#elif defined (INFERENCE_ENGINE_GLOW)
-    PRINTF("Inference Engine: Glow \r\n");
-#elif defined(INFERENCE_ENGINE_DeepViewRT)
-    PRINTF("Inference Engine: DeepViewRT \r\n");
-#else
-#error "Please select inference engine"
-#endif
 
     mpp_api_params_t api_params = {0};
+#if ((defined APP_RC_CYCLE_INC) && (defined APP_RC_CYCLE_MIN))
+    /* fine-tune RC cycle for stripe mode */
+    api_params.rc_cycle_inc = APP_RC_CYCLE_INC;
+    api_params.rc_cycle_min = APP_RC_CYCLE_MIN;
+#endif
     mpp_stats_t api_stats;
     memset(&api_stats, 0, sizeof(api_stats));
     api_params.stats = &api_stats;
@@ -266,14 +260,13 @@ static void app_task(void *params)
     if (mp == MPP_INVALID)
         goto err;
 
-    user_data.mp = mp;
-
     mpp_camera_params_t cam_params;
     memset(&cam_params, 0 , sizeof(cam_params));
     cam_params.height = APP_CAMERA_HEIGHT;
     cam_params.width =  APP_CAMERA_WIDTH;
     cam_params.format = APP_CAMERA_FORMAT;
     cam_params.fps    = 30;
+    cam_params.stripe = stripe_mode;
     ret = mpp_camera_add(mp, s_camera_name, &cam_params);
     if (ret) {
         PRINTF("Failed to add camera %s\n", s_camera_name);
@@ -282,9 +275,7 @@ static void app_task(void *params)
 
     /* split the pipeline into 2 branches */
     mpp_t mp_split;
-    mpp_stats_t split_stats;
-    mpp_params.exec_flag = MPP_EXEC_PREEMPT;
-    mpp_params.stats = &split_stats;
+    mpp_params.exec_flag = MPP_EXEC_INHERIT;
     ret = mpp_split(mp, 1 , &mpp_params, &mp_split);
     if (ret) {
         PRINTF("Failed to split pipeline\n");
@@ -313,10 +304,26 @@ static void app_task(void *params)
     elem_params.convert.scale.width = MODEL_WIDTH;
     elem_params.convert.scale.height = MODEL_HEIGHT;
     elem_params.convert.ops |= MPP_CONVERT_SCALE;
+    elem_params.convert.stripe_in = stripe_mode;
+    elem_params.convert.stripe_out = false; /* model takes full frames */
 
-    ret = mpp_element_add(mp_split, MPP_ELEMENT_CONVERT, &elem_params, NULL);
+    ret = mpp_element_add(mp, MPP_ELEMENT_CONVERT, &elem_params, NULL);
     if (ret ) {
         PRINTF("Failed to add element CONVERT\n");
+        goto err;
+    }
+
+    /* create a background mpp (preempt-able branch) for the ML Inference
+     * because it may take longer than capture period.
+     * Inference runs a MobilenetV1 model in TF-Lite format */
+    mpp_t mp_bg;
+    mpp_stats_t bg_stats;
+    mpp_params.stats = &bg_stats;
+    mpp_params.exec_flag = MPP_EXEC_PREEMPT;
+
+    ret = mpp_background(mp, &mpp_params, &mp_bg);
+    if (ret) {
+        PRINTF("Failed to split pipeline\n");
         goto err;
     }
 
@@ -325,48 +332,31 @@ static void app_task(void *params)
     static mpp_stats_t mobilenet_stats;
     memset(&mobilenet_params, 0 , sizeof(mpp_element_params_t));
 
-#if defined(INFERENCE_ENGINE_TFLM)
     mobilenet_params.ml_inference.model_data = model_data;
     mobilenet_params.ml_inference.model_size = model_data_len;
     mobilenet_params.ml_inference.model_input_mean = MODEL_INPUT_MEAN;
     mobilenet_params.ml_inference.model_input_std = MODEL_INPUT_STD;
     mobilenet_params.ml_inference.type = MPP_INFERENCE_TYPE_TFLITE;
-#elif defined(INFERENCE_ENGINE_GLOW)
-    mobilenet_params.ml_inference.model_data = mobilenet_v1_weights_bin;
-    mobilenet_params.ml_inference.inference_params.constant_weight_MemSize = MOBILENET_V1_CONSTANT_MEM_SIZE;
-    mobilenet_params.ml_inference.inference_params.mutable_weight_MemSize = MOBILENET_V1_MUTABLE_MEM_SIZE;
-    mobilenet_params.ml_inference.inference_params.activations_MemSize = MOBILENET_V1_ACTIVATIONS_MEM_SIZE;
-    mobilenet_params.ml_inference.inference_params.num_inputs = 1;
-    mobilenet_params.ml_inference.inference_params.inputs_offsets[0] = MOBILENET_V1_input;
-    mobilenet_params.ml_inference.inference_params.outputs_offsets[0] = MOBILENET_V1_MobilenetV1_Predictions_Reshape_1;
-    mobilenet_params.ml_inference.inference_params.model_input_tensors_type = MPP_TENSOR_TYPE_INT8;
-    mobilenet_params.ml_inference.inference_params.model_entry_point = &mobilenet_v1;
-    mobilenet_params.ml_inference.type = MPP_INFERENCE_TYPE_GLOW ;
-#elif defined(INFERENCE_ENGINE_DeepViewRT)
-    mobilenet_params.ml_inference.model_data = model_data;
-    mobilenet_params.ml_inference.model_size = model_data_len;
-    mobilenet_params.ml_inference.type = MPP_INFERENCE_TYPE_DEEPVIEWRT ;
-#endif
 
     mobilenet_params.ml_inference.inference_params.num_inputs = 1;
     mobilenet_params.ml_inference.inference_params.num_outputs = 1;
     mobilenet_params.ml_inference.tensor_order = MPP_TENSOR_ORDER_NHWC;
     mobilenet_params.stats = &mobilenet_stats;
 
-    ret = mpp_element_add(mp_split, MPP_ELEMENT_INFERENCE, &mobilenet_params, NULL);
+    ret = mpp_element_add(mp_bg, MPP_ELEMENT_INFERENCE, &mobilenet_params, NULL);
     if (ret) {
         PRINTF("Failed to add element VALGO_TFLite");
         goto err;
     }
     /* close the pipeline with a null sink */
-    ret = mpp_nullsink_add(mp_split);
+    ret = mpp_nullsink_add(mp_bg);
     if (ret) {
         PRINTF("Failed to add NULL sink\n");
         goto err;
     }
 
 #ifndef APP_SKIP_CONVERT_FOR_DISPLAY
-    /* On the main branch of the pipeline, send the frame to the display */
+    /* On the secondary branch of the pipeline, send the frame to the display */
     /* First do color-convert + flip */
     memset(&elem_params, 0, sizeof(elem_params));
     /* pick default device from the first listed and supported by Hw */
@@ -377,7 +367,7 @@ static void app_task(void *params)
     elem_params.convert.pixel_format = APP_DISPLAY_FORMAT;
     elem_params.convert.flip = FLIP_HORIZONTAL;
     elem_params.convert.ops = MPP_CONVERT_COLOR | MPP_CONVERT_ROTATE;
-    ret = mpp_element_add(mp, MPP_ELEMENT_CONVERT, &elem_params, NULL);
+    ret = mpp_element_add(mp_split, MPP_ELEMENT_CONVERT, &elem_params, NULL);
 
     if (ret) {
         PRINTF("Failed to add element CONVERT\n");
@@ -404,11 +394,14 @@ static void app_task(void *params)
     strcpy((char *)user_data.labels[0].label, "no label");
 
     /* retrieve the element handle while add api */
-    ret = mpp_element_add(mp, MPP_ELEMENT_LABELED_RECTANGLE, &elem_params, &user_data.elem);
+    ret = mpp_element_add(mp_split, MPP_ELEMENT_LABELED_RECTANGLE, &elem_params, &user_data.elem);
     if (ret) {
         PRINTF("Failed to add element LABELED_RECTANGLE (0x%x)\r\n", ret);
         goto err;
     }
+
+    /* pass the mpp of the element 'label rectangle' to callback */
+    user_data.mp = mp_split;
 
 #ifndef APP_SKIP_CONVERT_FOR_DISPLAY
     /* then rotate if needed */
@@ -419,7 +412,7 @@ static void app_task(void *params)
     	elem_params.convert.out_buf.height = APP_DISPLAY_HEIGHT;
     	elem_params.convert.angle = APP_DISPLAY_LANDSCAPE_ROTATE;
     	elem_params.convert.ops = MPP_CONVERT_ROTATE;
-    	ret = mpp_element_add(mp, MPP_ELEMENT_CONVERT, &elem_params, NULL);
+    	ret = mpp_element_add(mp_split, MPP_ELEMENT_CONVERT, &elem_params, NULL);
 
     	if (ret) {
     		PRINTF("Failed to add element CONVERT\r\n");
@@ -433,10 +426,11 @@ static void app_task(void *params)
     disp_params.format = APP_DISPLAY_FORMAT;
     disp_params.width  = APP_DISPLAY_WIDTH;
     disp_params.height = APP_DISPLAY_HEIGHT;
+    disp_params.stripe = stripe_mode;
 #ifdef APP_SKIP_CONVERT_FOR_DISPLAY
     disp_params.rotate = APP_DISPLAY_LANDSCAPE_ROTATE;
 #endif
-    ret = mpp_display_add(mp, s_display_name, &disp_params);
+    ret = mpp_display_add(mp_split, s_display_name, &disp_params);
     if (ret) {
         PRINTF("Failed to add display %s\n", s_display_name);
         goto err;
@@ -447,15 +441,21 @@ static void app_task(void *params)
     mpp_stats_enable(MPP_STATS_GRP_ELEMENT);
 
     /* start preempt-able pipeline branch */
+    ret = mpp_start(mp_bg, 0);
+    if (ret) {
+        PRINTF("Failed to start preempt-able pipeline branch");
+        goto err;
+    }
+    /* start secondary pipeline branch */
     ret = mpp_start(mp_split, 0);
     if (ret) {
-        PRINTF("Failed to start pipeline");
+        PRINTF("Failed to start secondary pipeline branch");
         goto err;
     }
     /* start main pipeline branch */
     ret = mpp_start(mp, 1);
     if (ret) {
-        PRINTF("Failed to start pipeline");
+        PRINTF("Failed to start main pipeline branch");
         goto err;
     }
 
@@ -477,7 +477,7 @@ static void app_task(void *params)
                 api_stats.api.pr_slot, api_stats.api.pr_rounds, api_stats.api.app_slot);
         PRINTF("MPP stats ------------------------------\r\n");
         PRINTF("mpp %p exec_time %u ms\r\n", mpp_stats.mpp.mpp, mpp_stats.mpp.mpp_exec_time);
-        PRINTF("mpp %p exec_time %u ms\r\n", split_stats.mpp.mpp, split_stats.mpp.mpp_exec_time);
+        PRINTF("mpp %p exec_time %u ms\r\n", bg_stats.mpp.mpp, bg_stats.mpp.mpp_exec_time);
         PRINTF("Element stats --------------------------\r\n");
         PRINTF("mobilenet : exec_time %u ms\r\n", mobilenet_stats.elem.elem_exec_time);
         if (Atomic_CompareAndSwap_u32(&user_data.accessing, 1, 0) == ATOMIC_COMPARE_AND_SWAP_SUCCESS)

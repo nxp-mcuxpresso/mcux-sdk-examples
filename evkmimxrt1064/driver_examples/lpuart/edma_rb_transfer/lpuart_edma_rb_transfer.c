@@ -69,7 +69,11 @@ volatile uint32_t ringBufferIndex                                          = 0U;
 /* allocate ring buffer section. */
 AT_NONCACHEABLE_SECTION_INIT(uint8_t g_ringBuffer[EXAMPLE_RING_BUFFER_SIZE]) = {0};
 /* Allocate TCD memory poll with ring buffer used. */
+#if defined(DEMO_QUICKACCESS_SECTION_CACHEABLE) && DEMO_QUICKACCESS_SECTION_CACHEABLE
+AT_NONCACHEABLE_SECTION_ALIGN(static edma_tcd_t tcdMemoryPoolPtr[1], sizeof(edma_tcd_t));
+#else
 AT_QUICKACCESS_SECTION_DATA_ALIGN(static edma_tcd_t tcdMemoryPoolPtr[1], sizeof(edma_tcd_t));
+#endif
 
 /*******************************************************************************
  * Code
@@ -146,11 +150,19 @@ static void EXAMPLE_StartRingBufferEDMA(void)
     /* Submit transfer. */
     g_lpuartRxEdmaHandle.tcdUsed = 1U;
     g_lpuartRxEdmaHandle.tail    = 0U;
+#if defined FSL_EDMA_DRIVER_EDMA4 && FSL_EDMA_DRIVER_EDMA4
+    EDMA_TcdResetExt(g_lpuartRxEdmaHandle.base, &g_lpuartRxEdmaHandle.tcdPool[0U]);
+    EDMA_TcdSetTransferConfigExt(g_lpuartRxEdmaHandle.base, &g_lpuartRxEdmaHandle.tcdPool[0U], &xferConfig,
+                                 tcdMemoryPoolPtr);
+    /* Enable major interrupt for counting received bytes. */
+    EDMA_TcdEnableInterruptsExt(g_lpuartRxEdmaHandle.base, &g_lpuartRxEdmaHandle.tcdPool[0U],
+                                kEDMA_MajorInterruptEnable);
+#else
     EDMA_TcdReset(&g_lpuartRxEdmaHandle.tcdPool[0U]);
     EDMA_TcdSetTransferConfig(&g_lpuartRxEdmaHandle.tcdPool[0U], &xferConfig, tcdMemoryPoolPtr);
-
     /* Enable major interrupt for counting received bytes. */
     EDMA_TcdEnableInterrupts(&g_lpuartRxEdmaHandle.tcdPool[0U], kEDMA_MajorInterruptEnable);
+#endif
 
     /* There is no live chain, TCD block need to be installed in TCD registers. */
     EDMA_InstallTCD(g_lpuartRxEdmaHandle.base, g_lpuartRxEdmaHandle.channel, &g_lpuartRxEdmaHandle.tcdPool[0U]);
@@ -217,7 +229,11 @@ void EXAMPLE_LPUART_IRQHandler(void)
             __NOP();
         }
     }
+#if defined(FSL_LP_FLEXCOMM_DRIVER_VERSION)
+    LPUART_TransferEdmaHandleIRQ(LPUART_GetInstance(EXAMPLE_LPUART), &g_lpuartEdmaHandle);
+#else
     LPUART_TransferEdmaHandleIRQ(EXAMPLE_LPUART, &g_lpuartEdmaHandle);
+#endif
     SDK_ISR_EXIT_BARRIER;
 }
 

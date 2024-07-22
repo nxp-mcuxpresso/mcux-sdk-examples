@@ -4,19 +4,20 @@ The lpadc sample rate count demo application can be used to measure ADC's sample
 for an ADC is defined as the number of output samples available per unit time, and is specified as samples per
 second(SPS).
 The sample rate is the reciprocal of one sample total conversion time. Total conversion time = sampling time + compare time
-In this demo, users can select sample time, and the compare time is fixed to 17.5 ADC clock cycles.
+In this demo, users can select sample time, and the compare time is different in different devices, please see device datasheet
+for details.
 In this demo the ADC conversion clock is configured as the maximum frequency(Please refer to the datasheet for the
-maximim value). So theoretically, sample rate = maximum frequency / total conversion time.
+maximin value). So theoretically, sample rate = maximum frequency / total conversion time.
 
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- MCUXpresso  11.8.0
-- GCC ARM Embedded  12.2
+- MCUXpresso  11.10.0
+- GCC ARM Embedded  13.2.1
 
 Hardware requirements
 =====================

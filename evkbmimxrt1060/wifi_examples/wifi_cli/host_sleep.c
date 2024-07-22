@@ -8,7 +8,9 @@
  *  SPDX-License-Identifier: BSD-3-Clause
  */
 
-#ifdef CONFIG_HOST_SLEEP
+#include "host_sleep.h"
+
+#if CONFIG_HOST_SLEEP
 
 /*******************************************************************************
  * Includes
@@ -26,7 +28,6 @@
 #include "board.h"
 
 #include "fsl_debug_console.h"
-#include "host_sleep.h"
 
 GPIO_HANDLE_DEFINE(s_WakeupGpioHandle);
 

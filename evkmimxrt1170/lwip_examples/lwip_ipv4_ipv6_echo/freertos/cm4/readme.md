@@ -34,12 +34,12 @@ It is necessary to have installed tools capable of sending and receiving data ov
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  12.2
-- MCUXpresso  11.8.0
+- GCC ARM Embedded  13.2.1
+- MCUXpresso  11.10.0
 
 Hardware requirements
 =====================

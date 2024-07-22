@@ -21,16 +21,55 @@
 #include "wlan.h"
 #include "wifi.h"
 #include "wm_net.h"
-#include <wm_os.h>
+#include <osa.h>
 #include "dhcp-server.h"
 #include "cli.h"
 #include "iperf.h"
 
 
 #include "fsl_common.h"
+#if CONFIG_WIFI_SMOKE_TESTS
+#include "fsl_iomuxc.h"
+#include "fsl_enet.h"
+#endif
+#if CONFIG_WIFI_SMOKE_TESTS
+#if BOARD_NETWORK_USE_100M_ENET_PORT
+#include "fsl_phyrtl8201.h"
+#else
+#include "fsl_phyrtl8211f.h"
+#endif
+#endif
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
+
+#if CONFIG_WIFI_SMOKE_TESTS
+#if BOARD_NETWORK_USE_100M_ENET_PORT
+extern phy_rtl8201_resource_t g_phy_resource;
+#define EXAMPLE_ENET ENET
+/* Address of PHY interface. */
+#define EXAMPLE_PHY_ADDRESS BOARD_ENET0_PHY_ADDRESS
+/* PHY operations. */
+#define EXAMPLE_PHY_OPS &phyrtl8201_ops
+/* ENET instance select. */
+#define EXAMPLE_NETIF_INIT_FN ethernetif0_init
+#else
+extern phy_rtl8211f_resource_t g_phy_resource;
+#define EXAMPLE_ENET          ENET_1G
+/* Address of PHY interface. */
+#define EXAMPLE_PHY_ADDRESS   BOARD_ENET1_PHY_ADDRESS
+/* PHY operations. */
+#define EXAMPLE_PHY_OPS       &phyrtl8211f_ops
+/* ENET instance select. */
+#define EXAMPLE_NETIF_INIT_FN ethernetif1_init
+#endif
+
+/* PHY resource. */
+#define EXAMPLE_PHY_RESOURCE &g_phy_resource
+
+/* ENET clock frequency. */
+#define EXAMPLE_CLOCK_FREQ CLOCK_GetRootClockFreq(kCLOCK_Root_Bus)
+#endif
 
 
 /*******************************************************************************
@@ -40,12 +79,78 @@
 /*******************************************************************************
  * Code
  ******************************************************************************/
+#if CONFIG_WIFI_SMOKE_TESTS
+#if BOARD_NETWORK_USE_100M_ENET_PORT
+phy_rtl8201_resource_t g_phy_resource;
+#else
+phy_rtl8211f_resource_t g_phy_resource;
+#endif
 
-const int TASK_MAIN_PRIO       = OS_PRIO_3;
-const int TASK_MAIN_STACK_SIZE = 800;
+void BOARD_InitModuleClock(void)
+{
+    const clock_sys_pll1_config_t sysPll1Config = {
+        .pllDiv2En = true,
+    };
+    CLOCK_InitSysPll1(&sysPll1Config);
 
-portSTACK_TYPE *task_main_stack = NULL;
-TaskHandle_t task_main_task_handler;
+#if BOARD_NETWORK_USE_100M_ENET_PORT
+    clock_root_config_t rootCfg = {.mux = 4, .div = 10}; /* Generate 50M root clock. */
+    CLOCK_SetRootClock(kCLOCK_Root_Enet1, &rootCfg);
+#else
+    clock_root_config_t rootCfg = {.mux = 4, .div = 4};       /* Generate 125M root clock. */
+    CLOCK_SetRootClock(kCLOCK_Root_Enet2, &rootCfg);
+#endif
+
+    /* Select syspll2pfd3, 528*18/24 = 396M */
+    CLOCK_InitPfd(kCLOCK_PllSys2, kCLOCK_Pfd3, 24);
+    rootCfg.mux = 7;
+    rootCfg.div = 2;
+    CLOCK_SetRootClock(kCLOCK_Root_Bus, &rootCfg); /* Generate 198M bus clock. */
+}
+
+void IOMUXC_SelectENETClock(void)
+{
+#if BOARD_NETWORK_USE_100M_ENET_PORT
+    IOMUXC_GPR->GPR4 |= 0x3; /* 50M ENET_REF_CLOCK output to PHY and ENET module. */
+#else
+    IOMUXC_GPR->GPR5 |= IOMUXC_GPR_GPR5_ENET1G_RGMII_EN_MASK; /* bit1:iomuxc_gpr_enet_clk_dir
+                                                                 bit0:GPR_ENET_TX_CLK_SEL(internal or OSC) */
+#endif
+}
+
+void BOARD_ENETFlexibleConfigure(enet_config_t *config)
+{
+#if BOARD_NETWORK_USE_100M_ENET_PORT
+    config->miiMode = kENET_RmiiMode;
+#else
+    config->miiMode = kENET_RgmiiMode;
+#endif
+}
+
+static void MDIO_Init(void)
+{
+    (void)CLOCK_EnableClock(s_enetClock[ENET_GetInstance(EXAMPLE_ENET)]);
+    ENET_SetSMI(EXAMPLE_ENET, EXAMPLE_CLOCK_FREQ, false);
+}
+
+static status_t MDIO_Write(uint8_t phyAddr, uint8_t regAddr, uint16_t data)
+{
+    return ENET_MDIOWrite(EXAMPLE_ENET, phyAddr, regAddr, data);
+}
+
+static status_t MDIO_Read(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
+{
+    return ENET_MDIORead(EXAMPLE_ENET, phyAddr, regAddr, pData);
+}
+#endif
+
+#define MAIN_TASK_STACK_SIZE 4096
+
+static void main_task(osa_task_param_t arg);
+
+static OSA_TASK_DEFINE(main_task, OSA_PRIORITY_BELOW_NORMAL, 1, MAIN_TASK_STACK_SIZE, 0);
+
+OSA_TASK_HANDLE_DEFINE(main_task_Handle);
 
 static void printSeparator(void)
 {
@@ -66,6 +171,10 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
     char ip[16];
     static int auth_fail = 0;
 
+    printSeparator();
+    PRINTF("app_cb: WLAN: received event %d\r\n", reason);
+    printSeparator();
+
     switch (reason)
     {
         case WLAN_REASON_INITIALIZED:
@@ -78,7 +187,7 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
                 PRINTF("Failed to initialize BASIC WLAN CLIs\r\n");
                 return 0;
             }
-#ifdef CONFIG_RF_TEST_MODE
+#if CONFIG_RF_TEST_MODE
             ret = wlan_test_mode_cli_init();
             if (ret != WM_SUCCESS)
             {
@@ -123,13 +232,14 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
             {
                 PRINTF("IPv4 Address: [%s]\r\n", ip);
             }
-#ifdef CONFIG_IPV6
+#if CONFIG_IPV6
             int i;
             for (i = 0; i < CONFIG_MAX_IPV6_ADDRESSES; i++)
             {
                 if (ip6_addr_isvalid(addr.ipv6[i].addr_state))
                 {
-                    (void)PRINTF("IPv6 Address: %-13s:\t%s (%s)\r\n", ipv6_addr_type_to_desc((struct net_ipv6_config *)&addr.ipv6[i]),
+                    (void)PRINTF("IPv6 Address: %-13s:\t%s (%s)\r\n",
+                                 ipv6_addr_type_to_desc((struct net_ipv6_config *)&addr.ipv6[i]),
                                  inet6_ntoa(addr.ipv6[i].address), ipv6_addr_state_to_desc(addr.ipv6[i].addr_state));
                 }
             }
@@ -217,8 +327,10 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
             printSeparator();
             break;
         case WLAN_REASON_PS_ENTER:
+            PRINTF("app_cb: WLAN: PS_ENTER\r\n");
             break;
         case WLAN_REASON_PS_EXIT:
+            PRINTF("app_cb: WLAN: PS EXIT\r\n");
             break;
         default:
             PRINTF("app_cb: WLAN: Unknown Event: %d\r\n", reason);
@@ -226,7 +338,7 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
     return 0;
 }
 
-void task_main(void *param)
+static void main_task(osa_task_param_t arg)
 {
     int32_t result = 0;
     (void)result;
@@ -253,7 +365,7 @@ void task_main(void *param)
     while (1)
     {
         /* wait for interface up */
-        os_thread_sleep(os_msec_to_ticks(5000));
+        OSA_TimeDelay(5000);
     }
 }
 
@@ -263,8 +375,7 @@ void task_main(void *param)
 
 int main(void)
 {
-    BaseType_t result = 0;
-    (void)result;
+    OSA_Init();
 
     BOARD_ConfigMPU();
     BOARD_InitBootPins();
@@ -272,15 +383,45 @@ int main(void)
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
+#if CONFIG_WIFI_SMOKE_TESTS
+    BOARD_InitModuleClock();
+
+    IOMUXC_SelectENETClock();
+
+    gpio_pin_config_t gpio_config = {kGPIO_DigitalOutput, 0, kGPIO_NoIntmode};
+
+#if BOARD_NETWORK_USE_100M_ENET_PORT
+    BOARD_InitEnetPins();
+    GPIO_PinInit(GPIO12, 12, &gpio_config);
+    SDK_DelayAtLeastUs(10000, CLOCK_GetFreq(kCLOCK_CpuClk));
+    GPIO_WritePinOutput(GPIO12, 12, 1);
+    SDK_DelayAtLeastUs(150000, CLOCK_GetFreq(kCLOCK_CpuClk));
+#else
+    BOARD_InitEnet1GPins();
+    GPIO_PinInit(GPIO11, 14, &gpio_config);
+    /* For a complete PHY reset of RTL8211FDI-CG, this pin must be asserted low for at least 10ms. And
+     * wait for a further 30ms(for internal circuits settling time) before accessing the PHY register */
+    SDK_DelayAtLeastUs(10000, CLOCK_GetFreq(kCLOCK_CpuClk));
+    GPIO_WritePinOutput(GPIO11, 14, 1);
+    SDK_DelayAtLeastUs(30000, CLOCK_GetFreq(kCLOCK_CpuClk));
+
+    EnableIRQ(ENET_1G_MAC0_Tx_Rx_1_IRQn);
+    EnableIRQ(ENET_1G_MAC0_Tx_Rx_2_IRQn);
+#endif
+
+    MDIO_Init();
+    g_phy_resource.read  = MDIO_Read;
+    g_phy_resource.write = MDIO_Write;
+#endif
+
+
     printSeparator();
     PRINTF("wifi test mode demo\r\n");
     printSeparator();
 
-    result =
-        xTaskCreate(task_main, "main", TASK_MAIN_STACK_SIZE, task_main_stack, TASK_MAIN_PRIO, &task_main_task_handler);
-    assert(pdPASS == result);
+    (void)OSA_TaskCreate((osa_task_handle_t)main_task_Handle, OSA_TASK(main_task), NULL);
 
-    vTaskStartScheduler();
-    for (;;)
-        ;
+    OSA_Start();
+
+    return 0;
 }

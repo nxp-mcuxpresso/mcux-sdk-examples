@@ -1,5 +1,5 @@
 /*
- * Copyright 2021-2023 NXP
+ * Copyright 2021-2024 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -18,9 +18,6 @@
  ******************************************************************************/
 #define EXAMPLE_SLAVE              I3C0
 #define I3C_SLAVE_CLOCK_FREQUENCY  CLOCK_GetFro1MFreq()
-#define I3C_TIME_OUT_INDEX         100000000
-#define I3C_MASTER_SLAVE_ADDR_7BIT 0x1EU
-#define I3C_DATA_LENGTH            34U
 #ifndef EXAMPLE_I3C_HDR_SUPPORT
 #define EXAMPLE_I3C_HDR_SUPPORT 0
 #endif
@@ -30,6 +27,8 @@
 #ifndef I3C_DATA_LENGTH
 #define I3C_DATA_LENGTH 34U
 #endif
+
+#define I3C_VENDOR_ID      0x11BU
 
 /*******************************************************************************
  * Prototypes
@@ -137,17 +136,17 @@ int main(void)
 #endif
     i3c_slave_config_t slaveConfig;
 
-    /* attach 12 MHz clock to FLEXCOMM0 (debug console) */
+    /* Attach 12 MHz clock to FLEXCOMM0 (debug console) */
     CLOCK_SetClkDiv(kCLOCK_DivFlexcom0Clk, 0u, true);
     CLOCK_SetClkDiv(kCLOCK_DivFlexcom0Clk, 1u, false);
     CLOCK_AttachClk(BOARD_DEBUG_UART_CLK_ATTACH);
 
-    /* Attach main clock to I3C, 150MHz / 4 = 37.5MHz. */
+    /* Attach main clock to I3C, 150MHz / 6 = 25MHz. */
     CLOCK_SetClkDiv(kCLOCK_DivI3cFclk, 0U, true);
-    CLOCK_SetClkDiv(kCLOCK_DivI3cFclk, 4U, false);
+    CLOCK_SetClkDiv(kCLOCK_DivI3cFclk, 6U, false);
     CLOCK_AttachClk(kMAIN_CLK_to_I3CFCLK);
 
-    // Enable FRO 1MHz clock
+    /* Enable FRO 1MHz clock. */
     SYSCON->CLOCK_CTRL |= SYSCON_CLOCK_CTRL_FRO1MHZ_CLK_ENA_MASK;
 
     BOARD_InitPins();
@@ -158,7 +157,7 @@ int main(void)
 
     I3C_SlaveGetDefaultConfig(&slaveConfig);
     slaveConfig.staticAddr = I3C_MASTER_SLAVE_ADDR_7BIT;
-    slaveConfig.vendorID   = 0x123U;
+    slaveConfig.vendorID   = I3C_VENDOR_ID;
     slaveConfig.offline    = false;
     I3C_SlaveInit(EXAMPLE_SLAVE, &slaveConfig, I3C_SLAVE_CLOCK_FREQUENCY);
     I3C_SlaveTransferCreateHandle(EXAMPLE_SLAVE, &g_i3c_s_handle, i3c_slave_callback, NULL);

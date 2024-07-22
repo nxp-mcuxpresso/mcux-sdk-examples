@@ -52,20 +52,20 @@ include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
 "${ProjDirPath}/../lcdif_rgb565.c"
-"${ProjDirPath}/../pin_mux.c"
-"${ProjDirPath}/../pin_mux.h"
-"${ProjDirPath}/../lcdif_support.h"
-"${ProjDirPath}/../lcdif_support.c"
 "${SdkRootDirPath}/core/boards/evkmimxrt595/board.c"
 "${SdkRootDirPath}/core/boards/evkmimxrt595/board.h"
 "${SdkRootDirPath}/core/boards/evkmimxrt595/clock_config.c"
 "${SdkRootDirPath}/core/boards/evkmimxrt595/clock_config.h"
+"${ProjDirPath}/../pin_mux.c"
+"${ProjDirPath}/../pin_mux.h"
+"${ProjDirPath}/../lcdif_support.h"
+"${ProjDirPath}/../lcdif_support.c"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
+    ${SdkRootDirPath}/core/boards/evkmimxrt595
     ${ProjDirPath}/..
     ${SdkRootDirPath}/examples/evkmimxrt595/driver_examples/lcdif
-    ${SdkRootDirPath}/core/boards/evkmimxrt595
 )
 
 

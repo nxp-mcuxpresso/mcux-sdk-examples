@@ -43,6 +43,7 @@ void BOARD_InitBootPins(void)
     BOARD_InitButtonPins();
     BOARD_InitPmicModePins();
     BOARD_InitLsm6dsoPins();
+    BOARD_InitPdmPins();
 }
 
 /*
@@ -315,6 +316,35 @@ BOARD_InitLsm6dsoPins:
 void BOARD_InitLsm6dsoPins(void) {                         /*!< Function assigned for the core: Cortex-M33[cm33] */
     IOMUXC_SetPinMux(IOMUXC_PTB4_PTB4, 0U);
     IOMUXC_SetPinConfig(IOMUXC_PTB4_PTB4,
+                        IOMUXC_PCR_PE_MASK |
+                        IOMUXC_PCR_PS_MASK);
+}
+
+/*
+ * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+BOARD_InitPdmPins:
+- options: {callFromInitBoot: 'true', coreID: cm33}
+- pin_list:
+  - {pin_num: AD12, peripheral: MICFIL0, signal: 'micfil_clk, 01', pin_signal: PTB0}
+  - {pin_num: AH11, peripheral: MICFIL0, signal: 'micfil_data, 01', pin_signal: PTB1, PS: UP, PE: ENABLED}
+  - {pin_num: AH12, peripheral: MICFIL0, signal: 'micfil_data, 23', pin_signal: PTB3, PS: UP, PE: ENABLED}
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
+ */
+
+/* FUNCTION ************************************************************************************************************
+ *
+ * Function Name : BOARD_InitPdmPins
+ * Description   : Configures pin routing and optionally pin electrical features.
+ *
+ * END ****************************************************************************************************************/
+void BOARD_InitPdmPins(void) {                                /*!< Function assigned for the core: Cortex-M33[cm33] */
+    IOMUXC_SetPinMux(IOMUXC_PTB0_MICFIL0_CLK01, 0U);
+    IOMUXC_SetPinMux(IOMUXC_PTB1_MICFIL0_DATA01, 0U);
+    IOMUXC_SetPinConfig(IOMUXC_PTB1_MICFIL0_DATA01,
+                        IOMUXC_PCR_PE_MASK |
+                        IOMUXC_PCR_PS_MASK);
+    IOMUXC_SetPinMux(IOMUXC_PTB3_MICFIL0_DATA23, 0U);
+    IOMUXC_SetPinConfig(IOMUXC_PTB3_MICFIL0_DATA23,
                         IOMUXC_PCR_PE_MASK |
                         IOMUXC_PCR_PS_MASK);
 }

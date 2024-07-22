@@ -50,16 +50,11 @@ SHELL_COMMAND_DEFINE(
     file,
     "\r\n\"file\": Perform audio file decode and playback\r\n"
     "\r\n"
-    "  USAGE: file [start|stop|pause|volume|"
+    "  USAGE: file [stop|pause|volume|"
 #ifndef MULTICHANNEL_EXAMPLE
     "seek|"
 #endif
-    "track|list|info]\r\n"
-#ifdef MULTICHANNEL_EXAMPLE
-    "    start             Play default (first found) file with default (8) channels.\r\n"
-#else
-    "    start             Play default (first found) or specified audio track file.\r\n"
-#endif
+    "play|list|info]\r\n"
     "    stop              Stops actual playback.\r\n"
     "    pause             Pause actual track or resume if already paused.\r\n"
     "    volume=<volume>   Set volume. The volume can be set from 0 to 100.\r\n"
@@ -67,10 +62,10 @@ SHELL_COMMAND_DEFINE(
     "    seek=<seek_time>  Seek currently paused track. Seek time is absolute time in milliseconds.\r\n"
 #endif
 #ifdef MULTICHANNEL_EXAMPLE
-    "    track <filename> [num_channels]  Select audio track to play. Select 2 or 8 channels. \r\n"
+    "    play <filename> [num_channels]  Select audio track to play. Select 2 or 8 channels. \r\n"
     "                                    - If channel number not specified, default 8 is used. \r\n"
 #else
-    "    track=<filename>  Select audio track to play.\r\n"
+    "    play=<filename>  Select audio track to play.\r\n"
 #endif
     "    list              List audio files available on mounted SD card.\r\n"
     "    info              Prints playback info.\r\n"
@@ -169,20 +164,13 @@ static shell_status_t shellFile(shell_handle_t shellHandle, int32_t argc, char *
     if (argc >= 2)
     {
         OSA_SemaphoreWait(streamer_semaphore, osaWaitForever_c);
-        if (strcmp(argv[1], "start") == 0)
-        {
-#ifdef MULTICHANNEL_EXAMPLE
-            get_app_data()->num_channels = DEMO_CHANNEL_NUM; // set default channel number = 8
-#endif
-            cmdStart();
-        }
-        else if (strcmp(argv[1], "list") == 0)
+        if (strcmp(argv[1], "list") == 0)
         {
             cmdList();
         }
-        else if (strcmp(argv[1], "track") == 0)
+        else if (strcmp(argv[1], "play") == 0)
         {
-            cmdTrack(argc, argv);
+            cmdPlay(argc, argv);
         }
         else if (strcmp(argv[1], "pause") == 0)
         {
@@ -264,30 +252,6 @@ void shellCmd(void)
     OSA_SemaphorePost(streamer_semaphore);
 }
 
-void cmdStart()
-{
-    if (get_app_data()->status == kAppPaused)
-    {
-        get_app_data()->lastError = resume();
-    }
-    else
-    {
-        if (get_app_data()->status == kAppRunning)
-        {
-            get_app_data()->lastError    = stop();
-            get_app_data()->trackCurrent = 0;
-            get_app_data()->trackTotal   = 0;
-        }
-        if (get_app_data()->lastError == kAppCodeOk)
-        {
-            get_app_data()->lastError = play();
-        }
-    }
-
-    get_app_data()->status = kAppRunning;
-    PRINTF("[CMD] Playback started for %s\r\n", get_app_data()->input);
-}
-
 void cmdList()
 {
     if (list_files(false) != kStatus_Success)
@@ -300,7 +264,7 @@ void cmdList()
     }
 }
 
-void cmdTrack(int32_t argc, char **argv)
+void cmdPlay(int32_t argc, char **argv)
 {
     char *dot = NULL;
 
@@ -383,7 +347,10 @@ void cmdTrack(int32_t argc, char **argv)
                     get_app_data()->num_channels = num_channels;
                 }
 #endif
-                cmdStart();
+                get_app_data()->lastError = play();
+
+                get_app_data()->status = kAppRunning;
+                PRINTF("[CMD] Playback started for %s\r\n", get_app_data()->input);
             }
             else
             {
@@ -428,7 +395,7 @@ void cmdVolume(int32_t argc, char **argv)
         if (value >= 0 && value <= 100)
         {
             get_app_data()->volume    = value;
-            get_app_data()->lastError = volume();
+            get_app_data()->lastError = set_volume();
         }
         else
         {

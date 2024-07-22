@@ -410,7 +410,6 @@ int main(void)
     BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
-    SCB_DisableDCache();
 
     DMAMUX_Init(dmaMuxBases[EXAMPLE_DMAMUX_INSTANCE]);
     EDMA_GetDefaultConfig(&config);

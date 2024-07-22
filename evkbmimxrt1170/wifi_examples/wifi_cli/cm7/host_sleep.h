@@ -11,6 +11,7 @@
 #define _HOST_SLEEP_H_
 
 #include "fsl_adapter_gpio.h"
+#include "wifi_config.h"
 
 /*******************************************************************************
  * Definitions
@@ -26,7 +27,7 @@
  * Variables
  ******************************************************************************/
 
-#ifdef CONFIG_HOST_SLEEP
+#if CONFIG_HOST_SLEEP
 int hostsleep_init(void (*wlan_hs_pre_cfg)(void), void (*wlan_hs_post_cfg)(void));
 void mcu_suspend();
 #endif

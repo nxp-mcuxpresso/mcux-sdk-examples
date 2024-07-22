@@ -74,9 +74,15 @@ static void saiCallback(I2S_Type *base, sai_edma_handle_t *handle, status_t stat
 AT_NONCACHEABLE_SECTION_ALIGN(pdm_edma_handle_t s_pdmRxHandle_0, 4);
 AT_NONCACHEABLE_SECTION_ALIGN(edma_handle_t s_pdmDmaHandle_0, 4);
 AT_NONCACHEABLE_SECTION_ALIGN(edma_handle_t s_saiDmaHandle, 4);
+#if defined(DEMO_QUICKACCESS_SECTION_CACHEABLE) && DEMO_QUICKACCESS_SECTION_CACHEABLE
+AT_NONCACHEABLE_SECTION_ALIGN(sai_edma_handle_t s_saiTxHandle, 4);
+AT_NONCACHEABLE_SECTION_ALIGN(edma_tcd_t s_edmaTcd_0[2], 32U);
+AT_NONCACHEABLE_SECTION_ALIGN(edma_tcd_t s_edmaTcd_1[2], 32U);
+#else
 AT_QUICKACCESS_SECTION_DATA_ALIGN(sai_edma_handle_t s_saiTxHandle, 4);
 AT_QUICKACCESS_SECTION_DATA_ALIGN(edma_tcd_t s_edmaTcd_0[2], 32U);
 AT_QUICKACCESS_SECTION_DATA_ALIGN(edma_tcd_t s_edmaTcd_1[2], 32U);
+#endif
 AT_NONCACHEABLE_SECTION_ALIGN(static uint8_t s_buffer[BUFFER_SIZE * BUFFER_NUMBER], 4);
 
 pdm_edma_transfer_t pdmXfer[2] = {

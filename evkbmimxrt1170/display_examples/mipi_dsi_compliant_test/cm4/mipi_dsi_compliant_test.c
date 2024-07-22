@@ -121,6 +121,10 @@ int main(void)
     BOARD_ResetDisplayMix();
     BOARD_InitLpuartPins();
     BOARD_InitMipiPanelPins();
+#if (DEMO_PANEL != DEMO_PANEL_RASPI_7INCH)
+    BOARD_MIPIPanelTouch_I2C_Init();
+    BOARD_InitLpi2cPins();
+#endif
     BOARD_InitDebugConsole();
 
     BOARD_PrepareDisplayController();

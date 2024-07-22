@@ -39,6 +39,7 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -DFSL_OSA_BM_TIMER_CONFIG=0 \
     -DCPU_LPC54S018J4MET180 \
     -DMCUXPRESSO_SDK \
+    -DTIMER_PORT_TYPE_MRT=1 \
     -DSDK_OS_BAREMETAL \
     -DSERIAL_PORT_TYPE_UART=1 \
     -g \
@@ -51,7 +52,6 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
@@ -71,6 +71,7 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DFSL_OSA_BM_TIMER_CONFIG=0 \
     -DCPU_LPC54S018J4MET180 \
     -DMCUXPRESSO_SDK \
+    -DTIMER_PORT_TYPE_MRT=1 \
     -DSDK_OS_BAREMETAL \
     -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
@@ -82,7 +83,6 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
@@ -93,6 +93,7 @@ SET(CMAKE_CXX_FLAGS_DEBUG " \
     ${CMAKE_CXX_FLAGS_DEBUG} \
     -DDEBUG \
     -DMCUXPRESSO_SDK \
+    -DTIMER_PORT_TYPE_MRT=1 \
     -DSERIAL_PORT_TYPE_UART=1 \
     -g \
     -O0 \
@@ -104,7 +105,6 @@ SET(CMAKE_CXX_FLAGS_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -fno-rtti \
@@ -116,6 +116,7 @@ SET(CMAKE_CXX_FLAGS_RELEASE " \
     ${CMAKE_CXX_FLAGS_RELEASE} \
     -DNDEBUG \
     -DMCUXPRESSO_SDK \
+    -DTIMER_PORT_TYPE_MRT=1 \
     -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
     -mcpu=cortex-m4 \
@@ -126,7 +127,6 @@ SET(CMAKE_CXX_FLAGS_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -fno-rtti \
@@ -142,7 +142,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -168,7 +167,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \

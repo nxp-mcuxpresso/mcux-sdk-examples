@@ -180,6 +180,9 @@
 /*! @brief Whether checking return value is enabled. */
 #define USB_DEVICE_CONFIG_RETURN_VALUE_CHECK (0U)
 
+/*! @brief Whether the SOF interrupt is enabled or not. */
+#define USB_DEVICE_CONFIG_SOF_NOTIFICATIONS (0U)
+
 /* @} */
 
 #endif /* _USB_DEVICE_CONFIG_H_ */

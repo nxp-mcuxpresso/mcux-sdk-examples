@@ -111,7 +111,11 @@ AT_NONCACHEABLE_SECTION_ALIGN(static uint8_t buffer[BUFFER_NUM * BUFFER_SIZE], 4
 volatile bool isFinished      = false;
 volatile uint32_t finishIndex = 0U;
 volatile uint32_t emptyBlock  = BUFFER_NUM;
+#if defined(DEMO_QUICKACCESS_SECTION_CACHEABLE) && DEMO_QUICKACCESS_SECTION_CACHEABLE
+AT_NONCACHEABLE_SECTION_ALIGN(static edma_tcd_t s_emdaTcd, 32);
+#else
 AT_QUICKACCESS_SECTION_DATA_ALIGN(static edma_tcd_t s_emdaTcd, 32);
+#endif
 static volatile bool s_Transfer_Done        = false;
 static volatile uint32_t s_playIndex        = 0U;
 static volatile uint32_t s_playCount        = 0U;
@@ -256,8 +260,13 @@ int main(void)
         (FSL_FEATURE_SAI_FIFO_COUNTn(DEMO_SAI) - saiConfig.fifo.fifoWatermark) * (DEMO_AUDIO_BIT_WIDTH / 8U),
         BUFFER_SIZE * BUFFER_NUM, kEDMA_MemoryToPeripheral);
 
+#if defined FSL_EDMA_DRIVER_EDMA4 && FSL_EDMA_DRIVER_EDMA4
+    EDMA_TcdSetTransferConfigExt(DEMO_DMA, &s_emdaTcd, &transferConfig, &s_emdaTcd);
+    EDMA_TcdEnableInterruptsExt(DEMO_DMA, &s_emdaTcd, kEDMA_MajorInterruptEnable | kEDMA_HalfInterruptEnable);
+#else
     EDMA_TcdSetTransferConfig(&s_emdaTcd, &transferConfig, &s_emdaTcd);
     EDMA_TcdEnableInterrupts(&s_emdaTcd, kEDMA_MajorInterruptEnable | kEDMA_HalfInterruptEnable);
+#endif
     EDMA_InstallTCD(DEMO_DMA, g_dmaHandle.channel, &s_emdaTcd);
     EDMA_StartTransfer(&g_dmaHandle);
     /* Enable DMA enable bit */

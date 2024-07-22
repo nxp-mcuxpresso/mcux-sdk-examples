@@ -20,6 +20,7 @@
 #define MIPI_PANEL_RK055AHD091 0 /* 720 * 1280 */
 #define MIPI_PANEL_RK055IQH091 1 /* 540 * 960 */
 #define MIPI_PANEL_RK055MHD091 2 /* 720 * 1280 */
+#define MIPI_PANEL_RASPI_7INCH 3 /* 800 * 480, Raspberry Pi 7" */
 
 #ifndef USE_MIPI_PANEL
 #define USE_MIPI_PANEL MIPI_PANEL_RK055MHD091
@@ -43,6 +44,15 @@
 #define DEMO_VSW          2
 #define DEMO_VFP          16
 #define DEMO_VBP          14
+#elif (USE_MIPI_PANEL == MIPI_PANEL_RASPI_7INCH)
+#define DEMO_PANEL_HEIGHT 480
+#define DEMO_PANEL_WIDTH  800
+#define DEMO_HSW          20
+#define DEMO_HFP          70
+#define DEMO_HBP          23
+#define DEMO_VSW          2
+#define DEMO_VFP          7
+#define DEMO_VBP          21
 #else
 #define DEMO_PANEL_HEIGHT 960
 #define DEMO_PANEL_WIDTH  540
@@ -63,8 +73,12 @@
 #define DEMO_BUFFER_BYTE_PER_PIXEL 2
 
 extern const MIPI_DSI_Type g_mipiDsi;
-#define DEMO_MIPI_DSI          (&g_mipiDsi)
+#define DEMO_MIPI_DSI (&g_mipiDsi)
+#if (USE_MIPI_PANEL == MIPI_PANEL_RASPI_7INCH)
+#define DEMO_MIPI_DSI_LANE_NUM 1
+#else
 #define DEMO_MIPI_DSI_LANE_NUM 2
+#endif
 
 #define DEMO_FB0_ADDR ((uint32_t)s_frameBuffer[0])
 #define DEMO_FB1_ADDR ((uint32_t)s_frameBuffer[1])

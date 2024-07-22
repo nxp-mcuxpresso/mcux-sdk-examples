@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 NXP
+ * Copyright 2022-2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -63,23 +63,11 @@ typedef struct _user_data_t {
  * Variables declaration
  ******************************************************************************/
 
-/* Use TensorFlowLite-Micro as an inference engine by default */
-#if !defined(INFERENCE_ENGINE_TFLM) && !defined(INFERENCE_ENGINE_GLOW)
-#define INFERENCE_ENGINE_TFLM
-#endif
-
-/* Model data input (depends on inference engine) */
-#if defined(INFERENCE_ENGINE_TFLM)
+/* Model data input */
 #if (HAL_TFLM_TENSOR_ARENA_SIZE_KB < 2048)
 #error "Must set HAL_TFLM_TENSOR_ARENA_SIZE_KB >= 2048"
 #endif
 #include "models/nanodet_m_320_quant_int8/nanodet_m_0.5x_nhwc_tflite.h"
-#elif defined(INFERENCE_ENGINE_GLOW)
-#include "models/nanodet_m_320_quant_int8/nanodet_m_weights_glow_cm7.h"
-#include "models/nanodet_m_320_quant_int8/nanodet_m_glow_cm7.h"
-#else
-#error "ERROR: An inference engine must be selected"
-#endif
 
 #include "images/skigirl_COCO_320_320_bgra.h"
 
@@ -280,13 +268,7 @@ static void app_task(void *params)
     int ret;
 
     PRINTF("[%s]\r\n", mpp_get_version());
-#if defined(INFERENCE_ENGINE_TFLM)
     PRINTF("Inference Engine: TensorFlow-Lite Micro \r\n");
-#elif defined (INFERENCE_ENGINE_GLOW)
-    PRINTF("Inference Engine: Glow \r\n");
-#else
-#error "Please select inference engine"
-#endif
 
     ret = mpp_api_init(NULL);
     if (ret)
@@ -357,7 +339,6 @@ static void app_task(void *params)
     static mpp_stats_t nanodet_stats;
     memset(&nanodet_params, 0 , sizeof(mpp_element_params_t));
 
-#if defined(INFERENCE_ENGINE_TFLM)
     nanodet_params.ml_inference.model_data = nanodet_m_0_5x_nhwc_nopermute_tflite;
     nanodet_params.ml_inference.model_size = nanodet_m_0_5x_nhwc_nopermute_tflite_len;
     nanodet_params.ml_inference.tensor_order = MPP_TENSOR_ORDER_NHWC;
@@ -365,18 +346,6 @@ static void app_task(void *params)
     nanodet_params.ml_inference.model_input_mean = MODEL_INPUT_MEAN;
     nanodet_params.ml_inference.model_input_std = MODEL_INPUT_STD;
     nanodet_params.ml_inference.type = MPP_INFERENCE_TYPE_TFLITE;
-#elif defined(INFERENCE_ENGINE_GLOW)
-    nanodet_params.ml_inference.model_data = nanodet_m_weights_bin;
-    nanodet_params.ml_inference.inference_params.constant_weight_MemSize = NANODET_M_CONSTANT_MEM_SIZE;
-    nanodet_params.ml_inference.inference_params.mutable_weight_MemSize = NANODET_M_MUTABLE_MEM_SIZE;
-    nanodet_params.ml_inference.inference_params.activations_MemSize = NANODET_M_ACTIVATIONS_MEM_SIZE;
-    nanodet_params.ml_inference.inference_params.inputs_offsets[0] = NANODET_M_data;
-    nanodet_params.ml_inference.inference_params.outputs_offsets[0] = NANODET_M_cls_pred;
-    nanodet_params.ml_inference.inference_params.outputs_offsets[1] = NANODET_M_reg_pred;
-    nanodet_params.ml_inference.inference_params.model_input_tensors_type = MPP_TENSOR_TYPE_INT8;
-    nanodet_params.ml_inference.inference_params.model_entry_point = &nanodet_m;
-    nanodet_params.ml_inference.type = MPP_INFERENCE_TYPE_GLOW ;
-#endif
     nanodet_params.ml_inference.inference_params.num_inputs = 1;
     nanodet_params.ml_inference.inference_params.num_outputs = 2;
     nanodet_params.ml_inference.tensor_order = MPP_TENSOR_ORDER_NHWC;

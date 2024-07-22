@@ -149,8 +149,12 @@ void RTWdogFastTesting(void)
     }
     else if (current_test_mode == kRTWDOG_LowByteTest)
     {
+#if defined(RTWDOG_HAS_ERRATA_051578) && (RTWDOG_HAS_ERRATA_051578)
+        if ((RESET_CHECK_FLAG != RESET_CHECK_INIT_VALUE + 1U)
+#else
         if ((RESET_CHECK_CNT_VALUE != (config.timeoutValue & 0x00FFU)) ||
-            (RESET_CHECK_FLAG != RESET_CHECK_INIT_VALUE + 1)
+            (RESET_CHECK_FLAG != RESET_CHECK_INIT_VALUE + 1)      
+#endif
 #if defined(FSL_FEATURE_SOC_RCM_COUNT) && (FSL_FEATURE_SOC_RCM_COUNT)
             || ((RCM_GetPreviousResetSources(rcm_base) & kRCM_SourceWdog) == 0)
 #elif defined(FSL_FEATURE_SOC_SMC_COUNT) && (FSL_FEATURE_SOC_SMC_COUNT > 1) /* MSMC */
@@ -185,8 +189,12 @@ void RTWdogFastTesting(void)
     }
     else if (current_test_mode == kRTWDOG_HighByteTest)
     {
+#if defined(RTWDOG_HAS_ERRATA_051578) && (RTWDOG_HAS_ERRATA_051578)
+        if ((RESET_CHECK_FLAG != RESET_CHECK_INIT_VALUE + 2U)
+#else
         if ((RESET_CHECK_CNT_VALUE != ((config.timeoutValue >> 8U) & 0x00FFU)) ||
-            (RESET_CHECK_FLAG != RESET_CHECK_INIT_VALUE + 2)
+            (RESET_CHECK_FLAG != RESET_CHECK_INIT_VALUE + 2)      
+#endif
 #if defined(FSL_FEATURE_SOC_RCM_COUNT) && (FSL_FEATURE_SOC_RCM_COUNT)
             || ((RCM_GetPreviousResetSources(rcm_base) & kRCM_SourceWdog) == 0)
 #elif defined(FSL_FEATURE_SOC_SMC_COUNT) && (FSL_FEATURE_SOC_SMC_COUNT > 1) /* MSMC */

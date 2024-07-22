@@ -51,5 +51,7 @@
 #define CONFIG_BT_SETTINGS              1
 #define CONFIG_BT_HOST_CRYPTO           1
 #define CONFIG_BT_KEYS_OVERWRITE_OLDEST 1
+
+#define CONFIG_BT_SNOOP               1
 #include "edgefast_bluetooth_config.h"
 #include "edgefast_bluetooth_debug_config.h"

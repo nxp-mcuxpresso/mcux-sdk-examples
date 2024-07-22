@@ -10,6 +10,7 @@
 #include "fsl_gpio.h"
 #include "sdmmc_config.h"
 #include "fsl_iomuxc.h"
+#include "wifi_config.h"
 
 /*******************************************************************************
  * Definitions

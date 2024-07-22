@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 NXP
+ * Copyright 2017, 2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -87,16 +87,16 @@ int main(void)
         BOARD_SetTrdcGlobalConfig();
     }
 
-    PRINTF("LPSPI board to board interrupt example.\r\n");
+    PRINTF("LPSPI interrupt board to board (b2b) transfer master example.\r\n");
     PRINTF("This example use one board as master and another as slave.\r\n");
-    PRINTF("Master and slave uses interrupt way. Slave should start first. \r\n");
-    PRINTF("Please make sure you make the correct line connection. Basically, the connection is: \r\n");
-    PRINTF("LPSPI_master -- LPSPI_slave   \r\n");
-    PRINTF("   CLK       --    CLK  \r\n");
-    PRINTF("   PCS       --    PCS \r\n");
-    PRINTF("   SOUT      --    SIN  \r\n");
-    PRINTF("   SIN       --    SOUT \r\n");
-    PRINTF("   GND       --    GND \r\n");
+    PRINTF("Master and slave uses interrupt way. Slave should start first.\r\n");
+    PRINTF("Please make sure you make the correct line connection. Basically, the connection is:\r\n");
+    PRINTF("LPSPI_master -- LPSPI_slave\r\n");
+    PRINTF("    CLK      --    CLK\r\n");
+    PRINTF("    PCS      --    PCS\r\n");
+    PRINTF("    SOUT     --    SIN\r\n");
+    PRINTF("    SIN      --    SOUT\r\n");
+    PRINTF("    GND      --    GND\r\n");
 
     uint32_t srcClock_Hz;
     uint32_t errorCount;
@@ -105,7 +105,7 @@ int main(void)
     lpspi_master_config_t masterConfig;
     lpspi_transfer_t masterXfer;
 
-    /*Master config*/
+    /* Master config */
     LPSPI_MasterGetDefaultConfig(&masterConfig);
     masterConfig.baudRate = TRANSFER_BAUDRATE;
     masterConfig.whichPcs = EXAMPLE_LPSPI_MASTER_PCS_FOR_INIT;
@@ -128,7 +128,7 @@ int main(void)
         }
 
         /* Print out transmit buffer */
-        PRINTF("\r\n Master transmit:\r\n");
+        PRINTF("\r\n Master transmit:");
         for (i = 0U; i < TRANSFER_SIZE; i++)
         {
             /* Print 16 numbers in a line */
@@ -192,9 +192,9 @@ int main(void)
         }
         if (errorCount == 0U)
         {
-            PRINTF(" \r\nLPSPI transfer all data matched! \r\n");
+            PRINTF(" \r\nLPSPI transfer all data matched!\r\n");
             /* Print out receive buffer */
-            PRINTF("\r\n Master received:\r\n");
+            PRINTF("\r\n Master received:");
             for (i = 0U; i < TRANSFER_SIZE; i++)
             {
                 /* Print 16 numbers in a line */
@@ -208,11 +208,11 @@ int main(void)
         }
         else
         {
-            PRINTF(" \r\nError occurred in LPSPI transfer ! \r\n");
+            PRINTF(" \r\nError occurred in LPSPI transfer!\r\n");
         }
 
         /* Wait for press any key */
-        PRINTF("\r\n Press any key to run again\r\n");
+        PRINTF("\r\nPress any key to run again\r\n");
         GETCHAR();
 
         /* Increase loop count to change transmit buffer */

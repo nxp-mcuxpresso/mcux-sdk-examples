@@ -9,12 +9,12 @@ BMR: lisen one of BIS channel and render it.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- MCUXpresso  11.8.0
-- GCC ARM Embedded  12.2
+- MCUXpresso  11.10.0
+- GCC ARM Embedded  13.2.1
 
 Hardware requirements
 =====================
@@ -102,6 +102,11 @@ Procedures to run
 3 input "play" to start playing.
 4 input "vol_up", "vol_down", "vol_set" to set volume.
 5 input "vol_mute", "vol_unmute" to set mute.
+
+Other cmds could be used:
+1 "sync_info" used to get iso_interval/sync_delay/pd/ts, and this cmd should be used after the audio start playing.
+2 "sync_test_mode" used to set the test mode, and this cmd should be used before init.
+3 "set_broadcast_code" used to set broadcast code, and this cmd could be used before init or later.
 
 Note:
 1 "exit" command is a shell internal command, only used to exit shell module and could not used to exit demo.

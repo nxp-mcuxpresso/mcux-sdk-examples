@@ -6,13 +6,12 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-#include <sbl.h>
 #include "fsl_device_registers.h"
 #include "fsl_debug_console.h"
-
 #include "pin_mux.h"
 #include "clock_config.h"
 #include "board.h"
+#include "boot.h"
 
 #if defined(FSL_FEATURE_SOC_DCP_COUNT) && (FSL_FEATURE_SOC_DCP_COUNT > 0)
 #include "fsl_dcp.h"
@@ -27,9 +26,6 @@
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
-#if (defined(COMPONENT_MCU_ISP))
-extern int isp_kboot_main(bool isInfiniteIsp);
-#endif
 
 /*******************************************************************************
  * Code
@@ -40,11 +36,6 @@ extern int isp_kboot_main(bool isInfiniteIsp);
 int main(void)
 {
     BOARD_InitBootClocks();
-
-#if (defined(COMPONENT_MCU_ISP))
-    bool isInfiniteIsp = false;
-    (void)isp_kboot_main(isInfiniteIsp);
-#endif
 
     /* Init board hardware. */
     BOARD_ConfigMPU();

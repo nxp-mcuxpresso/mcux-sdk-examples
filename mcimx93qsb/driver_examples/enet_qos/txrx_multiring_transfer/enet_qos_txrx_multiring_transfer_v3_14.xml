@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:examples xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd manifest.xsd">
+  <externalDefinitions>
+    <definition extID="driver.phy-device-rtl8211f.MIMX9322"/>
+    <definition extID="utility.debug_console_lite.MIMX9322"/>
+    <definition extID="platform.utilities.assert_lite.MIMX9322"/>
+    <definition extID="platform.drivers.lpi2c.MIMX9322"/>
+    <definition extID="component.silicon_id_imx93.MIMX9322"/>
+    <definition extID="component.silicon_id.MIMX9322"/>
+    <definition extID="platform.drivers.enet_qos.MIMX9322"/>
+    <definition extID="platform.drivers.clock.MIMX9322"/>
+    <definition extID="platform.drivers.common.MIMX9322"/>
+    <definition extID="platform.devices.MIMX9322_CMSIS.MIMX9322"/>
+    <definition extID="component.lpuart_adapter.MIMX9322"/>
+    <definition extID="platform.drivers.lpuart.MIMX9322"/>
+    <definition extID="component.lists.MIMX9322"/>
+    <definition extID="platform.devices.MIMX9322_startup.MIMX9322"/>
+    <definition extID="platform.drivers.iomuxc.MIMX9322"/>
+    <definition extID="platform.drivers.rgpio.MIMX9322"/>
+    <definition extID="platform.drivers.cache_xcache.MIMX9322"/>
+    <definition extID="platform.drivers.sentinel.MIMX9322"/>
+    <definition extID="driver.adp5585.MIMX9322"/>
+    <definition extID="driver.pcal6524.MIMX9322"/>
+    <definition extID="platform.utilities.misc_utilities.MIMX9322"/>
+    <definition extID="driver.phy-common.MIMX9322"/>
+    <definition extID="utility.str.MIMX9322"/>
+    <definition extID="platform.drivers.memory.MIMX9322"/>
+    <definition extID="CMSIS_Include_core_cm.MIMX9322"/>
+    <definition extID="armgcc"/>
+    <definition extID="mcuxpresso"/>
+    <definition extID="com.nxp.mcuxpresso"/>
+  </externalDefinitions>
+  <example id="mcimx93qsb_enet_qos_txrx_multiring_transfer" name="enet_qos_txrx_multiring_transfer" dependency="driver.phy-device-rtl8211f.MIMX9322 utility.debug_console_lite.MIMX9322 platform.utilities.assert_lite.MIMX9322 platform.drivers.lpi2c.MIMX9322 component.silicon_id_imx93.MIMX9322 component.silicon_id.MIMX9322 platform.drivers.enet_qos.MIMX9322 platform.drivers.clock.MIMX9322 platform.drivers.common.MIMX9322 platform.devices.MIMX9322_CMSIS.MIMX9322 component.lpuart_adapter.MIMX9322 platform.drivers.lpuart.MIMX9322 component.lists.MIMX9322 platform.devices.MIMX9322_startup.MIMX9322 platform.drivers.iomuxc.MIMX9322 platform.drivers.rgpio.MIMX9322 platform.drivers.cache_xcache.MIMX9322 platform.drivers.sentinel.MIMX9322 driver.adp5585.MIMX9322 driver.pcal6524.MIMX9322 platform.utilities.misc_utilities.MIMX9322 driver.phy-common.MIMX9322 utility.str.MIMX9322 platform.drivers.memory.MIMX9322 CMSIS_Include_core_cm.MIMX9322" category="driver_examples/enet_qos">
+    <projects>
+      <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
+    </projects>
+    <toolchainSettings>
+      <toolchainSetting id_refs="com.nxp.mcuxpresso">
+        <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
+          <value>SDK_I2C_BASED_COMPONENT_USED=1</value>
+          <value>BOARD_USE_PCAL6524=1</value>
+          <value>MCUXPRESSO_SDK</value>
+        </option>
+        <option id="gnu.c.compiler.option.optimization.flags" type="string">
+          <value>-fno-common</value>
+        </option>
+        <option id="com.crt.advproject.c.misc.dialect" type="enum">
+          <value>com.crt.advproject.misc.dialect.gnu99</value>
+        </option>
+        <option id="com.crt.advproject.gcc.fpu" type="enum">
+          <value>com.crt.advproject.gcc.fpu.none</value>
+        </option>
+        <option id="gnu.c.compiler.option.misc.other" type="string">
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.toerrors" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="com.crt.advproject.gas.fpu" type="enum">
+          <value>com.crt.advproject.gas.fpu.none</value>
+        </option>
+        <option id="gnu.c.link.option.nostdlibs" type="boolean">
+          <value>true</value>
+        </option>
+        <option id="gnu.c.link.option.other" type="stringList">
+          <value>-no-warn-rwx-segments</value>
+        </option>
+        <option id="com.crt.advproject.link.fpu" type="enum">
+          <value>com.crt.advproject.link.fpu.none</value>
+        </option>
+      </toolchainSetting>
+    </toolchainSettings>
+    <include_paths>
+      <include_path path="." project_relative_path="board" type="c_include"/>
+      <include_path path="." project_relative_path="mcimx93qsb/driver_examples/enet_qos/txrx_multiring_transfer" type="c_include"/>
+      <include_path path="../../../../../core/boards/mcimx93qsb" project_relative_path="board" type="c_include"/>
+    </include_paths>
+    <source path="armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">
+      <files mask="build_all.bat"/>
+      <files mask="build_all.sh"/>
+      <files mask="clean.bat"/>
+      <files mask="clean.sh"/>
+      <files mask="CMakeLists.txt"/>
+      <files mask="flags.cmake"/>
+      <files mask="config.cmake"/>
+      <files mask="build_debug.bat"/>
+      <files mask="build_debug.sh"/>
+      <files mask="build_release.bat"/>
+      <files mask="build_release.sh"/>
+    </source>
+    <source path="../../../../../core/devices/MIMX9322" project_relative_path="./" type="workspace" toolchain="armgcc">
+      <files mask="all_lib_device.cmake"/>
+    </source>
+    <source path="." project_relative_path="source" type="src">
+      <files mask="enet_qos_txrx_multiring_transfer.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="pin_mux.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="pin_mux.h"/>
+    </source>
+    <source path="../../../../../core/boards/mcimx93qsb" project_relative_path="board" type="src">
+      <files mask="board.c"/>
+      <files mask="clock_config.c"/>
+    </source>
+    <source path="../../../../../core/boards/mcimx93qsb" project_relative_path="board" type="c_include">
+      <files mask="board.h"/>
+      <files mask="clock_config.h"/>
+    </source>
+    <source path="." project_relative_path="doc" type="doc" toolchain="armgcc">
+      <files mask="readme.md"/>
+    </source>
+    <source path="armgcc" project_relative_path="MIMX9322/gcc" type="linker" toolchain="armgcc">
+      <files mask="MIMX9322_cm33_ram.ld"/>
+    </source>
+  </example>
+</ksdk:examples>

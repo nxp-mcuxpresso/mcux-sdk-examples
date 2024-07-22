@@ -12,9 +12,9 @@
 #include "fsl_flexio_i2s.h"
 #include "fsl_debug_console.h"
 #include "fsl_codec_common.h"
+#include "fsl_sai.h"
 
 #include "fsl_wm8962.h"
-#include "fsl_sai.h"
 #include "fsl_codec_adapter.h"
 /*******************************************************************************
  * Definitions
@@ -26,12 +26,12 @@
 #define DEMO_SAI         SAI1
 
 /* Get frequency of sai1 clock */
-#define DEMO_SAI_CLK_FREQ (CLOCK_GetFreqFromObs(CCM_OBS_PLL_AUDIO_OUT))
+#define DEMO_SAI_CLK_FREQ (CLOCK_GetFreq(kCLOCK_AudioPllOut))
 
 /* Get frequency of lpi2c clock */
-#define DEMO_I2C_CLK_FREQ (CLOCK_GetFreqFromObs(CCM_OBS_LPI2C5_CLK_ROOT))
+#define DEMO_I2C_CLK_FREQ (CLOCK_GetRootClockFreq(kCLOCK_Root_Lpi2c5))
 
-#define DEMO_FLEXIO_CLK_FREQ (CLOCK_GetFreqFromObs(CCM_OBS_FLEXIO2_CLK_ROOT))
+#define DEMO_FLEXIO_CLK_FREQ (CLOCK_GetRootClockFreq(kCLOCK_Root_Flexio2))
 
 #define BCLK_PIN       (13U)
 #define FRAME_SYNC_PIN (12U)

@@ -4,7 +4,7 @@
   <externalDefinitions>
     <definition extID="LPC865M201JBD64"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK2150_lpcxpresso860max_examples_manifest_v3_14" name="MCUXpressoSDK2150_lpcxpresso860max_examples_manifest_v3_14" version="2.15.0" revision="2.15.0"/>
+  <ksdk id="MCUXpressoSDK216000_lpcxpresso860max_examples_manifest_v3_14" name="MCUXpressoSDK216000_lpcxpresso860max_examples_manifest_v3_14" version="2.16.000" revision="2.16.000"/>
   <boards>
     <board id="lpcxpresso860max" name="LPCXpresso860MAX" version="1.0.0" package="LPC865M201JBD64">
       <examples>
@@ -328,7 +328,17 @@
             <files mask="i3c_interrupt_b2b_slave_v3_14.xml"/>
           </external>
         </example>
-        <example id="lpcxpresso860max_freertos_hello" name="freertos_hello" brief="The Hello World project is a simple demonstration program that uses the SDK UART drivere incombination with FreeRTOS. The purpose of this demo is to show how to use the debug console and toprovide a simple project for debugging and further development.The example application creates one task called hello_task. This task print &quot;Hello world.&quot; messagevia debug console utility and suspend itself." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="freertos_examples" path="examples/lpcxpresso860max/freertos_examples/freertos_hello">
+        <example id="lpcxpresso860max_i3c_bus_master" name="i3c_bus_master" brief="The i3c_bus_master example shows how to use i3c_bus component to create I3C bus and i3c master on bus." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="component_examples/i3c" path="examples/lpcxpresso860max/component_examples/i3c_bus/master">
+          <external path="component_examples/i3c_bus/master" type="xml">
+            <files mask="i3c_bus_master_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso860max_i3c_bus_slave" name="i3c_bus_slave" brief="The i3c_bus_slave example shows how to use i3c_bus component to work as i3c bus slave." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="component_examples/i3c" path="examples/lpcxpresso860max/component_examples/i3c_bus/slave">
+          <external path="component_examples/i3c_bus/slave" type="xml">
+            <files mask="i3c_bus_slave_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso860max_freertos_hello" name="freertos_hello" brief="The Hello World project is a simple demonstration program that uses the SDK UART driver in combination with FreeRTOS. The purpose of this demo is to show how to use the debug console and toprovide a simple project for debugging and further development.The example application creates one task called hello_task. This task print &quot;Hello world.&quot; messagevia debug console utility and suspend itself." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="freertos_examples" path="examples/lpcxpresso860max/freertos_examples/freertos_hello">
           <external path="freertos_examples/freertos_hello" type="xml">
             <files mask="freertos_hello_v3_14.xml"/>
           </external>

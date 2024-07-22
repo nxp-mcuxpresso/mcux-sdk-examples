@@ -30,12 +30,13 @@
     <definition extID="middleware.usb.device.common_header.LPC54S018M"/>
     <definition extID="middleware.usb.common_header.LPC54S018M"/>
     <definition extID="CMSIS_Include_core_cm.LPC54S018M"/>
+    <definition extID="utility.str.LPC54S018M"/>
     <definition extID="device.LPC54S018M_system.LPC54S018M"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="lpcxpresso54s018m_hello_world_virtual_com" name="hello_world_virtual_com" dependency="component.serial_manager_usb_cdc.LPC54S018M component.serial_manager.LPC54S018M middleware.usb.device_controller_ip3511fs.LPC54S018M middleware.usb.device.controller.driver.LPC54S018M platform.drivers.lpc_iocon.LPC54S018M middleware.baremetal.LPC54S018M platform.drivers.common.LPC54S018M platform.drivers.clock.LPC54S018M platform.drivers.power.LPC54S018M platform.drivers.reset.LPC54S018M device.LPC54S018M_CMSIS.LPC54S018M utility.debug_console.LPC54S018M component.usart_adapter.LPC54S018M component.serial_manager_uart.LPC54S018M platform.drivers.flexcomm_usart.LPC54S018M component.lists.LPC54S018M device.LPC54S018M_startup.LPC54S018M platform.drivers.flexcomm.LPC54S018M platform.drivers.lpc_gpio.LPC54S018M platform.drivers.emc.LPC54S018M platform.utilities.assert.LPC54S018M platform.utilities.misc_utilities.LPC54S018M middleware.usb.device.cdc.external.LPC54S018M middleware.usb.device.stack.external.LPC54S018M component.osa.LPC54S018M middleware.usb.device.ip3511fs_config_header.LPC54S018M middleware.usb.device.common_header.LPC54S018M middleware.usb.common_header.LPC54S018M CMSIS_Include_core_cm.LPC54S018M device.LPC54S018M_system.LPC54S018M" category="demo_apps">
+  <example id="lpcxpresso54s018m_hello_world_virtual_com" name="hello_world_virtual_com" dependency="component.serial_manager_usb_cdc.LPC54S018M component.serial_manager.LPC54S018M middleware.usb.device_controller_ip3511fs.LPC54S018M middleware.usb.device.controller.driver.LPC54S018M platform.drivers.lpc_iocon.LPC54S018M middleware.baremetal.LPC54S018M platform.drivers.common.LPC54S018M platform.drivers.clock.LPC54S018M platform.drivers.power.LPC54S018M platform.drivers.reset.LPC54S018M device.LPC54S018M_CMSIS.LPC54S018M utility.debug_console.LPC54S018M component.usart_adapter.LPC54S018M component.serial_manager_uart.LPC54S018M platform.drivers.flexcomm_usart.LPC54S018M component.lists.LPC54S018M device.LPC54S018M_startup.LPC54S018M platform.drivers.flexcomm.LPC54S018M platform.drivers.lpc_gpio.LPC54S018M platform.drivers.emc.LPC54S018M platform.utilities.assert.LPC54S018M platform.utilities.misc_utilities.LPC54S018M middleware.usb.device.cdc.external.LPC54S018M middleware.usb.device.stack.external.LPC54S018M component.osa.LPC54S018M middleware.usb.device.ip3511fs_config_header.LPC54S018M middleware.usb.device.common_header.LPC54S018M middleware.usb.common_header.LPC54S018M CMSIS_Include_core_cm.LPC54S018M utility.str.LPC54S018M device.LPC54S018M_system.LPC54S018M" category="demo_apps">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -72,7 +73,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>
@@ -128,9 +129,6 @@
     </source>
     <source path="." project_relative_path="board" type="c_include">
       <files mask="pin_mux.h"/>
-    </source>
-    <source path="." project_relative_path="." type="other">
-      <files mask="hello_world_virtual_com.mex"/>
     </source>
     <source path="." project_relative_path="lpcxpresso54s018m/demo_apps/hello_world_virtual_com" type="binary">
       <files mask="hello_world_virtual_com.bin" hidden="true"/>

@@ -32,6 +32,7 @@
 #include "fsl_lpuart.h"
 #include "fsl_trdc.h"
 #include "fsl_flexspi.h"
+#include "fsl_fusion.h"
 /*******************************************************************************
  * Struct Definitions
  ******************************************************************************/
@@ -1480,6 +1481,7 @@ int main(void)
     /* Use Pll1Pfd2Div clock source 12.288MHz. */
     CLOCK_SetIpSrc(kCLOCK_Sai0, kCLOCK_Cm33SaiClkSrcPll1Pfd2Div);
 
+    CLOCK_EnableClock(kCLOCK_Dma0Ch0);
     CLOCK_EnableClock(kCLOCK_Dma0Ch16);
     CLOCK_EnableClock(kCLOCK_Dma0Ch17);
     CLOCK_EnableClock(kCLOCK_RgpioA);
@@ -1491,6 +1493,8 @@ int main(void)
     RESET_PeripheralReset(kRESET_Lpi2c0);
     RESET_PeripheralReset(kRESET_Lpi2c1);
     RESET_PeripheralReset(kRESET_Tpm0);
+
+    Fusion_Init();
 
     APP_SRTM_Init();
 

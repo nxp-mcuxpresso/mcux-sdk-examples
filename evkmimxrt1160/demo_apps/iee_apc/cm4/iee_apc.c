@@ -15,6 +15,10 @@
 #include "fsl_iee_apc.h"
 #include "app.h"
 #include "fsl_cache.h"
+#if defined(FSL_FEATURE_IEE_ELE_PROVISIONED_KEY) && (FSL_FEATURE_IEE_ELE_PROVISIONED_KEY > 0u)
+#include "ele_crypto.h"      /* ELE Crypto services */
+#include "ele_fw_baseline.h" /* ELE base FW */
+#endif                       /* defined(FSL_FEATURE_IEE_ELE_PROVISIONED_KEY) */
 
 #if USE_FLASH
 #include "fsl_flexspi.h"
@@ -77,6 +81,8 @@ static const uint8_t plain_text[16] = {0x48, 0x65, 0x6C, 0x6C, 0x6F, 0x57, 0x6F,
 SDK_ALIGN(static const uint8_t aes_ctr[16], 8U) = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
                                                    0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f};
 
+SDK_ALIGN(static const uint8_t aes_ctr_iv[8u], 8u) = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07};
+
 SDK_ALIGN(static const uint8_t aes_ctr_cipher[16], 8U) = {0x78, 0x41, 0x24, 0x95, 0x2c, 0x3a, 0x1d, 0x3d,
                                                           0xfd, 0x99, 0x4d, 0x09, 0xa4, 0xee, 0xd3, 0xaa};
 
@@ -89,7 +95,7 @@ static uint8_t s_program_buffer[16] __attribute__((aligned(8)));
 uint32_t StartAddrFlash     = EXAMPLE_FLEXSPI_AMBA_BASE + EXAMPLE_SECTOR * SECTOR_SIZE;
 uint32_t EndAddrFlash       = EXAMPLE_FLEXSPI_AMBA_BASE + ((EXAMPLE_SECTOR + 1) * SECTOR_SIZE);
 uint32_t *StartAddrPtrFlash = NULL;
-#endif /* USE_FLASH */
+#endif                                                     /* USE_FLASH */
 
 AT_NONCACHEABLE_SECTION(static uint8_t s_read_buffer[16]); /* read buffer */
 
@@ -194,6 +200,8 @@ const uint32_t customLUT[CUSTOM_LUT_LENGTH] = {
 int main(void)
 {
     status_t status = kStatus_Fail;
+    (void)key1;
+    (void)key2;
 
     /* Board pin, clock, debug console init */
     BOARD_ConfigMPU();
@@ -204,6 +212,7 @@ int main(void)
     PRINTF("IEE APC Demo started\r\n\r\n");
 
 #if USE_FLASH
+    (void)aes_ctr_iv;
     /* Setup Flash memory */
     status = Flash_Setup();
     if (status != kStatus_Success)
@@ -211,6 +220,7 @@ int main(void)
         PRINTF("Error while setup Flash memory \r\n");
         return status;
     }
+
 #endif /* USE_FLASH */
 
     /* Setup IEE and IEE_APC for secure write/read*/
@@ -333,7 +343,6 @@ status_t Flash_Setup(void)
 
 status_t IEE_APC_Setup(void)
 {
-    iee_config_t iee_config;
     status_t status = kStatus_Fail;
 
     PRINTF("Set up IEE APC regions\r\n");
@@ -369,13 +378,110 @@ status_t IEE_APC_Setup(void)
     /* Reset IEE to factory defaults */
     IEE_Init(IEE);
 
+    PRINTF("Load keys into IEE\r\n");
+
+#if defined(FSL_FEATURE_IEE_ELE_PROVISIONED_KEY) && (FSL_FEATURE_IEE_ELE_PROVISIONED_KEY > 0u)
+
+    status = ELE_LoadFw(S3MU, ele_fw);
+    if (status != kStatus_Success)
+    {
+        PRINTF("Error load ELE FW ");
+        return status;
+    }
+
+    if (ELE_StartRng(S3MU) != kStatus_Success)
+    {
+        PRINTF("ERROR: EdgeLock RNG initialize.\r\n\r\n");
+        status = kStatus_Fail;
+        return status;
+    }
+
+    uint32_t trng_state = 0u;
+    do
+    {
+        status = ELE_GetTrngState(S3MU, &trng_state);
+    } while ((trng_state & 0xFF) != kELE_TRNG_ready && status == kStatus_Success);
+
+    /* Large enough buffer for any blob type */
+    SDK_ALIGN(static uint8_t key_blob_output[136u], 8u) = {0u};
+
+    uint32_t keyID = 0x100u;
+    generate_key_blob_input_t key_blob_input;
+
+    memset((void *)&key_blob_input, 0u, sizeof(generate_key_blob_input_t));
+
+    key_blob_input.algorithm         = kBlob_Algo_AES_XTS;
+    key_blob_input.blob_type         = kBlob_Type_IEE;
+    key_blob_input.key               = (uint8_t *)key1;
+    key_blob_input.ctr               = NULL;
+    key_blob_input.size              = kBlob_Size_256;
+    key_blob_input.iee.bypass        = kBlob_IEE_UseModeField;
+    key_blob_input.iee.key_size      = kBlob_IEE_AES_CTR128XTS256;
+    key_blob_input.iee.lock          = kBlob_IEE_NoLock;
+    key_blob_input.iee.mode          = kBlob_IEE_Mode_AES_XTS;
+    key_blob_input.iee.page_offset   = 0u;
+    key_blob_input.iee.rand_keys     = kBlob_IEE_UseInputKeys;
+    key_blob_input.iee.region_number = kIEE_APC_Region0;
+
+    /* Wait a while for ELE TRNG */
+    SDK_DelayAtLeastUs(100, CLOCK_GetCpuClkFreq());
+
+    status = ELE_GenerateKeyBlob(S3MU, keyID, &key_blob_input, key_blob_output, sizeof(key_blob_output));
+    if (status != kStatus_Success)
+    {
+        PRINTF("Error generating IEE keyblob via ELE ");
+        return status;
+    }
+
+    status = ELE_LoadKeyBlob(S3MU, keyID, key_blob_output);
+    if (status != kStatus_Success)
+    {
+        PRINTF("Error loading IEE keyblob via ELE ");
+        return status;
+    }
+
+#if USE_FLASH
+    generate_key_blob_input_t key_blob_input_flash;
+
+    keyID = 0x101u;
+
+    key_blob_input_flash.algorithm         = kBlob_Algo_AES_CTR;
+    key_blob_input_flash.blob_type         = kBlob_Type_IEE;
+    key_blob_input_flash.key               = (uint8_t *)aes_ctr;
+    key_blob_input_flash.ctr               = (uint8_t *)aes_ctr_iv;
+    key_blob_input_flash.size              = kBlob_Size_128;
+    key_blob_input_flash.iee.bypass        = kBlob_IEE_UseModeField;
+    key_blob_input_flash.iee.key_size      = kBlob_IEE_AES_CTR128XTS256;
+    key_blob_input_flash.iee.lock          = kBlob_IEE_NoLock;
+    key_blob_input_flash.iee.mode          = kBlob_IEE_Mode_AES_CTRkeystream;
+    key_blob_input_flash.iee.page_offset   = 0u;
+    key_blob_input_flash.iee.rand_keys     = kBlob_IEE_GenerateRandomKeys;
+    key_blob_input_flash.iee.region_number = kIEE_APC_Region1;
+
+    status = ELE_GenerateKeyBlob(S3MU, keyID, &key_blob_input_flash, key_blob_output, sizeof(key_blob_output));
+    if (status != kStatus_Success)
+    {
+        PRINTF("Error generating IEE keyblob via ELE ");
+        return status;
+    }
+
+    status = ELE_LoadKeyBlob(S3MU, keyID, key_blob_output);
+    if (status != kStatus_Success)
+    {
+        PRINTF("Error loading IEE keyblob via ELE ");
+        return status;
+    }
+
+#endif /* USE_FLASH */
+#else  /* Load ELE key directly in SFR */
+
     /* Configure IEE region 0 */
+    iee_config_t iee_config;
     IEE_GetDefaultConfig(&iee_config);
     iee_config.bypass  = kIEE_AesUseMdField;
     iee_config.mode    = kIEE_ModeAesXTS;
-    iee_config.keySize = kIEE_AesCTR256XTS512;
+    iee_config.keySize = kIEE_AesCTR128XTS256;
 
-    PRINTF("Load keys into IEE\r\n");
     /* Set KEY1 for region 0 */
     status = IEE_SetRegionKey(IEE, kIEE_Region0, kIEE_AesKey1, key1, AES_KEY_LEN);
     if (status != kStatus_Success)
@@ -425,6 +531,7 @@ status_t IEE_APC_Setup(void)
     /* IEE Set region 0 configuration */
     IEE_SetRegionConfig(IEE, kIEE_Region1, &iee_config_flash);
 #endif /* USE_FLASH */
+#endif /* FSL_FEATURE_IEE_ELE_PROVISIONED_KEY */
 
     /* Note: For security reasons it's possible to lock the configuration */
     /* Only system reset can clear Lock bit */
@@ -433,7 +540,8 @@ status_t IEE_APC_Setup(void)
 
     /* IEE_APC lock region configuration */
     // IEE_APC_LockRegionConfig(IEE_APC, kIEE_Region0, kIEE_APC_Domain0);
-
+    // or (depends on HW implementation)
+    // IEE_APC_LockRegionConfig(IEE_APC, kIEE_Region0, TRDC ID);
     return status;
 }
 
@@ -449,6 +557,11 @@ static bool Device_ReadWrite(void)
 
     /* Invalidate memory range with endcrypted data to be read */
     DCACHE_CleanByRange(StartAddr, 32U);
+
+    /* Read encrypted data */
+    memcpy(s_read_buffer, StartAddrPtr, sizeof(plain_text));
+
+    memcpy((void *)StartAddrPtr, (void *)plain_text, sizeof(plain_text));
 
     PRINTF("Turn off ecryption/decryption\r\n\r\n");
     /* Disable IEE APC routing to IEE */

@@ -45,7 +45,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="lpcxpresso55s69_ota_mcuboot_sdcard" name="ota_mcuboot_sdcard" device_core="cm33_core0_LPC55S69" dependency="platform.drivers.lpc_iocon.LPC55S69 platform.drivers.sdif.LPC55S69 platform.drivers.flexcomm_usart.LPC55S69 middleware.sdmmc.host.sdif.LPC55S69 middleware.sdmmc.sd.LPC55S69 middleware.sdmmc.host.sdif.interrupt.LPC55S69 component.mflash.lpc55xxx.LPC55S69 utility.shell.LPC55S69 platform.drivers.hashcrypt.LPC55S69 middleware.fatfs.sd.LPC55S69 middleware.fatfs.LPC55S69 platform.drivers.power.LPC55S69 platform.drivers.clock.LPC55S69 platform.drivers.common.LPC55S69 platform.devices.LPC55S69_CMSIS.LPC55S69 platform.devices.LPC55S69_startup.LPC55S69 platform.drivers.flexcomm.LPC55S69 platform.drivers.lpc_gpio.LPC55S69 platform.utilities.assert.LPC55S69 utility.debug_console.LPC55S69 component.usart_adapter.LPC55S69 component.serial_manager_uart.LPC55S69 component.serial_manager.LPC55S69 component.lists.LPC55S69 platform.utilities.misc_utilities.LPC55S69 middleware.sdmmc.common.LPC55S69 middleware.sdmmc.osa.bm.LPC55S69 middleware.sdmmc.sdif.template.LPC55S69 component.osa_bm.LPC55S69 component.osa_interface.LPC55S69 component.mflash.common.LPC55S69 platform.drivers.iap1.LPC55S69 utility.str.LPC55S69 middleware.fatfs.template_sd.LPC55S69 platform.drivers.reset.LPC55S69 CMSIS_Include_core_cm.LPC55S69 platform.devices.LPC55S69_system.LPC55S69" category="ota_examples/ota_mcuboot_sdcard">
+  <example id="lpcxpresso55s69_ota_mcuboot_sdcard" name="ota_mcuboot_sdcard" device_core="cm33_core0_LPC55S69" dependency="platform.drivers.lpc_iocon.LPC55S69 platform.drivers.sdif.LPC55S69 platform.drivers.flexcomm_usart.LPC55S69 middleware.sdmmc.host.sdif.LPC55S69 middleware.sdmmc.sd.LPC55S69 middleware.sdmmc.host.sdif.interrupt.LPC55S69 component.mflash.lpc55xxx.LPC55S69 utility.shell.LPC55S69 platform.drivers.hashcrypt.LPC55S69 middleware.fatfs.sd.LPC55S69 middleware.fatfs.LPC55S69 platform.drivers.power.LPC55S69 platform.drivers.clock.LPC55S69 platform.drivers.common.LPC55S69 platform.devices.LPC55S69_CMSIS.LPC55S69 platform.devices.LPC55S69_startup.LPC55S69 platform.drivers.flexcomm.LPC55S69 platform.drivers.lpc_gpio.LPC55S69 platform.utilities.assert.LPC55S69 utility.debug_console.LPC55S69 component.usart_adapter.LPC55S69 component.serial_manager_uart.LPC55S69 component.serial_manager.LPC55S69 component.lists.LPC55S69 platform.utilities.misc_utilities.LPC55S69 middleware.sdmmc.common.LPC55S69 middleware.sdmmc.osa.bm.LPC55S69 middleware.sdmmc.sdif.template.LPC55S69 component.osa_bm.LPC55S69 component.osa_interface.LPC55S69 component.mflash.common.LPC55S69 platform.drivers.iap1.LPC55S69 utility.str.LPC55S69 middleware.fatfs.template_sd.LPC55S69 platform.drivers.reset.LPC55S69 CMSIS_Include_core_cm.LPC55S69 platform.devices.LPC55S69_system.LPC55S69" category="ota_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -80,7 +80,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>
@@ -117,11 +117,11 @@
       <include_path path=".." project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="c_include"/>
       <include_path path="." project_relative_path="board" type="c_include"/>
+      <include_path path="../../../../../core/boards/lpcxpresso55s69" project_relative_path="board" type="c_include"/>
       <include_path path="bootutil_port" project_relative_path="bootutil_port" type="c_include"/>
       <include_path path="bootutil_port/mcuboot_config" project_relative_path="bootutil_port/mcuboot_config" type="c_include"/>
       <include_path path="bootutil_port/sysflash" project_relative_path="bootutil_port/sysflash" type="c_include"/>
       <include_path path="bootutil_port/board_specific" project_relative_path="bootutil_port/board_specific" type="c_include"/>
-      <include_path path="../../../../../core/boards/lpcxpresso55s69" project_relative_path="board" type="c_include"/>
     </include_paths>
     <source path="armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">
       <files mask="build_all.bat"/>
@@ -165,6 +165,14 @@
     <source path="." project_relative_path="source" type="c_include">
       <files mask="version.h"/>
     </source>
+    <source path="../../../../../core/boards/lpcxpresso55s69" project_relative_path="board" type="src">
+      <files mask="board.c"/>
+      <files mask="clock_config.c"/>
+    </source>
+    <source path="../../../../../core/boards/lpcxpresso55s69" project_relative_path="board" type="c_include">
+      <files mask="board.h"/>
+      <files mask="clock_config.h"/>
+    </source>
     <source path="." project_relative_path="source" type="src">
       <files mask="mcuboot_app_support.c"/>
     </source>
@@ -186,18 +194,9 @@
     </source>
     <source path="bootutil_port" project_relative_path="bootutil_port" type="c_include">
       <files mask="flash_map.h"/>
-      <files mask="sbldef.h"/>
     </source>
     <source path="bootutil_port/sysflash" project_relative_path="bootutil_port/sysflash" type="c_include">
       <files mask="sysflash.h"/>
-    </source>
-    <source path="../../../../../core/boards/lpcxpresso55s69" project_relative_path="board" type="src">
-      <files mask="board.c"/>
-      <files mask="clock_config.c"/>
-    </source>
-    <source path="../../../../../core/boards/lpcxpresso55s69" project_relative_path="board" type="c_include">
-      <files mask="board.h"/>
-      <files mask="clock_config.h"/>
     </source>
     <source path="." project_relative_path="doc" type="doc" toolchain="mcuxpresso armgcc">
       <files mask="readme.md"/>

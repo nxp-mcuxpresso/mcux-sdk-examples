@@ -32,7 +32,6 @@
     <definition extID="middleware.eiq.mpp.MIMXRT1176"/>
     <definition extID="middleware.freertos-kernel.MIMXRT1176"/>
     <definition extID="middleware.freertos-kernel.heap_4.MIMXRT1176"/>
-    <definition extID="middleware.eiq.deepviewrt.nnlib.MIMXRT1176"/>
     <definition extID="component.lists.MIMXRT1176"/>
     <definition extID="component.lpuart_adapter.MIMXRT1176"/>
     <definition extID="platform.drivers.lpuart.MIMXRT1176"/>
@@ -52,6 +51,7 @@
     <definition extID="platform.drivers.memory.MIMXRT1176"/>
     <definition extID="platform.drivers.lcdifv2.MIMXRT1176"/>
     <definition extID="platform.drivers.soc_mipi_dsi.MIMXRT1176"/>
+    <definition extID="utility.str.MIMXRT1176"/>
     <definition extID="middleware.eiq.tensorflow_lite_micro.headers.MIMXRT1176"/>
     <definition extID="middleware.eiq.tensorflow_lite_micro.third_party.flatbuffers.MIMXRT1176"/>
     <definition extID="middleware.eiq.tensorflow_lite_micro.third_party.gemmlowp.MIMXRT1176"/>
@@ -67,7 +67,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkbmimxrt1170_mpp_camera_ultraface_view_tflm_cm7" name="mpp_camera_ultraface_view_tflm_cm7" device_core="cm7_MIMXRT1176xxxxx" dependency="driver.camera-device-common.MIMXRT1176 driver.camera-receiver-common.MIMXRT1176 driver.camera-device-sccb.MIMXRT1176 driver.camera-device-ov5640.MIMXRT1176 driver.display-rm68191.MIMXRT1176 driver.display-rm68200.MIMXRT1176 driver.display-hx8394.MIMXRT1176 driver.camera-common.MIMXRT1176 driver.camera-receiver-csi.MIMXRT1176 platform.drivers.csi.MIMXRT1176 driver.video-common.MIMXRT1176 platform.drivers.elcdif.MIMXRT1176 platform.drivers.pxp.MIMXRT1176 driver.dc-fb-common.MIMXRT1176 driver.dc-fb-elcdif.MIMXRT1176 driver.dc-fb-lcdifv2.MIMXRT1176 driver.display-common.MIMXRT1176 platform.drivers.mipi_dsi_split.MIMXRT1176 driver.display-mipi-dsi-cmd.MIMXRT1176 platform.drivers.igpio.MIMXRT1176 platform.drivers.mipi_csi2rx.MIMXRT1176 platform.drivers.soc_mipi_csi2rx.MIMXRT1176 platform.drivers.soc_src.MIMXRT1176 platform.drivers.gpt.MIMXRT1176 utility.debug_console_lite.MIMXRT1176 platform.utilities.assert_lite.MIMXRT1176 middleware.eiq.tensorflow_lite_micro.binary.MIMXRT1176 middleware.eiq.mpp.MIMXRT1176 middleware.freertos-kernel.MIMXRT1176 middleware.freertos-kernel.heap_4.MIMXRT1176 middleware.eiq.deepviewrt.nnlib.MIMXRT1176 component.lists.MIMXRT1176 component.lpuart_adapter.MIMXRT1176 platform.drivers.lpuart.MIMXRT1176 platform.devices.MIMXRT1176_CMSIS.MIMXRT1176 platform.devices.MIMXRT1176_startup.MIMXRT1176 platform.drivers.dcdc_soc.MIMXRT1176 platform.drivers.pmu_1.MIMXRT1176 platform.drivers.clock.MIMXRT1176 platform.drivers.common.MIMXRT1176 platform.drivers.iomuxc.MIMXRT1176 platform.drivers.lpi2c.MIMXRT1176 platform.drivers.cache_armv7_m7.MIMXRT1176 platform.drivers.xip_device.MIMXRT1176 platform.drivers.xip_board.evkbmimxrt1170.MIMXRT1176 platform.drivers.xmcd.evkbmimxrt1170.MIMXRT1176 platform.utilities.misc_utilities.MIMXRT1176 platform.drivers.memory.MIMXRT1176 platform.drivers.lcdifv2.MIMXRT1176 platform.drivers.soc_mipi_dsi.MIMXRT1176 middleware.eiq.tensorflow_lite_micro.headers.MIMXRT1176 middleware.eiq.tensorflow_lite_micro.third_party.flatbuffers.MIMXRT1176 middleware.eiq.tensorflow_lite_micro.third_party.gemmlowp.MIMXRT1176 middleware.eiq.tensorflow_lite_micro.third_party.ruy.MIMXRT1176 middleware.freertos-kernel.template.MIMXRT1176 middleware.freertos-kernel.extension.MIMXRT1176 CMSIS_Include_core_cm.MIMXRT1176 platform.devices.MIMXRT1176_system.MIMXRT1176 platform.drivers.anatop_ai.MIMXRT1176" category="eiq_examples">
+  <example id="evkbmimxrt1170_mpp_camera_ultraface_view_tflm_cm7" name="mpp_camera_ultraface_view_tflm_cm7" device_core="cm7_MIMXRT1176xxxxx" dependency="driver.camera-device-common.MIMXRT1176 driver.camera-receiver-common.MIMXRT1176 driver.camera-device-sccb.MIMXRT1176 driver.camera-device-ov5640.MIMXRT1176 driver.display-rm68191.MIMXRT1176 driver.display-rm68200.MIMXRT1176 driver.display-hx8394.MIMXRT1176 driver.camera-common.MIMXRT1176 driver.camera-receiver-csi.MIMXRT1176 platform.drivers.csi.MIMXRT1176 driver.video-common.MIMXRT1176 platform.drivers.elcdif.MIMXRT1176 platform.drivers.pxp.MIMXRT1176 driver.dc-fb-common.MIMXRT1176 driver.dc-fb-elcdif.MIMXRT1176 driver.dc-fb-lcdifv2.MIMXRT1176 driver.display-common.MIMXRT1176 platform.drivers.mipi_dsi_split.MIMXRT1176 driver.display-mipi-dsi-cmd.MIMXRT1176 platform.drivers.igpio.MIMXRT1176 platform.drivers.mipi_csi2rx.MIMXRT1176 platform.drivers.soc_mipi_csi2rx.MIMXRT1176 platform.drivers.soc_src.MIMXRT1176 platform.drivers.gpt.MIMXRT1176 utility.debug_console_lite.MIMXRT1176 platform.utilities.assert_lite.MIMXRT1176 middleware.eiq.tensorflow_lite_micro.binary.MIMXRT1176 middleware.eiq.mpp.MIMXRT1176 middleware.freertos-kernel.MIMXRT1176 middleware.freertos-kernel.heap_4.MIMXRT1176 component.lists.MIMXRT1176 component.lpuart_adapter.MIMXRT1176 platform.drivers.lpuart.MIMXRT1176 platform.devices.MIMXRT1176_CMSIS.MIMXRT1176 platform.devices.MIMXRT1176_startup.MIMXRT1176 platform.drivers.dcdc_soc.MIMXRT1176 platform.drivers.pmu_1.MIMXRT1176 platform.drivers.clock.MIMXRT1176 platform.drivers.common.MIMXRT1176 platform.drivers.iomuxc.MIMXRT1176 platform.drivers.lpi2c.MIMXRT1176 platform.drivers.cache_armv7_m7.MIMXRT1176 platform.drivers.xip_device.MIMXRT1176 platform.drivers.xip_board.evkbmimxrt1170.MIMXRT1176 platform.drivers.xmcd.evkbmimxrt1170.MIMXRT1176 platform.utilities.misc_utilities.MIMXRT1176 platform.drivers.memory.MIMXRT1176 platform.drivers.lcdifv2.MIMXRT1176 platform.drivers.soc_mipi_dsi.MIMXRT1176 utility.str.MIMXRT1176 middleware.eiq.tensorflow_lite_micro.headers.MIMXRT1176 middleware.eiq.tensorflow_lite_micro.third_party.flatbuffers.MIMXRT1176 middleware.eiq.tensorflow_lite_micro.third_party.gemmlowp.MIMXRT1176 middleware.eiq.tensorflow_lite_micro.third_party.ruy.MIMXRT1176 middleware.freertos-kernel.template.MIMXRT1176 middleware.freertos-kernel.extension.MIMXRT1176 CMSIS_Include_core_cm.MIMXRT1176 platform.devices.MIMXRT1176_system.MIMXRT1176 platform.drivers.anatop_ai.MIMXRT1176" category="eiq_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.ccnature"/>
     </projects>
@@ -100,7 +100,7 @@
           <value>gnu.c.optimization.level.most</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-Wno-strict-aliasing -c -ffunction-sections -fdata-sections</value>
+          <value>-fmessage-length=0 -funsigned-char -Wno-strict-aliasing -c -ffunction-sections -fdata-sections</value>
         </option>
         <option id="com.crt.advproject.cpp.exe.release.option.optimization.level" type="enum">
           <value>gnu.cpp.compiler.optimization.level.most</value>
@@ -118,7 +118,7 @@
           <value>gnu.cpp.compiler.optimization.level.most</value>
         </option>
         <option id="gnu.cpp.compiler.option.other.other" type="string">
-          <value>-fno-rtti -fno-exceptions -Wno-sign-compare -Wno-strict-aliasing -Wno-deprecated-declarations -c -ffunction-sections -fdata-sections</value>
+          <value>-fmessage-length=0 -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-unwind-tables -funsigned-char -Wno-sign-compare -Wno-strict-aliasing -Wno-deprecated-declarations -c -ffunction-sections -fdata-sections</value>
         </option>
         <option id="gnu.cpp.compiler.option.warnings.toerrors" type="boolean">
           <value>false</value>
@@ -131,7 +131,6 @@
           <value>SDK_DEBUGCONSOLE=1</value>
           <value>XIP_EXTERNAL_FLASH=1</value>
           <value>XIP_BOOT_HEADER_ENABLE=1</value>
-          <value>INFERENCE_ENGINE_TFLM</value>
           <value>configGENERATE_RUN_TIME_STATS=1</value>
           <value>SDK_DEBUGCONSOLE_UART</value>
           <value>ARM_MATH_CM7</value>
@@ -144,7 +143,6 @@
           <value>SDK_OS_FREE_RTOS</value>
         </option>
         <option id="gnu.cpp.compiler.option.preprocessor.def" type="stringList">
-          <value>INFERENCE_ENGINE_TFLM</value>
           <value>configGENERATE_RUN_TIME_STATS=1</value>
           <value>SDK_DEBUGCONSOLE_UART</value>
           <value>ARM_MATH_CM7</value>

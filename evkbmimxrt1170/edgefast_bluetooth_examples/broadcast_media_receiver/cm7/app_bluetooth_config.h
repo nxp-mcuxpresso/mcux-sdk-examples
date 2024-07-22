@@ -1,5 +1,5 @@
 /*
- *  Copyright 2020-2023 NXP
+ *  Copyright 2020-2024 NXP
  *  All rights reserved.
  *
  *  SPDX-License-Identifier: BSD-3-Clause
@@ -68,8 +68,6 @@ Same as CONFIG_BT_BAP_BROADCAST_SNK_SUBGROUP_COUNT should also be same or bigger
 
 /* LE Audio Sync Enable. */
 #define LE_AUDIO_SYNC_ENABLE 1
-/* LE Audio Sync Test. */
-#define LE_AUDIO_SYNC_TEST 0
 
 #include "edgefast_bluetooth_config.h"
 #include "edgefast_bluetooth_audio_config.h"

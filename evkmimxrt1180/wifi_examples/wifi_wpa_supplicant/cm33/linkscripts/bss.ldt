@@ -1,0 +1,8 @@
+        <#if memory.name=="SRAM_OC1_1H">
+        *(.bss.ucHeap)
+        *(.bss.ram_heap)
+        </#if>
+
+        <#if memory.name=="NCACHE_REGION">
+        *(.bss*)
+        </#if>

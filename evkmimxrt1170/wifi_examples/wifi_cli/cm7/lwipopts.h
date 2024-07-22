@@ -110,11 +110,11 @@
 #define LWIP_DEBUG_TRACE 0
 #define SOCKETS_DEBUG    LWIP_DBG_OFF // | LWIP_DBG_MASK_LEVEL
 
-#define IP_DEBUG LWIP_DBG_OFF
+#define IP_DEBUG         LWIP_DBG_OFF
 
-#define IP6_DEBUG   LWIP_DBG_OFF
-#define ICMP6_DEBUG LWIP_DBG_OFF
-#define DHCP6_DEBUG LWIP_DBG_OFF
+#define IP6_DEBUG        LWIP_DBG_OFF
+#define ICMP6_DEBUG      LWIP_DBG_OFF
+#define DHCP6_DEBUG      LWIP_DBG_OFF
 
 #define ETHARP_DEBUG     LWIP_DBG_OFF
 #define NETIF_DEBUG      LWIP_DBG_OFF
@@ -519,11 +519,9 @@ u32_t lwip_rand(void);
 
 #define LWIP_TCPIP_CORE_LOCKING 1
 
-#ifdef CONFIG_CLOUD_KEEP_ALIVE
 #ifndef LWIP_HOOK_FILENAME
 #define LWIP_HOOK_FILENAME                               "lwiphooks.h"
 #define LWIP_HOOK_TCP_OUT_ADD_TCPOPTS(p, hdr, pcb, opts) lwip_hook_tcp_out_add_tcpopts(p, hdr, pcb, opts)
-#endif
 #endif
 
 #endif /* __LWIPOPTS_H__ */

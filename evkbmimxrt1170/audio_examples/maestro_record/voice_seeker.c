@@ -25,6 +25,9 @@
 #elif defined(PLATFORM_RT1170_EVKB)
 #define DEVICE_ID    Device_IMXRT1170_CM7
 #define RDSP_NUM_MIC 2
+#elif defined(PLATFORM_RW61X)
+#define DEVICE_ID    Device_RW610_CM33_NO_DSP
+#define RDSP_NUM_MIC 2
 #else
 #error "No platform selected"
 #endif
@@ -101,6 +104,21 @@ int VoiceSeeker_Initialize(void *arg)
     {
         vsl_config.mic_xyz_mm[1][0] = 0.0f;  // X
         vsl_config.mic_xyz_mm[1][1] = 70.0f; // Y
+        vsl_config.mic_xyz_mm[1][2] = 0.0f;  // Z
+    }
+#elif defined(PLATFORM_RW61X)
+    // MIC0
+    if (vsl_config.num_mics > 0)
+    {
+        vsl_config.mic_xyz_mm[0][0] = 0.0f; // X
+        vsl_config.mic_xyz_mm[0][1] = 0.0f; // Y
+        vsl_config.mic_xyz_mm[0][2] = 0.0f; // Z
+    }
+    // MIC1
+    if (vsl_config.num_mics > 1)
+    {
+        vsl_config.mic_xyz_mm[1][0] = 82.0f;  // X
+        vsl_config.mic_xyz_mm[1][1] = -115.0f; // Y
         vsl_config.mic_xyz_mm[1][2] = 0.0f;  // Z
     }
 #endif

@@ -256,7 +256,7 @@ static void prvQueueSendTask(void *pvParameters)
  */
 static void prvQueueReceiveTask(void *pvParameters)
 {
-    uint32_t ulReceivedValue;
+    uint32_t ulReceivedValue = 0L;
 
     for (;;)
     {

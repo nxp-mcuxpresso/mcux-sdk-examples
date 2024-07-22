@@ -6,10 +6,8 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-#include <sbl.h>
 #include "fsl_device_registers.h"
 #include "fsl_debug_console.h"
-
 #include "pin_mux.h"
 #include "clock_config.h"
 #include "board.h"
@@ -26,22 +24,21 @@
  * Definitions
  ******************************************************************************/
 
+#ifdef CONFIG_MCUBOOT_FLASH_REMAP_ENABLE
+#define IOMUXC_GPR_GPR30_REG 0x400AC078 /* Flash remapping start address  */
+#define IOMUXC_GPR_GPR31_REG 0x400AC07C /* Flash remapping end address    */
+#define IOMUXC_GPR_GPR32_REG 0x400AC080 /* Flash remapping offset address */
+#endif
+
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
-#if (defined(COMPONENT_MCU_ISP))
-extern int isp_kboot_main(bool isInfiniteIsp);
-#endif
 
 /*******************************************************************************
  * Code
  ******************************************************************************/
+
 #ifdef CONFIG_MCUBOOT_FLASH_REMAP_ENABLE
-
-#define IOMUXC_GPR_GPR30_REG 0x400AC078 /* Flash remapping start address  */
-#define IOMUXC_GPR_GPR31_REG 0x400AC07C /* Flash remapping end address    */
-#define IOMUXC_GPR_GPR32_REG 0x400AC080 /* Flash remapping offset address */
-
 void SBL_EnableRemap(uint32_t start_addr, uint32_t end_addr, uint32_t off)
 {
     uint32_t *remap_start  = (uint32_t *)IOMUXC_GPR_GPR30_REG;
@@ -71,11 +68,6 @@ void SBL_DisableRemap(void)
  */
 int main(void)
 {
-#if (defined(COMPONENT_MCU_ISP))
-    bool isInfiniteIsp = false;
-    (void)isp_kboot_main(isInfiniteIsp);
-#endif
-
     /* Init board hardware. */
     BOARD_ConfigMPU();
     BOARD_InitPins();

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 NXP.
+ * Copyright 2022-2024 NXP.
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -22,6 +22,7 @@ hal_graphics_setup_t gfx_setup[] =
 {
     {"gfx_PXP", HAL_GfxDev_PXP_Register},
 	{"gfx_CPU", HAL_GfxDev_CPU_Register},
+	{"gfx_GPU", HAL_GfxDev_GPU_Register},
 };
 
 int setup_graphic_dev(hal_graphics_setup_t gfx_setup[], int graphic_nb,
@@ -32,11 +33,11 @@ int hal_gfx_setup(const char *name, gfx_dev_t *dev)
 }
 
 /* Display setup */
-int HAL_DisplayDev_Lcdifv2Rk055a_setup(display_dev_t *dev);
+int HAL_DisplayDev_Lcdifv2Rk055_setup(display_dev_t *dev);
 
 hal_display_setup_t display_setup[] =
 {
-    {"Lcdifv2Rk055ah", HAL_DisplayDev_Lcdifv2Rk055a_setup},
+    {"Lcdifv2Rk055", HAL_DisplayDev_Lcdifv2Rk055_setup},
 };
 
 int setup_display_dev(hal_display_setup_t display_setup[], int display_nb,

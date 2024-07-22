@@ -1,6 +1,6 @@
 Overview
 ========
-The spi_b2b_example_master example shows how to use LPSPI driver in Azure RTOS.
+The spi_b2b_example_master example shows how to use LPSPI driver.
 
 This example needs two boards, one is used as LPSPI master runnuing the spi_b2b_example_master
 example, and the other is used as LPSPI slave running the spi_b2b_example_slave example.
@@ -10,12 +10,12 @@ Start the spi_b2b_example_slave example first, then start the spi_b2b_example_ma
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  12.2
-- MCUXpresso  11.8.0
+- GCC ARM Embedded  13.2.1
+- MCUXpresso  11.10.0
 
 Hardware requirements
 =====================

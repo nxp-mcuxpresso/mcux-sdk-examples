@@ -19,9 +19,48 @@
 #include "stdbool.h"
 
 #include "fsl_common.h"
+#if CONFIG_WIFI_SMOKE_TESTS
+#include "fsl_iomuxc.h"
+#include "fsl_enet.h"
+#endif
+#if CONFIG_WIFI_SMOKE_TESTS
+#if BOARD_NETWORK_USE_100M_ENET_PORT
+#include "fsl_phyrtl8201.h"
+#else
+#include "fsl_phyrtl8211f.h"
+#endif
+#endif
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
+
+#if CONFIG_WIFI_SMOKE_TESTS
+#if BOARD_NETWORK_USE_100M_ENET_PORT
+extern phy_rtl8201_resource_t g_phy_resource;
+#define EXAMPLE_ENET ENET
+/* Address of PHY interface. */
+#define EXAMPLE_PHY_ADDRESS BOARD_ENET0_PHY_ADDRESS
+/* PHY operations. */
+#define EXAMPLE_PHY_OPS &phyrtl8201_ops
+/* ENET instance select. */
+#define EXAMPLE_NETIF_INIT_FN ethernetif0_init
+#else
+extern phy_rtl8211f_resource_t g_phy_resource;
+#define EXAMPLE_ENET          ENET_1G
+/* Address of PHY interface. */
+#define EXAMPLE_PHY_ADDRESS   BOARD_ENET1_PHY_ADDRESS
+/* PHY operations. */
+#define EXAMPLE_PHY_OPS       &phyrtl8211f_ops
+/* ENET instance select. */
+#define EXAMPLE_NETIF_INIT_FN ethernetif1_init
+#endif
+
+/* PHY resource. */
+#define EXAMPLE_PHY_RESOURCE &g_phy_resource
+
+/* ENET clock frequency. */
+#define EXAMPLE_CLOCK_FREQ CLOCK_GetRootClockFreq(kCLOCK_Root_Bus)
+#endif
 
 
 #ifndef main_task_PRIORITY
@@ -53,6 +92,71 @@ static void main_task(void *param);
 /*******************************************************************************
  * Code
  ******************************************************************************/
+#if CONFIG_WIFI_SMOKE_TESTS
+#if BOARD_NETWORK_USE_100M_ENET_PORT
+phy_rtl8201_resource_t g_phy_resource;
+#else
+phy_rtl8211f_resource_t g_phy_resource;
+#endif
+
+void BOARD_InitModuleClock(void)
+{
+    const clock_sys_pll1_config_t sysPll1Config = {
+        .pllDiv2En = true,
+    };
+    CLOCK_InitSysPll1(&sysPll1Config);
+
+#if BOARD_NETWORK_USE_100M_ENET_PORT
+    clock_root_config_t rootCfg = {.mux = 4, .div = 10}; /* Generate 50M root clock. */
+    CLOCK_SetRootClock(kCLOCK_Root_Enet1, &rootCfg);
+#else
+    clock_root_config_t rootCfg = {.mux = 4, .div = 4};       /* Generate 125M root clock. */
+    CLOCK_SetRootClock(kCLOCK_Root_Enet2, &rootCfg);
+#endif
+
+    /* Select syspll2pfd3, 528*18/24 = 396M */
+    CLOCK_InitPfd(kCLOCK_PllSys2, kCLOCK_Pfd3, 24);
+    rootCfg.mux = 7;
+    rootCfg.div = 2;
+    CLOCK_SetRootClock(kCLOCK_Root_Bus, &rootCfg); /* Generate 198M bus clock. */
+}
+
+void IOMUXC_SelectENETClock(void)
+{
+#if BOARD_NETWORK_USE_100M_ENET_PORT
+    IOMUXC_GPR->GPR4 |= 0x3; /* 50M ENET_REF_CLOCK output to PHY and ENET module. */
+#else
+    IOMUXC_GPR->GPR5 |= IOMUXC_GPR_GPR5_ENET1G_RGMII_EN_MASK; /* bit1:iomuxc_gpr_enet_clk_dir
+                                                                 bit0:GPR_ENET_TX_CLK_SEL(internal or OSC) */
+#endif
+}
+
+void BOARD_ENETFlexibleConfigure(enet_config_t *config)
+{
+#if BOARD_NETWORK_USE_100M_ENET_PORT
+    config->miiMode = kENET_RmiiMode;
+#else
+    config->miiMode = kENET_RgmiiMode;
+#endif
+}
+
+static void MDIO_Init(void)
+{
+    (void)CLOCK_EnableClock(s_enetClock[ENET_GetInstance(EXAMPLE_ENET)]);
+    ENET_SetSMI(EXAMPLE_ENET, EXAMPLE_CLOCK_FREQ, false);
+}
+
+static status_t MDIO_Write(uint8_t phyAddr, uint8_t regAddr, uint16_t data)
+{
+    return ENET_MDIOWrite(EXAMPLE_ENET, phyAddr, regAddr, data);
+}
+
+static status_t MDIO_Read(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
+{
+    return ENET_MDIORead(EXAMPLE_ENET, phyAddr, regAddr, pData);
+}
+#endif
+
 
 /* Link lost callback */
 static void LinkStatusChangeCallback(bool linkState)
@@ -213,6 +317,38 @@ int main(void)
     BOARD_InitPinsM2();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
+
+#if CONFIG_WIFI_SMOKE_TESTS
+    BOARD_InitModuleClock();
+
+    IOMUXC_SelectENETClock();
+
+    gpio_pin_config_t gpio_config = {kGPIO_DigitalOutput, 0, kGPIO_NoIntmode};
+
+#if BOARD_NETWORK_USE_100M_ENET_PORT
+    BOARD_InitEnetPins();
+    GPIO_PinInit(GPIO12, 12, &gpio_config);
+    SDK_DelayAtLeastUs(10000, CLOCK_GetFreq(kCLOCK_CpuClk));
+    GPIO_WritePinOutput(GPIO12, 12, 1);
+    SDK_DelayAtLeastUs(150000, CLOCK_GetFreq(kCLOCK_CpuClk));
+#else
+    BOARD_InitEnet1GPins();
+    GPIO_PinInit(GPIO11, 14, &gpio_config);
+    /* For a complete PHY reset of RTL8211FDI-CG, this pin must be asserted low for at least 10ms. And
+     * wait for a further 30ms(for internal circuits settling time) before accessing the PHY register */
+    SDK_DelayAtLeastUs(10000, CLOCK_GetFreq(kCLOCK_CpuClk));
+    GPIO_WritePinOutput(GPIO11, 14, 1);
+    SDK_DelayAtLeastUs(30000, CLOCK_GetFreq(kCLOCK_CpuClk));
+
+    EnableIRQ(ENET_1G_MAC0_Tx_Rx_1_IRQn);
+    EnableIRQ(ENET_1G_MAC0_Tx_Rx_2_IRQn);
+#endif
+
+    MDIO_Init();
+    g_phy_resource.read  = MDIO_Read;
+    g_phy_resource.write = MDIO_Write;
+#endif
+
 
     /* Create the main Task */
     if (xTaskCreate(main_task, "main_task", main_task_STACK_DEPTH, NULL, main_task_PRIORITY, &mainTaskHandle) != pdPASS)

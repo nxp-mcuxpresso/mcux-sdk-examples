@@ -89,6 +89,8 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../srtm/services/srtm_lfcl_service.c"
 "${ProjDirPath}/../lsm6dso/fsl_lsm.h"
 "${ProjDirPath}/../lsm6dso/fsl_lsm.c"
+"${ProjDirPath}/../srtm/services/srtm_pdm_edma_adapter.h"
+"${ProjDirPath}/../srtm/services/srtm_pdm_edma_adapter.c"
 "${ProjDirPath}/../main_remote.c"
 "${ProjDirPath}/../FreeRTOSConfig.h"
 "${ProjDirPath}/../pin_mux.c"

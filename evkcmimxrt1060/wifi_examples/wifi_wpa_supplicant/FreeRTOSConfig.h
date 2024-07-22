@@ -44,7 +44,7 @@
 #define configCPU_CLOCK_HZ                      (SystemCoreClock)
 #define configTICK_RATE_HZ                      ((TickType_t)1000)
 #define configMAX_PRIORITIES                    5
-#define configMINIMAL_STACK_SIZE                ((unsigned short)160)
+#define configMINIMAL_STACK_SIZE                ((unsigned short)256)
 #define configMAX_TASK_NAME_LEN                 20
 #define configUSE_16_BIT_TICKS                  0
 #define configIDLE_SHOULD_YIELD                 1
@@ -59,7 +59,8 @@
 #define configUSE_NEWLIB_REENTRANT              0
 #define configENABLE_BACKWARD_COMPATIBILITY     1
 #define configNUM_THREAD_LOCAL_STORAGE_POINTERS 5
-#define configUSE_APPLICATION_TASK_TAG          0
+#define configUSE_APPLICATION_TASK_TAG          1
+#define configUSE_POSIX_ERRNO                   1
 
 /* Used memory allocation (heap_x.c) */
 #define configFRTOS_MEMORY_SCHEME 4
@@ -90,7 +91,10 @@
  *#define configGENERATE_RUN_TIME_STATS        1
  *#define portCONFIGURE_TIMER_FOR_RUN_TIME_STATS()
  *#define portGET_RUN_TIME_COUNTER_VALUE()  xTaskGetTickCount()
-*/
+ */
+
+/* Task aware debugging. */
+#define configRECORD_STACK_HIGH_ADDRESS      1
 
 /* Co-routine related definitions. */
 #define configUSE_CO_ROUTINES           0
@@ -128,6 +132,7 @@
 #define INCLUDE_xTaskGetHandle              0
 #define INCLUDE_xTaskResumeFromISR          1
 #define INCLUDE_pcTaskGetTaskName           1
+#define INCLUDE_xSemaphoreGetMutexHolder    1
 
 
 

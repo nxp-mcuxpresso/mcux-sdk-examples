@@ -1,6 +1,6 @@
 Overview
 ========
-The Hello World project is a simple demonstration program that uses the SDK UART drivere in
+The Hello World project is a simple demonstration program that uses the SDK UART driver in
 combination with FreeRTOS. The purpose of this demo is to show how to use the debug console and to
 provide a simple project for debugging and further development.
 
@@ -12,12 +12,12 @@ via debug console utility and suspend itself.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  12.2
-- MCUXpresso  11.8.0
+- GCC ARM Embedded  13.2.1
+- MCUXpresso  11.10.0
 
 Hardware requirements
 =====================

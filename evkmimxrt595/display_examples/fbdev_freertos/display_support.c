@@ -507,12 +507,12 @@ static void BOARD_InitMipiDsiClock(void)
     POWER_DisablePD(kPDRUNCFG_PD_MIPIDSI);
     POWER_ApplyPD();
 
-    /* RxClkEsc max 60MHz, TxClkEsc 12 to 20MHz. */
+    /* RxClkEsc min 60MHz, TxClkEsc 12 to 20MHz. */
     CLOCK_AttachClk(kFRO_DIV1_to_MIPI_DPHYESC_CLK);
-    /* RxClkEsc = 192MHz / 4 = 48MHz. */
-    CLOCK_SetClkDiv(kCLOCK_DivDphyEscRxClk, 4);
-    /* TxClkEsc = 192MHz / 4 / 3 = 16MHz. */
-    CLOCK_SetClkDiv(kCLOCK_DivDphyEscTxClk, 3);
+    /* RxClkEsc = 192MHz / 3 = 64MHz. */
+    CLOCK_SetClkDiv(kCLOCK_DivDphyEscRxClk, 3);
+    /* TxClkEsc = 192MHz / 3 / 4 = 16MHz. */
+    CLOCK_SetClkDiv(kCLOCK_DivDphyEscTxClk, 4);
     mipiDsiTxEscClkFreq_Hz = CLOCK_GetMipiDphyEscTxClkFreq();
 
     /* The DPHY bit clock must be fast enough to send out the pixels, it should be
@@ -956,12 +956,12 @@ static void BOARD_InitMipiDsiClock(void)
     POWER_DisablePD(kPDRUNCFG_PD_MIPIDSI);
     POWER_ApplyPD();
 
-    /* RxClkEsc max 60MHz, TxClkEsc 12 to 20MHz. */
+    /* RxClkEsc min 60MHz, TxClkEsc 12 to 20MHz. */
     CLOCK_AttachClk(kFRO_DIV1_to_MIPI_DPHYESC_CLK);
-    /* RxClkEsc = 192MHz / 4 = 48MHz. */
-    CLOCK_SetClkDiv(kCLOCK_DivDphyEscRxClk, 4);
-    /* TxClkEsc = 192MHz / 4 / 3 = 16MHz. */
-    CLOCK_SetClkDiv(kCLOCK_DivDphyEscTxClk, 3);
+    /* RxClkEsc = 192MHz / 3 = 64MHz. */
+    CLOCK_SetClkDiv(kCLOCK_DivDphyEscRxClk, 3);
+    /* TxClkEsc = 192MHz / 3 / 4 = 16MHz. */
+    CLOCK_SetClkDiv(kCLOCK_DivDphyEscTxClk, 4);
     mipiDsiTxEscClkFreq_Hz = CLOCK_GetMipiDphyEscTxClkFreq();
 
     /*

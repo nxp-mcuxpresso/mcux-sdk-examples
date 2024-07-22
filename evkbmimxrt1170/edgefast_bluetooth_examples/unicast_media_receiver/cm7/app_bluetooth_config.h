@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 NXP
+ * Copyright 2023-2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -35,6 +35,7 @@
 #define CONFIG_BT_PERIPHERAL            1
 #define CONFIG_BT_DEVICE_NAME           "unicast_media_receiver"
 #define CONFIG_BT_DEVICE_NAME_DYNAMIC   1
+#define CONFIG_BT_DEVICE_APPEARANCE     0x0941 /* Earbud */
 #define CONFIG_BT_SMP                   1
 #define CONFIG_BT_SETTINGS              0
 #define CONFIG_BT_HOST_CRYPTO           1
@@ -72,13 +73,14 @@
 /* MCC */
 #define CONFIG_BT_MCC 1
 
+/* CSIS */
+#define CONFIG_BT_CSIP_SET_MEMBER 1
+
 /* Mandatory to support at least 1 for ASCS */
 #define CONFIG_BT_ATT_PREPARE_COUNT    1
 
 /* LE Audio Sync Enable. */
 #define LE_AUDIO_SYNC_ENABLE 1
-/* LE Audio Sync Test. */
-#define LE_AUDIO_SYNC_TEST 0
 
 #include "edgefast_bluetooth_config.h"
 #include "edgefast_bluetooth_audio_config.h"

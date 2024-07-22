@@ -25,13 +25,14 @@
     <definition extID="middleware.usb.device.common_header.LPC55S16"/>
     <definition extID="component.osa.LPC55S16"/>
     <definition extID="middleware.usb.common_header.LPC55S16"/>
+    <definition extID="utility.str.LPC55S16"/>
     <definition extID="CMSIS_Include_core_cm.LPC55S16"/>
     <definition extID="device.LPC55S16_system.LPC55S16"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="lpcxpresso55s16_dev_audio_generator_lite_bm" name="dev_audio_generator_lite_bm" dependency="platform.drivers.lpc_dma.LPC55S16 platform.drivers.lpc_iocon.LPC55S16 middleware.usb.device_controller_ip3511fs.LPC55S16 platform.utilities.assert_lite.LPC55S16 utility.debug_console_lite.LPC55S16 middleware.baremetal.LPC55S16 component.lists.LPC55S16 platform.drivers.flexcomm_usart.LPC55S16 component.usart_adapter.LPC55S16 device.LPC55S16_CMSIS.LPC55S16 device.LPC55S16_startup.LPC55S16 platform.drivers.power.LPC55S16 platform.drivers.clock.LPC55S16 platform.drivers.common.LPC55S16 platform.drivers.flexcomm.LPC55S16 platform.drivers.lpc_gpio.LPC55S16 platform.drivers.reset.LPC55S16 middleware.usb.device.controller.driver.LPC55S16 middleware.usb.phy.LPC55S16 platform.utilities.misc_utilities.LPC55S16 middleware.usb.device.ip3511fs_config_header.LPC55S16 middleware.usb.device.common_header.LPC55S16 component.osa.LPC55S16 middleware.usb.common_header.LPC55S16 CMSIS_Include_core_cm.LPC55S16 device.LPC55S16_system.LPC55S16" category="usb_examples">
+  <example id="lpcxpresso55s16_dev_audio_generator_lite_bm" name="dev_audio_generator_lite_bm" dependency="platform.drivers.lpc_dma.LPC55S16 platform.drivers.lpc_iocon.LPC55S16 middleware.usb.device_controller_ip3511fs.LPC55S16 platform.utilities.assert_lite.LPC55S16 utility.debug_console_lite.LPC55S16 middleware.baremetal.LPC55S16 component.lists.LPC55S16 platform.drivers.flexcomm_usart.LPC55S16 component.usart_adapter.LPC55S16 device.LPC55S16_CMSIS.LPC55S16 device.LPC55S16_startup.LPC55S16 platform.drivers.power.LPC55S16 platform.drivers.clock.LPC55S16 platform.drivers.common.LPC55S16 platform.drivers.flexcomm.LPC55S16 platform.drivers.lpc_gpio.LPC55S16 platform.drivers.reset.LPC55S16 middleware.usb.device.controller.driver.LPC55S16 middleware.usb.phy.LPC55S16 platform.utilities.misc_utilities.LPC55S16 middleware.usb.device.ip3511fs_config_header.LPC55S16 middleware.usb.device.common_header.LPC55S16 component.osa.LPC55S16 middleware.usb.common_header.LPC55S16 utility.str.LPC55S16 CMSIS_Include_core_cm.LPC55S16 device.LPC55S16_system.LPC55S16" category="usb_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -58,7 +59,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-mno-unaligned-access -mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-mno-unaligned-access -mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

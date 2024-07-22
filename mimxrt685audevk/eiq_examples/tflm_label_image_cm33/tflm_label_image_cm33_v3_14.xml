@@ -21,6 +21,7 @@
     <definition extID="platform.drivers.power.MIMXRT685S"/>
     <definition extID="platform.drivers.reset.MIMXRT685S"/>
     <definition extID="platform.utilities.misc_utilities.MIMXRT685S"/>
+    <definition extID="utility.str.MIMXRT685S"/>
     <definition extID="middleware.eiq.tensorflow_lite_micro.headers.MIMXRT685S"/>
     <definition extID="middleware.eiq.tensorflow_lite_micro.third_party.flatbuffers.MIMXRT685S"/>
     <definition extID="middleware.eiq.tensorflow_lite_micro.third_party.gemmlowp.MIMXRT685S"/>
@@ -30,7 +31,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="mimxrt685audevk_tflm_label_image_cm33" name="tflm_label_image_cm33" device_core="cm33_MIMXRT685S" dependency="utility.debug_console_lite.MIMXRT685S platform.utilities.assert_lite.MIMXRT685S middleware.eiq.tensorflow_lite_micro.binary.MIMXRT685S component.lists.MIMXRT685S platform.drivers.flexcomm_usart.MIMXRT685S component.usart_adapter.MIMXRT685S device.MIMXRT685S_CMSIS.MIMXRT685S device.MIMXRT685S_startup.MIMXRT685S platform.drivers.cache_cache64.MIMXRT685S platform.drivers.clock.MIMXRT685S platform.drivers.common.MIMXRT685S platform.drivers.flash_config.mimxrt685audevk.MIMXRT685S platform.drivers.flexcomm.MIMXRT685S platform.drivers.flexspi.MIMXRT685S platform.drivers.lpc_gpio.MIMXRT685S platform.drivers.lpc_iopctl.MIMXRT685S platform.drivers.power.MIMXRT685S platform.drivers.reset.MIMXRT685S platform.utilities.misc_utilities.MIMXRT685S middleware.eiq.tensorflow_lite_micro.headers.MIMXRT685S middleware.eiq.tensorflow_lite_micro.third_party.flatbuffers.MIMXRT685S middleware.eiq.tensorflow_lite_micro.third_party.gemmlowp.MIMXRT685S middleware.eiq.tensorflow_lite_micro.third_party.ruy.MIMXRT685S CMSIS_Include_core_cm.MIMXRT685S" category="eiq_examples">
+  <example id="mimxrt685audevk_tflm_label_image_cm33" name="tflm_label_image_cm33" device_core="cm33_MIMXRT685S" dependency="utility.debug_console_lite.MIMXRT685S platform.utilities.assert_lite.MIMXRT685S middleware.eiq.tensorflow_lite_micro.binary.MIMXRT685S component.lists.MIMXRT685S platform.drivers.flexcomm_usart.MIMXRT685S component.usart_adapter.MIMXRT685S device.MIMXRT685S_CMSIS.MIMXRT685S device.MIMXRT685S_startup.MIMXRT685S platform.drivers.cache_cache64.MIMXRT685S platform.drivers.clock.MIMXRT685S platform.drivers.common.MIMXRT685S platform.drivers.flash_config.mimxrt685audevk.MIMXRT685S platform.drivers.flexcomm.MIMXRT685S platform.drivers.flexspi.MIMXRT685S platform.drivers.lpc_gpio.MIMXRT685S platform.drivers.lpc_iopctl.MIMXRT685S platform.drivers.power.MIMXRT685S platform.drivers.reset.MIMXRT685S platform.utilities.misc_utilities.MIMXRT685S utility.str.MIMXRT685S middleware.eiq.tensorflow_lite_micro.headers.MIMXRT685S middleware.eiq.tensorflow_lite_micro.third_party.flatbuffers.MIMXRT685S middleware.eiq.tensorflow_lite_micro.third_party.gemmlowp.MIMXRT685S middleware.eiq.tensorflow_lite_micro.third_party.ruy.MIMXRT685S CMSIS_Include_core_cm.MIMXRT685S" category="eiq_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.ccnature"/>
     </projects>
@@ -49,7 +50,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-Wno-strict-aliasing -mcpu=cortex-m33 -c -ffunction-sections -fdata-sections</value>
+          <value>-fmessage-length=0 -funsigned-char -Wno-strict-aliasing -mcpu=cortex-m33 -c -ffunction-sections -fdata-sections</value>
         </option>
         <option id="com.crt.advproject.cpp.exe.release.option.optimization.level" type="enum">
           <value>gnu.cpp.compiler.optimization.level.most</value>
@@ -64,7 +65,7 @@
           <value>com.crt.advproject.misc.dialect.gnupp11</value>
         </option>
         <option id="gnu.cpp.compiler.option.other.other" type="string">
-          <value>-fno-rtti -fno-exceptions -Wno-sign-compare -Wno-strict-aliasing -Wno-deprecated-declarations -mcpu=cortex-m33 -c -ffunction-sections -fdata-sections</value>
+          <value>-fmessage-length=0 -fno-exceptions -fno-rtti -fno-threadsafe-statics -fno-unwind-tables -funsigned-char -Wno-sign-compare -Wno-strict-aliasing -Wno-deprecated-declarations -mcpu=cortex-m33 -c -ffunction-sections -fdata-sections</value>
         </option>
         <option id="gnu.cpp.compiler.option.warnings.toerrors" type="boolean">
           <value>false</value>

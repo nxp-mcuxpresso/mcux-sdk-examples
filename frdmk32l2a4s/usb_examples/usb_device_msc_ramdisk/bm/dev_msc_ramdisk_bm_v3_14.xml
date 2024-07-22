@@ -21,13 +21,14 @@
     <definition extID="middleware.usb.device.common_header.K32L2A41A"/>
     <definition extID="component.osa.K32L2A41A"/>
     <definition extID="middleware.usb.common_header.K32L2A41A"/>
+    <definition extID="utility.str.K32L2A41A"/>
     <definition extID="CMSIS_Include_core_cm.K32L2A41A"/>
     <definition extID="device.K32L2A41A_system.K32L2A41A"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="frdmk32l2a4s_dev_msc_ramdisk_bm" name="dev_msc_ramdisk_bm" dependency="middleware.usb.device_controller_khci.K32L2A41A platform.utilities.assert_lite.K32L2A41A utility.debug_console_lite.K32L2A41A middleware.baremetal.K32L2A41A component.lists.K32L2A41A component.lpuart_adapter.K32L2A41A platform.drivers.lpuart.K32L2A41A device.K32L2A41A_CMSIS.K32L2A41A device.K32L2A41A_startup.K32L2A41A platform.drivers.clock.K32L2A41A platform.drivers.common.K32L2A41A platform.drivers.gpio.K32L2A41A platform.drivers.port.K32L2A41A platform.drivers.smc.K32L2A41A middleware.usb.device.controller.driver.K32L2A41A platform.utilities.misc_utilities.K32L2A41A middleware.usb.device.khci_config_header.K32L2A41A middleware.usb.device.common_header.K32L2A41A component.osa.K32L2A41A middleware.usb.common_header.K32L2A41A CMSIS_Include_core_cm.K32L2A41A device.K32L2A41A_system.K32L2A41A" category="usb_examples">
+  <example id="frdmk32l2a4s_dev_msc_ramdisk_bm" name="dev_msc_ramdisk_bm" dependency="middleware.usb.device_controller_khci.K32L2A41A platform.utilities.assert_lite.K32L2A41A utility.debug_console_lite.K32L2A41A middleware.baremetal.K32L2A41A component.lists.K32L2A41A component.lpuart_adapter.K32L2A41A platform.drivers.lpuart.K32L2A41A device.K32L2A41A_CMSIS.K32L2A41A device.K32L2A41A_startup.K32L2A41A platform.drivers.clock.K32L2A41A platform.drivers.common.K32L2A41A platform.drivers.gpio.K32L2A41A platform.drivers.port.K32L2A41A platform.drivers.smc.K32L2A41A middleware.usb.device.controller.driver.K32L2A41A platform.utilities.misc_utilities.K32L2A41A middleware.usb.device.khci_config_header.K32L2A41A middleware.usb.device.common_header.K32L2A41A component.osa.K32L2A41A middleware.usb.common_header.K32L2A41A utility.str.K32L2A41A CMSIS_Include_core_cm.K32L2A41A device.K32L2A41A_system.K32L2A41A" category="usb_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -57,7 +58,7 @@
           <value>com.crt.advproject.gcc.fpu.none</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

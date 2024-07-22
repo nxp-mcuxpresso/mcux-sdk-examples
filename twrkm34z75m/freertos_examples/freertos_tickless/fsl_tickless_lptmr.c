@@ -152,6 +152,8 @@ void vPortSuppressTicksAndSleep(TickType_t xExpectedIdleTime)
         call above. */
         __enable_irq();
         __NOP();
+        __NOP();
+        __NOP();
         if (ulLPTimerInterruptFired)
         {
             /* The tick interrupt handler will already have pended the tick

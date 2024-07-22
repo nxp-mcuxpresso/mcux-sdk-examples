@@ -36,13 +36,14 @@
     <definition extID="middleware.freertos-kernel.extension.MIMXRT595S"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT595S"/>
     <definition extID="platform.drivers.iap.MIMXRT595S"/>
+    <definition extID="utility.str.MIMXRT595S"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt595_dev_printer_virtual_plain_text_freertos" name="dev_printer_virtual_plain_text_freertos" device_core="cm33_MIMXRT595S" dependency="middleware.usb.device_controller_ip3511hs.MIMXRT595S middleware.usb.phy.MIMXRT595S middleware.freertos-kernel.MIMXRT595S middleware.freertos-kernel.heap_4.MIMXRT595S component.lists.MIMXRT595S component.serial_manager_uart.MIMXRT595S component.serial_manager.MIMXRT595S platform.drivers.flexcomm_usart.MIMXRT595S component.usart_adapter.MIMXRT595S device.MIMXRT595S_CMSIS.MIMXRT595S device.MIMXRT595S_startup.MIMXRT595S platform.drivers.cache_cache64.MIMXRT595S platform.drivers.clock.MIMXRT595S platform.drivers.common.MIMXRT595S platform.drivers.flash_config.evkmimxrt595.MIMXRT595S platform.drivers.flexcomm.MIMXRT595S platform.drivers.flexspi.MIMXRT595S platform.drivers.lpc_gpio.MIMXRT595S platform.drivers.lpc_iopctl.MIMXRT595S platform.drivers.power.MIMXRT595S platform.drivers.reset.MIMXRT595S middleware.freertos-kernel.cm33_non_trustzone.MIMXRT595S middleware.usb.device.controller.driver.MIMXRT595S platform.utilities.assert.MIMXRT595S utility.debug_console.MIMXRT595S platform.utilities.misc_utilities.MIMXRT595S middleware.usb.device.ip3511hs_config_header.MIMXRT595S middleware.usb.device.common_header.MIMXRT595S component.osa.MIMXRT595S middleware.usb.common_header.MIMXRT595S middleware.freertos-kernel.template.MIMXRT595S middleware.freertos-kernel.extension.MIMXRT595S CMSIS_Include_core_cm.MIMXRT595S platform.drivers.iap.MIMXRT595S" category="usb_examples">
+  <example id="evkmimxrt595_dev_printer_virtual_plain_text_freertos" name="dev_printer_virtual_plain_text_freertos" device_core="cm33_MIMXRT595S" dependency="middleware.usb.device_controller_ip3511hs.MIMXRT595S middleware.usb.phy.MIMXRT595S middleware.freertos-kernel.MIMXRT595S middleware.freertos-kernel.heap_4.MIMXRT595S component.lists.MIMXRT595S component.serial_manager_uart.MIMXRT595S component.serial_manager.MIMXRT595S platform.drivers.flexcomm_usart.MIMXRT595S component.usart_adapter.MIMXRT595S device.MIMXRT595S_CMSIS.MIMXRT595S device.MIMXRT595S_startup.MIMXRT595S platform.drivers.cache_cache64.MIMXRT595S platform.drivers.clock.MIMXRT595S platform.drivers.common.MIMXRT595S platform.drivers.flash_config.evkmimxrt595.MIMXRT595S platform.drivers.flexcomm.MIMXRT595S platform.drivers.flexspi.MIMXRT595S platform.drivers.lpc_gpio.MIMXRT595S platform.drivers.lpc_iopctl.MIMXRT595S platform.drivers.power.MIMXRT595S platform.drivers.reset.MIMXRT595S middleware.freertos-kernel.cm33_non_trustzone.MIMXRT595S middleware.usb.device.controller.driver.MIMXRT595S platform.utilities.assert.MIMXRT595S utility.debug_console.MIMXRT595S platform.utilities.misc_utilities.MIMXRT595S middleware.usb.device.ip3511hs_config_header.MIMXRT595S middleware.usb.device.common_header.MIMXRT595S component.osa.MIMXRT595S middleware.usb.common_header.MIMXRT595S middleware.freertos-kernel.template.MIMXRT595S middleware.freertos-kernel.extension.MIMXRT595S CMSIS_Include_core_cm.MIMXRT595S platform.drivers.iap.MIMXRT595S utility.str.MIMXRT595S" category="usb_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -79,7 +80,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-mno-unaligned-access -mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-mno-unaligned-access -mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

@@ -143,20 +143,8 @@ int main(void)
     }
     else
     {
-        PRINTF("Fail: Action Triggered after Init!!");
+        PRINTF("Fail: Action Triggered after Init!!\r\n\r\n");
     }
-
-#if defined(ITRC_STATUS1_IN16_STATUS_MASK)
-    /* Test if event or action already occured */
-    if ((ITRC_GetStatus1(ITRC) & (IN_16_47_EVENTS_MASK)) == 0u)
-    {
-        PRINTF("Pass: No Event triggered in STATUS1 after Init\r\n\r\n");
-    }
-    else
-    {
-        PRINTF("Fail: Action Triggered after Init!!");
-    }
-#endif /* ITRC_STATUS1_IN16_STATUS_MASK */
 
     /* Set ITRC IRQ action upon SW Event 0 */
     PRINTF("Enable ITRC IRQ Action response to SW Event 0\r\n\r\n");
@@ -199,7 +187,7 @@ int main(void)
     }
     else
     {
-        PRINTF("Error: Action triggered by Event even if not selected!!");
+        PRINTF("Error: Action triggered by Event even if not selected!!\r\n\r\n");
     }
 
     /* Deinit ITRC by disable IRQ */

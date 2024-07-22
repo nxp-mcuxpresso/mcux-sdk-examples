@@ -176,6 +176,9 @@ int main(void)
      * edmaConfig.enableDebugMode = false;
      */
     EDMA_GetDefaultConfig(&edmaConfig);
+#if defined(BOARD_GetEDMAConfig)
+    BOARD_GetEDMAConfig(edmaConfig);
+#endif
     EDMA_Init(EXAMPLE_CAN_DMA, &edmaConfig);
 
     /* Create EDMA handle. */

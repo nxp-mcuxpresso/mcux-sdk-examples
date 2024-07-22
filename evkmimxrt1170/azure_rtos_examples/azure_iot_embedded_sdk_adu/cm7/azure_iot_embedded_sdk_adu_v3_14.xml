@@ -41,13 +41,14 @@
     <definition extID="CMSIS_Include_core_cm.MIMXRT1176"/>
     <definition extID="platform.devices.MIMXRT1176_system.MIMXRT1176"/>
     <definition extID="platform.drivers.anatop_ai.MIMXRT1176"/>
+    <definition extID="utility.str.MIMXRT1176"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt1170_azure_iot_embedded_sdk_adu" name="azure_iot_embedded_sdk_adu" device_core="cm7_MIMXRT1176xxxxx" dependency="middleware.azure_rtos.nxd.MIMXRT1176 middleware.azure_rtos.azure_iot.MIMXRT1176 middleware.netxduo.imxrt.MIMXRT1176 platform.drivers.enet.MIMXRT1176 driver.phy-device-ksz8081.MIMXRT1176 driver.phy-device-rtl8211f.MIMXRT1176 platform.drivers.flexspi.MIMXRT1176 platform.drivers.caam.MIMXRT1176 component.mflash.rt1170.MIMXRT1176 component.mflash_file.MIMXRT1176 platform.drivers.cache_armv7_m7.MIMXRT1176 component.lists.MIMXRT1176 component.lpuart_adapter.MIMXRT1176 component.serial_manager_uart.MIMXRT1176 component.serial_manager.MIMXRT1176 platform.drivers.lpuart.MIMXRT1176 platform.devices.MIMXRT1176_CMSIS.MIMXRT1176 platform.devices.MIMXRT1176_startup.MIMXRT1176 platform.drivers.clock.MIMXRT1176 platform.drivers.common.MIMXRT1176 platform.drivers.dcdc_soc.MIMXRT1176 platform.drivers.igpio.MIMXRT1176 platform.drivers.iomuxc.MIMXRT1176 platform.drivers.lpi2c.MIMXRT1176 platform.drivers.pmu_1.MIMXRT1176 platform.utilities.assert.MIMXRT1176 utility.debug_console.MIMXRT1176 platform.utilities.misc_utilities.MIMXRT1176 middleware.azure_rtos.nxd.template.MIMXRT1176 middleware.azure_rtos.fx.MIMXRT1176 middleware.azure_rtos.fx.template.MIMXRT1176 middleware.azure_rtos.tx.MIMXRT1176 middleware.azure_rtos.tx.template.MIMXRT1176 platform.drivers.memory.MIMXRT1176 driver.phy-common.MIMXRT1176 component.mflash.common.MIMXRT1176 CMSIS_Include_core_cm.MIMXRT1176 platform.devices.MIMXRT1176_system.MIMXRT1176 platform.drivers.anatop_ai.MIMXRT1176" category="azure_rtos_examples">
+  <example id="evkmimxrt1170_azure_iot_embedded_sdk_adu" name="azure_iot_embedded_sdk_adu" device_core="cm7_MIMXRT1176xxxxx" dependency="middleware.azure_rtos.nxd.MIMXRT1176 middleware.azure_rtos.azure_iot.MIMXRT1176 middleware.netxduo.imxrt.MIMXRT1176 platform.drivers.enet.MIMXRT1176 driver.phy-device-ksz8081.MIMXRT1176 driver.phy-device-rtl8211f.MIMXRT1176 platform.drivers.flexspi.MIMXRT1176 platform.drivers.caam.MIMXRT1176 component.mflash.rt1170.MIMXRT1176 component.mflash_file.MIMXRT1176 platform.drivers.cache_armv7_m7.MIMXRT1176 component.lists.MIMXRT1176 component.lpuart_adapter.MIMXRT1176 component.serial_manager_uart.MIMXRT1176 component.serial_manager.MIMXRT1176 platform.drivers.lpuart.MIMXRT1176 platform.devices.MIMXRT1176_CMSIS.MIMXRT1176 platform.devices.MIMXRT1176_startup.MIMXRT1176 platform.drivers.clock.MIMXRT1176 platform.drivers.common.MIMXRT1176 platform.drivers.dcdc_soc.MIMXRT1176 platform.drivers.igpio.MIMXRT1176 platform.drivers.iomuxc.MIMXRT1176 platform.drivers.lpi2c.MIMXRT1176 platform.drivers.pmu_1.MIMXRT1176 platform.utilities.assert.MIMXRT1176 utility.debug_console.MIMXRT1176 platform.utilities.misc_utilities.MIMXRT1176 middleware.azure_rtos.nxd.template.MIMXRT1176 middleware.azure_rtos.fx.MIMXRT1176 middleware.azure_rtos.fx.template.MIMXRT1176 middleware.azure_rtos.tx.MIMXRT1176 middleware.azure_rtos.tx.template.MIMXRT1176 platform.drivers.memory.MIMXRT1176 driver.phy-common.MIMXRT1176 component.mflash.common.MIMXRT1176 CMSIS_Include_core_cm.MIMXRT1176 platform.devices.MIMXRT1176_system.MIMXRT1176 platform.drivers.anatop_ai.MIMXRT1176 utility.str.MIMXRT1176" category="azure_rtos_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -77,7 +78,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>
@@ -230,7 +231,6 @@
     </source>
     <source path="mcuboot" project_relative_path="mcuboot" type="c_include">
       <files mask="flash_map.h"/>
-      <files mask="sbldef.h"/>
     </source>
     <source path="mcuboot" project_relative_path="mcuboot" type="c_include">
       <files mask="mcuboot_config.h"/>

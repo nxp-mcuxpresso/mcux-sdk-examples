@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2020, 2022-2023 NXP
+ * Copyright 2016-2020, 2022-2024 NXP
  * All rights reserved.
  *
  *
@@ -21,9 +21,6 @@
 
 #include "pin_mux.h"
 #include "board.h"
-#if !defined(configMAC_ADDR) || !defined(configMAC_ADDR1)
-#include "fsl_silicon_id.h"
-#endif
 #include "fsl_phy.h"
 
 #include "fsl_component_serial_manager.h"
@@ -91,6 +88,10 @@ extern phy_lan8720a_resource_t g_phy_resource;
 #define EXAMPLE_PHY_RESOURCE &g_phy_resource
 #define EXAMPLE_CLOCK_FREQ   CLOCK_GetFreq(kCLOCK_CoreSysClk)
 
+/* Must be after include of app.h */
+#if !defined(configMAC_ADDR) || !defined(configMAC_ADDR1)
+#include "fsl_silicon_id.h"
+#endif
 
 /*! @brief Stack size of the temporary lwIP initialization thread. */
 #define INIT_THREAD_STACKSIZE 1024

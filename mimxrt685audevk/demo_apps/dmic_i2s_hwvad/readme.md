@@ -7,12 +7,12 @@ In this example, dmic channel 0, 1, 2, 3, 4, 5, 6, 7 will be used to record audi
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  12.2
-- MCUXpresso  11.8.0
+- GCC ARM Embedded  13.2.1
+- MCUXpresso  11.10.0
 
 Hardware requirements
 =====================
@@ -76,3 +76,6 @@ dmic i2s hwvad example.
 2. Please press corresponding charactor according to print out menu. If user select '1', then user can hear the sound record by the 8-DMIC from headphone, if user select '2', then the CPU will enter deep sleep mode, it will be woke up if voice activity detected, that is to say user can speak near the 8-DMIC to wake up CPU, once CPU wake up, then you can see the LED array on the 8-DMIC board blinky.
 
 3. The CPU will enter deep sleep mode automatically if user input timeout event occur.
+
+# Known issues
+1. After the first "record and playback" command execution the next "record and playback" has distorted sound output.

@@ -9,6 +9,7 @@
 #include "fsl_power.h"
 #include "pin_mux.h"
 #include "fsl_gpio.h"
+#include "wifi_config.h"
 
 /*******************************************************************************
  * Definitions

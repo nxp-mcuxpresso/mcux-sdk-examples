@@ -7,14 +7,12 @@
     <definition extID="platform.drivers.cache_armv7_m7.MIMXRT1176"/>
     <definition extID="platform.drivers.flexspi.MIMXRT1176"/>
     <definition extID="component.mflash.rt1170.MIMXRT1176"/>
-    <definition extID="middleware.mbedtls.MIMXRT1176"/>
-    <definition extID="middleware.mbedtls.port.ksdk.MIMXRT1176"/>
     <definition extID="platform.drivers.enet.MIMXRT1176"/>
     <definition extID="middleware.lwip.kinetis_ethernetif.MIMXRT1176"/>
     <definition extID="middleware.lwip.MIMXRT1176"/>
     <definition extID="component.silicon_id_rt1170.MIMXRT1176"/>
     <definition extID="component.silicon_id.MIMXRT1176"/>
-    <definition extID="middleware.lwip.apps.httpssrv.MIMXRT1176"/>
+    <definition extID="middleware.lwip.apps.httpsrv.MIMXRT1176"/>
     <definition extID="platform.drivers.clock.MIMXRT1176"/>
     <definition extID="middleware.freertos-kernel.heap_3.MIMXRT1176"/>
     <definition extID="platform.drivers.common.MIMXRT1176"/>
@@ -37,17 +35,15 @@
     <definition extID="platform.utilities.misc_utilities.MIMXRT1176"/>
     <definition extID="driver.phy-common.MIMXRT1176"/>
     <definition extID="component.mflash.common.MIMXRT1176"/>
-    <definition extID="middleware.mbedtls.template.MIMXRT1176"/>
-    <definition extID="platform.drivers.caam.MIMXRT1176"/>
     <definition extID="platform.drivers.memory.MIMXRT1176"/>
     <definition extID="middleware.lwip.template.MIMXRT1176"/>
     <definition extID="component.igpio_adapter.MIMXRT1176"/>
-    <definition extID="middleware.lwip.apps.httpsrv.MIMXRT1176"/>
     <definition extID="middleware.freertos-kernel.MIMXRT1176"/>
     <definition extID="middleware.freertos-kernel.template.MIMXRT1176"/>
     <definition extID="middleware.freertos-kernel.extension.MIMXRT1176"/>
     <definition extID="platform.drivers.anatop_ai.MIMXRT1176"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT1176"/>
+    <definition extID="utility.str.MIMXRT1176"/>
     <definition extID="platform.devices.MIMXRT1176_system.MIMXRT1176"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
@@ -55,7 +51,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt1170_ota_mcuboot_server_enet" name="ota_mcuboot_server_enet" device_core="cm7_MIMXRT1176xxxxx" dependency="driver.phy-device-ksz8081.MIMXRT1176 driver.phy-device-rtl8211f.MIMXRT1176 platform.drivers.cache_armv7_m7.MIMXRT1176 platform.drivers.flexspi.MIMXRT1176 component.mflash.rt1170.MIMXRT1176 middleware.mbedtls.MIMXRT1176 middleware.mbedtls.port.ksdk.MIMXRT1176 platform.drivers.enet.MIMXRT1176 middleware.lwip.kinetis_ethernetif.MIMXRT1176 middleware.lwip.MIMXRT1176 component.silicon_id_rt1170.MIMXRT1176 component.silicon_id.MIMXRT1176 middleware.lwip.apps.httpssrv.MIMXRT1176 platform.drivers.clock.MIMXRT1176 middleware.freertos-kernel.heap_3.MIMXRT1176 platform.drivers.common.MIMXRT1176 platform.devices.MIMXRT1176_CMSIS.MIMXRT1176 utility.debug_console.MIMXRT1176 component.lpuart_adapter.MIMXRT1176 component.serial_manager_uart.MIMXRT1176 component.serial_manager.MIMXRT1176 platform.drivers.lpuart.MIMXRT1176 component.lists.MIMXRT1176 platform.devices.MIMXRT1176_startup.MIMXRT1176 platform.drivers.gpc_3.MIMXRT1176 platform.drivers.soc_src.MIMXRT1176 platform.drivers.mu.MIMXRT1176 platform.drivers.iomuxc.MIMXRT1176 platform.utilities.assert.MIMXRT1176 platform.drivers.igpio.MIMXRT1176 platform.drivers.pmu_1.MIMXRT1176 platform.drivers.dcdc_soc.MIMXRT1176 platform.utilities.misc_utilities.MIMXRT1176 driver.phy-common.MIMXRT1176 component.mflash.common.MIMXRT1176 middleware.mbedtls.template.MIMXRT1176 platform.drivers.caam.MIMXRT1176 platform.drivers.memory.MIMXRT1176 middleware.lwip.template.MIMXRT1176 component.igpio_adapter.MIMXRT1176 middleware.lwip.apps.httpsrv.MIMXRT1176 middleware.freertos-kernel.MIMXRT1176 middleware.freertos-kernel.template.MIMXRT1176 middleware.freertos-kernel.extension.MIMXRT1176 platform.drivers.anatop_ai.MIMXRT1176 CMSIS_Include_core_cm.MIMXRT1176 platform.devices.MIMXRT1176_system.MIMXRT1176" category="ota_examples">
+  <example id="evkmimxrt1170_ota_mcuboot_server_enet" name="ota_mcuboot_server_enet" device_core="cm7_MIMXRT1176xxxxx" dependency="driver.phy-device-ksz8081.MIMXRT1176 driver.phy-device-rtl8211f.MIMXRT1176 platform.drivers.cache_armv7_m7.MIMXRT1176 platform.drivers.flexspi.MIMXRT1176 component.mflash.rt1170.MIMXRT1176 platform.drivers.enet.MIMXRT1176 middleware.lwip.kinetis_ethernetif.MIMXRT1176 middleware.lwip.MIMXRT1176 component.silicon_id_rt1170.MIMXRT1176 component.silicon_id.MIMXRT1176 middleware.lwip.apps.httpsrv.MIMXRT1176 platform.drivers.clock.MIMXRT1176 middleware.freertos-kernel.heap_3.MIMXRT1176 platform.drivers.common.MIMXRT1176 platform.devices.MIMXRT1176_CMSIS.MIMXRT1176 utility.debug_console.MIMXRT1176 component.lpuart_adapter.MIMXRT1176 component.serial_manager_uart.MIMXRT1176 component.serial_manager.MIMXRT1176 platform.drivers.lpuart.MIMXRT1176 component.lists.MIMXRT1176 platform.devices.MIMXRT1176_startup.MIMXRT1176 platform.drivers.gpc_3.MIMXRT1176 platform.drivers.soc_src.MIMXRT1176 platform.drivers.mu.MIMXRT1176 platform.drivers.iomuxc.MIMXRT1176 platform.utilities.assert.MIMXRT1176 platform.drivers.igpio.MIMXRT1176 platform.drivers.pmu_1.MIMXRT1176 platform.drivers.dcdc_soc.MIMXRT1176 platform.utilities.misc_utilities.MIMXRT1176 driver.phy-common.MIMXRT1176 component.mflash.common.MIMXRT1176 platform.drivers.memory.MIMXRT1176 middleware.lwip.template.MIMXRT1176 component.igpio_adapter.MIMXRT1176 middleware.freertos-kernel.MIMXRT1176 middleware.freertos-kernel.template.MIMXRT1176 middleware.freertos-kernel.extension.MIMXRT1176 platform.drivers.anatop_ai.MIMXRT1176 CMSIS_Include_core_cm.MIMXRT1176 utility.str.MIMXRT1176 platform.devices.MIMXRT1176_system.MIMXRT1176" category="ota_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -83,7 +79,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>
@@ -98,26 +94,18 @@
           <value>XIP_EXTERNAL_FLASH=1</value>
           <value>XIP_BOOT_HEADER_ENABLE=1</value>
           <value>FSL_FEATURE_PHYKSZ8081_USE_RMII50M_MODE</value>
-          <value>MBEDTLS_SSL_CIPHERSUITES=MBEDTLS_TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256</value>
           <value>FSL_SDK_ENABLE_DRIVER_CACHE_CONTROL=1</value>
           <value>LWIP_ENET_FLEXIBLE_CONFIGURATION</value>
           <value>MCUBOOT_APPLICATION=1</value>
           <value>USE_RTOS=1</value>
           <value>PRINTF_ADVANCED_ENABLE=1</value>
           <value>HTTPSRV_CFG_WEBSOCKET_ENABLED=0</value>
-          <value>HTTPSRV_CFG_MBEDTLS_ENABLE=1</value>
-          <value>HTTPSRV_CFG_DEFAULT_SES_CNT=8</value>
-          <value>MBEDTLS_CONFIG_FILE='"mbedtls_config.h"'</value>
           <value>MCUXPRESSO_SDK</value>
           <value>MFLASH_FILE_BASEADDR=14221312</value>
           <value>LWIP_DISABLE_PBUF_POOL_SIZE_SANITY_CHECKS=1</value>
           <value>CHECKSUM_GEN_ICMP6=1</value>
           <value>CHECKSUM_CHECK_ICMP6=1</value>
-          <value>MBEDTLS_THREADING_C</value>
-          <value>MBEDTLS_THREADING_ALT</value>
           <value>SERIAL_PORT_TYPE_UART=1</value>
-          <value>CRYPTO_USE_DRIVER_CAAM</value>
-          <value>CACHE_MODE_WRITE_THROUGH=1</value>
           <value>SDK_OS_FREE_RTOS</value>
         </option>
         <option id="com.crt.advproject.gas.hdrlib" type="enum">
@@ -169,11 +157,11 @@
     </debug_configurations>
     <include_paths>
       <include_path path="." project_relative_path="source" type="c_include"/>
+      <include_path path="../../../../../../core/boards/evkmimxrt1170" project_relative_path="board" type="c_include"/>
       <include_path path="bootutil_port" project_relative_path="bootutil_port" type="c_include"/>
       <include_path path="bootutil_port/mcuboot_config" project_relative_path="bootutil_port/mcuboot_config" type="c_include"/>
       <include_path path="bootutil_port/sysflash" project_relative_path="bootutil_port/sysflash" type="c_include"/>
       <include_path path="bootutil_port/board_specific" project_relative_path="bootutil_port/board_specific" type="c_include"/>
-      <include_path path="../../../../../../core/boards/evkmimxrt1170" project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="asm_include"/>
     </include_paths>
     <source path="armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">
@@ -226,6 +214,26 @@
     <source path="." project_relative_path="board" type="c_include">
       <files mask="pin_mux.h"/>
     </source>
+    <source path="webpage" project_relative_path="src/ota_examples/ota_mcuboot_server/webpage" type="other" exclude="true">
+      <files mask="httpsrv.css" hidden="true"/>
+      <files mask="index.html" hidden="true"/>
+      <files mask="ota_reboot.html" hidden="true"/>
+      <files mask="welcome.html" hidden="true"/>
+      <files mask="favicon.ico" hidden="true"/>
+      <files mask="request.js" hidden="true"/>
+      <files mask="NXP_logo.png" hidden="true"/>
+      <files mask="ota.shtml" hidden="true"/>
+    </source>
+    <source path="../../../../../../core/boards/evkmimxrt1170" project_relative_path="board" type="src">
+      <files mask="board.c"/>
+      <files mask="clock_config.c"/>
+      <files mask="dcd.c"/>
+    </source>
+    <source path="../../../../../../core/boards/evkmimxrt1170" project_relative_path="board" type="c_include">
+      <files mask="board.h"/>
+      <files mask="clock_config.h"/>
+      <files mask="dcd.h"/>
+    </source>
     <source path="." project_relative_path="source" type="src">
       <files mask="mcuboot_app_support.c"/>
     </source>
@@ -247,30 +255,9 @@
     </source>
     <source path="bootutil_port" project_relative_path="bootutil_port" type="c_include">
       <files mask="flash_map.h"/>
-      <files mask="sbldef.h"/>
     </source>
     <source path="bootutil_port/sysflash" project_relative_path="bootutil_port/sysflash" type="c_include">
       <files mask="sysflash.h"/>
-    </source>
-    <source path="webpage" project_relative_path="src/ota_examples/ota_mcuboot_server/webpage" type="other" exclude="true">
-      <files mask="httpsrv.css" hidden="true"/>
-      <files mask="index.html" hidden="true"/>
-      <files mask="ota_reboot.html" hidden="true"/>
-      <files mask="welcome.html" hidden="true"/>
-      <files mask="favicon.ico" hidden="true"/>
-      <files mask="request.js" hidden="true"/>
-      <files mask="NXP_logo.png" hidden="true"/>
-      <files mask="ota.shtml" hidden="true"/>
-    </source>
-    <source path="../../../../../../core/boards/evkmimxrt1170" project_relative_path="board" type="src">
-      <files mask="board.c"/>
-      <files mask="clock_config.c"/>
-      <files mask="dcd.c"/>
-    </source>
-    <source path="../../../../../../core/boards/evkmimxrt1170" project_relative_path="board" type="c_include">
-      <files mask="board.h"/>
-      <files mask="clock_config.h"/>
-      <files mask="dcd.h"/>
     </source>
     <source path="." project_relative_path="doc" type="doc" toolchain="mcuxpresso armgcc">
       <files mask="readme.md"/>

@@ -29,6 +29,8 @@ void streamer_pcm_init(void)
     DMA_EnableChannel(DEMO_DMA, DEMO_I2S_TX_CHANNEL);
     DMA_SetChannelPriority(DEMO_DMA, DEMO_I2S_TX_CHANNEL, kDMA_ChannelPriority3);
     DMA_CreateHandle(&(pcmHandle.i2sTxDmaHandle), DEMO_DMA, DEMO_I2S_TX_CHANNEL);
+
+    NVIC_SetPriority(DMA0_IRQn, 2U);
 }
 
 int streamer_pcm_open(uint32_t num_buffers)

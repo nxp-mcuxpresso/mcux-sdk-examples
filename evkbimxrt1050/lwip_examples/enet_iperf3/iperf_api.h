@@ -1,3 +1,9 @@
+/*
+ * Copyright 2016-2024 NXP
+ * All rights reserved.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
 #ifndef __IPERF_API_H__
 #define __IPERF_API_H__
 

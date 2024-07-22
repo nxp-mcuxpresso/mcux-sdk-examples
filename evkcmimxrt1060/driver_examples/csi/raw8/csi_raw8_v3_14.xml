@@ -29,6 +29,7 @@
     <definition extID="platform.drivers.xip_device.MIMXRT1062"/>
     <definition extID="platform.drivers.xip_board.evkcmimxrt1060.MIMXRT1062"/>
     <definition extID="platform.utilities.misc_utilities.MIMXRT1062"/>
+    <definition extID="utility.str.MIMXRT1062"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT1062"/>
     <definition extID="device.MIMXRT1062_system.MIMXRT1062"/>
     <definition extID="armgcc"/>
@@ -39,7 +40,7 @@
     <definition extID="com.nxp.mcuxpresso.core.debug.support.segger.debug"/>
     <definition extID="com.nxp.mcuxpresso.core.debug.support.segger.release"/>
   </externalDefinitions>
-  <example id="evkcmimxrt1060_csi_raw8" name="csi_raw8" dependency="driver.camera-device-sccb.MIMXRT1062 driver.camera-device-ov7725.MIMXRT1062 driver.camera-device-mt9m114.MIMXRT1062 driver.video-i2c.MIMXRT1062 driver.camera-receiver-csi.MIMXRT1062 driver.dc-fb-elcdif.MIMXRT1062 utility.debug_console_lite.MIMXRT1062 platform.utilities.assert_lite.MIMXRT1062 platform.drivers.igpio.MIMXRT1062 platform.drivers.csi.MIMXRT1062 platform.drivers.elcdif.MIMXRT1062 driver.camera-common.MIMXRT1062 driver.video-common.MIMXRT1062 driver.camera-device-common.MIMXRT1062 driver.camera-receiver-common.MIMXRT1062 platform.drivers.lpi2c.MIMXRT1062 driver.dc-fb-common.MIMXRT1062 platform.drivers.clock.MIMXRT1062 platform.drivers.common.MIMXRT1062 device.MIMXRT1062_CMSIS.MIMXRT1062 component.lpuart_adapter.MIMXRT1062 platform.drivers.lpuart.MIMXRT1062 component.lists.MIMXRT1062 device.MIMXRT1062_startup.MIMXRT1062 platform.drivers.iomuxc.MIMXRT1062 platform.drivers.xip_device.MIMXRT1062 platform.drivers.xip_board.evkcmimxrt1060.MIMXRT1062 platform.utilities.misc_utilities.MIMXRT1062 CMSIS_Include_core_cm.MIMXRT1062 device.MIMXRT1062_system.MIMXRT1062" category="driver_examples/csi">
+  <example id="evkcmimxrt1060_csi_raw8" name="csi_raw8" dependency="driver.camera-device-sccb.MIMXRT1062 driver.camera-device-ov7725.MIMXRT1062 driver.camera-device-mt9m114.MIMXRT1062 driver.video-i2c.MIMXRT1062 driver.camera-receiver-csi.MIMXRT1062 driver.dc-fb-elcdif.MIMXRT1062 utility.debug_console_lite.MIMXRT1062 platform.utilities.assert_lite.MIMXRT1062 platform.drivers.igpio.MIMXRT1062 platform.drivers.csi.MIMXRT1062 platform.drivers.elcdif.MIMXRT1062 driver.camera-common.MIMXRT1062 driver.video-common.MIMXRT1062 driver.camera-device-common.MIMXRT1062 driver.camera-receiver-common.MIMXRT1062 platform.drivers.lpi2c.MIMXRT1062 driver.dc-fb-common.MIMXRT1062 platform.drivers.clock.MIMXRT1062 platform.drivers.common.MIMXRT1062 device.MIMXRT1062_CMSIS.MIMXRT1062 component.lpuart_adapter.MIMXRT1062 platform.drivers.lpuart.MIMXRT1062 component.lists.MIMXRT1062 device.MIMXRT1062_startup.MIMXRT1062 platform.drivers.iomuxc.MIMXRT1062 platform.drivers.xip_device.MIMXRT1062 platform.drivers.xip_board.evkcmimxrt1060.MIMXRT1062 platform.utilities.misc_utilities.MIMXRT1062 utility.str.MIMXRT1062 CMSIS_Include_core_cm.MIMXRT1062 device.MIMXRT1062_system.MIMXRT1062" category="driver_examples/csi">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -78,7 +79,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

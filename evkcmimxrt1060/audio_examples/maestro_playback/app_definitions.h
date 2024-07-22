@@ -27,7 +27,7 @@
 #define DEMO_SAI_BITWIDTH  (kSAI_WordWidth16bits)
 #define DEMO_SAI_IRQ       SAI1_IRQn
 #define SAI_UserIRQHandler SAI1_IRQHandler
-#define DEMO_VOLUME        75
+#define DEMO_VOLUME        85
 
 /* IRQ */
 #define DEMO_DMA_TX_IRQ DMA0_DMA16_IRQn

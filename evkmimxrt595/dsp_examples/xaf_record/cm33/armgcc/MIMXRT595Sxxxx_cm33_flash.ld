@@ -40,7 +40,7 @@ MEMORY
 {
   m_flash_config        (RX)  : ORIGIN = 0x08000400, LENGTH = 0x00000200
   m_interrupts          (RX)  : ORIGIN = 0x08001000, LENGTH = 0x00000180
-  m_text                (RX)  : ORIGIN = 0x08001180, LENGTH = 0x003FEE80
+  m_text                (RX)  : ORIGIN = 0x08001180, LENGTH = 0x007FEE80
   m_data                (RW)  : ORIGIN = 0x20280000, LENGTH = 0x00280000
   m_usb_sram            (RW)  : ORIGIN = 0x40140000, LENGTH = 0x00004000
 }

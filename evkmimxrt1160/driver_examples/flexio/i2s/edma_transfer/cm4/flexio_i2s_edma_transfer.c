@@ -9,12 +9,14 @@
 #include "pin_mux.h"
 #include "clock_config.h"
 #include "board.h"
+#if defined(FSL_FEATURE_SOC_DMAMUX_COUNT) && FSL_FEATURE_SOC_DMAMUX_COUNT
 #include "fsl_dmamux.h"
+#endif
 #include "fsl_flexio_i2s_edma.h"
 #include "fsl_debug_console.h"
 #include "fsl_codec_common.h"
-#include "fsl_wm8960.h"
 #include "fsl_sai.h"
+#include "fsl_wm8960.h"
 #include "fsl_codec_adapter.h"
 /*******************************************************************************
  * Definitions
@@ -26,12 +28,12 @@
 #define DEMO_SAI         SAI1
 
 /* Get frequency of sai1 clock */
-#define DEMO_SAI_CLK_FREQ (CLOCK_GetFreqFromObs(CCM_OBS_PLL_AUDIO_OUT))
+#define DEMO_SAI_CLK_FREQ (CLOCK_GetFreq(kCLOCK_AudioPllOut))
 
 /* Get frequency of lpi2c clock */
-#define DEMO_I2C_CLK_FREQ (CLOCK_GetFreqFromObs(CCM_OBS_LPI2C5_CLK_ROOT))
+#define DEMO_I2C_CLK_FREQ (CLOCK_GetRootClockFreq(kCLOCK_Root_Lpi2c5))
 
-#define DEMO_FLEXIO_CLK_FREQ (CLOCK_GetFreqFromObs(CCM_OBS_FLEXIO2_CLK_ROOT))
+#define DEMO_FLEXIO_CLK_FREQ (CLOCK_GetRootClockFreq(kCLOCK_Root_Flexio2))
 
 #define BCLK_PIN                (13U)
 #define FRAME_SYNC_PIN          (12U)
@@ -174,7 +176,6 @@ static void rxCallback(FLEXIO_I2S_Type *i2sBase, flexio_i2s_edma_handle_t *handl
  */
 int main(void)
 {
-    DMAMUX_Type *dmamuxBase = NULL;
     flexio_i2s_config_t config;
     flexio_i2s_format_t format;
     flexio_i2s_transfer_t txXfer, rxXfer;
@@ -254,10 +255,15 @@ int main(void)
      * dmaConfig.enableDebugMode = false;
      */
     EDMA_GetDefaultConfig(&dmaConfig);
+#if defined(BOARD_GetEDMAConfig)
+    BOARD_GetEDMAConfig(dmaConfig);
+#endif
     EDMA_Init(EXAMPLE_DMA, &dmaConfig);
     EDMA_CreateHandle(&txDmaHandle, EXAMPLE_DMA, EXAMPLE_TX_CHANNEL);
     EDMA_CreateHandle(&rxDmaHandle, EXAMPLE_DMA, EXAMPLE_RX_CHANNEL);
 
+#if defined(FSL_FEATURE_SOC_DMAMUX_COUNT) && FSL_FEATURE_SOC_DMAMUX_COUNT    
+    DMAMUX_Type *dmamuxBase = NULL;
 #if defined EXAMPLE_DMAMUX
     dmamuxBase = EXAMPLE_DMAMUX;
 #else
@@ -268,6 +274,12 @@ int main(void)
     DMAMUX_EnableChannel(dmamuxBase, EXAMPLE_TX_CHANNEL);
     DMAMUX_SetSource(dmamuxBase, EXAMPLE_RX_CHANNEL, EXAMPLE_RX_DMA_SOURCE);
     DMAMUX_EnableChannel(dmamuxBase, EXAMPLE_RX_CHANNEL);
+#endif
+
+#if defined(FSL_FEATURE_EDMA_HAS_CHANNEL_MUX) && FSL_FEATURE_EDMA_HAS_CHANNEL_MUX
+    EDMA_SetChannelMux(EXAMPLE_DMA, EXAMPLE_TX_CHANNEL, EXAMPLE_TX_DMA_SOURCE);
+    EDMA_SetChannelMux(EXAMPLE_DMA, EXAMPLE_RX_CHANNEL, EXAMPLE_RX_DMA_SOURCE);
+#endif
 
     /* Init SAI module */
     /*

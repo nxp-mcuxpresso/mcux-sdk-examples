@@ -24,12 +24,13 @@
     <definition extID="platform.drivers.sentinel.MIMX8UD5"/>
     <definition extID="platform.drivers.mu1.MIMX8UD5"/>
     <definition extID="platform.utilities.misc_utilities.MIMX8UD5"/>
+    <definition extID="utility.str.MIMX8UD5"/>
     <definition extID="CMSIS_Include_core_cm.MIMX8UD5"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="evk9mimx8ulp_powerquad_benchmark_vector" name="powerquad_benchmark_vector" device_core="cm33_MIMX8UD5" dependency="utility.debug_console_lite.MIMX8UD5 platform.utilities.assert_lite.MIMX8UD5 platform.drivers.clock.MIMX8UD5 platform.drivers.powerquad.MIMX8UD5 CMSIS_DSP_Include.MIMX8UD5 platform.drivers.common.MIMX8UD5 platform.devices.MIMX8UD5_CMSIS.MIMX8UD5 component.lpuart_adapter.MIMX8UD5 platform.drivers.flexspi.MIMX8UD5 platform.drivers.lpuart.MIMX8UD5 component.lists.MIMX8UD5 platform.devices.MIMX8UD5_startup.MIMX8UD5 platform.drivers.cache_cache64.MIMX8UD5 platform.drivers.iomuxc.MIMX8UD5 platform.drivers.reset.MIMX8UD5 platform.drivers.upower.MIMX8UD5 platform.drivers.rgpio.MIMX8UD5 platform.drivers.fusion.MIMX8UD5 platform.drivers.trdc.MIMX8UD5 platform.drivers.sentinel.MIMX8UD5 platform.drivers.mu1.MIMX8UD5 platform.utilities.misc_utilities.MIMX8UD5 CMSIS_Include_core_cm.MIMX8UD5" category="driver_examples/powerquad">
+  <example id="evk9mimx8ulp_powerquad_benchmark_vector" name="powerquad_benchmark_vector" device_core="cm33_MIMX8UD5" dependency="utility.debug_console_lite.MIMX8UD5 platform.utilities.assert_lite.MIMX8UD5 platform.drivers.clock.MIMX8UD5 platform.drivers.powerquad.MIMX8UD5 CMSIS_DSP_Include.MIMX8UD5 platform.drivers.common.MIMX8UD5 platform.devices.MIMX8UD5_CMSIS.MIMX8UD5 component.lpuart_adapter.MIMX8UD5 platform.drivers.flexspi.MIMX8UD5 platform.drivers.lpuart.MIMX8UD5 component.lists.MIMX8UD5 platform.devices.MIMX8UD5_startup.MIMX8UD5 platform.drivers.cache_cache64.MIMX8UD5 platform.drivers.iomuxc.MIMX8UD5 platform.drivers.reset.MIMX8UD5 platform.drivers.upower.MIMX8UD5 platform.drivers.rgpio.MIMX8UD5 platform.drivers.fusion.MIMX8UD5 platform.drivers.trdc.MIMX8UD5 platform.drivers.sentinel.MIMX8UD5 platform.drivers.mu1.MIMX8UD5 platform.utilities.misc_utilities.MIMX8UD5 utility.str.MIMX8UD5 CMSIS_Include_core_cm.MIMX8UD5" category="driver_examples/powerquad">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -48,7 +49,7 @@
           <value>com.crt.advproject.gcc.fpu.none</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

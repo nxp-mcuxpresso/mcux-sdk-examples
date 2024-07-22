@@ -1,0 +1,14 @@
+        <#if memory.name=="SRAM_ITC_cm33">
+        *flexspi_nor_flash_ops.o(.text .text.* .rodata .rodata.* .constdata .constdata.*)
+        *fsl_flexspi.o(.text .text.* .rodata .rodata.* .constdata .constdata.*)
+        *fsl_flexspi_edma.o(.text .text.* .rodata .rodata.* .constdata .constdata.*)
+        *fsl_edma.o(.text .text.* .rodata .rodata.* .constdata .constdata.*)
+        *fsl_edma_soc.o(.text .text.* .rodata .rodata.* .constdata .constdata.*)
+        
+        __VECTOR_TABLE = ABSOLUTE (__vectors_start__);
+        __RAM_VECTOR_TABLE_SIZE_BYTES = ABSOLUTE (0x400);
+        . = ALIGN(1024);
+        __VECTOR_RAM = .;
+        . += __RAM_VECTOR_TABLE_SIZE_BYTES;
+
+        </#if>

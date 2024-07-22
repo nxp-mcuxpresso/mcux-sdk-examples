@@ -252,6 +252,7 @@ static void connected(struct bt_conn *conn, uint8_t conn_err)
     }
 
     PRINTF("Connected to peer: %s\n", addr);
+    lls_value_handle = 0xFFU;
 
     if (conn == default_conn)
     {

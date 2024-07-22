@@ -4,10 +4,80 @@
   <externalDefinitions>
     <definition extID="MIMXRT1052DVL6B"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK2150_evkbimxrt1050_examples_manifest_v3_14" name="MCUXpressoSDK2150_evkbimxrt1050_examples_manifest_v3_14" version="2.15.0" revision="2.15.0"/>
+  <ksdk id="MCUXpressoSDK216000_evkbimxrt1050_examples_manifest_v3_14" name="MCUXpressoSDK216000_evkbimxrt1050_examples_manifest_v3_14" version="2.16.000" revision="2.16.000"/>
   <boards>
     <board id="evkbimxrt1050" name="EVKB-IMXRT1050" href="https://www.nxp.com/pip/MIMXRT1050-EVK" version="1.0.0" package="MIMXRT1052DVL6B">
       <examples>
+        <example id="evkbimxrt1050_spp" name="spp" brief="The Bluetooth BR SPP example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbimxrt1050/edgefast_bluetooth_examples/spp">
+          <external path="edgefast_bluetooth_examples/spp" type="xml">
+            <files mask="spp_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkbimxrt1050_a2dp_sink" name="a2dp_sink" brief="The Edgefast Bluetooth audio source with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbimxrt1050/edgefast_bluetooth_examples/a2dp_sink">
+          <external path="edgefast_bluetooth_examples/a2dp_sink" type="xml">
+            <files mask="a2dp_sink_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkbimxrt1050_edgefast_bluetooth_shell" name="edgefast_bluetooth_shell" brief="The Edgefast Bluetooth shell example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbimxrt1050/edgefast_bluetooth_examples/shell">
+          <external path="edgefast_bluetooth_examples/shell" type="xml">
+            <files mask="edgefast_bluetooth_shell_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkbimxrt1050_a2dp_source" name="a2dp_source" brief="The Edgefast Bluetooth audio source with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbimxrt1050/edgefast_bluetooth_examples/a2dp_source">
+          <external path="edgefast_bluetooth_examples/a2dp_source" type="xml">
+            <files mask="a2dp_source_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkbimxrt1050_peripheral_ht" name="peripheral_ht" brief="The Edgefast Bluetooth hts example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbimxrt1050/edgefast_bluetooth_examples/peripheral_ht">
+          <external path="edgefast_bluetooth_examples/peripheral_ht" type="xml">
+            <files mask="peripheral_ht_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkbimxrt1050_central_ht" name="central_ht" brief="The Edgefast Bluetooth hts example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbimxrt1050/edgefast_bluetooth_examples/central_ht">
+          <external path="edgefast_bluetooth_examples/central_ht" type="xml">
+            <files mask="central_ht_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkbimxrt1050_peripheral_ipsp" name="peripheral_ipsp" brief="The Edgefast Bluetooth ipsp example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbimxrt1050/edgefast_bluetooth_examples/peripheral_ipsp">
+          <external path="edgefast_bluetooth_examples/peripheral_ipsp" type="xml">
+            <files mask="peripheral_ipsp_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkbimxrt1050_central_ipsp" name="central_ipsp" brief="The Edgefast Bluetooth ipsp example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbimxrt1050/edgefast_bluetooth_examples/central_ipsp">
+          <external path="edgefast_bluetooth_examples/central_ipsp" type="xml">
+            <files mask="central_ipsp_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkbimxrt1050_peripheral_pxr" name="peripheral_pxr" brief="The Edgefast Bluetooth pxr example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbimxrt1050/edgefast_bluetooth_examples/peripheral_pxr">
+          <external path="edgefast_bluetooth_examples/peripheral_pxr" type="xml">
+            <files mask="peripheral_pxr_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkbimxrt1050_peripheral_hps" name="peripheral_hps" brief="The Edgefast Bluetooth hps example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbimxrt1050/edgefast_bluetooth_examples/peripheral_hps">
+          <external path="edgefast_bluetooth_examples/peripheral_hps" type="xml">
+            <files mask="peripheral_hps_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkbimxrt1050_central_pxm" name="central_pxm" brief="The Edgefast Bluetooth pxm example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbimxrt1050/edgefast_bluetooth_examples/central_pxm">
+          <external path="edgefast_bluetooth_examples/central_pxm" type="xml">
+            <files mask="central_pxm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkbimxrt1050_peripheral_beacon" name="peripheral_beacon" brief="The Edgefast Bluetooth beacon example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbimxrt1050/edgefast_bluetooth_examples/peripheral_beacon">
+          <external path="edgefast_bluetooth_examples/peripheral_beacon" type="xml">
+            <files mask="peripheral_beacon_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkbimxrt1050_central_hpc" name="central_hpc" brief="The Edgefast Bluetooth hpc example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbimxrt1050/edgefast_bluetooth_examples/central_hpc">
+          <external path="edgefast_bluetooth_examples/central_hpc" type="xml">
+            <files mask="central_hpc_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkbimxrt1050_wireless_uart" name="wireless_uart" brief="The Edgefast Bluetooth wireless uart example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbimxrt1050/edgefast_bluetooth_examples/wireless_uart">
+          <external path="edgefast_bluetooth_examples/wireless_uart" type="xml">
+            <files mask="wireless_uart_v3_14.xml"/>
+          </external>
+        </example>
         <example id="evkbimxrt1050_cmsis_lpi2c_edma_b2b_transfer_master" name="cmsis_lpi2c_edma_b2b_transfer_master" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_i2c_edma_b2b_transfer_master example shows how to use i2c driver as master to do board to board transfer with EDMA:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/lpi2c" path="examples/evkbimxrt1050/cmsis_driver_examples/lpi2c/edma_b2b_transfer/master">
           <external path="cmsis_driver_examples/lpi2c/edma_b2b_transfer/master" type="xml">
             <files mask="cmsis_lpi2c_edma_b2b_transfer_master_v3_14.xml"/>
@@ -506,11 +576,6 @@
         <example id="evkbimxrt1050_cache" name="cache" brief="The cache example shows how to use memory cache driver.In this example, many memory (such as SDRAM, etc) and DMA will be used to show the example.Those memory is both accessible for cpu and DMA. For the memory data alignment, cache driver should be used rightly. For cache enabled case, the cache invalidate operation should be done before cpu access the memory. The cache clean opeartion should be done after CPU verify the memorymemory and before DMA access the memory." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/cache" path="examples/evkbimxrt1050/driver_examples/cache">
           <external path="driver_examples/cache" type="xml">
             <files mask="cache_v3_14.xml"/>
-          </external>
-        </example>
-        <example id="evkbimxrt1050_fsl_romapi" name="fsl_romapi" brief="The fsl_romapi example shows how to use flexspi rom api In this example, rom api will send data and operate the external Nor flash connected with FLEXSPI. Some simple flash command willbe executed, such as Write Enable, Erase sector, Program page.Example will first erase the sector and program a page into the flash, at last check if the data in flash is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/fsl_romapi" path="examples/evkbimxrt1050/driver_examples/fsl_romapi">
-          <external path="driver_examples/fsl_romapi" type="xml">
-            <files mask="fsl_romapi_v3_14.xml"/>
           </external>
         </example>
         <example id="evkbimxrt1050_bubble_peripheral" name="bubble_peripheral" brief="The bubble level demo demonstrates basic usage of the on-board accelerometer to implement a bubble level. A bubble level utilizes two axes to visually show deviation from a level plane (0 degrees) on a given axis. You can open the mex file with MCUXpresso Config Tool to do further configuration of pin, clock and peripheral." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/evkbimxrt1050/demo_apps/bubble_peripheral">
@@ -1318,17 +1383,22 @@
             <files mask="mcuboot_opensource_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkbimxrt1050_ota_mcuboot_server_enet" name="ota_mcuboot_server_enet" brief="This ota_mcuboot_server application demonstrates OTA update using an HTTP server based on lwIP TCP/IP and the MbedTLS stack with FreeRTOS. The user uses an Internet browser to upload new update package to reprogram application running on the board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="ota_examples" path="examples/evkbimxrt1050/ota_examples/ota_mcuboot_server/enet">
+        <example id="evkbimxrt1050_ota_mcuboot_basic" name="ota_mcuboot_basic" brief="This projects gives an example of a basic application bootable by MCUBoot" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="ota_examples" path="examples/evkbimxrt1050/ota_examples/ota_mcuboot_basic">
+          <external path="ota_examples/ota_mcuboot_basic" type="xml">
+            <files mask="ota_mcuboot_basic_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkbimxrt1050_ota_mcuboot_server_enet" name="ota_mcuboot_server_enet" brief="This ota_mcuboot_server application demonstrates OTA update using an HTTP server based on lwIP TCP/IP stack with FreeRTOS. The user uses an Internet browser to upload new update package to reprogram application running on the board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="ota_examples" path="examples/evkbimxrt1050/ota_examples/ota_mcuboot_server/enet">
           <external path="ota_examples/ota_mcuboot_server/enet" type="xml">
             <files mask="ota_mcuboot_server_enet_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkbimxrt1050_ota_mcuboot_server_wifi" name="ota_mcuboot_server_wifi" brief="This ota_mcuboot_server application demonstrates OTA using an HTTP server based on lwIP TCP/IP and the MbedTLS stack with FreeRTOS. The user uses an Internet browser to upload new update package to reprogram application running on the board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="ota_examples" path="examples/evkbimxrt1050/ota_examples/ota_mcuboot_server/wifi">
+        <example id="evkbimxrt1050_ota_mcuboot_server_wifi" name="ota_mcuboot_server_wifi" brief="This ota_mcuboot_server application demonstrates OTA using an HTTP server based on lwIP TCP/IP stack with FreeRTOS. The user uses an Internet browser to upload new update package to reprogram application running on the board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="ota_examples" path="examples/evkbimxrt1050/ota_examples/ota_mcuboot_server/wifi">
           <external path="ota_examples/ota_mcuboot_server/wifi" type="xml">
             <files mask="ota_mcuboot_server_wifi_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkbimxrt1050_freertos_hello" name="freertos_hello" brief="The Hello World project is a simple demonstration program that uses the SDK UART drivere incombination with FreeRTOS. The purpose of this demo is to show how to use the debug console and toprovide a simple project for debugging and further development.The example application creates one task called hello_task. This task print &quot;Hello world.&quot; messagevia debug console utility and suspend itself." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="freertos_examples" path="examples/evkbimxrt1050/freertos_examples/freertos_hello">
+        <example id="evkbimxrt1050_freertos_hello" name="freertos_hello" brief="The Hello World project is a simple demonstration program that uses the SDK UART driver in combination with FreeRTOS. The purpose of this demo is to show how to use the debug console and toprovide a simple project for debugging and further development.The example application creates one task called hello_task. This task print &quot;Hello world.&quot; messagevia debug console utility and suspend itself." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="freertos_examples" path="examples/evkbimxrt1050/freertos_examples/freertos_hello">
           <external path="freertos_examples/freertos_hello" type="xml">
             <files mask="freertos_hello_v3_14.xml"/>
           </external>
@@ -1373,6 +1443,11 @@
             <files mask="freertos_tickless_v3_14.xml"/>
           </external>
         </example>
+        <example id="evkbimxrt1050_tflm_lib" name="tflm_lib" brief="Library build of TensorFlow Lite Micro" toolchain="mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkbimxrt1050/eiq_examples/tflm_lib">
+          <external path="eiq_examples/tflm_lib" type="xml">
+            <files mask="tflm_lib_v3_14.xml"/>
+          </external>
+        </example>
         <example id="evkbimxrt1050_tflm_cifar10" name="tflm_cifar10" brief="CIFAR-10 example for TensorFlow Lite Micro" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkbimxrt1050/eiq_examples/tflm_cifar10">
           <external path="eiq_examples/tflm_cifar10" type="xml">
             <files mask="tflm_cifar10_v3_14.xml"/>
@@ -1393,51 +1468,6 @@
             <files mask="tflm_modelrunner_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkbimxrt1050_glow_lenet_mnist" name="glow_lenet_mnist" brief="LeNet MNIST example for Glow NN compiler" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkbimxrt1050/eiq_examples/glow_lenet_mnist">
-          <external path="eiq_examples/glow_lenet_mnist" type="xml">
-            <files mask="glow_lenet_mnist_v3_14.xml"/>
-          </external>
-        </example>
-        <example id="evkbimxrt1050_glow_cifar10" name="glow_cifar10" brief="Cifar10 example for Glow NN compiler" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkbimxrt1050/eiq_examples/glow_cifar10">
-          <external path="eiq_examples/glow_cifar10" type="xml">
-            <files mask="glow_cifar10_v3_14.xml"/>
-          </external>
-        </example>
-        <example id="evkbimxrt1050_glow_cifar10_camera" name="glow_cifar10_camera" brief="Cifar10 example for Glow with camera and LCD" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkbimxrt1050/eiq_examples/glow_cifar10_camera">
-          <external path="eiq_examples/glow_cifar10_camera" type="xml">
-            <files mask="glow_cifar10_camera_v3_14.xml"/>
-          </external>
-        </example>
-        <example id="evkbimxrt1050_glow_lenet_mnist_camera" name="glow_lenet_mnist_camera" brief="Lenet MNIST example for Glow with camera and LCD" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkbimxrt1050/eiq_examples/glow_lenet_mnist_camera">
-          <external path="eiq_examples/glow_lenet_mnist_camera" type="xml">
-            <files mask="glow_lenet_mnist_camera_v3_14.xml"/>
-          </external>
-        </example>
-        <example id="evkbimxrt1050_deepviewrt_modelrunner" name="deepviewrt_modelrunner" brief="DeepViewRT ModelRunner is a dedicated service for hosting and evaluating RTM graphs through a set of RPC protocols, it provides an HTTP REST API for loading an evaluating models. It can work with eIQ toolkit to evaluating and profiling models." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkbimxrt1050/eiq_examples/deepviewrt_modelrunner">
-          <external path="eiq_examples/deepviewrt_modelrunner" type="xml">
-            <files mask="deepviewrt_modelrunner_v3_14.xml"/>
-          </external>
-        </example>
-        <example id="evkbimxrt1050_deepviewrt_modelrunner-glow" name="deepviewrt_modelrunner-glow" brief="DeepViewRT ModelRunner for GLOW" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkbimxrt1050/eiq_examples/deepviewrt_modelrunner-glow">
-          <external path="eiq_examples/deepviewrt_modelrunner-glow" type="xml">
-            <files mask="deepviewrt_modelrunner-glow_v3_14.xml"/>
-          </external>
-        </example>
-        <example id="evkbimxrt1050_deepviewrt_labelimage" name="deepviewrt_labelimage" brief="DeepViewRT LabelImage is as a basic &quot;labelimage&quot; example for using DeepViewRT on an RT106x platform.  The firmware integrates a user defined model with an example provided as well as a user provided image to classify." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkbimxrt1050/eiq_examples/deepviewrt_labelimage">
-          <external path="eiq_examples/deepviewrt_labelimage" type="xml">
-            <files mask="deepviewrt_labelimage_v3_14.xml"/>
-          </external>
-        </example>
-        <example id="evkbimxrt1050_deepviewrt_camera_label_image" name="deepviewrt_camera_label_image" brief="DeepViewRT Camera Label Image example shows the demonstration of real-time object recognition using DeepViewRT on an IMXRT platform together with a camera and LCD module.  The firmware uses a user defined model and real-time camera to image classifier." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkbimxrt1050/eiq_examples/deepviewrt_camera_label_image">
-          <external path="eiq_examples/deepviewrt_camera_label_image" type="xml">
-            <files mask="deepviewrt_camera_label_image_v3_14.xml"/>
-          </external>
-        </example>
-        <example id="evkbimxrt1050_deepviewrt_image_detection" name="deepviewrt_image_detection" brief="DeepViewRT Image Detection example shows the demonstration of image detection using DeepViewRT on an IMXRT platform. The application will identify multiple objects in a single image and output the result via UART console." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkbimxrt1050/eiq_examples/deepviewrt_image_detection">
-          <external path="eiq_examples/deepviewrt_image_detection" type="xml">
-            <files mask="deepviewrt_image_detection_v3_14.xml"/>
-          </external>
-        </example>
         <example id="evkbimxrt1050_mpp_camera_view" name="mpp_camera_view" brief="MPP Camera View Example" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkbimxrt1050/eiq_examples/mpp_camera_view">
           <external path="eiq_examples/mpp_camera_view" type="xml">
             <files mask="mpp_camera_view_v3_14.xml"/>
@@ -1448,16 +1478,6 @@
             <files mask="mpp_camera_mobilenet_view_tflm_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkbimxrt1050_mpp_camera_mobilenet_view_glow" name="mpp_camera_mobilenet_view_glow" brief="Image Classification with GLOW Example" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkbimxrt1050/eiq_examples/mpp_camera_mobilenet_view_glow">
-          <external path="eiq_examples/mpp_camera_mobilenet_view_glow" type="xml">
-            <files mask="mpp_camera_mobilenet_view_glow_v3_14.xml"/>
-          </external>
-        </example>
-        <example id="evkbimxrt1050_mpp_camera_mobilenet_view_dvrt" name="mpp_camera_mobilenet_view_dvrt" brief="Image Classification with DeepViewRT Example" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkbimxrt1050/eiq_examples/mpp_camera_mobilenet_view_dvrt">
-          <external path="eiq_examples/mpp_camera_mobilenet_view_dvrt" type="xml">
-            <files mask="mpp_camera_mobilenet_view_dvrt_v3_14.xml"/>
-          </external>
-        </example>
         <example id="evkbimxrt1050_mpp_static_image_nanodet_view_tflm" name="mpp_static_image_nanodet_view_tflm" brief="Object Detection with TensorFlow Lite Micro Example" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkbimxrt1050/eiq_examples/mpp_static_image_nanodet_view_tflm">
           <external path="eiq_examples/mpp_static_image_nanodet_view_tflm" type="xml">
             <files mask="mpp_static_image_nanodet_view_tflm_v3_14.xml"/>
@@ -1466,6 +1486,11 @@
         <example id="evkbimxrt1050_mpp_camera_ultraface_view_tflm" name="mpp_camera_ultraface_view_tflm" brief="Face detection with TensorFlow Lite Micro Example" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkbimxrt1050/eiq_examples/mpp_camera_ultraface_view_tflm">
           <external path="eiq_examples/mpp_camera_ultraface_view_tflm" type="xml">
             <files mask="mpp_camera_ultraface_view_tflm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkbimxrt1050_mpp_camera_persondetect_view_tflm" name="mpp_camera_persondetect_view_tflm" brief="Person detection with TensorFlow Lite Micro Example" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkbimxrt1050/eiq_examples/mpp_camera_persondetect_view_tflm">
+          <external path="eiq_examples/mpp_camera_persondetect_view_tflm" type="xml">
+            <files mask="mpp_camera_persondetect_view_tflm_v3_14.xml"/>
           </external>
         </example>
         <example id="evkbimxrt1050_threadx_lib" name="threadx_lib" brief="ThreadX library" toolchain="mcuxpresso" compiler="compiler_gcc" category="azure_rtos_libs" path="examples/evkbimxrt1050/azure_rtos_examples/threadx_lib">

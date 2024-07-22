@@ -3,7 +3,7 @@
  *
  *  Copyright (c) 2021-2023 Nordic Semiconductor ASA
  *  Copyright (c) 2022 Codecoup
- *  Copyright (c) 2023 NXP
+ *  Copyright (c) 2023-2024 NXP
  *
  *  SPDX-License-Identifier: Apache-2.0
  */
@@ -27,10 +27,10 @@
 #endif
 
 static const struct bt_audio_codec_cap lc3_codec_cap =
-	BT_AUDIO_CODEC_CAP_LC3(BT_AUDIO_CODEC_LC3_FREQ_16KHZ | BT_AUDIO_CODEC_LC3_FREQ_32KHZ |
-				       BT_AUDIO_CODEC_LC3_FREQ_48KHZ,
-			       BT_AUDIO_CODEC_LC3_DURATION_7_5 | BT_AUDIO_CODEC_LC3_DURATION_10,
-			       BT_AUDIO_CODEC_LC3_CHAN_COUNT_SUPPORT(2), 30, 155u, 1u,
+	BT_AUDIO_CODEC_CAP_LC3(BT_AUDIO_CODEC_CAP_FREQ_16KHZ | BT_AUDIO_CODEC_CAP_FREQ_32KHZ |
+				       BT_AUDIO_CODEC_CAP_FREQ_48KHZ,
+			       BT_AUDIO_CODEC_CAP_DURATION_7_5 | BT_AUDIO_CODEC_CAP_DURATION_10,
+			       BT_AUDIO_CODEC_CAP_CHAN_COUNT_SUPPORT(2), 30, 155u, 1u,
 			       (AVAILABLE_SINK_CONTEXT | AVAILABLE_SOURCE_CONTEXT));
 
 static struct bt_conn *default_conn;
@@ -77,11 +77,15 @@ static void print_codec_cfg(const struct bt_audio_codec_cfg *codec_cfg)
 
 		ret = bt_audio_codec_cfg_get_freq(codec_cfg);
 		if (ret > 0) {
-			printk("  Frequency: %d Hz\n", bt_audio_codec_cfg_freq_to_freq_hz((enum bt_audio_codec_config_freq)ret));
+			printk("  Frequency: %d Hz\n", bt_audio_codec_cfg_freq_to_freq_hz((enum bt_audio_codec_cfg_freq)ret));
 		}
 
-		printk("  Frame Duration: %d us\n",
-		       bt_audio_codec_cfg_get_frame_duration_us(codec_cfg));
+		ret = bt_audio_codec_cfg_get_frame_dur(codec_cfg);
+		if (ret > 0) {
+			printk("  Frame Duration: %d us\n",
+			       bt_audio_codec_cfg_frame_dur_to_frame_dur_us((enum bt_audio_codec_cfg_frame_dur)ret));
+		}
+
 		if (bt_audio_codec_cfg_get_chan_allocation(codec_cfg, &chan_allocation) == 0) {
 			printk("  Channel allocation: 0x%x\n", chan_allocation);
 		}

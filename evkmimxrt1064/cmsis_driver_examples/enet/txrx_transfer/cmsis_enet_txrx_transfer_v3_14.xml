@@ -28,6 +28,7 @@
     <definition extID="driver.phy-common.MIMXRT1064"/>
     <definition extID="platform.drivers.edma.MIMXRT1064"/>
     <definition extID="platform.drivers.dmamux.MIMXRT1064"/>
+    <definition extID="utility.str.MIMXRT1064"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT1064"/>
     <definition extID="device.MIMXRT1064_system.MIMXRT1064"/>
     <definition extID="armgcc"/>
@@ -36,7 +37,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt1064_cmsis_enet_txrx_transfer" name="cmsis_enet_txrx_transfer" dependency="platform.drivers.clock.MIMXRT1064 platform.drivers.enet.MIMXRT1064 platform.drivers.enet_cmsis.MIMXRT1064 platform.drivers.common.MIMXRT1064 driver.phy-device-ksz8081.MIMXRT1064 platform.drivers.cache_armv7_m7.MIMXRT1064 utility.debug_console_lite.MIMXRT1064 platform.utilities.assert_lite.MIMXRT1064 component.silicon_id_rt10xx.MIMXRT1064 component.silicon_id.MIMXRT1064 device.MIMXRT1064_CMSIS.MIMXRT1064 component.lpuart_adapter.MIMXRT1064 platform.drivers.lpuart.MIMXRT1064 component.lists.MIMXRT1064 device.MIMXRT1064_startup.MIMXRT1064 platform.drivers.iomuxc.MIMXRT1064 platform.drivers.igpio.MIMXRT1064 platform.drivers.xip_device.MIMXRT1064 platform.drivers.xip_board.evkmimxrt1064.MIMXRT1064 platform.utilities.misc_utilities.MIMXRT1064 CMSIS_Driver_Include.Ethernet_MAC.MIMXRT1064 CMSIS_Driver_Include.Ethernet_PHY.MIMXRT1064 CMSIS_Driver_Include.Ethernet.MIMXRT1064 RTE_Device.MIMXRT1064 driver.phy-common.MIMXRT1064 platform.drivers.edma.MIMXRT1064 platform.drivers.dmamux.MIMXRT1064 CMSIS_Include_core_cm.MIMXRT1064 device.MIMXRT1064_system.MIMXRT1064" category="cmsis_driver_examples/enet">
+  <example id="evkmimxrt1064_cmsis_enet_txrx_transfer" name="cmsis_enet_txrx_transfer" dependency="platform.drivers.clock.MIMXRT1064 platform.drivers.enet.MIMXRT1064 platform.drivers.enet_cmsis.MIMXRT1064 platform.drivers.common.MIMXRT1064 driver.phy-device-ksz8081.MIMXRT1064 platform.drivers.cache_armv7_m7.MIMXRT1064 utility.debug_console_lite.MIMXRT1064 platform.utilities.assert_lite.MIMXRT1064 component.silicon_id_rt10xx.MIMXRT1064 component.silicon_id.MIMXRT1064 device.MIMXRT1064_CMSIS.MIMXRT1064 component.lpuart_adapter.MIMXRT1064 platform.drivers.lpuart.MIMXRT1064 component.lists.MIMXRT1064 device.MIMXRT1064_startup.MIMXRT1064 platform.drivers.iomuxc.MIMXRT1064 platform.drivers.igpio.MIMXRT1064 platform.drivers.xip_device.MIMXRT1064 platform.drivers.xip_board.evkmimxrt1064.MIMXRT1064 platform.utilities.misc_utilities.MIMXRT1064 CMSIS_Driver_Include.Ethernet_MAC.MIMXRT1064 CMSIS_Driver_Include.Ethernet_PHY.MIMXRT1064 CMSIS_Driver_Include.Ethernet.MIMXRT1064 RTE_Device.MIMXRT1064 driver.phy-common.MIMXRT1064 platform.drivers.edma.MIMXRT1064 platform.drivers.dmamux.MIMXRT1064 utility.str.MIMXRT1064 CMSIS_Include_core_cm.MIMXRT1064 device.MIMXRT1064_system.MIMXRT1064" category="cmsis_driver_examples/enet">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -71,7 +72,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

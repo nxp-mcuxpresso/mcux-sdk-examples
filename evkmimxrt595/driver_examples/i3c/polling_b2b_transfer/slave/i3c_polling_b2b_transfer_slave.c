@@ -1,5 +1,5 @@
 /*
- * Copyright 2019, 2022-2023 NXP
+ * Copyright 2019, 2022-2024 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -18,9 +18,6 @@
  ******************************************************************************/
 #define EXAMPLE_SLAVE              I3C0
 #define I3C_SLAVE_CLOCK_FREQUENCY  CLOCK_GetLpOscFreq()
-#define I3C_TIME_OUT_INDEX         100000000
-#define I3C_MASTER_SLAVE_ADDR_7BIT 0x1EU
-#define I3C_DATA_LENGTH            34U
 #ifndef I3C_MASTER_SLAVE_ADDR_7BIT
 #define I3C_MASTER_SLAVE_ADDR_7BIT 0x1EU
 #endif
@@ -34,6 +31,7 @@
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
+#define I3C_VENDOR_ID 0x11BU
 
 /*******************************************************************************
  * Variables
@@ -131,9 +129,9 @@ int main(void)
 #endif
     i3c_slave_config_t slaveConfig;
 
-    /* Attach main clock to I3C, 396MHz / 4 = 99MHz. */
-    CLOCK_AttachClk(kMAIN_CLK_to_I3C_CLK);
-    CLOCK_SetClkDiv(kCLOCK_DivI3cClk, 4);
+    /* Attach 24MHz clock to I3C. */
+    CLOCK_AttachClk(kFRO_DIV8_to_I3C_CLK);
+    CLOCK_SetClkDiv(kCLOCK_DivI3cClk, 1);
 
     /* Attach lposc_1m clock to I3C time control, clear halt for slow clock. */
     CLOCK_AttachClk(kLPOSC_to_I3C_TC_CLK);
@@ -148,7 +146,7 @@ int main(void)
 
     I3C_SlaveGetDefaultConfig(&slaveConfig);
     slaveConfig.staticAddr = I3C_MASTER_SLAVE_ADDR_7BIT;
-    slaveConfig.vendorID   = 0x123U;
+    slaveConfig.vendorID   = I3C_VENDOR_ID;
     slaveConfig.offline    = false;
     I3C_SlaveInit(EXAMPLE_SLAVE, &slaveConfig, I3C_SLAVE_CLOCK_FREQUENCY);
     I3C_SlaveTransferCreateHandle(EXAMPLE_SLAVE, &g_i3c_s_handle, i3c_slave_callback, NULL);

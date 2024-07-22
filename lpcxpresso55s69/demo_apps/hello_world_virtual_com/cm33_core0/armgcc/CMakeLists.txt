@@ -63,8 +63,8 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${SdkRootDirPath}/examples/lpcxpresso55s69/demo_apps/hello_world_virtual_com
     ${SdkRootDirPath}/core/boards/lpcxpresso55s69
+    ${SdkRootDirPath}/examples/lpcxpresso55s69/demo_apps/hello_world_virtual_com
 )
 
 set_source_files_properties("${ProjDirPath}/../usb_device_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_usb_device_ip3511fs_config_header")

@@ -73,6 +73,7 @@
     <definition extID="platform.utilities.misc_utilities.MIMXRT1042"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT1042"/>
     <definition extID="device.MIMXRT1042_system.MIMXRT1042"/>
+    <definition extID="utility.str.MIMXRT1042"/>
     <definition extID="middleware.sdmmc.common.MIMXRT1042"/>
     <definition extID="middleware.sdmmc.osa.freertos.MIMXRT1042"/>
     <definition extID="middleware.sdmmc.usdhc.template.MIMXRT1042"/>
@@ -85,7 +86,6 @@
     <definition extID="middleware.usb.common_header.MIMXRT1042"/>
     <definition extID="middleware.fatfs.template_usb.MIMXRT1042"/>
     <definition extID="middleware.usb.host_msd.MIMXRT1042"/>
-    <definition extID="utility.str.MIMXRT1042"/>
     <definition extID="middleware.freertos-kernel.template.MIMXRT1042"/>
     <definition extID="middleware.freertos-kernel.extension.MIMXRT1042"/>
     <definition extID="middleware.wifi.template.MIMXRT1042"/>
@@ -94,13 +94,15 @@
     <definition extID="middleware.wifi.fwdnld_intf_abs.MIMXRT1042"/>
     <definition extID="component.wifi_bt_module.tx_pwr_limits.MIMXRT1042"/>
     <definition extID="component.wifi_bt_module.config.MIMXRT1042"/>
+    <definition extID="middleware.wifi.wifi_bt_config.template.MIMXRT1042"/>
+    <definition extID="middleware.wifi.osa.MIMXRT1042"/>
+    <definition extID="middleware.wifi.osa_free_rtos.MIMXRT1042"/>
     <definition extID="middleware.edgefast_bluetooth.template.MIMXRT1042"/>
     <definition extID="middleware.edgefast_bluetooth.br.ethermind.lib.cm7f.MIMXRT1042"/>
     <definition extID="middleware.edgefast_bluetooth.config.template.MIMXRT1042"/>
     <definition extID="middleware.edgefast_bluetooth.mcux.linker.template.evkmimxrt1040.MIMXRT1042"/>
     <definition extID="middleware.edgefast_bluetooth.pal.crypto.ethermind.MIMXRT1042"/>
     <definition extID="component.log.MIMXRT1042"/>
-    <definition extID="component.log.backend.debugconsole.MIMXRT1042"/>
     <definition extID="component.mflash.common.MIMXRT1042"/>
     <definition extID="middleware.mbedtls.template.MIMXRT1042"/>
     <definition extID="middleware.edgefast_bluetooth.sdio.template.evkmimxrt1040.MIMXRT1042"/>
@@ -110,7 +112,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt1040_handsfree" name="handsfree" dependency="platform.drivers.clock.MIMXRT1042 platform.drivers.common.MIMXRT1042 device.MIMXRT1042_CMSIS.MIMXRT1042 device.MIMXRT1042_startup.MIMXRT1042 platform.drivers.lpuart.MIMXRT1042 platform.drivers.igpio.MIMXRT1042 component.lpuart_adapter.MIMXRT1042 platform.utilities.assert.MIMXRT1042 utility.debug_console.MIMXRT1042 platform.drivers.xip_device.MIMXRT1042 platform.drivers.xip_board.evkmimxrt1040.MIMXRT1042 platform.drivers.iomuxc.MIMXRT1042 component.serial_manager_uart.MIMXRT1042 component.serial_manager.MIMXRT1042 component.lists.MIMXRT1042 middleware.sdmmc.host.usdhc.MIMXRT1042 middleware.sdmmc.sdio.MIMXRT1042 middleware.sdmmc.host.usdhc.freertos.MIMXRT1042 platform.drivers.trng.MIMXRT1042 platform.drivers.dcp.MIMXRT1042 platform.drivers.cache_armv7_m7.MIMXRT1042 platform.drivers.flexspi.MIMXRT1042 middleware.usb.host_controller_ehci.MIMXRT1042 middleware.usb.host.stack.MIMXRT1042 middleware.usb.phy.MIMXRT1042 middleware.fatfs.usb.MIMXRT1042 middleware.fatfs.MIMXRT1042 middleware.edgefast_bluetooth.pal.platform.ethermind.MIMXRT1042 middleware.edgefast_bluetooth.pal.host_msd_fatfs.ethermind.MIMXRT1042 middleware.edgefast_bluetooth.pal.db_gen.ethermind.MIMXRT1042 platform.drivers.lpi2c.MIMXRT1042 driver.wm8960.MIMXRT1042 component.wm8960_adapter.MIMXRT1042 driver.codec.MIMXRT1042 component.lpi2c_adapter.MIMXRT1042 component.codec_i2c.MIMXRT1042 platform.drivers.sai.MIMXRT1042 platform.drivers.sai_edma.MIMXRT1042 platform.drivers.dmamux.MIMXRT1042 platform.drivers.edma.MIMXRT1042 component.audio_sai_edma_adapter.MIMXRT1042 component.igpio_adapter.MIMXRT1042 component.osa.MIMXRT1042 middleware.freertos-kernel.heap_4.MIMXRT1042 utility.shell.MIMXRT1042 middleware.freertos-kernel.MIMXRT1042 middleware.edgefast_bluetooth.common.ethermind.MIMXRT1042 middleware.edgefast_bluetooth.config.ethermind.MIMXRT1042 middleware.edgefast_bluetooth.extension.common.ethermind.MIMXRT1042 middleware.wifi.fwdnld.MIMXRT1042 middleware.edgefast_bluetooth.br.ethermind.cm7f.MIMXRT1042 middleware.edgefast_bluetooth.pal.MIMXRT1042 middleware.edgefast_bluetooth.porting.MIMXRT1042 middleware.edgefast_bluetooth.porting.work_queue.MIMXRT1042 middleware.edgefast_bluetooth.porting.toolchain.MIMXRT1042 middleware.edgefast_bluetooth.porting.net.MIMXRT1042 middleware.edgefast_bluetooth.porting.list.MIMXRT1042 middleware.edgefast_bluetooth.porting.atomic.MIMXRT1042 component.common_task.MIMXRT1042 platform.drivers.lpuart_edma.MIMXRT1042 component.flexspi_nor_flash_adapter_rt1040evk.MIMXRT1042 middleware.littlefs.MIMXRT1042 component.mflash.rt1040.MIMXRT1042 component.mflash_file.MIMXRT1042 middleware.mbedtls.MIMXRT1042 middleware.mbedtls.port.ksdk.MIMXRT1042 middleware.edgefast_bluetooth.common.ethermind.hci_uart.MIMXRT1042 middleware.edgefast_bluetooth.common.ethermind.hci.MIMXRT1042 middleware.edgefast_bluetooth.wifi_nxp.controller.base.MIMXRT1042 platform.utilities.misc_utilities.MIMXRT1042 CMSIS_Include_core_cm.MIMXRT1042 device.MIMXRT1042_system.MIMXRT1042 middleware.sdmmc.common.MIMXRT1042 middleware.sdmmc.osa.freertos.MIMXRT1042 middleware.sdmmc.usdhc.template.MIMXRT1042 middleware.sdmmc.host.usdhc.cache.MIMXRT1042 platform.drivers.usdhc.MIMXRT1042 component.osa_free_rtos.MIMXRT1042 component.osa_interface.MIMXRT1042 middleware.usb.host.ehci_config_header.MIMXRT1042 middleware.usb.host.common_header.MIMXRT1042 middleware.usb.common_header.MIMXRT1042 middleware.fatfs.template_usb.MIMXRT1042 middleware.usb.host_msd.MIMXRT1042 utility.str.MIMXRT1042 middleware.freertos-kernel.template.MIMXRT1042 middleware.freertos-kernel.extension.MIMXRT1042 middleware.wifi.template.MIMXRT1042 middleware.wifi.mlan_sdio.MIMXRT1042 middleware.wifi.common_files.MIMXRT1042 middleware.wifi.fwdnld_intf_abs.MIMXRT1042 component.wifi_bt_module.tx_pwr_limits.MIMXRT1042 component.wifi_bt_module.config.MIMXRT1042 middleware.edgefast_bluetooth.template.MIMXRT1042 middleware.edgefast_bluetooth.br.ethermind.lib.cm7f.MIMXRT1042 middleware.edgefast_bluetooth.config.template.MIMXRT1042 middleware.edgefast_bluetooth.mcux.linker.template.evkmimxrt1040.MIMXRT1042 middleware.edgefast_bluetooth.pal.crypto.ethermind.MIMXRT1042 component.log.MIMXRT1042 component.log.backend.debugconsole.MIMXRT1042 component.mflash.common.MIMXRT1042 middleware.mbedtls.template.MIMXRT1042 middleware.edgefast_bluetooth.sdio.template.evkmimxrt1040.MIMXRT1042" category="edgefast_bluetooth_examples">
+  <example id="evkmimxrt1040_handsfree" name="handsfree" dependency="platform.drivers.clock.MIMXRT1042 platform.drivers.common.MIMXRT1042 device.MIMXRT1042_CMSIS.MIMXRT1042 device.MIMXRT1042_startup.MIMXRT1042 platform.drivers.lpuart.MIMXRT1042 platform.drivers.igpio.MIMXRT1042 component.lpuart_adapter.MIMXRT1042 platform.utilities.assert.MIMXRT1042 utility.debug_console.MIMXRT1042 platform.drivers.xip_device.MIMXRT1042 platform.drivers.xip_board.evkmimxrt1040.MIMXRT1042 platform.drivers.iomuxc.MIMXRT1042 component.serial_manager_uart.MIMXRT1042 component.serial_manager.MIMXRT1042 component.lists.MIMXRT1042 middleware.sdmmc.host.usdhc.MIMXRT1042 middleware.sdmmc.sdio.MIMXRT1042 middleware.sdmmc.host.usdhc.freertos.MIMXRT1042 platform.drivers.trng.MIMXRT1042 platform.drivers.dcp.MIMXRT1042 platform.drivers.cache_armv7_m7.MIMXRT1042 platform.drivers.flexspi.MIMXRT1042 middleware.usb.host_controller_ehci.MIMXRT1042 middleware.usb.host.stack.MIMXRT1042 middleware.usb.phy.MIMXRT1042 middleware.fatfs.usb.MIMXRT1042 middleware.fatfs.MIMXRT1042 middleware.edgefast_bluetooth.pal.platform.ethermind.MIMXRT1042 middleware.edgefast_bluetooth.pal.host_msd_fatfs.ethermind.MIMXRT1042 middleware.edgefast_bluetooth.pal.db_gen.ethermind.MIMXRT1042 platform.drivers.lpi2c.MIMXRT1042 driver.wm8960.MIMXRT1042 component.wm8960_adapter.MIMXRT1042 driver.codec.MIMXRT1042 component.lpi2c_adapter.MIMXRT1042 component.codec_i2c.MIMXRT1042 platform.drivers.sai.MIMXRT1042 platform.drivers.sai_edma.MIMXRT1042 platform.drivers.dmamux.MIMXRT1042 platform.drivers.edma.MIMXRT1042 component.audio_sai_edma_adapter.MIMXRT1042 component.igpio_adapter.MIMXRT1042 component.osa.MIMXRT1042 middleware.freertos-kernel.heap_4.MIMXRT1042 utility.shell.MIMXRT1042 middleware.freertos-kernel.MIMXRT1042 middleware.edgefast_bluetooth.common.ethermind.MIMXRT1042 middleware.edgefast_bluetooth.config.ethermind.MIMXRT1042 middleware.edgefast_bluetooth.extension.common.ethermind.MIMXRT1042 middleware.wifi.fwdnld.MIMXRT1042 middleware.edgefast_bluetooth.br.ethermind.cm7f.MIMXRT1042 middleware.edgefast_bluetooth.pal.MIMXRT1042 middleware.edgefast_bluetooth.porting.MIMXRT1042 middleware.edgefast_bluetooth.porting.work_queue.MIMXRT1042 middleware.edgefast_bluetooth.porting.toolchain.MIMXRT1042 middleware.edgefast_bluetooth.porting.net.MIMXRT1042 middleware.edgefast_bluetooth.porting.list.MIMXRT1042 middleware.edgefast_bluetooth.porting.atomic.MIMXRT1042 component.common_task.MIMXRT1042 platform.drivers.lpuart_edma.MIMXRT1042 component.flexspi_nor_flash_adapter_rt1040evk.MIMXRT1042 middleware.littlefs.MIMXRT1042 component.mflash.rt1040.MIMXRT1042 component.mflash_file.MIMXRT1042 middleware.mbedtls.MIMXRT1042 middleware.mbedtls.port.ksdk.MIMXRT1042 middleware.edgefast_bluetooth.common.ethermind.hci_uart.MIMXRT1042 middleware.edgefast_bluetooth.common.ethermind.hci.MIMXRT1042 middleware.edgefast_bluetooth.wifi_nxp.controller.base.MIMXRT1042 platform.utilities.misc_utilities.MIMXRT1042 CMSIS_Include_core_cm.MIMXRT1042 device.MIMXRT1042_system.MIMXRT1042 utility.str.MIMXRT1042 middleware.sdmmc.common.MIMXRT1042 middleware.sdmmc.osa.freertos.MIMXRT1042 middleware.sdmmc.usdhc.template.MIMXRT1042 middleware.sdmmc.host.usdhc.cache.MIMXRT1042 platform.drivers.usdhc.MIMXRT1042 component.osa_free_rtos.MIMXRT1042 component.osa_interface.MIMXRT1042 middleware.usb.host.ehci_config_header.MIMXRT1042 middleware.usb.host.common_header.MIMXRT1042 middleware.usb.common_header.MIMXRT1042 middleware.fatfs.template_usb.MIMXRT1042 middleware.usb.host_msd.MIMXRT1042 middleware.freertos-kernel.template.MIMXRT1042 middleware.freertos-kernel.extension.MIMXRT1042 middleware.wifi.template.MIMXRT1042 middleware.wifi.mlan_sdio.MIMXRT1042 middleware.wifi.common_files.MIMXRT1042 middleware.wifi.fwdnld_intf_abs.MIMXRT1042 component.wifi_bt_module.tx_pwr_limits.MIMXRT1042 component.wifi_bt_module.config.MIMXRT1042 middleware.wifi.wifi_bt_config.template.MIMXRT1042 middleware.wifi.osa.MIMXRT1042 middleware.wifi.osa_free_rtos.MIMXRT1042 middleware.edgefast_bluetooth.template.MIMXRT1042 middleware.edgefast_bluetooth.br.ethermind.lib.cm7f.MIMXRT1042 middleware.edgefast_bluetooth.config.template.MIMXRT1042 middleware.edgefast_bluetooth.mcux.linker.template.evkmimxrt1040.MIMXRT1042 middleware.edgefast_bluetooth.pal.crypto.ethermind.MIMXRT1042 component.log.MIMXRT1042 component.mflash.common.MIMXRT1042 middleware.mbedtls.template.MIMXRT1042 middleware.edgefast_bluetooth.sdio.template.evkmimxrt1040.MIMXRT1042" category="edgefast_bluetooth_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -164,6 +166,7 @@
           <value>LFS_NO_ERROR=1</value>
           <value>CONFIG_ARM=1</value>
           <value>EDGEFAST_BT_LITTLEFS_MFLASH</value>
+          <value>USB_HOST_CONFIG_BUFFER_PROPERTY_CACHEABLE=1</value>
           <value>MCUXPRESSO_SDK</value>
           <value>SERIAL_PORT_TYPE_UART=1</value>
           <value>SDK_I2C_BASED_COMPONENT_USED=1</value>
@@ -176,8 +179,8 @@
           <value>MFLASH_FILE_BASEADDR=7340032</value>
           <value>LWIP_DNS=1</value>
           <value>LWIP_NETIF_HOSTNAME=1</value>
-          <value>LWIP_NETIF_STATUS_CALLBACK=1</value>
           <value>LWIP_IGMP=1</value>
+          <value>_XOPEN_SOURCE=500</value>
           <value>MBEDTLS_CONFIG_FILE='"ksdk_mbedtls_config.h"'</value>
         </option>
         <option id="com.crt.advproject.gas.hdrlib" type="enum">
@@ -224,7 +227,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

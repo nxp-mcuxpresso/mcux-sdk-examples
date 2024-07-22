@@ -38,13 +38,14 @@
     <definition extID="middleware.freertos-kernel.template.MIMXRT685S"/>
     <definition extID="middleware.freertos-kernel.extension.MIMXRT685S"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT685S"/>
+    <definition extID="utility.str.MIMXRT685S"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt685_dsp_nn_demo_cm33" name="dsp_nn_demo_cm33" device_core="cm33_MIMXRT685S" dependency="platform.drivers.dsp.MIMXRT685S platform.drivers.inputmux.MIMXRT685S middleware.multicore.rpmsg_lite.evkmimxrt685_freertos.MIMXRT685S middleware.multicore.rpmsg_lite.freertos.MIMXRT685S middleware.multicore.rpmsg_lite.MIMXRT685S platform.drivers.mu.MIMXRT685S driver.pca9420.MIMXRT685S platform.drivers.clock.MIMXRT685S platform.drivers.flexcomm_i2c.MIMXRT685S platform.drivers.i3c.MIMXRT685S middleware.freertos-kernel.cm33_non_trustzone.MIMXRT685S platform.drivers.common.MIMXRT685S platform.drivers.power.MIMXRT685S platform.drivers.reset.MIMXRT685S device.MIMXRT685S_CMSIS.MIMXRT685S utility.debug_console.MIMXRT685S platform.utilities.assert.MIMXRT685S component.usart_adapter.MIMXRT685S platform.drivers.flash_config.evkmimxrt685.MIMXRT685S platform.drivers.flexspi.MIMXRT685S platform.drivers.cache_cache64.MIMXRT685S component.serial_manager_uart.MIMXRT685S component.serial_manager.MIMXRT685S platform.drivers.flexcomm_usart.MIMXRT685S component.lists.MIMXRT685S device.MIMXRT685S_startup.MIMXRT685S platform.drivers.flexcomm.MIMXRT685S platform.drivers.lpc_iopctl.MIMXRT685S platform.drivers.lpc_gpio.MIMXRT685S platform.utilities.misc_utilities.MIMXRT685S platform.drivers.inputmux_connections.MIMXRT685S middleware.freertos-kernel.MIMXRT685S middleware.freertos-kernel.heap_4.MIMXRT685S middleware.freertos-kernel.template.MIMXRT685S middleware.freertos-kernel.extension.MIMXRT685S CMSIS_Include_core_cm.MIMXRT685S" category="eiq_examples">
+  <example id="evkmimxrt685_dsp_nn_demo_cm33" name="dsp_nn_demo_cm33" device_core="cm33_MIMXRT685S" dependency="platform.drivers.dsp.MIMXRT685S platform.drivers.inputmux.MIMXRT685S middleware.multicore.rpmsg_lite.evkmimxrt685_freertos.MIMXRT685S middleware.multicore.rpmsg_lite.freertos.MIMXRT685S middleware.multicore.rpmsg_lite.MIMXRT685S platform.drivers.mu.MIMXRT685S driver.pca9420.MIMXRT685S platform.drivers.clock.MIMXRT685S platform.drivers.flexcomm_i2c.MIMXRT685S platform.drivers.i3c.MIMXRT685S middleware.freertos-kernel.cm33_non_trustzone.MIMXRT685S platform.drivers.common.MIMXRT685S platform.drivers.power.MIMXRT685S platform.drivers.reset.MIMXRT685S device.MIMXRT685S_CMSIS.MIMXRT685S utility.debug_console.MIMXRT685S platform.utilities.assert.MIMXRT685S component.usart_adapter.MIMXRT685S platform.drivers.flash_config.evkmimxrt685.MIMXRT685S platform.drivers.flexspi.MIMXRT685S platform.drivers.cache_cache64.MIMXRT685S component.serial_manager_uart.MIMXRT685S component.serial_manager.MIMXRT685S platform.drivers.flexcomm_usart.MIMXRT685S component.lists.MIMXRT685S device.MIMXRT685S_startup.MIMXRT685S platform.drivers.flexcomm.MIMXRT685S platform.drivers.lpc_iopctl.MIMXRT685S platform.drivers.lpc_gpio.MIMXRT685S platform.utilities.misc_utilities.MIMXRT685S platform.drivers.inputmux_connections.MIMXRT685S middleware.freertos-kernel.MIMXRT685S middleware.freertos-kernel.heap_4.MIMXRT685S middleware.freertos-kernel.template.MIMXRT685S middleware.freertos-kernel.extension.MIMXRT685S CMSIS_Include_core_cm.MIMXRT685S utility.str.MIMXRT685S" category="eiq_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -83,7 +84,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

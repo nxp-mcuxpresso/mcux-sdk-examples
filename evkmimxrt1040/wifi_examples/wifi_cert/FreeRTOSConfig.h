@@ -83,6 +83,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define configUSE_TRACE_FACILITY             1
 #define configUSE_STATS_FORMATTING_FUNCTIONS 1
 
+/* Task aware debugging. */
+#define configRECORD_STACK_HIGH_ADDRESS      1
+
 /* Co-routine related definitions. */
 #define configUSE_CO_ROUTINES           0
 #define configMAX_CO_ROUTINE_PRIORITIES 2

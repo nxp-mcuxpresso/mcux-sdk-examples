@@ -42,6 +42,7 @@ void BOARD_InitBootPins(void) {
     BOARD_InitSPIPins();
     BOARD_InitM2UARTPins();
     BOARD_InitPinsM2();
+    BOARD_InitIRPins();
 }
 
 /*
@@ -690,6 +691,51 @@ void BOARD_InitPinsM2(void) {
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
 }
 
+/*
+ * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+BOARD_InitIRPins:
+- options: {callFromInitBoot: 'false', coreID: cm7, enableClock: 'true'}
+- pin_list:
+  - {pin_num: M14, peripheral: GPIO3, signal: 'gpio_mux_io, 14', pin_signal: GPIO_AD_15, direction: OUTPUT, gpio_init_state: 'true', software_input_on: Disable, pull_up_down_config: Pull_Down,
+    pull_keeper_select: Pull, open_drain: Disable, drive_strength: High, slew_rate: Slow}
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
+ */
+
+/* FUNCTION ************************************************************************************************************
+ *
+ * Function Name : BOARD_InitIRPins, assigned for the Cortex-M7F core.
+ * Description   : Configures pin routing and optionally pin electrical features.
+ *
+ * END ****************************************************************************************************************/
+void BOARD_InitIRPins(void) {
+  CLOCK_EnableClock(kCLOCK_Iomuxc);           /* LPCG on: LPCG is ON. */
+
+  /* GPIO configuration of IR on GPIO_AD_15 (pin M14) */
+  gpio_pin_config_t IR_config = {
+      .direction = kGPIO_DigitalOutput,
+      .outputLogic = 1U,
+      .interruptMode = kGPIO_NoIntmode
+  };
+  /* Initialize GPIO functionality on GPIO_AD_15 (pin M14) */
+  GPIO_PinInit(GPIO3, 14U, &IR_config);
+
+  IOMUXC_SetPinMux(
+      IOMUXC_GPIO_AD_15_GPIO_MUX3_IO14,       /* GPIO_AD_15 is configured as GPIO_MUX3_IO14 */
+      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+  IOMUXC_GPR->GPR42 = ((IOMUXC_GPR->GPR42 &
+    (~(BOARD_INITIRPINS_IOMUXC_GPR_GPR42_GPIO_MUX3_GPIO_SEL_LOW_MASK))) /* Mask bits to zero which are setting */
+      | IOMUXC_GPR_GPR42_GPIO_MUX3_GPIO_SEL_LOW(0x00U) /* GPIO3 and CM7_GPIO3 share same IO MUX function, GPIO_MUX3 selects one GPIO function: 0x00U */
+    );
+  IOMUXC_SetPinConfig(
+      IOMUXC_GPIO_AD_15_GPIO_MUX3_IO14,       /* GPIO_AD_15 PAD functional properties : */
+      0x06U);                                 /* Slew Rate Field: Slow Slew Rate
+                                                 Drive Strength Field: high drive strength
+                                                 Pull / Keep Select Field: Pull Enable
+                                                 Pull Up / Down Config. Field: Weak pull down
+                                                 Open Drain Field: Disabled
+                                                 Domain write protection: Both cores are allowed
+                                                 Domain write protection lock: Neither of DWP bits is locked */
+}
 /***********************************************************************************************************************
  * EOF
  **********************************************************************************************************************/

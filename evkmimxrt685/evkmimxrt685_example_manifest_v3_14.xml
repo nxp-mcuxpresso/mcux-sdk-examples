@@ -4,10 +4,90 @@
   <externalDefinitions>
     <definition extID="MIMXRT685SFVKB"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK2150_evkmimxrt685_examples_manifest_v3_14" name="MCUXpressoSDK2150_evkmimxrt685_examples_manifest_v3_14" version="2.15.0" revision="2.15.0"/>
+  <ksdk id="MCUXpressoSDK216000_evkmimxrt685_examples_manifest_v3_14" name="MCUXpressoSDK216000_evkmimxrt685_examples_manifest_v3_14" version="2.16.000" revision="2.16.000"/>
   <boards>
     <board id="evkmimxrt685" name="EVK-MIMXRT685" href="https://www.nxp.com/pip/MIMXRT685-EVK" version="1.0.0" package="MIMXRT685SFVKB">
       <examples>
+        <example id="evkmimxrt685_spp" name="spp" brief="The Bluetooth BR SPP example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkmimxrt685/edgefast_bluetooth_examples/spp">
+          <external path="edgefast_bluetooth_examples/spp" type="xml">
+            <files mask="spp_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt685_a2dp_sink" name="a2dp_sink" brief="The Edgefast Bluetooth audio source with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkmimxrt685/edgefast_bluetooth_examples/a2dp_sink">
+          <external path="edgefast_bluetooth_examples/a2dp_sink" type="xml">
+            <files mask="a2dp_sink_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt685_edgefast_bluetooth_shell" name="edgefast_bluetooth_shell" brief="The Edgefast Bluetooth shell example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkmimxrt685/edgefast_bluetooth_examples/shell">
+          <external path="edgefast_bluetooth_examples/shell" type="xml">
+            <files mask="edgefast_bluetooth_shell_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt685_handsfree_ag" name="handsfree_ag" brief="The Edgefast Bluetooth handsfree AG example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkmimxrt685/edgefast_bluetooth_examples/handsfree_ag">
+          <external path="edgefast_bluetooth_examples/handsfree_ag" type="xml">
+            <files mask="handsfree_ag_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt685_handsfree" name="handsfree" brief="The Edgefast Bluetooth bluetooth handsfree example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkmimxrt685/edgefast_bluetooth_examples/handsfree">
+          <external path="edgefast_bluetooth_examples/handsfree" type="xml">
+            <files mask="handsfree_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt685_a2dp_source" name="a2dp_source" brief="The Edgefast Bluetooth audio source with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkmimxrt685/edgefast_bluetooth_examples/a2dp_source">
+          <external path="edgefast_bluetooth_examples/a2dp_source" type="xml">
+            <files mask="a2dp_source_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt685_peripheral_ht" name="peripheral_ht" brief="The Edgefast Bluetooth hts example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkmimxrt685/edgefast_bluetooth_examples/peripheral_ht">
+          <external path="edgefast_bluetooth_examples/peripheral_ht" type="xml">
+            <files mask="peripheral_ht_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt685_central_ht" name="central_ht" brief="The Edgefast Bluetooth hts example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkmimxrt685/edgefast_bluetooth_examples/central_ht">
+          <external path="edgefast_bluetooth_examples/central_ht" type="xml">
+            <files mask="central_ht_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt685_peripheral_ipsp" name="peripheral_ipsp" brief="The Edgefast Bluetooth ipsp example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkmimxrt685/edgefast_bluetooth_examples/peripheral_ipsp">
+          <external path="edgefast_bluetooth_examples/peripheral_ipsp" type="xml">
+            <files mask="peripheral_ipsp_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt685_central_ipsp" name="central_ipsp" brief="The Edgefast Bluetooth ipsp example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkmimxrt685/edgefast_bluetooth_examples/central_ipsp">
+          <external path="edgefast_bluetooth_examples/central_ipsp" type="xml">
+            <files mask="central_ipsp_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt685_peripheral_pxr" name="peripheral_pxr" brief="The Edgefast Bluetooth pxr example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkmimxrt685/edgefast_bluetooth_examples/peripheral_pxr">
+          <external path="edgefast_bluetooth_examples/peripheral_pxr" type="xml">
+            <files mask="peripheral_pxr_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt685_central_pxm" name="central_pxm" brief="The Edgefast Bluetooth pxm example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkmimxrt685/edgefast_bluetooth_examples/central_pxm">
+          <external path="edgefast_bluetooth_examples/central_pxm" type="xml">
+            <files mask="central_pxm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt685_peripheral_beacon" name="peripheral_beacon" brief="The Edgefast Bluetooth beacon example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkmimxrt685/edgefast_bluetooth_examples/peripheral_beacon">
+          <external path="edgefast_bluetooth_examples/peripheral_beacon" type="xml">
+            <files mask="peripheral_beacon_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt685_peripheral_hps" name="peripheral_hps" brief="The Edgefast Bluetooth hps example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkmimxrt685/edgefast_bluetooth_examples/peripheral_hps">
+          <external path="edgefast_bluetooth_examples/peripheral_hps" type="xml">
+            <files mask="peripheral_hps_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt685_central_hpc" name="central_hpc" brief="The Edgefast Bluetooth hpc example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkmimxrt685/edgefast_bluetooth_examples/central_hpc">
+          <external path="edgefast_bluetooth_examples/central_hpc" type="xml">
+            <files mask="central_hpc_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt685_wireless_uart" name="wireless_uart" brief="The Edgefast Bluetooth wireless uart example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkmimxrt685/edgefast_bluetooth_examples/wireless_uart">
+          <external path="edgefast_bluetooth_examples/wireless_uart" type="xml">
+            <files mask="wireless_uart_v3_14.xml"/>
+          </external>
+        </example>
         <example id="evkmimxrt685_dev_audio_generator_bm" name="dev_audio_generator_bm" brief="The USB Audio Generator application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a recording device and users can record the sound from this device via the &quot;Sound Recorder&quot; in the Windows Accessories." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/evkmimxrt685/usb_examples/usb_device_audio_generator/bm">
           <external path="usb_examples/usb_device_audio_generator/bm" type="xml">
             <files mask="dev_audio_generator_bm_v3_14.xml"/>
@@ -1103,11 +1183,6 @@
             <files mask="dsp_mu_interrupt_cm33_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkmimxrt685_dsp_rtp_demo_cm33" name="dsp_rtp_demo_cm33" brief="The dsp_rtp_demo demo application demonstrates starting DSP core with DSP image." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="dsp_examples" path="examples/evkmimxrt685/dsp_examples/rtp_demo/cm33">
-          <external path="dsp_examples/rtp_demo/cm33" type="xml">
-            <files mask="dsp_rtp_demo_cm33_v3_14.xml"/>
-          </external>
-        </example>
         <example id="evkmimxrt685_dsp_xaf_playback_cm33" name="dsp_xaf_playback_cm33" brief="The dsp_xaf_playback demo application demonstrates starting DSP core with DSP image." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="dsp_examples" path="examples/evkmimxrt685/dsp_examples/xaf_playback/cm33">
           <external path="dsp_examples/xaf_playback/cm33" type="xml">
             <files mask="dsp_xaf_playback_cm33_v3_14.xml"/>
@@ -1131,11 +1206,6 @@
         <example id="evkmimxrt685_dsp_nn_demo_cm33" name="dsp_nn_demo_cm33" brief="The dsp_nn_demo demo application demonstrates starting DSP core with DSP image." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkmimxrt685/eiq_examples/nn_demo/cm33">
           <external path="eiq_examples/nn_demo/cm33" type="xml">
             <files mask="dsp_nn_demo_cm33_v3_14.xml"/>
-          </external>
-        </example>
-        <example id="evkmimxrt685_glow_cifar10_cm33" name="glow_cifar10_cm33" brief="The glow_cifar10 demo application demonstrates starting DSP core with DSP image." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkmimxrt685/eiq_examples/glow_cifar10/cm33">
-          <external path="eiq_examples/glow_cifar10/cm33" type="xml">
-            <files mask="glow_cifar10_cm33_v3_14.xml"/>
           </external>
         </example>
         <example id="evkmimxrt685_sdcard_fatfs" name="sdcard_fatfs" brief="The SDCARD FATFS project is a demonstration program that uses the SDK software. Tt mounts a file system based on a SD card then does &quot;creat directory/read directory/create file/write file/read file&quot;operation. The file sdhc_config.h has default SDHC configuration which can be adjusted to let carddriver has different performance. The purpose of this example is to show how to use SDCARD driver based FATFS disk in SDK software." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="sdmmc_examples/sdcard_fatfs" path="examples/evkmimxrt685/sdmmc_examples/sdcard_fatfs">
@@ -1193,7 +1263,12 @@
             <files mask="wifi_ipv4_ipv6_echo_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkmimxrt685_ota_mcuboot_server_wifi" name="ota_mcuboot_server_wifi" brief="This ota_mcuboot_server application demonstrates OTA using an HTTP server based on lwIP TCP/IP and the MbedTLS stack with FreeRTOS. The user uses an Internet browser to upload new update package to reprogram application running on the board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="ota_examples" path="examples/evkmimxrt685/ota_examples/ota_mcuboot_server/wifi">
+        <example id="evkmimxrt685_ota_mcuboot_basic" name="ota_mcuboot_basic" brief="This projects gives an example of a basic application bootable by MCUBoot" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="ota_examples" path="examples/evkmimxrt685/ota_examples/ota_mcuboot_basic">
+          <external path="ota_examples/ota_mcuboot_basic" type="xml">
+            <files mask="ota_mcuboot_basic_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt685_ota_mcuboot_server_wifi" name="ota_mcuboot_server_wifi" brief="This ota_mcuboot_server application demonstrates OTA using an HTTP server based on lwIP TCP/IP stack with FreeRTOS. The user uses an Internet browser to upload new update package to reprogram application running on the board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="ota_examples" path="examples/evkmimxrt685/ota_examples/ota_mcuboot_server/wifi">
           <external path="ota_examples/ota_mcuboot_server/wifi" type="xml">
             <files mask="ota_mcuboot_server_wifi_v3_14.xml"/>
           </external>
@@ -1228,7 +1303,7 @@
             <files mask="mcuboot_opensource_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkmimxrt685_freertos_hello" name="freertos_hello" brief="The Hello World project is a simple demonstration program that uses the SDK UART drivere incombination with FreeRTOS. The purpose of this demo is to show how to use the debug console and toprovide a simple project for debugging and further development.The example application creates one task called hello_task. This task print &quot;Hello world.&quot; messagevia debug console utility and suspend itself." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="freertos_examples" path="examples/evkmimxrt685/freertos_examples/freertos_hello">
+        <example id="evkmimxrt685_freertos_hello" name="freertos_hello" brief="The Hello World project is a simple demonstration program that uses the SDK UART driver in combination with FreeRTOS. The purpose of this demo is to show how to use the debug console and toprovide a simple project for debugging and further development.The example application creates one task called hello_task. This task print &quot;Hello world.&quot; messagevia debug console utility and suspend itself." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="freertos_examples" path="examples/evkmimxrt685/freertos_examples/freertos_hello">
           <external path="freertos_examples/freertos_hello" type="xml">
             <files mask="freertos_hello_v3_14.xml"/>
           </external>
@@ -1296,6 +1371,11 @@
         <example id="evkmimxrt685_tflm_xaf_hifi4_cm33" name="tflm_xaf_hifi4_cm33" brief="Xtensa Audio Framework example with TensorFlow Lite Micro word detection" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkmimxrt685/eiq_examples/tflm_xaf_hifi4/cm33">
           <external path="eiq_examples/tflm_xaf_hifi4/cm33" type="xml">
             <files mask="tflm_xaf_hifi4_cm33_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt685_tflm_lib" name="tflm_lib" brief="Library build of TensorFlow Lite Micro" toolchain="mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkmimxrt685/eiq_examples/tflm_lib">
+          <external path="eiq_examples/tflm_lib" type="xml">
+            <files mask="tflm_lib_v3_14.xml"/>
           </external>
         </example>
         <example id="evkmimxrt685_tflm_cifar10_cm33" name="tflm_cifar10_cm33" brief="CIFAR-10 example for TensorFlow Lite Micro" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkmimxrt685/eiq_examples/tflm_cifar10_cm33">

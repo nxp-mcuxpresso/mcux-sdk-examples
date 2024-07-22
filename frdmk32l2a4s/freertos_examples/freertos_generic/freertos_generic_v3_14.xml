@@ -22,11 +22,12 @@
     <definition extID="middleware.freertos-kernel.extension.K32L2A41A"/>
     <definition extID="CMSIS_Include_core_cm.K32L2A41A"/>
     <definition extID="device.K32L2A41A_system.K32L2A41A"/>
+    <definition extID="utility.str.K32L2A41A"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="frdmk32l2a4s_freertos_generic" name="freertos_generic" dependency="middleware.freertos-kernel.heap_4.K32L2A41A component.lists.K32L2A41A component.lpuart_adapter.K32L2A41A component.serial_manager.K32L2A41A component.serial_manager_uart.K32L2A41A device.K32L2A41A_CMSIS.K32L2A41A device.K32L2A41A_startup.K32L2A41A platform.drivers.clock.K32L2A41A platform.drivers.common.K32L2A41A platform.drivers.gpio.K32L2A41A platform.drivers.lpuart.K32L2A41A platform.drivers.port.K32L2A41A platform.drivers.smc.K32L2A41A platform.utilities.assert.K32L2A41A utility.debug_console.K32L2A41A platform.utilities.misc_utilities.K32L2A41A middleware.freertos-kernel.K32L2A41A middleware.freertos-kernel.template.K32L2A41A middleware.freertos-kernel.extension.K32L2A41A CMSIS_Include_core_cm.K32L2A41A device.K32L2A41A_system.K32L2A41A" category="freertos_examples">
+  <example id="frdmk32l2a4s_freertos_generic" name="freertos_generic" dependency="middleware.freertos-kernel.heap_4.K32L2A41A component.lists.K32L2A41A component.lpuart_adapter.K32L2A41A component.serial_manager.K32L2A41A component.serial_manager_uart.K32L2A41A device.K32L2A41A_CMSIS.K32L2A41A device.K32L2A41A_startup.K32L2A41A platform.drivers.clock.K32L2A41A platform.drivers.common.K32L2A41A platform.drivers.gpio.K32L2A41A platform.drivers.lpuart.K32L2A41A platform.drivers.port.K32L2A41A platform.drivers.smc.K32L2A41A platform.utilities.assert.K32L2A41A utility.debug_console.K32L2A41A platform.utilities.misc_utilities.K32L2A41A middleware.freertos-kernel.K32L2A41A middleware.freertos-kernel.template.K32L2A41A middleware.freertos-kernel.extension.K32L2A41A CMSIS_Include_core_cm.K32L2A41A device.K32L2A41A_system.K32L2A41A utility.str.K32L2A41A" category="freertos_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -53,7 +54,7 @@
           <value>com.crt.advproject.gcc.fpu.none</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017, 2020 NXP
+ * Copyright 2017, 2020, 2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -90,7 +90,7 @@ void EXAMPLE_LPSPI_SLAVE_IRQHandler(void)
     {
         while (LPSPI_GetTxFifoCount(EXAMPLE_LPSPI_SLAVE_BASEADDR) < g_slaveFifoSize)
         {
-            /*Write the word to TX register*/
+            /* Write the word to TX register */
             LPSPI_WriteData(EXAMPLE_LPSPI_SLAVE_BASEADDR, slaveTxData[slaveTxCount]);
             ++slaveTxCount;
 
@@ -126,7 +126,7 @@ int main(void)
     CLOCK_SetMux(kCLOCK_LpspiMux, EXAMPLE_LPSPI_CLOCK_SOURCE_SELECT);
     CLOCK_SetDiv(kCLOCK_LpspiDiv, EXAMPLE_LPSPI_CLOCK_SOURCE_DIVIDER);
 
-    PRINTF("LPSPI board to board functional interrupt example.\r\n");
+    PRINTF("LPSPI interrupt board to board (b2b) slave example.\r\n");
     PRINTF("  Slave start to receive data...\r\n");
 
     uint32_t errorCount;
@@ -135,13 +135,13 @@ int main(void)
     lpspi_which_pcs_t whichPcs;
     uint8_t txWatermark;
 
-    /*Slave config*/
+    /* Slave config */
     LPSPI_SlaveGetDefaultConfig(&slaveConfig);
     slaveConfig.whichPcs = EXAMPLE_LPSPI_SLAVE_PCS_FOR_INIT;
 
     LPSPI_SlaveInit(EXAMPLE_LPSPI_SLAVE_BASEADDR, &slaveConfig);
 
-    /*Set up the transfer data*/
+    /* Set up the transfer data */
     for (i = 0; i < TRANSFER_SIZE; i++)
     {
         slaveTxData[i] = i % 256;
@@ -153,10 +153,10 @@ int main(void)
     slaveRxCount             = 0;
     whichPcs                 = EXAMPLE_LPSPI_SLAVE_PCS_FOR_INIT;
 
-    /*The TX and RX FIFO sizes are always the same*/
+    /* The TX and RX FIFO sizes are always the same */
     g_slaveFifoSize = LPSPI_GetRxFifoSize(EXAMPLE_LPSPI_SLAVE_BASEADDR);
 
-    /*Set the RX and TX watermarks to reduce the ISR times.*/
+    /* Set the RX and TX watermarks to reduce the ISR times. */
     if (g_slaveFifoSize > 1)
     {
         txWatermark        = 1;
@@ -174,27 +174,27 @@ int main(void)
     EXAMPLE_LPSPI_SLAVE_BASEADDR->CFGR1 &= (~LPSPI_CFGR1_NOSTALL_MASK);
     LPSPI_Enable(EXAMPLE_LPSPI_SLAVE_BASEADDR, true);
 
-    /*Flush FIFO , clear status , disable all the interrupts.*/
+    /* Flush FIFO, clear status, disable all the interrupts. */
     LPSPI_FlushFifo(EXAMPLE_LPSPI_SLAVE_BASEADDR, true, true);
     LPSPI_ClearStatusFlags(EXAMPLE_LPSPI_SLAVE_BASEADDR, kLPSPI_AllStatusFlag);
     LPSPI_DisableInterrupts(EXAMPLE_LPSPI_SLAVE_BASEADDR, kLPSPI_AllInterruptEnable);
 
     LPSPI_SelectTransferPCS(EXAMPLE_LPSPI_SLAVE_BASEADDR, whichPcs);
 
-    /* Enable the NVIC for LPSPI peripheral. Note that below code is useless if the LPSPI interrupt is in INTMUX ,
+    /* Enable the NVIC for LPSPI peripheral. Note that below code is useless if the LPSPI interrupt is in INTMUX,
      * and you should also enable the INTMUX interrupt in your application.
      */
     EnableIRQ(EXAMPLE_LPSPI_SLAVE_IRQN);
 
-    /*TCR is also shared the FIFO , so wait for TCR written.*/
+    /* TCR is also shared the FIFO, so wait for TCR written. */
     while (LPSPI_GetTxFifoCount(EXAMPLE_LPSPI_SLAVE_BASEADDR) != 0)
     {
     }
 
-    /*Fill up the TX data in FIFO */
+    /* Fill up the TX data in FIFO */
     while (LPSPI_GetTxFifoCount(EXAMPLE_LPSPI_SLAVE_BASEADDR) < g_slaveFifoSize)
     {
-        /*Write the word to TX register*/
+        /* Write the word to TX register */
         LPSPI_WriteData(EXAMPLE_LPSPI_SLAVE_BASEADDR, slaveTxData[slaveTxCount]);
         ++slaveTxCount;
 
@@ -228,14 +228,14 @@ int main(void)
     }
     if (errorCount == 0)
     {
-        PRINTF("\r\nLPSPI transfer all data matched! \r\n");
+        PRINTF("\r\nLPSPI transfer all data matched!\r\n");
     }
     else
     {
-        PRINTF("\r\nError occurred in LPSPI transfer ! \r\n");
+        PRINTF("\r\nError occurred in LPSPI transfer!\r\n");
     }
     /* Print out receive buffer */
-    PRINTF("\r\n Slave received:\r\n");
+    PRINTF("\r\n Slave received:");
     for (i = 0U; i < TRANSFER_SIZE; i++)
     {
         /* Print 16 numbers in a line */
@@ -249,7 +249,7 @@ int main(void)
 
     LPSPI_Deinit(EXAMPLE_LPSPI_SLAVE_BASEADDR);
 
-    PRINTF("End of slave example! \r\n");
+    PRINTF("\r\nEnd of slave example!\r\n");
 
     while (1)
     {

@@ -44,6 +44,12 @@ void BOARD_InitLpuartPins(void);              /* Function assigned for the Corte
  */
 void BOARD_InitMipiPanelPins(void);           /* Function assigned for the Cortex-M7F */
 
+/*!
+ * @brief Configures pin routing and optionally pin electrical features.
+ *
+ */
+void BOARD_InitLpi2cPins(void);               /* Function assigned for the Cortex-M7F */
+
 #if defined(__cplusplus)
 }
 #endif

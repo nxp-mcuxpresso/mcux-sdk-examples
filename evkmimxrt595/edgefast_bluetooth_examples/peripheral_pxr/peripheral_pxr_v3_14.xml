@@ -69,14 +69,18 @@
     <definition extID="middleware.wifi.fwdnld_intf_abs.MIMXRT595S"/>
     <definition extID="component.wifi_bt_module.tx_pwr_limits.MIMXRT595S"/>
     <definition extID="component.wifi_bt_module.config.MIMXRT595S"/>
+    <definition extID="middleware.wifi.wifi_bt_config.template.MIMXRT595S"/>
+    <definition extID="middleware.wifi.osa.MIMXRT595S"/>
+    <definition extID="middleware.wifi.osa_free_rtos.MIMXRT595S"/>
+    <definition extID="component.osa_free_rtos.MIMXRT595S"/>
+    <definition extID="component.osa_interface.MIMXRT595S"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT595S"/>
+    <definition extID="utility.str.MIMXRT595S"/>
     <definition extID="middleware.sdmmc.common.MIMXRT595S"/>
     <definition extID="middleware.sdmmc.osa.freertos.MIMXRT595S"/>
     <definition extID="middleware.sdmmc.usdhc.template.MIMXRT595S"/>
     <definition extID="middleware.sdmmc.host.usdhc.cache.MIMXRT595S"/>
     <definition extID="platform.drivers.usdhc.MIMXRT595S"/>
-    <definition extID="component.osa_free_rtos.MIMXRT595S"/>
-    <definition extID="component.osa_interface.MIMXRT595S"/>
     <definition extID="middleware.usb.host.ip3516hs_config_header.MIMXRT595S"/>
     <definition extID="middleware.usb.host.common_header.MIMXRT595S"/>
     <definition extID="middleware.usb.common_header.MIMXRT595S"/>
@@ -90,8 +94,6 @@
     <definition extID="middleware.edgefast_bluetooth.mcux.linker.template.evkmimxrt595.MIMXRT595S"/>
     <definition extID="middleware.edgefast_bluetooth.pal.crypto.ethermind.MIMXRT595S"/>
     <definition extID="component.log.MIMXRT595S"/>
-    <definition extID="component.log.backend.debugconsole.MIMXRT595S"/>
-    <definition extID="utility.str.MIMXRT595S"/>
     <definition extID="platform.drivers.iap.MIMXRT595S"/>
     <definition extID="platform.drivers.inputmux_connections.MIMXRT595S"/>
     <definition extID="middleware.mbedtls.template.MIMXRT595S"/>
@@ -104,7 +106,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt595_peripheral_pxr" name="peripheral_pxr" device_core="cm33_MIMXRT595S" dependency="middleware.wifi.fwdnld.MIMXRT595S middleware.edgefast_bluetooth.k32w061.controller.MIMXRT595S middleware.edgefast_bluetooth.common.ethermind.hci_uart.MIMXRT595S platform.drivers.clock.MIMXRT595S platform.drivers.common.MIMXRT595S device.MIMXRT595S_CMSIS.MIMXRT595S device.MIMXRT595S_startup.MIMXRT595S platform.drivers.flexcomm_usart.MIMXRT595S component.usart_adapter.MIMXRT595S platform.drivers.power.MIMXRT595S platform.utilities.assert.MIMXRT595S utility.debug_console.MIMXRT595S component.serial_manager_uart.MIMXRT595S component.serial_manager.MIMXRT595S component.lists.MIMXRT595S middleware.sdmmc.host.usdhc.MIMXRT595S middleware.sdmmc.sdio.MIMXRT595S middleware.sdmmc.host.usdhc.freertos.MIMXRT595S platform.drivers.trng.MIMXRT595S platform.drivers.flexspi.MIMXRT595S middleware.usb.host_controller_ip3516hs.MIMXRT595S middleware.usb.host.stack.MIMXRT595S middleware.usb.phy.MIMXRT595S middleware.fatfs.usb.MIMXRT595S middleware.fatfs.MIMXRT595S middleware.edgefast_bluetooth.pal.platform.ethermind.MIMXRT595S middleware.edgefast_bluetooth.pal.host_msd_fatfs.ethermind.MIMXRT595S middleware.edgefast_bluetooth.pal.db_gen.ethermind.MIMXRT595S component.rt_gpio_adapter.MIMXRT595S component.osa.MIMXRT595S middleware.freertos-kernel.heap_4.MIMXRT595S middleware.freertos-kernel.MIMXRT595S middleware.edgefast_bluetooth.common.ethermind.MIMXRT595S middleware.edgefast_bluetooth.config.ethermind.MIMXRT595S middleware.edgefast_bluetooth.extension.common.ethermind.MIMXRT595S middleware.edgefast_bluetooth.ble.ethermind.cm33.MIMXRT595S middleware.edgefast_bluetooth.pal.MIMXRT595S middleware.edgefast_bluetooth.porting.MIMXRT595S middleware.edgefast_bluetooth.porting.work_queue.MIMXRT595S middleware.edgefast_bluetooth.porting.toolchain.MIMXRT595S middleware.edgefast_bluetooth.porting.net.MIMXRT595S middleware.edgefast_bluetooth.porting.list.MIMXRT595S middleware.edgefast_bluetooth.porting.atomic.MIMXRT595S middleware.edgefast_bluetooth.profile.pxr.MIMXRT595S platform.drivers.flash_config.evkmimxrt595.MIMXRT595S platform.drivers.cache_cache64.MIMXRT595S platform.drivers.flexcomm.MIMXRT595S platform.drivers.lpc_iopctl.MIMXRT595S platform.drivers.lpc_gpio.MIMXRT595S platform.drivers.reset.MIMXRT595S component.flexspi_nor_flash_adapter_rt595evk.MIMXRT595S middleware.freertos-kernel.cm33_non_trustzone.MIMXRT595S driver.pca9420.MIMXRT595S platform.drivers.flexcomm_i2c.MIMXRT595S middleware.littlefs.MIMXRT595S platform.drivers.inputmux.MIMXRT595S middleware.mbedtls.MIMXRT595S middleware.mbedtls.port.ksdk.MIMXRT595S middleware.edgefast_bluetooth.common.ethermind.hci.MIMXRT595S middleware.edgefast_bluetooth.wifi_nxp.controller.base.MIMXRT595S platform.utilities.misc_utilities.MIMXRT595S middleware.wifi.template.MIMXRT595S middleware.wifi.mlan_sdio.MIMXRT595S middleware.wifi.common_files.MIMXRT595S middleware.wifi.fwdnld_intf_abs.MIMXRT595S component.wifi_bt_module.tx_pwr_limits.MIMXRT595S component.wifi_bt_module.config.MIMXRT595S CMSIS_Include_core_cm.MIMXRT595S middleware.sdmmc.common.MIMXRT595S middleware.sdmmc.osa.freertos.MIMXRT595S middleware.sdmmc.usdhc.template.MIMXRT595S middleware.sdmmc.host.usdhc.cache.MIMXRT595S platform.drivers.usdhc.MIMXRT595S component.osa_free_rtos.MIMXRT595S component.osa_interface.MIMXRT595S middleware.usb.host.ip3516hs_config_header.MIMXRT595S middleware.usb.host.common_header.MIMXRT595S middleware.usb.common_header.MIMXRT595S middleware.fatfs.template_usb.MIMXRT595S middleware.usb.host_msd.MIMXRT595S middleware.freertos-kernel.template.MIMXRT595S middleware.freertos-kernel.extension.MIMXRT595S middleware.edgefast_bluetooth.template.MIMXRT595S middleware.edgefast_bluetooth.ble.ethermind.lib.cm33.MIMXRT595S middleware.edgefast_bluetooth.config.template.MIMXRT595S middleware.edgefast_bluetooth.mcux.linker.template.evkmimxrt595.MIMXRT595S middleware.edgefast_bluetooth.pal.crypto.ethermind.MIMXRT595S component.log.MIMXRT595S component.log.backend.debugconsole.MIMXRT595S utility.str.MIMXRT595S platform.drivers.iap.MIMXRT595S platform.drivers.inputmux_connections.MIMXRT595S middleware.mbedtls.template.MIMXRT595S platform.drivers.casper.MIMXRT595S platform.drivers.hashcrypt.MIMXRT595S middleware.edgefast_bluetooth.sdio.template.evkmimxrt595.MIMXRT595S" category="edgefast_bluetooth_examples">
+  <example id="evkmimxrt595_peripheral_pxr" name="peripheral_pxr" device_core="cm33_MIMXRT595S" dependency="middleware.wifi.fwdnld.MIMXRT595S middleware.edgefast_bluetooth.k32w061.controller.MIMXRT595S middleware.edgefast_bluetooth.common.ethermind.hci_uart.MIMXRT595S platform.drivers.clock.MIMXRT595S platform.drivers.common.MIMXRT595S device.MIMXRT595S_CMSIS.MIMXRT595S device.MIMXRT595S_startup.MIMXRT595S platform.drivers.flexcomm_usart.MIMXRT595S component.usart_adapter.MIMXRT595S platform.drivers.power.MIMXRT595S platform.utilities.assert.MIMXRT595S utility.debug_console.MIMXRT595S component.serial_manager_uart.MIMXRT595S component.serial_manager.MIMXRT595S component.lists.MIMXRT595S middleware.sdmmc.host.usdhc.MIMXRT595S middleware.sdmmc.sdio.MIMXRT595S middleware.sdmmc.host.usdhc.freertos.MIMXRT595S platform.drivers.trng.MIMXRT595S platform.drivers.flexspi.MIMXRT595S middleware.usb.host_controller_ip3516hs.MIMXRT595S middleware.usb.host.stack.MIMXRT595S middleware.usb.phy.MIMXRT595S middleware.fatfs.usb.MIMXRT595S middleware.fatfs.MIMXRT595S middleware.edgefast_bluetooth.pal.platform.ethermind.MIMXRT595S middleware.edgefast_bluetooth.pal.host_msd_fatfs.ethermind.MIMXRT595S middleware.edgefast_bluetooth.pal.db_gen.ethermind.MIMXRT595S component.rt_gpio_adapter.MIMXRT595S component.osa.MIMXRT595S middleware.freertos-kernel.heap_4.MIMXRT595S middleware.freertos-kernel.MIMXRT595S middleware.edgefast_bluetooth.common.ethermind.MIMXRT595S middleware.edgefast_bluetooth.config.ethermind.MIMXRT595S middleware.edgefast_bluetooth.extension.common.ethermind.MIMXRT595S middleware.edgefast_bluetooth.ble.ethermind.cm33.MIMXRT595S middleware.edgefast_bluetooth.pal.MIMXRT595S middleware.edgefast_bluetooth.porting.MIMXRT595S middleware.edgefast_bluetooth.porting.work_queue.MIMXRT595S middleware.edgefast_bluetooth.porting.toolchain.MIMXRT595S middleware.edgefast_bluetooth.porting.net.MIMXRT595S middleware.edgefast_bluetooth.porting.list.MIMXRT595S middleware.edgefast_bluetooth.porting.atomic.MIMXRT595S middleware.edgefast_bluetooth.profile.pxr.MIMXRT595S platform.drivers.flash_config.evkmimxrt595.MIMXRT595S platform.drivers.cache_cache64.MIMXRT595S platform.drivers.flexcomm.MIMXRT595S platform.drivers.lpc_iopctl.MIMXRT595S platform.drivers.lpc_gpio.MIMXRT595S platform.drivers.reset.MIMXRT595S component.flexspi_nor_flash_adapter_rt595evk.MIMXRT595S middleware.freertos-kernel.cm33_non_trustzone.MIMXRT595S driver.pca9420.MIMXRT595S platform.drivers.flexcomm_i2c.MIMXRT595S middleware.littlefs.MIMXRT595S platform.drivers.inputmux.MIMXRT595S middleware.mbedtls.MIMXRT595S middleware.mbedtls.port.ksdk.MIMXRT595S middleware.edgefast_bluetooth.common.ethermind.hci.MIMXRT595S middleware.edgefast_bluetooth.wifi_nxp.controller.base.MIMXRT595S platform.utilities.misc_utilities.MIMXRT595S middleware.wifi.template.MIMXRT595S middleware.wifi.mlan_sdio.MIMXRT595S middleware.wifi.common_files.MIMXRT595S middleware.wifi.fwdnld_intf_abs.MIMXRT595S component.wifi_bt_module.tx_pwr_limits.MIMXRT595S component.wifi_bt_module.config.MIMXRT595S middleware.wifi.wifi_bt_config.template.MIMXRT595S middleware.wifi.osa.MIMXRT595S middleware.wifi.osa_free_rtos.MIMXRT595S component.osa_free_rtos.MIMXRT595S component.osa_interface.MIMXRT595S CMSIS_Include_core_cm.MIMXRT595S utility.str.MIMXRT595S middleware.sdmmc.common.MIMXRT595S middleware.sdmmc.osa.freertos.MIMXRT595S middleware.sdmmc.usdhc.template.MIMXRT595S middleware.sdmmc.host.usdhc.cache.MIMXRT595S platform.drivers.usdhc.MIMXRT595S middleware.usb.host.ip3516hs_config_header.MIMXRT595S middleware.usb.host.common_header.MIMXRT595S middleware.usb.common_header.MIMXRT595S middleware.fatfs.template_usb.MIMXRT595S middleware.usb.host_msd.MIMXRT595S middleware.freertos-kernel.template.MIMXRT595S middleware.freertos-kernel.extension.MIMXRT595S middleware.edgefast_bluetooth.template.MIMXRT595S middleware.edgefast_bluetooth.ble.ethermind.lib.cm33.MIMXRT595S middleware.edgefast_bluetooth.config.template.MIMXRT595S middleware.edgefast_bluetooth.mcux.linker.template.evkmimxrt595.MIMXRT595S middleware.edgefast_bluetooth.pal.crypto.ethermind.MIMXRT595S component.log.MIMXRT595S platform.drivers.iap.MIMXRT595S platform.drivers.inputmux_connections.MIMXRT595S middleware.mbedtls.template.MIMXRT595S platform.drivers.casper.MIMXRT595S platform.drivers.hashcrypt.MIMXRT595S middleware.edgefast_bluetooth.sdio.template.evkmimxrt595.MIMXRT595S" category="edgefast_bluetooth_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -148,10 +150,11 @@
           <value>LOG_MAX_ARGUMENT_COUNT=10</value>
           <value>LOG_ENABLE_OVERWRITE=0</value>
           <value>SDK_I2C_BASED_COMPONENT_USED=1</value>
+          <value>OSA_USED</value>
           <value>LWIP_DNS=1</value>
           <value>LWIP_NETIF_HOSTNAME=1</value>
-          <value>LWIP_NETIF_STATUS_CALLBACK=1</value>
           <value>LWIP_IGMP=1</value>
+          <value>_XOPEN_SOURCE=500</value>
           <value>MBEDTLS_CONFIG_FILE='"ksdk_mbedtls_config.h"'</value>
         </option>
         <option id="com.crt.advproject.gas.hdrlib" type="enum">
@@ -194,7 +197,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

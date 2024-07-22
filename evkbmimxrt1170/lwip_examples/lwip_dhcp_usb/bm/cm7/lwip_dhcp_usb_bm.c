@@ -364,7 +364,7 @@ int main(void)
     while (1)
     {
         /* Poll the driver, get any outstanding frames */
-        usb_ethernetif_input(&netif);
+        USB_EthernetIfInput(&netif);
 
         /* Handle all system timeouts for all core protocols */
         sys_check_timeouts();

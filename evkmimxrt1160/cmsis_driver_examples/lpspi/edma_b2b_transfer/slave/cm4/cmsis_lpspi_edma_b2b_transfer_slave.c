@@ -24,7 +24,7 @@
 #define EXAMPLE_LPSPI_SLAVE_DMA_MUX_BASEADDR DMAMUX1
 #define EXAMPLE_LPSPI_SLAVE_DMA_BASEADDR     DMA1
 
-#define EXAMPLE_LPSPI_CLOCK_FREQ (CLOCK_GetFreqFromObs(CCM_OBS_LPSPI1_CLK_ROOT))
+#define EXAMPLE_LPSPI_CLOCK_FREQ (CLOCK_GetRootClockFreq(kCLOCK_Root_Lpspi1))
 #define TRANSFER_SIZE 64U /* Transfer dataSize */
 
 /*******************************************************************************

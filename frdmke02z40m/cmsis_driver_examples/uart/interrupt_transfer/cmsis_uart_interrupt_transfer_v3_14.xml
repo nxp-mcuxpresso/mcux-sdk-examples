@@ -14,6 +14,7 @@
     <definition extID="platform.drivers.port_ke02.MKE02Z4"/>
     <definition extID="platform.drivers.gpio_1.MKE02Z4"/>
     <definition extID="platform.utilities.misc_utilities.MKE02Z4"/>
+    <definition extID="utility.str.MKE02Z4"/>
     <definition extID="CMSIS_Driver_Include.USART.MKE02Z4"/>
     <definition extID="RTE_Device.MKE02Z4"/>
     <definition extID="CMSIS_Include_core_cm.MKE02Z4"/>
@@ -22,7 +23,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="frdmke02z40m_cmsis_uart_interrupt_transfer" name="cmsis_uart_interrupt_transfer" dependency="utility.debug_console_lite.MKE02Z4 platform.utilities.assert_lite.MKE02Z4 platform.drivers.clock.MKE02Z4 platform.drivers.uart.MKE02Z4 platform.drivers.uart_cmsis.MKE02Z4 platform.drivers.common.MKE02Z4 device.MKE02Z4_CMSIS.MKE02Z4 component.uart_adapter.MKE02Z4 component.lists.MKE02Z4 device.MKE02Z4_startup.MKE02Z4 platform.drivers.port_ke02.MKE02Z4 platform.drivers.gpio_1.MKE02Z4 platform.utilities.misc_utilities.MKE02Z4 CMSIS_Driver_Include.USART.MKE02Z4 RTE_Device.MKE02Z4 CMSIS_Include_core_cm.MKE02Z4 device.MKE02Z4_system.MKE02Z4" category="cmsis_driver_examples/uart">
+  <example id="frdmke02z40m_cmsis_uart_interrupt_transfer" name="cmsis_uart_interrupt_transfer" dependency="utility.debug_console_lite.MKE02Z4 platform.utilities.assert_lite.MKE02Z4 platform.drivers.clock.MKE02Z4 platform.drivers.uart.MKE02Z4 platform.drivers.uart_cmsis.MKE02Z4 platform.drivers.common.MKE02Z4 device.MKE02Z4_CMSIS.MKE02Z4 component.uart_adapter.MKE02Z4 component.lists.MKE02Z4 device.MKE02Z4_startup.MKE02Z4 platform.drivers.port_ke02.MKE02Z4 platform.drivers.gpio_1.MKE02Z4 platform.utilities.misc_utilities.MKE02Z4 utility.str.MKE02Z4 CMSIS_Driver_Include.USART.MKE02Z4 RTE_Device.MKE02Z4 CMSIS_Include_core_cm.MKE02Z4 device.MKE02Z4_system.MKE02Z4" category="cmsis_driver_examples/uart">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -47,7 +48,7 @@
           <value>com.crt.advproject.gcc.fpu.none</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

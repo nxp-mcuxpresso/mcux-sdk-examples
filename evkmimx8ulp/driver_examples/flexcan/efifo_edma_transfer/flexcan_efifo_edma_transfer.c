@@ -63,8 +63,10 @@ flexcan_handle_t flexcanHandle;
 flexcan_edma_handle_t flexcanEdmaHandle;
 edma_handle_t flexcanRxFifoEdmaHandle;
 flexcan_mb_transfer_t txXfer;
+flexcan_mb_transfer_t txXferCfg;
 flexcan_fifo_transfer_t rxFifoXfer;
 flexcan_fd_frame_t txFrame = {0};
+flexcan_fd_frame_t txFrameCfg = {0};
 AT_NONCACHEABLE_SECTION(flexcan_fd_frame_t rxFrame[RX_MESSAGE_COUNT]);
 /* Config fifo filters to make it accept std frame with ID 0x123 ~ 0x 126. */
 uint32_t rxEnFifoFilter[] = {FLEXCAN_ENHANCED_RX_FIFO_STD_MASK_AND_FILTER(0x123, 0, 0x3F, 0),
@@ -75,6 +77,83 @@ uint32_t rxEnFifoFilter[] = {FLEXCAN_ENHANCED_RX_FIFO_STD_MASK_AND_FILTER(0x123,
 /*******************************************************************************
  * Code
  ******************************************************************************/
+/*!
+ * @brief CAN transceiver configuration function
+ */
+static void FLEXCAN_PHY_Config(void)
+{
+#if (defined(USE_PHY_TJA1152) && USE_PHY_TJA1152)
+    /* Setup Tx Message Buffer. */
+    FLEXCAN_SetFDTxMbConfig(EXAMPLE_CAN, TX_MESSAGE_BUFFER_NUM, true);
+
+    /* Initialize TJA1152. */
+    /* STB=H, configuration CAN messages are expected from the local host via TXD pin. */
+    RGPIO_PortSet(EXAMPLE_STB_RGPIO, 1u << EXAMPLE_STB_RGPIO_PIN);   
+
+    /* Classical CAN messages with standard identifier 0x555 must be transmitted 
+     * by the local host controller until acknowledged by the TJA1152 for
+     * automatic bit rate detection. Do not set frame.brs = 1U to keep nominal
+     * bit rate in CANFD frame data phase. */
+    txFrameCfg.id     = FLEXCAN_ID_STD(0x555);
+    txFrameCfg.format = (uint8_t)kFLEXCAN_FrameFormatStandard;
+    txFrameCfg.type   = (uint8_t)kFLEXCAN_FrameTypeData;
+    txFrameCfg.length = 0U;
+    txXferCfg.mbIdx = (uint8_t)TX_MESSAGE_BUFFER_NUM;
+    txXferCfg.framefd = &txFrameCfg;
+    (void)FLEXCAN_TransferFDSendNonBlocking(EXAMPLE_CAN, &flexcanHandle, &txXferCfg);
+    while (!txComplete)
+    {
+    };
+    txComplete = false;
+
+    /* Configuration of spoofing protection. */
+    /* Add 0x123 to 0x126 to Transmission Whitelist. */
+    /* Set mask 0x007 to allow 0x123 to 0x126 transfer. */
+    txFrameCfg.id     = FLEXCAN_ID_EXT(0x18DA00F1);
+    txFrameCfg.format = (uint8_t)kFLEXCAN_FrameFormatExtend;
+    txFrameCfg.type   = (uint8_t)kFLEXCAN_FrameTypeData;
+    txFrameCfg.length = 6U;
+    txFrameCfg.dataWord[0] = CAN_WORD_DATA_BYTE_0(0x10) | CAN_WORD_DATA_BYTE_1(0x00) | CAN_WORD_DATA_BYTE_2(0x51) |
+                             CAN_WORD_DATA_BYTE_3(0x23);
+    txFrameCfg.dataWord[1] = CAN_WORD_DATA_BYTE_4(0x00) | CAN_WORD_DATA_BYTE_5(0x07);
+    (void)FLEXCAN_TransferFDSendNonBlocking(EXAMPLE_CAN, &flexcanHandle, &txXferCfg);
+    while (!txComplete)
+    {
+    };
+    txComplete = false;
+
+    /* Configuration of command message ID. */
+    /* Reconfiguration is only accepted locally. Keep CONFIG_ID as default value 0x18DA00F1. */
+    txFrameCfg.length = 5U;
+    txFrameCfg.dataWord[0] = CAN_WORD_DATA_BYTE_0(0x60) | CAN_WORD_DATA_BYTE_1(0x98) | CAN_WORD_DATA_BYTE_2(0xDA) |
+                             CAN_WORD_DATA_BYTE_3(0x00);
+    txFrameCfg.dataWord[1] = CAN_WORD_DATA_BYTE_4(0xF1);
+    (void)FLEXCAN_TransferFDSendNonBlocking(EXAMPLE_CAN, &flexcanHandle, &txXferCfg);
+    while (!txComplete)
+    {
+    };
+    txComplete = false;
+
+    /* Leaving configuration mode. */
+    /* Configuration into volatile memory only. */
+    txFrameCfg.length = 8U;
+    txFrameCfg.dataWord[0] = CAN_WORD_DATA_BYTE_0(0x71) | CAN_WORD_DATA_BYTE_1(0x02) | CAN_WORD_DATA_BYTE_2(0x03) |
+                             CAN_WORD_DATA_BYTE_3(0x04);
+    txFrameCfg.dataWord[1] = CAN_WORD_DATA_BYTE_4(0x05) | CAN_WORD_DATA_BYTE_5(0x06) | CAN_WORD_DATA_BYTE_6(0x07) |
+                             CAN_WORD_DATA_BYTE_7(0x08);
+    (void)FLEXCAN_TransferFDSendNonBlocking(EXAMPLE_CAN, &flexcanHandle, &txXferCfg);
+    while (!txComplete)
+    {
+    };
+    txComplete = false;
+
+    LOG_INFO("Initialize TJA1152 successfully!\r\n\r\n");
+
+    /* STB=L, TJA1152 switch from secure standby mode to normal mode. */
+    RGPIO_PortClear(EXAMPLE_STB_RGPIO, 1u << EXAMPLE_STB_RGPIO_PIN);
+    /* Initialize TJA1152 end. */
+#endif
+}
 
 /*!
  * @brief FlexCAN Call Back function
@@ -175,6 +254,8 @@ int main(void)
      */
     FLEXCAN_GetDefaultConfig(&flexcanConfig);
 
+    flexcanConfig.bitRate = 500000U;
+
 #if defined(EXAMPLE_CAN_CLK_SOURCE)
     flexcanConfig.clkSrc = EXAMPLE_CAN_CLK_SOURCE;
 #endif
@@ -236,6 +317,9 @@ int main(void)
          * edmaConfig.enableDebugMode = false;
          */
         EDMA_GetDefaultConfig(&edmaConfig);
+#if defined(BOARD_GetEDMAConfig)
+        BOARD_GetEDMAConfig(edmaConfig);
+#endif
         EDMA_Init(EXAMPLE_CAN_DMA, &edmaConfig);
 
         /* Create EDMA handle. */
@@ -268,6 +352,9 @@ int main(void)
 
     /* Create FlexCAN handle structure and set call back function. */
     FLEXCAN_TransferCreateHandle(EXAMPLE_CAN, &flexcanHandle, flexcan_callback, NULL);
+
+    /* Configure CAN transceiver */
+    FLEXCAN_PHY_Config();
 
     while (true)
     {

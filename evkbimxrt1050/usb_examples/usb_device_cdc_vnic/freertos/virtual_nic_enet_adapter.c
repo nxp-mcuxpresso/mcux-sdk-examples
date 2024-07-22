@@ -44,6 +44,7 @@ enet_err_t ENETIF_Output(pbuf_t *packetBuffer);
 uint32_t ENETIF_GetSpeed(void);
 bool ENETIF_GetLinkStatus(void);
 void VNIC_EnetRxBufFree(pbuf_t *pbuf);
+extern void USB_DeviceVnicTxEventSet(void);
 
 /*******************************************************************************
  * Variables
@@ -254,6 +255,7 @@ void VNIC_EnetCallback(pbuf_t *pbuffer)
     else
     {
         g_cdcVnic.nicTrafficInfo.enetRxEnet2usb++;
+        USB_DeviceVnicTxEventSet();
     }
     return;
 }

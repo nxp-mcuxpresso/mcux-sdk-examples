@@ -22,6 +22,7 @@
     <definition extID="component.usart_adapter.LPC55S69"/>
     <definition extID="component.lists.LPC55S69"/>
     <definition extID="platform.utilities.misc_utilities.LPC55S69"/>
+    <definition extID="utility.str.LPC55S69"/>
     <definition extID="CMSIS_Driver_Include.I2C.LPC55S69"/>
     <definition extID="RTE_Device.LPC55S69"/>
     <definition extID="platform.drivers.reset.LPC55S69"/>
@@ -31,7 +32,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="lpcxpresso55s69_cmsis_i2c_int_b2b_transfer_slave" name="cmsis_i2c_int_b2b_transfer_slave" device_core="cm33_core0_LPC55S69" dependency="utility.debug_console_lite.LPC55S69 platform.utilities.assert_lite.LPC55S69 platform.drivers.lpc_dma.LPC55S69 platform.drivers.flexcomm_i2c.LPC55S69 platform.drivers.flexcomm_i2c_dma.LPC55S69 platform.drivers.flexcomm_i2c_cmsis.LPC55S69 platform.drivers.common.LPC55S69 platform.drivers.clock.LPC55S69 platform.drivers.power.LPC55S69 platform.drivers.lpc_iocon.LPC55S69 platform.drivers.inputmux.LPC55S69 platform.drivers.inputmux_connections.LPC55S69 platform.devices.LPC55S69_CMSIS.LPC55S69 platform.devices.LPC55S69_startup.LPC55S69 platform.drivers.flexcomm_usart.LPC55S69 platform.drivers.flexcomm.LPC55S69 platform.drivers.lpc_gpio.LPC55S69 component.usart_adapter.LPC55S69 component.lists.LPC55S69 platform.utilities.misc_utilities.LPC55S69 CMSIS_Driver_Include.I2C.LPC55S69 RTE_Device.LPC55S69 platform.drivers.reset.LPC55S69 CMSIS_Include_core_cm.LPC55S69 platform.devices.LPC55S69_system.LPC55S69" category="cmsis_driver_examples/i2c">
+  <example id="lpcxpresso55s69_cmsis_i2c_int_b2b_transfer_slave" name="cmsis_i2c_int_b2b_transfer_slave" device_core="cm33_core0_LPC55S69" dependency="utility.debug_console_lite.LPC55S69 platform.utilities.assert_lite.LPC55S69 platform.drivers.lpc_dma.LPC55S69 platform.drivers.flexcomm_i2c.LPC55S69 platform.drivers.flexcomm_i2c_dma.LPC55S69 platform.drivers.flexcomm_i2c_cmsis.LPC55S69 platform.drivers.common.LPC55S69 platform.drivers.clock.LPC55S69 platform.drivers.power.LPC55S69 platform.drivers.lpc_iocon.LPC55S69 platform.drivers.inputmux.LPC55S69 platform.drivers.inputmux_connections.LPC55S69 platform.devices.LPC55S69_CMSIS.LPC55S69 platform.devices.LPC55S69_startup.LPC55S69 platform.drivers.flexcomm_usart.LPC55S69 platform.drivers.flexcomm.LPC55S69 platform.drivers.lpc_gpio.LPC55S69 component.usart_adapter.LPC55S69 component.lists.LPC55S69 platform.utilities.misc_utilities.LPC55S69 utility.str.LPC55S69 CMSIS_Driver_Include.I2C.LPC55S69 RTE_Device.LPC55S69 platform.drivers.reset.LPC55S69 CMSIS_Include_core_cm.LPC55S69 platform.devices.LPC55S69_system.LPC55S69" category="cmsis_driver_examples/i2c">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -54,7 +55,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

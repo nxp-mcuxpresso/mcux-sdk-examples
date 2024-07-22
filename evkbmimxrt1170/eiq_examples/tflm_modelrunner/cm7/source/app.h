@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 NXP
+ * Copyright 2022,2024 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -112,6 +112,17 @@ extern phy_rtl8211f_resource_t g_phy_resource;
  ******************************************************************************/
 /*${prototype:start}*/
 void BOARD_InitHardware(void);
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+int64_t getTime();
+int gethostname(char* name);
+
+#ifdef __cplusplus
+}
+#endif
 /*${prototype:end}*/
 
 #endif /* _APP_H_ */

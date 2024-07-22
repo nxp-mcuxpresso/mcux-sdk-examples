@@ -29,6 +29,7 @@
     <definition extID="platform.drivers.dcdc_soc.MIMXRT1166"/>
     <definition extID="platform.drivers.cache_lmem.MIMXRT1166"/>
     <definition extID="platform.utilities.misc_utilities.MIMXRT1166"/>
+    <definition extID="utility.str.MIMXRT1166"/>
     <definition extID="platform.drivers.anatop_ai.MIMXRT1166"/>
     <definition extID="platform.drivers.memory.MIMXRT1166"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT1166"/>
@@ -41,7 +42,7 @@
     <definition extID="com.nxp.mcuxpresso.core.debug.support.segger.debug"/>
     <definition extID="com.nxp.mcuxpresso.core.debug.support.segger.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt1160_sai_edma_record_playback_cm4" name="sai_edma_record_playback_cm4" device_core="cm4_MIMXRT1166xxxxx" dependency="platform.drivers.lpi2c.MIMXRT1166 driver.wm8960.MIMXRT1166 component.wm8960_adapter.MIMXRT1166 driver.codec.MIMXRT1166 component.lpi2c_adapter.MIMXRT1166 component.codec_i2c.MIMXRT1166 utility.debug_console_lite.MIMXRT1166 platform.utilities.assert_lite.MIMXRT1166 platform.drivers.clock.MIMXRT1166 platform.drivers.sai.MIMXRT1166 platform.drivers.sai_edma.MIMXRT1166 platform.drivers.dmamux.MIMXRT1166 platform.drivers.edma.MIMXRT1166 platform.drivers.common.MIMXRT1166 platform.devices.MIMXRT1166_CMSIS.MIMXRT1166 component.lpuart_adapter.MIMXRT1166 platform.drivers.lpuart.MIMXRT1166 component.lists.MIMXRT1166 platform.devices.MIMXRT1166_startup.MIMXRT1166 platform.drivers.iomuxc.MIMXRT1166 platform.drivers.igpio.MIMXRT1166 platform.drivers.xip_device.MIMXRT1166 platform.drivers.xip_board.evkmimxrt1160.MIMXRT1166 platform.drivers.pmu_1.MIMXRT1166 platform.drivers.dcdc_soc.MIMXRT1166 platform.drivers.cache_lmem.MIMXRT1166 platform.utilities.misc_utilities.MIMXRT1166 platform.drivers.anatop_ai.MIMXRT1166 platform.drivers.memory.MIMXRT1166 CMSIS_Include_core_cm.MIMXRT1166 platform.devices.MIMXRT1166_system.MIMXRT1166" category="driver_examples/sai">
+  <example id="evkmimxrt1160_sai_edma_record_playback_cm4" name="sai_edma_record_playback_cm4" device_core="cm4_MIMXRT1166xxxxx" dependency="platform.drivers.lpi2c.MIMXRT1166 driver.wm8960.MIMXRT1166 component.wm8960_adapter.MIMXRT1166 driver.codec.MIMXRT1166 component.lpi2c_adapter.MIMXRT1166 component.codec_i2c.MIMXRT1166 utility.debug_console_lite.MIMXRT1166 platform.utilities.assert_lite.MIMXRT1166 platform.drivers.clock.MIMXRT1166 platform.drivers.sai.MIMXRT1166 platform.drivers.sai_edma.MIMXRT1166 platform.drivers.dmamux.MIMXRT1166 platform.drivers.edma.MIMXRT1166 platform.drivers.common.MIMXRT1166 platform.devices.MIMXRT1166_CMSIS.MIMXRT1166 component.lpuart_adapter.MIMXRT1166 platform.drivers.lpuart.MIMXRT1166 component.lists.MIMXRT1166 platform.devices.MIMXRT1166_startup.MIMXRT1166 platform.drivers.iomuxc.MIMXRT1166 platform.drivers.igpio.MIMXRT1166 platform.drivers.xip_device.MIMXRT1166 platform.drivers.xip_board.evkmimxrt1160.MIMXRT1166 platform.drivers.pmu_1.MIMXRT1166 platform.drivers.dcdc_soc.MIMXRT1166 platform.drivers.cache_lmem.MIMXRT1166 platform.utilities.misc_utilities.MIMXRT1166 utility.str.MIMXRT1166 platform.drivers.anatop_ai.MIMXRT1166 platform.drivers.memory.MIMXRT1166 CMSIS_Include_core_cm.MIMXRT1166 platform.devices.MIMXRT1166_system.MIMXRT1166" category="driver_examples/sai">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -78,7 +79,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

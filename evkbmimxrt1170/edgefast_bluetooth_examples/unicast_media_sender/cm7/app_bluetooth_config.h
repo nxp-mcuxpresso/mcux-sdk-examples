@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 NXP
+ * Copyright 2023-2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -32,7 +32,13 @@
 #error The transceiver module is unsupported
 #endif
 
+#define CONFIG_BT_A2DP                  0
+#define CONFIG_BT_A2DP_SINK             0
+#if CONFIG_BT_A2DP_SINK
+#define CONFIG_BT_DEVICE_NAME           "a2dp_bridge"
+#else
 #define CONFIG_BT_DEVICE_NAME           "unicast_media_sender"
+#endif
 #define CONFIG_BT_DEVICE_NAME_DYNAMIC   1
 #define CONFIG_BT_SMP                   1
 #define CONFIG_BT_SETTINGS              0
@@ -40,12 +46,21 @@
 #define CONFIG_BT_KEYS_OVERWRITE_OLDEST 0
 #define CONFIG_BT_RX_STACK_SIZE         2200
 
+#if CONFIG_BT_A2DP_SINK
+#define CONFIG_BT_MAX_CONN              3
+#define CONFIG_BT_MAX_PAIRED            3
+#define CONFIG_BT_ID_MAX                3
+#else
 #define CONFIG_BT_MAX_CONN              2
 #define CONFIG_BT_MAX_PAIRED            2
 #define CONFIG_BT_ID_MAX                2
+#endif
 #define CONFIG_BT_L2CAP_TX_BUF_COUNT    12
 
 #define CONFIG_BT_CENTRAL     1
+#if CONFIG_BT_A2DP_SINK
+#define CONFIG_BT_PERIPHERAL  1
+#endif
 #define CONFIG_BT_EXT_ADV     1
 #define CONFIG_BT_PER_ADV     1
 
@@ -86,8 +101,12 @@
 /* MPL */
 #define CONFIG_BT_MPL 1
 
-/* The default frame duration is 10ms, below macro used to enable 7.5ms frame duration. */
-#define LE_AUDIO_FRAME_DURATION_7_5MS 0
+/* CSIP */
+#define CONFIG_BT_CSIP_SET_COORDINATOR 1
+#define CONFIG_BT_ATT_TX_COUNT 16
+#define CONFIG_LITTLE_ENDIAN 1
+
+#define LE_CONN_COUNT 2
 
 #define CONFIG_BT_HOST_USB_ENABLE     1
 #define CONFIG_BT_HOST_USB_IRQ_ENABLE 1

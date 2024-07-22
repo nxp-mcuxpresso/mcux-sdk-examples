@@ -173,6 +173,9 @@
 /*! @brief Whether the device charger detect feature is enabled or not. */
 #define USB_DEVICE_CONFIG_CHARGER_DETECT (0U)
 
+/*! @brief Whether the SOF interrupt is enabled or not. */
+#define USB_DEVICE_CONFIG_SOF_NOTIFICATIONS (0U)
+
 /* @} */
 
 #endif /* _USB_DEVICE_CONFIG_H_ */

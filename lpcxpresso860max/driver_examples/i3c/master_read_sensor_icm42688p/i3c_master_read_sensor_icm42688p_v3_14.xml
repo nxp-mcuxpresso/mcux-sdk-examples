@@ -20,6 +20,7 @@
     <definition extID="platform.drivers.lpc_iocon_lite.LPC865"/>
     <definition extID="platform.drivers.inputmux_connections.LPC865"/>
     <definition extID="platform.utilities.misc_utilities.LPC865"/>
+    <definition extID="utility.str.LPC865"/>
     <definition extID="component.i3c_bus.LPC865"/>
     <definition extID="component.lists.LPC865"/>
     <definition extID="platform.drivers.reset.LPC865"/>
@@ -31,7 +32,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="lpcxpresso860max_i3c_master_read_sensor_icm42688p" name="i3c_master_read_sensor_icm42688p" dependency="utility.debug_console_lite.LPC865 platform.utilities.assert_lite.LPC865 component.i3c_bus_adapter.LPC865 platform.drivers.i3c.LPC865 driver.icm42688p.LPC865 platform.drivers.common.LPC865 platform.drivers.clock.LPC865 platform.drivers.power_no_lib.LPC865 platform.drivers.lpc_gpio.LPC865 platform.drivers.inputmux.LPC865 platform.drivers.swm.LPC865 platform.drivers.syscon.LPC865 device.LPC865_CMSIS.LPC865 component.miniusart_adapter.LPC865 device.LPC865_startup.LPC865 platform.drivers.lpc_miniusart.LPC865 platform.drivers.lpc_iocon_lite.LPC865 platform.drivers.inputmux_connections.LPC865 platform.utilities.misc_utilities.LPC865 component.i3c_bus.LPC865 component.lists.LPC865 platform.drivers.reset.LPC865 platform.drivers.swm_connections.LPC865 platform.drivers.syscon_connections.LPC865 CMSIS_Include_core_cm.LPC865 device.LPC865_system.LPC865" category="driver_examples/i3c">
+  <example id="lpcxpresso860max_i3c_master_read_sensor_icm42688p" name="i3c_master_read_sensor_icm42688p" dependency="utility.debug_console_lite.LPC865 platform.utilities.assert_lite.LPC865 component.i3c_bus_adapter.LPC865 platform.drivers.i3c.LPC865 driver.icm42688p.LPC865 platform.drivers.common.LPC865 platform.drivers.clock.LPC865 platform.drivers.power_no_lib.LPC865 platform.drivers.lpc_gpio.LPC865 platform.drivers.inputmux.LPC865 platform.drivers.swm.LPC865 platform.drivers.syscon.LPC865 device.LPC865_CMSIS.LPC865 component.miniusart_adapter.LPC865 device.LPC865_startup.LPC865 platform.drivers.lpc_miniusart.LPC865 platform.drivers.lpc_iocon_lite.LPC865 platform.drivers.inputmux_connections.LPC865 platform.utilities.misc_utilities.LPC865 utility.str.LPC865 component.i3c_bus.LPC865 component.lists.LPC865 platform.drivers.reset.LPC865 platform.drivers.swm_connections.LPC865 platform.drivers.syscon_connections.LPC865 CMSIS_Include_core_cm.LPC865 device.LPC865_system.LPC865" category="driver_examples/i3c">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -55,7 +56,7 @@
           <value>com.crt.advproject.gcc.fpu.none</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

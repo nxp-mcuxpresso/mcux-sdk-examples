@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:examples xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd manifest.xsd">
+  <externalDefinitions>
+    <definition extID="middleware.freertos-kernel.cm33_non_trustzone.KW45B41Z83"/>
+    <definition extID="middleware.freertos-kernel.heap_4.KW45B41Z83"/>
+    <definition extID="component.lists.KW45B41Z83"/>
+    <definition extID="component.lpuart_adapter.KW45B41Z83"/>
+    <definition extID="component.serial_manager.KW45B41Z83"/>
+    <definition extID="component.serial_manager_uart.KW45B41Z83"/>
+    <definition extID="device.KW45B41Z83_CMSIS.KW45B41Z83"/>
+    <definition extID="platform.devices.KW45B41Z83.KW45B41Z83"/>
+    <definition extID="platform.drivers.ccm32k.KW45B41Z83"/>
+    <definition extID="platform.drivers.clock.KW45B41Z83"/>
+    <definition extID="platform.drivers.common.KW45B41Z83"/>
+    <definition extID="platform.drivers.gpio.KW45B41Z83"/>
+    <definition extID="platform.drivers.lpuart.KW45B41Z83"/>
+    <definition extID="platform.drivers.port.KW45B41Z83"/>
+    <definition extID="platform.drivers.spc.KW45B41Z83"/>
+    <definition extID="platform.utilities.assert.KW45B41Z83"/>
+    <definition extID="utility.debug_console.KW45B41Z83"/>
+    <definition extID="platform.utilities.misc_utilities.KW45B41Z83"/>
+    <definition extID="middleware.freertos-kernel.KW45B41Z83"/>
+    <definition extID="middleware.freertos-kernel.template.KW45B41Z83"/>
+    <definition extID="middleware.freertos-kernel.extension.KW45B41Z83"/>
+    <definition extID="CMSIS_Include_core_cm.KW45B41Z83"/>
+    <definition extID="device.KW45B41Z83_system.KW45B41Z83"/>
+    <definition extID="utility.str.KW45B41Z83"/>
+    <definition extID="armgcc"/>
+    <definition extID="mcuxpresso"/>
+    <definition extID="com.nxp.mcuxpresso"/>
+  </externalDefinitions>
+  <example id="kw45b41zevk_freertos_swtimer" name="freertos_swtimer" dependency="middleware.freertos-kernel.cm33_non_trustzone.KW45B41Z83 middleware.freertos-kernel.heap_4.KW45B41Z83 component.lists.KW45B41Z83 component.lpuart_adapter.KW45B41Z83 component.serial_manager.KW45B41Z83 component.serial_manager_uart.KW45B41Z83 device.KW45B41Z83_CMSIS.KW45B41Z83 platform.devices.KW45B41Z83.KW45B41Z83 platform.drivers.ccm32k.KW45B41Z83 platform.drivers.clock.KW45B41Z83 platform.drivers.common.KW45B41Z83 platform.drivers.gpio.KW45B41Z83 platform.drivers.lpuart.KW45B41Z83 platform.drivers.port.KW45B41Z83 platform.drivers.spc.KW45B41Z83 platform.utilities.assert.KW45B41Z83 utility.debug_console.KW45B41Z83 platform.utilities.misc_utilities.KW45B41Z83 middleware.freertos-kernel.KW45B41Z83 middleware.freertos-kernel.template.KW45B41Z83 middleware.freertos-kernel.extension.KW45B41Z83 CMSIS_Include_core_cm.KW45B41Z83 device.KW45B41Z83_system.KW45B41Z83 utility.str.KW45B41Z83" category="freertos_examples">
+    <projects>
+      <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
+    </projects>
+    <toolchainSettings>
+      <toolchainSetting id_refs="com.nxp.mcuxpresso">
+        <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
+          <value>CPU_KW45B41Z83AFTA</value>
+          <value>MCUXPRESSO_SDK</value>
+          <value>SERIAL_PORT_TYPE_UART=1</value>
+          <value>SDK_OS_FREE_RTOS</value>
+        </option>
+        <option id="com.crt.advproject.gas.fpu" type="enum">
+          <value>com.crt.advproject.gas.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="com.crt.advproject.gcc.fpu" type="enum">
+          <value>com.crt.advproject.gcc.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="gnu.c.compiler.option.optimization.flags" type="string">
+          <value>-fno-common</value>
+        </option>
+        <option id="com.crt.advproject.c.misc.dialect" type="enum">
+          <value>com.crt.advproject.misc.dialect.gnu99</value>
+        </option>
+        <option id="gnu.c.compiler.option.misc.other" type="string">
+          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -fno-builtin</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.toerrors" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="com.crt.advproject.link.fpu" type="enum">
+          <value>com.crt.advproject.link.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="gnu.c.link.option.nostdlibs" type="boolean">
+          <value>true</value>
+        </option>
+        <option id="gnu.c.link.option.other" type="stringList">
+          <value>-no-warn-rwx-segments</value>
+        </option>
+      </toolchainSetting>
+    </toolchainSettings>
+    <include_paths>
+      <include_path path="." project_relative_path="source" type="c_include"/>
+      <include_path path="." project_relative_path="board" type="c_include"/>
+      <include_path path="../.." project_relative_path="board" type="c_include"/>
+      <include_path path="." project_relative_path="source" type="asm_include"/>
+    </include_paths>
+    <source path="armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">
+      <files mask="build_all.bat"/>
+      <files mask="build_all.sh"/>
+      <files mask="clean.bat"/>
+      <files mask="clean.sh"/>
+      <files mask="CMakeLists.txt"/>
+      <files mask="flags.cmake"/>
+      <files mask="config.cmake"/>
+      <files mask="build_debug.bat"/>
+      <files mask="build_debug.sh"/>
+      <files mask="build_release.bat"/>
+      <files mask="build_release.sh"/>
+    </source>
+    <source path="../../../../core/devices/KW45B41Z83" project_relative_path="./" type="workspace" toolchain="armgcc">
+      <files mask="all_lib_device.cmake"/>
+    </source>
+    <source path="armgcc" project_relative_path="KW45B41Z83/gcc" type="linker" toolchain="armgcc">
+      <files mask="kw45b41z8_flash.ld"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include" config="true">
+      <files mask="FreeRTOSConfig.h"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="pin_mux.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="pin_mux.h"/>
+    </source>
+    <source path="." project_relative_path="source" type="src">
+      <files mask="freertos_swtimer.c"/>
+    </source>
+    <source path="../.." project_relative_path="board" type="src">
+      <files mask="board.c"/>
+      <files mask="clock_config.c"/>
+    </source>
+    <source path="../.." project_relative_path="board" type="c_include">
+      <files mask="board.h"/>
+      <files mask="clock_config.h"/>
+    </source>
+    <source path="." project_relative_path="doc" type="doc" toolchain="mcuxpresso armgcc">
+      <files mask="readme.md"/>
+    </source>
+  </example>
+</ksdk:examples>

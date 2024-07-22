@@ -24,6 +24,8 @@ int hw_codec_init(int sample_rate, int channels, int bits)
     status_t status;
     uint32_t mclk;
 
+    mclk = BOARD_SwitchAudioFreq(sample_rate);
+
     status = CODEC_Init(&codec_handle, &boardCodecConfig);
     if (kStatus_Success != status)
 	{
@@ -35,7 +37,6 @@ int hw_codec_init(int sample_rate, int channels, int bits)
         return HW_CODEC_ERROR;
     }
 
-    mclk = BOARD_SwitchAudioFreq(sample_rate);
     status = CODEC_SetFormat(&codec_handle, mclk, sample_rate, bits);
     if (kStatus_Success != status)
 	{

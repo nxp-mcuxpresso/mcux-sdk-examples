@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 NXP
+ * Copyright 2023-2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -8,6 +8,7 @@
 #include <porting.h>
 
 #include "bluetooth/conn.h"
+#include "bluetooth/audio/audio.h"
 #include "bluetooth/audio/bap.h"
 #include "bluetooth/audio/vcp.h"
 #include "bluetooth/audio/media_proxy.h"
@@ -28,6 +29,10 @@
 #define UNICAST_AUDIO_SYNC_MODE 1U
 #endif /* UNICAST_AUDIO_SYNC_MODE */
 
+#ifndef UNICAST_AUDIO_SRC_STREAM_COUNT
+#define UNICAST_AUDIO_SRC_STREAM_COUNT 1U
+#endif /* UNICAST_AUDIO_SRC_STREAM_COUNT */
+
 #if defined(UNICAST_AUDIO_SYNC_MODE) && (UNICAST_AUDIO_SYNC_MODE > 0)
 #include "srCvtFrm.h"
 /* Note: this include should be remove once audio api could get bt_iso_chan. */
@@ -35,16 +40,16 @@
 #include "audio/bap_iso.h"
 #endif /* UNICAST_AUDIO_SYNC_MODE */
 
-#ifndef UNICAST_AUDIO_SERVER_COUNT
-#define UNICAST_AUDIO_SERVER_COUNT 2U
-#endif /* UNICAST_AUDIO_SERVER_COUNT */
+#define UNICAST_AUDIO_SERVER_COUNT CONFIG_BT_MAX_CONN
 
 #define MAX_AUDIO_CHANNEL_COUNT     2U
 #define BITS_RATES_OF_SAMPLE        16U
 
+#define HW_CODEC_CHANNEL_COUNT      2U
+
 #define STREAM_RX_BUF_COUNT (CONFIG_BT_BAP_UNICAST_CLIENT_ASE_SRC_COUNT * 8U)
 
-#define STREAM_TX_BUF_COUNT (CONFIG_BT_BAP_UNICAST_CLIENT_ASE_SNK_COUNT * 4U)
+#define STREAM_TX_BUF_COUNT (CONFIG_BT_BAP_UNICAST_CLIENT_ASE_SNK_COUNT * 8U)
 
 typedef void (*codec_rx_callback_t)(uint8_t *rx_buffer);
 typedef void (*codec_tx_callback_t)(void);
@@ -72,6 +77,7 @@ struct stream_state
 struct lc3_encoder
 {
     LC3_ENCODER_CNTX encoder[MAX_AUDIO_CHANNEL_COUNT];
+    bool init[MAX_AUDIO_CHANNEL_COUNT];
     INT32* pcm_buf_list_in[MAX_AUDIO_CHANNEL_COUNT];
     UINT8* enc_buf_list_out[MAX_AUDIO_CHANNEL_COUNT];
     INT32 target_enc_bytes[MAX_AUDIO_CHANNEL_COUNT];
@@ -85,6 +91,7 @@ struct lc3_encoder
 struct lc3_decoder
 {
     LC3_DECODER_CNTX decoder[MAX_AUDIO_CHANNEL_COUNT];
+    bool init[MAX_AUDIO_CHANNEL_COUNT];
     UINT8* enc_buf_list_in[MAX_AUDIO_CHANNEL_COUNT];
     INT32* dec_buf_list_out[MAX_AUDIO_CHANNEL_COUNT];
     UINT8 enc_buf_in[MAX_AUDIO_CHANNEL_COUNT][LC3_FRAME_SIZE_MAX];
@@ -113,6 +120,7 @@ struct pacs_capability
     uint32_t channel_count;
     uint32_t pref_context;
     uint32_t context;
+    uint32_t channel_location;
 };
 
 struct sync_info
@@ -128,11 +136,15 @@ struct sync_status
 {
     uint64_t output_length;
     uint64_t received_length;
+    uint32_t received_count;
+
     uint32_t presentation_delay_us;
     volatile double resampler_added_samples;
 
     volatile uint32_t start_slot;
     volatile uint32_t current_slot;
+
+    uint32_t start_ts;
 
     int32_t mute_frame_samples;
     uint32_t mute_frame_duration_us;
@@ -149,6 +161,7 @@ struct sync_status
     volatile double output;
 };
 
+#if UNICAST_AUDIO_SYNC_MODE
 struct resampler_info
 {
     SrCvtFrmCfg_t upSrcCfg;
@@ -156,6 +169,7 @@ struct resampler_info
     int16_t out_buffer[2*(480 + 128)];
     uint32_t out_length;
 };
+#endif
 
 struct source_info
 {
@@ -194,6 +208,12 @@ struct conn_state
 #if (defined(UNICAST_AUDIO_SYNC_MODE) && (UNICAST_AUDIO_SYNC_MODE > 0))
     struct sync_info info;
 #endif /* UNICAST_AUDIO_SYNC_MODE */
+    struct codec_capability src_cap_required;
+    struct codec_capability snk_cap_required;
+    struct bt_bap_lc3_preset src_codec_configuration;
+    struct bt_bap_lc3_preset snk_codec_configuration;
+    uint32_t cis_tx;
+    uint32_t cis_rx;
 };
 
 struct ringtone_prime_work
@@ -202,6 +222,8 @@ struct ringtone_prime_work
     const uint8_t * pcm;
     size_t pcm_length;
     size_t prime_index;
+    uint8_t channel_count;
+    uint32_t iso_interval;
 };
 
 enum {
@@ -232,8 +254,7 @@ static void unicast_client_available_contexts(struct bt_conn *conn, enum bt_audi
 static void unicast_client_pac_record(struct bt_conn *conn, enum bt_audio_dir dir, const struct bt_audio_codec_cap *codec_cap);
 static void unicast_client_endpoint(struct bt_conn *conn, enum bt_audio_dir dir, struct bt_bap_ep *ep);
 
-static void unicast_client_discover_sink_callback(struct bt_conn *conn, int err, enum bt_audio_dir dir);
-static void unicast_client_discover_source_callback(struct bt_conn *conn, int err, enum bt_audio_dir dir);
+static void unicast_client_discover_callback(struct bt_conn *conn, int err, enum bt_audio_dir dir);
 static int unicast_client_discover_sink(struct bt_conn * conn);
 static int unicast_client_discover_source(struct bt_conn * conn);
 
@@ -250,12 +271,12 @@ static void unicast_client_stream_recv(struct bt_bap_stream *stream, const struc
 static void parse_pacs_capability(const struct bt_audio_codec_cap *codec_cap, struct pacs_capability *cap);
 static void get_capability_from_codec(const struct bt_audio_codec_cfg *codec_cfg, struct codec_capability *cap);
 static int capability_compare(struct codec_capability *required_cap, struct codec_capability *discovered_cap);
-static int pac_capability_compare(struct codec_capability *required_cap, struct pacs_capability *discovered_cap);
+static int pac_capability_compare(struct bt_bap_lc3_preset *codec_configuration, struct codec_capability *required_cap, struct pacs_capability *discovered_cap);
 
-static int unicast_client_lc3_encoder_init(struct lc3_encoder *encoder);
-static int unicast_client_lc3_decoder_init(struct lc3_decoder *decoder);
+static int unicast_client_lc3_encoder_init(struct conn_state *state, struct lc3_encoder *encoder);
+static int unicast_client_lc3_decoder_init(struct conn_state *state, struct lc3_decoder *decoder);
 
-static int lc3_encode_stream(struct bt_conn * conn, uint8_t *pcm, struct net_buf *buf);
+static int lc3_encode_stream(struct bt_conn * conn, uint8_t *pcm, uint32_t pcm_length, struct net_buf *buf, struct net_buf *buf2);
 static int stream_send_out(struct bt_conn * conn, struct net_buf *buf);
 
 static void ringtone_prime_timeout(struct k_work *work);
@@ -272,9 +293,6 @@ static void codec_tx_callback(void);
 
 static int lc3_decode_stream(struct bt_conn * conn, struct net_buf *buf, uint8_t *pcm);
 static void sink_recv_stream_task(void *param);
-
-static int bt_audio_codec_cfg_meta_set_val(struct bt_audio_codec_cfg *codec_cfg, uint8_t type,
-			       const uint8_t *data, size_t data_len);
 
 #if (defined(UNICAST_AUDIO_SYNC_MODE) && (UNICAST_AUDIO_SYNC_MODE > 0))
 extern void BOARD_SyncTimer_Init(void (*sync_timer_callback)(uint32_t sync_index, uint64_t bclk_count));
@@ -317,6 +335,7 @@ static struct bt_bap_unicast_client_cb unicast_client_callbacks = {
     .available_contexts = unicast_client_available_contexts,
     .pac_record = unicast_client_pac_record,
     .endpoint = unicast_client_endpoint,
+    .discover = unicast_client_discover_callback,
 };
 
 static struct bt_bap_unicast_group *unicast_group = NULL;
@@ -351,9 +370,6 @@ static struct bt_bap_stream_ops unicast_audio_stream_ops = {
 static struct bt_bap_lc3_preset codec_configuration = BT_BAP_LC3_UNICAST_PRESET_16_2_1(
     BT_AUDIO_LOCATION_FRONT_LEFT | BT_AUDIO_LOCATION_FRONT_RIGHT, BT_AUDIO_CONTEXT_TYPE_UNSPECIFIED);
 
-static struct codec_capability src_cap_required;
-static struct codec_capability snk_cap_required;
-
 static unicast_client_discover_done_callback_t discover_done;
 
 struct ringtone_prime_work ringtone_work;
@@ -371,17 +387,20 @@ NET_BUF_POOL_FIXED_DEFINE(rx_pool, STREAM_RX_BUF_COUNT,
 osa_msgq_handle_t rx_stream_queue;
 OSA_MSGQ_HANDLE_DEFINE(rx_stream_queue_handle, STREAM_RX_BUF_COUNT, sizeof(void *));
 
-volatile uint8_t sync_timer_started;
+static volatile uint8_t sync_timer_started;
 
 static volatile uint8_t ringtone_mode = BT_STREAM_RINGTONE_MODE_NONE;
 
 static volatile uint8_t voice_is_started = 0U;
+static volatile uint8_t voice_start_flag = 0U;
 
 static volatile uint8_t voice_is_hold = 0U;
 
 #if (defined(UNICAST_AUDIO_SYNC_MODE) && (UNICAST_AUDIO_SYNC_MODE > 0))
 volatile uint32_t current_sync_index;
 #endif /* UNICAST_AUDIO_SYNC_MODE */
+
+static volatile bool codec_start = false;
 
 /*******************************************************************************
  * Code
@@ -421,13 +440,6 @@ int unicast_audio_client_init(unicast_client_discover_done_callback_t callback)
     discover_done = callback;
 
     k_work_init_delayable(&ringtone_work.work, ringtone_prime_timeout);
-
-    PRINTF("Get required Source Capability from codec. ");
-    get_capability_from_codec(&codec_configuration.codec_cfg, &src_cap_required);
-    PRINTF("Get required Sink Capability from codec. ");
-    get_capability_from_codec(&codec_configuration.codec_cfg, &snk_cap_required);
-
-    codec_configuration.qos.sdu = codec_configuration.qos.sdu * src_cap_required.channel_count * src_cap_required.frame_blocks_per_sdu;
 
     bt_conn_cb_register(&conn_callbacks);
 
@@ -498,9 +510,16 @@ int unicast_client_create_group(void)
 
     for (uint32_t index = 0U; index < UNICAST_AUDIO_SERVER_COUNT; index++)
     {
+        if (params_count >= UNICAST_AUDIO_SERVER_COUNT)
+        {
+            break;
+        }
+        server_state[index].cis_tx = 0;
+        server_state[index].cis_rx = 0;
+
         if (NULL != server_state[index].conn)
         {
-            if ((0U == server_state[index].src_cap_support) || (0U == server_state[index].snk_cap_support))
+            if ((0U == server_state[index].src_cap_support) && (0U == server_state[index].snk_cap_support))
             {
                 continue;
             }
@@ -515,9 +534,10 @@ int unicast_client_create_group(void)
                     {
                         atomic_clear_bit(server_state[index].snk[dir_index].stream->flags, BT_STREAM_STATE_RELEASED);
                         stream_params[streams_count].stream = &server_state[index].snk[dir_index].stream->stream;
-                        stream_params[streams_count].qos = &codec_configuration.qos;
+                        stream_params[streams_count].qos = &server_state[index].snk_codec_configuration.qos;
                         pair_params[params_count].tx_param = &stream_params[streams_count];
                         streams_count++;
+                        server_state[index].cis_tx ++;
                     }
                 }
 
@@ -527,15 +547,20 @@ int unicast_client_create_group(void)
                     {
                         atomic_clear_bit(server_state[index].src[dir_index].stream->flags, BT_STREAM_STATE_RELEASED);
                         stream_params[streams_count].stream = &server_state[index].src[dir_index].stream->stream;
-                        stream_params[streams_count].qos = &codec_configuration.qos;
+                        stream_params[streams_count].qos = &server_state[index].src_codec_configuration.qos;
                         pair_params[params_count].rx_param = &stream_params[streams_count];
                         streams_count++;
+                        server_state[index].cis_rx ++;
                     }
                 }
 
                 if ((NULL != pair_params[params_count].tx_param) || (NULL != pair_params[params_count].rx_param))
                 {
                     params_count++;
+                    if (params_count >= UNICAST_AUDIO_SERVER_COUNT)
+                    {
+                        break;
+                    }
                 }
             }
         }
@@ -590,7 +615,7 @@ int unicast_client_release_streams(void)
     {
         if (NULL != server_state[index].conn)
         {
-            if ((0U == server_state[index].src_cap_support) || (0U == server_state[index].snk_cap_support))
+            if ((0U == server_state[index].src_cap_support) && (0U == server_state[index].snk_cap_support))
             {
                 continue;
             }
@@ -608,7 +633,7 @@ int unicast_client_release_streams(void)
                     err = bt_bap_stream_release(&state->src[ep_index].stream->stream);
                     if (0 != err)
                     {
-                        PRINTF("Fail to enable stream (err %d)\n", err);
+                        PRINTF("Fail to release stream (err %d)\n", err);
                         return err;
                     }
 
@@ -634,7 +659,7 @@ int unicast_client_release_streams(void)
                     err = bt_bap_stream_release(&state->snk[ep_index].stream->stream);
                     if (0 != err)
                     {
-                        PRINTF("Fail to enable stream (err %d)\n", err);
+                        PRINTF("Fail to release stream (err %d)\n", err);
                         return err;
                     }
 
@@ -656,7 +681,7 @@ int unicast_client_release_streams(void)
     {
         if (NULL != server_state[index].conn)
         {
-            if ((0U == server_state[index].src_cap_support) || (0U == server_state[index].snk_cap_support))
+            if ((0U == server_state[index].src_cap_support) && (0U == server_state[index].snk_cap_support))
             {
                 continue;
             }
@@ -698,17 +723,20 @@ int unicast_client_configure_streams(void)
     struct conn_state *state = NULL;
     int err = 0;
     osa_status_t osa_ret;
+    uint32_t loc;
+    uint32_t channel_location;
 
     for (uint32_t index = 0; index < ARRAY_SIZE(server_state); index++)
     {
         if (NULL != server_state[index].conn)
         {
-            if ((0U == server_state[index].src_cap_support) || (0U == server_state[index].snk_cap_support))
+            if ((0U == server_state[index].src_cap_support) && (0U == server_state[index].snk_cap_support))
             {
                 continue;
             }
 
             state = &server_state[index];
+            loc = state->src_pac.channel_location;
 
             for (uint32_t ep_index = 0U; ep_index < CONFIG_BT_BAP_UNICAST_CLIENT_ASE_SRC_COUNT; ep_index++)
             {
@@ -718,7 +746,33 @@ int unicast_client_configure_streams(void)
                 }
                 if (!atomic_test_bit(state->src[ep_index].stream->flags, BT_STREAM_STATE_CONFIGURED))
                 {
-                    err = bt_bap_stream_config(state->conn, &state->src[ep_index].stream->stream, state->src[ep_index].ep, &codec_configuration.codec_cfg);
+                    if (state->src_pac.channel_location != 0)
+                    {
+                        uint32_t loc_index = 0;
+                        for (; loc_index < (sizeof(loc) * 8); loc_index++)
+                        {
+                            if (loc & BIT(loc_index))
+                            {
+                                break;
+                            }
+                        }
+                        if (loc_index >= (sizeof(loc) * 8))
+                        {
+                            state->src[ep_index].stream = NULL;
+                            continue;
+                        }
+                        loc &= ~BIT(loc_index);
+                        channel_location = BIT(loc_index);
+                    }
+                    else
+                    {
+                        channel_location = 0;
+                    }
+
+                    bt_audio_codec_cfg_set_val(&state->src_codec_configuration.codec_cfg, BT_AUDIO_CODEC_CFG_CHAN_ALLOC, (uint8_t *)&channel_location, sizeof(channel_location));
+
+                    PRINTF("Config stream %p, ep %p\n", &state->src[ep_index].stream->stream, state->src[ep_index].ep);
+                    err = bt_bap_stream_config(state->conn, &state->src[ep_index].stream->stream, state->src[ep_index].ep, &state->src_codec_configuration.codec_cfg);
                     if (0 != err)
                     {
                         PRINTF("Fail to config stream (err %d)\n", err);
@@ -737,6 +791,8 @@ int unicast_client_configure_streams(void)
                 }
             }
 
+            loc = state->snk_pac.channel_location;
+
             for (uint32_t ep_index = 0U; ep_index < CONFIG_BT_BAP_UNICAST_CLIENT_ASE_SNK_COUNT; ep_index++)
             {
                 if ((NULL == state->snk[ep_index].stream) || (NULL == state->snk[ep_index].ep))
@@ -745,7 +801,32 @@ int unicast_client_configure_streams(void)
                 }
                 if(!atomic_test_bit(state->snk[ep_index].stream->flags, BT_STREAM_STATE_CONFIGURED))
                 {
-                    err = bt_bap_stream_config(state->conn, &state->snk[ep_index].stream->stream, state->snk[ep_index].ep, &codec_configuration.codec_cfg);
+                    if (state->snk_pac.channel_location != 0)
+                    {
+                        uint32_t loc_index = 0;
+                        for (; loc_index < (sizeof(loc) * 8); loc_index++)
+                        {
+                            if (loc & BIT(loc_index))
+                            {
+                                break;
+                            }
+                        }
+                        if (loc_index >= (sizeof(loc) * 8))
+                        {
+                            state->snk[ep_index].stream = NULL;
+                            continue;
+                        }
+                        loc &= ~BIT(loc_index);
+                        channel_location = BIT(loc_index);
+                    }
+                    else
+                    {
+                        channel_location = 0;
+                    }
+                    bt_audio_codec_cfg_set_val(&state->snk_codec_configuration.codec_cfg, BT_AUDIO_CODEC_CFG_CHAN_ALLOC, (uint8_t *)&channel_location, sizeof(channel_location));
+
+                    PRINTF("Config stream %p, ep %p\n", &state->snk[ep_index].stream->stream, state->snk[ep_index].ep);
+                    err = bt_bap_stream_config(state->conn, &state->snk[ep_index].stream->stream, state->snk[ep_index].ep, &state->snk_codec_configuration.codec_cfg);
                     if (0 != err)
                     {
                         PRINTF("Fail to config stream (err %d)\n", err);
@@ -784,7 +865,7 @@ int unicast_client_set_stream_qos(void)
     {
         if (NULL != server_state[index].conn)
         {
-            if ((0U == server_state[index].src_cap_support) || (0U == server_state[index].snk_cap_support))
+            if ((0U == server_state[index].src_cap_support) && (0U == server_state[index].snk_cap_support))
             {
                 continue;
             }
@@ -865,7 +946,7 @@ int unicast_client_enable_stream_unidirectional(uint8_t is_tx, uint16_t context)
     {
         if (NULL != server_state[index].conn)
         {
-            if ((0U == server_state[index].src_cap_support) || (0U == server_state[index].snk_cap_support))
+            if ((0U == server_state[index].src_cap_support) && (0U == server_state[index].snk_cap_support))
             {
                 continue;
             }
@@ -882,8 +963,8 @@ int unicast_client_enable_stream_unidirectional(uint8_t is_tx, uint16_t context)
                     }
                     if (!atomic_test_bit(state->src[ep_index].stream->flags, BT_STREAM_STATE_ENABLED))
                     {
-                        bt_audio_codec_cfg_meta_set_val(&codec_configuration.codec_cfg, BT_AUDIO_METADATA_TYPE_STREAM_CONTEXT, (uint8_t *)&context, sizeof(context));
-                        err = bt_bap_stream_enable(&state->src[ep_index].stream->stream, codec_configuration.codec_cfg.meta, codec_configuration.codec_cfg.meta_len);
+                        bt_audio_codec_cfg_meta_set_val(&state->src_codec_configuration.codec_cfg, BT_AUDIO_METADATA_TYPE_STREAM_CONTEXT, (uint8_t *)&context, sizeof(context));
+                        err = bt_bap_stream_enable(&state->src[ep_index].stream->stream, state->src_codec_configuration.codec_cfg.meta, state->src_codec_configuration.codec_cfg.meta_len);
                         if (0 != err)
                         {
                             PRINTF("Fail to enable stream (err %d)\n", err);
@@ -912,8 +993,8 @@ int unicast_client_enable_stream_unidirectional(uint8_t is_tx, uint16_t context)
                     }
                     if (!atomic_test_bit(state->snk[ep_index].stream->flags, BT_STREAM_STATE_ENABLED))
                     {
-                        bt_audio_codec_cfg_meta_set_val(&codec_configuration.codec_cfg, BT_AUDIO_METADATA_TYPE_STREAM_CONTEXT, (uint8_t *)&context, sizeof(context));
-                        err = bt_bap_stream_enable(&state->snk[ep_index].stream->stream, codec_configuration.codec_cfg.meta, codec_configuration.codec_cfg.meta_len);
+                        bt_audio_codec_cfg_meta_set_val(&state->snk_codec_configuration.codec_cfg, BT_AUDIO_METADATA_TYPE_STREAM_CONTEXT, (uint8_t *)&context, sizeof(context));
+                        err = bt_bap_stream_enable(&state->snk[ep_index].stream->stream, state->snk_codec_configuration.codec_cfg.meta, state->snk_codec_configuration.codec_cfg.meta_len);
                         if (0 != err)
                         {
                             PRINTF("Fail to enable stream (err %d)\n", err);
@@ -960,7 +1041,7 @@ int unicast_client_metadata_unidirectional(uint8_t is_tx, uint16_t context)
     {
         if (NULL != server_state[index].conn)
         {
-            if ((0U == server_state[index].src_cap_support) || (0U == server_state[index].snk_cap_support))
+            if ((0U == server_state[index].src_cap_support) && (0U == server_state[index].snk_cap_support))
             {
                 continue;
             }
@@ -976,11 +1057,11 @@ int unicast_client_metadata_unidirectional(uint8_t is_tx, uint16_t context)
                         continue;
                     }
 
-                    bt_audio_codec_cfg_meta_set_val(&codec_configuration.codec_cfg, BT_AUDIO_METADATA_TYPE_STREAM_CONTEXT, (uint8_t *)&context, sizeof(context));
-                    err = bt_bap_stream_metadata(&state->src[ep_index].stream->stream, codec_configuration.codec_cfg.meta, codec_configuration.codec_cfg.meta_len);
+                    bt_audio_codec_cfg_meta_set_val(&state->src_codec_configuration.codec_cfg, BT_AUDIO_METADATA_TYPE_STREAM_CONTEXT, (uint8_t *)&context, sizeof(context));
+                    err = bt_bap_stream_metadata(&state->src[ep_index].stream->stream, state->src_codec_configuration.codec_cfg.meta, state->src_codec_configuration.codec_cfg.meta_len);
                     if (0 != err)
                     {
-                        PRINTF("Fail to set stream metadata (err %d)\n", err);
+                        PRINTF("Fail to update stream metadata (err %d)\n", err);
                         return err;
                     }
                 }
@@ -994,11 +1075,11 @@ int unicast_client_metadata_unidirectional(uint8_t is_tx, uint16_t context)
                         continue;
                     }
 
-                    bt_audio_codec_cfg_meta_set_val(&codec_configuration.codec_cfg, BT_AUDIO_METADATA_TYPE_STREAM_CONTEXT, (uint8_t *)&context, sizeof(context));
-                    err = bt_bap_stream_metadata(&state->snk[ep_index].stream->stream, codec_configuration.codec_cfg.meta, codec_configuration.codec_cfg.meta_len);
+                    bt_audio_codec_cfg_meta_set_val(&state->snk_codec_configuration.codec_cfg, BT_AUDIO_METADATA_TYPE_STREAM_CONTEXT, (uint8_t *)&context, sizeof(context));
+                    err = bt_bap_stream_metadata(&state->snk[ep_index].stream->stream, state->snk_codec_configuration.codec_cfg.meta, state->snk_codec_configuration.codec_cfg.meta_len);
                     if (0 != err)
                     {
-                        PRINTF("Fail to set stream metadata (err %d)\n", err);
+                        PRINTF("Fail to update stream metadata (err %d)\n", err);
                         return err;
                     }
                 }
@@ -1109,140 +1190,25 @@ int unicast_client_disable_streams(void)
     return err;
 }
 
-static void init_net_buf_simple_from_codec_cfg_meta(struct net_buf_simple *buf,
-					       struct bt_audio_codec_cfg *codec_cfg)
-{
-	buf->__buf = codec_cfg->meta;
-	buf->data = codec_cfg->meta;
-	buf->size = sizeof(codec_cfg->meta);
-	buf->len = codec_cfg->meta_len;
-}
-
-static int bt_audio_codec_cfg_meta_set_val(struct bt_audio_codec_cfg *codec_cfg, uint8_t type,
-			       const uint8_t *data, size_t data_len)
-{
-	CHECKIF(codec_cfg == NULL) {
-		PRINTF("codec_cfg is NULL");
-		return -EINVAL;
-	}
-
-	CHECKIF(data == NULL) {
-		PRINTF("data is NULL");
-		return -EINVAL;
-	}
-
-	CHECKIF(data_len == 0U || data_len > UINT8_MAX) {
-		PRINTF("Invalid data_len %zu", data_len);
-		return -EINVAL;
-	}
-
-	for (uint16_t i = 0U; i < codec_cfg->meta_len;) {
-		uint8_t *len = &codec_cfg->meta[i++];
-		const uint8_t data_type = codec_cfg->meta[i++];
-		const uint8_t value_len = *len - sizeof(data_type);
-
-		if (data_type == type) {
-			uint8_t *value = &codec_cfg->meta[i];
-
-			if (data_len == value_len) {
-				memcpy(value, data, data_len);
-			} else {
-				const int16_t diff = data_len - value_len;
-				uint8_t *old_next_data_start;
-				uint8_t *new_next_data_start;
-				uint8_t data_len_to_move;
-
-				/* Check if this is the last value in the buffer */
-				if (value + value_len == codec_cfg->meta + codec_cfg->meta_len) {
-					data_len_to_move = 0U;
-				} else {
-					old_next_data_start = value + value_len + 1;
-					new_next_data_start = value + data_len + 1;
-					data_len_to_move = codec_cfg->meta_len -
-							   (old_next_data_start - codec_cfg->meta);
-				}
-
-				if (diff < 0) {
-					/* In this case we need to move memory around after the copy
-					 * to fit the new shorter data
-					 */
-
-					memcpy(value, data, data_len);
-					if (data_len_to_move > 0U) {
-						memmove(new_next_data_start, old_next_data_start,
-							data_len_to_move);
-					}
-				} else {
-					/* In this case we need to move memory around before
-					 * the copy to fit the new longer data
-					 */
-					if ((codec_cfg->meta_len + diff) >
-					    ARRAY_SIZE(codec_cfg->meta)) {
-						PRINTF("Cannot fit meta_len %zu in buf with len "
-							"%u and size %u",
-							data_len, codec_cfg->meta_len,
-							ARRAY_SIZE(codec_cfg->meta));
-						return -ENOMEM;
-					}
-
-					if (data_len_to_move > 0) {
-						memmove(new_next_data_start, old_next_data_start,
-							data_len_to_move);
-					}
-
-					memcpy(value, data, data_len);
-				}
-
-				codec_cfg->meta_len += diff;
-				*len += diff;
-			}
-
-			return codec_cfg->meta_len;
-		}
-
-		i += value_len;
-	}
-
-	/* If we reach here, we did not find the data in the buffer, so we simply add it */
-	if ((codec_cfg->meta_len + data_len) <= ARRAY_SIZE(codec_cfg->meta)) {
-		struct net_buf_simple buf;
-
-		init_net_buf_simple_from_codec_cfg_meta(&buf, codec_cfg);
-
-		net_buf_simple_add_u8(&buf, data_len + sizeof(type));
-		net_buf_simple_add_u8(&buf, type);
-		if (data_len > 0) {
-			net_buf_simple_add_mem(&buf, data, data_len);
-		}
-		codec_cfg->meta_len = buf.len;
-	} else {
-		PRINTF("Cannot fit meta %zu in codec_cfg with len %u and size %u", data_len,
-			codec_cfg->meta_len, ARRAY_SIZE(codec_cfg->meta));
-		return -ENOMEM;
-	}
-
-	return codec_cfg->meta_len;
-}
-
-static int unicast_client_lc3_decoder_init(struct lc3_decoder *decoder)
+static int unicast_client_lc3_decoder_init(struct conn_state *state, struct lc3_decoder *decoder)
 {
     int ret;
-    if (NULL == decoder)
+    if ((NULL == decoder) || (NULL == state))
     {
         return -EINVAL;
     }
 
-    for (uint32_t i = 0U; i < src_cap_required.channel_count; i++)
+    for (uint32_t i = 0U; i < state->src_cap_required.channel_count; i++)
     {
         decoder->enc_buf_list_in[i] = decoder->enc_buf_in[i];
         decoder->dec_buf_list_out[i] = decoder->dec_buf_out[i];
         ret = LC3_decoder_create
             (
                 &decoder->decoder[i],
-                src_cap_required.frequency,
+                state->src_cap_required.frequency,
                 BITS_RATES_OF_SAMPLE,
                 1,
-                src_cap_required.duration / 1000 * 10,
+                state->src_cap_required.duration / 1000 * 10,
                 0,
                 decoder->dec_core_buffer[i],
                 decoder->dec_work_buffer[i],
@@ -1254,12 +1220,16 @@ static int unicast_client_lc3_decoder_init(struct lc3_decoder *decoder)
             PRINTF("Failed to create lc3 decoder %d\n", ret);
             return -EIO;
         }
+        else
+        {
+            decoder->init[i] = true;
+        }
     }
 
     return 0;
 }
 
-static int unicast_client_lc3_encoder_init(struct lc3_encoder *encoder)
+static int unicast_client_lc3_encoder_init(struct conn_state *state, struct lc3_encoder *encoder)
 {
     int ret;
     if (NULL == encoder)
@@ -1267,19 +1237,19 @@ static int unicast_client_lc3_encoder_init(struct lc3_encoder *encoder)
         return -EINVAL;
     }
 
-    for (uint32_t i = 0U; i < snk_cap_required.channel_count; i++)
+    for (uint32_t i = 0U; i < state->snk_cap_required.channel_count; i++)
     {
         encoder->pcm_buf_list_in[i] = encoder->pcm_buf_in[i];
         encoder->enc_buf_list_out[i] = encoder->enc_buf_out[i];
-        encoder->target_enc_bytes[i] = snk_cap_required.frame_bytes;
+        encoder->target_enc_bytes[i] = state->snk_cap_required.frame_bytes;
 
         ret = LC3_encoder_create
             (
                 &encoder->encoder[i],
-                snk_cap_required.frequency,
+                state->snk_cap_required.frequency,
                 BITS_RATES_OF_SAMPLE,
                 1,
-                snk_cap_required.duration / 1000 * 10,
+                state->snk_cap_required.duration / 1000 * 10,
                 &encoder->target_enc_bytes[i],
                 encoder->enc_core_buffer[i],
                 encoder->enc_work_buffer[i],
@@ -1290,6 +1260,10 @@ static int unicast_client_lc3_encoder_init(struct lc3_encoder *encoder)
         {
             PRINTF("Failed to create lc3 encoder %d\n", ret);
             return -EIO;
+        }
+        else
+        {
+            encoder->init[i] = true;
         }
     }
     return 0;
@@ -1305,7 +1279,7 @@ int unicast_client_start_stream_unidirectional(uint8_t is_tx)
     {
         if (NULL != server_state[index].conn)
         {
-            if ((0U == server_state[index].src_cap_support) || (0U == server_state[index].snk_cap_support))
+            if ((0U == server_state[index].src_cap_support) && (0U == server_state[index].snk_cap_support))
             {
                 continue;
             }
@@ -1323,6 +1297,9 @@ int unicast_client_start_stream_unidirectional(uint8_t is_tx)
 
                     if (!atomic_test_bit(state->src[ep_index].stream->flags, BT_STREAM_STATE_STARTED))
                     {
+                        #if 0
+                        PRINTF("Start stream %p\n", &state->src[ep_index].stream->stream);
+                        #endif
                         err = bt_bap_stream_start(&state->src[ep_index].stream->stream);
                         if (0 != err)
                         {
@@ -1357,6 +1334,7 @@ int unicast_client_start_stream_unidirectional(uint8_t is_tx)
                     }
                     if (!atomic_test_bit(state->snk[ep_index].stream->flags, BT_STREAM_STATE_STARTED))
                     {
+                        PRINTF("Start stream %p\n", &state->snk[ep_index].stream->stream);
                         err = bt_bap_stream_start(&state->snk[ep_index].stream->stream);
                         if ((0 != err) && (-EBUSY != err))
                         {
@@ -1364,6 +1342,7 @@ int unicast_client_start_stream_unidirectional(uint8_t is_tx)
                         }
                         err = 0;
                     }
+
                 }
             }
         }
@@ -1565,7 +1544,28 @@ static float System_Sync_offset(int sample_rate)
 
     return us;
 }
+
+static uint32_t get_cig_sync_delay(struct conn_state * connect)
+{
+	struct bt_iso_info iso_info;
+
+	bt_iso_chan_get_info(&connect->snk[0].ep->iso->chan, &iso_info);
+
+	return iso_info.unicast.cig_sync_delay;
+}
 #endif /* UNICAST_AUDIO_SYNC_MODE */
+
+static uint32_t get_iso_interval(struct conn_state * connect)
+{
+	struct bt_iso_info iso_info;
+	uint32_t ISO_Interval_us;
+
+	bt_iso_chan_get_info(&connect->snk[0].ep->iso->chan, &iso_info);
+
+	ISO_Interval_us = iso_info.iso_interval * 1250;
+
+	return ISO_Interval_us;
+}
 
 volatile double channel_delta = 0.0;
 
@@ -1609,7 +1609,7 @@ static void sink_recv_stream_task(void *param)
             state = NULL;
             for (uint32_t index = 0; index < ARRAY_SIZE(server_state); index++)
             {
-                if (NULL != server_state[index].conn)
+                if ((NULL != server_state[index].conn) && (NULL != server_state[index].src[0].stream))
                 {
                     state = &server_state[index];
                     break;
@@ -1653,7 +1653,7 @@ static void sink_recv_stream_task(void *param)
 
 #if (defined(UNICAST_AUDIO_SYNC_MODE) && (UNICAST_AUDIO_SYNC_MODE > 0))
                 memcpy(&handled_sync_index_current, in, sizeof(handled_sync_index_current));
-#if 0
+                #if 0
                 if (handled_sync_index_current == handled_sync_index_last)
                 {
                     if ((!(handled_flag_last & BT_ISO_FLAGS_VALID)) && (!(flag & BT_ISO_FLAGS_VALID)))
@@ -1677,17 +1677,17 @@ static void sink_recv_stream_task(void *param)
                 resampler_internal_samples = 0;
 
                 update_delta = state->src[0].status.output;
-                float ideal_samples_per_frame = (src_cap_required.frequency * src_cap_required.duration / 1000000);
-                float actual_samples_per_frame = (src_cap_required.frequency * src_cap_required.duration / 1000000) - update_delta;
+                float ideal_samples_per_frame = (state->src_cap_required.frequency * state->src_cap_required.duration / 1000000);
+                float actual_samples_per_frame = (state->src_cap_required.frequency * state->src_cap_required.duration / 1000000) - update_delta;
                 update_delta = (ideal_samples_per_frame - actual_samples_per_frame) / ideal_samples_per_frame;
 #endif
-                for (int i = 0; i < src_cap_required.channel_count; i++)
+                for (int i = 0; i < state->src_cap_required.channel_count; i++)
                 {
-                    dec_byte_count[i] = src_cap_required.frame_bytes;
+                    dec_byte_count[i] = state->src_cap_required.frame_bytes;
 
                     if (0 != buf->len)
                     {
-                        memcpy(state->src[0].decoder->enc_buf_in[i], &in[i * src_cap_required.frame_bytes], src_cap_required.frame_bytes);
+                        memcpy(state->src[0].decoder->enc_buf_in[i], &in[i * state->src_cap_required.frame_bytes], state->src_cap_required.frame_bytes);
                         lc3_ret = LC3_decoder_process(&state->src[0].decoder->decoder[i], &flg_bfi[i], &dec_byte_count[i]);
                         if(lc3_ret != LC3_DECODER_SUCCESS)
                         {
@@ -1703,6 +1703,11 @@ static void sink_recv_stream_task(void *param)
                     OSA_ENTER_CRITICAL();
                     if (0 == state->src[0].status.start_slot)
                     {
+                        /* Get cig_sync_delay_us */
+                        state->info.cig_sync_delay_us = get_cig_sync_delay(state);
+                        /* Get iso_interval_us */
+                        state->info.iso_interval_us = get_iso_interval(state);
+
                         /* Resampler have 16 samples delay. */
                         state->src[0].status.system_delay_us = state->info.bits_pre_sample * state->info.sample_duration_us;
                         /* LC3 decode delay. 0 for default */
@@ -1710,15 +1715,16 @@ static void sink_recv_stream_task(void *param)
                         /* Addition delay */
                         state->src[0].status.system_delay_us += System_Sync_offset(state->info.sample_rate);
 
+                        state->src[0].status.start_ts = info->ts;
                         state->src[0].status.start_slot = (uint32_t)((info->ts + state->src[0].status.presentation_delay_us - state->src[0].status.system_delay_us - state->info.cig_sync_delay_us) / state->info.iso_interval_us);
                         state->src[0].status.mute_frame_duration_us = (uint32_t)((info->ts + state->src[0].status.presentation_delay_us) - (state->src[0].status.start_slot * state->info.iso_interval_us + state->info.cig_sync_delay_us + state->src[0].status.system_delay_us));
                         state->src[0].status.mute_frame_samples = (int)(state->src[0].status.mute_frame_duration_us / state->info.sample_duration_us);
                         state->src[0].status.sync_offset_us = state->src[0].status.mute_frame_duration_us - (state->src[0].status.mute_frame_samples * state->info.sample_duration_us);
 
-                        BOARD_PrimeTxWriteBuffer(NULL, state->src[0].status.mute_frame_samples * state->info.bits_pre_sample * src_cap_required.channel_count/ 8);
+                        BOARD_PrimeTxWriteBuffer(NULL, state->src[0].status.mute_frame_samples * state->info.bits_pre_sample * HW_CODEC_CHANNEL_COUNT/ 8);
 
                         update_delta_init = - (double)(state->src[0].status.sync_offset_us / state->info.sample_duration_us);
-                        for (int j = 0; j < src_cap_required.channel_count; j++)
+                        for (int j = 0; j < state->src_cap_required.channel_count; j++)
                         {
                             srCvtSetFrcSmpl(&state->src[0].resampler[j].upSrc, update_delta_init);
                         }
@@ -1730,7 +1736,7 @@ static void sink_recv_stream_task(void *param)
 
                     srCvtUpdateFreqOffset(&state->src[0].resampler[i].upSrc, update_delta);
 
-                    for (int j = 0; j < (src_cap_required.frequency * src_cap_required.duration / 1000000); j++)
+                    for (int j = 0; j < (state->src_cap_required.frequency * state->src_cap_required.duration / 1000000); j++)
                     {
                         state->src[0].in_buffer[j] = (int16_t)state->src[0].decoder->dec_buf_out[i][j];
                     }
@@ -1738,8 +1744,8 @@ static void sink_recv_stream_task(void *param)
                     state->src[0].resampler[i].out_length = upCvtFrm(&state->src[0].resampler[i].upSrc, state->src[0].in_buffer, state->src[0].resampler[i].out_buffer);
 
                     output_length += state->src[0].resampler[i].out_length;
-                    received_length += (src_cap_required.frequency * src_cap_required.duration / 1000000);
-                    resampler_added_samples += (double)state->src[0].resampler[i].out_length - (double)((double)src_cap_required.frequency * (double)src_cap_required.duration / 1000000.0);
+                    received_length += (state->src_cap_required.frequency * state->src_cap_required.duration / 1000000);
+                    resampler_added_samples += (double)state->src[0].resampler[i].out_length - (double)((double)state->src_cap_required.frequency * (double)state->src_cap_required.duration / 1000000.0);
                     resampler_internal_samples += srCvtGetFrcSmpl(&state->src[0].resampler[i].upSrc);
 #endif /* UNICAST_AUDIO_SYNC_MODE */
                 }
@@ -1750,38 +1756,60 @@ static void sink_recv_stream_task(void *param)
 
 #if (defined(UNICAST_AUDIO_SYNC_MODE) && (UNICAST_AUDIO_SYNC_MODE > 0))
                 OSA_ENTER_CRITICAL();
-                state->src[0].status.output_length += output_length;
-                state->src[0].status.received_length += received_length;
-                state->src[0].status.resampler_added_samples += resampler_added_samples;
-                state->src[0].status.resampler_internal_samples = resampler_internal_samples;
+                state->src[0].status.output_length += (output_length/state->src_cap_required.channel_count) * HW_CODEC_CHANNEL_COUNT;
+                state->src[0].status.received_length += (received_length/state->src_cap_required.channel_count) * HW_CODEC_CHANNEL_COUNT;
+                state->src[0].status.received_count++;
+                state->src[0].status.resampler_added_samples += (resampler_added_samples/state->src_cap_required.channel_count) * HW_CODEC_CHANNEL_COUNT;
+                state->src[0].status.resampler_internal_samples = (resampler_internal_samples/state->src_cap_required.channel_count) * HW_CODEC_CHANNEL_COUNT;
                 OSA_EXIT_CRITICAL();
 
                 channel_delta = state->src[0].resampler[0].out_length - state->src[0].resampler[1].out_length;
 
-                tx_len = MIN(state->src[0].resampler[0].out_length, state->src[0].resampler[1].out_length);
+                if ((state->src[0].resampler[0].out_length > 0) && (state->src[0].resampler[1].out_length > 0))
+                {
+                    tx_len = MIN(state->src[0].resampler[0].out_length, state->src[0].resampler[1].out_length);
+                }
+                else
+                {
+                    tx_len = MAX(state->src[0].resampler[0].out_length, state->src[0].resampler[1].out_length);
+                }
                 for (int j = 0; j < tx_len; j++)
                 {
-                    for(int i = 0; i < src_cap_required.channel_count; i++)
+                    for(int i = 0; i < HW_CODEC_CHANNEL_COUNT; i++)
                     {
-                        pcm[j * src_cap_required.channel_count + i] = (int16_t)state->src[0].resampler[i].out_buffer[j];
+                        if (state->src_cap_required.channel_count < HW_CODEC_CHANNEL_COUNT)
+                        {
+                            pcm[j * HW_CODEC_CHANNEL_COUNT + i] = (int16_t)state->src[0].resampler[0].out_buffer[j];
+                        }
+                        else
+                        {
+                            pcm[j * HW_CODEC_CHANNEL_COUNT + i] = (int16_t)state->src[0].resampler[i].out_buffer[j];
+                        }
                     }
                 }
-                tx_len = tx_len * src_cap_required.channel_count * state->info.bits_pre_sample / 8;
+                tx_len = tx_len * HW_CODEC_CHANNEL_COUNT * state->info.bits_pre_sample / 8;
 
 #if 0
                 PRINTF("slot %d ts %d seq %d flag %d p %d\n", state->src[0].status.current_slot, ts, seq, flag, tx_len);
 #endif
 
 #else /* UNICAST_AUDIO_SYNC_MODE */
-                tx_len = (src_cap_required.frequency * src_cap_required.duration / 1000000);
+                tx_len = (state->src_cap_required.frequency * state->src_cap_required.duration / 1000000);
                 for (int j = 0; j < tx_len; j++)
                 {
-                    for(int i = 0; i < src_cap_required.channel_count; i++)
+                    for(int i = 0; i < HW_CODEC_CHANNEL_COUNT; i++)
                     {
-                        pcm[j * src_cap_required.channel_count + i] = (int16_t)state->src[0].decoder->dec_buf_out[i][j];
+                        if (state->src_cap_required.channel_count < HW_CODEC_CHANNEL_COUNT)
+                        {
+                            pcm[j * HW_CODEC_CHANNEL_COUNT + i] = (int16_t)state->src[0].decoder->dec_buf_out[0][j];
+                        }
+                        else
+                        {
+                            pcm[j * HW_CODEC_CHANNEL_COUNT + i] = (int16_t)state->src[0].decoder->dec_buf_out[i][j];
+                        }
                     }
                 }
-                tx_len = tx_len * src_cap_required.channel_count * BITS_RATES_OF_SAMPLE / 8;
+                tx_len = tx_len * HW_CODEC_CHANNEL_COUNT * BITS_RATES_OF_SAMPLE / 8;
 #endif /* UNICAST_AUDIO_SYNC_MODE */
             }
 #if 1
@@ -1794,21 +1822,50 @@ static void sink_recv_stream_task(void *param)
             }
             else
             {
-                net_buf_unref(buf);
-                tx_len = (src_cap_required.frequency * src_cap_required.duration / 1000000);
-                tx_len = tx_len * src_cap_required.channel_count * BITS_RATES_OF_SAMPLE / 8;
                 BOARD_PrimeTxWriteBuffer(NULL, tx_len);
             }
         }
     }
 }
 
+static bool source_connect_ready(void)
+{
+    for (uint32_t index = 0; index < ARRAY_SIZE(server_state); index++)
+    {
+        if ((NULL != server_state[index].conn) && (NULL != server_state[index].snk[0].stream))
+        {
+            if (!atomic_test_bit(server_state[index].snk[0].stream->flags, BT_STREAM_STATE_STARTED))
+            {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+static uint32_t source_connect_count(void)
+{
+    uint32_t count = 0;
+    for (uint32_t index = 0; index < ARRAY_SIZE(server_state); index++)
+    {
+        if (NULL != server_state[index].conn)
+        {
+            count++;
+        }
+    }
+    return count;
+}
+
 static void source_send_stream_task(void *param)
 {
     struct net_buf *buf;
+    struct net_buf *buf2;
     uint8_t * buffer = NULL;
     osa_status_t ret;
+    uint32_t len;
     int err;
+    uint32_t cis_count;
+    uint32_t index;
 
     while (true)
     {
@@ -1819,43 +1876,129 @@ static void source_send_stream_task(void *param)
             {
                 continue;
             }
+
+            if (source_connect_ready() == false)
+            {
+                net_buf_unref(buf);
+                continue;
+            }
+
+            cis_count = source_connect_count();
+
+            buf2 = NULL;
+            if (cis_count > 1)
+            {
+                buf2 = net_buf_alloc(&tx_pool, 0U);
+                if (NULL == buf2)
+                {
+                    net_buf_unref(buf);
+                    continue;
+                }
+            }
+
+            len = buf->len;
             buf->len = 0;
             buffer = buf->data;
             net_buf_reserve(buf, BT_ISO_CHAN_SEND_RESERVE);
-            err = lc3_encode_stream(NULL, buffer, buf);
+            if (buf2 != NULL)
+            {
+                net_buf_reserve(buf2, BT_ISO_CHAN_SEND_RESERVE);
+            }
+            err = lc3_encode_stream(NULL, buffer, len, buf, buf2);
             if (err < 0)
             {
                 net_buf_unref(buf);
+                if (buf2 != NULL)
+                {
+                    net_buf_unref(buf2);
+                }
                 continue;
             }
+
             if (0 != voice_is_hold)
             {
                 buf->len = 0;
+                if (buf2 != NULL)
+                {
+                    buf2->len = 0;
+                }
             }
-            err = stream_send_out(NULL, buf);
-            if (err < 0)
+
+            for (index = 0; index < ARRAY_SIZE(server_state); index++)
+            {
+                if (NULL != server_state[index].conn)
+                {
+                    err = stream_send_out(server_state[index].conn, buf);
+                    if (err < 0)
+                    {
+                        net_buf_unref(buf);
+                        break;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+            if (index >= ARRAY_SIZE(server_state))
             {
                 net_buf_unref(buf);
-                continue;
+            }
+            if (NULL != buf2)
+            {
+                for (index = index + 1; index < ARRAY_SIZE(server_state); index++)
+                {
+                    if (NULL != server_state[index].conn)
+                    {
+                        err = stream_send_out(server_state[index].conn, buf2);
+                        if (err < 0)
+                        {
+                            net_buf_unref(buf2);
+                            break;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                }
+                if (index >= ARRAY_SIZE(server_state))
+                {
+                    net_buf_unref(buf2);
+                }
             }
         }
     }
 }
 
-static void ringtone_prime_timeout(struct k_work *work)
+static void ringtone_prime_data(struct ringtone_prime_work *ring)
 {
-    struct ringtone_prime_work *ring = CONTAINER_OF(work, struct ringtone_prime_work, work);
     struct net_buf *buf;
     size_t tx_len = 0;
     osa_status_t ret;
+    struct conn_state *state = NULL;
 
-    if (BT_STREAM_RINGTONE_MODE_REMOTE == ringtone_mode)
+    if ((ring == NULL) || (ring->pcm == NULL))
     {
-        k_work_schedule(&ring->work, BT_MSEC(1));
+        return;
     }
-    else
+
+    if (BT_STREAM_RINGTONE_MODE_REMOTE != ringtone_mode)
     {
-        k_work_cancel_delayable(&ring->work);
+        return;
+    }
+
+    for (uint32_t index = 0; index < ARRAY_SIZE(server_state); index++)
+    {
+        if (NULL != server_state[index].conn)
+        {
+            state = &server_state[index];
+            break;
+        }
+    }
+
+    if (state == NULL)
+    {
         return;
     }
 
@@ -1866,7 +2009,7 @@ static void ringtone_prime_timeout(struct k_work *work)
         {
             break;
         }
-        tx_len = snk_cap_required.channel_count * (snk_cap_required.frequency * snk_cap_required.duration * BITS_RATES_OF_SAMPLE / 8000000) * snk_cap_required.frame_blocks_per_sdu;
+        tx_len = ring->channel_count * (state->snk_cap_required.frequency * state->snk_cap_required.duration * BITS_RATES_OF_SAMPLE / 8000000) * state->snk_cap_required.frame_blocks_per_sdu;
         if ((ring->prime_index + tx_len) > ring->pcm_length)
         {
             ring->prime_index = 0U;
@@ -1883,35 +2026,59 @@ static void ringtone_prime_timeout(struct k_work *work)
             ring->prime_index = ring->prime_index + tx_len;
         }
         buf = NULL;
-    } while (true);
+    } while (false);
+}
+
+static void ringtone_prime_timeout(struct k_work *work)
+{
+    struct ringtone_prime_work *ring = CONTAINER_OF(work, struct ringtone_prime_work, work);
+
+    if (BT_STREAM_RINGTONE_MODE_REMOTE == ringtone_mode)
+    {
+        k_work_schedule(&ring->work, BT_MSEC(ring->iso_interval));
+    }
+    else
+    {
+        k_work_cancel_delayable(&ring->work);
+        return;
+    }
+
+    ringtone_prime_data(ring);
 }
 
 int unicast_client_start_voice(void)
 {
     struct conn_state *state = NULL;
+    OSA_SR_ALLOC();
 
     for (uint32_t index = 0; index < ARRAY_SIZE(server_state); index++)
     {
         if ((NULL != server_state[index].conn))
         {
             state = &server_state[index];
-            break;
+            if (0 == (state->snk_pac.context & BT_AUDIO_CONTEXT_TYPE_CONVERSATIONAL))
+            {
+                return -1;
+            }
         }
     }
 
-    if (0 == (state->snk_pac.context & BT_AUDIO_CONTEXT_TYPE_CONVERSATIONAL))
-    {
-        return -1;
-    }
-
     voice_is_started = 1U;
+    OSA_ENTER_CRITICAL();
+    voice_start_flag = 1U;
+    OSA_EXIT_CRITICAL();
 
     return 0;
 }
 
 int unicast_client_stop_voice(void)
 {
+    OSA_SR_ALLOC();
+
     voice_is_started = 0U;
+    OSA_ENTER_CRITICAL();
+    voice_start_flag = 0U;
+    OSA_EXIT_CRITICAL();
 
     return 0;
 }
@@ -1925,12 +2092,137 @@ int unicast_client_hold(void)
 
 int unicast_client_retrieve(void)
 {
+#if 1
+    struct bt_conn *conn;
+    struct stream_state *src_stream[CONFIG_BT_BAP_UNICAST_CLIENT_ASE_SRC_COUNT];
+    struct bt_bap_ep *src_ep[CONFIG_BT_BAP_UNICAST_CLIENT_ASE_SRC_COUNT];
+    struct lc3_decoder *decoder[CONFIG_BT_BAP_UNICAST_CLIENT_ASE_SRC_COUNT];
+    struct stream_state *snk_stream[CONFIG_BT_BAP_UNICAST_CLIENT_ASE_SNK_COUNT];
+    struct bt_bap_ep *snk_ep[CONFIG_BT_BAP_UNICAST_CLIENT_ASE_SNK_COUNT];
+    struct lc3_encoder *encoder[CONFIG_BT_BAP_UNICAST_CLIENT_ASE_SNK_COUNT];
+    uint8_t src_cap_support;
+    uint8_t snk_cap_support;
+    struct pacs_capability src_pac;
+    struct pacs_capability snk_pac;
+    struct codec_capability src_cap_required;
+    struct codec_capability snk_cap_required;
+    struct bt_bap_lc3_preset src_codec_configuration;
+    struct bt_bap_lc3_preset snk_codec_configuration;
+#endif
+
     voice_is_hold = 0U;
+
+    for (uint32_t i = 0; i < UNICAST_AUDIO_SERVER_COUNT; i++)
+    {
+        if (server_state[i].conn == NULL)
+        {
+            return 0;
+        }
+    }
+
+    if (0 == (server_state[0].src_pac.channel_location & BT_AUDIO_LOCATION_FRONT_LEFT))
+    {
+        PRINTF("The first channel is not left\n");
+
+#if 1
+        conn = server_state[0].conn;
+
+        for (uint32_t i = 0; i < CONFIG_BT_BAP_UNICAST_CLIENT_ASE_SRC_COUNT; i++)
+        {
+            src_stream[i] = server_state[0].src[i].stream;
+            src_ep[i] = server_state[0].src[i].ep;
+            decoder[i] = server_state[0].src[i].decoder;
+        }
+
+        for (uint32_t i = 0; i < CONFIG_BT_BAP_UNICAST_CLIENT_ASE_SNK_COUNT; i++)
+        {
+            snk_stream[i] = server_state[0].snk[i].stream;
+            snk_ep[i] = server_state[0].snk[i].ep;
+            encoder[i] = server_state[0].snk[i].encoder;
+        }
+
+        src_cap_support = server_state[0].src_cap_support;
+        snk_cap_support = server_state[0].snk_cap_support;
+        src_pac = server_state[0].src_pac;
+        snk_pac = server_state[0].snk_pac;
+        src_cap_required = server_state[0].src_cap_required;
+        snk_cap_required = server_state[0].snk_cap_required;
+        src_codec_configuration = server_state[0].src_codec_configuration;
+        snk_codec_configuration = server_state[0].snk_codec_configuration;
+
+        for (uint32_t i = 1; i < UNICAST_AUDIO_SERVER_COUNT; i++)
+        {
+            memcpy(&server_state[i - 1], &server_state[i], sizeof(server_state[i]));
+        }
+
+        server_state[UNICAST_AUDIO_SERVER_COUNT - 1].conn = conn;
+
+        for (uint32_t i = 0; i < CONFIG_BT_BAP_UNICAST_CLIENT_ASE_SRC_COUNT; i++)
+        {
+            server_state[UNICAST_AUDIO_SERVER_COUNT - 1].src[i].stream = src_stream[i];
+            server_state[UNICAST_AUDIO_SERVER_COUNT - 1].src[i].ep = src_ep[i];
+            server_state[UNICAST_AUDIO_SERVER_COUNT - 1].src[i].decoder = decoder[i];
+        }
+
+        for (uint32_t i = 0; i < CONFIG_BT_BAP_UNICAST_CLIENT_ASE_SNK_COUNT; i++)
+        {
+            server_state[UNICAST_AUDIO_SERVER_COUNT - 1].snk[i].stream = snk_stream[i];
+            server_state[UNICAST_AUDIO_SERVER_COUNT - 1].snk[i].ep = snk_ep[i];
+            server_state[UNICAST_AUDIO_SERVER_COUNT - 1].snk[i].encoder = encoder[i];
+        }
+
+        server_state[UNICAST_AUDIO_SERVER_COUNT - 1].src_cap_support = src_cap_support;
+        server_state[UNICAST_AUDIO_SERVER_COUNT - 1].snk_cap_support = snk_cap_support;
+        server_state[UNICAST_AUDIO_SERVER_COUNT - 1].src_pac = src_pac;
+        server_state[UNICAST_AUDIO_SERVER_COUNT - 1].snk_pac = snk_pac;
+        server_state[UNICAST_AUDIO_SERVER_COUNT - 1].src_cap_required = src_cap_required;
+        server_state[UNICAST_AUDIO_SERVER_COUNT - 1].snk_cap_required = snk_cap_required;
+        server_state[UNICAST_AUDIO_SERVER_COUNT - 1].src_codec_configuration = src_codec_configuration;
+        server_state[UNICAST_AUDIO_SERVER_COUNT - 1].snk_codec_configuration = snk_codec_configuration;
+
+        PRINTF("Changed the channel location\n");
+#endif
+    }
+
+    if (server_state[0].src[0].ep != NULL)
+    {
+        for (uint32_t i = 1; i < UNICAST_AUDIO_SERVER_COUNT; i++)
+        {
+            if (server_state[i].conn != NULL)
+            {
+                for (uint32_t j = 0; j < CONFIG_BT_BAP_UNICAST_CLIENT_ASE_SRC_COUNT; j++)
+                {
+                    PRINTF("Clear other sources, stream %p, ep %p\n", server_state[i].src[j].stream, server_state[i].src[j].ep);
+                    if (server_state[i].src[j].stream != NULL)
+                    {
+                        if (NULL != server_state[i].src[j].stream->sem)
+                        {
+                            (void)OSA_SemaphoreDestroy(server_state[i].src[j].stream->sem);
+                            server_state[i].src[j].stream->sem = NULL;
+                        }
+                        bt_fifo_put(&free_streams, server_state[i].src[j].stream);
+                        server_state[i].src[j].stream = NULL;
+                    }
+
+                    if (server_state[i].src[j].decoder != NULL)
+                    {
+                        bt_fifo_put(&free_decoders, server_state[i].src[j].decoder);
+                        server_state[i].src[j].decoder = NULL;
+                    }
+
+                    if (server_state[i].src[j].ep != NULL)
+                    {
+                        server_state[i].src[j].ep = NULL;
+                    }
+                }
+            }
+        }
+    }
 
     return 0;
 }
 
-int unicast_client_start_ringtone(const uint8_t *pcm, size_t pcm_length)
+int unicast_client_start_ringtone(const uint8_t *pcm, size_t pcm_length, uint8_t channel_count)
 {
     struct conn_state *state = NULL;
 
@@ -1946,8 +2238,10 @@ int unicast_client_start_ringtone(const uint8_t *pcm, size_t pcm_length)
     k_work_cancel_delayable(&ringtone_work.work);
 
     ringtone_work.pcm = pcm;
+    ringtone_work.channel_count = channel_count;
     ringtone_work.pcm_length = pcm_length;
     ringtone_work.prime_index = 0;
+    ringtone_work.iso_interval = get_iso_interval(state)/1000;
 
     if (state->snk_pac.context & BT_AUDIO_CONTEXT_TYPE_RINGTONE)
     {
@@ -1975,12 +2269,20 @@ int unicast_client_stop_ringtone(void)
     return 0;
 }
 
-static int lc3_encode_stream(struct bt_conn * conn, uint8_t *pcm, struct net_buf *buf)
+static int lc3_encode_stream(struct bt_conn * conn, uint8_t *pcm, uint32_t pcm_length, struct net_buf *buf, struct net_buf *buf2)
 {
     int16_t *p = (int16_t *)pcm;
     struct conn_state *state = NULL;
     uint8_t * out;
+    uint8_t * out2;
+    uint32_t channel_count;
     int lc3_ret;
+    LC3_ENCODER_CNTX *encoder_cntx[UNICAST_AUDIO_SERVER_COUNT];
+    struct lc3_encoder *encoder[UNICAST_AUDIO_SERVER_COUNT];
+    int err;
+
+    memset(encoder, 0, sizeof(encoder));
+    memset(encoder_cntx, 0, sizeof(encoder_cntx));
 
     for (uint32_t index = 0; index < ARRAY_SIZE(server_state); index++)
     {
@@ -2001,40 +2303,117 @@ static int lc3_encode_stream(struct bt_conn * conn, uint8_t *pcm, struct net_buf
         return -EINVAL;
     }
 
-    if (!atomic_test_bit(state->snk[0].stream->flags, BT_STREAM_STATE_STARTED))
+    if (buf2 != NULL)
     {
-        return -EINVAL;
+        for (uint32_t index = 0; index < ARRAY_SIZE(server_state); index++)
+        {
+            if ((NULL != server_state[index].conn) && (NULL != server_state[index].snk[0].encoder))
+            {
+                if (server_state[index].snk[0].encoder->init[0])
+                {
+                    encoder_cntx[index] = &server_state[index].snk[0].encoder->encoder[0];
+                    encoder[index] = server_state[index].snk[0].encoder;
+                }
+            }
+        }
+    }
+    else
+    {
+        for (uint32_t i = 0; i < ARRAY_SIZE(encoder); i++)
+        {
+            if (state->snk[0].encoder->init[i])
+            {
+                encoder_cntx[i] = &state->snk[0].encoder->encoder[i];
+                encoder[i] = state->snk[0].encoder;
+            }
+        }
+    }
+
+    err = -EINVAL;
+    for (uint32_t i = 0; i < UNICAST_AUDIO_SERVER_COUNT; i++)
+    {
+        if ((encoder_cntx[i] != NULL) && (encoder[i] != NULL))
+        {
+            err = 0;
+        }
+    }
+
+    if (err < 0)
+    {
+        return err;
     }
 
     out = net_buf_tail(buf);
-
-    for (size_t index = 0; index < snk_cap_required.frame_blocks_per_sdu; index++)
+    out2 = NULL;
+    if (NULL != buf2)
     {
-        p = p + index * (snk_cap_required.frequency * snk_cap_required.duration / 1000000) * snk_cap_required.channel_count;
-        out = out + index * snk_cap_required.frame_bytes * snk_cap_required.channel_count;
-        for (int j = 0; j < (snk_cap_required.frequency * snk_cap_required.duration / 1000000); j++)
+        out2 = net_buf_tail(buf2);
+    }
+
+    channel_count = pcm_length / ((state->snk_cap_required.frequency * state->snk_cap_required.duration * BITS_RATES_OF_SAMPLE / 8000000) * state->snk_cap_required.frame_blocks_per_sdu);
+
+    for (size_t index = 0; index < state->snk_cap_required.frame_blocks_per_sdu; index++)
+    {
+        p = p + index * (state->snk_cap_required.frequency * state->snk_cap_required.duration / 1000000) * channel_count;
+        out = out + index * state->snk_cap_required.frame_bytes * state->snk_cap_required.channel_count;
+        out2 = out2 + index * state->snk_cap_required.frame_bytes * state->snk_cap_required.channel_count;
+        for (int j = 0; j < (state->snk_cap_required.frequency * state->snk_cap_required.duration / 1000000); j++)
         {
-            for(int i = 0; i < snk_cap_required.channel_count; i++)
+            for(int i = 0; i < channel_count; i++)
             {
-                state->snk[0].encoder->pcm_buf_in[i][j] = (int32_t)p[j*snk_cap_required.channel_count + i];
+                if (encoder[i] == NULL)
+                {
+                    continue;
+                }
+                if (state->snk_cap_required.channel_count < channel_count)
+                {
+                    encoder[i]->pcm_buf_in[0][j] = (int32_t)p[j*channel_count + i];
+                }
+                else
+                {
+                    encoder[i]->pcm_buf_in[i][j] = (int32_t)p[j*channel_count + i];
+                }
             }
         }
 
-        for(int i = 0; i < snk_cap_required.channel_count; i++)
+        for(int i = 0; i < channel_count; i++)
         {
-            lc3_ret = LC3_encoder_process(&state->snk[0].encoder->encoder[i]);
-            if(lc3_ret != snk_cap_required.frame_bytes)
+            if (encoder_cntx[i] == NULL)
+            {
+                continue;
+            }
+
+            lc3_ret = LC3_encoder_process(encoder_cntx[i]);
+            if(lc3_ret != state->snk_cap_required.frame_bytes)
             {
                 PRINTF("Channel %d lc3 encode fail! %d\n", i, lc3_ret);
                 return lc3_ret;
             }
-            memcpy(&out[i * snk_cap_required.frame_bytes], state->snk[0].encoder->enc_buf_out[i], snk_cap_required.frame_bytes);
+            if (out2 == NULL)
+            {
+                memcpy(&out[i * state->snk_cap_required.frame_bytes], encoder[i]->enc_buf_out[i], state->snk_cap_required.frame_bytes);
+            }
+            else
+            {
+                if (i == 0)
+                {
+                    memcpy(&out[i * state->snk_cap_required.frame_bytes], encoder[i]->enc_buf_out[0], state->snk_cap_required.frame_bytes);
+                }
+                else
+                {
+                    memcpy(&out2[(i-1) * state->snk_cap_required.frame_bytes], encoder[i]->enc_buf_out[0], state->snk_cap_required.frame_bytes);
+                }
+            }
         }
     }
 
-    (void)net_buf_add(buf, snk_cap_required.frame_bytes * snk_cap_required.channel_count * snk_cap_required.frame_blocks_per_sdu);
+    (void)net_buf_add(buf, state->snk_cap_required.frame_bytes * state->snk_cap_required.channel_count * state->snk_cap_required.frame_blocks_per_sdu);
+    if (buf2 != NULL)
+    {
+        (void)net_buf_add(buf2, state->snk_cap_required.frame_bytes * state->snk_cap_required.channel_count * state->snk_cap_required.frame_blocks_per_sdu);
+    }
 
-    return snk_cap_required.frame_bytes * snk_cap_required.channel_count * snk_cap_required.frame_blocks_per_sdu;
+    return state->snk_cap_required.frame_bytes * state->snk_cap_required.channel_count * state->snk_cap_required.frame_blocks_per_sdu;
 }
 
 static int stream_send_out(struct bt_conn * conn, struct net_buf *buf)
@@ -2065,7 +2444,7 @@ static int stream_send_out(struct bt_conn * conn, struct net_buf *buf)
     {
         return -EINVAL;
     }
-    ret = bt_bap_stream_send(&state->snk[0].stream->stream, buf, state->snk[0].seq_num++, BT_ISO_TIMESTAMP_NONE);
+    ret = bt_bap_stream_send(&state->snk[0].stream->stream, buf, state->snk[0].seq_num++);
     if (ret < 0)
     {
         PRINTF("Fail to send stream (error %d)\n", ret);
@@ -2081,13 +2460,13 @@ static void get_capability_from_codec(const struct bt_audio_codec_cfg *codec_cfg
     uint32_t tempU32;
 
     PRINTF("Codec configurations:\n");
-    ret = bt_audio_codec_cfg_freq_to_freq_hz((enum bt_audio_codec_config_freq)bt_audio_codec_cfg_get_freq(codec_cfg));
+    ret = bt_audio_codec_cfg_freq_to_freq_hz((enum bt_audio_codec_cfg_freq)bt_audio_codec_cfg_get_freq(codec_cfg));
     if (ret >= 0)
     {
         cap->frequency = (uint32_t)ret;
     }
     PRINTF("    Frequency %d\n", cap->frequency);
-    ret = bt_audio_codec_cfg_get_frame_duration_us(codec_cfg);
+    ret = bt_audio_codec_cfg_frame_dur_to_frame_dur_us((enum bt_audio_codec_cfg_frame_dur)bt_audio_codec_cfg_get_frame_dur(codec_cfg));
     if (ret >= 0)
     {
         cap->duration = (uint32_t)ret;
@@ -2143,7 +2522,7 @@ static void parse_pacs_capability(const struct bt_audio_codec_cap *codec_cap, st
     }
     PRINTF("\n");
 
-    cap->duration_bitmap = bt_audio_codec_cap_get_frame_duration(codec_cap);
+    cap->duration_bitmap = bt_audio_codec_cap_get_frame_dur(codec_cap);
     PRINTF("    Duration");
     for (size_t index = 0; index < ARRAY_SIZE(duration_bitmap); index++)
     {
@@ -2188,21 +2567,23 @@ static int capability_compare(struct codec_capability *required_cap, struct code
     }
 }
 
-static int pac_capability_compare(struct codec_capability *required_cap, struct pacs_capability *discovered_cap)
+static int pac_capability_compare(struct bt_bap_lc3_preset *codec_configuration, struct codec_capability *required_cap, struct pacs_capability *discovered_cap)
 {
     size_t index;
 
-    if (!(required_cap->channel_count == discovered_cap->channel_count))
+    if ((required_cap->channel_count < discovered_cap->channel_count))
     {
         PRINTF("The discovered channel count %d is mismatched with the required channel count %d\n", discovered_cap->channel_count, required_cap->channel_count);
         return -1;
     }
 
+#if 0
     if (!(required_cap->frame_blocks_per_sdu == discovered_cap->frame_blocks_per_sdu))
     {
         PRINTF("The discovered frame blocks pre SDU %d is mismatched with the required %d\n", discovered_cap->frame_blocks_per_sdu, required_cap->frame_blocks_per_sdu);
         return -1;
     }
+#endif
 
     for (index = 0; index < ARRAY_SIZE(frequency_bitmap); index++)
     {
@@ -2236,6 +2617,10 @@ static int pac_capability_compare(struct codec_capability *required_cap, struct 
         return -1;
     }
 
+    required_cap->channel_count = discovered_cap->channel_count;
+    required_cap->frame_blocks_per_sdu = discovered_cap->frame_blocks_per_sdu;
+
+    codec_configuration->qos.sdu = codec_configuration->qos.sdu * required_cap->channel_count * required_cap->frame_blocks_per_sdu;
     return 0;
 }
 
@@ -2278,9 +2663,22 @@ static void unicast_client_stream_enabled(struct bt_bap_stream *stream)
         {
             if (stream->ep == server_state[index].src[ep_index].ep)
             {
-                BOARD_StartCodec(codec_tx_callback, codec_rx_callback, src_cap_required.frequency, BITS_RATES_OF_SAMPLE);
+                if (codec_start == false)
+                {
+                    codec_start = true;
+                    BOARD_StartCodec(codec_tx_callback, codec_rx_callback, server_state[index].src_cap_required.frequency, BITS_RATES_OF_SAMPLE);
+                }
 #if (defined(UNICAST_AUDIO_SYNC_MODE) && (UNICAST_AUDIO_SYNC_MODE > 0))
-                BOARD_SyncTimer_Init(sync_timer_callback);
+                if (sync_timer_started == 0U)
+                {
+                    sync_timer_started = 1U;
+                    BOARD_SyncTimer_Init(sync_timer_callback);
+                    server_state[index].info.bits_pre_sample = BITS_RATES_OF_SAMPLE;
+                    server_state[index].info.sample_rate = server_state[index].src_cap_required.frequency;
+                    server_state[index].info.sample_duration_us = 1000000.0 / (float)server_state[index].info.sample_rate;
+
+                    BORAD_SyncTimer_Start(server_state[index].info.sample_rate, server_state[index].info.bits_pre_sample * server_state[index].src_cap_required.channel_count);
+                }
 #endif /* UNICAST_AUDIO_SYNC_MODE */
                 break;
             }
@@ -2290,29 +2688,6 @@ static void unicast_client_stream_enabled(struct bt_bap_stream *stream)
     atomic_set_bit(stream_base->flags, BT_STREAM_STATE_ENABLED);
     (void)OSA_SemaphorePost(stream_base->sem);
 }
-
-#if defined(UNICAST_AUDIO_SYNC_MODE) && (UNICAST_AUDIO_SYNC_MODE > 0)
-static uint32_t get_cig_sync_delay(struct conn_state * connect)
-{
-	struct bt_iso_info iso_info;
-
-	bt_iso_chan_get_info(&connect->snk[0].ep->iso->chan, &iso_info);
-
-	return iso_info.unicast.cig_sync_delay;
-}
-
-static uint32_t get_iso_interval(struct conn_state * connect)
-{
-	struct bt_iso_info iso_info;
-	uint32_t ISO_Interval_us;
-
-	bt_iso_chan_get_info(&connect->snk[0].ep->iso->chan, &iso_info);
-
-	ISO_Interval_us = iso_info.iso_interval * 1250;
-
-	return ISO_Interval_us;
-}
-#endif /* UNICAST_AUDIO_SYNC_MODE */
 
 static void unicast_client_stream_started(struct bt_bap_stream *stream)
 {
@@ -2334,7 +2709,7 @@ static void unicast_client_stream_started(struct bt_bap_stream *stream)
                 server_state[index].snk[ep_index].seq_num = 0U;
                 state = &server_state[index];
                 snk = &server_state[index].snk[ep_index];
-                err = unicast_client_lc3_encoder_init(server_state[index].snk[ep_index].encoder);
+                err = unicast_client_lc3_encoder_init(&server_state[index], server_state[index].snk[ep_index].encoder);
                 if (0 != err)
                 {
                     PRINTF("Fail to init encoder (err %d)\n", err);
@@ -2345,7 +2720,7 @@ static void unicast_client_stream_started(struct bt_bap_stream *stream)
             {
                 state = &server_state[index];
                 src = &server_state[index].src[ep_index];
-                err = unicast_client_lc3_decoder_init(server_state[index].src[ep_index].decoder);
+                err = unicast_client_lc3_decoder_init(&server_state[index], server_state[index].src[ep_index].decoder);
                 if (0 != err)
                 {
                     PRINTF("Fail to init decoder (err %d)\n", err);
@@ -2358,19 +2733,10 @@ static void unicast_client_stream_started(struct bt_bap_stream *stream)
     {
         return;
     }
+    (void)src;
 
 #if (defined(UNICAST_AUDIO_SYNC_MODE) && (UNICAST_AUDIO_SYNC_MODE > 0))
-    if (sync_timer_started == 0U)
-    {
-        sync_timer_started = 1U;
-        state->info.bits_pre_sample = BITS_RATES_OF_SAMPLE;
-        state->info.sample_rate = src_cap_required.frequency;
-        state->info.sample_duration_us = 1000000.0 / (float)state->info.sample_rate;
-        state->info.cig_sync_delay_us = get_cig_sync_delay(state);
-        state->info.iso_interval_us = get_iso_interval(state);
-
-        BORAD_SyncTimer_Start(state->info.sample_rate, state->info.bits_pre_sample * src_cap_required.channel_count);
-    }
+    /* Start Sync timer before starting stream */
 #else
     BOARD_StartStream();
 #endif /* UNICAST_AUDIO_SYNC_MODE */
@@ -2380,7 +2746,7 @@ static void unicast_client_stream_started(struct bt_bap_stream *stream)
 #if (defined(UNICAST_AUDIO_SYNC_MODE) && (UNICAST_AUDIO_SYNC_MODE > 0))
     if (NULL != src)
     {
-        for (int i = 0; i < src_cap_required.channel_count; i++)
+        for (int i = 0; i < state->src_cap_required.channel_count; i++)
         {
             src->resampler[i].upSrcCfg.fsIn = state->info.sample_rate;
             src->resampler[i].upSrcCfg.sfOut = state->info.sample_rate;
@@ -2405,6 +2771,7 @@ static void unicast_client_stream_started(struct bt_bap_stream *stream)
 
         src->status.output_length = 0;
         src->status.received_length = 0;
+        src->status.received_count = 0;
     }
 #endif /* UNICAST_AUDIO_SYNC_MODE */
 
@@ -2436,6 +2803,7 @@ static void unicast_client_stream_started(struct bt_bap_stream *stream)
 
         snk->status.output_length = 0;
         snk->status.received_length = 0;
+        snk->sattus.received_count = 0;
     }
 #endif /* UNICAST_AUDIO_SYNC_MODE */
 
@@ -2466,7 +2834,11 @@ static void unicast_client_stream_disabled(struct bt_bap_stream *stream)
         BORAD_SyncTimer_Stop();
     }
 #endif /* UNICAST_AUDIO_SYNC_MODE */
-    BOARD_StopCodec();
+    if (codec_start == true)
+    {
+        codec_start = false;
+        BOARD_StopCodec();
+    }
 
     err = bt_bap_stream_stop(&stream_base->stream);
     if (0 != err)
@@ -2493,7 +2865,11 @@ static void unicast_client_stream_stopped(struct bt_bap_stream *stream, uint8_t 
         BORAD_SyncTimer_Stop();
     }
 #endif /* UNICAST_AUDIO_SYNC_MODE */
-    BOARD_StopCodec();
+    if (codec_start == true)
+    {
+        codec_start = false;
+        BOARD_StopCodec();
+    }
 
     atomic_clear_bit(stream_base->flags, BT_STREAM_STATE_STARTED);
     (void)OSA_SemaphorePost(stream_base->sem);
@@ -2514,7 +2890,11 @@ static void unicast_client_stream_released(struct bt_bap_stream *stream)
         BORAD_SyncTimer_Stop();
     }
 #endif /* UNICAST_AUDIO_SYNC_MODE */
-    BOARD_StopCodec();
+    if (codec_start == true)
+    {
+        codec_start = false;
+        BOARD_StopCodec();
+    }
 
     atomic_set_bit(stream_base->flags, BT_STREAM_STATE_RELEASED);
 
@@ -2535,9 +2915,26 @@ static void codec_rx_callback(uint8_t *rx_buffer)
     osa_status_t ret;
     uint16_t *src = (uint16_t *)rx_buffer;
     uint16_t *dst = NULL;
+    struct conn_state *state = NULL;
+
+    for (uint32_t index = 0; index < ARRAY_SIZE(server_state); index++)
+    {
+        if (NULL != server_state[index].conn)
+        {
+            state = &server_state[index];
+            break;
+        }
+    }
+
+    if (state == NULL)
+    {
+        return;
+    }
 
     if (voice_is_started == 0U)
     {
+        k_work_cancel_delayable(&ringtone_work.work);
+        ringtone_prime_data(&ringtone_work);
         return;
     }
 
@@ -2547,17 +2944,17 @@ static void codec_rx_callback(uint8_t *rx_buffer)
         return;
     }
 
-    tx_len = snk_cap_required.frequency * snk_cap_required.duration / 1000000;
+    tx_len = state->snk_cap_required.frequency * state->snk_cap_required.duration / 1000000;
     dst = (uint16_t *)buf->data;
 
     for (size_t j = 0; j < tx_len; j ++)
     {
-        for (size_t i = 0; i < snk_cap_required.channel_count; i++)
+        for (size_t i = 0; i < HW_CODEC_CHANNEL_COUNT; i++)
         {
-            dst[j * snk_cap_required.channel_count + i] = src[j];
+            dst[j * HW_CODEC_CHANNEL_COUNT + i] = src[j];
         }
     }
-    buf->len = tx_len * snk_cap_required.channel_count * 2;
+    buf->len = tx_len * HW_CODEC_CHANNEL_COUNT * 2;
 
     ret = OSA_MsgQPut(tx_stream_queue, &buf);
     if (KOSA_StatusSuccess != ret)
@@ -2568,11 +2965,27 @@ static void codec_rx_callback(uint8_t *rx_buffer)
 
 static void codec_tx_callback(void)
 {
+    struct conn_state *state = NULL;
+
+    for (uint32_t index = 0; index < ARRAY_SIZE(server_state); index++)
+    {
+        if (NULL != server_state[index].conn)
+        {
+            state = &server_state[index];
+            break;
+        }
+    }
+
+    if (state == NULL)
+    {
+        return;
+    }
+
     if (BT_STREAM_RINGTONE_MODE_LOCAL == ringtone_mode)
     {
         if (NULL != ringtone_work.pcm)
         {
-            size_t tx_len = snk_cap_required.channel_count * (snk_cap_required.frequency * snk_cap_required.duration * BITS_RATES_OF_SAMPLE / 8000000) * snk_cap_required.frame_blocks_per_sdu;
+            size_t tx_len = state->snk_cap_required.channel_count * (state->snk_cap_required.frequency * state->snk_cap_required.duration * BITS_RATES_OF_SAMPLE / 8000000) * state->snk_cap_required.frame_blocks_per_sdu;
             if ((ringtone_work.prime_index + tx_len) > ringtone_work.pcm_length)
             {
                 ringtone_work.prime_index = 0U;
@@ -2598,6 +3011,11 @@ static void unicast_client_stream_recv(struct bt_bap_stream *stream,
     uint32_t sync_index = current_sync_index;
 #endif /* UNICAST_AUDIO_SYNC_MODE */
 
+    if (stream->conn != server_state[0].conn)
+    {
+        return;
+    }
+
     rx_buf = net_buf_alloc(&rx_pool, osaWaitForever_c);
     if (NULL == rx_buf)
     {
@@ -2609,7 +3027,6 @@ static void unicast_client_stream_recv(struct bt_bap_stream *stream,
 #if (defined(UNICAST_AUDIO_SYNC_MODE) && (UNICAST_AUDIO_SYNC_MODE > 0))
     net_buf_add_mem(rx_buf, (void*)&sync_index, sizeof(sync_index));
 #endif /* UNICAST_AUDIO_SYNC_MODE */
-
     net_buf_add_mem(rx_buf, buf->data, buf->len);
     ret = OSA_MsgQPut(rx_stream_queue, &rx_buf);
     if (KOSA_StatusSuccess != ret)
@@ -2620,49 +3037,47 @@ static void unicast_client_stream_recv(struct bt_bap_stream *stream,
     }
 }
 
-static void unicast_client_discover_sink_callback(struct bt_conn *conn, int err, enum bt_audio_dir dir)
+static void unicast_client_discover_callback(struct bt_conn *conn, int err, enum bt_audio_dir dir)
 {
-    if (err != 0 && err != BT_ATT_ERR_ATTRIBUTE_NOT_FOUND) {
-        PRINTF("Discovery failed: %d\n", err);
-        return;
-    }
-
-    if (err == BT_ATT_ERR_ATTRIBUTE_NOT_FOUND) {
-        PRINTF("Discover sinks completed without finding any source ASEs\n");
-    } else {
-        PRINTF("Discover sinks complete: err %d\n", err);
-    }
-
-    /* Discover source pac */
-    unicast_client_discover_source(conn);
-    /* TODO: */
-}
-
-static void unicast_client_discover_source_callback(struct bt_conn *conn, int err, enum bt_audio_dir dir)
-{
-    if (err != 0 && err != BT_ATT_ERR_ATTRIBUTE_NOT_FOUND) {
-        PRINTF("Discovery failed: %d\n", err);
-        return;
-    }
-
-    if (err == BT_ATT_ERR_ATTRIBUTE_NOT_FOUND) {
-        PRINTF("Discover sinks completed without finding any source ASEs\n");
-    } else {
-        PRINTF("Discover sources complete: err %d\n", err);
-    }
-
-    /* TODO: */
-    if (discover_done != NULL)
+    if (dir == BT_AUDIO_DIR_SINK)
     {
-        discover_done(conn, err);
+        if (err != 0 && err != BT_ATT_ERR_ATTRIBUTE_NOT_FOUND) {
+            PRINTF("Discovery (conn %p) sinks failed: %d\n", conn, err);
+            return;
+        }
+
+        if (err == BT_ATT_ERR_ATTRIBUTE_NOT_FOUND) {
+            PRINTF("Discover (conn %p) sinks completed without finding any sink ASEs\n", conn);
+        } else {
+            PRINTF("Discover (conn %p) sinks complete: err %d\n", conn, err);
+        }
+
+        /* Discover source pac */
+        unicast_client_discover_source(conn);
+    }
+    else
+    {
+        if (err != 0 && err != BT_ATT_ERR_ATTRIBUTE_NOT_FOUND) {
+            PRINTF("Discovery (conn %p) sources failed: %d\n", conn, err);
+            return;
+        }
+
+        if (err == BT_ATT_ERR_ATTRIBUTE_NOT_FOUND) {
+            PRINTF("Discover (conn %p) sources completed without finding any source ASEs\n", conn);
+        } else {
+            PRINTF("Discover (conn %p) sources complete: err %d\n", conn, err);
+        }
+        /* TODO: */
+        if (discover_done != NULL)
+        {
+            discover_done(conn, err);
+        }
     }
 }
 
 static int unicast_client_discover_sink(struct bt_conn * conn)
 {
     int err;
-
-    unicast_client_callbacks.discover = unicast_client_discover_sink_callback;
 
     err = bt_bap_unicast_client_discover(conn, BT_AUDIO_DIR_SINK);
     if (err != 0) {
@@ -2675,8 +3090,6 @@ static int unicast_client_discover_sink(struct bt_conn * conn)
 static int unicast_client_discover_source(struct bt_conn * conn)
 {
     int err;
-
-    unicast_client_callbacks.discover = unicast_client_discover_source_callback;
 
     err = bt_bap_unicast_client_discover(conn, BT_AUDIO_DIR_SOURCE);
     if (err != 0) {
@@ -2695,6 +3108,12 @@ static void connected(struct bt_conn *conn, uint8_t err)
             if (NULL == server_state[i].conn)
             {
                 server_state[i].conn = conn;
+                PRINTF("Get required Source Capability from codec. ");
+                memcpy(&server_state[i].src_codec_configuration, &codec_configuration, sizeof(server_state[i].src_codec_configuration));
+                get_capability_from_codec(&server_state[i].src_codec_configuration.codec_cfg, &server_state[i].src_cap_required);
+                PRINTF("Get required Sink Capability from codec. ");
+                memcpy(&server_state[i].snk_codec_configuration, &codec_configuration, sizeof(server_state[i].snk_codec_configuration));
+                get_capability_from_codec(&server_state[i].snk_codec_configuration.codec_cfg, &server_state[i].snk_cap_required);
                 unicast_client_discover_sink(conn);
                 break;
             }
@@ -2865,7 +3284,31 @@ static void mcs_command_recv(struct media_player *player, int err, const struct 
 #if (defined(CONFIG_BT_BAP_UNICAST_CLIENT) && (CONFIG_BT_BAP_UNICAST_CLIENT > 0))
 static void unicast_client_location(struct bt_conn *conn, enum bt_audio_dir dir, enum bt_audio_location loc)
 {
+    struct conn_state * state = NULL;
+
     PRINTF("conn %p dir %u loc %X\n", conn, dir, loc);
+    for (uint32_t index = 0U; index < ARRAY_SIZE(server_state); index++)
+    {
+        if (server_state[index].conn == conn)
+        {
+            state = &server_state[index];
+            break;
+        }
+    }
+    if (NULL == state)
+    {
+        PRINTF("The connection is known!\n");
+        return;
+    }
+
+    if (BT_AUDIO_DIR_SINK == dir)
+    {
+        state->snk_pac.channel_location = loc;
+    }
+    else
+    {
+        state->src_pac.channel_location = loc;
+    }
 }
 
 static void unicast_client_available_contexts(struct bt_conn *conn, enum bt_audio_context snk_ctx, enum bt_audio_context src_ctx)
@@ -2914,7 +3357,7 @@ static void unicast_client_pac_record(struct bt_conn *conn, enum bt_audio_dir di
     if (BT_AUDIO_DIR_SINK == dir)
     {
         parse_pacs_capability(codec_cap, &state->snk_pac);
-        if (pac_capability_compare(&snk_cap_required, &state->snk_pac) >= 0)
+        if (pac_capability_compare(&state->snk_codec_configuration, &state->snk_cap_required, &state->snk_pac) >= 0)
         {
             state->snk_cap_support = 1U;
         }
@@ -2922,7 +3365,7 @@ static void unicast_client_pac_record(struct bt_conn *conn, enum bt_audio_dir di
     else
     {
         parse_pacs_capability(codec_cap, &state->src_pac);
-        if (pac_capability_compare(&src_cap_required, &state->src_pac) >= 0)
+        if (pac_capability_compare(&state->src_codec_configuration, &state->src_cap_required, &state->src_pac) >= 0)
         {
             state->src_cap_support = 1U;
         }
@@ -2973,6 +3416,10 @@ static void unicast_client_endpoint(struct bt_conn *conn, enum bt_audio_dir dir,
                 assert(NULL == decoder);
                 failed = 1U;
             }
+            else
+            {
+                memset(decoder, 0, sizeof(*decoder));
+            }
         }
         else
         {
@@ -2981,6 +3428,10 @@ static void unicast_client_endpoint(struct bt_conn *conn, enum bt_audio_dir dir,
             {
                 assert(NULL == encoder);
                 failed = 1U;
+            }
+            else
+            {
+                memset(encoder, 0, sizeof(*encoder));
             }
         }
     }
@@ -3000,6 +3451,11 @@ static void unicast_client_endpoint(struct bt_conn *conn, enum bt_audio_dir dir,
                 if (BT_AUDIO_DIR_SOURCE == dir)
                 {
                     uint32_t ep_index = 0U;
+                    if (server_state[index].src[ep_index].ep != NULL)
+                    {
+                        ep_index = CONFIG_BT_BAP_UNICAST_CLIENT_ASE_SNK_COUNT;
+                    }
+
                     for (; ep_index < CONFIG_BT_BAP_UNICAST_CLIENT_ASE_SRC_COUNT; ep_index++)
                     {
                         if (server_state[index].src[ep_index].ep == NULL)
@@ -3007,12 +3463,13 @@ static void unicast_client_endpoint(struct bt_conn *conn, enum bt_audio_dir dir,
                             server_state[index].src[ep_index].ep = ep;
                             server_state[index].src[ep_index].stream = stream;
                             server_state[index].src[ep_index].decoder = decoder;
+                            PRINTF("Added src stream %p, ep %p to conn %p\n", stream, ep, conn);
                             break;
                         }
                     }
+
                     if (ep_index >= CONFIG_BT_BAP_UNICAST_CLIENT_ASE_SRC_COUNT)
                     {
-                        assert(false);
                         failed = 1;
                         break;
                     }
@@ -3020,6 +3477,11 @@ static void unicast_client_endpoint(struct bt_conn *conn, enum bt_audio_dir dir,
                 else
                 {
                     uint32_t ep_index = 0U;
+                    if (server_state[index].snk[ep_index].ep != NULL)
+                    {
+                        ep_index = CONFIG_BT_BAP_UNICAST_CLIENT_ASE_SNK_COUNT;
+                    }
+
                     for (; ep_index < CONFIG_BT_BAP_UNICAST_CLIENT_ASE_SNK_COUNT; ep_index++)
                     {
                         if (server_state[index].snk[ep_index].ep == NULL)
@@ -3027,12 +3489,13 @@ static void unicast_client_endpoint(struct bt_conn *conn, enum bt_audio_dir dir,
                             server_state[index].snk[ep_index].ep = ep;
                             server_state[index].snk[ep_index].stream = stream;
                             server_state[index].snk[ep_index].encoder = encoder;
+                            PRINTF("Added snk stream %p, ep %p to conn %p\n", stream, ep, conn);
                             break;
                         }
                     }
+
                     if (ep_index >= CONFIG_BT_BAP_UNICAST_CLIENT_ASE_SNK_COUNT)
                     {
-                        assert(false);
                         failed = 1;
                         break;
                     }
@@ -3105,7 +3568,7 @@ static void sync_timer_callback(uint32_t sync_index, uint64_t bclk_count)
     state = NULL;
     for (uint32_t index = 0; index < ARRAY_SIZE(server_state); index++)
     {
-        if (NULL != server_state[index].conn)
+        if ((NULL != server_state[index].conn) && (NULL != server_state[index].src[0].stream))
         {
             state = &server_state[index];
             break;
@@ -3146,11 +3609,11 @@ static void sync_timer_callback(uint32_t sync_index, uint64_t bclk_count)
         else if (sync_index > state->src[0].status.start_slot)
         {
             actual_samples = (double)bclk_count / (BITS_RATES_OF_SAMPLE);
-            actual_samples -= state->src[0].status.mute_frame_samples * (double)src_cap_required.channel_count;
+            actual_samples -= state->src[0].status.mute_frame_samples * (double)state->src_cap_required.channel_count;
 
             ideal_samples = (sync_index - state->src[0].status.start_slot) * (double)state->info.iso_interval_us - (double)state->src[0].status.mute_frame_duration_us;
             ideal_samples = ideal_samples / state->info.sample_duration_us;
-            ideal_samples = ideal_samples * (double)src_cap_required.channel_count;
+            ideal_samples = ideal_samples * (double)state->src_cap_required.channel_count;
 
             ideal_samples = ideal_samples + state->src[0].status.resampler_added_samples + state->src[0].status.resampler_internal_samples;
 
@@ -3160,7 +3623,7 @@ static void sync_timer_callback(uint32_t sync_index, uint64_t bclk_count)
 
             ideal_samples = (sync_index - sync_index_last) * (double)state->info.iso_interval_us;
             ideal_samples = ideal_samples / state->info.sample_duration_us;
-            ideal_samples = ideal_samples * (double)src_cap_required.channel_count;
+            ideal_samples = ideal_samples * (double)state->src_cap_required.channel_count;
 
             ideal_samples = ideal_samples + state->src[0].status.resampler_added_samples - resampler_added_samples_last  + state->src[0].status.resampler_internal_samples;
 

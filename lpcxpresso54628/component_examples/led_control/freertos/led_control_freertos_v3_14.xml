@@ -58,6 +58,7 @@
           <value>CPU_LPC54628J512ET180=1</value>
           <value>MCUXPRESSO_SDK</value>
           <value>DEBUG_CONSOLE_RX_ENABLE=0</value>
+          <value>TIMER_PORT_TYPE_CTIMER=1</value>
           <value>SERIAL_PORT_TYPE_UART=1</value>
           <value>SDK_OS_FREE_RTOS</value>
         </option>
@@ -74,7 +75,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

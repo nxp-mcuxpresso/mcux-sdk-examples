@@ -10,12 +10,12 @@ receive data from the connected I3C slave and check the data consistency.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  12.2
-- MCUXpresso  11.8.0
+- GCC ARM Embedded  13.2.1
+- MCUXpresso  11.10.0
 
 Hardware requirements
 =====================
@@ -72,4 +72,13 @@ I3C master wait for slave IBI event to notify the slave transmit size.
 I3C master received slave IBI event, 1 byte(s), value 0x20.
 
 I3C master transfer successful in I3C SDR mode.
+
+Start to do I3C master transfer in I3C HDR mode.
+Receive sent data from slave :
+0x 0  0x 1  0x 2  0x 3  0x 4  0x 5  0x 6  0x 7  
+0x 8  0x 9  0x a  0x b  0x c  0x d  0x e  0x f  
+0x10  0x11  0x12  0x13  0x14  0x15  0x16  0x17  
+0x18  0x19  0x1a  0x1b  0x1c  0x1d  0x1e  0x1f  
+
+I3C master transfer successful in I3C HDR mode.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -18,10 +18,9 @@
  * Definitions
  ******************************************************************************/
 #define EXAMPLE_MASTER             I3C0
-#define EXAMPLE_I2C_BAUDRATE       400000
+#define EXAMPLE_I3C_OD_BAUDRATE    1500000
+#define EXAMPLE_I3C_PP_BAUDRATE    3000000
 #define I3C_MASTER_CLOCK_FREQUENCY CLOCK_GetI3cClkFreq()
-#define SENSOR_ADDR                0x09U
-#define STATIC_I2C_ADDR            0x69U
 #define I3C_TIME_OUT_INDEX         100000000U
 #define SENSOR_MIPI_VENDOR_ID      0x235U
 
@@ -203,11 +202,12 @@ int main(void)
     /* Select the main clock as source clock of USART0 (debug console) */
     CLOCK_Select(BOARD_DEBUG_USART_CLK_ATTACH);
 
+    /* I3C FCLK = 60M/5 = 12M */
     CLOCK_Select(kI3C_Clk_From_Fro);
-    CLOCK_SetI3CFClkDiv(4);
+    CLOCK_SetI3CFClkDiv(5);
 
     BOARD_InitPins();
-    BOARD_BootClockFRO60M();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     PRINTF("\r\nI3C master read sensor data example.\r\n");

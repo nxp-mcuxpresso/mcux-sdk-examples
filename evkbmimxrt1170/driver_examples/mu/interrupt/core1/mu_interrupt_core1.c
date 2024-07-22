@@ -125,6 +125,7 @@ int main(void)
 {
     /* Init board hardware.*/
     BOARD_WaitAndClearSecondaryCoreGoFlag();
+    BOARD_ConfigMPU();
     BOARD_InitPins();
     NVIC_EnableIRQ(APP_MU_IRQn);
     /* Initialize LED */

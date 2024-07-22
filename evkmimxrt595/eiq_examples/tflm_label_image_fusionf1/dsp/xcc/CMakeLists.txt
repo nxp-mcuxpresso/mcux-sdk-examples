@@ -243,8 +243,6 @@ include_directories(${ProjDirPath}/../../../../../../core/drivers/lpc_gpio)
 
 include_directories(${ProjDirPath}/../../../../../../core/drivers/lpc_iopctl)
 
-include_directories(${ProjDirPath}/../../../../../../core/utilities/str)
-
 include_directories(${ProjDirPath}/../../../../../../core/utilities/debug_console_lite)
 
 include_directories(${ProjDirPath}/../../../../../../core/utilities/assert)
@@ -264,6 +262,8 @@ include_directories(${ProjDirPath}/../../../../../../core/drivers/flexcomm)
 include_directories(${ProjDirPath}/../../../../../../core/devices/MIMXRT595S/drivers)
 
 include_directories(${ProjDirPath}/../../../../../../core/CMSIS/Core/Include)
+
+include_directories(${ProjDirPath}/../../../../../../core/utilities/str)
 
 include_directories(${ProjDirPath}/../../../../../../middleware/eiq/tensorflow-lite/third_party/ruy)
 
@@ -299,8 +299,6 @@ add_executable(tflm_label_image_fusionf1.elf
 "${ProjDirPath}/../../../../../../core/drivers/lpc_gpio/fsl_gpio.h"
 "${ProjDirPath}/../../../../../../core/drivers/lpc_gpio/fsl_gpio.c"
 "${ProjDirPath}/../../../../../../core/drivers/lpc_iopctl/fsl_iopctl.h"
-"${ProjDirPath}/../../../../../../core/utilities/str/fsl_str.c"
-"${ProjDirPath}/../../../../../../core/utilities/str/fsl_str.h"
 "${ProjDirPath}/../../../../../../core/utilities/debug_console_lite/fsl_debug_console.c"
 "${ProjDirPath}/../../../../../../core/utilities/debug_console_lite/fsl_debug_console.h"
 "${ProjDirPath}/../../../../../../core/utilities/assert/fsl_assert.c"
@@ -320,6 +318,8 @@ add_executable(tflm_label_image_fusionf1.elf
 "${ProjDirPath}/../../../../../../core/devices/MIMXRT595S/drivers/fsl_reset.c"
 "${ProjDirPath}/../../../../../../core/devices/MIMXRT595S/drivers/fsl_clock.h"
 "${ProjDirPath}/../../../../../../core/devices/MIMXRT595S/drivers/fsl_clock.c"
+"${ProjDirPath}/../../../../../../core/utilities/str/fsl_str.c"
+"${ProjDirPath}/../../../../../../core/utilities/str/fsl_str.h"
 "${ProjDirPath}/../../../../../../middleware/eiq/tensorflow-lite/signal/micro/kernels/delay_flexbuffers_generated_data.h"
 "${ProjDirPath}/../../../../../../middleware/eiq/tensorflow-lite/signal/micro/kernels/energy_flexbuffers_generated_data.h"
 "${ProjDirPath}/../../../../../../middleware/eiq/tensorflow-lite/signal/micro/kernels/fft_flexbuffers_generated_data.h"

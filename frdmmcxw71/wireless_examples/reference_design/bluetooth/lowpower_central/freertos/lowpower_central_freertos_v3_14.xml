@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:examples xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd manifest.xsd">
+  <externalDefinitions>
+    <definition extID="middleware.wireless.freertos_heap.MCXW716C"/>
+    <definition extID="component.osa_free_rtos.MCXW716C"/>
+    <definition extID="component.reset_adapter.MCXW716C"/>
+    <definition extID="component.mem_manager_light.MCXW716C"/>
+    <definition extID="component.messaging.MCXW716C"/>
+    <definition extID="middleware.wireless.HWParameter.MCXW716C"/>
+    <definition extID="utility.shell.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.common.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.module_info.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.function_lib.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.nvm.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.nv_fsci.MCXW716C"/>
+    <definition extID="middleware.wireless.ble_host.MCXW716C"/>
+    <definition extID="middleware.wireless.ble_host_component_lib_iar.MCXW716C"/>
+    <definition extID="middleware.wireless.ble_host_component_lib_mcux.MCXW716C"/>
+    <definition extID="middleware.wireless.ble_gatt_db.MCXW716C"/>
+    <definition extID="middleware.wireless.ble_gatt_service_discovery.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.lpm_MCXW716C_systicks.MCXW716C"/>
+    <definition extID="middleware.wireless.ble_profiles.temperature.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.fwk_debug.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.platform_internal_flash.connected_mcu.MCXW716C"/>
+    <definition extID="platform.drivers.clock.MCXW716C"/>
+    <definition extID="device.MCXW716C_CMSIS.MCXW716C"/>
+    <definition extID="platform.devices.MCXW716C.MCXW716C"/>
+    <definition extID="platform.drivers.lpuart.MCXW716C"/>
+    <definition extID="platform.drivers.lptmr.MCXW716C"/>
+    <definition extID="platform.drivers.port.MCXW716C"/>
+    <definition extID="platform.drivers.lpspi.MCXW716C"/>
+    <definition extID="platform.drivers.gpio.MCXW716C"/>
+    <definition extID="platform.drivers.flash_k4.MCXW716C"/>
+    <definition extID="component.k4_flash_adapter.MCXW716C"/>
+    <definition extID="component.lpuart_adapter.MCXW716C"/>
+    <definition extID="platform.drivers.tpm.MCXW716C"/>
+    <definition extID="platform.utilities.assert_lite.MCXW716C"/>
+    <definition extID="utility.debug_console_lite.MCXW716C"/>
+    <definition extID="platform.drivers.wuu.MCXW716C"/>
+    <definition extID="platform.drivers.cmc.MCXW716C"/>
+    <definition extID="platform.drivers.spc.MCXW716C"/>
+    <definition extID="component.gpio_adapter.MCXW716C"/>
+    <definition extID="component.button.MCXW716C"/>
+    <definition extID="component.led.MCXW716C"/>
+    <definition extID="component.panic.MCXW716C"/>
+    <definition extID="component.lptmr_adapter.MCXW716C"/>
+    <definition extID="component.timer_manager.MCXW716C"/>
+    <definition extID="component.software_rng_adapter.MCXW716C"/>
+    <definition extID="component.lptmr_time_stamp_adapter.MCXW716C"/>
+    <definition extID="utility.format.MCXW716C"/>
+    <definition extID="platform.drivers.ccm32k.MCXW716C"/>
+    <definition extID="platform.drivers.sfa.MCXW716C"/>
+    <definition extID="component.serial_manager_uart.MCXW716C"/>
+    <definition extID="component.serial_manager.MCXW716C"/>
+    <definition extID="component.lists.MCXW716C"/>
+    <definition extID="platform.drivers.ltc.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.rpmsg_config.MCXW716C"/>
+    <definition extID="component.rpmsg_adapter.MCXW716C"/>
+    <definition extID="middleware.multicore.rpmsg_lite.freertos.MCXW716C"/>
+    <definition extID="middleware.multicore.rpmsg_lite.MCXW716C"/>
+    <definition extID="component.serial_manager_rpmsg.MCXW716C"/>
+    <definition extID="middleware.multicore.mcmgr.mcxw716.MCXW716C"/>
+    <definition extID="middleware.multicore.rpmsg_lite.frdmmcxw71_freertos.MCXW716C"/>
+    <definition extID="middleware.freertos-kernel.cm33_non_trustzone.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.Sensors.MCXW716C"/>
+    <definition extID="device.MCXW716C_utility.frdmmcxw71.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.platform_ble.connected_mcu.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.platform_ics.connected_mcu.MCXW716C"/>
+    <definition extID="middleware.wireless.framework_freertos_utils.MCXW716C"/>
+    <definition extID="middleware.wireless.ble_hci_transport_rpmsg.MCXW716C"/>
+    <definition extID="middleware.freertos-kernel.MCXW716C"/>
+    <definition extID="component.log.MCXW716C"/>
+    <definition extID="platform.drivers.elemu.MCXW716C"/>
+    <definition extID="middleware.secure-subsystem.elemu.MCXW716C"/>
+    <definition extID="middleware.secure-subsystem.port_kw45_k4w1.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.sec_lib_sss.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.rng.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.linkscript_warmboot_kw45.MCXW716C"/>
+    <definition extID="component.power_manager_frdmmcxw71.MCXW716C"/>
+    <definition extID="middleware.wireless.controller_api.MCXW716C"/>
+    <definition extID="platform.utilities.misc_utilities.MCXW716C"/>
+    <definition extID="platform.drivers.common.MCXW716C"/>
+    <definition extID="component.osa_interface.MCXW716C"/>
+    <definition extID="utility.str.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.platform_lowpower.connected_mcu.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.platform_lowpower_timer.connected_mcu.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.platform.connected_mcu.MCXW716C"/>
+    <definition extID="middleware.wireless.framework_swo_dbg.MCXW716C"/>
+    <definition extID="CMSIS_Include_core_cm.MCXW716C"/>
+    <definition extID="device.MCXW716C_system.MCXW716C"/>
+    <definition extID="middleware.multicore.mcmgr.MCXW716C"/>
+    <definition extID="platform.drivers.imu.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.platform_sensors.connected_mcu.MCXW716C"/>
+    <definition extID="platform.drivers.lpadc.MCXW716C"/>
+    <definition extID="platform.drivers.vref_1.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.platform_coex.connected_mcu.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.SFC.MCXW716C"/>
+    <definition extID="middleware.freertos-kernel.template.MCXW716C"/>
+    <definition extID="middleware.freertos-kernel.extension.MCXW716C"/>
+    <definition extID="middleware.secure-subsystem.mu.MCXW716C"/>
+    <definition extID="middleware.secure-subsystem.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.platform_rng.connected_mcu.MCXW716C"/>
+    <definition extID="component.power_manager_core.MCXW716C"/>
+    <definition extID="platform.drivers.crc.MCXW716C"/>
+    <definition extID="mcuxpresso"/>
+    <definition extID="com.nxp.mcuxpresso"/>
+    <definition extID="com.crt.advproject.config.exe.debug"/>
+    <definition extID="com.crt.advproject.config.exe.release"/>
+  </externalDefinitions>
+  <example id="frdmmcxw71_lowpower_central_freertos" name="lowpower_central_freertos" dependency="middleware.wireless.freertos_heap.MCXW716C component.osa_free_rtos.MCXW716C component.reset_adapter.MCXW716C component.mem_manager_light.MCXW716C component.messaging.MCXW716C middleware.wireless.HWParameter.MCXW716C utility.shell.MCXW716C middleware.wireless.framework.common.MCXW716C middleware.wireless.framework.module_info.MCXW716C middleware.wireless.framework.function_lib.MCXW716C middleware.wireless.framework.nvm.MCXW716C middleware.wireless.framework.nv_fsci.MCXW716C middleware.wireless.ble_host.MCXW716C middleware.wireless.ble_host_component_lib_iar.MCXW716C middleware.wireless.ble_host_component_lib_mcux.MCXW716C middleware.wireless.ble_gatt_db.MCXW716C middleware.wireless.ble_gatt_service_discovery.MCXW716C middleware.wireless.framework.lpm_MCXW716C_systicks.MCXW716C middleware.wireless.ble_profiles.temperature.MCXW716C middleware.wireless.framework.fwk_debug.MCXW716C middleware.wireless.framework.platform_internal_flash.connected_mcu.MCXW716C platform.drivers.clock.MCXW716C device.MCXW716C_CMSIS.MCXW716C platform.devices.MCXW716C.MCXW716C platform.drivers.lpuart.MCXW716C platform.drivers.lptmr.MCXW716C platform.drivers.port.MCXW716C platform.drivers.lpspi.MCXW716C platform.drivers.gpio.MCXW716C platform.drivers.flash_k4.MCXW716C component.k4_flash_adapter.MCXW716C component.lpuart_adapter.MCXW716C platform.drivers.tpm.MCXW716C platform.utilities.assert_lite.MCXW716C utility.debug_console_lite.MCXW716C platform.drivers.wuu.MCXW716C platform.drivers.cmc.MCXW716C platform.drivers.spc.MCXW716C component.gpio_adapter.MCXW716C component.button.MCXW716C component.led.MCXW716C component.panic.MCXW716C component.lptmr_adapter.MCXW716C component.timer_manager.MCXW716C component.software_rng_adapter.MCXW716C component.lptmr_time_stamp_adapter.MCXW716C utility.format.MCXW716C platform.drivers.ccm32k.MCXW716C platform.drivers.sfa.MCXW716C component.serial_manager_uart.MCXW716C component.serial_manager.MCXW716C component.lists.MCXW716C platform.drivers.ltc.MCXW716C middleware.wireless.framework.rpmsg_config.MCXW716C component.rpmsg_adapter.MCXW716C middleware.multicore.rpmsg_lite.freertos.MCXW716C middleware.multicore.rpmsg_lite.MCXW716C component.serial_manager_rpmsg.MCXW716C middleware.multicore.mcmgr.mcxw716.MCXW716C middleware.multicore.rpmsg_lite.frdmmcxw71_freertos.MCXW716C middleware.freertos-kernel.cm33_non_trustzone.MCXW716C middleware.wireless.framework.Sensors.MCXW716C device.MCXW716C_utility.frdmmcxw71.MCXW716C middleware.wireless.framework.platform_ble.connected_mcu.MCXW716C middleware.wireless.framework.platform_ics.connected_mcu.MCXW716C middleware.wireless.framework_freertos_utils.MCXW716C middleware.wireless.ble_hci_transport_rpmsg.MCXW716C middleware.freertos-kernel.MCXW716C component.log.MCXW716C platform.drivers.elemu.MCXW716C middleware.secure-subsystem.elemu.MCXW716C middleware.secure-subsystem.port_kw45_k4w1.MCXW716C middleware.wireless.framework.sec_lib_sss.MCXW716C middleware.wireless.framework.rng.MCXW716C middleware.wireless.framework.linkscript_warmboot_kw45.MCXW716C component.power_manager_frdmmcxw71.MCXW716C middleware.wireless.controller_api.MCXW716C platform.utilities.misc_utilities.MCXW716C platform.drivers.common.MCXW716C component.osa_interface.MCXW716C utility.str.MCXW716C middleware.wireless.framework.platform_lowpower.connected_mcu.MCXW716C middleware.wireless.framework.platform_lowpower_timer.connected_mcu.MCXW716C middleware.wireless.framework.platform.connected_mcu.MCXW716C middleware.wireless.framework_swo_dbg.MCXW716C CMSIS_Include_core_cm.MCXW716C device.MCXW716C_system.MCXW716C middleware.multicore.mcmgr.MCXW716C platform.drivers.imu.MCXW716C middleware.wireless.framework.platform_sensors.connected_mcu.MCXW716C platform.drivers.lpadc.MCXW716C platform.drivers.vref_1.MCXW716C middleware.wireless.framework.platform_coex.connected_mcu.MCXW716C middleware.wireless.framework.SFC.MCXW716C middleware.freertos-kernel.template.MCXW716C middleware.freertos-kernel.extension.MCXW716C middleware.secure-subsystem.mu.MCXW716C middleware.secure-subsystem.MCXW716C middleware.wireless.framework.platform_rng.connected_mcu.MCXW716C component.power_manager_core.MCXW716C platform.drivers.crc.MCXW716C" category="wireless_examples/reference_design/bluetooth/lowpower_central/freertos">
+    <projects>
+      <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
+    </projects>
+    <memory>
+      <memoryBlock id="PROGRAM_FLASH_" name="PROGRAM_FLASH" addr="00000000" size="000f6000" type="Flash" access="RO"/>
+      <memoryBlock id="NVM_region_" name="NVM_region" addr="000f6000" size="00008000" type="Flash" access="RO"/>
+      <memoryBlock id="PROD_DATA_" name="PROD_DATA" addr="000fe000" size="00002000" type="Flash" access="RO"/>
+      <memoryBlock id="SRAM_" name="SRAM" addr="20004800" size="00017800" type="RAM" access="RW"/>
+      <memoryBlock id="rpmsg_sh_mem_" name="rpmsg_sh_mem" addr="489c8800" size="1800" type="RAM" access="RW"/>
+    </memory>
+    <toolchainSettings>
+      <toolchainSetting id_refs="com.nxp.mcuxpresso">
+        <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
+          <value>CPU_MCXW716CMFTA</value>
+          <value>SHELL_BUFFER_SIZE=16</value>
+          <value>SHELL_HISTORY_COUNT=1</value>
+          <value>SDK_DEBUGCONSOLE=1</value>
+          <value>OSA_USED</value>
+          <value>SERIAL_MANAGER_NON_BLOCKING_MODE=1</value>
+          <value>SERIAL_USE_CONFIGURE_STRUCTURE=1</value>
+          <value>SDK_COMPONENT_INTEGRATION=1</value>
+          <value>FSL_OSA_TASK_ENABLE=1</value>
+          <value>CR_INTEGER_PRINTF</value>
+          <value>MCXW716C</value>
+          <value>CFG_BLE_PRJ=1</value>
+          <value>ENABLE_RAM_VECTOR_TABLE=1</value>
+          <value>NXP_SSSAPI</value>
+          <value>NXP_ELE200</value>
+          <value>HAL_RPMSG_SELECT_ROLE=0</value>
+          <value>SERIAL_PORT_TYPE_RPMSG=1</value>
+          <value>RPMSG_ADAPTER_NON_BLOCKING_MODE=1</value>
+          <value>HAL_FLASH_ROMAPI_DRIVER=1</value>
+          <value>gUseHciTransportDownward_d=1</value>
+          <value>TM_ENABLE_TIME_STAMP=1</value>
+          <value>BOARD_FRDMCXW71_SUPPORT=1</value>
+          <value>MCUXPRESSO_SDK</value>
+          <value>DEBUG_CONSOLE_RX_ENABLE=0</value>
+          <value>HAL_UART_ADAPTER_LOWPOWER=1</value>
+          <value>TIMER_PORT_TYPE_LPTMR=1</value>
+          <value>SERIAL_PORT_TYPE_UART=1</value>
+          <value>SDK_OS_FREE_RTOS</value>
+          <value>SSS_CONFIG_FILE='"fsl_sss_config_elemu.h"'</value>
+          <value>SSCP_CONFIG_FILE='"fsl_sscp_config_elemu.h"'</value>
+          <value>MULTICORE_APP=1</value>
+          <value>GENERIC_LIST_LIGHT=1</value>
+        </option>
+        <option id="com.crt.advproject.link.fpu" type="enum">
+          <value>com.crt.advproject.link.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="com.crt.advproject.gas.hdrlib" type="enum">
+          <value>com.crt.advproject.gas.hdrlib.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.gas.specs" type="enum">
+          <value>com.crt.advproject.gas.specs.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.gcc.hdrlib" type="enum">
+          <value>com.crt.advproject.gcc.hdrlib.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.gcc.specs" type="enum">
+          <value>com.crt.advproject.gcc.specs.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.link.gcc.hdrlib" type="enum">
+          <value>com.crt.advproject.gcc.link.hdrlib.newlibnano.nohost</value>
+        </option>
+        <option id="gnu.c.link.option.nostdlibs" type="boolean">
+          <value>true</value>
+        </option>
+        <option id="com.crt.advproject.link.memory.heapAndStack" type="string">
+          <value>&amp;Heap:Default;Default;0x0&amp;Stack:SRAM;Start;0xA00</value>
+        </option>
+        <option id="gnu.c.link.option.other" type="stringList">
+          <value>--defsym=gLowpowerPowerDownEnable_d=1</value>
+          <value>--defsym=gFirmwareTopAddr_c=0x20013FEF</value>
+          <value>--sort-section=alignment</value>
+          <value>--defsym=__ram_vector_table__=1</value>
+          <value>--defsym=gUseNVMLink_d=1</value>
+          <value>--gc-sections</value>
+          <value>-print-memory-usage</value>
+          <value>-Map="${BuildArtifactFileBaseName}.map"</value>
+          <value>--defsym=m_lowpower_flag_start=0x489C007C</value>
+          <value>-no-warn-rwx-segments</value>
+        </option>
+        <option id="gnu.c.link.option.libs" type="stringList">
+          <value>m</value>
+          <value>gcc</value>
+          <value>nosys</value>
+        </option>
+        <option id="com.crt.advproject.gcc.fpu" type="enum">
+          <value>com.crt.advproject.gcc.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="gnu.c.compiler.option.optimization.flags" type="string">
+          <value>-fno-common</value>
+        </option>
+        <option id="com.crt.advproject.c.misc.dialect" type="enum">
+          <value>com.crt.advproject.misc.dialect.gnu99</value>
+        </option>
+        <option id="gnu.c.compiler.option.misc.other" type="string">
+          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -fno-builtin</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.toerrors" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="com.crt.advproject.gas.fpu" type="enum">
+          <value>com.crt.advproject.gas.fpu.fpv5sp.hard</value>
+        </option>
+      </toolchainSetting>
+    </toolchainSettings>
+    <debug_configurations>
+      <debug_configuration id_refs="com.crt.advproject.config.exe.debug com.crt.advproject.config.exe.release">
+        <drivers>
+          <driver id_refs="PROGRAM_FLASH_">
+            <driverBinary path="../../../../../../../devices/MCXW716C/mcuxpresso" project_relative_path="binary" type="binary">
+              <files mask="MCXW71X.cfx"/>
+            </driverBinary>
+          </driver>
+          <driver id_refs="NVM_region_">
+            <driverBinary path="../../../../../../../devices/MCXW716C/mcuxpresso" project_relative_path="binary" type="binary">
+              <files mask="MCXW71X.cfx"/>
+            </driverBinary>
+          </driver>
+          <driver id_refs="PROD_DATA_">
+            <driverBinary path="../../../../../../../devices/MCXW716C/mcuxpresso" project_relative_path="binary" type="binary">
+              <files mask="MCXW71X.cfx"/>
+            </driverBinary>
+          </driver>
+        </drivers>
+      </debug_configuration>
+    </debug_configurations>
+    <include_paths>
+      <include_path path="." project_relative_path="board" type="c_include"/>
+      <include_path path="." project_relative_path="source" type="c_include"/>
+      <include_path path=".." project_relative_path="source" type="c_include"/>
+      <include_path path="." project_relative_path="source" type="asm_include"/>
+    </include_paths>
+    <source path="." project_relative_path="source" type="src">
+      <files mask="app_services_init.c"/>
+      <files mask="app_ble_init.c"/>
+      <files mask="hardware_init.c"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include">
+      <files mask="app.h"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="clock_config.c"/>
+      <files mask="pin_mux.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="clock_config.h"/>
+      <files mask="pin_mux.h"/>
+    </source>
+    <source path=".." project_relative_path="source" type="src">
+      <files mask="app_config.c"/>
+      <files mask="lowpower_central.c"/>
+    </source>
+    <source path=".." project_relative_path="source" type="c_include">
+      <files mask="gatt_db.h"/>
+      <files mask="gatt_uuid128.h"/>
+      <files mask="lowpower_central.h"/>
+    </source>
+    <source path="." project_relative_path="source/common" type="src">
+      <files mask="main.c"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include" config="true">
+      <files mask="FreeRTOSConfig.h"/>
+    </source>
+    <source path="." project_relative_path="source" type="src">
+      <files mask="ble_init.c"/>
+      <files mask="app_conn.c"/>
+      <files mask="app_connection.c"/>
+      <files mask="app_scanner.c"/>
+      <files mask="app_nvm.c"/>
+      <files mask="app_low_power.c"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include">
+      <files mask="ble_init.h"/>
+      <files mask="app_conn.h"/>
+      <files mask="app_scanner.h"/>
+    </source>
+    <source path=".." project_relative_path="doc" type="doc">
+      <files mask="readme.txt"/>
+    </source>
+    <source path="../.." project_relative_path="doc" type="doc">
+      <files mask="README.md"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_preinclude">
+      <files mask="app_preinclude.h"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="board.c"/>
+      <files mask="board_comp.c"/>
+      <files mask="board_dcdc.c"/>
+      <files mask="board_lp.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="board.h"/>
+      <files mask="board_platform.h"/>
+      <files mask="board_comp.h"/>
+      <files mask="board_dcdc.h"/>
+      <files mask="board_lp.h"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include">
+      <files mask="app_preinclude_common.h"/>
+    </source>
+    <source path="../../../../../../../middleware/wireless/ieee-802.15.4/bin/mcxw71" project_relative_path="source" type="other">
+      <files mask="mcxw71_nbu_ble_15_4_dyn_1_0_17_1.xip" hidden="true"/>
+      <files mask="mcxw71_nbu_ble_15_4_dyn_1_0_17_1.sb3" hidden="true"/>
+    </source>
+  </example>
+</ksdk:examples>

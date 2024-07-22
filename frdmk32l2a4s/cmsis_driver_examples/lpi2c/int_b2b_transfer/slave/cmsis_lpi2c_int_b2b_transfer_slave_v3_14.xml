@@ -19,6 +19,7 @@
     <definition extID="platform.drivers.smc.K32L2A41A"/>
     <definition extID="platform.drivers.gpio.K32L2A41A"/>
     <definition extID="platform.utilities.misc_utilities.K32L2A41A"/>
+    <definition extID="utility.str.K32L2A41A"/>
     <definition extID="CMSIS_Driver_Include.I2C.K32L2A41A"/>
     <definition extID="RTE_Device.K32L2A41A"/>
     <definition extID="CMSIS_Include_core_cm.K32L2A41A"/>
@@ -27,7 +28,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="frdmk32l2a4s_cmsis_lpi2c_int_b2b_transfer_slave" name="cmsis_lpi2c_int_b2b_transfer_slave" dependency="utility.debug_console_lite.K32L2A41A platform.utilities.assert_lite.K32L2A41A platform.drivers.port.K32L2A41A platform.drivers.clock.K32L2A41A platform.drivers.edma.K32L2A41A platform.drivers.dmamux.K32L2A41A platform.drivers.lpi2c.K32L2A41A platform.drivers.lpi2c_edma.K32L2A41A platform.drivers.lpi2c_cmsis.K32L2A41A platform.drivers.common.K32L2A41A device.K32L2A41A_CMSIS.K32L2A41A component.lpuart_adapter.K32L2A41A platform.drivers.lpuart.K32L2A41A component.lists.K32L2A41A device.K32L2A41A_startup.K32L2A41A platform.drivers.smc.K32L2A41A platform.drivers.gpio.K32L2A41A platform.utilities.misc_utilities.K32L2A41A CMSIS_Driver_Include.I2C.K32L2A41A RTE_Device.K32L2A41A CMSIS_Include_core_cm.K32L2A41A device.K32L2A41A_system.K32L2A41A" category="cmsis_driver_examples/lpi2c">
+  <example id="frdmk32l2a4s_cmsis_lpi2c_int_b2b_transfer_slave" name="cmsis_lpi2c_int_b2b_transfer_slave" dependency="utility.debug_console_lite.K32L2A41A platform.utilities.assert_lite.K32L2A41A platform.drivers.port.K32L2A41A platform.drivers.clock.K32L2A41A platform.drivers.edma.K32L2A41A platform.drivers.dmamux.K32L2A41A platform.drivers.lpi2c.K32L2A41A platform.drivers.lpi2c_edma.K32L2A41A platform.drivers.lpi2c_cmsis.K32L2A41A platform.drivers.common.K32L2A41A device.K32L2A41A_CMSIS.K32L2A41A component.lpuart_adapter.K32L2A41A platform.drivers.lpuart.K32L2A41A component.lists.K32L2A41A device.K32L2A41A_startup.K32L2A41A platform.drivers.smc.K32L2A41A platform.drivers.gpio.K32L2A41A platform.utilities.misc_utilities.K32L2A41A utility.str.K32L2A41A CMSIS_Driver_Include.I2C.K32L2A41A RTE_Device.K32L2A41A CMSIS_Include_core_cm.K32L2A41A device.K32L2A41A_system.K32L2A41A" category="cmsis_driver_examples/lpi2c">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -52,7 +53,7 @@
           <value>com.crt.advproject.gcc.fpu.none</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

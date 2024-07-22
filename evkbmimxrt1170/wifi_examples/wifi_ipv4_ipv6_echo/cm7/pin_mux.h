@@ -71,6 +71,19 @@ void BOARD_InitPinsM2(void);                  /* Function assigned for the Corte
 #endif
 
 /*!
+ * @brief Configures pin routing and optionally pin electrical features.
+ *
+ */
+void BOARD_InitEnetPins(void);                /* Function assigned for the Cortex-M7F */
+
+/*!
+ * @brief Configures pin routing and optionally pin electrical features.
+ *
+ */
+void BOARD_InitEnet1GPins(void);              /* Function assigned for the Cortex-M7F */
+
+
+/*!
  * @}
  */
 #endif /* _PIN_MUX_H_ */

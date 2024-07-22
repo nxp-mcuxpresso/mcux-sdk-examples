@@ -1,0 +1,32 @@
+<#-- Only insert header if Flash region starts at base address FlexSPI1/2 S/NS-->
+<#if (MemUtils.location(CODE) == Utils.strToInt("0x38000000")) || (MemUtils.location(CODE) == Utils.strToInt("0x28000000")) || 
+     (MemUtils.location(CODE) == Utils.strToInt("0x12000000")) || (MemUtils.location(CODE) == Utils.strToInt("0x02000000")) ||
+     (MemUtils.location(CODE) == Utils.strToInt("0x32000000")) || (MemUtils.location(CODE) == Utils.strToInt("0x22000000")) || 
+     (MemUtils.location(CODE) == Utils.strToInt("0x14000000")) || (MemUtils.location(CODE) == Utils.strToInt("0x04000000"))>
+    /* Boot header - FCB, XMCD, Program Image Container for booting from external flash */
+    .boot_hdr : ALIGN(${text_align})
+    {
+        FILL(0x00)
+        __boot_hdr_start__ = ABSOLUTE(.) ;
+
+        /* FCB */
+        . = 0x0400 ;
+        __boot_hdr_conf__ = ABSOLUTE(.) ;
+        KEEP(*(.boot_hdr.conf))
+
+        /* XMCD */
+        . = 0x0800 ;
+        __boot_hdr_xmcd__ = ABSOLUTE(.) ;
+        KEEP(*(.boot_hdr.xmcd_data))
+
+        /* Container */
+        . = 0x1000 ;
+        __boot_hdr_container__  =  ABSOLUTE(.) ;
+        KEEP(*(.boot_hdr.container))
+
+        . = 0x10B000 ;
+        app_image_offset = (. - __boot_hdr_container__) ;
+        __boot_hdr_end__ = ABSOLUTE(.) ;
+    } >${CODE}
+
+</#if>

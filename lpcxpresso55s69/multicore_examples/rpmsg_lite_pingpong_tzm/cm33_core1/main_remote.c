@@ -1,6 +1,5 @@
 /*
- * Copyright 2018-2020 NXP
- * All rights reserved.
+ * Copyright 2018-2023 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -49,7 +48,7 @@ void SystemInitHook(void)
 }
 
 THE_MESSAGE volatile msg    = {0};
-static uint32_t remote_addr = 0;
+static uint32_t remote_addr = 0U;
 
 /* Internal functions */
 static int32_t my_ept_read_cb(void *payload, uint32_t payload_len, uint32_t src, void *priv)

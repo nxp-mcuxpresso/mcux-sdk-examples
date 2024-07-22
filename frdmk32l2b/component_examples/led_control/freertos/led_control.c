@@ -212,7 +212,7 @@ button_status_t button_callback(void *buttonHandle, button_callback_message_t *m
 #endif
 
 /*! @brief Main function */
-void main_task(void *param)
+void main_task(osa_task_param_t arg)
 {
     static uint8_t initialized = 0;
 

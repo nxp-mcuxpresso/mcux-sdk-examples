@@ -1,0 +1,11 @@
+        <#if memory.name=="SRAM_RAMFUNC">
+        *(.ramfunc*)
+        *(RamFunction)
+        KEEP(*(CodeQuickAccess))
+        */flexspi_nor_flash_ops.o (.text .text* .rodata .rodata* .data .data* .bss .bss*)
+        */fsl_flexspi.o(.text .text* .rodata .rodata*)
+        */fsl_dma.o(.text .text* .rodata .rodata*)
+        */fsl_flexspi_dma.o(.text .text* .rodata .rodata*)
+        */fsl_reset.o(.text .text* .rodata .rodata*)
+        */fsl_clock.o(.text .text* .rodata .rodata*)
+        </#if>

@@ -1,3 +1,10 @@
+/*
+ * Copyright 2024 NXP
+ * All rights reserved.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 #include "le_audio_sync.h"
 
 #include "le_audio_common.h"
@@ -11,18 +18,14 @@ extern void BOARD_SyncTimer_Init(void (*sync_timer_callback)(uint32_t sync_index
 extern void BORAD_SyncTimer_Start(uint32_t sample_rate, uint32_t bits_per_sample, uint32_t sync_index_init);
 extern void BORAD_SyncTimer_Stop(void);
 
-#if defined(LE_AUDIO_SYNC_TEST) && (LE_AUDIO_SYNC_TEST > 0)
-#define AUDIO_SYNC_TEST_MODE_10MS_SINE_10MS_MUTE   1
-#define AUDIO_SYNC_TEST_MODE_10MS_SINE_40MS_MUTE   2
-#define AUDIO_SYNC_TEST_MODE_500MS_SINE_500MS_MUTE 3
-#define AUDIO_SYNC_TEST_MODE_1S_SINE               4
-#define AUDIO_SYNC_TEST_MODE_SINE                  5
+#define AUDIO_SYNC_TEST_MODE_SINE                  1
+#define AUDIO_SYNC_TEST_MODE_10MS_SINE_20MS_MUTE   2
 
-#define AUDIO_SYNC_TEST_MODE AUDIO_SYNC_TEST_MODE_1S_SINE
+static int audio_sync_test_mode = 0;
 
 /* Here we just use one second wav for test. */
 static int sin_index = 0;
-static int16_t sin_wav[48000] = { 0 };
+static int16_t sin_wav[480 * 3] = { 0 };
 
 #include <math.h>
 
@@ -31,27 +34,39 @@ void le_audio_sync_test_init(int sample_rate)
     float ts = 1.0 / sample_rate; /* Sample Rate. */
     float Fr = 500.0; /* Sin wav frequency. */
     float v;
+    int n;
 
-#if (AUDIO_SYNC_TEST_MODE == AUDIO_SYNC_TEST_MODE_10MS_SINE_10MS_MUTE)
-    /* Generate 10ms sine wav. */
-    for(int n = 0; n < sample_rate / 100; n++)
-#elif (AUDIO_SYNC_TEST_MODE == AUDIO_SYNC_TEST_MODE_10MS_SINE_40MS_MUTE)
-    /* Generate 500ms sine wav. */
-    for(int n = 0; n < sample_rate / 100; n++)
-#elif (AUDIO_SYNC_TEST_MODE == AUDIO_SYNC_TEST_MODE_500MS_SINE_500MS_MUTE)
-    /* Generate 500ms sine wav. */
-    for(int n = 0; n < sample_rate / 2; n++)
-#else
-    /* Generate 1s sine wav. */
-    for(int n = 0; n < sample_rate; n++)
-#endif
+    if (audio_sync_test_mode == AUDIO_SYNC_TEST_MODE_10MS_SINE_20MS_MUTE)
     {
-        v = 32767.0 * sin(2 * 3.141592 * Fr * ts * n);
-        sin_wav[n] = (int16_t)v;
+        /* Generate 10ms sine wav. */
+        n = sample_rate / 100;
+    }
+    else
+    {
+        /* Generate 30ms sine wav. */
+        n = sample_rate / 100 * 3;
+    }
+
+    for(int i = 0; i < n; i++)
+    {
+        v = 32767.0 * sin(2 * 3.141592 * Fr * ts * i);
+        sin_wav[i] = (int16_t)v;
     }
     /* Do nothing. */
 }
-#endif
+
+int le_audio_sync_test_mode(int mode)
+{
+    if((mode == 0) || \
+       (mode == AUDIO_SYNC_TEST_MODE_SINE) || \
+       (mode == AUDIO_SYNC_TEST_MODE_10MS_SINE_20MS_MUTE))
+    {
+        audio_sync_test_mode = mode;
+        return 0;
+    }
+
+    return -1;
+}
 
 #define AUDIO_SYNC_STATE_STOP  0
 #define AUDIO_SYNC_STATE_START 1
@@ -66,6 +81,7 @@ typedef struct _audio_sync_info {
     uint32_t presentation_delay_us;
     int state;
     int pre_state;
+    uint32_t time_stamp;
     uint32_t sync_signal_index_to_start;
     int mute_frame_samples;
     uint32_t mute_frame_duration_us;
@@ -209,30 +225,39 @@ void le_audio_sync_init(void)
     BOARD_SyncTimer_Init(sync_timer_callback);
 }
 
-void le_audio_sync_start(uint32_t iso_interval_us, uint32_t sync_delay_us, int sample_rate, int samples_per_frame, uint32_t presentation_delay_us, uint32_t sync_index_init)
+void le_audio_sync_start(int sample_rate, int samples_per_frame)
+{
+    audio_sync_info.sample_rate           = sample_rate;
+    audio_sync_info.samples_per_frame     = samples_per_frame;
+    audio_sync_info.sample_duration_us    = 1000000.0 / (float)sample_rate;
+
+    /* Start the sync timer. */
+    BORAD_SyncTimer_Start(sample_rate, 16 * 2, 0);
+
+    /* Init resampler. */
+    Resampler_Init(sample_rate, samples_per_frame);
+}
+
+void le_audio_sync_set(uint32_t iso_interval_us, uint32_t sync_delay_us, uint32_t presentation_delay_us)
 {
     audio_sync_info.iso_interval_us       = iso_interval_us;
     audio_sync_info.sync_delay_us         = sync_delay_us;
-    audio_sync_info.sample_rate           = sample_rate;
-    audio_sync_info.samples_per_frame     = samples_per_frame;
+    // audio_sync_info.sample_rate           = sample_rate;
+    // audio_sync_info.samples_per_frame     = samples_per_frame;
     audio_sync_info.presentation_delay_us = presentation_delay_us;
     audio_sync_info.bits_per_sample       = 16;
     audio_sync_info.state                 = AUDIO_SYNC_STATE_STOP;
     audio_sync_info.pre_state             = AUDIO_SYNC_STATE_STOP;
-    audio_sync_info.sample_duration_us    = 1000000.0 / (float)sample_rate;
+    // audio_sync_info.sample_duration_us    = 1000000.0 / (float)sample_rate;
     audio_sync_info.resampler_added_samples = 0;
     audio_sync_info.extra_samples_needed  = 0.0;
-    
+
     audio_sync_info.fix_kp = 0.2;
     audio_sync_info.fix_ki = 0.002;
     audio_sync_info.fix_i  = 0.0;
     audio_sync_info.fix_output = 0.0;
 
-    /* Start the sync timer. */
-    BORAD_SyncTimer_Start(sample_rate, 16 * 2, sync_index_init);
-
-    /* Init resampler. */
-    Resampler_Init(sample_rate, samples_per_frame);
+    audio_sync_info.time_stamp = 0xffffffff; /* This is the invalid value. */
 }
 
 /* 
@@ -318,29 +343,31 @@ void le_audio_sync_process(frame_packet_t *frame)
             /* set state to start. */
             audio_sync_info.pre_state = audio_sync_info.state;
             audio_sync_info.state = AUDIO_SYNC_STATE_START;
+
+            /* Save the first SDU's timestamp. */
+            audio_sync_info.time_stamp = frame->info.ts;
         }
     }
 
     if((audio_sync_info.state == AUDIO_SYNC_STATE_KEEP) || (audio_sync_info.state == AUDIO_SYNC_STATE_START))
     {
         /* feedback sync error adjust parameter to resampler. */
-        Resampler_Update_FsOffset(audio_sync_info.samples_per_frame + audio_sync_info.fix_output, audio_sync_info.sample_rate / 100);
+        Resampler_Update_FsOffset(audio_sync_info.samples_per_frame + audio_sync_info.fix_output, audio_sync_info.samples_per_frame);
+        /* replace the audio when enable sync test. */
+        if(audio_sync_test_mode)
+        {
+            memcpy(frame->buff, &sin_wav[sin_index * audio_sync_info.samples_per_frame], audio_sync_info.samples_per_frame * 2);
+            if(audio_sync_info.iso_interval_us == 7500) {
+                sin_index = (sin_index + 1) % 4;
+            }
+            else if(audio_sync_info.iso_interval_us == 10000) {
+                sin_index = (sin_index + 1) % 3;
+            }
+            else {
+                while(1);
+            }
+        }
         /* resampler process. */
-#if defined(LE_AUDIO_SYNC_TEST) && (LE_AUDIO_SYNC_TEST > 0)
-    #if (AUDIO_SYNC_TEST_MODE == AUDIO_SYNC_TEST_MODE_10MS_SINE_10MS_MUTE)
-        memcpy(frame->buff, &sin_wav[sin_index * audio_sync_info.samples_per_frame], audio_sync_info.samples_per_frame * 2);
-        sin_index = (sin_index + 1) % 2;
-    #elif (AUDIO_SYNC_TEST_MODE == AUDIO_SYNC_TEST_MODE_10MS_SINE_40MS_MUTE)
-        memcpy(frame->buff, &sin_wav[sin_index * audio_sync_info.samples_per_frame], audio_sync_info.samples_per_frame * 2);
-        sin_index = (sin_index + 1) % 5;
-    #elif (AUDIO_SYNC_TEST_MODE == AUDIO_SYNC_TEST_MODE_500MS_SINE_500MS_MUTE)
-        memcpy(frame->buff, &sin_wav[sin_index * audio_sync_info.samples_per_frame], audio_sync_info.samples_per_frame * 2);
-        sin_index = (sin_index + 1) % 100;
-    #else
-        memcpy(frame->buff, &sin_wav[sin_index * audio_sync_info.samples_per_frame], audio_sync_info.samples_per_frame * 2);
-        sin_index = (sin_index + 1) % 100;
-    #endif
-#endif
         int resampler_samples_out = Resampler((int16_t *)frame->buff, resampler_buff);
         audio_sync_info.resampler_added_samples += resampler_samples_out - audio_sync_info.samples_per_frame;
         audio_sync_info.resampler_internal_samples = Resampler_GetFrc();
@@ -370,4 +397,15 @@ void le_audio_sync_process(frame_packet_t *frame)
 void le_audio_sync_stop(void)
 {
     BORAD_SyncTimer_Stop();
+
+    audio_sync_info.time_stamp = 0xffffffff; /* This is the invalid value. */
+}
+
+void le_audio_sync_info_get(struct sync_info *info)
+{
+    info->iso_interval       = audio_sync_info.iso_interval_us;
+    info->sync_delay         = audio_sync_info.sync_delay_us;
+    info->presentation_delay = audio_sync_info.presentation_delay_us;
+    
+    info->time_stamp         = audio_sync_info.time_stamp;
 }

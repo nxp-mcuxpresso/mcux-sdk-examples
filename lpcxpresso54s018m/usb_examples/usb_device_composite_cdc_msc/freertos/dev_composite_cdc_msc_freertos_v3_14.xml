@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:examples xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd manifest.xsd">
   <externalDefinitions>
+    <definition extID="platform.drivers.mrt.LPC54S018M"/>
     <definition extID="middleware.usb.device_controller_ip3511fs.LPC54S018M"/>
     <definition extID="middleware.freertos-kernel.LPC54S018M"/>
     <definition extID="middleware.freertos-kernel.heap_4.LPC54S018M"/>
@@ -33,11 +34,12 @@
     <definition extID="CMSIS_Include_core_cm.LPC54S018M"/>
     <definition extID="device.LPC54S018M_system.LPC54S018M"/>
     <definition extID="middleware.usb.device.ip3511hs_config_header.LPC54S018M"/>
+    <definition extID="utility.str.LPC54S018M"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="lpcxpresso54s018m_dev_composite_cdc_msc_freertos" name="dev_composite_cdc_msc_freertos" dependency="middleware.usb.device_controller_ip3511fs.LPC54S018M middleware.freertos-kernel.LPC54S018M middleware.freertos-kernel.heap_4.LPC54S018M component.lists.LPC54S018M component.serial_manager_uart.LPC54S018M component.serial_manager.LPC54S018M platform.drivers.flexcomm_usart.LPC54S018M component.usart_adapter.LPC54S018M device.LPC54S018M_CMSIS.LPC54S018M device.LPC54S018M_startup.LPC54S018M platform.drivers.clock.LPC54S018M platform.drivers.common.LPC54S018M platform.drivers.emc.LPC54S018M platform.drivers.flexcomm.LPC54S018M platform.drivers.lpc_gpio.LPC54S018M platform.drivers.lpc_iocon.LPC54S018M platform.drivers.power.LPC54S018M platform.drivers.reset.LPC54S018M middleware.usb.device.controller.driver.LPC54S018M middleware.usb.device_controller_ip3511hs.LPC54S018M platform.utilities.assert.LPC54S018M utility.debug_console.LPC54S018M platform.utilities.misc_utilities.LPC54S018M middleware.usb.device.ip3511fs_config_header.LPC54S018M middleware.usb.device.common_header.LPC54S018M component.osa.LPC54S018M middleware.usb.common_header.LPC54S018M middleware.freertos-kernel.template.LPC54S018M middleware.freertos-kernel.extension.LPC54S018M CMSIS_Include_core_cm.LPC54S018M device.LPC54S018M_system.LPC54S018M middleware.usb.device.ip3511hs_config_header.LPC54S018M" category="usb_examples">
+  <example id="lpcxpresso54s018m_dev_composite_cdc_msc_freertos" name="dev_composite_cdc_msc_freertos" dependency="platform.drivers.mrt.LPC54S018M middleware.usb.device_controller_ip3511fs.LPC54S018M middleware.freertos-kernel.LPC54S018M middleware.freertos-kernel.heap_4.LPC54S018M component.lists.LPC54S018M component.serial_manager_uart.LPC54S018M component.serial_manager.LPC54S018M platform.drivers.flexcomm_usart.LPC54S018M component.usart_adapter.LPC54S018M device.LPC54S018M_CMSIS.LPC54S018M device.LPC54S018M_startup.LPC54S018M platform.drivers.clock.LPC54S018M platform.drivers.common.LPC54S018M platform.drivers.emc.LPC54S018M platform.drivers.flexcomm.LPC54S018M platform.drivers.lpc_gpio.LPC54S018M platform.drivers.lpc_iocon.LPC54S018M platform.drivers.power.LPC54S018M platform.drivers.reset.LPC54S018M middleware.usb.device.controller.driver.LPC54S018M middleware.usb.device_controller_ip3511hs.LPC54S018M platform.utilities.assert.LPC54S018M utility.debug_console.LPC54S018M platform.utilities.misc_utilities.LPC54S018M middleware.usb.device.ip3511fs_config_header.LPC54S018M middleware.usb.device.common_header.LPC54S018M component.osa.LPC54S018M middleware.usb.common_header.LPC54S018M middleware.freertos-kernel.template.LPC54S018M middleware.freertos-kernel.extension.LPC54S018M CMSIS_Include_core_cm.LPC54S018M device.LPC54S018M_system.LPC54S018M middleware.usb.device.ip3511hs_config_header.LPC54S018M utility.str.LPC54S018M" category="usb_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -72,7 +74,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

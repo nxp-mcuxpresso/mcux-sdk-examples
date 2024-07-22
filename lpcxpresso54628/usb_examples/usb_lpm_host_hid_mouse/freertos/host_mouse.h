@@ -19,6 +19,29 @@
 #define LPM_HIRD_VALUE 6U
 #define LPM_ENABLE_REMOTEWAKEUP 1U
 
+ /*!
+ * @brief  There is an update for the specification 'Errata for USB 2.0 ECN: Link Power Management (LPM) - 7/2007' in 2011 year.
+ *         In this update, it requires USB host controller must use zero(0) to be the value of ENDP(Endpoint) field of LPM EXT token.
+ *         However, IP3516 USB host IP and IP3511HS USB device IP do not consider this requirement because this IP is designed before
+ *         the errata is released. IP3516 will use the endpoint number of the last transaction for LPM token no matter the response of
+ *         this transaction is ACK or NAK. If IP3516 host use endpoint 1 to issue LPM token, then the devices that supports checking 
+ *         ENDP 0 of LPM EXT token will have no response for this LPM token so that L1 sleep will fail. It does not matter for IP3511HS
+ *         USB device IP because it can response for LPM token using non-zero endpoint.
+ *
+ *         To make this case is more robust, we use this software workaround to make sure the last transaction of this case is sent to
+ *         endpoint 0 before sending LPM token so that IP3516 will use endpoint 0 to send LPM token. This workaround will force the
+ *         application layer of this case to cancel transfer of interrupt IN pipe then use endpoint 0 to send GetBOSDescriptor request,
+ *         which it will make sure the last transaction is sent to endpoint 0. In user's application, user needs to do the similar change
+ *         to make sure the last transaction is sent to endpoint 0. (1) cancel transfers for all of endpoints except the endpoint 0;
+ *         (2) prime one transaction to endpoint 0 before sending the LPM token.
+ *
+ *         Users can disable this macro if the USB IP of the attached device does not care about the ENDP field of the LPM EXT token.
+ *        
+ */
+#if ((defined USB_HOST_CONFIG_IP3516HS) && (USB_HOST_CONFIG_IP3516HS))
+#define APP_IP3516HS_LPM_ERRATA_WORKAROUND (1U)
+#endif
+
 /*! @brief host app run status */
 typedef enum _usb_host_hid_mouse_run_state
 {

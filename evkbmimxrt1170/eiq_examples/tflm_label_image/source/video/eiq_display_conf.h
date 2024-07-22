@@ -15,16 +15,17 @@
  ******************************************************************************/
 
 #define DEMO_PANEL_RK043FN02HC 0
-#define DEMO_PANEL_RK055AHD091 1
-#define DEMO_PANEL_RK055IQH091 2
-#define DEMO_PANEL_RK055MHD091 3
+#define DEMO_PANEL_RK043FN66HS 1
+#define DEMO_PANEL_RK055AHD091 2
+#define DEMO_PANEL_RK055IQH091 3
+#define DEMO_PANEL_RK055MHD091 4
 
 #define DEMO_DISPLAY_CONTROLLER_ELCDIF  0
 #define DEMO_DISPLAY_CONTROLLER_LCDIFV2 1
 
 #if defined(CPU_MIMXRT1052DVL6B) || defined(CPU_MIMXRT1062DVL6A) || defined(CPU_MIMXRT1062DVL6B) || defined(CPU_MIMXRT1064DVL6A)
 
-#define DEMO_PANEL DEMO_PANEL_RK043FN02HC
+#define DEMO_PANEL DEMO_PANEL_RK043FN66HS
 
 #define APP_PXP_OUT_FORMAT kPXP_OutputPixelFormatRGB565
 #define APP_CSC1_MODE kPXP_Csc1YUV2RGB
@@ -67,11 +68,13 @@
 #define DEMO_PANEL_WIDTH (540)
 #define DEMO_PANEL_HEIGHT (960)
 
-#elif (DEMO_PANEL == DEMO_PANEL_RK043FN02HC)
+#elif ((DEMO_PANEL == DEMO_PANEL_RK043FN02HC) || (DEMO_PANEL == DEMO_PANEL_RK043FN66HS))
 
 #define DEMO_PANEL_WIDTH  (480)
 #define DEMO_PANEL_HEIGHT (272)
 
+#else
+#error Unknown display panel type!
 #endif
 
 /* Definitions for the frame buffer. */

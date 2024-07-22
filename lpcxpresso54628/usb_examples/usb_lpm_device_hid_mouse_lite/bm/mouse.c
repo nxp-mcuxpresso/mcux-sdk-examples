@@ -63,6 +63,12 @@ void USB_DeviceIsrEnable(void);
 void USB_DeviceTaskFn(void *deviceHandle);
 #endif
 
+#if (defined(USB_DEVICE_CONFIG_LPCIP3511HS) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U))
+#if !((defined FSL_FEATURE_SOC_USBPHY_COUNT) && (FSL_FEATURE_SOC_USBPHY_COUNT > 0U))
+void USB_DeviceHsPhyChirpIssueWorkaround(void);
+void USB_DeviceDisconnected(void);
+#endif
+#endif
 static usb_status_t USB_DeviceHidMouseAction(void);
 static usb_status_t USB_DeviceHidInterruptIn(usb_device_handle deviceHandle,
                                              usb_device_endpoint_callback_message_struct_t *event,
@@ -88,6 +94,8 @@ void USB_WaitClockLocked(void);
 extern usb_hid_mouse_struct_t g_UsbDeviceHidMouse;
 uint32_t g_halTimerHandle[(HAL_TIMER_HANDLE_SIZE + 3) / 4];
 uint32_t g_gpioHandle[(HAL_GPIO_HANDLE_SIZE + 3) / 4];
+uint32_t isConnectedToFsHost = 0U;
+uint32_t isConnectedToHsHost = 0U;
 
 USB_DMA_NONINIT_DATA_ALIGN(USB_DATA_ALIGN_SIZE) static uint8_t s_SetupOutBuffer[8];
 USB_DMA_NONINIT_DATA_ALIGN(USB_DATA_ALIGN_SIZE) static uint8_t s_MouseBuffer[USB_HID_MOUSE_REPORT_LENGTH];
@@ -99,6 +107,74 @@ extern uint8_t g_UsbDeviceInterface[USB_HID_MOUSE_INTERFACE_COUNT];
 /*******************************************************************************
  * Code
  ******************************************************************************/
+void USB_DeviceDisconnected(void)
+{
+    isConnectedToFsHost = 0U;
+}
+/*
+ * This is a work-around to fix the HS device Chirping issue.
+ * The device (IP3511HS controller) will not work sometimes when the cable
+ * is attached at the first time after a Power-on Reset.
+ */
+void USB_DeviceHsPhyChirpIssueWorkaround(void)
+{
+    uint32_t startFrame = USBHSD->INFO & USBHSD_INFO_FRAME_NR_MASK;
+    uint32_t currentFrame;
+    uint32_t isConnectedToFsHostFlag = 0U;
+    if ((!isConnectedToHsHost) && (!isConnectedToFsHost))
+    {
+        if (((USBHSD->DEVCMDSTAT & USBHSD_DEVCMDSTAT_Speed_MASK) >> USBHSD_DEVCMDSTAT_Speed_SHIFT) == 0x01U)
+        {
+            USBHSD->DEVCMDSTAT = (USBHSD->DEVCMDSTAT & (~(0x0F000000U | USBHSD_DEVCMDSTAT_PHY_TEST_MODE_MASK))) |
+                                 USBHSD_DEVCMDSTAT_PHY_TEST_MODE(0x05U);
+            HAL_TimerDisable(g_halTimerHandle); /* Disabling timer will clear the current timer counter */
+            g_UsbDeviceHidMouse.hwTick = 0;
+            HAL_TimerEnable(g_halTimerHandle);
+            usb_echo("The USB device PHY chirp work-around is working\r\n");
+            while (g_UsbDeviceHidMouse.hwTick < 100U)
+            {
+            }
+            currentFrame = USBHSD->INFO & USBHSD_INFO_FRAME_NR_MASK;
+            if (currentFrame != startFrame)
+            {
+                isConnectedToHsHost = 1U;
+            }
+            else
+            {
+                HAL_TimerDisable(g_halTimerHandle);
+                g_UsbDeviceHidMouse.hwTick = 0;
+                HAL_TimerEnable(g_halTimerHandle);
+                while (g_UsbDeviceHidMouse.hwTick < 1U)
+                {
+                }
+                currentFrame = USBHSD->INFO & USBHSD_INFO_FRAME_NR_MASK;
+                if (currentFrame != startFrame)
+                {
+                    isConnectedToHsHost = 1U;
+                }
+                else
+                {
+                    isConnectedToFsHostFlag = 1U;
+                }
+            }
+            USBHSD->DEVCMDSTAT = (USBHSD->DEVCMDSTAT & (~(0x0F000000U | USBHSD_DEVCMDSTAT_PHY_TEST_MODE_MASK)));
+            USBHSD->DEVCMDSTAT = (USBHSD->DEVCMDSTAT & (~(0x0F000000U | USBHSD_DEVCMDSTAT_DCON_MASK)));
+            HAL_TimerDisable(g_halTimerHandle);
+            g_UsbDeviceHidMouse.hwTick = 0;
+            HAL_TimerEnable(g_halTimerHandle);
+            while (g_UsbDeviceHidMouse.hwTick < 510U)
+            {
+            }
+            USBHSD->DEVCMDSTAT = (USBHSD->DEVCMDSTAT & (~(0x0F000000U))) | USB_DEVCMDSTAT_DCON_C_MASK;
+            USBHSD->DEVCMDSTAT =
+                (USBHSD->DEVCMDSTAT & (~(0x0F000000U))) | USBHSD_DEVCMDSTAT_DCON_MASK | USB_DEVCMDSTAT_DRES_C_MASK;
+            if (isConnectedToFsHostFlag)
+            {
+                isConnectedToFsHost = 1U;
+            }
+        }
+    }
+}
 void BOARD_DeinitPins(void)
 {
 }
@@ -198,11 +274,6 @@ void USB_PreLowpowerMode(void)
     EnableDeepSleepIRQ(USB1_NEEDCLK_IRQn);
 
     SYSCON->STARTER[1] |= SYSCON_STARTER_USB1_ACT_MASK;
-    CLOCK_EnableClock(kCLOCK_Usbh1);
-    /*According to reference mannual, device mode setting has to be set by access usb host register */
-    *((uint32_t *)(USBHSH_BASE + 0x50)) |= (USBHSH_PORTMODE_SW_CTRL_PDCOM_MASK);
-    *((uint32_t *)(USBHSH_BASE + 0x50)) |= USBHSH_PORTMODE_SW_PDCOM_MASK;
-    CLOCK_DisableClock(kCLOCK_Usbh1);
 #endif
 #if 0
     CLOCK_AttachClk(
@@ -233,12 +304,6 @@ void USB_PostLowpowerMode(void)
     DisableDeepSleepIRQ(USB0_NEEDCLK_IRQn);
 #endif
 #if ((defined(USB_DEVICE_CONFIG_LPCIP3511HS)) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U))
-    CLOCK_EnableClock(kCLOCK_Usbh1);
-    /*According to reference mannual, device mode setting has to be set by access usb host register */
-
-    *((uint32_t *)(USBHSH_BASE + 0x50)) &= ~USBHSH_PORTMODE_SW_PDCOM_MASK;
-    *((uint32_t *)(USBHSH_BASE + 0x50)) &= ~USBHSH_PORTMODE_SW_CTRL_PDCOM_MASK;
-    CLOCK_DisableClock(kCLOCK_Usbh1);
     DisableDeepSleepIRQ(USB1_NEEDCLK_IRQn);
 #endif
 #if 0
@@ -446,6 +511,16 @@ usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event, void *
             g_UsbDeviceHidMouse.sleep        = kStatus_MouseIdle;
             g_UsbDeviceHidMouse.isResume     = 0U;
             error                            = kStatus_USB_Success;
+
+#if (defined(USB_DEVICE_CONFIG_LPCIP3511HS) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U))
+#if !((defined FSL_FEATURE_SOC_USBPHY_COUNT) && (FSL_FEATURE_SOC_USBPHY_COUNT > 0U))
+            /* The work-around is used to fix the HS device Chirping issue.
+             * Please refer to the implementation for the detail information.
+             */
+            USB_DeviceHsPhyChirpIssueWorkaround();
+#endif
+#endif
+
 #if (defined(USB_DEVICE_CONFIG_EHCI) && (USB_DEVICE_CONFIG_EHCI > 0U)) || \
     (defined(USB_DEVICE_CONFIG_LPCIP3511HS) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U))
             /* Get USB speed to configure the device, including max packet size and interval of the endpoints. */
@@ -470,6 +545,11 @@ usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event, void *
         break;
         case kUSB_DeviceEventDetach:
         {
+#if (defined(USB_DEVICE_CONFIG_LPCIP3511HS) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U))
+#if !((defined FSL_FEATURE_SOC_USBPHY_COUNT) && (FSL_FEATURE_SOC_USBPHY_COUNT > 0U))
+            USB_DeviceDisconnected();
+#endif
+#endif
             usb_echo("USB device detached.\r\n");
             g_UsbDeviceHidMouse.attach = 0;
             error                      = kStatus_USB_Success;

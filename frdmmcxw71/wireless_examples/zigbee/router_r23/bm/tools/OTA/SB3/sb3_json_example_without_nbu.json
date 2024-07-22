@@ -1,0 +1,36 @@
+{
+  "family": "kw45xx",
+  "containerKeyBlobEncryptionKey": "./keys_and_certs/sb3kdk.key",
+  "description": "384_digital_key_device_freertos",
+  "kdkAccessRights": 3,
+  "containerConfigurationWord": "0x0",
+  "firmwareVersion": "0x0",
+  "rootCertificate0File": "./keys_and_certs/ec_secp384r1_cert0.pem",
+  "rootCertificate1File": "./keys_and_certs/ec_secp384r1_cert1.pem",
+  "rootCertificate2File": "./keys_and_certs/ec_secp384r1_cert2.pem",
+  "rootCertificate3File": "./keys_and_certs/ec_secp384r1_cert3.pem",
+  "mainRootCertId": 0,
+  "mainRootCertPrivateKeyFile": "./keys_and_certs/ec_pk_secp384r1_cert0.pem",
+  "rootCertificateEllipticCurve": "secp384r1",
+  "useIsk": true,
+  "signingCertificateFile": "./keys_and_certs/ec_secp384r1_sign_cert.pem",
+  "signingCertificatePrivateKeyFile": "./keys_and_certs/ec_pk_secp384r1_sign_cert.pem",
+  "signingCertificateConstraint": "0x0",
+  "iskCertificateEllipticCurve": "secp384r1",
+  "signCertData": "",
+  "commands": [
+    {
+      "erase": {
+        "address": "0x0",
+        "size": "0x7A000"
+      }
+    },
+    {
+      "load": {
+        "address": "0x0",
+        "file": "placeholder_host.bin"
+      }
+    }  
+  ],
+  "containerOutputFile": "placeholder_output.sb3"
+}

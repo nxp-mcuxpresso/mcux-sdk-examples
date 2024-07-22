@@ -27,6 +27,7 @@
     <definition extID="middleware.usb.host.common_header.MIMXRT1011"/>
     <definition extID="component.osa.MIMXRT1011"/>
     <definition extID="middleware.usb.common_header.MIMXRT1011"/>
+    <definition extID="utility.str.MIMXRT1011"/>
     <definition extID="middleware.fatfs.template_usb.MIMXRT1011"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT1011"/>
     <definition extID="device.MIMXRT1011_system.MIMXRT1011"/>
@@ -36,7 +37,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt1010_host_msd_fatfs_bm" name="host_msd_fatfs_bm" dependency="platform.drivers.cache_armv7_m7.MIMXRT1011 middleware.usb.host_controller_ehci.MIMXRT1011 middleware.usb.phy.MIMXRT1011 platform.utilities.assert_lite.MIMXRT1011 utility.debug_console_lite.MIMXRT1011 middleware.baremetal.MIMXRT1011 middleware.fatfs.usb.MIMXRT1011 middleware.fatfs.MIMXRT1011 middleware.usb.host_msd.MIMXRT1011 component.lists.MIMXRT1011 component.lpuart_adapter.MIMXRT1011 platform.drivers.lpuart.MIMXRT1011 device.MIMXRT1011_CMSIS.MIMXRT1011 device.MIMXRT1011_startup.MIMXRT1011 platform.drivers.clock.MIMXRT1011 platform.drivers.common.MIMXRT1011 platform.drivers.igpio.MIMXRT1011 platform.drivers.iomuxc.MIMXRT1011 platform.drivers.xip_board.evkmimxrt1010.MIMXRT1011 platform.drivers.xip_device.MIMXRT1011 middleware.usb.host.stack.MIMXRT1011 platform.utilities.misc_utilities.MIMXRT1011 middleware.usb.host.ehci_config_header.MIMXRT1011 middleware.usb.host.common_header.MIMXRT1011 component.osa.MIMXRT1011 middleware.usb.common_header.MIMXRT1011 middleware.fatfs.template_usb.MIMXRT1011 CMSIS_Include_core_cm.MIMXRT1011 device.MIMXRT1011_system.MIMXRT1011" category="usb_examples">
+  <example id="evkmimxrt1010_host_msd_fatfs_bm" name="host_msd_fatfs_bm" dependency="platform.drivers.cache_armv7_m7.MIMXRT1011 middleware.usb.host_controller_ehci.MIMXRT1011 middleware.usb.phy.MIMXRT1011 platform.utilities.assert_lite.MIMXRT1011 utility.debug_console_lite.MIMXRT1011 middleware.baremetal.MIMXRT1011 middleware.fatfs.usb.MIMXRT1011 middleware.fatfs.MIMXRT1011 middleware.usb.host_msd.MIMXRT1011 component.lists.MIMXRT1011 component.lpuart_adapter.MIMXRT1011 platform.drivers.lpuart.MIMXRT1011 device.MIMXRT1011_CMSIS.MIMXRT1011 device.MIMXRT1011_startup.MIMXRT1011 platform.drivers.clock.MIMXRT1011 platform.drivers.common.MIMXRT1011 platform.drivers.igpio.MIMXRT1011 platform.drivers.iomuxc.MIMXRT1011 platform.drivers.xip_board.evkmimxrt1010.MIMXRT1011 platform.drivers.xip_device.MIMXRT1011 middleware.usb.host.stack.MIMXRT1011 platform.utilities.misc_utilities.MIMXRT1011 middleware.usb.host.ehci_config_header.MIMXRT1011 middleware.usb.host.common_header.MIMXRT1011 component.osa.MIMXRT1011 middleware.usb.common_header.MIMXRT1011 utility.str.MIMXRT1011 middleware.fatfs.template_usb.MIMXRT1011 CMSIS_Include_core_cm.MIMXRT1011 device.MIMXRT1011_system.MIMXRT1011" category="usb_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -75,7 +76,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

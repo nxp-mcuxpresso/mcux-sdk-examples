@@ -11,8 +11,8 @@
 #include "board.h"
 #include "fsl_soc_src.h"
 #include "fsl_common.h"
-#include "fsl_wdog.h"
 
+#include "fsl_wdog.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/

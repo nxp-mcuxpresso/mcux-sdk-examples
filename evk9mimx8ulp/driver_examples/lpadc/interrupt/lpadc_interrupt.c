@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2022 NXP
+ * Copyright 2016-2022, 2024 NXP
  * All rights reserved.
  *
  *
@@ -97,23 +97,46 @@ int main(void)
 #endif /* FSL_FEATURE_LPADC_HAS_CTRL_CAL_AVGS */
     LPADC_Init(DEMO_LPADC_BASE, &mLpadcConfigStruct);
 
-#if defined(FSL_FEATURE_LPADC_HAS_CTRL_CALOFS) && FSL_FEATURE_LPADC_HAS_CTRL_CALOFS
-#if defined(FSL_FEATURE_LPADC_HAS_OFSTRIM) && FSL_FEATURE_LPADC_HAS_OFSTRIM
-    /* Request offset calibration. */
-#if defined(DEMO_LPADC_DO_OFFSET_CALIBRATION) && DEMO_LPADC_DO_OFFSET_CALIBRATION
-    LPADC_DoOffsetCalibration(DEMO_LPADC_BASE);
-#else
-    LPADC_SetOffsetValue(DEMO_LPADC_BASE, DEMO_LPADC_OFFSET_VALUE_A, DEMO_LPADC_OFFSET_VALUE_B);
-#endif /* DEMO_LPADC_DO_OFFSET_CALIBRATION */
-#endif /* FSL_FEATURE_LPADC_HAS_OFSTRIM */
-
+    /* Request LPADC calibration. */
 #if defined(FSL_FEATURE_LPADC_HAS_CTRL_CALOFSMODE) && FSL_FEATURE_LPADC_HAS_CTRL_CALOFSMODE
     LPADC_SetOffsetCalibrationMode(DEMO_LPADC_BASE, DEMO_LPADC_OFFSET_CALIBRATION_MODE);
-    LPADC_DoOffsetCalibration(DEMO_LPADC_BASE);
 #endif /* FSL_FEATURE_LPADC_HAS_CTRL_CALOFSMODE */
-    /* Request gain calibration. */
-    LPADC_DoAutoCalibration(DEMO_LPADC_BASE);
+
+#if defined(FSL_FEATURE_LPADC_HAS_CTRL_CALOFS) && FSL_FEATURE_LPADC_HAS_CTRL_CALOFS
+#if defined(DEMO_LPADC_DO_OFFSET_CALIBRATION) && DEMO_LPADC_DO_OFFSET_CALIBRATION
+    LPADC_DoOffsetCalibration(DEMO_LPADC_BASE); /* Request offset calibration, automatic update OFSTRIM register. */
+#else                                           /* Update OFSTRIM register manually. */
+
+#if defined(FSL_FEATURE_LPADC_HAS_OFSTRIM) && FSL_FEATURE_LPADC_HAS_OFSTRIM
+#if defined(FSL_FEATURE_LPADC_OFSTRIM_COUNT) && (FSL_FEATURE_LPADC_OFSTRIM_COUNT == 2U)
+    LPADC_SetOffsetValue(DEMO_LPADC_BASE, DEMO_LPADC_OFFSET_VALUE_A, DEMO_LPADC_OFFSET_VALUE_B);
+#elif defined(FSL_FEATURE_LPADC_OFSTRIM_COUNT) && (FSL_FEATURE_LPADC_OFSTRIM_COUNT == 1U)
+    LPADC_SetOffsetValue(DEMO_LPADC_BASE, DEMO_LPADC_OFFSET_VALUE);
+#endif /* FSL_FEATURE_LPADC_OFSTRIM_COUNT */
+
+#else  /* For other OFSTRIM register type. */
+    if (DEMO_LPADC_OFFSET_CALIBRATION_MODE == kLPADC_OffsetCalibration12bitMode)
+    {
+        LPADC_SetOffset12BitValue(DEMO_LPADC_BASE, DEMO_LPADC_OFFSET_VALUE_A, DEMO_LPADC_OFFSET_VALUE_B);
+    }
+    else
+    {
+        LPADC_SetOffset16BitValue(DEMO_LPADC_BASE, DEMO_LPADC_OFFSET_VALUE_A, DEMO_LPADC_OFFSET_VALUE_B);
+    }
+#endif /* FSL_FEATURE_LPADC_HAS_OFSTRIM */
+
+#endif /* DEMO_LPADC_DO_OFFSET_CALIBRATION */
 #endif /* FSL_FEATURE_LPADC_HAS_CTRL_CALOFS */
+
+#if defined(FSL_FEATURE_LPADC_HAS_CTRL_CAL_REQ) && FSL_FEATURE_LPADC_HAS_CTRL_CAL_REQ
+    /* Request auto calibration (including gain error calibration and linearity error calibration). */
+    LPADC_DoAutoCalibration(DEMO_LPADC_BASE);
+#endif /* FSL_FEATURE_LPADC_HAS_CTRL_CAL_REQ */
+
+#if (defined(FSL_FEATURE_LPADC_HAS_CFG_CALOFS) && FSL_FEATURE_LPADC_HAS_CFG_CALOFS)
+    /* Do auto calibration. */
+    LPADC_DoAutoCalibration(DEMO_LPADC_BASE);
+#endif /* FSL_FEATURE_LPADC_HAS_CFG_CALOFS */
 
 #if (defined(FSL_FEATURE_LPADC_HAS_CFG_CALOFS) && FSL_FEATURE_LPADC_HAS_CFG_CALOFS)
     /* Do auto calibration. */
@@ -130,11 +153,11 @@ int main(void)
 
     /* Set trigger configuration. */
     LPADC_GetDefaultConvTriggerConfig(&mLpadcTriggerConfigStruct);
-    mLpadcTriggerConfigStruct.targetCommandId       = DEMO_LPADC_USER_CMDID; /* CMD15 is executed. */
+    mLpadcTriggerConfigStruct.targetCommandId       = DEMO_LPADC_USER_CMDID;     /* CMD15 is executed. */
     mLpadcTriggerConfigStruct.enableHardwareTrigger = false;
     LPADC_SetConvTriggerConfig(DEMO_LPADC_BASE, 0U, &mLpadcTriggerConfigStruct); /* Configurate the trigger0. */
 
-/* Enable the watermark interrupt. */
+    /* Enable the watermark interrupt. */
 #if (defined(FSL_FEATURE_LPADC_FIFO_COUNT) && (FSL_FEATURE_LPADC_FIFO_COUNT == 2U))
     LPADC_EnableInterrupts(DEMO_LPADC_BASE, kLPADC_FIFO0WatermarkInterruptEnable);
 #else

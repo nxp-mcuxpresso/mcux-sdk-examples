@@ -36,26 +36,19 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG " \
     -D_POSIX_SOURCE \
     -DCPU_MIMXRT1176DVMAA_cm7 \
     -DFSL_FEATURE_PHYKSZ8081_USE_RMII50M_MODE \
-    -DMBEDTLS_SSL_CIPHERSUITES=MBEDTLS_TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 \
     -DFSL_SDK_ENABLE_DRIVER_CACHE_CONTROL=1 \
     -DLWIP_ENET_FLEXIBLE_CONFIGURATION \
     -DMCUBOOT_APPLICATION=1 \
     -DUSE_RTOS=1 \
     -DPRINTF_ADVANCED_ENABLE=1 \
     -DHTTPSRV_CFG_WEBSOCKET_ENABLED=0 \
-    -DHTTPSRV_CFG_MBEDTLS_ENABLE=1 \
-    -DHTTPSRV_CFG_DEFAULT_SES_CNT=8 \
     -DMCUXPRESSO_SDK \
     -DMFLASH_FILE_BASEADDR=14221312 \
     -DLWIP_DISABLE_PBUF_POOL_SIZE_SANITY_CHECKS=1 \
     -DCHECKSUM_GEN_ICMP6=1 \
     -DCHECKSUM_CHECK_ICMP6=1 \
     -DLWIP_TIMEVAL_PRIVATE=0 \
-    -DMBEDTLS_THREADING_C \
-    -DMBEDTLS_THREADING_ALT \
     -DSERIAL_PORT_TYPE_UART=1 \
-    -DCRYPTO_USE_DRIVER_CAAM \
-    -DCACHE_MODE_WRITE_THROUGH=1 \
     -DSDK_OS_FREE_RTOS \
     -Og \
     -g \
@@ -67,12 +60,9 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
-    -fomit-frame-pointer \
-    -Wno-unused-function \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
@@ -84,26 +74,19 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_RELEASE " \
     -D_POSIX_SOURCE \
     -DCPU_MIMXRT1176DVMAA_cm7 \
     -DFSL_FEATURE_PHYKSZ8081_USE_RMII50M_MODE \
-    -DMBEDTLS_SSL_CIPHERSUITES=MBEDTLS_TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 \
     -DFSL_SDK_ENABLE_DRIVER_CACHE_CONTROL=1 \
     -DLWIP_ENET_FLEXIBLE_CONFIGURATION \
     -DMCUBOOT_APPLICATION=1 \
     -DUSE_RTOS=1 \
     -DPRINTF_ADVANCED_ENABLE=1 \
     -DHTTPSRV_CFG_WEBSOCKET_ENABLED=0 \
-    -DHTTPSRV_CFG_MBEDTLS_ENABLE=1 \
-    -DHTTPSRV_CFG_DEFAULT_SES_CNT=8 \
     -DMCUXPRESSO_SDK \
     -DMFLASH_FILE_BASEADDR=14221312 \
     -DLWIP_DISABLE_PBUF_POOL_SIZE_SANITY_CHECKS=1 \
     -DCHECKSUM_GEN_ICMP6=1 \
     -DCHECKSUM_CHECK_ICMP6=1 \
     -DLWIP_TIMEVAL_PRIVATE=0 \
-    -DMBEDTLS_THREADING_C \
-    -DMBEDTLS_THREADING_ALT \
     -DSERIAL_PORT_TYPE_UART=1 \
-    -DCRYPTO_USE_DRIVER_CAAM \
-    -DCACHE_MODE_WRITE_THROUGH=1 \
     -DSDK_OS_FREE_RTOS \
     -Os \
     -mcpu=cortex-m7 \
@@ -114,12 +97,9 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
-    -fomit-frame-pointer \
-    -Wno-unused-function \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
@@ -139,7 +119,6 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -fno-rtti \
@@ -162,7 +141,6 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -fno-rtti \
@@ -178,7 +156,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -196,7 +173,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_DEBUG " \
     -Xlinker \
     --defsym=__stack_size__=1000 \
     -Xlinker \
-    --defsym=__heap_size__=100000 \
+    --defsym=__heap_size__=60000 \
     ${FPU} \
     ${SPECS} \
     -T\"${ProjDirPath}/MIMXRT1176xxxxx_cm7_flexspi_nor.ld\" -static \
@@ -208,7 +185,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -226,7 +202,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE " \
     -Xlinker \
     --defsym=__stack_size__=1000 \
     -Xlinker \
-    --defsym=__heap_size__=100000 \
+    --defsym=__heap_size__=60000 \
     ${FPU} \
     ${SPECS} \
     -T\"${ProjDirPath}/MIMXRT1176xxxxx_cm7_flexspi_nor.ld\" -static \

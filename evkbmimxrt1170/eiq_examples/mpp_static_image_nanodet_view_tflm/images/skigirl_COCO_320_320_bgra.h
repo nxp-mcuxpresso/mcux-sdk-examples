@@ -18,7 +18,7 @@
 #define SRC_IMAGE_WIDTH       320
 #define SRC_IMAGE_HEIGHT      320
 #define SRC_IMAGE_CHANNELS_NUMBER 4
-#define SRC_IMAGE_FORMAT      MPP_PIXEL_ARGB
+#define SRC_IMAGE_FORMAT      MPP_PIXEL_BGRA
 
 static const uint8_t image_data[] = {
   0x00, 0x00, 0x00, 0xff, 0x00, 0x00, 0x00, 0xff, 0x00, 0x00, 0x00, 0xff,

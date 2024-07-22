@@ -35,19 +35,26 @@
     <definition extID="middleware.wifi.common_files.MIMXRT1062"/>
     <definition extID="component.wifi_bt_module.tx_pwr_limits.MIMXRT1062"/>
     <definition extID="component.wifi_bt_module.config.MIMXRT1062"/>
+    <definition extID="middleware.wifi.wifi_bt_config.template.MIMXRT1062"/>
+    <definition extID="middleware.wifi.osa.MIMXRT1062"/>
+    <definition extID="middleware.wifi.osa_free_rtos.MIMXRT1062"/>
+    <definition extID="component.osa_free_rtos.MIMXRT1062"/>
+    <definition extID="component.osa_interface.MIMXRT1062"/>
+    <definition extID="middleware.wifi.net.MIMXRT1062"/>
     <definition extID="middleware.wifi.fwdnld.MIMXRT1062"/>
     <definition extID="middleware.wifi.fwdnld_intf_abs.MIMXRT1062"/>
+    <definition extID="middleware.wifi.net_free_rtos.MIMXRT1062"/>
+    <definition extID="middleware.lwip.apps.lwiperf.MIMXRT1062"/>
     <definition extID="middleware.sdmmc.common.MIMXRT1062"/>
     <definition extID="middleware.sdmmc.osa.freertos.MIMXRT1062"/>
     <definition extID="middleware.sdmmc.usdhc.template.MIMXRT1062"/>
     <definition extID="middleware.sdmmc.host.usdhc.cache.MIMXRT1062"/>
     <definition extID="platform.drivers.usdhc.MIMXRT1062"/>
-    <definition extID="component.osa_free_rtos.MIMXRT1062"/>
-    <definition extID="component.osa_interface.MIMXRT1062"/>
     <definition extID="middleware.freertos-kernel.template.MIMXRT1062"/>
     <definition extID="middleware.freertos-kernel.extension.MIMXRT1062"/>
     <definition extID="middleware.lwip.template.MIMXRT1062"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT1062"/>
+    <definition extID="utility.str.MIMXRT1062"/>
     <definition extID="device.MIMXRT1062_system.MIMXRT1062"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
@@ -55,7 +62,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkcmimxrt1060_wifi_setup" name="wifi_setup" dependency="platform.drivers.cache_armv7_m7.MIMXRT1062 middleware.wifi.sdio.MIMXRT1062 middleware.wifi.wifidriver.MIMXRT1062 middleware.sdmmc.host.usdhc.MIMXRT1062 middleware.sdmmc.sdio.MIMXRT1062 middleware.sdmmc.host.usdhc.freertos.MIMXRT1062 component.igpio_adapter.MIMXRT1062 middleware.freertos-kernel.MIMXRT1062 middleware.freertos-kernel.heap_4.MIMXRT1062 middleware.wifi.MIMXRT1062 middleware.lwip.MIMXRT1062 middleware.lwip.contrib.ping.MIMXRT1062 middleware.edgefast_wifi_nxp.MIMXRT1062 platform.drivers.clock.MIMXRT1062 platform.drivers.common.MIMXRT1062 device.MIMXRT1062_CMSIS.MIMXRT1062 utility.debug_console.MIMXRT1062 component.lpuart_adapter.MIMXRT1062 component.serial_manager_uart.MIMXRT1062 component.serial_manager.MIMXRT1062 platform.drivers.lpuart.MIMXRT1062 component.lists.MIMXRT1062 device.MIMXRT1062_startup.MIMXRT1062 platform.drivers.iomuxc.MIMXRT1062 platform.utilities.assert.MIMXRT1062 platform.drivers.igpio.MIMXRT1062 platform.drivers.xip_device.MIMXRT1062 platform.drivers.xip_board.evkcmimxrt1060.MIMXRT1062 platform.utilities.misc_utilities.MIMXRT1062 middleware.wifi.mlan_sdio.MIMXRT1062 middleware.wifi.template.MIMXRT1062 middleware.wifi.common_files.MIMXRT1062 component.wifi_bt_module.tx_pwr_limits.MIMXRT1062 component.wifi_bt_module.config.MIMXRT1062 middleware.wifi.fwdnld.MIMXRT1062 middleware.wifi.fwdnld_intf_abs.MIMXRT1062 middleware.sdmmc.common.MIMXRT1062 middleware.sdmmc.osa.freertos.MIMXRT1062 middleware.sdmmc.usdhc.template.MIMXRT1062 middleware.sdmmc.host.usdhc.cache.MIMXRT1062 platform.drivers.usdhc.MIMXRT1062 component.osa_free_rtos.MIMXRT1062 component.osa_interface.MIMXRT1062 middleware.freertos-kernel.template.MIMXRT1062 middleware.freertos-kernel.extension.MIMXRT1062 middleware.lwip.template.MIMXRT1062 CMSIS_Include_core_cm.MIMXRT1062 device.MIMXRT1062_system.MIMXRT1062" category="wifi_examples">
+  <example id="evkcmimxrt1060_wifi_setup" name="wifi_setup" dependency="platform.drivers.cache_armv7_m7.MIMXRT1062 middleware.wifi.sdio.MIMXRT1062 middleware.wifi.wifidriver.MIMXRT1062 middleware.sdmmc.host.usdhc.MIMXRT1062 middleware.sdmmc.sdio.MIMXRT1062 middleware.sdmmc.host.usdhc.freertos.MIMXRT1062 component.igpio_adapter.MIMXRT1062 middleware.freertos-kernel.MIMXRT1062 middleware.freertos-kernel.heap_4.MIMXRT1062 middleware.wifi.MIMXRT1062 middleware.lwip.MIMXRT1062 middleware.lwip.contrib.ping.MIMXRT1062 middleware.edgefast_wifi_nxp.MIMXRT1062 platform.drivers.clock.MIMXRT1062 platform.drivers.common.MIMXRT1062 device.MIMXRT1062_CMSIS.MIMXRT1062 utility.debug_console.MIMXRT1062 component.lpuart_adapter.MIMXRT1062 component.serial_manager_uart.MIMXRT1062 component.serial_manager.MIMXRT1062 platform.drivers.lpuart.MIMXRT1062 component.lists.MIMXRT1062 device.MIMXRT1062_startup.MIMXRT1062 platform.drivers.iomuxc.MIMXRT1062 platform.utilities.assert.MIMXRT1062 platform.drivers.igpio.MIMXRT1062 platform.drivers.xip_device.MIMXRT1062 platform.drivers.xip_board.evkcmimxrt1060.MIMXRT1062 platform.utilities.misc_utilities.MIMXRT1062 middleware.wifi.mlan_sdio.MIMXRT1062 middleware.wifi.template.MIMXRT1062 middleware.wifi.common_files.MIMXRT1062 component.wifi_bt_module.tx_pwr_limits.MIMXRT1062 component.wifi_bt_module.config.MIMXRT1062 middleware.wifi.wifi_bt_config.template.MIMXRT1062 middleware.wifi.osa.MIMXRT1062 middleware.wifi.osa_free_rtos.MIMXRT1062 component.osa_free_rtos.MIMXRT1062 component.osa_interface.MIMXRT1062 middleware.wifi.net.MIMXRT1062 middleware.wifi.fwdnld.MIMXRT1062 middleware.wifi.fwdnld_intf_abs.MIMXRT1062 middleware.wifi.net_free_rtos.MIMXRT1062 middleware.lwip.apps.lwiperf.MIMXRT1062 middleware.sdmmc.common.MIMXRT1062 middleware.sdmmc.osa.freertos.MIMXRT1062 middleware.sdmmc.usdhc.template.MIMXRT1062 middleware.sdmmc.host.usdhc.cache.MIMXRT1062 platform.drivers.usdhc.MIMXRT1062 middleware.freertos-kernel.template.MIMXRT1062 middleware.freertos-kernel.extension.MIMXRT1062 middleware.lwip.template.MIMXRT1062 CMSIS_Include_core_cm.MIMXRT1062 utility.str.MIMXRT1062 device.MIMXRT1062_system.MIMXRT1062" category="wifi_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -81,10 +88,13 @@
           <value>SDIO_ENABLED</value>
           <value>SDK_OS_FREE_RTOS</value>
           <value>SERIAL_PORT_TYPE_UART=1</value>
+          <value>OSA_USED</value>
+          <value>FSL_OSA_TASK_ENABLE=1</value>
           <value>LWIP_DNS=1</value>
           <value>LWIP_NETIF_HOSTNAME=1</value>
-          <value>LWIP_NETIF_STATUS_CALLBACK=1</value>
           <value>LWIP_IGMP=1</value>
+          <value>_XOPEN_SOURCE=500</value>
+          <value>SO_REUSE=1</value>
         </option>
         <option id="com.crt.advproject.gas.hdrlib" type="enum">
           <value>com.crt.advproject.gas.hdrlib.newlibnano</value>
@@ -130,7 +140,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>
@@ -196,11 +206,16 @@
       <files mask="readme_modules.txt"/>
     </source>
     <source path="." project_relative_path="source" type="c_include" config="true">
+      <files mask="wifi_config.h"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include" config="true">
       <files mask="lwipopts.h"/>
-      <files mask="FreeRTOSConfig.h"/>
     </source>
     <source path="." project_relative_path="source" type="c_include">
       <files mask="lwippools.h"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include" config="true">
+      <files mask="FreeRTOSConfig.h"/>
     </source>
     <source path="." project_relative_path="board" type="src" config="true">
       <files mask="sdmmc_config.c"/>
@@ -210,11 +225,8 @@
       <files mask="sdmmc_config.h"/>
       <files mask="wifi_bt_config.h"/>
     </source>
-    <source path="." project_relative_path="source" type="c_preinclude" config="true">
-      <files mask="app_config.h"/>
-    </source>
     <source path="." project_relative_path="source" type="c_include" config="true">
-      <files mask="wifi_config.h"/>
+      <files mask="app_config.h"/>
     </source>
     <source path="../../../../core/boards/evkcmimxrt1060" project_relative_path="board" type="src">
       <files mask="board.c"/>

@@ -15,8 +15,8 @@
     <definition extID="utility.debug_console_lite.MIMXRT595S"/>
     <definition extID="platform.utilities.assert_lite.MIMXRT595S"/>
     <definition extID="driver.display-hx8394.MIMXRT595S"/>
-    <definition extID="platform.drivers.lcdif.MIMXRT595S"/>
     <definition extID="platform.drivers.common.MIMXRT595S"/>
+    <definition extID="platform.drivers.lcdif.MIMXRT595S"/>
     <definition extID="device.MIMXRT595S_CMSIS.MIMXRT595S"/>
     <definition extID="component.usart_adapter.MIMXRT595S"/>
     <definition extID="platform.drivers.flexspi.MIMXRT595S"/>
@@ -31,6 +31,7 @@
     <definition extID="platform.utilities.misc_utilities.MIMXRT595S"/>
     <definition extID="platform.drivers.inputmux_connections.MIMXRT595S"/>
     <definition extID="platform.drivers.soc_mipi_dsi.MIMXRT595S"/>
+    <definition extID="utility.str.MIMXRT595S"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT595S"/>
     <definition extID="platform.drivers.iap.MIMXRT595S"/>
     <definition extID="armgcc"/>
@@ -39,7 +40,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt595_lcdif_gamma" name="lcdif_gamma" device_core="cm33_MIMXRT595S" dependency="platform.drivers.clock.MIMXRT595S platform.drivers.power.MIMXRT595S platform.drivers.inputmux.MIMXRT595S driver.video-common.MIMXRT595S driver.display-common.MIMXRT595S driver.display-rm68191.MIMXRT595S platform.drivers.mipi_dsi.MIMXRT595S driver.display-mipi-dsi-cmd.MIMXRT595S platform.drivers.lpc_gpio.MIMXRT595S driver.display-rm68200.MIMXRT595S utility.debug_console_lite.MIMXRT595S platform.utilities.assert_lite.MIMXRT595S driver.display-hx8394.MIMXRT595S platform.drivers.lcdif.MIMXRT595S platform.drivers.common.MIMXRT595S device.MIMXRT595S_CMSIS.MIMXRT595S component.usart_adapter.MIMXRT595S platform.drivers.flexspi.MIMXRT595S platform.drivers.cache_cache64.MIMXRT595S platform.drivers.flexcomm_usart.MIMXRT595S component.lists.MIMXRT595S platform.drivers.flash_config.evkmimxrt595.MIMXRT595S device.MIMXRT595S_startup.MIMXRT595S platform.drivers.flexcomm.MIMXRT595S platform.drivers.lpc_iopctl.MIMXRT595S platform.drivers.reset.MIMXRT595S platform.utilities.misc_utilities.MIMXRT595S platform.drivers.inputmux_connections.MIMXRT595S platform.drivers.soc_mipi_dsi.MIMXRT595S CMSIS_Include_core_cm.MIMXRT595S platform.drivers.iap.MIMXRT595S" category="driver_examples/lcdif">
+  <example id="evkmimxrt595_lcdif_gamma" name="lcdif_gamma" device_core="cm33_MIMXRT595S" dependency="platform.drivers.clock.MIMXRT595S platform.drivers.power.MIMXRT595S platform.drivers.inputmux.MIMXRT595S driver.video-common.MIMXRT595S driver.display-common.MIMXRT595S driver.display-rm68191.MIMXRT595S platform.drivers.mipi_dsi.MIMXRT595S driver.display-mipi-dsi-cmd.MIMXRT595S platform.drivers.lpc_gpio.MIMXRT595S driver.display-rm68200.MIMXRT595S utility.debug_console_lite.MIMXRT595S platform.utilities.assert_lite.MIMXRT595S driver.display-hx8394.MIMXRT595S platform.drivers.common.MIMXRT595S platform.drivers.lcdif.MIMXRT595S device.MIMXRT595S_CMSIS.MIMXRT595S component.usart_adapter.MIMXRT595S platform.drivers.flexspi.MIMXRT595S platform.drivers.cache_cache64.MIMXRT595S platform.drivers.flexcomm_usart.MIMXRT595S component.lists.MIMXRT595S platform.drivers.flash_config.evkmimxrt595.MIMXRT595S device.MIMXRT595S_startup.MIMXRT595S platform.drivers.flexcomm.MIMXRT595S platform.drivers.lpc_iopctl.MIMXRT595S platform.drivers.reset.MIMXRT595S platform.utilities.misc_utilities.MIMXRT595S platform.drivers.inputmux_connections.MIMXRT595S platform.drivers.soc_mipi_dsi.MIMXRT595S utility.str.MIMXRT595S CMSIS_Include_core_cm.MIMXRT595S platform.drivers.iap.MIMXRT595S" category="driver_examples/lcdif">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -70,7 +71,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>
@@ -101,10 +102,10 @@
       </debug_configuration>
     </debug_configurations>
     <include_paths>
-      <include_path path="." project_relative_path="board" type="c_include"/>
-      <include_path path=".." project_relative_path="board" type="c_include"/>
-      <include_path path="." project_relative_path="evkmimxrt595/driver_examples/lcdif/gamma" type="c_include"/>
       <include_path path="../../../../../core/boards/evkmimxrt595" project_relative_path="board" type="c_include"/>
+      <include_path path="." project_relative_path="board" type="c_include"/>
+      <include_path path="../../../../../examples/evkmimxrt595/driver_examples/lcdif" project_relative_path="board" type="c_include"/>
+      <include_path path="../../../../../examples/evkmimxrt595/driver_examples/lcdif" project_relative_path="source" type="c_include"/>
     </include_paths>
     <source path="armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">
       <files mask="build_all.bat"/>
@@ -129,14 +130,6 @@
     <source path="." project_relative_path="source" type="src">
       <files mask="lcdif_gamma.c"/>
     </source>
-    <source path="." project_relative_path="board" type="src">
-      <files mask="pin_mux.c"/>
-      <files mask="lcdif_support.c"/>
-    </source>
-    <source path="." project_relative_path="board" type="c_include">
-      <files mask="pin_mux.h"/>
-      <files mask="lcdif_support.h"/>
-    </source>
     <source path="../../../../../core/boards/evkmimxrt595" project_relative_path="board" type="src">
       <files mask="board.c"/>
       <files mask="clock_config.c"/>
@@ -147,6 +140,14 @@
     </source>
     <source path="." project_relative_path="doc" type="doc" toolchain="mcuxpresso armgcc">
       <files mask="readme.md"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="pin_mux.c"/>
+      <files mask="lcdif_support.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="pin_mux.h"/>
+      <files mask="lcdif_support.h"/>
     </source>
     <source path="armgcc" project_relative_path="MIMXRT595S/gcc" type="linker" toolchain="armgcc">
       <files mask="MIMXRT595Sxxxx_cm33_ram.ld"/>

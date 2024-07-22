@@ -724,6 +724,42 @@ void BOARD_InitPinsM2(void) {
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
 }
 
+/*
+ * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+BOARD_InitSyncSignalPins:
+- options: {callFromInitBoot: 'false', coreID: cm7, enableClock: 'true'}
+- pin_list:
+  - {pin_num: R14, peripheral: GPIO3, signal: 'gpio_mux_io, 00', pin_signal: GPIO_AD_01}
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
+ */
+
+/* FUNCTION ************************************************************************************************************
+ *
+ * Function Name : BOARD_InitSyncSignalPins, assigned for the Cortex-M7F core.
+ * Description   : Configures pin routing and optionally pin electrical features.
+ *
+ * END ****************************************************************************************************************/
+void BOARD_InitSyncSignalPins(void) {
+  CLOCK_EnableClock(kCLOCK_Iomuxc);           /* LPCG on: LPCG is ON. */
+
+#if defined(WIFI_IW612_BOARD_MURATA_2EL_M2)
+  IOMUXC_SetPinMux(
+      IOMUXC_GPIO_AD_01_GPIO_MUX3_IO00,       /* GPIO_AD_01 is configured as GPIO_MUX3_IO00 */
+      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+  IOMUXC_GPR->GPR42 = ((IOMUXC_GPR->GPR42 &
+    (~(IOMUXC_GPR_GPR42_GPIO_MUX3_GPIO_SEL_LOW_MASK))) /* Mask bits to zero which are setting */
+      | IOMUXC_GPR_GPR42_GPIO_MUX3_GPIO_SEL_LOW(0x00U) /* GPIO3 and CM7_GPIO3 share same IO MUX function, GPIO_MUX3 selects one GPIO function: 0x00U */
+    );
+#elif defined(WIFI_IW612_BOARD_RD_USD)
+  IOMUXC_SetPinMux(
+      IOMUXC_GPIO_AD_08_GPIO_MUX3_IO07,       /* GPIO_AD_08 is configured as GPIO_MUX3_IO07 */
+      0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+  IOMUXC_GPR->GPR42 = ((IOMUXC_GPR->GPR42 &
+    (~(IOMUXC_GPR_GPR42_GPIO_MUX3_GPIO_SEL_LOW_MASK))) /* Mask bits to zero which are setting */
+      | IOMUXC_GPR_GPR42_GPIO_MUX3_GPIO_SEL_LOW(0x00U) /* GPIO3 and CM7_GPIO3 share same IO MUX function, GPIO_MUX3 selects one GPIO function: 0x00U */
+    );
+#endif
+}
 
 /***********************************************************************************************************************
  * EOF

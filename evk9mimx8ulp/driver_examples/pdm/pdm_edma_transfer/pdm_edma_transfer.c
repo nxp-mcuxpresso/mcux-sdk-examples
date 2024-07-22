@@ -53,7 +53,11 @@ static void pdmEdmallback(PDM_Type *base, pdm_edma_handle_t *handle, status_t st
 AT_NONCACHEABLE_SECTION_ALIGN(pdm_edma_handle_t pdmRxHandle, 4);
 AT_NONCACHEABLE_SECTION_ALIGN(edma_handle_t dmaHandle, 4);
 AT_NONCACHEABLE_SECTION_ALIGN(static int16_t rxBuff[BUFFER_SIZE], 4);
+#if defined(DEMO_QUICKACCESS_SECTION_CACHEABLE) && DEMO_QUICKACCESS_SECTION_CACHEABLE
+AT_NONCACHEABLE_SECTION_ALIGN(edma_tcd_t s_edmaTcd[1], 32U);
+#else
 AT_QUICKACCESS_SECTION_DATA_ALIGN(edma_tcd_t s_edmaTcd[1], 32U);
+#endif
 #if (defined(FSL_FEATURE_PDM_HAS_STATUS_LOW_FREQ) && (FSL_FEATURE_PDM_HAS_STATUS_LOW_FREQ == 1U))
 static volatile bool s_lowFreqFlag = false;
 #endif

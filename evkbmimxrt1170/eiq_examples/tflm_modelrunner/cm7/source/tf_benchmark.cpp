@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 NXP
+ * Copyright 2021,2023-2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -8,9 +8,12 @@
 #include "tf_benchmark.h"
 #include "fsl_debug_console.h"
 #include "app.h"
+#include "base64/base64.h"
 
 #ifdef USE_NPU
 #include "tensorflow/lite/micro/kernels/neutron/neutron.h"
+#else
+#include <vector>
 #endif
 
 #include "tensorflow/lite/micro/micro_mutable_op_resolver.h"
@@ -26,7 +29,6 @@
 #endif
 
 const tflite::Model* model = nullptr;
-tflite::MicroInterpreter* interpreter = nullptr;
 TfLiteTensor* input = nullptr;
 TfLiteTensor* output = nullptr;
 TfLiteTensor* output_t = nullptr;
@@ -38,35 +40,89 @@ constexpr int kTensorArenaSize_mem = KTENSOR_ARENA_SIZE_MEM;
 constexpr int kTensorArenaSize_flash = KTENSOR_ARENA_SIZE_FLASH;
 #else
 constexpr int kTensorArenaSize_mem = 300 * 1024;
-constexpr int kTensorArenaSize_flash = (300 + 1024)  * 1024;
+constexpr int kTensorArenaSize_flash = (300 + 1024) * 1024;
 #endif
 
-class BProfiler : public tflite::MicroProfilerInterface {
+#ifndef USE_NPU
+namespace tflite {
+
+class NeutronProfilerInterface : public tflite::MicroProfilerInterface {
 public:
-    explicit BProfiler(NNServer* server): server_(server){}
+    virtual ~NeutronProfilerInterface() {}
+    virtual int addNeutronProfiling(char* profiling_buffer, size_t size) = 0;
+    virtual std::vector<char*> getNeutronTraceBuffers() = 0;
+    virtual std::vector<size_t> getNeutronTraceBufferSizes() = 0;
+    virtual uint8_t getNeutronProfilingType() = 0;
+};
+
+}
+#endif
+
+class BProfiler : public tflite::NeutronProfilerInterface {
+public:
+    BProfiler(NNServer* server, uint8_t neutron_profiling = 0) : server_(server), neutron_profiling_(neutron_profiling) {}
+
+    ~BProfiler() {
+        for (int i = 0; i < neutron_buffers.size(); i++) {
+            free(neutron_buffers[i]);
+            neutron_buffers[i] = nullptr;
+        }
+    }
 
     uint32_t BeginEvent(const char* tag) {
-        start_time_ = os_clock_now();
-        TFLITE_DCHECK(tag != nullptr);
-        event_tag_ = tag;
+        if (!neutron_profiling_) {
+            start_time_ = os_clock_now();
+            TFLITE_DCHECK(tag != nullptr);
+            event_tag_ = tag;
+        }
         return 0;
     }
 
     void EndEvent(uint32_t event_handle) {
-        int64_t end_time = os_clock_now() - start_time_;
-        server_->run_ns += end_time;
+        if (!neutron_profiling_) {
+            int64_t end_time = os_clock_now() - start_time_;
+            server_->run_ns += end_time;
 #ifdef DEBUG
-        PRINTF("%s - %s took %u us\r\n", server_->output.name[server_->output.num_outputs], event_tag_, (int32_t)(end_time));
+            PRINTF("%s - %s took %u us\r\n", server_->output.name[server_->output.num_outputs], event_tag_, (int32_t)(end_time));
 #endif
-        server_->output.timing[server_->output.num_outputs] += end_time;
-        server_->output.type[server_->output.num_outputs] = (char*)event_tag_;
-        server_->output.num_outputs++;
-	}
+            server_->output.timing[server_->output.num_outputs] += end_time;
+            server_->output.type[server_->output.num_outputs] = (char*)event_tag_;
+            server_->output.num_outputs++;
+        }
+    }
+
+    int addNeutronProfiling(char* profiling_buffer, size_t size){
+        char* trace_buffer = static_cast<char*>(malloc(size));
+        if(trace_buffer == nullptr) {
+        	// handle allocation error
+        	PRINTF("MEMORY ALLOCATION ERROR FOR trace_buffer");
+        	return -1;
+        }
+        memcpy(trace_buffer, profiling_buffer, size);
+        neutron_buffers.push_back(trace_buffer);
+        neutron_sizes.push_back(size);
+        return 0;
+    }
+
+    std::vector<char*> getNeutronTraceBuffers(){
+        return neutron_buffers;
+    }
+
+    std::vector<size_t> getNeutronTraceBufferSizes(){
+        return neutron_sizes;
+    }
+
+    uint8_t getNeutronProfilingType(){
+        return neutron_profiling_;
+    }
 
 private:
     NNServer* server_;
     int64_t start_time_ = { 0 };
     const char* event_tag_ = { nullptr };
+    std::vector<char*> neutron_buffers;
+    std::vector<size_t> neutron_sizes;
+    uint8_t neutron_profiling_;
     TF_LITE_REMOVE_VIRTUAL_DELETE;
 };
 
@@ -76,17 +132,17 @@ int Model_Setup(NNServer* server) {
     {
         PRINTF("Model provided is schema version %d not equal "
                "to supported version %d.",
-                model->version(), TFLITE_SCHEMA_VERSION);
+               model->version(), TFLITE_SCHEMA_VERSION);
         return kStatus_Fail;
     }
     auto* subgraphs = model->subgraphs();
     const tflite::SubGraph* subgraph = (*subgraphs)[0];
     auto tensors = subgraph->tensors();
     const flatbuffers::Vector<flatbuffers::Offset<tflite::Operator>>* operators = subgraph->operators();
-    for (int i = 0; i < operators->size(); i++) {
+    for (unsigned long i = 0; i < operators->size(); i++) {
         const tflite::Operator* cur_operator = (*operators)[i];
         auto* outputs = cur_operator->outputs();
-        for (int j=0; j<outputs->size(); j++)
+        for (unsigned long j=0; j<outputs->size(); j++)
         {
             int idx = (int)(*outputs)[j];
             const tflite::Tensor* tensor = (*tensors)[idx];
@@ -150,7 +206,7 @@ tflite::MicroOpResolver &MODEL_GetOpsResolver()
     static tflite::MicroMutableOpResolver<114> s_microOpResolver;
     if (s_microOpResolver.FindOp(tflite::BuiltinOperator_ZEROS_LIKE) != nullptr){
         return s_microOpResolver;
-	}
+    }
 
     s_microOpResolver.AddAbs();
     s_microOpResolver.AddAdd();
@@ -274,43 +330,43 @@ tflite::MicroOpResolver &MODEL_GetOpsResolver()
 }
 
 int Model_RunInference(NNServer* server) {
-    BProfiler profiler(server);
-
     tflite::MicroOpResolver &resolver = MODEL_GetOpsResolver();
 
     if(kTensorArenaSize == 4){
         if(server->model_flash_load){
-        	kTensorArenaSize = kTensorArenaSize_flash;
+            kTensorArenaSize = kTensorArenaSize_flash;
         }else{
-        	kTensorArenaSize = kTensorArenaSize_mem;
+            kTensorArenaSize = kTensorArenaSize_mem;
         }
     }
-    if (server->rem_mem) {
-        free(server->rem_mem);
-        server->rem_mem = nullptr;
-    }
-    uint8_t* tensor_arena; 
+
+    uint8_t* tensor_arena = nullptr;
     tensor_arena = (uint8_t*)malloc(kTensorArenaSize);
-    while(!tensor_arena){
+    while(!tensor_arena) {
         tensor_arena = (uint8_t*)malloc(kTensorArenaSize);
         kTensorArenaSize -= 1024;
         if (kTensorArenaSize < 0){
     	    PRINTF("tensor_arena alloc failed.");
-            return kStatus_Fail;
+            return -1;
         }
     }
+    if (!tensor_arena) {
+        PRINTF("Not enough heap memory to allocate tensor arena.\r\n");
+        return -1;
+    }
 
-    // Build an interpreter to run the model with.
+    BProfiler profiler = BProfiler(server, server->profiling_type);
+
     tflite::MicroInterpreter static_interpreter(
 					model, resolver, tensor_arena, kTensorArenaSize, nullptr, &profiler);
-    interpreter = &static_interpreter;
+    tflite::MicroInterpreter *interpreter = &static_interpreter;
 
     // Allocate memory from the tensor_arena for the model's tensors.
     TfLiteStatus allocate_status = interpreter->AllocateTensors();
     if (allocate_status != kTfLiteOk) {
         PRINTF("tflite allocate tensors failed.\r\n");
         free(tensor_arena);
-        return kStatus_Fail;
+        return -1;
     }
 
     server->kTensorArenaSize = interpreter->arena_used_bytes();
@@ -318,17 +374,17 @@ int Model_RunInference(NNServer* server) {
     input = interpreter->input(0);
     output = interpreter->output(0);
 
-    for (int i=0; i<interpreter->inputs_size(); i++){
+    for (size_t i=0; i<interpreter->inputs_size(); i++){
         server->input.scale [i] = interpreter->input(i)->params.scale;
         server->input.zero_point [i] = interpreter->input(i)->params.zero_point;
     }
 
-    for (int i=0; i<interpreter->outputs_size(); i++){
+    for (size_t i=0; i<interpreter->outputs_size(); i++){
         server->output.scale [i] = interpreter->output(i)->params.scale;
         server->output.zero_point [i] = interpreter->output(i)->params.zero_point;
     }
 
-    for (int i=0; i<interpreter->inputs_size(); i++){
+    for (size_t i=0; i<interpreter->inputs_size(); i++){
         if ( server->input.input_data [i] ){
             memcpy ( interpreter->input(i)->data.raw, server->input.input_data[i], interpreter->input(i)->bytes);
             free (server->input.input_data [i]);
@@ -339,7 +395,7 @@ int Model_RunInference(NNServer* server) {
     server->input_dims_data = input->dims->data;
 
     // Obtain pointers to the model's input and output tensors.
-    int64_t run_ns = 0, rem_size = 0;;
+    int64_t run_ns = 0;
     for(int i=0; i< server->output.num_outputs; i++)
     {
         server->output.timing[i] = 0;
@@ -358,14 +414,32 @@ int Model_RunInference(NNServer* server) {
             PRINTF("Invoke failed\n");
             return -1;
         }
-
+        if (profiler.getNeutronProfilingType()){
+            std::vector<char*> buffers = profiler.getNeutronTraceBuffers();
+            std::vector<size_t> sizes = profiler.getNeutronTraceBufferSizes();
+            for(int i = 0; i < buffers.size(); i++){
+            	char* data = (char*)base64_encode((const unsigned char*)buffers[i], sizes[i], NULL);
+            	if(data == nullptr) {
+            		// handle if base64 lib cannot alloc not enough memory for the output string
+            		PRINTF("Not enough memory for base64 output string.\n");
+            		free(tensor_arena);
+            		return -1;
+            	}
+            	PRINTF("NEUTRON_GRAPH_BEGIN\n");
+                PRINTF("%s", data);
+                PRINTF("NEUTRON_GRAPH_END");
+                free(data);
+            }
 #ifdef DEBUG
-        PRINTF("run ms: %f ", (float)(server->run_ns/1e3));
+        } else {
+            // Send this if neutron profiling did not run
+            PRINTF("run ms: %f ", (float)(server->run_ns/1e3));
 #endif
+        }
  
         run_ns += server->run_ns;
 
-        for(int i=0; i<interpreter->outputs().size(); i++){
+        for(unsigned long i=0; i<interpreter->outputs().size(); i++){
             server->output.data [i] = interpreter->output(i)->data.raw;
             server->output.bytes [i] = interpreter->output(i)->bytes;
             server->output.shape_data [i] = interpreter->output (i)->dims->data;
@@ -383,12 +457,14 @@ int Model_RunInference(NNServer* server) {
             default:
                 break;
             }
-            int max_size = (interpreter->output(i)->data.raw + interpreter->output(i)->bytes - (char*)tensor_arena);
-            rem_size = max_size >  rem_size ? max_size : rem_size ;
         }
 
     }
-    server->rem_mem = (char*)realloc(tensor_arena, rem_size);
+//    server->rem_mem = reinterpret_cast<char*>(tensor_arena);
     server->run_ns = (int64_t)(run_ns/(int64_t)server->inference_count);
+
+    free(tensor_arena);
+    tensor_arena = nullptr;
+
     return 0;
 }
