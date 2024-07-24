@@ -16,11 +16,11 @@
 #endif
 #include <ctype.h>
 #include <assert.h>
-#include <wm_os.h>
+#include <osa.h>
 #include <stdio.h>
 #include <wmstats.h>
 
-#ifdef CONFIG_ENABLE_HTTPC_SECURE
+#if CONFIG_ENABLE_HTTPC_SECURE
 #include <wm_mbedtls_helper_api.h>
 #endif /* ENABLE_HTTPC_SECURE */
 
@@ -116,7 +116,7 @@ typedef struct
      * connection.
      */
     bool read_till_server_close;
-#ifdef CONFIG_ENABLE_HTTPC_SECURE
+#if CONFIG_ENABLE_HTTPC_SECURE
     /*
      * Set if SSL context is created by HTTP client as user didn't
      * give it. The significance of this is, if set, http client needs
@@ -132,7 +132,7 @@ typedef struct
 
 static bool is_proxy_on = false;
 
-#ifdef CONFIG_ENABLE_HTTPC_SECURE
+#if CONFIG_ENABLE_HTTPC_SECURE
 static void _httpc_free_ssl_context(session_t *s)
 {
     if (s->ssl)
@@ -164,7 +164,7 @@ static int _http_raw_recv(session_t *s, char *buf, int maxlen, int wait_for_to)
 
     while (1)
     {
-#ifdef CONFIG_ENABLE_HTTPC_SECURE
+#if CONFIG_ENABLE_HTTPC_SECURE
         if (s->ssl)
         {
             rv = wm_mbedtls_ssl_read(s->ssl, (unsigned char *)buf, maxlen);
@@ -188,7 +188,7 @@ static int _http_raw_recv(session_t *s, char *buf, int maxlen, int wait_for_to)
 
 static int _http_raw_send(session_t *s, const char *buf, int len)
 {
-#ifdef CONFIG_ENABLE_HTTPC_SECURE
+#if CONFIG_ENABLE_HTTPC_SECURE
     if (s->ssl)
     {
         return wm_mbedtls_ssl_write(s->ssl, (const unsigned char *)buf, len);
@@ -419,7 +419,7 @@ static int tcp_socket(
     }
     else
     {
-#ifdef CONFIG_IPV6
+#if CONFIG_IPV6
         struct sockaddr_in6 *addr = (struct sockaddr_in6 *)address;
         family                    = AF_INET6;
         memset(addr, 0, sizeof(struct sockaddr_in6));
@@ -440,7 +440,7 @@ static int tcp_socket(
         if (*sockfd >= 0)
             break;
         /* Wait some time to allow some sockets to get released */
-        os_thread_sleep(os_msec_to_ticks(1000));
+        OSA_TimeDelay(1000);
     }
 
     if (*sockfd < 0)
@@ -454,13 +454,13 @@ static int tcp_socket(
     opt = 2048;
     if (setsockopt(*sockfd, SOL_SOCKET, SO_SNDBUF, (char *)&opt, sizeof(opt)) == -1)
     {
-        httpc_e("Unsupported option SO_SNDBUF: %d", net_get_sock_error(*sockfd));
+        httpc_d("Unsupported option SO_SNDBUF: %d", net_get_sock_error(*sockfd));
     }
 
     opt = 2048;
     if (setsockopt(*sockfd, SOL_SOCKET, SO_RCVBUF, (char *)&opt, sizeof(opt)) == -1)
     {
-        httpc_e("Unsupported option SO_RCVBUF: %d", net_get_sock_error(*sockfd));
+        httpc_d("Unsupported option SO_RCVBUF: %d", net_get_sock_error(*sockfd));
     }
 #endif /* CONFIG_LWIP_STACK */
 
@@ -514,7 +514,7 @@ static inline int httpc_tcp_connect(int *sockfd, char *hostname, uint16_t port, 
         return r;
     }
 
-    httpc_e("Connecting .. %s:%d", hostname, port);
+    httpc_d("Connecting .. %s:%d", hostname, port);
     if (connect(*sockfd, (struct sockaddr *)&addr, sizeof(addr)) != 0)
     {
         httpc_e("tcp connect failed %s:%d errno=%d", hostname, port, errno);
@@ -523,13 +523,13 @@ static inline int httpc_tcp_connect(int *sockfd, char *hostname, uint16_t port, 
         return -WM_E_HTTPC_TCP_CONNECT_FAIL;
     }
 
-    httpc_e("Connected .. sockfd: %d", *sockfd);
+    httpc_d("Connected .. sockfd: %d", *sockfd);
     return WM_SUCCESS;
 }
 
 static inline session_t *new_session_object()
 {
-    session_t *s = os_mem_alloc(sizeof(session_t));
+    session_t *s = (session_t *)OSA_MemoryAllocate(sizeof(session_t));
     if (!s)
     {
         httpc_e("Could not allocate session object");
@@ -537,11 +537,11 @@ static inline session_t *new_session_object()
     }
 
     memset(s, 0x00, sizeof(session_t));
-    s->pbuf.buf = os_mem_alloc(MAX_REQ_RESP_HDR_SIZE);
+    s->pbuf.buf = (char *)OSA_MemoryAllocate(MAX_REQ_RESP_HDR_SIZE);
     if (!s->pbuf.buf)
     {
         httpc_e("Could not allocate prefetch buffer");
-        os_mem_free(s);
+        OSA_MemoryFree(s);
         return NULL;
     }
 
@@ -552,8 +552,8 @@ static inline session_t *new_session_object()
 static inline void delete_session_object(session_t *s)
 {
     if (s->pbuf.buf)
-        os_mem_free(s->pbuf.buf);
-    os_mem_free(s);
+        OSA_MemoryFree(s->pbuf.buf);
+    OSA_MemoryFree(s);
 }
 
 static int _http_parse_URL(char *URL, parsed_url_t *parsed_url)
@@ -654,7 +654,7 @@ static int _http_parse_URL(char *URL, parsed_url_t *parsed_url)
     }
     else
     {
-#ifdef CONFIG_IPV6
+#if CONFIG_IPV6
         /* Address type is IPv6 */
 
         /* IPv6 address with port number is of the form -
@@ -731,7 +731,7 @@ int http_parse_URL(const char *URL, char *tmp_buf, int tmp_buf_len, parsed_url_t
     return _http_parse_URL(tmp_buf, parsed_url);
 }
 
-#ifdef CONFIG_ENABLE_HTTPC_SECURE
+#if CONFIG_ENABLE_HTTPC_SECURE
 static int http_tls_init(session_t *s)
 {
     int ret = 0;
@@ -814,7 +814,7 @@ int http_open_proxy_session(http_session_t *handle,
 
     max_url_len = strlen(proxy_addr) + strlen(proxy_port) + 8 /* for http:// and end of string character */;
 
-    url = os_mem_alloc(max_url_len);
+    url = (char *)OSA_MemoryAllocate(max_url_len);
 
     if (!url)
     {
@@ -831,7 +831,7 @@ int http_open_proxy_session(http_session_t *handle,
         is_proxy_on = true;
     }
 
-    os_mem_free(url);
+    OSA_MemoryFree(url);
 
     return status;
 }
@@ -918,7 +918,7 @@ int http_open_session(http_session_t *handle, const char *hostname, const httpc_
         strncpy(s->hostname, url.hostname, HOSTNM_MAX);
     }
 
-#ifdef CONFIG_ENABLE_HTTPC_SECURE
+#if CONFIG_ENABLE_HTTPC_SECURE
     if (s->httpc_cfg.flags & TLS_ENABLE)
     {
         r = http_tls_init(s);
@@ -1262,7 +1262,7 @@ int httpc_validate_url(const char *url_str)
 {
     unsigned parse_buf_needed_size = strlen(url_str) + 10;
 
-    char *tmp_buf = os_mem_alloc(parse_buf_needed_size);
+    char *tmp_buf = (char *)OSA_MemoryAllocate(parse_buf_needed_size);
     if (!tmp_buf)
     {
         httpc_e("Mem allocation failed. Tried size: %d", parse_buf_needed_size);
@@ -1273,12 +1273,12 @@ int httpc_validate_url(const char *url_str)
     int status = http_parse_URL(url_str, tmp_buf, parse_buf_needed_size, &parsed_url);
     if (status != WM_SUCCESS)
     {
-        os_mem_free(tmp_buf);
+        OSA_MemoryFree(tmp_buf);
         httpc_e("URL parse failed");
         return status;
     }
 
-    os_mem_free(tmp_buf);
+    OSA_MemoryFree(tmp_buf);
     return WM_SUCCESS;
 }
 
@@ -1438,7 +1438,7 @@ static int load_header_fields(char *header, int len, int *off, http_resp_t *resp
 
         if (!strcasecmp(name, "Server"))
             resp->server = value;
-#ifdef CONFIG_ENABLE_HTTPC_MODIFY_TIME
+#if CONFIG_ENABLE_HTTPC_MODIFY_TIME
         if (!strcasecmp(name, "Last-Modified"))
             resp->modify_time = http_date_to_time((unsigned char *)value);
 #endif /* CONFIG_ENABLE_HTTPC_MODIFY_TIME	*/
@@ -2247,7 +2247,7 @@ void http_close_session(http_session_t *handle)
 
     s = (session_t *)*handle;
 
-#ifdef CONFIG_ENABLE_HTTPC_SECURE
+#if CONFIG_ENABLE_HTTPC_SECURE
     if (s->ssl)
     {
         mbedtls_ssl_close_notify(s->ssl);
@@ -2348,7 +2348,7 @@ int http_get_sockfd_from_handle(http_session_t handle)
     return s->sockfd;
 }
 
-#ifdef CONFIG_ENABLE_HTTPC_SECURE
+#if CONFIG_ENABLE_HTTPC_SECURE
 mbedtls_ssl_config *http_get_tls_context_from_handle(http_session_t handle)
 {
     if (!handle)

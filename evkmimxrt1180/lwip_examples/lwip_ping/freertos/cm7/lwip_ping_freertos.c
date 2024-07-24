@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2020,2022-2023  NXP
+ * Copyright 2016-2020, 2022-2024 NXP
  * All rights reserved.
  *
  *
@@ -25,9 +25,6 @@
 #include "pin_mux.h"
 #include "clock_config.h"
 #include "board.h"
-#ifndef configMAC_ADDR
-#include "fsl_silicon_id.h"
-#endif
 #include "fsl_phy.h"
 
 #include "fsl_phyrtl8201.h"
@@ -123,6 +120,10 @@
 
 #define EXAMPLE_PHY_INT_PORT BOARD_INITPHYACCESSPINS_ENET4_INT_B_PERIPHERAL
 #define EXAMPLE_PHY_INT_PIN  BOARD_INITPHYACCESSPINS_ENET4_INT_B_CHANNEL
+/* Must be after include of app.h */
+#ifndef configMAC_ADDR
+#include "fsl_silicon_id.h"
+#endif
 
 #ifndef EXAMPLE_NETIF_INIT_FN
 /*! @brief Network interface initialization function. */

@@ -1,5 +1,5 @@
 /*
- * Copyright 2021-2023 NXP
+ * Copyright 2021-2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -235,15 +235,6 @@ void vPortSuppressTicksAndSleep(TickType_t xExpectedIdleTime)
 
     /* Disable and prepare systicks for low power. */
     abortIdle = PWR_SysticksPreProcess((uint32_t)xExpectedIdleTime, &expectedIdleTimeUs);
-
-#if defined(WIFI_IW416_BOARD_MURATA_1XK_M2)
-    /* Check if host is allowed to enter low power mode. */
-    if(0 == PLATFORM_AllowEnterLowPower())
-    {
-        abortIdle = true;
-        SysTick->CTRL |= (SysTick_CTRL_TICKINT_Msk | SysTick_CTRL_ENABLE_Msk);
-    }
-#endif
 
     if (abortIdle == false)
     {

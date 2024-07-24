@@ -11,6 +11,9 @@
 #include <errno/errno.h>
 #include <toolchain.h>
 #include <porting.h>
+
+#include <bluetooth/audio/tmap.h>
+
 #include "fsl_debug_console.h"
 #include "fsl_os_abstraction.h"
 
@@ -20,6 +23,8 @@
 
 #include "unicast_audio_client.h"
 
+#include "set_coordinator.h"
+
 #include "call_gateway.h"
 
 shell_handle_t s_shellHandle;
@@ -27,6 +32,8 @@ SDK_ALIGN(static uint8_t s_shellHandleBuffer[SHELL_HANDLE_SIZE], 4);
 extern serial_handle_t g_serialHandle;
 
 struct bt_conn * default_conn;
+
+static volatile uint32_t conn_count;
 
 enum event_bitmap
 {
@@ -89,6 +96,16 @@ static bool device_scanned(struct bt_data *data, void *user_data)
     /* return true to continue parsing or false to stop parsing */
     switch (data->type)
     {
+        case BT_DATA_NAME_SHORTENED:
+        case BT_DATA_NAME_COMPLETE:
+        {
+            PRINTF("Device name: ");
+            for (int i = 0; i < data->data_len; i++) {
+                PUTCHAR(data->data[i]);
+            }
+            PRINTF("\n");
+            break;
+        }
         case BT_DATA_UUID16_SOME:
         case BT_DATA_UUID16_ALL:
         {
@@ -114,7 +131,7 @@ static bool device_scanned(struct bt_data *data, void *user_data)
                         break;
                     }
                     bt_addr_le_to_str(addr, dev, sizeof(dev));
-                    PRINTF("Found device: %s", dev);
+                    PRINTF("Found device: %s\n", dev);
 
                     /* Send connection request */
                     err = bt_conn_le_create(addr, BT_CONN_LE_CREATE_CONN,
@@ -125,6 +142,10 @@ static bool device_scanned(struct bt_data *data, void *user_data)
                         PRINTF("Create connection failed (err %d)\n", err);
                         scan_start();
                     }
+                    else
+                    {
+                        bt_conn_unref(default_conn);
+                    }
 
                     continueParse = false;
                     break;
@@ -132,7 +153,62 @@ static bool device_scanned(struct bt_data *data, void *user_data)
             }
             break;
         }
+        case BT_DATA_SVC_DATA16:
+        {
+            if (data->data_len < 2)
+            {
+                PRINTF("AD malformed\n");
+                return true;
+            }
+            memcpy(&u16, &data->data[0], sizeof(u16));
+            uuid = BT_UUID_DECLARE_16(sys_le16_to_cpu(u16));
 
+            /* search for the TMAP UUID in the advertising data */
+            if (bt_uuid_cmp(uuid, BT_UUID_GATT_TMAPR) == 0)
+            {
+                if (data->data_len < (2 + 2))
+                {
+                    PRINTF("AD malformed\n");
+                    return true;
+                }
+                memcpy(&u16, &data->data[2], sizeof(u16));
+                if ((u16 & BT_TMAP_ROLE_CT) == 0)
+                {
+                    break;
+                }
+                if (addr->type != BT_ADDR_LE_PUBLIC)
+                {
+                    break;
+                }
+                /* found the temperature server - stop scanning */
+                err = bt_le_scan_stop();
+                if (err)
+                {
+                    PRINTF("Stop LE scan failed (err %d)\n", err);
+                    break;
+                }
+                bt_addr_le_to_str(addr, dev, sizeof(dev));
+                PRINTF("Found device: %s", dev);
+
+                /* Send connection request */
+                err = bt_conn_le_create(addr, BT_CONN_LE_CREATE_CONN,
+                                        BT_LE_CONN_PARAM_DEFAULT,
+                                        &default_conn);
+                if (err)
+                {
+                    PRINTF("Create connection failed (err %d)\n", err);
+                    scan_start();
+                }
+                else
+                {
+                    bt_conn_unref(default_conn);
+                }
+
+                continueParse = false;
+                break;
+            }
+            break;
+        }
         default:
         {
             break;
@@ -151,6 +227,10 @@ static void device_found(const bt_addr_le_t *addr, int8_t rssi, uint8_t type,
 	PRINTF("[DEVICE]: %s, AD evt type %u, AD data len %u, RSSI %i\n",
 	       dev, type, ad->len, rssi);
 
+    if (rssi < -60)
+    {
+        return;
+    }
 	/* We're only interested in connectable events */
 	if (type == BT_GAP_ADV_TYPE_ADV_IND ||
 	    type == BT_GAP_ADV_TYPE_ADV_DIRECT_IND ||
@@ -162,7 +242,7 @@ static void device_found(const bt_addr_le_t *addr, int8_t rssi, uint8_t type,
 
 static int scan_start(void)
 {
-    return bt_le_scan_start(BT_LE_SCAN_PASSIVE, device_found);
+    return bt_le_scan_start(BT_LE_SCAN_CODED_ACTIVE, device_found);
 }
 
 #if CONFIG_BT_SMP
@@ -215,6 +295,8 @@ static void auth_cancel(struct bt_conn *conn)
 static void connected(struct bt_conn *conn, uint8_t err)
 {
     char addr[BT_ADDR_LE_STR_LEN];
+    uint32_t reg;
+
     bt_addr_le_to_str(bt_conn_get_dst(conn), addr, sizeof(addr));
 
     if (err)
@@ -223,6 +305,10 @@ static void connected(struct bt_conn *conn, uint8_t err)
     }
     else
     {
+        reg = DisableGlobalIRQ();
+        conn_count++;
+        default_conn = conn;
+        EnableGlobalIRQ(reg);
         PRINTF("Connected to peer: %s\n", addr);
 #if CONFIG_BT_SMP
         if (bt_conn_set_security(conn, BT_SECURITY_L2))
@@ -235,8 +321,15 @@ static void connected(struct bt_conn *conn, uint8_t err)
 
 static void disconnected(struct bt_conn *conn, uint8_t reason)
 {
-    default_conn = NULL;
-    bt_conn_unref(conn);
+    uint32_t reg;
+
+    reg = DisableGlobalIRQ();
+    if (default_conn == conn)
+    {
+        default_conn = NULL;
+    }
+    conn_count--;
+    EnableGlobalIRQ(reg);
     PRINTF("Disconnected (reason 0x%02x)\n", reason);
 }
 
@@ -284,6 +377,13 @@ static void bt_ready(int err)
         return;
     }
 
+    ret = set_coordinator_init();
+    if (ret < 0)
+    {
+        PRINTF("Set coordinator initialization failed(error %d)!", ret);
+        return;
+    }
+
     /* Start scanning */
     ret = scan_start();
     if (ret)
@@ -298,6 +398,33 @@ static void bt_ready(int err)
     SHELL_RegisterCommand(s_shellHandle, SHELL_COMMAND(passkey));
     SHELL_RegisterCommand(s_shellHandle, SHELL_COMMAND(passkey_confirm));
     SHELL_RegisterCommand(s_shellHandle, SHELL_COMMAND(unpair));
+
+#if 0
+    extern int bt_csip_sef(const uint8_t k[16],
+		const uint8_t sirk[16],
+		uint8_t out_sirk[16]);
+    uint8_t k[16] = {0x67, 0x6e, 0x1b, 0x9b, 0xd4, 0x48, 0x69, 0x6f, 0x06, 0x1e, 0xc6, 0x22, 0x3c, 0xe5, 0xce, 0xd9};
+    uint8_t sirk[16] = {0x45, 0x7d, 0x7d, 0x09, 0x21, 0xa1, 0xfd, 0x22, 0xce, 0xcd, 0x8c, 0x86, 0xdd, 0x72, 0xcc, 0xcd};
+    uint8_t out_sirk[16];
+
+    bt_csip_sef(k, sirk, out_sirk);
+    PRINTF("%d\n", out_sirk[0]);
+    bt_csip_sef(k, out_sirk, sirk);
+    PRINTF("%d\n", sirk[0]);
+
+    uint8_t r[3] = {0x69, 0xf5, 0x63};
+    uint8_t out[3];
+    extern int bt_csip_sih(const uint8_t sirk[16], uint8_t r[3],
+    uint8_t out[3]);
+
+    uint8_t revert_sirk[16];
+    sys_memcpy_swap(revert_sirk, sirk, 16);
+
+    uint8_t revert_r[3];
+    sys_memcpy_swap(revert_r, r, 3);
+    bt_csip_sih(revert_sirk, revert_r, out);
+    PRINTF("%d\n", out[0]);
+#endif
 }
 
 static shell_status_t scanning(shell_handle_t shellHandle, int32_t argc, char **argv)
@@ -307,6 +434,12 @@ static shell_status_t scanning(shell_handle_t shellHandle, int32_t argc, char **
 
     if (argc < 2)
     {
+        return kStatus_SHELL_Error;
+    }
+
+    if (conn_count > 0)
+    {
+        PRINTF("Cannot start a new scanning\n");
         return kStatus_SHELL_Error;
     }
 
@@ -441,6 +574,13 @@ static shell_status_t passkey_confirm(shell_handle_t shellHandle, int32_t argc, 
 static shell_status_t unpair(shell_handle_t shellHandle, int32_t argc, char **argv)
 {
     int err;
+
+    err = set_coordinator_clear();
+    if (err)
+    {
+        PRINTF("Fail to clear set coordinator (err %d)\n", err);
+        return kStatus_SHELL_Error;
+    }
 
     err = bt_unpair(BT_ID_DEFAULT, NULL);
 

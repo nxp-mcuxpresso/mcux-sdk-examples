@@ -1,10 +1,17 @@
 /*
- * Copyright 2022-2023 NXP
+ * Copyright 2022-2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
+/* @brief This example application shows usage of MultiMedia Pipeline to build a simple graph:
+ * 2D camera -> image converter(*) -> display
+ * It displays camera content on screen:
+ * (*) image conversion may be skipped for cameras supporting same format as display;
+ * the pipeline may deal with stripes of images instead of full-frame to reduce memory footprint;
+ * this stripe mode can only be enabled when camera and display devices support it. */
+ 
 /* FreeRTOS kernel includes. */
 #include "FreeRTOS.h"
 #include "task.h"
@@ -28,6 +35,10 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
+
+#ifndef APP_STRIPE_MODE
+#define APP_STRIPE_MODE 0
+#endif
 
 typedef struct _args_t {
     char camera_name[32];
@@ -92,11 +103,18 @@ err:
 static void app_task(void *params) {
     int ret;
     args_t *args = (args_t *) params;
+    bool stripe_mode = (APP_STRIPE_MODE > 0)? true : false;
 
     PRINTF("[%s]\r\n", mpp_get_version());
 
     /* init API */
-    ret = mpp_api_init(NULL);
+    mpp_api_params_t api_param = {0};
+#if ((defined APP_RC_CYCLE_INC) && (defined APP_RC_CYCLE_MIN))
+    /* fine-tune RC cycle for stripe mode */
+    api_param.rc_cycle_inc = APP_RC_CYCLE_INC;
+    api_param.rc_cycle_min = APP_RC_CYCLE_MIN;
+#endif
+    ret = mpp_api_init(&api_param);
     if (ret)
         goto err;
 
@@ -116,6 +134,7 @@ static void app_task(void *params) {
     cam_params.width  = APP_CAMERA_WIDTH;
     cam_params.format = args->src_format;
     cam_params.fps    = 30;
+    cam_params.stripe = stripe_mode;
     ret = mpp_camera_add(mp, args->camera_name, &cam_params);
     if (ret) {
         PRINTF("Failed to add camera %s\n", args->camera_name);
@@ -149,6 +168,7 @@ static void app_task(void *params) {
     disp_params.format = args->display_format;
     disp_params.width  = APP_DISPLAY_WIDTH;
     disp_params.height = APP_DISPLAY_HEIGHT;
+    disp_params.stripe = stripe_mode;
 #ifdef APP_SKIP_CONVERT_FOR_DISPLAY
     disp_params.rotate = APP_DISPLAY_LANDSCAPE_ROTATE;
 #endif

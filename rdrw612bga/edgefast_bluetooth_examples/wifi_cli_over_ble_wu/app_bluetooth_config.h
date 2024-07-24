@@ -64,7 +64,9 @@
 #endif
 
 #include "wifi_config.h"
-#undef CONFIG_UART_INTERRUPT
+/* Due to the changes in wifi configuration,
+   please do not use '#undef' to diasble wifi uart task. */
+#define CONFIG_UART_INTERRUPT 0
 
 #include "edgefast_bluetooth_config.h"
 #include "edgefast_bluetooth_debug_config.h"

@@ -159,7 +159,9 @@ SECTIONS
     . = ALIGN(4);
     __DATA_RAM = .;
     __data_start__ = .;      /* create a global symbol at data start */
+    . = ALIGN(32);
     *(m_usb_dma_init_data)
+    . = ALIGN(32);
     *(.data)                 /* .data sections */
     *(.data*)                /* .data* sections */
     KEEP(*(.jcr*))
@@ -201,7 +203,9 @@ SECTIONS
     . = ALIGN(4);
     __START_BSS = .;
     __bss_start__ = .;
+    . = ALIGN(32);
     *(m_usb_dma_noninit_data)
+    . = ALIGN(32);
     *(.bss)
     *(.bss*)
     *(COMMON)

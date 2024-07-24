@@ -33,10 +33,6 @@
 /*******************************************************************************
  * Variables
  ******************************************************************************/
-/* Allocate the memory for the heap. */
-#if defined(configAPPLICATION_ALLOCATED_HEAP) && (configAPPLICATION_ALLOCATED_HEAP)
-USB_DMA_NONINIT_DATA_ALIGN(USB_DATA_ALIGN_SIZE) uint8_t ucHeap[configTOTAL_HEAP_SIZE];
-#endif
 usb_host_handle g_HostHandle;
 extern usb_host_video_camera_instance_t g_Video;
 extern sd_card_t g_sd;

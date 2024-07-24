@@ -4,6 +4,8 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
+#if CONFIG_NCP_BLE
+
 #include <zephyr/types.h>
 #include <stddef.h>
 #include <string.h>
@@ -26,7 +28,6 @@
 
 #include "service.h"
 #include "ncp_glue_ble.h"
-
 /*******************************************************************************
  * Variables
  ******************************************************************************/
@@ -87,7 +88,7 @@ static uint8_t notify_func(struct bt_conn *conn,
     
     ev->svc_id = CENTRAL_HTC_SERVICE_ID;
 
-    ble_bridge_prepare_status(NCP_BRIDGE_EVENT_GATT_NOTIFICATION, NCP_BRIDGE_CMD_RESULT_OK, htc_ev_buf, sizeof(*ev) + length);
+    ble_prepare_status(NCP_EVENT_GATT_NOTIFICATION, NCP_CMD_RESULT_OK, htc_ev_buf, sizeof(*ev) + length);
 
     return BT_GATT_ITER_CONTINUE;
 }
@@ -123,7 +124,7 @@ static uint8_t discover_func(struct bt_conn *conn,
             service.uuid[1] = ((BT_UUID_HTS_VAL) >>  8) & 0xFF;
             ev->services_count = 1;
             memcpy(ev->services, &service, sizeof(gatt_service_t));
-            ble_bridge_prepare_status(NCP_BRIDGE_EVENT_GATT_DISC_PRIM, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t*)ev, sizeof(gatt_service_t)+1);
+            ble_prepare_status(NCP_EVENT_GATT_DISC_PRIM, NCP_CMD_RESULT_OK, (uint8_t*)ev, sizeof(gatt_service_t)+1);
         }
         /* Health Thermometer service discovered */
         memcpy(&uuid, BT_UUID_HTS_MEASUREMENT, sizeof(uuid));
@@ -153,7 +154,7 @@ static uint8_t discover_func(struct bt_conn *conn,
             characteristics.uuid[1] = ((BT_UUID_HTS_MEASUREMENT_VAL) >>  8) & 0xFF;
             ev->characteristics_count = 1;
             memcpy(ev->characteristics, &characteristics, sizeof(gatt_characteristic_t));
-            ble_bridge_prepare_status(NCP_BRIDGE_EVENT_GATT_DISC_CHRC, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t*)ev, sizeof(gatt_characteristic_t)+1);
+            ble_prepare_status(NCP_EVENT_GATT_DISC_CHRC, NCP_CMD_RESULT_OK, (uint8_t*)ev, sizeof(gatt_characteristic_t)+1);
         }
         /* Health Thermometer Measurement characteristic discovered */
         memcpy(&uuid, BT_UUID_GATT_CCC, sizeof(uuid));
@@ -179,7 +180,7 @@ static uint8_t discover_func(struct bt_conn *conn,
             descriptor.uuid[0] = ((BT_UUID_GATT_CCC_VAL) >>  0) & 0xFF;
             descriptor.uuid[1] = ((BT_UUID_GATT_CCC_VAL) >>  8) & 0xFF;
             memcpy(ev->descriptors, &descriptor, sizeof(gatt_descriptor_t));
-            ble_bridge_prepare_status(NCP_BRIDGE_EVENT_GATT_DISC_DESC, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t*)ev, sizeof(gatt_descriptor_t)+1);
+            ble_prepare_status(NCP_EVENT_GATT_DISC_DESC, NCP_CMD_RESULT_OK, (uint8_t*)ev, sizeof(gatt_descriptor_t)+1);
         }
         else
         {
@@ -193,9 +194,9 @@ static uint8_t discover_func(struct bt_conn *conn,
             gatt_ncp_ble_svc_subscription_ev_t ev;
 
             ev.svc_id = CENTRAL_HTC_SERVICE_ID;
-            ev.status = (err && err != -EALREADY) ? NCP_BRIDGE_CMD_RESULT_ERROR : NCP_BRIDGE_CMD_RESULT_OK;
+            ev.status = (err && err != -EALREADY) ? NCP_CMD_RESULT_ERROR : NCP_CMD_RESULT_OK;
 
-            ble_bridge_prepare_status(NCP_BRIDGE_EVENT_GATT_SUBSCRIPTIONED, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *) &ev, sizeof(gatt_ncp_ble_svc_subscription_ev_t));
+            ble_prepare_status(NCP_EVENT_GATT_SUBSCRIPTIONED, NCP_CMD_RESULT_OK, (uint8_t *) &ev, sizeof(gatt_ncp_ble_svc_subscription_ev_t));
         }
         return BT_GATT_ITER_STOP;
     }
@@ -236,10 +237,10 @@ bool htc_adv_report_processed(struct adv_report_data *data, void *user_addr)
                     err = bt_le_scan_stop();
                     if (err)
                     {
-                        ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GAP_STOP_SCAN, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
+                        ble_prepare_status(NCP_RSP_BLE_GAP_STOP_SCAN, NCP_CMD_RESULT_ERROR, NULL, 0);
                         break;
                     }
-                    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GAP_STOP_SCAN, NCP_BRIDGE_CMD_RESULT_OK, NULL, 0);
+                    ble_prepare_status(NCP_RSP_BLE_GAP_STOP_SCAN, NCP_CMD_RESULT_OK, NULL, 0);
                                     
                     /* Send connection request */
                     err = bt_conn_le_create(addr, BT_CONN_LE_CREATE_CONN,
@@ -310,3 +311,4 @@ void central_htc_task(void *pvParameters)
     }   
 }
 
+#endif /* CONFIG_NCP_BLE */

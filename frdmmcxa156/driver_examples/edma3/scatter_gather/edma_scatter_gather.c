@@ -104,14 +104,14 @@ int main(void)
                          kEDMA_MemoryToMemory);
     EDMA_SubmitTransfer(&g_EDMA_Handle, &transferConfig);
     /* Trigger transfer start */
-    EDMA_StartTransfer(&g_EDMA_Handle);
+    EDMA_TriggerChannelStart(EXAMPLE_DMA_BASEADDR, EXAMPLE_DMA_CHANNEL);
     /* Wait for the first TCD finished */
     while (g_Transfer_Done != true)
     {
     }
     g_Transfer_Done = false;
     /* Trigger the second tcd */
-    EDMA_StartTransfer(&g_EDMA_Handle);
+    EDMA_TriggerChannelStart(EXAMPLE_DMA_BASEADDR, EXAMPLE_DMA_CHANNEL);
     /* Wait for the second TCD finished */
     while (g_Transfer_Done != true)
     {

@@ -51,14 +51,13 @@ include(${ProjDirPath}/flags.cmake)
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
-"${ProjDirPath}/../mbedtls_user_config.h"
+"${ProjDirPath}/../rw61x_wifi_bin.h"
+"${ProjDirPath}/../rw61x_wifi_bin.c"
 "${ProjDirPath}/../ota_mcuboot_server.c"
 "${ProjDirPath}/../httpsrv_multipart.c"
 "${ProjDirPath}/../httpsrv_multipart.h"
 "${ProjDirPath}/../network_cfg.h"
 "${ProjDirPath}/../init_wifi.c"
-"${ProjDirPath}/../wpl.h"
-"${ProjDirPath}/../wpl_nxp.c"
 "${ProjDirPath}/../lwipopts.h"
 "${ProjDirPath}/../httpsrv_fs_data.c"
 "${ProjDirPath}/../FreeRTOSConfig.h"
@@ -66,6 +65,10 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../wifi_config.h"
 "${ProjDirPath}/../app_config.h"
+"${SdkRootDirPath}/core/boards/rdrw612bga/board.c"
+"${SdkRootDirPath}/core/boards/rdrw612bga/board.h"
+"${SdkRootDirPath}/core/boards/rdrw612bga/clock_config.c"
+"${SdkRootDirPath}/core/boards/rdrw612bga/clock_config.h"
 "${ProjDirPath}/../mcuboot_app_support.c"
 "${ProjDirPath}/../mcuboot_app_support.h"
 "${ProjDirPath}/../bootutil_port/board_specific/flash_partitioning.h"
@@ -75,11 +78,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../bootutil_port/mcuboot_config/mcuboot_logging.h"
 "${ProjDirPath}/../bootutil_port/flash_map.h"
 "${ProjDirPath}/../bootutil_port/sysflash/sysflash.h"
-"${ProjDirPath}/../bootutil_port/sbldef.h"
-"${SdkRootDirPath}/core/boards/rdrw612bga/board.c"
-"${SdkRootDirPath}/core/boards/rdrw612bga/board.h"
-"${SdkRootDirPath}/core/boards/rdrw612bga/clock_config.c"
-"${SdkRootDirPath}/core/boards/rdrw612bga/clock_config.h"
 "${ProjDirPath}/../board.c"
 "${ProjDirPath}/../board.h"
 "${ProjDirPath}/../clock_config.c"
@@ -88,25 +86,17 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
+    ${SdkRootDirPath}/core/boards/rdrw612bga
     ${ProjDirPath}/../bootutil_port
     ${ProjDirPath}/../bootutil_port/mcuboot_config
     ${ProjDirPath}/../bootutil_port/sysflash
     ${ProjDirPath}/../bootutil_port/board_specific
-    ${SdkRootDirPath}/core/boards/rdrw612bga
 )
 
 set_source_files_properties("${ProjDirPath}/../lwipopts.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_lwip_template")
 set_source_files_properties("${ProjDirPath}/../FreeRTOSConfig.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_freertos-kernel_template")
 set_source_files_properties("${ProjDirPath}/../wifi_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_wifi_template")
 set_source_files_properties("${ProjDirPath}/../app_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_wifi_template")
-
-if(CMAKE_BUILD_TYPE STREQUAL flash_debug)
-     target_compile_definitions(${MCUX_SDK_PROJECT_NAME}  PRIVATE MBEDTLS_CONFIG_FILE="els_pkc_mbedtls_config.h" MBEDTLS_USER_CONFIG_FILE="mbedtls_user_config.h")
-endif(CMAKE_BUILD_TYPE STREQUAL flash_debug)
-
-if(CMAKE_BUILD_TYPE STREQUAL flash_release)
-     target_compile_definitions(${MCUX_SDK_PROJECT_NAME}  PRIVATE MBEDTLS_CONFIG_FILE="els_pkc_mbedtls_config.h" MBEDTLS_USER_CONFIG_FILE="mbedtls_user_config.h")
-endif(CMAKE_BUILD_TYPE STREQUAL flash_release)
 
 include(${SdkRootDirPath}/core/devices/RW612/all_lib_device.cmake)
 

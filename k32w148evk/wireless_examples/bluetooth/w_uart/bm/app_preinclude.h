@@ -3,7 +3,7 @@
  * @{
  ********************************************************************************** */
 /*
- * Copyright 2021 - 2023 NXP
+ * Copyright 2021 - 2024 NXP
  *
  *
  *
@@ -71,15 +71,15 @@
 /* The following stack sizes have been chosen based on a worst case scenario. 
  * For different compilers and optimization levels they can be reduced. */
 
-#define gHost_TaskStackSize_c           1564
+#define gHost_TaskStackSize_c           2000
 
 #define BUTTON_TASK_STACK_SIZE          700
 
-#define SERIAL_MANAGER_TASK_STACK_SIZE  232
+#define SERIAL_MANAGER_TASK_STACK_SIZE  360
 
 #define gMainThreadStackSize_c          1876
 
-#define TM_TASK_STACK_SIZE              376
+#define TM_TASK_STACK_SIZE              440
 
 /* The size used for the Idle task, in dwords. */
 #define configMINIMAL_STACK_SIZE        140

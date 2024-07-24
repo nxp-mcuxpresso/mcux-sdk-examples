@@ -42,7 +42,7 @@ static inline void ncp_dump_hex(const void *data, unsigned len)
 
 #define ncp_e(...) ncplog_e("NCP", ##__VA_ARGS__)
 #define ncp_w(...) ncplog_w("NCP", ##__VA_ARGS__)
-#ifdef CONFIG_NCP_DEBUG
+#if CONFIG_NCP_DEBUG
 #define ncp_d(...) ncplog("NCP", ##__VA_ARGS__)
 #else
 #define ncp_d(...)
@@ -50,8 +50,8 @@ static inline void ncp_dump_hex(const void *data, unsigned len)
 
 #define NCP_ASSERT(test) assert(test)
 
-#ifdef CONFIG_NCP_DEBUG
-#define CONFIG_NCP_DEBUG_ADAP
+#if CONFIG_NCP_DEBUG
+#define CONFIG_NCP_DEBUG_ADAP 1
 #endif
 
 #define NCP_SUCCESS 0

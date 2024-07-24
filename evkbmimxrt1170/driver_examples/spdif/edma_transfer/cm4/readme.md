@@ -8,12 +8,12 @@ Notice: Please use 48KHz sample rate for PC playback and set SPDIF output device
 
 SDK version
 ===========
-- Version: 2.15.100
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- MCUXpresso  11.8.0
-- GCC ARM Embedded  12.2
+- MCUXpresso  11.10.0
+- GCC ARM Embedded  13.2.1
 
 Hardware requirements
 =====================
@@ -49,3 +49,6 @@ After run the demo, you can hear the music playbacked from SPDIF soundcacrd, the
 SPDIF EDMA example started!
 SPDIF EDMA example finished!
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Known issues
+1. When running a flash target of the demo, it gets blocked after printing the "SPDIF EDMA example started!".

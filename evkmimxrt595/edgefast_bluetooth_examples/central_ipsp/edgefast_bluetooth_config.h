@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 NXP
+ * Copyright 2021-2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -407,6 +407,19 @@ Select this for LE Peripheral role support.
     #define CONFIG_BT_CONN_PARAM_ANY 0
 #endif
 
+#ifndef CONFIG_BT_CTLR_LE_POWER_CONTROL_SUPPORT
+    #define CONFIG_BT_CTLR_LE_POWER_CONTROL_SUPPORT 0
+#endif
+#if CONFIG_BT_CTLR_LE_POWER_CONTROL_SUPPORT
+/*! @brief LE Power Control
+ * Enable support for LE Power Control Request feature that is defined in the
+ * Bluetooth Core specification, Version 5.4 | Vol 6, Part B, Section 4.6.31.
+ */
+#ifndef CONFIG_BT_TRANSMIT_POWER_CONTROL
+    #define CONFIG_BT_TRANSMIT_POWER_CONTROL 1
+#endif
+#endif /* CONFIG_BT_CTLR_LE_POWER_CONTROL_SUPPORT */
+
 #if CONFIG_BT_PHY_UPDATE
 /*! @brief User control of PHY Update Procedure, if the macro is set to 0, feature is disabled, if 1, feature is enabled.
  * Enable application access to initiate the PHY Update Procedure.
@@ -432,6 +445,8 @@ Select this for LE Peripheral role support.
     #define CONFIG_BT_AUTO_PHY_UPDATE 1
     #endif
 #endif
+
+
 
 #endif /* CONFIG_BT_PHY_UPDATE */
 
@@ -690,6 +705,28 @@ Select this for LE Peripheral role support.
 #if (defined(CONFIG_BT_RPA_TIMEOUT_DYNAMIC) && (CONFIG_BT_RPA_TIMEOUT_DYNAMIC > 0))
     #if !((defined(CONFIG_BT_PRIVACY) && (CONFIG_BT_PRIVACY > 0)))
         #error CONFIG_BT_RPA_TIMEOUT_DYNAMIC depends on CONFIG_BT_PRIVACY.
+    #endif
+#endif
+
+/*! @brief Share the Resolvable Private Address between advertising sets
+ * This option configures the advertising sets linked with the same
+ * Bluetooth identity to use the same Resolvable Private Address in
+ * a given rotation period. After the RPA timeout, the new RPA is
+ * generated and shared between the advertising sets in the subsequent
+ * rotation period. When this option is disabled, the generated RPAs
+ * of the advertising sets differ from each other in a given rotation
+ * period.
+ */
+#ifndef CONFIG_BT_RPA_SHARING
+    #define CONFIG_BT_RPA_SHARING 0
+#endif
+
+#if (defined(CONFIG_BT_RPA_SHARING) && (CONFIG_BT_RPA_SHARING > 0))
+    #if !((defined(CONFIG_BT_PRIVACY) && (CONFIG_BT_PRIVACY > 0)))
+        #error CONFIG_BT_RPA_SHARING depends on CONFIG_BT_PRIVACY.
+    #endif
+    #if !((defined(CONFIG_BT_EXT_ADV) && (CONFIG_BT_EXT_ADV > 0)))
+        #error CONFIG_BT_RPA_SHARING depends on CONFIG_BT_EXT_ADV.
     #endif
 #endif
 
@@ -1019,6 +1056,15 @@ Select this for LE Peripheral role support.
     #define CONFIG_BT_ATT_PREPARE_COUNT 0
 #endif
 
+/*! @brief Number of ATT buffers, default BT_BUF_ACL_TX_COUNT
+ * These buffers are only used for sending anything over ATT.
+ * Requests, responses, indications, confirmations, notifications.
+ * range is 1 to 255, default 3.
+ */
+#ifndef CONFIG_BT_ATT_TX_COUNT
+    #define CONFIG_BT_ATT_TX_COUNT 3
+#endif
+
 /*! @brief Automatic security elevation and retry on security errors
  * If an ATT request fails due to insufficient security, the host will
  * try to elevate the security level and retry the ATT request.
@@ -1324,6 +1370,16 @@ Select this for LE Peripheral role support.
 #endif /* CONFIG_BT_PERIPHERAL */
 
 #endif /* CONFIG_BT_CONN */
+
+/*! @brief Custom authorization of GATT operations [EXPERIMENTAL]
+ * This option allows the user to define application-specific
+ * authorization logic for GATT operations that can be registered
+ * with the bt_gatt_authorization_cb_register API. See the API
+ * documentation for more details.
+ */
+#ifndef CONFIG_BT_GATT_AUTHORIZATION_CUSTOM
+#define CONFIG_BT_GATT_AUTHORIZATION_CUSTOM 0
+#endif /* CONFIG_BT_GATT_AUTHORIZATION_CUSTOM */
 
 /*! @brief Maximum number of paired devices
  * Maximum number of paired Bluetooth devices. The minimum (and
@@ -1707,7 +1763,7 @@ Select this for LE Peripheral role support.
     #define CONFIG_BT_A2DP 0
 #endif
 
-#ifdef CONFIG_BT_A2DP
+#if defined(CONFIG_BT_A2DP) && (CONFIG_BT_A2DP > 0) 
 
 /*! @brief Bluetooth A2DP count. */
 #ifndef CONFIG_BT_A2DP_MAX_CONN
@@ -1732,7 +1788,7 @@ Select this for LE Peripheral role support.
     #define CONFIG_BT_A2DP_MAX_ENDPOINT_COUNT 2
 #endif
 
-#ifdef CONFIG_BT_A2DP_SOURCE
+#if defined(CONFIG_BT_A2DP_SOURCE) && (CONFIG_BT_A2DP_SOURCE > 0) 
 
 #ifndef CONFIG_BT_A2DP_SBC_ENCODER_PCM_BUFFER_SIZE
     #define CONFIG_BT_A2DP_SBC_ENCODER_PCM_BUFFER_SIZE 0
@@ -1744,7 +1800,7 @@ Select this for LE Peripheral role support.
 
 #endif
 
-#ifdef CONFIG_BT_A2DP_SINK
+#if defined(CONFIG_BT_A2DP_SINK) && (CONFIG_BT_A2DP_SINK > 0) 
 
 #ifndef CONFIG_BT_A2DP_SBC_DECODER_PCM_BUFFER_SIZE
     #define CONFIG_BT_A2DP_SBC_DECODER_PCM_BUFFER_SIZE 0
@@ -1833,7 +1889,7 @@ Select this for LE Peripheral role support.
 #define CONFIG_BT_AVRCP 0
 #endif
 
-#ifdef CONFIG_BT_AVRCP
+#if defined(CONFIG_BT_AVRCP) && (CONFIG_BT_AVRCP > 0) 
 
 /*! @brief Bluetooth AVRCP count. */
 #ifndef CONFIG_BT_AVRCP_MAX_CONN
@@ -1868,7 +1924,7 @@ Select this for LE Peripheral role support.
 #define CONFIG_BT_AVRCP_COVER_ART 0
 #endif
 
-#ifdef CONFIG_BT_AVRCP_COVER_ART
+#if defined(CONFIG_BT_AVRCP_COVER_ART) && (CONFIG_BT_AVRCP_COVER_ART > 0) 
 
 /*! @brief Bluetooth AVRCP cover art initiator.
  * This option enables it or not.
@@ -1893,6 +1949,15 @@ Select this for LE Peripheral role support.
  */
 #ifndef CONFIG_BT_PAGE_TIMEOUT
     #define CONFIG_BT_PAGE_TIMEOUT 0x2000
+#endif
+
+/*! @brief Bluetooth Class of Device(CoD).
+ * This option sets the class of device.For the list of possible values please
+ * consult the following link:
+ * https://www.bluetooth.com/specifications/assigned-numbers
+ */
+#ifndef CONFIG_BT_COD
+    #define CONFIG_BT_COD 0x0
 #endif
 
 #endif /* CONFIG_BT_BREDR */

@@ -4,7 +4,7 @@
   <externalDefinitions>
     <definition extID="LPC55S36JBD100"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK215100_lpcxpresso55s36_examples_manifest_v3_14" name="MCUXpressoSDK215100_lpcxpresso55s36_examples_manifest_v3_14" version="2.15.100" revision="2.15.100"/>
+  <ksdk id="MCUXpressoSDK216000_lpcxpresso55s36_examples_manifest_v3_14" name="MCUXpressoSDK216000_lpcxpresso55s36_examples_manifest_v3_14" version="2.16.000" revision="2.16.000"/>
   <boards>
     <board id="lpcxpresso55s36" name="LPCXpresso55S36" version="1.0.0" package="LPC55S36JBD100">
       <examples>
@@ -446,6 +446,11 @@
         <example id="lpcxpresso55s36_itrc" name="itrc" brief="The ITRC Example project is a demonstration program that uses the MCUX SDK software to show funcionality of Intrusion and Tamper Response Controller." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/itrc" path="examples/lpcxpresso55s36/driver_examples/itrc">
           <external path="driver_examples/itrc" type="xml">
             <files mask="itrc_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s36_iped" name="iped" brief="The IPED Example project is a demonstration program that uses the MCUX SDK software to show funcionality of Inline Prince Encryption Decryption." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/iped" path="examples/lpcxpresso55s36/driver_examples/iped">
+          <external path="driver_examples/iped" type="xml">
+            <files mask="iped_v3_14.xml"/>
           </external>
         </example>
         <example id="lpcxpresso55s36_cmp_interrupt" name="cmp_interrupt" brief="The CMP interrupt Example shows how to use interrupt with CMP driver." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/cmp" path="examples/lpcxpresso55s36/driver_examples/cmp/interrupt">
@@ -893,6 +898,36 @@
             <files mask="wwdt_example_v3_14.xml"/>
           </external>
         </example>
+        <example id="lpcxpresso55s36_mbedtls_selftest" name="mbedtls_selftest" brief="The mbdedTLS SelfTest program performs cryptographic algorithm testing and prints results to the terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="mbedtls_examples" path="examples/lpcxpresso55s36/mbedtls_examples/mbedtls_selftest">
+          <external path="mbedtls_examples/mbedtls_selftest" type="xml">
+            <files mask="mbedtls_selftest_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s36_mbedtls_benchmark" name="mbedtls_benchmark" brief="The mbdedTLS Benchmark demo application performs cryptographic algorithm benchmarking and prints results to the terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="mbedtls_examples" path="examples/lpcxpresso55s36/mbedtls_examples/mbedtls_benchmark">
+          <external path="mbedtls_examples/mbedtls_benchmark" type="xml">
+            <files mask="mbedtls_benchmark_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s36_els_pkc_common" name="els_pkc_common" brief="The ELS PKC application provides examples which demonstrate usage of common features including PRNG and a crypto library lightweight testing." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="els_pkc_examples" path="examples/lpcxpresso55s36/els_pkc_examples/els_pkc_common">
+          <external path="els_pkc_examples/els_pkc_common" type="xml">
+            <files mask="els_pkc_common_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s36_els_symmetric" name="els_symmetric" brief="The ELS PKC application provides examples which demonstrate usage of symmetric algorithms and a crypto library lightweight testing." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="els_pkc_examples" path="examples/lpcxpresso55s36/els_pkc_examples/els_symmetric">
+          <external path="els_pkc_examples/els_symmetric" type="xml">
+            <files mask="els_symmetric_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s36_els_hash" name="els_hash" brief="The ELS PKC application provides examples which demonstrate usage of hash algorithms and a crypto library lightweight testing." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="els_pkc_examples" path="examples/lpcxpresso55s36/els_pkc_examples/els_hash">
+          <external path="els_pkc_examples/els_hash" type="xml">
+            <files mask="els_hash_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s36_els_pkc_asymmetric" name="els_pkc_asymmetric" brief="The ELS PKC application provides examples which demonstrate usage of asymmetric algorithms and a crypto library lightweight testing." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="els_pkc_examples" path="examples/lpcxpresso55s36/els_pkc_examples/els_pkc_asymmetric">
+          <external path="els_pkc_examples/els_pkc_asymmetric" type="xml">
+            <files mask="els_pkc_asymmetric_v3_14.xml"/>
+          </external>
+        </example>
         <example id="lpcxpresso55s36_freqme_interrupt" name="freqme_interrupt" brief="The freqme_interrupt is a demonstration program of the SDK LPC_FREQME driver's features. The example demostrate the usage of frequency measurement operate mode and pulse width measurement operate mode." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/freqme" path="examples/lpcxpresso55s36/driver_examples/freqme">
           <external path="driver_examples/freqme" type="xml">
             <files mask="freqme_interrupt_v3_14.xml"/>
@@ -911,6 +946,11 @@
         <example id="lpcxpresso55s36_aoi_input_mux" name="aoi_input_mux" brief="The AOI Example shows the simplest way to use AOI driver" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/aoi/input_mux" path="examples/lpcxpresso55s36/driver_examples/aoi/input_mux">
           <external path="driver_examples/aoi/input_mux" type="xml">
             <files mask="aoi_input_mux_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s36_prince_rom" name="prince_rom" brief="This driver example demonstrates how to setup PRINCE driver for the on-the-fly encryption/decryption of data stored in the internal flash memory. It shows how to enable encryption/decryption for specified flash memory address range, how to generate new IV code and how to load the IV code into the PRINCE bus encryption engine. The example also shows how to correctly perform PRINCE region erase and write operations with dummy data." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/prince_rom" path="examples/lpcxpresso55s36/driver_examples/prince_rom">
+          <external path="driver_examples/prince_rom" type="xml">
+            <files mask="prince_rom_v3_14.xml"/>
           </external>
         </example>
         <example id="lpcxpresso55s36_i3c_polling_b2b_transfer_master" name="i3c_polling_b2b_transfer_master" brief="The i3c_polling_b2b_transfer_master example shows how to use i3c driver as master to do board to board transfer using polling method. In this example, one i3c instance as master and another i3c instance on the other board as slave. Master will assign dynamic address to slave, then sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/i3c" path="examples/lpcxpresso55s36/driver_examples/i3c/polling_b2b_transfer/master">
@@ -1008,7 +1048,7 @@
             <files mask="freertos_generic_v3_14.xml"/>
           </external>
         </example>
-        <example id="lpcxpresso55s36_freertos_hello" name="freertos_hello" brief="The Hello World project is a simple demonstration program that uses the SDK UART drivere incombination with FreeRTOS. The purpose of this demo is to show how to use the debug console and toprovide a simple project for debugging and further development.The example application creates one task called hello_task. This task print &quot;Hello world.&quot; messagevia debug console utility and suspend itself." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="freertos_examples" path="examples/lpcxpresso55s36/freertos_examples/freertos_hello">
+        <example id="lpcxpresso55s36_freertos_hello" name="freertos_hello" brief="The Hello World project is a simple demonstration program that uses the SDK UART driver in combination with FreeRTOS. The purpose of this demo is to show how to use the debug console and toprovide a simple project for debugging and further development.The example application creates one task called hello_task. This task print &quot;Hello world.&quot; messagevia debug console utility and suspend itself." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="freertos_examples" path="examples/lpcxpresso55s36/freertos_examples/freertos_hello">
           <external path="freertos_examples/freertos_hello" type="xml">
             <files mask="freertos_hello_v3_14.xml"/>
           </external>

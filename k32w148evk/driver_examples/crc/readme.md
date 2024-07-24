@@ -6,12 +6,12 @@ for an ASCII string. Several CRC protocols are implemented using the CRC driver 
 
 SDK version
 ===========
-- Version: 2.15.000
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  12.2
-- MCUXpresso  11.8.0
+- GCC ARM Embedded  13.2.1
+- MCUXpresso  11.10.0
 
 Hardware requirements
 =====================
@@ -43,7 +43,7 @@ The following lines are printed to the serial terminal when the demo program is 
 CRC Peripheral Driver Example
 
 Test string: 123456789
-CRC-16 CCIT FALSE: 0x29b1
+CRC-16 CCITT FALSE: 0x29b1
 CRC-16 MAXIM: 0x44c2
 CRC-16 KERMIT: 0x2189
 CRC-32: 0xcbf43926

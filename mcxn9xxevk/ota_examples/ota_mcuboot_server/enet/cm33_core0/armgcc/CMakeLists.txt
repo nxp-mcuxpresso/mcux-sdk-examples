@@ -62,6 +62,14 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../FreeRTOSConfig.h"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
+"${SdkRootDirPath}/core/boards/mcxn9xxevk/board.c"
+"${SdkRootDirPath}/core/boards/mcxn9xxevk/board.h"
+"${SdkRootDirPath}/core/boards/mcxn9xxevk/clock_config.c"
+"${SdkRootDirPath}/core/boards/mcxn9xxevk/clock_config.h"
+"${SdkRootDirPath}/examples/mcxn9xxevk/board.c"
+"${SdkRootDirPath}/examples/mcxn9xxevk/board.h"
+"${SdkRootDirPath}/examples/mcxn9xxevk/clock_config.c"
+"${SdkRootDirPath}/examples/mcxn9xxevk/clock_config.h"
 "${ProjDirPath}/../mcuboot_app_support.c"
 "${ProjDirPath}/../mcuboot_app_support.h"
 "${ProjDirPath}/../bootutil_port/board_specific/flash_partitioning.h"
@@ -71,25 +79,16 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../bootutil_port/mcuboot_config/mcuboot_logging.h"
 "${ProjDirPath}/../bootutil_port/flash_map.h"
 "${ProjDirPath}/../bootutil_port/sysflash/sysflash.h"
-"${ProjDirPath}/../bootutil_port/sbldef.h"
-"${SdkRootDirPath}/core/boards/mcxn9xxevk/board.c"
-"${SdkRootDirPath}/core/boards/mcxn9xxevk/board.h"
-"${SdkRootDirPath}/core/boards/mcxn9xxevk/clock_config.c"
-"${SdkRootDirPath}/core/boards/mcxn9xxevk/clock_config.h"
-"${SdkRootDirPath}/examples/mcxn9xxevk/board.c"
-"${SdkRootDirPath}/examples/mcxn9xxevk/board.h"
-"${SdkRootDirPath}/examples/mcxn9xxevk/clock_config.c"
-"${SdkRootDirPath}/examples/mcxn9xxevk/clock_config.h"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
+    ${SdkRootDirPath}/core/boards/mcxn9xxevk
+    ${SdkRootDirPath}/examples/mcxn9xxevk
     ${ProjDirPath}/../bootutil_port
     ${ProjDirPath}/../bootutil_port/mcuboot_config
     ${ProjDirPath}/../bootutil_port/sysflash
     ${ProjDirPath}/../bootutil_port/board_specific
-    ${SdkRootDirPath}/core/boards/mcxn9xxevk
-    ${SdkRootDirPath}/examples/mcxn9xxevk
 )
 
 set_source_files_properties("${ProjDirPath}/../lwipopts.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_lwip_template")

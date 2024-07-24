@@ -36,7 +36,7 @@ bool flash_hiding_test(uint32_t *MBCAddr, uint32_t MBCWordRegionId);
 /*******************************************************************************
  * Code
  ******************************************************************************/
-void main(void)
+int main()
 {
     /* Init board hardware. */
     /* attach FRO 12M to FLEXCOMM4 (debug console) */

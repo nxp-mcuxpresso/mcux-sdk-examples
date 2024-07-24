@@ -185,8 +185,6 @@ include_directories(${ProjDirPath}/../../../../../../core/drivers/dmic)
 
 include_directories(${ProjDirPath}/../../../../../../core/drivers/lpc_gpio)
 
-include_directories(${ProjDirPath}/../../../../../../core/utilities/str)
-
 include_directories(${ProjDirPath}/../../../../../../core/utilities/debug_console)
 
 include_directories(${ProjDirPath}/../../../../../../core/components/lists)
@@ -200,6 +198,8 @@ include_directories(${ProjDirPath}/../../../../../../core/drivers/common)
 include_directories(${ProjDirPath}/../../../../../../core/devices/MIMXRT685S/drivers)
 
 include_directories(${ProjDirPath}/../../../../../../core/drivers/flexcomm)
+
+include_directories(${ProjDirPath}/../../../../../../core/utilities/str)
 
 include_directories(${ProjDirPath}/../../../../../../core/devices/MIMXRT685S)
 
@@ -243,8 +243,6 @@ add_executable(dsp_audio_demo_bm_hifi4.elf
 "${ProjDirPath}/../../../../../../core/components/serial_manager/fsl_component_serial_manager.c"
 "${ProjDirPath}/../../../../../../core/drivers/flexcomm/usart/fsl_usart_dma.h"
 "${ProjDirPath}/../../../../../../core/drivers/flexcomm/usart/fsl_usart_dma.c"
-"${ProjDirPath}/../../../../../../core/utilities/str/fsl_str.c"
-"${ProjDirPath}/../../../../../../core/utilities/str/fsl_str.h"
 "${ProjDirPath}/../../../../../../core/utilities/debug_console/fsl_debug_console.c"
 "${ProjDirPath}/../../../../../../core/utilities/debug_console/fsl_debug_console.h"
 "${ProjDirPath}/../../../../../../core/utilities/debug_console/fsl_debug_console_conf.h"
@@ -263,6 +261,8 @@ add_executable(dsp_audio_demo_bm_hifi4.elf
 "${ProjDirPath}/../../../../../../core/devices/MIMXRT685S/drivers/fsl_reset.c"
 "${ProjDirPath}/../../../../../../core/drivers/flexcomm/fsl_flexcomm.h"
 "${ProjDirPath}/../../../../../../core/drivers/flexcomm/fsl_flexcomm.c"
+"${ProjDirPath}/../../../../../../core/utilities/str/fsl_str.c"
+"${ProjDirPath}/../../../../../../core/utilities/str/fsl_str.h"
 "${ProjDirPath}/../../../../../../core/devices/MIMXRT685S/MIMXRT685S_dsp.h"
 "${ProjDirPath}/../../../../../../core/devices/MIMXRT685S/MIMXRT685S_dsp_features.h"
 "${ProjDirPath}/../../../../../../core/devices/MIMXRT685S/system_MIMXRT685S_dsp.c"

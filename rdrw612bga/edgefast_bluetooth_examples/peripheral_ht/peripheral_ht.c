@@ -167,7 +167,7 @@ static void bt_ready(int err)
 #if defined(APP_LOWPOWER_ENABLED) && (APP_LOWPOWER_ENABLED > 0)
     /* Release the WFI constraint, and allow the device to go to DeepSleep to allow for better power saving. */
     PWR_ReleaseLowPowerModeConstraint(PWR_WFI);
-    PWR_SetLowPowerModeConstraint(PWR_DeepSleep);
+    PWR_SetLowPowerModeConstraint(APP_LOW_POWER_MODE);
 #endif /* APP_LOWPOWER_ENABLED */
 }
 

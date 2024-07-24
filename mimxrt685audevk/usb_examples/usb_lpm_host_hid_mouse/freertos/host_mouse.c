@@ -60,7 +60,9 @@ static uint8_t s_MouseBuffer[HID_BUFFER_SIZE]; /*!< use to receive report descri
 USB_DMA_NONINIT_DATA_ALIGN(USB_DATA_ALIGN_SIZE)
 static uint8_t s_MouseBosHeadBuffer[USB_DESCRIPTOR_LENGTH_BOS_DESCRIPTOR]; /*!< use to receive bos descriptor head */
 usb_host_mouse_instance_t g_HostHidMouse;
-
+#if (defined(APP_IP3516HS_LPM_ERRATA_WORKAROUND) && (APP_IP3516HS_LPM_ERRATA_WORKAROUND))
+volatile uint8_t g_prime_forbid = 0;
+#endif
 /*******************************************************************************
  * Code
  ******************************************************************************/
@@ -198,6 +200,27 @@ static void USB_HostHidInCallback(void *param, uint8_t *data, uint32_t dataLengt
     }
 }
 
+#if (defined(APP_IP3516HS_LPM_ERRATA_WORKAROUND) && (APP_IP3516HS_LPM_ERRATA_WORKAROUND))
+void USB_HostHidMouseCancelTransfer(void)
+{
+    usb_status_t status = kStatus_USB_Success;
+    usb_host_hid_instance_t *hidInstance = (usb_host_hid_instance_t *)g_HostHidMouse.classHandle;
+
+    if (hidInstance->inPipe != NULL)
+    {
+        g_prime_forbid = 1U;
+        g_HostHidMouse.runState = kUSB_HostHidRunPrimeDataReceive;
+        status = USB_HostCancelTransfer(hidInstance->hostHandle, hidInstance->inPipe, NULL);
+        if (status != kStatus_USB_Success)
+        {
+#ifdef HOST_ECHO
+            usb_echo("error when cancel hid mouse in pipe\r\n");
+#endif
+        }
+    }
+}
+#endif
+
 void USB_HostHidMouseTask(void *param)
 {
     usb_host_hid_descriptor_t *hidDescriptor;
@@ -218,6 +241,9 @@ void USB_HostHidMouseTask(void *param)
             case kStatus_DEV_Attached: /* device is attached and numeration is done */
                 mouseInstance->L1sleepResumeState = kStatus_Idle;
                 mouseInstance->runState           = kUSB_HostHidRunSetInterface;
+#if (defined(APP_IP3516HS_LPM_ERRATA_WORKAROUND) && (APP_IP3516HS_LPM_ERRATA_WORKAROUND))
+                g_prime_forbid = 0U;
+#endif
                 /* hid class initialization */
                 if (USB_HostHidInit(mouseInstance->deviceHandle, &mouseInstance->classHandle) != kStatus_USB_Success)
                 {
@@ -364,12 +390,17 @@ void USB_HostHidMouseTask(void *param)
             break;
 
         case kUSB_HostHidRunPrimeDataReceive: /* receive data */
-            mouseInstance->runWaitState = kUSB_HostHidRunWaitDataReceived;
-            mouseInstance->runState     = kUSB_HostHidRunIdle;
-            if (USB_HostHidRecv(mouseInstance->classHandle, mouseInstance->mouseBuffer, mouseInstance->maxPacketSize,
-                                USB_HostHidInCallback, mouseInstance) != kStatus_USB_Success)
+#if (defined(APP_IP3516HS_LPM_ERRATA_WORKAROUND) && (APP_IP3516HS_LPM_ERRATA_WORKAROUND))
+            if (0U == g_prime_forbid)
+#endif
             {
-                usb_echo("Error in USB_HostHidRecv\r\n");
+                mouseInstance->runWaitState = kUSB_HostHidRunWaitDataReceived;
+                mouseInstance->runState     = kUSB_HostHidRunIdle;
+                if (USB_HostHidRecv(mouseInstance->classHandle, mouseInstance->mouseBuffer, mouseInstance->maxPacketSize,
+                                    USB_HostHidInCallback, mouseInstance) != kStatus_USB_Success)
+                {
+                    usb_echo("Error in USB_HostHidRecv\r\n");
+                }
             }
             break;
 

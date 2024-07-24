@@ -44,6 +44,7 @@
 #include "ble_service_discovery.h"
 #include "app.h"
 #include "app_conn.h"
+#include "app_scanner.h"
 #include "fsl_format.h"
 #include "adv_ext_central.h"
 

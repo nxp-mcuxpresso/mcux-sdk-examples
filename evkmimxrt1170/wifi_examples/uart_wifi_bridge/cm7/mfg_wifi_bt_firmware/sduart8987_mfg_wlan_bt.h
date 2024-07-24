@@ -1,5 +1,5 @@
 /*
- *  Copyright 2023 NXP
+ *  Copyright 2021-2023 NXP
  *
  *  SPDX-License-Identifier: BSD-3-Clause
  *
@@ -24538,4 +24538,4 @@ const unsigned char wlan_fw_bin[] = {
     0x8c, 0x18};
 unsigned int wlan_fw_bin_len = 465996;
 
-#endif /*__SDUART_MFG_WLAN_BT_FW_H__*/
+#endif /* __SDUART_MFG_WLAN_BT_FW_H__ */

@@ -155,8 +155,6 @@ int main(void)
 #endif
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
-
-    SCB_DisableDCache();
 #if (defined(HAL_UART_DMA_ENABLE) && (HAL_UART_DMA_ENABLE > 0U))
     DMAMUX_Type *dmaMuxBases[] = DMAMUX_BASE_PTRS;
     edma_config_t config;

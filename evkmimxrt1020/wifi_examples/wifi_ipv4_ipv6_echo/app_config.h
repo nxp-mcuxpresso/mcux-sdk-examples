@@ -1,5 +1,5 @@
 /*
- *  Copyright 2021-2023 NXP
+ *  Copyright 2021-2024 NXP
  *  All rights reserved.
  *
  *  SPDX-License-Identifier: BSD-3-Clause
@@ -13,6 +13,3 @@
 /* @TEST_ANCHOR */
 #define WIFI_88W8801_BOARD_MURATA_2DS_USD
 /* @END_TEST_ANCHOR */
-
-#include "wifi_bt_module_config.h"
-#include "wifi_config.h"

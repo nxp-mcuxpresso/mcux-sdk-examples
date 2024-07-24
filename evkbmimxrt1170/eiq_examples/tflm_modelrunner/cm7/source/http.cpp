@@ -216,9 +216,6 @@ static void serve(void *arg){
     PRINTF("HTTP handler 10919\r\n");
 }
 
-void cmd(void* arg){
-    parse_cmd(arg);
-}
 /*!
  * @brief Main function.
  *
@@ -236,7 +233,7 @@ int http(NNServer* server)
         LWIP_ASSERT("main(): Task creation failed.", 0);
     }
 #else
-    if (sys_thread_new("cmd", cmd, server, 4096, INIT_THREAD_PRIO) == NULL)
+    if (sys_thread_new("cmd", parse_cmd, server, 4096, INIT_THREAD_PRIO) == NULL)
     {
         LWIP_ASSERT("main(): Task creation failed.", 0);
     }

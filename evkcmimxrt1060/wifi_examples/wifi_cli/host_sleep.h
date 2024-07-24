@@ -16,6 +16,7 @@
 #include "lpm.h"
 
 #include "fsl_adapter_gpio.h"
+#include "wifi_config.h"
 
 /*******************************************************************************
  * Definitions
@@ -60,7 +61,7 @@ void APP_PowerPostSwitchHook(lpm_power_mode_t targetMode);
 lpm_power_mode_t APP_GetLPMPowerMode(void);
 lpm_power_mode_t APP_GetRunMode(void);
 
-#ifdef CONFIG_HOST_SLEEP
+#if CONFIG_HOST_SLEEP
 int hostsleep_init(void (*wlan_hs_pre_cfg)(void), void (*wlan_hs_post_cfg)(void));
 void mcu_suspend();
 #endif

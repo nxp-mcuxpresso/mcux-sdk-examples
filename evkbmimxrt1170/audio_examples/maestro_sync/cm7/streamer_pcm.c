@@ -116,7 +116,7 @@ static void saiTxCallback(I2S_Type *base, sai_edma_handle_t *handle, status_t st
         PDM_started = 1;
         tx_data_valid--;
     }
-    xSemaphoreGiveFromISR(pcmHandle.semaphoreTX, &reschedule);
+    OSA_SemaphorePost(pcmHandle.semaphoreTX);
     portYIELD_FROM_ISR(reschedule);
 }
 
@@ -179,6 +179,7 @@ void streamer_pcm_init(void)
     streamer_buff_addr.tail  = 0;
     rx_data_valid            = 0;
     tx_data_valid            = 0;
+    s_readIndex              = 0;
 
     PDM_TransferReceiveEDMA(DEMO_PDM, &(pcmHandle.pdmRxHandle), s_receiveXfer);
     PDM_EnableDMA(DEMO_PDM, false);
@@ -186,7 +187,7 @@ void streamer_pcm_init(void)
 
 int streamer_pcm_tx_open(uint32_t num_buffers)
 {
-    pcmHandle.semaphoreTX = xSemaphoreCreateBinary();
+    OSA_SemaphoreCreateBinary(pcmHandle.semaphoreTX);
     return 0;
 }
 
@@ -199,7 +200,7 @@ void streamer_pcm_tx_close(void)
 {
     /* Stop playback.  This will flush the SAI transmit buffers. */
     SAI_TransferTerminateSendEDMA(DEMO_SAI, &(pcmHandle.saiTxHandle));
-    vSemaphoreDelete(pcmHandle.semaphoreTX);
+    OSA_SemaphoreDestroy(pcmHandle.semaphoreTX);
 }
 
 void streamer_pcm_rx_close(void)
@@ -236,7 +237,7 @@ int streamer_pcm_write(uint8_t *data, uint32_t size)
     while (SAI_TransferSendEDMA(DEMO_SAI, &(pcmHandle.saiTxHandle), &(pcmHandle.saiTx)) == kStatus_SAI_QueueFull)
     {
         /* Wait for transfer to finish */
-        if (xSemaphoreTake((pcmHandle.semaphoreTX), portMAX_DELAY) != pdTRUE)
+        if (OSA_SemaphoreWait(pcmHandle.semaphoreTX, osaWaitForever_c) != KOSA_StatusSuccess)
         {
             return -1;
         }
@@ -249,11 +250,16 @@ int streamer_pcm_read(uint8_t *data, uint32_t size)
 {
     int ret = 1;
 
+    if (size != RECORD_BUFFER_SIZE)
+    {
+        return -1;
+    }
+
     if (pcmHandle.isFirstRx)
     {
-        pcmHandle.isFirstRx = 0;
         // Do not start PDM transmission - due to RX-TX synchronization (VIT and Voiceseeker initialization takes too
         // long in the first cycle).
+        pcmHandle.isFirstRx = 0;
     }
     else
     {

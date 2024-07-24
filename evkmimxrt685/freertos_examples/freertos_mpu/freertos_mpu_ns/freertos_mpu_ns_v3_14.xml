@@ -27,15 +27,16 @@
     <definition extID="utility.debug_console.MIMXRT685S"/>
     <definition extID="platform.utilities.misc_utilities.MIMXRT685S"/>
     <definition extID="middleware.freertos-kernel.MIMXRT685S"/>
-    <definition extID="middleware.freertos-kernel.mpu_wrappers.MIMXRT685S"/>
+    <definition extID="middleware.freertos-kernel.mpu_wrappers_v2.MIMXRT685S"/>
     <definition extID="middleware.freertos-kernel.template.MIMXRT685S"/>
     <definition extID="middleware.freertos-kernel.extension.MIMXRT685S"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT685S"/>
+    <definition extID="utility.str.MIMXRT685S"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="evkmimxrt685_freertos_mpu_ns" name="freertos_mpu_ns" device_core="cm33_MIMXRT685S" dependency="middleware.freertos-kernel.cm33_trustzone.non_secure.MIMXRT685S middleware.freertos-kernel.heap_4.MIMXRT685S middleware.freertos-kernel.cm33_trustzone.secure.context.MIMXRT685S component.lists.MIMXRT685S component.serial_manager.MIMXRT685S component.serial_manager_uart.MIMXRT685S component.usart_adapter.MIMXRT685S device.MIMXRT685S_CMSIS.MIMXRT685S device.MIMXRT685S_startup.MIMXRT685S platform.drivers.cache_cache64.MIMXRT685S platform.drivers.clock.MIMXRT685S platform.drivers.common.MIMXRT685S platform.drivers.flash_config.evkmimxrt685.MIMXRT685S platform.drivers.flexcomm.MIMXRT685S platform.drivers.flexcomm_usart.MIMXRT685S platform.drivers.flexspi.MIMXRT685S platform.drivers.lpc_gpio.MIMXRT685S platform.drivers.lpc_iopctl.MIMXRT685S platform.drivers.power.MIMXRT685S platform.drivers.reset.MIMXRT685S platform.utilities.assert.MIMXRT685S utility.debug_console.MIMXRT685S platform.utilities.misc_utilities.MIMXRT685S middleware.freertos-kernel.MIMXRT685S middleware.freertos-kernel.mpu_wrappers.MIMXRT685S middleware.freertos-kernel.template.MIMXRT685S middleware.freertos-kernel.extension.MIMXRT685S CMSIS_Include_core_cm.MIMXRT685S" linked_projects="evkmimxrt685_freertos_mpu_s" category="freertos_examples">
+  <example id="evkmimxrt685_freertos_mpu_ns" name="freertos_mpu_ns" device_core="cm33_MIMXRT685S" dependency="middleware.freertos-kernel.cm33_trustzone.non_secure.MIMXRT685S middleware.freertos-kernel.heap_4.MIMXRT685S middleware.freertos-kernel.cm33_trustzone.secure.context.MIMXRT685S component.lists.MIMXRT685S component.serial_manager.MIMXRT685S component.serial_manager_uart.MIMXRT685S component.usart_adapter.MIMXRT685S device.MIMXRT685S_CMSIS.MIMXRT685S device.MIMXRT685S_startup.MIMXRT685S platform.drivers.cache_cache64.MIMXRT685S platform.drivers.clock.MIMXRT685S platform.drivers.common.MIMXRT685S platform.drivers.flash_config.evkmimxrt685.MIMXRT685S platform.drivers.flexcomm.MIMXRT685S platform.drivers.flexcomm_usart.MIMXRT685S platform.drivers.flexspi.MIMXRT685S platform.drivers.lpc_gpio.MIMXRT685S platform.drivers.lpc_iopctl.MIMXRT685S platform.drivers.power.MIMXRT685S platform.drivers.reset.MIMXRT685S platform.utilities.assert.MIMXRT685S utility.debug_console.MIMXRT685S platform.utilities.misc_utilities.MIMXRT685S middleware.freertos-kernel.MIMXRT685S middleware.freertos-kernel.mpu_wrappers_v2.MIMXRT685S middleware.freertos-kernel.template.MIMXRT685S middleware.freertos-kernel.extension.MIMXRT685S CMSIS_Include_core_cm.MIMXRT685S utility.str.MIMXRT685S" linked_projects="evkmimxrt685_freertos_mpu_s" category="freertos_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -66,7 +67,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

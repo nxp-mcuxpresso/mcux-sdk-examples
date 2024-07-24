@@ -4,6 +4,7 @@
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
+#if CONFIG_NCP_BLE
 
 #include "fsl_component_serial_manager.h"
 #include "fsl_debug_console.h"
@@ -310,24 +311,24 @@ static void eatt_connect(uint8_t *data, uint16_t len)
 {
 	const struct gatt_eatt_connect_cmd *cmd = (void *)data;
 	struct bt_conn *conn;
-	uint8_t status = NCP_BRIDGE_CMD_RESULT_OK;
+	uint8_t status = NCP_CMD_RESULT_OK;
 	int err;
 
 	conn = bt_conn_lookup_addr_le(BT_ID_DEFAULT, (bt_addr_le_t *)cmd);
 	if (!conn) {
-		status = NCP_BRIDGE_CMD_RESULT_ERROR;
+		status = NCP_CMD_RESULT_ERROR;
 		goto response;
 	}
 
 	err = bt_eatt_connect(conn, cmd->num_channels);
 	if (err) {
-		status = NCP_BRIDGE_CMD_RESULT_ERROR;
+		status = NCP_CMD_RESULT_ERROR;
 	}
 
 	bt_conn_unref(conn);
 
 response:
-	ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | GATT_EATT_CONNECT, status, NULL, 0);
+	ble_prepare_status(NCP_RSP_BLE | NCP_CMD_BLE_GATT | GATT_EATT_CONNECT, status, NULL, 0);
 }
 #endif /* CONFIG_BT_EATT */
 
@@ -336,18 +337,18 @@ uint8_t ncp_ble_init_gatt(void)
     server_buf = net_buf_alloc(&server_pool, K_NO_WAIT);
     if (!server_buf)
     {
-        return NCP_BRIDGE_CMD_RESULT_ERROR;
+        return NCP_CMD_RESULT_ERROR;
     }
 
     net_buf_reserve(server_buf, SERVER_BUF_SIZE);
 
-    return NCP_BRIDGE_CMD_RESULT_OK;
+    return NCP_CMD_RESULT_OK;
 }
 
 #if 0
 uint8_t ncp_ble_unregister_gatt(void)
 {
-    return NCP_BRIDGE_CMD_RESULT_OK;
+    return NCP_CMD_RESULT_OK;
 }
 
 /*
@@ -398,7 +399,7 @@ static void supported_commands(uint8_t *data, uint16_t len)
     ncp_ble_set_bit(cmds, GATT_EATT_CONNECT);
 #endif /* CONFIG_BT_EATT */
 
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | GATT_READ_SUPPORTED_COMMANDS, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *) rp, sizeof(cmds));
+    ble_prepare_status(NCP_RSP_BLE | NCP_CMD_BLE_GATT | GATT_READ_SUPPORTED_COMMANDS, NCP_CMD_RESULT_OK, (uint8_t *) rp, sizeof(cmds));
 }
 #endif
 
@@ -415,11 +416,11 @@ int add_service(const void *cmd, uint16_t cmd_len, void *rsp)
 
     // if ((cmd_len < sizeof(*cp)) ||
     //     (cmd_len != sizeof(*cp) + cp->uuid_length)) {
-    //     return NCP_BRIDGE_CMD_RESULT_ERROR;
+    //     return NCP_CMD_RESULT_ERROR;
     // }
 
     if (btp2bt_uuid(cp->uuid, cp->uuid_length, &uuid.uuid)) {
-        return NCP_BRIDGE_CMD_RESULT_ERROR;
+        return NCP_CMD_RESULT_ERROR;
     }
 
     uuid_size = uuid.uuid.type == BT_UUID_TYPE_16 ? sizeof(uuid.u16) :
@@ -428,7 +429,7 @@ int add_service(const void *cmd, uint16_t cmd_len, void *rsp)
     /* Register last defined service */
     if (svc_attr_count) {
         if (register_service()) {
-            return NCP_BRIDGE_CMD_RESULT_ERROR;
+            return NCP_CMD_RESULT_ERROR;
         }
     }
 
@@ -449,14 +450,14 @@ int add_service(const void *cmd, uint16_t cmd_len, void *rsp)
 
     if (!attr_svc) {
         svc_count--;
-        return NCP_BRIDGE_CMD_RESULT_ERROR;
+        return NCP_CMD_RESULT_ERROR;
     }
 
     if(rp != NULL) {
         rp->svc_id = sys_cpu_to_le16(attr_svc->handle);
     }
 
-    return NCP_BRIDGE_CMD_RESULT_OK;
+    return NCP_CMD_RESULT_OK;
 }
 
 static int alloc_characteristic(struct add_characteristic *ch)
@@ -538,7 +539,7 @@ int add_characteristic(const void *cmd, uint16_t cmd_len, void *rsp)
 
     // if ((cmd_len < sizeof(*cp)) ||
     //     (cmd_len != sizeof(*cp) + cp->uuid_length)) {
-    //     return NCP_BRIDGE_CMD_RESULT_ERROR;
+    //     return NCP_CMD_RESULT_ERROR;
     // }
 
     /* Pre-set char_id */
@@ -548,16 +549,16 @@ int add_characteristic(const void *cmd, uint16_t cmd_len, void *rsp)
     cmd_data.uuid = &uuid.uuid;
 
 	if (btp2bt_uuid(cp->uuid, cp->uuid_length, &uuid.uuid)) {
-		return NCP_BRIDGE_CMD_RESULT_ERROR;
+		return NCP_CMD_RESULT_ERROR;
 	}
 
 	/* characteristic must be added only sequential */
 	if (cp->svc_id) {
-		return NCP_BRIDGE_CMD_RESULT_ERROR;
+		return NCP_CMD_RESULT_ERROR;
 	}
 
 	if (alloc_characteristic(&cmd_data)) {
-		return NCP_BRIDGE_CMD_RESULT_ERROR;
+		return NCP_CMD_RESULT_ERROR;
 	}
 
 	ccc_added = false;
@@ -566,7 +567,7 @@ int add_characteristic(const void *cmd, uint16_t cmd_len, void *rsp)
 	    rp->char_id = sys_cpu_to_le16(cmd_data.char_id);
     }
 
-	return NCP_BRIDGE_CMD_RESULT_OK;
+	return NCP_CMD_RESULT_OK;
 }
 
 static struct bt_gatt_attr *add_cep(const struct bt_gatt_attr *attr_chrc)
@@ -606,7 +607,7 @@ static void ccc_cfg_changed(const struct bt_gatt_attr *attr, uint16_t value)
     }
     ccc_value = value;
 
-    ble_bridge_prepare_status(NCP_BRIDGE_EVENT_GATT_CCC_CFG_CHANGED, NCP_BRIDGE_CMD_RESULT_OK, ccc_ev_buf, sizeof(*ev));
+    ble_prepare_status(NCP_EVENT_GATT_CCC_CFG_CHANGED, NCP_CMD_RESULT_OK, ccc_ev_buf, sizeof(*ev));
 }
 
 static struct bt_gatt_attr ccc = BT_GATT_CCC(ccc_cfg_changed,
@@ -742,13 +743,13 @@ int add_descriptor(const void *cmd, uint16_t cmd_len, void *rsp)
 
     // if ((cmd_len < sizeof(*cp)) ||
     //     (cmd_len != sizeof(*cp) + cp->uuid_length)) {
-    //     return NCP_BRIDGE_CMD_RESULT_ERROR;
+    //     return NCP_CMD_RESULT_ERROR;
     // }
 
     /* Must be declared first svc or at least 3 attrs (svc+char+char val) */
     if (!svc_count || attr_count < 3)
     {
-        return NCP_BRIDGE_CMD_RESULT_ERROR;
+        return NCP_CMD_RESULT_ERROR;
     }
 
 	/* Pre-set desc_id */
@@ -757,29 +758,29 @@ int add_descriptor(const void *cmd, uint16_t cmd_len, void *rsp)
 	cmd_data.uuid = &uuid.uuid;
 
 	if (btp2bt_uuid(cp->uuid, cp->uuid_length, &uuid.uuid)) {
-		return NCP_BRIDGE_CMD_RESULT_ERROR;
+		return NCP_CMD_RESULT_ERROR;
 	}
 
 	/* descriptor can be added only sequential */
 	if (cp->char_id) {
-		return NCP_BRIDGE_CMD_RESULT_ERROR;
+		return NCP_CMD_RESULT_ERROR;
 	}
 
 	/* Lookup preceding Characteristic Declaration here */
 	chrc = get_base_chrc(LAST_DB_ATTR);
 	if (!chrc) {
-		return NCP_BRIDGE_CMD_RESULT_ERROR;
+		return NCP_CMD_RESULT_ERROR;
 	}
 
 	if (alloc_descriptor(chrc, &cmd_data)) {
-		return NCP_BRIDGE_CMD_RESULT_ERROR;
+		return NCP_CMD_RESULT_ERROR;
 	}
 
     if(rp != NULL) {
 	    rp->desc_id = sys_cpu_to_le16(cmd_data.desc_id);
     }
 
-	return NCP_BRIDGE_CMD_RESULT_OK;
+	return NCP_CMD_RESULT_OK;
 }
 
 #if 0
@@ -810,11 +811,11 @@ static void add_included(uint8_t *data, uint16_t len)
     }
 
     rp.included_service_id = sys_cpu_to_le16(included_service_id);
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | GATT_ADD_INCLUDED_SERVICE, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *) &rp, sizeof(rp));
+    ble_prepare_status(NCP_RSP_BLE | NCP_CMD_BLE_GATT | GATT_ADD_INCLUDED_SERVICE, NCP_CMD_RESULT_OK, (uint8_t *) &rp, sizeof(rp));
     return;
 
 fail:
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | GATT_ADD_INCLUDED_SERVICE, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE | NCP_CMD_BLE_GATT | GATT_ADD_INCLUDED_SERVICE, NCP_CMD_RESULT_ERROR, NULL, 0);
 }
 #endif
 
@@ -835,7 +836,7 @@ void set_value(uint8_t *data, uint16_t len)
     /* set value of local attr, corrected by pre set attr handles */
     status = alloc_value(&server_db[attr_index], &cmd_data);
 
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GATT_SET_VALUE, status, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE_GATT_SET_VALUE, status, NULL, 0);
 }
 
 int start_server(uint8_t *data, uint16_t len)
@@ -849,11 +850,11 @@ int start_server(uint8_t *data, uint16_t len)
     {
         if (register_service())
         {
-            return NCP_BRIDGE_CMD_RESULT_ERROR;
+            return NCP_CMD_RESULT_ERROR;
         }
     }
 
-    return NCP_BRIDGE_CMD_RESULT_OK;
+    return NCP_CMD_RESULT_OK;
 }
 
 #if 0
@@ -865,7 +866,7 @@ static void set_enc_key_size(uint8_t *data, uint16_t len)
     /* Fail if requested key size is invalid */
     if (cmd->key_size < 0x07 || cmd->key_size > 0x0f)
     {
-        status = NCP_BRIDGE_CMD_RESULT_ERROR;
+        status = NCP_CMD_RESULT_ERROR;
         goto fail;
     }
 
@@ -882,7 +883,7 @@ static void set_enc_key_size(uint8_t *data, uint16_t len)
     }
 
 fail:
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | GATT_SET_ENC_KEY_SIZE, status, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE | NCP_CMD_BLE_GATT | GATT_SET_ENC_KEY_SIZE, status, NULL, 0);
 }
 
 static void exchange_mtu(uint8_t *data, uint16_t len)
@@ -909,7 +910,7 @@ static void exchange_mtu(uint8_t *data, uint16_t len)
     return;
 
 fail:
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | GATT_EXCHANGE_MTU, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE | NCP_CMD_BLE_GATT | GATT_EXCHANGE_MTU, NCP_CMD_RESULT_ERROR, NULL, 0);
 }
 
 static void disc_all_prim(uint8_t *data, uint16_t len)
@@ -945,7 +946,7 @@ fail:
     bt_conn_unref(conn);
 
 fail_conn:
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | GATT_DISC_ALL_PRIM, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE | NCP_CMD_BLE_GATT | GATT_DISC_ALL_PRIM, NCP_CMD_RESULT_ERROR, NULL, 0);
 }
 #endif 
 
@@ -989,7 +990,7 @@ fail:
     bt_conn_unref(conn);
 
 fail_conn:
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GATT_DISC_PRIM, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE_GATT_DISC_PRIM, NCP_CMD_RESULT_ERROR, NULL, 0);
 }
 
 #if 0
@@ -1024,7 +1025,7 @@ fail:
     bt_conn_unref(conn);
 
 fail_conn:
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | GATT_FIND_INCLUDED, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE | NCP_CMD_BLE_GATT | GATT_FIND_INCLUDED, NCP_CMD_RESULT_ERROR, NULL, 0);
 }
 
 static void disc_all_chrc(uint8_t *data, uint16_t len)
@@ -1062,7 +1063,7 @@ fail:
     bt_conn_unref(conn);
 
 fail_conn:
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | GATT_DISC_ALL_CHRC, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE | NCP_CMD_BLE_GATT | GATT_DISC_ALL_CHRC, NCP_CMD_RESULT_ERROR, NULL, 0);
 }
 #endif
 
@@ -1106,7 +1107,7 @@ fail:
     bt_conn_unref(conn);
 
 fail_conn:
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GATT_DISC_CHRC, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE_GATT_DISC_CHRC, NCP_CMD_RESULT_ERROR, NULL, 0);
 }
 
 #if 0
@@ -1144,7 +1145,7 @@ fail:
     bt_conn_unref(conn);
 
 fail_conn:
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | btp_opcode, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE | NCP_CMD_BLE_GATT | btp_opcode, NCP_CMD_RESULT_ERROR, NULL, 0);
 }
 #endif
 
@@ -1186,7 +1187,7 @@ fail:
     bt_conn_unref(conn);
 
 fail_conn:
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GATT_DESC_CHRC, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE_GATT_DESC_CHRC, NCP_CMD_RESULT_ERROR, NULL, 0);
 }
 
 void read_data(uint8_t *data, uint16_t len)
@@ -1230,7 +1231,7 @@ fail:
     bt_conn_unref(conn);
 
 fail_conn:
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GATT_READ, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE_GATT_READ, NCP_CMD_RESULT_ERROR, NULL, 0);
 }
 
 #if 0
@@ -1274,7 +1275,7 @@ fail:
     bt_conn_unref(conn);
 
 fail_conn:
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | GATT_READ_UUID, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE | NCP_CMD_BLE_GATT | GATT_READ_UUID, NCP_CMD_RESULT_ERROR, NULL, 0);
 }
 
 static void read_long(uint8_t *data, uint16_t len)
@@ -1320,7 +1321,7 @@ fail:
     bt_conn_unref(conn);
 
 fail_conn:
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | GATT_READ_LONG, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE | NCP_CMD_BLE_GATT | GATT_READ_LONG, NCP_CMD_RESULT_ERROR, NULL, 0);
 }
 
 static void read_multiple(uint8_t *data, uint16_t len, uint8_t opcode)
@@ -1373,7 +1374,7 @@ fail:
     bt_conn_unref(conn);
 
 fail_conn:
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | GATT_READ_MULTIPLE, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE | NCP_CMD_BLE_GATT | GATT_READ_MULTIPLE, NCP_CMD_RESULT_ERROR, NULL, 0);
 }
 
 static void write_without_rsp(uint8_t *data, uint16_t len, uint8_t op,
@@ -1381,13 +1382,13 @@ static void write_without_rsp(uint8_t *data, uint16_t len, uint8_t op,
 {
     const gatt_write_without_rsp_cmd_t *cmd = (void *) data;
     struct bt_conn *conn;
-    uint8_t status = NCP_BRIDGE_CMD_RESULT_OK;
+    uint8_t status = NCP_CMD_RESULT_OK;
 
     conn = bt_conn_lookup_addr_le(BT_ID_DEFAULT, (bt_addr_le_t *)data);
 
     if (!conn)
     {
-        status = NCP_BRIDGE_CMD_RESULT_ERROR;
+        status = NCP_CMD_RESULT_ERROR;
         goto rsp;
     }
 
@@ -1396,13 +1397,13 @@ static void write_without_rsp(uint8_t *data, uint16_t len, uint8_t op,
                        sys_le16_to_cpu(cmd->data_length),
                        sign) < 0)
     {
-        status = NCP_BRIDGE_CMD_RESULT_ERROR;
+        status = NCP_CMD_RESULT_ERROR;
     }
 
     bt_conn_unref(conn);
 
 rsp:
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | op, status, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE | NCP_CMD_BLE_GATT | op, status, NULL, 0);
 }
 #endif
 
@@ -1435,7 +1436,7 @@ void write_data(uint8_t *data, uint16_t len)
     return;
 
 fail:
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GATT_WRITE, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE_GATT_WRITE, NCP_CMD_RESULT_ERROR, NULL, 0);
 }
 
 #if 0
@@ -1468,7 +1469,7 @@ static void write_long(uint8_t *data, uint16_t len)
     return;
 
 fail:
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | GATT_WRITE_LONG, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE | NCP_CMD_BLE_GATT | GATT_WRITE_LONG, NCP_CMD_RESULT_ERROR, NULL, 0);
 }
 #endif
 
@@ -1483,7 +1484,7 @@ void config_subscription(uint8_t *data, uint16_t len, uint16_t op)
 
     if (!conn)
     {
-        ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | op, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
+        ble_prepare_status(NCP_CMD_BLE | NCP_CMD_BLE_GATT | NCP_MSG_TYPE_RESP | op, NCP_CMD_RESULT_ERROR, NULL, 0);
         return;
     }
 
@@ -1507,24 +1508,24 @@ void config_subscription(uint8_t *data, uint16_t len, uint16_t op)
             return;
         }
 
-        status = NCP_BRIDGE_CMD_RESULT_ERROR;
+        status = NCP_CMD_RESULT_ERROR;
     }
     else
     {
         if (disable_subscription(conn, ccc_handle) < 0)
         {
-            status = NCP_BRIDGE_CMD_RESULT_ERROR;
+            status = NCP_CMD_RESULT_ERROR;
         }
         else
         {
-            status = NCP_BRIDGE_CMD_RESULT_OK;
+            status = NCP_CMD_RESULT_OK;
         }
     }
 
     LOG_DBG("Config subscription (op %u) status %u", op, status);
 
     bt_conn_unref(conn);
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | op, status, NULL, 0);
+    ble_prepare_status(NCP_CMD_BLE | NCP_CMD_BLE_GATT | NCP_MSG_TYPE_RESP | op, status, NULL, 0);
 }
 
 #if 0
@@ -1572,12 +1573,12 @@ static void get_attrs(uint8_t *data, uint16_t len)
     rp = net_buf_simple_push(buf, sizeof(*rp));
     rp->attrs_count = foreach.count;
 
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | GATT_GET_ATTRIBUTES, NCP_BRIDGE_CMD_RESULT_OK, buf->data, buf->len);
+    ble_prepare_status(NCP_RSP_BLE | NCP_CMD_BLE_GATT | GATT_GET_ATTRIBUTES, NCP_CMD_RESULT_OK, buf->data, buf->len);
 
     return;
 
 fail:
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | GATT_GET_ATTRIBUTES, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE | NCP_CMD_BLE_GATT | GATT_GET_ATTRIBUTES, NCP_CMD_RESULT_ERROR, NULL, 0);
 }
 
 static void get_attr_val(uint8_t *data, uint16_t len)
@@ -1597,11 +1598,11 @@ static void get_attr_val(uint8_t *data, uint16_t len)
 
     if (buf->len)
     {
-        ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | GATT_GET_ATTRIBUTE_VALUE, NCP_BRIDGE_CMD_RESULT_OK, buf->data, buf->len);
+        ble_prepare_status(NCP_RSP_BLE | NCP_CMD_BLE_GATT | GATT_GET_ATTRIBUTE_VALUE, NCP_CMD_RESULT_OK, buf->data, buf->len);
     }
     else
     {
-        ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | GATT_GET_ATTRIBUTE_VALUE, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
+        ble_prepare_status(NCP_RSP_BLE | NCP_CMD_BLE_GATT | GATT_GET_ATTRIBUTE_VALUE, NCP_CMD_RESULT_ERROR, NULL, 0);
     }
 }
 #endif
@@ -1692,10 +1693,10 @@ static uint8_t btp2bt_uuid
         break;
 
         default:
-            return NCP_BRIDGE_CMD_RESULT_ERROR;
+            return NCP_CMD_RESULT_ERROR;
     }
 
-    return NCP_BRIDGE_CMD_RESULT_OK;
+    return NCP_CMD_RESULT_OK;
 }
 
 
@@ -1772,7 +1773,7 @@ static void attr_value_changed_ev(uint16_t handle, const uint8_t *value, const u
         ev->data_length = sys_cpu_to_le16(len);
         memcpy(ev->data, value, len);
 
-        ble_bridge_prepare_status(NCP_BRIDGE_EVENT_ATTR_VALUE_CHANGED, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t*)ev, len + sizeof(gatt_attr_value_changed_ev_t));
+        ble_prepare_status(NCP_EVENT_ATTR_VALUE_CHANGED, NCP_CMD_RESULT_OK, (uint8_t*)ev, len + sizeof(gatt_attr_value_changed_ev_t));
         net_buf_unref(buf);
     }
 }
@@ -1821,7 +1822,7 @@ static uint8_t alloc_value(struct bt_gatt_attr *attr, struct set_value *data)
     /* Value has been already set while adding CCC to the gatt_db */
     if (!bt_uuid_cmp(attr->uuid, BT_UUID_GATT_CCC))
     {
-        return NCP_BRIDGE_CMD_RESULT_OK;
+        return NCP_CMD_RESULT_OK;
     }
 
     /* Set CEP value */
@@ -1842,7 +1843,7 @@ static uint8_t alloc_value(struct bt_gatt_attr *attr, struct set_value *data)
     /* Fail if value length doesn't match  */
     if (value->len != data->len)
     {
-        return NCP_BRIDGE_CMD_RESULT_ERROR;
+        return NCP_CMD_RESULT_ERROR;
     }
 
     memcpy(value->data, data->value, value->len);
@@ -1865,7 +1866,7 @@ static uint8_t alloc_value(struct bt_gatt_attr *attr, struct set_value *data)
         }
     }
 
-    return NCP_BRIDGE_CMD_RESULT_OK;
+    return NCP_CMD_RESULT_OK;
 }
 
 static uint8_t set_cep_value(struct bt_gatt_attr *attr, const void *value,
@@ -1876,13 +1877,13 @@ static uint8_t set_cep_value(struct bt_gatt_attr *attr, const void *value,
 
     if (len != sizeof(properties))
     {
-        return NCP_BRIDGE_CMD_RESULT_ERROR;
+        return NCP_CMD_RESULT_ERROR;
     }
 
     memcpy(&properties, value, len);
     cep_value->properties = sys_le16_to_cpu(properties);
 
-    return NCP_BRIDGE_CMD_RESULT_OK;
+    return NCP_CMD_RESULT_OK;
 }
 
 static void indicate_cb(struct bt_conn *conn,
@@ -1930,12 +1931,12 @@ static void exchange_func(struct bt_conn *conn, uint8_t err,
 {
     if (err)
     {
-        ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | GATT_EXCHANGE_MTU, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
+        ble_prepare_status(NCP_RSP_BLE | NCP_CMD_BLE_GATT | GATT_EXCHANGE_MTU, NCP_CMD_RESULT_ERROR, NULL, 0);
 
         return;
     }
 
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | GATT_EXCHANGE_MTU, NCP_BRIDGE_CMD_RESULT_OK, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE | NCP_CMD_BLE_GATT | GATT_EXCHANGE_MTU, NCP_CMD_RESULT_OK, NULL, 0);
 }
 #endif
 
@@ -1994,7 +1995,7 @@ static uint8_t disc_prim_cb(struct bt_conn *conn,
             rp->services_count = services_count;
             memcpy(rp->services, gatt_buf.buf, data_len);
 
-            ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | btp_opcode, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t*)rp, data_len + 1);
+            ble_prepare_status(NCP_CMD_BLE | NCP_CMD_BLE_GATT | NCP_MSG_TYPE_RESP | btp_opcode, NCP_CMD_RESULT_OK, (uint8_t*)rp, data_len + 1);
         }
         discover_destroy(params);
         services_count = 0;
@@ -2009,7 +2010,7 @@ static uint8_t disc_prim_cb(struct bt_conn *conn,
     service = gatt_buf_reserve(sizeof(*service) - SERVER_MAX_UUID_LEN + uuid_length);
     if (!service) {
 
-        ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | btp_opcode, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
+        ble_prepare_status(NCP_CMD_BLE | NCP_CMD_BLE_GATT | NCP_MSG_TYPE_RESP | btp_opcode, NCP_CMD_RESULT_ERROR, NULL, 0);
         discover_destroy(params);
         return BT_GATT_ITER_STOP;
     }
@@ -2064,7 +2065,7 @@ static uint8_t find_included_cb(struct bt_conn *conn,
             rp->services_count = services_count;
             memcpy(rp->included, gatt_buf.buf, data_len);
 
-            ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | GATT_FIND_INCLUDED, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t*)rp, data_len + 1);
+            ble_prepare_status(NCP_RSP_BLE | NCP_CMD_BLE_GATT | GATT_FIND_INCLUDED, NCP_CMD_RESULT_OK, (uint8_t*)rp, data_len + 1);
         }
         discover_destroy(params);
         services_count = 0;
@@ -2079,7 +2080,7 @@ static uint8_t find_included_cb(struct bt_conn *conn,
 
     if (!included)
     {
-        ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | GATT_FIND_INCLUDED, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
+        ble_prepare_status(NCP_RSP_BLE | NCP_CMD_BLE_GATT | GATT_FIND_INCLUDED, NCP_CMD_RESULT_ERROR, NULL, 0);
         discover_destroy(params);
         return BT_GATT_ITER_STOP;
     }
@@ -2127,7 +2128,7 @@ static uint8_t disc_chrc_cb(struct bt_conn *conn,
             rp->characteristics_count = characteristics_count;
             memcpy(rp->characteristics, gatt_buf.buf, data_len);
 
-            ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | btp_opcode, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t*)rp, data_len + 1);
+            ble_prepare_status(NCP_CMD_BLE | NCP_CMD_BLE_GATT | NCP_MSG_TYPE_RESP | btp_opcode, NCP_CMD_RESULT_OK, (uint8_t*)rp, data_len + 1);
         }
         discover_destroy(params);
         characteristics_count = 0;
@@ -2143,7 +2144,7 @@ static uint8_t disc_chrc_cb(struct bt_conn *conn,
 
     if (!chrc)
     {
-        ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | btp_opcode, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
+        ble_prepare_status(NCP_CMD_BLE | NCP_CMD_BLE_GATT | NCP_MSG_TYPE_RESP | btp_opcode, NCP_CMD_RESULT_ERROR, NULL, 0);
         discover_destroy(params);
         return BT_GATT_ITER_STOP;
     }
@@ -2188,7 +2189,7 @@ static uint8_t disc_desc_cb(struct bt_conn *conn,
             rp->descriptors_count = descriptors_count;
             memcpy(rp->descriptors, gatt_buf.buf, data_len);
 
-            ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | btp_opcode, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t*)rp, data_len + 1);
+            ble_prepare_status(NCP_CMD_BLE | NCP_CMD_BLE_GATT | NCP_MSG_TYPE_RESP | btp_opcode, NCP_CMD_RESULT_OK, (uint8_t*)rp, data_len + 1);
         }
         discover_destroy(params);
         descriptors_count = 0;
@@ -2202,7 +2203,7 @@ static uint8_t disc_desc_cb(struct bt_conn *conn,
 
     if (!descriptor)
     {
-        ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | btp_opcode, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
+        ble_prepare_status(NCP_CMD_BLE | NCP_CMD_BLE_GATT | NCP_MSG_TYPE_RESP | btp_opcode, NCP_CMD_RESULT_ERROR, NULL, 0);
         discover_destroy(params);
         return BT_GATT_ITER_STOP;
     }
@@ -2249,14 +2250,14 @@ static uint8_t read_cb(struct bt_conn *conn, uint8_t err,
     /* read complete */
     if (!data)
     {
-        ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | btp_opcode, NCP_BRIDGE_CMD_RESULT_OK, gatt_buf.buf, gatt_buf.len);
+        ble_prepare_status(NCP_CMD_BLE | NCP_CMD_BLE_GATT | NCP_MSG_TYPE_RESP | btp_opcode, NCP_CMD_RESULT_OK, gatt_buf.buf, gatt_buf.len);
         gatt_buf_clear();
         return BT_GATT_ITER_STOP;
     }
 
     if (!gatt_buf_add(data, length))
     {
-        ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | btp_opcode, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
+        ble_prepare_status(NCP_CMD_BLE | NCP_CMD_BLE_GATT | NCP_MSG_TYPE_RESP | btp_opcode, NCP_CMD_RESULT_ERROR, NULL, 0);
         gatt_buf_clear();
         return BT_GATT_ITER_STOP;
     }
@@ -2291,7 +2292,7 @@ static uint8_t read_uuid_cb(struct bt_conn *conn, uint8_t err,
             rp->att_response = att_response;
             memcpy(rp->values, gatt_buf.buf, data_len);
 
-            ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | btp_opcode, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t*)rp, data_len + 2);
+            ble_prepare_status(NCP_CMD_BLE | NCP_CMD_BLE_GATT | NCP_MSG_TYPE_RESP | btp_opcode, NCP_CMD_RESULT_OK, (uint8_t*)rp, data_len + 2);
         }
         read_destroy(params);
         values_count = 0;
@@ -2301,7 +2302,7 @@ static uint8_t read_uuid_cb(struct bt_conn *conn, uint8_t err,
         /* save value information for building the response */
         value = gatt_buf_reserve(sizeof(*value) - SERVER_MAX_UUID_LEN + length);
         if (!value) {
-            ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | btp_opcode, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
+            ble_prepare_status(NCP_CMD_BLE | NCP_CMD_BLE_GATT | NCP_MSG_TYPE_RESP | btp_opcode, NCP_CMD_RESULT_ERROR, NULL, 0);
             read_destroy(params);
             return BT_GATT_ITER_STOP;
     }
@@ -2320,14 +2321,14 @@ static uint8_t read_uuid_cb(struct bt_conn *conn, uint8_t err,
 static void write_rsp(struct bt_conn *conn, uint8_t err,
                       struct bt_gatt_write_params *params)
 {
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GATT_WRITE, NCP_BRIDGE_CMD_RESULT_OK, &err, sizeof(err));
+    ble_prepare_status(NCP_RSP_BLE_GATT_WRITE, NCP_CMD_RESULT_OK, &err, sizeof(err));
 }
 
 #if 0
 static void write_long_rsp(struct bt_conn *conn, uint8_t err,
                            struct bt_gatt_write_params *params)
 {
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | GATT_WRITE_LONG, NCP_BRIDGE_CMD_RESULT_OK, &err, sizeof(err));
+    ble_prepare_status(NCP_RSP_BLE | NCP_CMD_BLE_GATT | GATT_WRITE_LONG, NCP_CMD_RESULT_OK, &err, sizeof(err));
 }
 #endif
 
@@ -2437,7 +2438,7 @@ static uint8_t notify_func(struct bt_conn *conn,
         ev->address_type = addr->type;
     }
 
-    ble_bridge_prepare_status(NCP_BRIDGE_EVENT_GATT_NOTIFICATION, NCP_BRIDGE_CMD_RESULT_OK, ev_buf, sizeof(*ev) + length);
+    ble_prepare_status(NCP_EVENT_GATT_NOTIFICATION, NCP_CMD_RESULT_OK, ev_buf, sizeof(*ev) + length);
 
     return BT_GATT_ITER_CONTINUE;
 }
@@ -2454,28 +2455,28 @@ static void discover_complete(struct bt_conn *conn,
     /* If no value handle it means that chrc has not been found */
     if (!subscription->value_handle)
     {
-        status = NCP_BRIDGE_CMD_RESULT_ERROR;
+        status = NCP_CMD_RESULT_ERROR;
         goto fail;
     }
 
     if (bt_gatt_subscribe(conn, subscription) < 0)
     {
-        status = NCP_BRIDGE_CMD_RESULT_ERROR;
+        status = NCP_CMD_RESULT_ERROR;
         goto fail;
     }
 
-    status = NCP_BRIDGE_CMD_RESULT_OK;
+    status = NCP_CMD_RESULT_OK;
 
 fail:
     op = subscription->value == BT_GATT_CCC_NOTIFY ? GATT_CFG_NOTIFY :
                                 GATT_CFG_INDICATE;
 
-    if (status == NCP_BRIDGE_CMD_RESULT_ERROR)
+    if (status == NCP_CMD_RESULT_ERROR)
     {
         (void)memset(subscription, 0, sizeof(*subscription));
     }
 
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | op, status, NULL, 0);
+    ble_prepare_status(NCP_CMD_BLE | NCP_CMD_BLE_GATT | NCP_MSG_TYPE_RESP | op, status, NULL, 0);
 
     (void)memset(params, 0, sizeof(*params));
 }
@@ -2616,12 +2617,12 @@ static void notify_mult(uint8_t *data, uint16_t len, uint16_t op)
     struct bt_conn *conn;
     const size_t min_cnt = 1U;
     int err = 0;
-    uint8_t status = NCP_BRIDGE_CMD_RESULT_OK;
+    uint8_t status = NCP_CMD_RESULT_OK;
     uint16_t attr_data_len = 0;
 
     conn = bt_conn_lookup_addr_le(BT_ID_DEFAULT, (bt_addr_le_t *)data);
     if (!conn) {
-        status = NCP_BRIDGE_CMD_RESULT_ERROR;
+        status = NCP_CMD_RESULT_ERROR;
     }
     else
     {
@@ -2629,7 +2630,7 @@ static void notify_mult(uint8_t *data, uint16_t len, uint16_t op)
             LOG_ERR("Invalid count value %d (range %zu to %zu)",
                     cmd->cnt, min_cnt, CONFIG_BT_L2CAP_TX_BUF_COUNT);
 
-            status = NCP_BRIDGE_CMD_RESULT_ERROR;
+            status = NCP_CMD_RESULT_ERROR;
         }
         else
         {
@@ -2651,14 +2652,15 @@ static void notify_mult(uint8_t *data, uint16_t len, uint16_t op)
             err = bt_gatt_notify_multiple(conn, cmd->cnt, params);
             if (err != 0) {
                 LOG_ERR("bt_gatt_notify_multiple failed: %d", err);
-                status = NCP_BRIDGE_CMD_RESULT_ERROR;
+                status = NCP_CMD_RESULT_ERROR;
             } else {
                 LOG_DBG("Send %u notifications", cmd->cnt);
             }
         }
     }
 
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_GATT | op, status, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE | NCP_CMD_BLE_GATT | op, status, NULL, 0);
 }
 #endif /* CONFIG_BT_GATT_NOTIFY_MULTIPLE */
 #endif
+#endif /* CONFIG_NCP_BLE */

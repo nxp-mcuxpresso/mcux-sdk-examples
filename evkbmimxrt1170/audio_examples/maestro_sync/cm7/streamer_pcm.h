@@ -14,12 +14,8 @@ extern "C" {
 
 #include "fsl_dmamux.h"
 #include "fsl_sai_edma.h"
-#include "FreeRTOS.h"
-#include "portable.h"
-#include "semphr.h"
-#include "fsl_pdm.h"
 #include "fsl_pdm_edma.h"
-
+#include "fsl_os_abstraction.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -39,8 +35,8 @@ typedef struct _pcm_rtos_t
     uint32_t bit_width;
     uint8_t num_channels;
 
-    SemaphoreHandle_t semaphoreRX;
-    SemaphoreHandle_t semaphoreTX;
+    OSA_SEMAPHORE_HANDLE_DEFINE(semaphoreRX);
+    OSA_SEMAPHORE_HANDLE_DEFINE(semaphoreTX);
 
     uint8_t isFirstRx;
     uint8_t isFirstTx;

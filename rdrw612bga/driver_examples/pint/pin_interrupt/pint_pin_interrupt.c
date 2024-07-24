@@ -51,13 +51,6 @@ int main(void)
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
-    RESET_PeripheralReset(kINPUTMUX_RST_SHIFT_RSTn);
-    /* Connect trigger sources to PINT */
-    INPUTMUX_Init(INPUTMUX);
-    INPUTMUX_AttachSignal(INPUTMUX, kPINT_PinInt0, DEMO_PINT_PIN_INT0_SRC);
-    /* Turnoff clock to inputmux to save power. Clock is only needed to make changes */
-    INPUTMUX_Deinit(INPUTMUX);
-
     /* Clear screen*/
     PRINTF("%c[2J", 27);
     /* Set cursor location at [0,0] */

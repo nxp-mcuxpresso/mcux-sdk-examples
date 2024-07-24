@@ -482,7 +482,7 @@ static void DEMO_EnterSleepMode(void)
     DMIC_CtrlClrIntrHwvad(DMIC0, false);
     NVIC_ClearPendingIRQ(HWVAD0_IRQn);
     /* enable voice detect event */
-    EnableIRQ(HWVAD0_IRQn);
+    EnableIRQWithPriority(HWVAD0_IRQn, 1 << (__NVIC_PRIO_BITS - 1));
 
     __WFI();
 }

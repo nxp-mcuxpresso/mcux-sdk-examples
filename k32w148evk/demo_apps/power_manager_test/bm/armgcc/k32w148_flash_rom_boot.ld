@@ -36,8 +36,9 @@ MEMORY
   m_text                (RX)  : ORIGIN = 0x00000400, LENGTH = 0x000FFC00
   m_data0               (RW)  : ORIGIN = 0x04000000, LENGTH = 0x00004000
   m_warmboot_stack      (RW)  : ORIGIN = 0x20000000, LENGTH = 0x00004000
-  m_data1               (RW)  : ORIGIN = 0x20004000, LENGTH = 0x0001C000
-  m_data_always_on      (RX)  : ORIGIN = 0x2001A000, LENGTH = 0x0001C000
+  m_data1               (RW)  : ORIGIN = 0x20004000, LENGTH = 0x00016000
+  m_data_always_on      (RW)  : ORIGIN = 0x2001A000, LENGTH = 0x00001000
+  m_main_stack          (RW)  : ORIGIN = 0x2001B000, LENGTH = 0x00001000
 }
 
 /* Define output sections */
@@ -62,6 +63,7 @@ SECTIONS
     *(.glue_7)               /* glue arm to thumb code */
     *(.glue_7t)              /* glue thumb to arm code */
     *(.eh_frame)
+    *(.AlwaysOnData.init)
     KEEP (*(.init))
     KEEP (*(.fini))
     . = ALIGN(4);
@@ -187,7 +189,7 @@ SECTIONS
   {
     . = ALIGN(8);
     . += STACK_SIZE;
-  } > m_data1
+  } > m_main_stack
 
   .warmbootStack :
   {
@@ -200,18 +202,17 @@ SECTIONS
   {
     . = ALIGN(4);
     __START_ALWAYSON = .;
-    *(AlwaysOnData)
-    *(AlwaysOnData.init)
+    *(.AlwaysOnData)
     __END_ALWAYSON = .;
   } > m_data_always_on
 
   /* Initializes stack on the end of block */
-  __StackTop   = ORIGIN(m_data1) + LENGTH(m_data1);
+  __StackTop   = ORIGIN(m_main_stack) + LENGTH(m_main_stack);
   __StackLimit = __StackTop - STACK_SIZE;
   PROVIDE(__stack = __StackTop);
 
   .ARM.attributes 0 : { *(.ARM.attributes) }
 
-  ASSERT(__StackLimit >= __HeapLimit, "region m_data1 overflowed with stack and heap")
+  ASSERT(__StackLimit >= __HeapLimit, "region m_main_stack overflowed with stack and heap")
 }
 

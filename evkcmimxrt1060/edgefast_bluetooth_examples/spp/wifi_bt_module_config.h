@@ -1,5 +1,5 @@
 /*
- *  Copyright 2021-2023 NXP
+ *  Copyright 2021-2024 NXP
  *  All rights reserved.
  *
  *  SPDX-License-Identifier: BSD-3-Clause
@@ -340,6 +340,11 @@
         .ed_ctrl_2g = 0x1, .ed_offset_2g = 0x9, .ed_ctrl_5g = 0x1, .ed_offset_5g = 0xC \
     }
 
+/* Redfinch */
+#elif defined(WIFI_BOARD_RW610)
+#define WIFI_BT_TX_PWR_LIMITS "wlan_txpwrlimit_cfg_WW_rw610.h"
+#define RW610
+
 /* K32W061 transceiver */
 #elif defined(K32W061_TRANSCEIVER)
 /*
@@ -349,10 +354,6 @@
  *
  */
 #define SD8987
-
-#elif defined(WIFI_BOARD_RW610)
-#define RW610
-#define WIFI_BT_TX_PWR_LIMITS "wlan_txpwrlimit_cfg_WW_rw610.h"
 
 #else
 #error "Please define macro related to wifi board"

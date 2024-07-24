@@ -31,6 +31,7 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -DDEBUG \
     -DCPU_LPC51U68JBD64 \
     -DMCUXPRESSO_SDK \
+    -DTIMER_PORT_TYPE_CTIMER=1 \
     -g \
     -O0 \
     -mcpu=cortex-m0plus \
@@ -41,7 +42,6 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
@@ -53,6 +53,7 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DNDEBUG \
     -DCPU_LPC51U68JBD64 \
     -DMCUXPRESSO_SDK \
+    -DTIMER_PORT_TYPE_CTIMER=1 \
     -Os \
     -mcpu=cortex-m0plus \
     -Wall \
@@ -62,7 +63,6 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
@@ -74,6 +74,7 @@ SET(CMAKE_CXX_FLAGS_DEBUG " \
     -DDEBUG \
     -DCPU_LPC51U68JBD64 \
     -DMCUXPRESSO_SDK \
+    -DTIMER_PORT_TYPE_CTIMER=1 \
     -g \
     -O0 \
     -mcpu=cortex-m0plus \
@@ -84,7 +85,6 @@ SET(CMAKE_CXX_FLAGS_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -fno-rtti \
@@ -97,6 +97,7 @@ SET(CMAKE_CXX_FLAGS_RELEASE " \
     -DNDEBUG \
     -DCPU_LPC51U68JBD64 \
     -DMCUXPRESSO_SDK \
+    -DTIMER_PORT_TYPE_CTIMER=1 \
     -Os \
     -mcpu=cortex-m0plus \
     -Wall \
@@ -106,7 +107,6 @@ SET(CMAKE_CXX_FLAGS_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -fno-rtti \
@@ -122,7 +122,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -148,7 +147,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \

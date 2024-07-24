@@ -1,6 +1,6 @@
 /*! *********************************************************************************
  * Copyright (c) 2015, Freescale Semiconductor, Inc.
- * Copyright 2016-2022 NXP
+ * Copyright 2016-2024 NXP
  * All rights reserved.
  *
  * \file
@@ -881,6 +881,150 @@ secResultType_t SecLib_ExportA2BBlobSecure(const void *pKey, const secInputKeyTy
  *
  ************************************************************************************/
 secResultType_t SecLib_ImportA2BBlobSecure(const uint8_t *pKey, const secInputKeyType_t keyType, uint8_t *pOutKey);
+
+/*! *********************************************************************************
+ * \brief  This function allocates a memory buffer for a AES MMO context structure
+ *
+ * \return    Address of the AES MMO context buffer
+ *            Deallocate using AES_MMO_FreeCtx()
+ *
+ ********************************************************************************** */
+void *AES_MMO_AllocCtx(void);
+
+/*! *********************************************************************************
+ * \brief  This function deallocates the memory buffer for the AES MMO context structure
+ *
+ * \param [in]    pContext    Address of the AES MMO context buffer
+ *
+ ********************************************************************************** */
+void AES_MMO_FreeCtx(void *pContext);
+
+/*! *********************************************************************************
+ * \brief  This function clones a AES_MMO context.
+ *         Make sure the size of the allocated destination context buffer is appropriate.
+ *
+ * \param [in]    pDestCtx    Address of the destination AES_MMO context
+ * \param [in]    pSourceCtx  Address of the source AES_MMO context
+ *
+ ********************************************************************************** */
+void AES_MMO_CloneCtx(void *pDestCtx, void *pSourceCtx);
+
+/*! *********************************************************************************
+ * \brief  This function initializes the AES MMO context data
+ *
+ * \param [in]    pContext    Pointer to the AES MMO context data
+ *                            Allocated using AES_MMO_AllocCtx() or on the stack.
+ *
+ ********************************************************************************** */
+void AES_MMO_Init(void *pContext);
+
+/*! *********************************************************************************
+ * \brief  This function performs AES MMO on multiple bytes and updates the context data.
+ * It must be called as new data get appended to the data being hashed.
+ * Incomplete chunks (less than an AES 128 block worth) get appended in context buffer, till
+ * completed by further incoming data.
+ *
+ * \param [in]    pContext    Pointer to the AES MMO context data
+ *                            Allocated using AES_MMO_AllocCtx() or on the stack.
+ * \param [in]    pData       Pointer to the input data (arbitrary alignment)
+ * \param [in]    numBytes    Number of bytes to hash
+ *
+ ********************************************************************************** */
+void AES_MMO_HashUpdate(void *pContext, const uint8_t *pData, uint32_t numBytes);
+
+/*! *********************************************************************************
+ * \brief  This function finalizes the AES_MMO hash computation and clears the context data.
+ *         The final hash value is stored at the provided output location.
+ *
+ * \param [in]       pContext    Pointer to the AES_MMO context data
+ *                               Allocated using AES_MMO_AllocCtx()
+ * \param [out]      pOutput     Pointer to the output location
+ *
+ ********************************************************************************** */
+void AES_MMO_HashFinish(void *pContext, uint8_t *pOutput);
+
+/*! *********************************************************************************
+ * \brief  This function performs all AES_MMO steps on multiple bytes: initialize,
+ *         update and finish.
+ *         The final hash value is stored at the provided output location.
+ *
+ * \param [in]       pData       Pointer to the input data
+ * \param [in]       numBytes    Number of bytes to hash
+ * \param [out]      pOutput     Pointer to the output location
+ *
+ * Note: this function allocated the AES MMO context on the stack.
+ *
+ ********************************************************************************** */
+void AES_MMO_Hash(const uint8_t *pData, uint32_t numBytes, uint8_t *pOutput);
+
+/*! *********************************************************************************
+ * \brief  This function allocates a memory structure for a HMAC AES_MMO context
+ *
+ * \return    Address of the HMAC AES_MMO context buffer
+ *            Deallocate using HMAC_AES_MMO_FreeCtx()
+ *
+ ********************************************************************************** */
+void *HMAC_AES_MMO_AllocCtx(void);
+
+/*! *********************************************************************************
+ * \brief  This function deallocates the memory buffer for the HMAC AES_MMO context structure
+ *
+ * \param [in]    pContext    Address of the HMAC AES_MMO context buffer
+ *
+ ********************************************************************************** */
+void HMAC_AES_MMO_FreeCtx(void *pContext);
+
+/*! *********************************************************************************
+ * \brief  This function performs the initialization of the HMAC AES_MMO context data
+ *
+ * \param [in]    pContext    Pointer to the HMAC AES_MMO context data
+ *                            Allocated using HMAC_AES_MMO_AllocCtx()
+ * \param [in]    pKey        Pointer to the HMAC key
+ * \param [in]    keyLen      Length of the HMAC key in bytes
+ *
+ ********************************************************************************** */
+void HMAC_AES_MMO_Init(void *pContext, const uint8_t *pKey, uint16_t keyLen);
+
+/*! *********************************************************************************
+ * \brief  This function performs HMAC update with the input data.
+ *
+ * It is to be called as new data get appended to the message covered by the MAC.
+ *
+ * \param [in]    pContext    Pointer to the HMAC AES_MMO context data
+ *                            Allocated using HMAC_AES_MMO_AllocCtx()
+ * \param [in]    pData       Pointer to the input data
+ * \param [in]    numBytes    Number of bytes to hash
+ *
+ ********************************************************************************** */
+void HMAC_AES_MMO_Update(void *pContext, const uint8_t *pData, uint32_t numBytes);
+
+/*! *********************************************************************************
+ * \brief  This function finalizes the HMAC AES_MMO computation and clears the context data.
+ *         The final MAC value is stored at the provided output location.
+ *
+ * \param [in]       pContext    Pointer to the HMAC AES_MMO context data
+ *                               Allocated using HMAC_AES_MMO_AllocCtx()
+ * \param [in,out]   pOutput     Pointer to the output location
+ *
+ ********************************************************************************** */
+void HMAC_AES_MMO_Finish(void *pContext, uint8_t *pOutput);
+
+/****************************************************************************
+ *
+ * \brief  Perform the HMAC-MMO Keyed Hash Function for Message Authentication
+ * Specified in B.1.4 in ZigBee specification in a single step.
+ *
+ * \param pKey[in]  Pointer to key octet string
+ * \param keyLen[in] Length of key in number of bytes
+ * \param pData[in]  pointer on message data over which MAC must be run.
+ * \param pOutput[out]  Output Message Authentication Code octet string (16 bytes)
+ *
+ * \return        none
+ *
+ * Note: the context gets allocated on the stack with this API.
+ *
+ ****************************************************************************/
+void HMAC_AES_MMO(const uint8_t *pKey, uint16_t keyLen, const uint8_t *pData, uint32_t numBytes, uint8_t *pOutput);
 
 /*!
  * @}  end of SecLib addtogroup

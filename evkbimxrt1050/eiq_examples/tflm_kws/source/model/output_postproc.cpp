@@ -39,7 +39,7 @@ status_t MODEL_ProcessOutput(const uint8_t* data, const tensor_dims_t* dims,
         int score = (int)(lastTopResult.score * 100);
 
         PRINTF("----------------------------------------" EOL);
-        PRINTF("     Inference time: %d ms" EOL, inferenceTime / 1000);
+        PRINTF("     Inference time: %d us" EOL, inferenceTime);
         PRINTF("     Detected: %s (%d%%)" EOL, label, score);
         PRINTF("----------------------------------------" EOL EOL);
 

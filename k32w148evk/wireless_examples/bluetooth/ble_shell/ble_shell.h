@@ -4,7 +4,7 @@
  ********************************************************************************** */
 /*! *********************************************************************************
 * Copyright 2015 Freescale Semiconductor, Inc.
-* Copyright 2016-2023 NXP
+* Copyright 2016-2024 NXP
 *
 *
 * \file
@@ -30,6 +30,11 @@
 /* Enable Advertising Extension shell commands */
 #ifndef BLE_SHELL_AE_SUPPORT
 #define BLE_SHELL_AE_SUPPORT    0U
+#endif
+
+/* Enable Decision Based Advertising Filtering shell commands */
+#ifndef BLE_SHELL_DBAF_SUPPORT
+#define BLE_SHELL_DBAF_SUPPORT  0U
 #endif
 
 /************************************************************************************
@@ -71,6 +76,16 @@ extern gapScanResponseData_t            gAppExtScanRspData;
 extern gapAdvertisingData_t             gAppExtAdvertisingData;
 extern gapPeriodicAdvParameters_t       gPeriodicAdvParams;
 extern gapAdvertisingData_t             gAppPeriodicAdvData;
+
+#if defined(BLE_SHELL_DBAF_SUPPORT) && (BLE_SHELL_DBAF_SUPPORT)
+extern uint8_t gaDecisionKey[];
+extern uint8_t gaPrand[];
+extern uint8_t gaDecisionData[];
+extern gapAdvertisingDecisionData_t     gAppExtAdvDecisionData;
+
+extern gapDecisionInstructionsData_t gaDecisionInstructions[];
+extern uint8_t gNumDecisionInstructions;
+#endif /* BLE_SHELL_DBAF_SUPPORT */
 
 /* Peer Device ID */
 extern uint8_t                          gActiveConnections;

@@ -237,6 +237,10 @@ enet_err_t ENETIF_Init(void)
     bool link              = false;
     bool autonego          = false;
     phy_config_t phyConfig = {0};
+    uint32_t instance;
+    ENET_Type *const enetBases[] = ENET_BASE_PTRS;
+    const IRQn_Type enetTxIrqId[] = ENET_Transmit_IRQS;
+    const IRQn_Type enetRxIrqId[] = ENET_Receive_IRQS;
 
     /* initialize the hardware */
     /* set MAC hardware address */
@@ -299,6 +303,15 @@ enet_err_t ENETIF_Init(void)
     config.callback = ENETIF_Callback;
 
     ENET_Init(BOARD_ENET_BASEADDR, &g_handle, &config, &buffCfg[0], &g_hwaddr[0], BOARD_PHY_SYS_CLOCK);
+
+    for (instance = 0; instance < ARRAY_SIZE(enetBases); instance++)
+    {
+        if (enetBases[instance] == BOARD_ENET_BASEADDR)
+        {
+            NVIC_SetPriority(enetTxIrqId[instance], ENET_INTERRUPT_PRIORITY);
+            NVIC_SetPriority(enetRxIrqId[instance], ENET_INTERRUPT_PRIORITY);
+        }
+    }
 
     ENET_ActiveRead(BOARD_ENET_BASEADDR);
 

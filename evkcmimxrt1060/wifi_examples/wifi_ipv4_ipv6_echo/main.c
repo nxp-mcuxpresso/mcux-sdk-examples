@@ -23,11 +23,11 @@
 #include "shell_task.h"
 
 #include "fsl_common.h"
-#ifdef CONFIG_WIFI_SMOKE_TESTS
+#if CONFIG_WIFI_SMOKE_TESTS
 #include "fsl_iomuxc.h"
 #include "fsl_enet.h"
 #endif
-#ifdef CONFIG_WIFI_SMOKE_TESTS
+#if CONFIG_WIFI_SMOKE_TESTS
 #include "fsl_phyksz8081.h"
 #endif
 /*******************************************************************************
@@ -37,7 +37,7 @@
 /* @TEST_ANCHOR */
 
 /* Ethernet configuration. */
-#ifdef CONFIG_WIFI_SMOKE_TESTS
+#if CONFIG_WIFI_SMOKE_TESTS
 extern phy_ksz8081_resource_t g_phy_resource;
 #define EXAMPLE_ENET         ENET
 #define EXAMPLE_PHY_ADDRESS  BOARD_ENET0_PHY_ADDRESS
@@ -68,7 +68,7 @@ static shell_status_t cmd_disconnect(void *shellHandle, int32_t argc, char **arg
 /*******************************************************************************
  * Code
  ******************************************************************************/
-#ifdef CONFIG_WIFI_SMOKE_TESTS
+#if CONFIG_WIFI_SMOKE_TESTS
 phy_ksz8081_resource_t g_phy_resource;
 
 void BOARD_InitModuleClock(void)
@@ -272,7 +272,7 @@ int main(void)
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
-#ifdef CONFIG_WIFI_SMOKE_TESTS
+#if CONFIG_WIFI_SMOKE_TESTS
     BOARD_InitModuleClock();
 
     IOMUXC_EnableMode(IOMUXC_GPR, kIOMUXC_GPR_ENET1TxClkOutputDir, true);

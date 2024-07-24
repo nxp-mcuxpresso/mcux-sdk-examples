@@ -394,11 +394,7 @@ UINT8 WriteObject0x7000(UINT16 index, UINT8 subindex, UINT32 dataSize, UINT16 MB
  \brief    This is the main function
 
 *////////////////////////////////////////////////////////////////////////////////////////
-#if _PIC24
 int main(void)
-#else
-void main(void)
-#endif
 {
     /* initialize the Hardware and the EtherCAT Slave Controller */
 #if FC1100_HW
@@ -420,9 +416,7 @@ void main(void)
     } while (bRunApplication == TRUE);
 
     HW_Release();
-#if _PIC24
     return 0;
-#endif
 }
 #endif // #if USE_DEFAULT_MAIN
 /** @} */

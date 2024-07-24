@@ -22,7 +22,7 @@
  * Included files
  **********************************************************************************************************************/
 #include "lfs.h"
-#include "wm_os.h"
+#include "osa.h"
 #include "wmlog.h"
 
 #include "wlan.h"
@@ -49,13 +49,17 @@ typedef struct
 #define CONFIG_FILE_DIR           "etc"
 #define SYS_CONFIG_FILE_PATH      "/etc/sys_conf"
 #define PROV_CONFIG_FILE_PATH     "/etc/prov_conf"
-#define WLAN_BSS_CONFIG_FILE_PATH "/etc/wlan_bss_conf"
-#define WLAN_BSS2_CONFIG_FILE_PATH "/etc/wlan_bssA_conf"
-#define WLAN_BSS3_CONFIG_FILE_PATH "/etc/wlan_bssB_conf"
-#define WLAN_BSS4_CONFIG_FILE_PATH "/etc/wlan_bssC_conf"
-#define WLAN_BSS5_CONFIG_FILE_PATH "/etc/wlan_bssD_conf"
+#define WLAN_BSS1_CONFIG_FILE_PATH "/etc/wlan_bssA_conf"
+#define WLAN_BSS2_CONFIG_FILE_PATH "/etc/wlan_bssB_conf"
+#define WLAN_BSS3_CONFIG_FILE_PATH "/etc/wlan_bssC_conf"
+#define WLAN_BSS4_CONFIG_FILE_PATH "/etc/wlan_bssD_conf"
+#define WLAN_BSS5_CONFIG_FILE_PATH "/etc/wlan_bssE_conf"
 
 #define INITIAL_OFFSET 0
+
+#define WLAN_BSS_MAX_NUM             5
+#define WLAN_BSS_STATUS_NONAVAILABLE 0
+#define WLAN_BSS_STATUS_AVAILABLE    1
 
 typedef enum
 {
@@ -162,7 +166,7 @@ typedef enum
 #define SYS_PROTO_UART_FLOW_CONTROL_END \
     (SYS_PROTO_UART_FLOW_CONTROL_OFT + SYS_PROTO_UART_FLOW_CONTROL_NAME_LEN + SYS_PROTO_UART_FLOW_CONTROL_MAX_LEN)
 
-/** Specifies the UART Identifier for NCP bridge protocol
+/** Specifies the UART Identifier for NCP protocol
  *
  *  content: "0", "1", "2", "3"
  *  value: 0 - UART0, 1 - UART1, 2 - UART2, 3 - UART3
@@ -174,7 +178,7 @@ typedef enum
 #define SYS_PROTO_UART_ID_DEF      "0"
 #define SYS_PROTO_UART_ID_END      (SYS_PROTO_UART_ID_OFT + SYS_PROTO_UART_ID_NAME_LEN + SYS_PROTO_UART_ID_MAX_LEN)
 
-/** Specifies the UART Identifier for NCP bridge debug console
+/** Specifies the UART Identifier for NCP debug console
  *
  *  content: "0", "1", "2", "3"
  *  value: 0 - UART0, 1 - UART1, 2 - UART2, 3 - UART3
@@ -269,7 +273,7 @@ typedef enum
     PROV_MAX_TYPE
 } wifi_flash_prov_type_e;
 
-/** SSID of the WLAN network hosted by NCP bridge for provisioning.
+/** SSID of the WLAN network hosted by NCP for provisioning.
  *  xxxx are the last 4 digits of the MAC address of the WLAN interface.
  *
  *  content: SSID string
@@ -330,7 +334,7 @@ typedef enum
 #define PROV_MDNS_ENABLED_DEF      "1"
 #define PROV_MDNS_ENABLED_END      (PROV_MDNS_ENABLED_OFT + PROV_MDNS_ENABLED_NAME_LEN + PROV_MDNS_ENABLED_MAX_LEN)
 
-/** Hostname of the NCP bridge which can be resolved from the mDNS capable browser.
+/** Hostname of the NCP which can be resolved from the mDNS capable browser.
  *  "xxxx" are the last four bytes of the WLAN MAC address of the module.
  *
  *  content: host name string
@@ -358,6 +362,7 @@ typedef enum
     WLAN_PASSPHRASE,
     WLAN_MFPC,
     WLAN_MFPR,
+    WLAN_PWE,
     WLAN_ANONYMOUS_IDENTITY,
     WLAN_CLIENT_KEY_PASSWD,
     WLAN_IP_ADDR_TYPE,
@@ -371,6 +376,7 @@ typedef enum
     WLAN_CHK_SERVER_CERT,
     WLAN_REGION_CODE,
     WLAN_PROFILE,
+    WLAN_STATUS,
     WLAN_ROLE,
     WLAN_STA_MAX_TYPE,
 } wifi_flash_wlan_sta_type_e;
@@ -388,8 +394,8 @@ typedef enum
 #define WLAN_MAC_DEF      "00:50:43:02:fe:01"
 #define WLAN_MAC_END      (WLAN_MAC_OFT + WLAN_MAC_NAME_LEN + WLAN_MAC_MAX_LEN)
 
-/** This field indicates if the NCP bridge is configured (provisioned) with home network settings.
- *  This field is set to 1 automatically when the user provisions the NCP bridge.
+/** This field indicates if the NCP is configured (provisioned) with home network settings.
+ *  This field is set to 1 automatically when the user provisions the NCP.
  *
  *  content: "0", "1"
  *  value: 0,1
@@ -402,7 +408,7 @@ typedef enum
 #define WLAN_CONFIGURED_END      (WLAN_CONFIGURED_OFT + WLAN_CONFIGURED_NAME_LEN + WLAN_CONFIGURED_MAX_LEN)
 
 /** SSID of the home WLAN network.
- *  This parameter is modified automatically once the NCP bridge is provisioned.
+ *  This parameter is modified automatically once the NCP is provisioned.
  *
  *  content: SSID string
  *  value: SSID string
@@ -415,7 +421,7 @@ typedef enum
 #define WLAN_SSID_END      (WLAN_SSID_OFT + WLAN_SSID_NAME_LEN + WLAN_SSID_MAX_LEN)
 
 /** BSSID of the home WLAN network.
- *  This parameter is modified automatically once the NCP bridge is provisioned.
+ *  This parameter is modified automatically once the NCP is provisioned.
  *
  *  content: BSSID address unsigned char[6]
  *  value: BSSID address unsigned char[6]
@@ -428,7 +434,7 @@ typedef enum
 #define WLAN_BSSID_END      (WLAN_BSSID_OFT + WLAN_BSSID_NAME_LEN + WLAN_BSSID_MAX_LEN)
 
 /** Channel of the home WLAN network.
- *  This parameter is modified automatically once the NCP bridge is provisioned.
+ *  This parameter is modified automatically once the NCP is provisioned.
  *
  *  content: channel
  *  value: channel
@@ -501,12 +507,26 @@ typedef enum
 #define WLAN_MFPR_DEF      "0"
 #define WLAN_MFPR_END      (WLAN_MFPR_OFT + WLAN_MFPR_NAME_LEN + WLAN_MFPR_MAX_LEN)
 
+/**  PWE derivation
+ *   content:
+ *      0 = hunting-and-pecking loop only (default without password identifier)
+ *      1 = hash-to-element only (default with password identifier)
+ *      2 = both hunting-and-pecking loop and hash-to-element enabled
+ *  value: 0, 1, 2
+ */
+#define WLAN_PWE_OFT      WLAN_MFPR_END
+#define WLAN_PWE_NAME     "pwe="
+#define WLAN_PWE_NAME_LEN 4
+#define WLAN_PWE_MAX_LEN  2
+#define WLAN_PWE_DEF      "0"
+#define WLAN_PWE_END      (WLAN_PWE_OFT + WLAN_PWE_NAME_LEN + WLAN_PWE_MAX_LEN)
+
 /** Anonymous identity string for EAP
  *
  *  content: Anonymous identity string
  *
  */
-#define WLAN_ANONYMOUS_IDENTITY_OFT      WLAN_MFPR_END
+#define WLAN_ANONYMOUS_IDENTITY_OFT      WLAN_PWE_END
 #define WLAN_ANONYMOUS_IDENTITY_NAME     "anonymous_identity="
 #define WLAN_ANONYMOUS_IDENTITY_NAME_LEN 19
 #define WLAN_ANONYMOUS_IDENTITY_MAX_LEN  64
@@ -592,8 +612,8 @@ typedef enum
 #define WLAN_DNS2_DEF      "0.0.0.0"
 #define WLAN_DNS2_END      (WLAN_DNS2_OFT + WLAN_DNS2_NAME_LEN + WLAN_DNS2_MAX_LEN)
 
-/** How many times should the NCP bridge attempt reconnection in case of link loss.
- *  If this value is 0, NCP bridge does not try reconnection on connection fail or link loss.
+/** How many times should the NCP attempt reconnection in case of link loss.
+ *  If this value is 0, NCP does not try reconnection on connection fail or link loss.
  *
  *  content: "0" - "5"
  *  value: 0-5
@@ -656,12 +676,24 @@ typedef enum
 #define WLAN_PROFILE_NAME_DEF     "nxp_sta"
 #define WLAN_PROFILE_NAME_END     (WLAN_PROFILE_NAME_OFT + WLAN_PROFILE_NAME_LEN + WLAN_PROFILE_NAME_MAX_LEN)
 
+/** The status of this network.
+ *
+ *  content: "0","1","2" 
+ *  value: 0 - unavailable, 1 - available, 2 - removed
+ */
+#define WLAN_STATUS_OFT       WLAN_PROFILE_NAME_END
+#define WLAN_STATUS_NAME      "status="
+#define WLAN_STATUS_NAME_LEN  7
+#define WLAN_STATUS_MAX_LEN   2
+#define WLAN_STATUS_DEF       "0"
+#define WLAN_STATUS_END       (WLAN_STATUS_OFT + WLAN_STATUS_NAME_LEN + WLAN_STATUS_MAX_LEN)
+
 /** Network wireless BSS Role
  *
  *  content:"0", "1", "255"
  *  value: 0 - Station, 1 - uAP, 0xff - Any
  */
-#define WLAN_ROLE_OFT      WLAN_PROFILE_NAME_END
+#define WLAN_ROLE_OFT      WLAN_STATUS_END
 #define WLAN_ROLE_NAME     "role="
 #define WLAN_ROLE_NAME_LEN 5
 #define WLAN_ROLE_MAX_LEN  4
@@ -721,7 +753,7 @@ typedef enum
 #define flash_log_e(...) wmlog_e("flash", ##__VA_ARGS__)
 #define flash_log_w(...) wmlog_w("flash", ##__VA_ARGS__)
 
-#ifdef CONFIG_WIFI_IO_DEBUG
+#if CONFIG_WIFI_IO_DEBUG
 #define flash_log_d(...) wmlog("flash", ##__VA_ARGS__)
 #else
 #define flash_log_d(...)
@@ -744,6 +776,13 @@ struct ncp_conf_t
     /** MAX Type */
     uint8_t max_type;
 };
+
+typedef struct
+{
+    char *config_path; // ncp lfs bss config path
+    char network_name[33]; // network name
+    int flag;  //write flag.
+}wifi_bss_config;
 
 /***********************************************************************************************************************
  * Global variables
@@ -782,12 +821,14 @@ int wifi_set_network(struct wlan_network *network);
 int wifi_get_network(struct wlan_network *network, enum wlan_bss_role bss_role, char*net_name);
 /*set overwrite flag when a network is removed.*/
 int wifi_overwrite_network(char *removed_network);
+/* Judge whether network is added or not.*/
+bool ncp_network_is_added(char *network);
 
-int ncp_bridge_set_conf(const char *mod_name, const char *var_name, const char *value);
-int ncp_bridge_get_conf(const char *mod_name, const char *var_name, char *value, uint32_t max_len);
+int ncp_set_conf(const char *mod_name, const char *var_name, const char *value);
+int ncp_get_conf(const char *mod_name, const char *var_name, char *value, uint32_t max_len);
 
 /* set/get uart configs */
-int ncp_bridge_get_uart_conf(struct rtos_usart_config *usart_cfg);
+int ncp_get_uart_conf(struct rtos_usart_config *usart_cfg);
 
 bool is_nvm_enabled(void);
 

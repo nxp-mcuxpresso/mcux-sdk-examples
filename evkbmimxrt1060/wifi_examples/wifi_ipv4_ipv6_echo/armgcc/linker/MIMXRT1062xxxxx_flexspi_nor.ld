@@ -104,7 +104,6 @@ SECTIONS
         *tcp.c.obj
         *udp.c.obj
         *tcpip.c.obj
-        *sockets.c.obj
         *tasks.c.obj
         *lib_a-memset.o
         *fsl_cache.c.obj
@@ -249,7 +248,6 @@ SECTIONS
     *tcp.c.obj(.text*)
     *udp.c.obj(.text*)
     *tcpip.c.obj(.text*)
-    *sockets.c.obj(.text*)
     *tasks.c.obj(.text*)  
     *lib_a-memset.o(.text*)
     *fsl_cache.c.obj(.text*)

@@ -59,12 +59,14 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_RELEASE " \
     -DFSL_DRIVER_TRANSFER_DOUBLE_WEAK_IRQ=0 \
     -DFSL_OSA_MAIN_FUNC_ENABLE=0 \
     -DFSL_FEATURE_FLASH_PAGE_SIZE_BYTES=4096 \
+    -DUSB_HOST_CONFIG_BUFFER_PROPERTY_CACHEABLE=1 \
     -DMCUXPRESSO_SDK \
     -DLOG_ENABLE_ASYNC_MODE=1 \
     -DLOG_MAX_ARGUMENT_COUNT=10 \
     -DLOG_ENABLE_OVERWRITE=0 \
     -DSERIAL_PORT_TYPE_UART=1 \
     -DMFLASH_FILE_BASEADDR=7340032 \
+    -DOSA_USED \
     -DLWIP_DNS=1 \
     -DLWIP_NETIF_HOSTNAME=1 \
     -DLWIP_IGMP=1 \
@@ -78,7 +80,6 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
@@ -117,12 +118,14 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG " \
     -DFSL_DRIVER_TRANSFER_DOUBLE_WEAK_IRQ=0 \
     -DFSL_OSA_MAIN_FUNC_ENABLE=0 \
     -DFSL_FEATURE_FLASH_PAGE_SIZE_BYTES=4096 \
+    -DUSB_HOST_CONFIG_BUFFER_PROPERTY_CACHEABLE=1 \
     -DMCUXPRESSO_SDK \
     -DLOG_ENABLE_ASYNC_MODE=1 \
     -DLOG_MAX_ARGUMENT_COUNT=10 \
     -DLOG_ENABLE_OVERWRITE=0 \
     -DSERIAL_PORT_TYPE_UART=1 \
     -DMFLASH_FILE_BASEADDR=7340032 \
+    -DOSA_USED \
     -DLWIP_DNS=1 \
     -DLWIP_NETIF_HOSTNAME=1 \
     -DLWIP_IGMP=1 \
@@ -137,7 +140,6 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
@@ -161,7 +163,6 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -fno-rtti \
@@ -185,7 +186,6 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -fno-rtti \
@@ -200,7 +200,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -229,7 +228,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \

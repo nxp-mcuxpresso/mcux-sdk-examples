@@ -12,12 +12,12 @@ pulse period with a high degree of accuracy, the frequency of reference clock is
 
 SDK version
 ===========
-- Version: 2.14.0
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  12.2
-- MCUXpresso  11.9.0
+- GCC ARM Embedded  13.2.1
+- MCUXpresso  11.10.0
 
 Hardware requirements
 =====================

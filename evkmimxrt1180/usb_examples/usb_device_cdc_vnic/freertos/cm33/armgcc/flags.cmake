@@ -101,7 +101,6 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
@@ -132,7 +131,6 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
@@ -143,7 +141,7 @@ SET(CMAKE_C_FLAGS_HYPERRAM_DEBUG " \
     ${CMAKE_C_FLAGS_HYPERRAM_DEBUG} \
     -DUSE_HYPERRAM \
     -DDEBUG \
-    -DFSL_SDK_ENABLE_DRIVER_CACHE_CONTROL=1 \
+    -DFSL_ETH_ENABLE_CACHE_CONTROL=1 \
     -DCPU_MIMXRT1189CVM8B_cm33 \
     -DEXAMPLE_PORT_USE_100M_HALF_DUPLEX_MODE \
     -DSDK_NETC_USED=1 \
@@ -165,7 +163,6 @@ SET(CMAKE_C_FLAGS_HYPERRAM_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
@@ -176,7 +173,7 @@ SET(CMAKE_C_FLAGS_HYPERRAM_RELEASE " \
     ${CMAKE_C_FLAGS_HYPERRAM_RELEASE} \
     -DUSE_HYPERRAM \
     -DNDEBUG \
-    -DFSL_SDK_ENABLE_DRIVER_CACHE_CONTROL=1 \
+    -DFSL_ETH_ENABLE_CACHE_CONTROL=1 \
     -DCPU_MIMXRT1189CVM8B_cm33 \
     -DEXAMPLE_PORT_USE_100M_HALF_DUPLEX_MODE \
     -DSDK_NETC_USED=1 \
@@ -197,7 +194,6 @@ SET(CMAKE_C_FLAGS_HYPERRAM_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
@@ -230,7 +226,6 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
@@ -262,7 +257,6 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
@@ -285,7 +279,6 @@ SET(CMAKE_CXX_FLAGS_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -fno-rtti \
@@ -308,7 +301,6 @@ SET(CMAKE_CXX_FLAGS_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -fno-rtti \
@@ -332,7 +324,6 @@ SET(CMAKE_CXX_FLAGS_HYPERRAM_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -fno-rtti \
@@ -355,7 +346,6 @@ SET(CMAKE_CXX_FLAGS_HYPERRAM_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -fno-rtti \
@@ -379,7 +369,6 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -fno-rtti \
@@ -402,7 +391,6 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -fno-rtti \
@@ -418,7 +406,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -448,7 +435,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -479,7 +465,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_HYPERRAM_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -509,7 +494,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_HYPERRAM_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -540,7 +524,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -570,7 +553,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \

@@ -47,6 +47,7 @@ SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
     -DCFG_BLE \
     -DMBEDTLS_MCUX_ELS_PKC_API \
     -DMBEDTLS_MCUX_USE_PKC \
+    -DTIMER_PORT_TYPE_MRT=1 \
     -DLFS_NO_INTRINSICS=1 \
     -DLFS_NO_ERROR=1 \
     -DFSL_OSA_MAIN_FUNC_ENABLE=0 \
@@ -56,10 +57,10 @@ SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
     -DLOG_ENABLE_OVERWRITE=0 \
     -DCONFIG_ARM=1 \
     -DSERIAL_PORT_TYPE_UART=1 \
+    -DOSA_USED \
     -DLWIP_DNS=1 \
     -DLWIP_NETIF_HOSTNAME=1 \
     -DLWIP_IGMP=1 \
-    -DSDIO_ENABLED \
     -D_XOPEN_SOURCE=500 \
     -DLWIP_TIMEVAL_PRIVATE=0 \
     -DSO_REUSE=1 \
@@ -73,7 +74,6 @@ SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -103,6 +103,7 @@ SET(CMAKE_C_FLAGS_FLASH_DEBUG " \
     -DCFG_BLE \
     -DMBEDTLS_MCUX_ELS_PKC_API \
     -DMBEDTLS_MCUX_USE_PKC \
+    -DTIMER_PORT_TYPE_MRT=1 \
     -DLFS_NO_INTRINSICS=1 \
     -DLFS_NO_ERROR=1 \
     -DFSL_OSA_MAIN_FUNC_ENABLE=0 \
@@ -112,10 +113,10 @@ SET(CMAKE_C_FLAGS_FLASH_DEBUG " \
     -DLOG_ENABLE_OVERWRITE=0 \
     -DCONFIG_ARM=1 \
     -DSERIAL_PORT_TYPE_UART=1 \
+    -DOSA_USED \
     -DLWIP_DNS=1 \
     -DLWIP_NETIF_HOSTNAME=1 \
     -DLWIP_IGMP=1 \
-    -DSDIO_ENABLED \
     -D_XOPEN_SOURCE=500 \
     -DLWIP_TIMEVAL_PRIVATE=0 \
     -DSO_REUSE=1 \
@@ -129,7 +130,6 @@ SET(CMAKE_C_FLAGS_FLASH_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -146,6 +146,7 @@ SET(CMAKE_CXX_FLAGS_FLASH_RELEASE " \
     -DCPU_RW612ETA2I \
     -DMCUXPRESSO_SDK \
     -DBOOT_HEADER_ENABLE=1 \
+    -DTIMER_PORT_TYPE_MRT=1 \
     -DSERIAL_PORT_TYPE_UART=1 \
     -g \
     -Os \
@@ -154,7 +155,6 @@ SET(CMAKE_CXX_FLAGS_FLASH_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -169,6 +169,7 @@ SET(CMAKE_CXX_FLAGS_FLASH_DEBUG " \
     -DCPU_RW612ETA2I \
     -DMCUXPRESSO_SDK \
     -DBOOT_HEADER_ENABLE=1 \
+    -DTIMER_PORT_TYPE_MRT=1 \
     -DSERIAL_PORT_TYPE_UART=1 \
     -g \
     -O0 \
@@ -177,7 +178,6 @@ SET(CMAKE_CXX_FLAGS_FLASH_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -193,7 +193,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -232,7 +231,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \

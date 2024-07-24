@@ -174,11 +174,7 @@ void USB_HostTaskFn(void *param)
     USB_HostKhciTaskFunction(param);
 #endif
 }
-void HF_DriverIRQHandler(void)
-{
-  while(1)
-  {}
-}
+
 int main(void)
 {
     /* attach FRO 12M to FLEXCOMM4 (debug console) */
@@ -239,15 +235,6 @@ void vPortSuppressTicksAndSleep(TickType_t xExpectedIdleTime)
 
     /* Disable and prepare systicks for low power. */
     abortIdle = PWR_SysticksPreProcess((uint32_t)xExpectedIdleTime, &expectedIdleTimeUs);
-
-#if defined(WIFI_IW416_BOARD_MURATA_1XK_M2)
-    /* Check if host is allowed to enter low power mode. */
-    if(0 == PLATFORM_AllowEnterLowPower())
-    {
-        abortIdle = true;
-        SysTick->CTRL |= (SysTick_CTRL_TICKINT_Msk | SysTick_CTRL_ENABLE_Msk);
-    }
-#endif
 
     if (abortIdle == false)
     {

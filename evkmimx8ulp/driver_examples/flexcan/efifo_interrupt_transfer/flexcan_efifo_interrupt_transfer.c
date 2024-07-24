@@ -65,6 +65,84 @@ uint32_t rxEnFifoFilter[] = {FLEXCAN_ENHANCED_RX_FIFO_STD_MASK_AND_FILTER(0x123,
  * Code
  ******************************************************************************/
 /*!
+ * @brief CAN transceiver configuration function
+ */
+static void FLEXCAN_PHY_Config(void)
+{
+#if (defined(USE_PHY_TJA1152) && USE_PHY_TJA1152)
+    /* Setup Tx Message Buffer. */
+    FLEXCAN_SetFDTxMbConfig(EXAMPLE_CAN, TX_MESSAGE_BUFFER_NUM, true);
+
+    /* Initialize TJA1152. */
+    /* STB=H, configuration CAN messages are expected from the local host via TXD pin. */
+    RGPIO_PortSet(EXAMPLE_STB_RGPIO, 1u << EXAMPLE_STB_RGPIO_PIN);   
+
+    /* Classical CAN messages with standard identifier 0x555 must be transmitted 
+     * by the local host controller until acknowledged by the TJA1152 for
+     * automatic bit rate detection. Do not set frame.brs = 1U to keep nominal
+     * bit rate in CANFD frame data phase. */
+    txFrame.id     = FLEXCAN_ID_STD(0x555);
+    txFrame.format = (uint8_t)kFLEXCAN_FrameFormatStandard;
+    txFrame.type   = (uint8_t)kFLEXCAN_FrameTypeData;
+    txFrame.length = 0U;
+    txXfer.mbIdx = (uint8_t)TX_MESSAGE_BUFFER_NUM;
+    txXfer.framefd = &txFrame;
+    (void)FLEXCAN_TransferFDSendNonBlocking(EXAMPLE_CAN, &flexcanHandle, &txXfer);
+    while (!txComplete)
+    {
+    };
+    txComplete = false;
+
+    /* Configuration of spoofing protection. */
+    /* Add 0x123 to 0x126 to Transmission Whitelist. */
+    /* Set mask 0x007 to allow 0x123 to 0x126 transfer. */
+    txFrame.id     = FLEXCAN_ID_EXT(0x18DA00F1);
+    txFrame.format = (uint8_t)kFLEXCAN_FrameFormatExtend;
+    txFrame.type   = (uint8_t)kFLEXCAN_FrameTypeData;
+    txFrame.length = 6U;
+    txFrame.dataWord[0] = CAN_WORD_DATA_BYTE_0(0x10) | CAN_WORD_DATA_BYTE_1(0x00) | CAN_WORD_DATA_BYTE_2(0x51) |
+                          CAN_WORD_DATA_BYTE_3(0x23);
+    txFrame.dataWord[1] = CAN_WORD_DATA_BYTE_4(0x00) | CAN_WORD_DATA_BYTE_5(0x07);
+    (void)FLEXCAN_TransferFDSendNonBlocking(EXAMPLE_CAN, &flexcanHandle, &txXfer);
+    while (!txComplete)
+    {
+    };
+    txComplete = false;
+
+    /* Configuration of command message ID. */
+    /* Reconfiguration is only accepted locally. Keep CONFIG_ID as default value 0x18DA00F1. */
+    txFrame.length = 5U;
+    txFrame.dataWord[0] = CAN_WORD_DATA_BYTE_0(0x60) | CAN_WORD_DATA_BYTE_1(0x98) | CAN_WORD_DATA_BYTE_2(0xDA) |
+                          CAN_WORD_DATA_BYTE_3(0x00);
+    txFrame.dataWord[1] = CAN_WORD_DATA_BYTE_4(0xF1);
+    (void)FLEXCAN_TransferFDSendNonBlocking(EXAMPLE_CAN, &flexcanHandle, &txXfer);
+    while (!txComplete)
+    {
+    };
+    txComplete = false;
+
+    /* Leaving configuration mode. */
+    /* Configuration into volatile memory only. */
+    txFrame.length = 8U;
+    txFrame.dataWord[0] = CAN_WORD_DATA_BYTE_0(0x71) | CAN_WORD_DATA_BYTE_1(0x02) | CAN_WORD_DATA_BYTE_2(0x03) |
+                          CAN_WORD_DATA_BYTE_3(0x04);
+    txFrame.dataWord[1] = CAN_WORD_DATA_BYTE_4(0x05) | CAN_WORD_DATA_BYTE_5(0x06) | CAN_WORD_DATA_BYTE_6(0x07) |
+                          CAN_WORD_DATA_BYTE_7(0x08);
+    (void)FLEXCAN_TransferFDSendNonBlocking(EXAMPLE_CAN, &flexcanHandle, &txXfer);
+    while (!txComplete)
+    {
+    };
+    txComplete = false;
+
+    LOG_INFO("Initialize TJA1152 successfully!\r\n\r\n");
+
+    /* STB=L, TJA1152 switch from secure standby mode to normal mode. */
+    RGPIO_PortClear(EXAMPLE_STB_RGPIO, 1u << EXAMPLE_STB_RGPIO_PIN);
+    /* Initialize TJA1152 end. */
+#endif
+}
+
+/*!
  * @brief FlexCAN Call Back function
  */
 static FLEXCAN_CALLBACK(flexcan_callback)
@@ -148,6 +226,8 @@ int main(void)
      */
     FLEXCAN_GetDefaultConfig(&flexcanConfig);
 
+    flexcanConfig.bitRate = 500000U;
+
 #if defined(EXAMPLE_CAN_CLK_SOURCE)
     flexcanConfig.clkSrc = EXAMPLE_CAN_CLK_SOURCE;
 #endif
@@ -175,6 +255,9 @@ int main(void)
 
     /* Create FlexCAN handle structure and set call back function. */
     FLEXCAN_TransferCreateHandle(EXAMPLE_CAN, &flexcanHandle, flexcan_callback, NULL);
+
+    /* Configure CAN transceiver */
+    FLEXCAN_PHY_Config();
 
 #if !(defined(ENABLE_LOOPBACK) && ENABLE_LOOPBACK)
     if ((node_type == 'A') || (node_type == 'a') || (node_type == 'T') || (node_type == 't'))

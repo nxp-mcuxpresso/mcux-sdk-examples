@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 NXP
+ * Copyright 2023-2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -103,19 +103,21 @@ static struct bt_bap_stream streams[CONFIG_BT_BAP_BROADCAST_SNK_STREAM_COUNT];
 static struct bt_bap_lc3_preset lc3_preset;
 
 static const struct bt_audio_codec_cap codec_cap_10 = BT_AUDIO_CODEC_CAP_LC3(
-	BT_AUDIO_CODEC_LC3_FREQ_8KHZ | BT_AUDIO_CODEC_LC3_FREQ_16KHZ | BT_AUDIO_CODEC_LC3_FREQ_24KHZ | BT_AUDIO_CODEC_LC3_FREQ_32KHZ | BT_AUDIO_CODEC_LC3_FREQ_48KHZ,
-	BT_AUDIO_CODEC_LC3_DURATION_10, BT_AUDIO_CODEC_LC3_CHAN_COUNT_SUPPORT(1), 30u, 130u, 1u,
+	BT_AUDIO_CODEC_CAP_FREQ_8KHZ | BT_AUDIO_CODEC_CAP_FREQ_16KHZ | BT_AUDIO_CODEC_CAP_FREQ_24KHZ | BT_AUDIO_CODEC_CAP_FREQ_32KHZ | BT_AUDIO_CODEC_CAP_FREQ_48KHZ,
+	BT_AUDIO_CODEC_CAP_DURATION_10, BT_AUDIO_CODEC_CAP_CHAN_COUNT_SUPPORT(1), 30u, 130u, 1u,
 	BT_AUDIO_CONTEXT_TYPE_MEDIA);
 
 static const struct bt_audio_codec_cap codec_cap_7_5 = BT_AUDIO_CODEC_CAP_LC3(
-	BT_AUDIO_CODEC_LC3_FREQ_8KHZ | BT_AUDIO_CODEC_LC3_FREQ_16KHZ | BT_AUDIO_CODEC_LC3_FREQ_24KHZ | BT_AUDIO_CODEC_LC3_FREQ_32KHZ | BT_AUDIO_CODEC_LC3_FREQ_48KHZ,
-	BT_AUDIO_CODEC_LC3_DURATION_7_5, BT_AUDIO_CODEC_LC3_CHAN_COUNT_SUPPORT(1), 26u, 97u, 1u,
+	BT_AUDIO_CODEC_CAP_FREQ_8KHZ | BT_AUDIO_CODEC_CAP_FREQ_16KHZ | BT_AUDIO_CODEC_CAP_FREQ_24KHZ | BT_AUDIO_CODEC_CAP_FREQ_32KHZ | BT_AUDIO_CODEC_CAP_FREQ_48KHZ,
+	BT_AUDIO_CODEC_CAP_DURATION_7_5, BT_AUDIO_CODEC_CAP_CHAN_COUNT_SUPPORT(1), 26u, 97u, 1u,
 	BT_AUDIO_CONTEXT_TYPE_MEDIA);
 
 static uint32_t requested_bis_sync;
 static uint32_t bis_index_bitfield;
-static uint8_t sink_broadcast_code[BT_AUDIO_BROADCAST_CODE_SIZE];
 static bool stream_stoped = false;
+static bool broadcast_encryped = false;
+static uint8_t broadcast_code[BT_AUDIO_BROADCAST_CODE_SIZE] = { 0 };
+static bool broadcast_code_set = false;
 
 static int get_channel_count_from_allocation(uint32_t allocation)
 {
@@ -211,10 +213,10 @@ static int audio_stream_decode(void)
 		frame_flags = LC3_FRAME_FLAG_GOOD;
 	}
 
-#if 0 /* used for packet lost sdu debug. */
+#if 1 /* used for packet lost sdu debug. */
 	if((sdu->info.flags & BT_ISO_FLAGS_VALID) == 0)
 	{
-		PRINTF("seq: %d, t: %d, flag: 0x%02x, len: %d\n", sdu->info.seq_num, sdu->info.ts, sdu->info.flags, sdu->len);
+		PRINTF("seq: %d, t: %d, flag: 0x%02x, len: %d, invalid frame!\n", sdu->info.seq_num, sdu->info.ts, sdu->info.flags, sdu->len);
 	}
 
 	if(sdu->info.flags & BT_ISO_FLAGS_ERROR)
@@ -225,6 +227,11 @@ static int audio_stream_decode(void)
 	if(sdu->info.flags & BT_ISO_FLAGS_LOST)
 	{
 		PRINTF("seq: %d, t: %d, flag: 0x%02x, len: %d, BT_ISO_FLAGS_LOST!\n", sdu->info.seq_num, sdu->info.ts, sdu->info.flags, sdu->len);
+	}
+
+	if((sdu->info.flags & BT_ISO_FLAGS_TS) == 0)
+	{
+		PRINTF("seq: %d, t: %d, flag: 0x%02x, len: %d, time stamp invalid!\n", sdu->info.seq_num, sdu->info.ts, sdu->info.flags, sdu->len);
 	}
 #endif
 
@@ -464,15 +471,20 @@ static void base_recv_cb(struct bt_bap_broadcast_sink *sink, const struct bt_bap
 static void syncable_cb(struct bt_bap_broadcast_sink *sink, bool encrypted)
 {
 	if (encrypted) {
-		PRINTF("Cannot sync to encrypted broadcast source\n");
-		return;
+		PRINTF("Broadcast encryped!\n");
+		broadcast_encryped = true;
 	}
+
+	PRINTF("codec_qos - interval: %d, framing: %d, phy: %d, sdu: %d, rtn: %d, pd: %d\n",
+		sink->codec_qos.interval,
+		sink->codec_qos.framing,
+		sink->codec_qos.phy,
+		sink->codec_qos.sdu,
+		sink->codec_qos.rtn,
+		sink->codec_qos.pd
+		);
 
 	OSA_SemaphorePost(sem_syncable);
-
-	if (!encrypted) {
-		OSA_SemaphorePost(sem_broadcast_code_received);
-	}
 }
 
 static struct bt_bap_broadcast_sink_cb broadcast_sink_cbs = {
@@ -510,13 +522,27 @@ static struct bt_pacs_cap cap_7_5 = {
 static void audio_codec_config(void)
 {
 	/* Get codec info. */
-	lc3_codec_info.sample_rate = bt_audio_codec_cfg_freq_to_freq_hz((enum bt_audio_codec_config_freq)bt_audio_codec_cfg_get_freq(&lc3_preset.codec_cfg));
-	lc3_codec_info.frame_duration_us = bt_audio_codec_cfg_frame_dur_to_frame_dur_us((enum bt_audio_codec_config_frame_dur)bt_audio_codec_cfg_get_frame_dur(&lc3_preset.codec_cfg));
-	lc3_codec_info.samples_per_frame = lc3_codec_info.sample_rate * (lc3_codec_info.frame_duration_us / 100) / 10000;
+	lc3_codec_info.sample_rate = bt_audio_codec_cfg_freq_to_freq_hz((enum bt_audio_codec_cfg_freq)bt_audio_codec_cfg_get_freq(&lc3_preset.codec_cfg));
+	lc3_codec_info.frame_duration_us = bt_audio_codec_cfg_frame_dur_to_frame_dur_us((enum bt_audio_codec_cfg_frame_dur)bt_audio_codec_cfg_get_frame_dur(&lc3_preset.codec_cfg));
 	lc3_codec_info.octets_per_frame = bt_audio_codec_cfg_get_octets_per_frame(&lc3_preset.codec_cfg);
 	lc3_codec_info.blocks_per_sdu = bt_audio_codec_cfg_get_frame_blocks_per_sdu(&lc3_preset.codec_cfg, true);
 	bt_audio_codec_cfg_get_chan_allocation(&lc3_preset.codec_cfg, (enum bt_audio_location *)&lc3_codec_info.chan_allocation);
 	lc3_codec_info.channels = get_channel_count_from_allocation(lc3_codec_info.chan_allocation);
+	if(lc3_codec_info.sample_rate == 44100)
+	{
+		if(lc3_codec_info.frame_duration_us == 7500)
+		{
+			lc3_codec_info.samples_per_frame = 360;
+		}
+		else
+		{
+			lc3_codec_info.samples_per_frame = 480;
+		}
+	}
+	else
+	{
+		lc3_codec_info.samples_per_frame = lc3_codec_info.sample_rate * (lc3_codec_info.frame_duration_us / 100) / 10000;
+	}
 	PRINTF("\tCodec: freq %d, channel count %d, duration %d, channel alloc 0x%08x, frame len %d, frame blocks per sdu %d\n",
 		lc3_codec_info.sample_rate, lc3_codec_info.channels, lc3_codec_info.frame_duration_us, lc3_codec_info.chan_allocation, lc3_codec_info.octets_per_frame, lc3_codec_info.blocks_per_sdu);
 	
@@ -553,9 +579,7 @@ static void audio_codec_config(void)
 	{
 		audio_sync_initialized = true;
 		le_audio_sync_init();
-#if defined(LE_AUDIO_SYNC_TEST) && (LE_AUDIO_SYNC_TEST > 0)
 		le_audio_sync_test_init(lc3_codec_info.sample_rate);
-#endif
 	}
 
 	le_audio_sync_start(lc3_codec_info.sample_rate, lc3_codec_info.samples_per_frame);
@@ -669,6 +693,26 @@ static struct bt_le_per_adv_sync_cb bap_pa_sync_cb = {
 	.term = bap_pa_sync_terminated_cb,
 };
 
+/* Here we don't require the user input all the bytes, and the left bytes will fill with 0. */
+int config_broadcast_code(uint8_t *data, int len)
+{
+	memset(broadcast_code, 0, BT_AUDIO_BROADCAST_CODE_SIZE);
+	if(len <= BT_AUDIO_BROADCAST_CODE_SIZE)
+	{
+		memcpy(broadcast_code, data, len);
+		broadcast_code_set = true;
+
+		PRINTF("broadcast_code: %s\n", bt_hex(broadcast_code, BT_AUDIO_BROADCAST_CODE_SIZE));
+		OSA_SemaphorePost(sem_broadcast_code_received);
+	}
+	else
+	{
+		return -1;
+	}
+
+	return 0;
+}
+
 static int init(void)
 {
 	int err;
@@ -681,6 +725,7 @@ static int init(void)
 
 	printk("Bluetooth initialized\n");
 
+	bt_bap_scan_delegator_init();
 	bt_bap_broadcast_sink_init();
 
 	err = bt_pacs_cap_register(BT_AUDIO_DIR_SINK, &cap_10);
@@ -714,10 +759,10 @@ static int reset(void)
 	base_info_received = false;
 	requested_bis_sync = 0U;
 
-	(void)memset(sink_broadcast_code, 0, sizeof(sink_broadcast_code));
 	(void)memset(&broadcaster_info, 0, sizeof(broadcaster_info));
 	(void)memset(&broadcaster_addr, 0, sizeof(broadcaster_addr));
 	broadcaster_broadcast_id = INVALID_BROADCAST_ID;
+	broadcast_encryped = false;
 
 	OSA_SemaphoreDestroy(sem_broadcaster_found);
 	OSA_SemaphoreDestroy(sem_pa_synced);
@@ -913,20 +958,27 @@ void broadcast_media_receiver_task(void *param)
 			continue;
 		}
 
-		/* sem_broadcast_code_received is also given if the
-		 * broadcast is not encrypted
-		 */
-		printk("Waiting for broadcast code OK\n");
-		err = OSA_SemaphoreWait(sem_broadcast_code_received, SEM_TIMEOUT);
-		if (err != 0) {
-			printk("sem_syncable timed out, resetting\n");
-			continue;
+		if(broadcast_encryped)
+		{
+			if(!broadcast_code_set)
+			{
+				printk("Please set the broadcast code!\n");
+				err = OSA_SemaphoreWait(sem_broadcast_code_received, osaWaitForever_c);
+				if (err != 0) {
+					printk("sem_syncable timed out, resetting\n");
+					continue;
+				}
+			}
+			else
+			{
+				printk("Broadcast code set!\n");
+			}
 		}
 
 		printk("Syncing to broadcast\n");
 		err = bt_bap_broadcast_sink_sync(broadcast_sink,
 						 bis_index_bitfield & requested_bis_sync,
-						 streams_p, sink_broadcast_code);
+						 streams_p, broadcast_code);
 		if (err != 0) {
 			printk("Unable to sync to broadcast source: %d\n", err);
 			continue;
@@ -938,7 +990,7 @@ void broadcast_media_receiver_task(void *param)
 			continue;
 		}
 
-		int res;
+		int res = 0;
 		do{
 			if (bis_stream_play)
 			{
@@ -952,7 +1004,7 @@ void broadcast_media_receiver_task(void *param)
 					PRINTF("Syncing to broadcast\n");
 					err = bt_bap_broadcast_sink_sync(broadcast_sink,
 									bis_index_bitfield & requested_bis_sync,
-									streams_p, sink_broadcast_code);
+									streams_p, broadcast_code);
 					if (err != 0) {
 						PRINTF("Unable to sync to broadcast source: %d\n", err);
 					}

@@ -101,6 +101,7 @@
           <value>VIT_MODEL_IT</value>
           <value>VIT_MODEL_JA</value>
           <value>VIT_MODEL_KO</value>
+          <value>VIT_MODEL_PT</value>
           <value>VIT_MODEL_TR</value>
           <value>STREAMER_ENABLE_VIT_SINK</value>
           <value>STREAMER_ENABLE_AUDIO_PROC</value>
@@ -178,7 +179,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

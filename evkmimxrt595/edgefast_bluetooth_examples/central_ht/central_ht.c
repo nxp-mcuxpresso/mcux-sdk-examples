@@ -395,7 +395,7 @@ static void bt_ready(int err)
     PWR_ReleaseLowPowerModeConstraint(PWR_WFI);
     /* In scan mode, the application core will wake up more often to exchange data with its peer, so we can
      * restrain the low power mode to DeepSleep to allow faster wake up time */
-    PWR_SetLowPowerModeConstraint(PWR_DeepSleep);
+    PWR_SetLowPowerModeConstraint(APP_LOW_POWER_MODE);
 #endif
 }
 
@@ -420,7 +420,7 @@ void central_ht_task(void *pvParameters)
 
     while (1)
     {
-        vTaskDelay(1000);
+        vTaskDelay(portMAX_DELAY);
     }
 }
 

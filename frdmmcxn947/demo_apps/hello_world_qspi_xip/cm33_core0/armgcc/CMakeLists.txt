@@ -51,11 +51,11 @@ include(${ProjDirPath}/flags.cmake)
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
-"${ProjDirPath}/../mcxn_flexspi_nor_config.c"
-"${ProjDirPath}/../mcxn_flexspi_nor_config.h"
 "${ProjDirPath}/../hello_world.c"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
+"${ProjDirPath}/../mcxn_flexspi_nor_config.c"
+"${ProjDirPath}/../mcxn_flexspi_nor_config.h"
 "${SdkRootDirPath}/core/boards/frdmmcxn947/board.c"
 "${SdkRootDirPath}/core/boards/frdmmcxn947/board.h"
 "${SdkRootDirPath}/core/boards/frdmmcxn947/clock_config.c"

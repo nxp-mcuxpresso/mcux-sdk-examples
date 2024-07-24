@@ -53,3 +53,10 @@ PRIMARY_SERVICE(service_reference_time, gBleSig_ReferenceTimeUpdateService_d)
 PRIMARY_SERVICE(service_next_dst, gBleSig_NextDSTChangeService_d)
     CHARACTERISTIC(char_time_with_dst, gBleSig_TimeWithDST_d, (gGattCharPropRead_c))
         VALUE(value_time_with_dst, gBleSig_TimeWithDST_d, (gPermissionFlagReadable_c), 8, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF)
+
+/* Placed at end of file due to macro interpretation of line numbers. */
+/*
+ * Copyright 2024 NXP
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */

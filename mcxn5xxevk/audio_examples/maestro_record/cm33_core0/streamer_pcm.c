@@ -15,7 +15,7 @@
 #include "fsl_pdm.h"
 #include "fsl_pdm_edma.h"
 
-#define RECORD_BUFFER_SIZE (640)
+#define RECORD_BUFFER_SIZE (1920)
 #define BUFFER_NUM         (3U)
 #define BUFFER_SIZE        (RECORD_BUFFER_SIZE * BUFFER_NUM)
 

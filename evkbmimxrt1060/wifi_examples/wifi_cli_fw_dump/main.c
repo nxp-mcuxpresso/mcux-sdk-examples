@@ -21,14 +21,17 @@
 #include "wlan.h"
 #include "wifi.h"
 #include "wm_net.h"
-#include <wm_os.h>
+#include <osa.h>
 #include "dhcp-server.h"
 #include "cli.h"
 #include "wifi_ping.h"
 #include "iperf.h"
 
+#ifdef RW610
+#include "fsl_power.h"
+#endif
 
-#ifdef CONFIG_WIFI_FW_DEBUG
+#if CONFIG_WIFI_FW_DEBUG
 #include "usb_api.h"
 #endif
 #include "fsl_device_registers.h"
@@ -36,11 +39,9 @@
 #include "usb_host.h"
 #include "usb_support.h"
 #include "usb_phy.h"
-#include "fsl_common.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-
 
 
 /*******************************************************************************
@@ -108,19 +109,14 @@ void USB_HostTaskFn(void *param)
 {
     USB_HostEhciTaskFunction(param);
 }
-void BOARD_InitHardware(void)
-{
-    BOARD_ConfigMPU();
-    BOARD_InitPins();
-    BOARD_InitBootClocks();
-    BOARD_InitDebugConsole();
-}
 
-const int TASK_MAIN_PRIO       = OS_PRIO_3;
-const int TASK_MAIN_STACK_SIZE = 800;
+#define MAIN_TASK_STACK_SIZE 4096
 
-portSTACK_TYPE *task_main_stack = NULL;
-TaskHandle_t task_main_task_handler;
+static void main_task(osa_task_param_t arg);
+
+static OSA_TASK_DEFINE(main_task, OSA_PRIORITY_BELOW_NORMAL, 1, MAIN_TASK_STACK_SIZE, 0);
+
+OSA_TASK_HANDLE_DEFINE(main_task_Handle);
 
 static void printSeparator(void)
 {
@@ -223,13 +219,14 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
             {
                 PRINTF("IPv4 Address: [%s]\r\n", ip);
             }
-#ifdef CONFIG_IPV6
+#if CONFIG_IPV6
             int i;
             for (i = 0; i < CONFIG_MAX_IPV6_ADDRESSES; i++)
             {
                 if (ip6_addr_isvalid(addr.ipv6[i].addr_state))
                 {
-                    (void)PRINTF("IPv6 Address: %-13s:\t%s (%s)\r\n", ipv6_addr_type_to_desc((struct net_ipv6_config *)&addr.ipv6[i]),
+                    (void)PRINTF("IPv6 Address: %-13s:\t%s (%s)\r\n",
+                                 ipv6_addr_type_to_desc((struct net_ipv6_config *)&addr.ipv6[i]),
                                  inet6_ntoa(addr.ipv6[i].address), ipv6_addr_state_to_desc(addr.ipv6[i].addr_state));
                 }
             }
@@ -328,7 +325,7 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
     return 0;
 }
 
-void task_main(void *param)
+static void main_task(osa_task_param_t arg)
 {
     int32_t result = 0;
     (void)result;
@@ -355,7 +352,7 @@ void task_main(void *param)
     while (1)
     {
         /* wait for interface up */
-        os_thread_sleep(os_msec_to_ticks(5000));
+        OSA_TimeDelay(5000);
     }
 }
 
@@ -365,33 +362,34 @@ void task_main(void *param)
 
 int main(void)
 {
-    BaseType_t result = 0;
-    (void)result;
+    OSA_Init();
 
     BOARD_ConfigMPU();
 
     BOARD_InitPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
-
-#ifdef CONFIG_WIFI_FW_DEBUG
-    //SCB_DisableDCache();
-    wlan_register_fw_dump_cb(usb_init, usb_mount, usb_file_open, usb_file_write, usb_file_close
-#if defined(CONFIG_FW_DUMP_EVENT) || defined(CONFIG_CSI)
-                             , usb_file_lseek
+#ifdef RW610
+    POWER_PowerOffBle();
 #endif
-                              );
+
+#if CONFIG_WIFI_FW_DEBUG
+    // SCB_DisableDCache();
+    wlan_register_fw_dump_cb(usb_init, usb_mount, usb_file_open, usb_file_write, usb_file_close
+#if (CONFIG_FW_DUMP_EVENT) || (CONFIG_CSI)
+                             ,
+                             usb_file_lseek
+#endif
+    );
 #endif
 
     printSeparator();
     PRINTF("wifi cli fw dump demo\r\n");
     printSeparator();
 
-    result =
-        xTaskCreate(task_main, "main", TASK_MAIN_STACK_SIZE, task_main_stack, TASK_MAIN_PRIO, &task_main_task_handler);
-    assert(pdPASS == result);
+    (void)OSA_TaskCreate((osa_task_handle_t)main_task_Handle, OSA_TASK(main_task), NULL);
 
-    vTaskStartScheduler();
-    for (;;)
-        ;
+    OSA_Start();
+
+    return 0;
 }

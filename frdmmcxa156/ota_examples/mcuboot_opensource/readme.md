@@ -41,9 +41,24 @@ List of boards with projects supporting flash remapping function:
     - MIMXRT1170-EVKB
     - RD-RW612-BGA
     - RD-RW612-QFN
+    - FRDM-RW612
     - EVK-MIMXRT595
     - EVK-MIMXRT685
     - MIMXRT685-AUD-EVK
+    - MCX-N9XX-EVK
+    - MCX-N5XX-EVK
+    - FRDM-MCXN947
+
+Encrypted XIP support
+MCUBoot supports encrypted image residing on an external flash vulnerable to attack but MCUboot design expects that bootable image is decrypted to location in secure area like internal RAM or FLASH. Current version of MCUBoot doesn't support hardware on-the-fly decryption of encrypted images residing on an external flash memory. There are several on-the-fly decryption engines in NXP devices (BEE, OTFAD and IPED) which can be used for this purpose.
+
+This extension of MCUboot functionality can be evaluated by user by enabling define CONFIG_MCUBOOT_ENCRYPTED_XIP_SUPPORT in sblconfig.h
+For more information please see mcuboot_encrypted_xip.md (in mcuboot_opensource/ext/nxp_encrypted_xip)
+
+List of boards with projects supporting encrypted XIP:
+    - MIMXRT1060-EVK  (BEE)
+    - MIMXRT1060-EVKB (BEE)
+    - MIMXRT1060-EVKC (BEE)
 
 Signing the application image
 -----------------------------
@@ -51,43 +66,49 @@ MCUBoot expects signed application image in specific format to be present in the
 The very same image format it also used for OTA updates.
 
 A dedicated tool (imgtool) is used to obtain application image in the desired format.
-It is implemented as a Python script which can be found in the SDK package in middleware/mcuboot_opensource/scripts folder.
+It is implemented as a Python script which can be found in the SDK package in `middleware/mcuboot_opensource/scripts folder`.
 
 Alternatively the tool can be installed by the Python package manager:
 - "pip install imgtool"
 
 Please note that imgtool version installed by the Python package manager is not guaranteed to be compatible with MCUBoot present in you SDK package.
 
-The mcuboot_opensource SDK project comes with its set of private-public keys.
-The key pair is stored in the keys subdirectory (e.g. boards/[board]/mcuboot_opensource/keys).
+The `mcuboot_opensource` SDK project comes with its set of private-public keys.
+The key pair is stored in the keys subdirectory (e.g. `boards/[board]/mcuboot_opensource/keys`).
 The public key is already pre-configured in the source code of MCUBoot in a form of an array initializer.
 
-To sign an application binary, imgtool must be provided with respective private key and a set of parameters as in the following example:
+To sign an application binary, imgtool must be provided with respective private key and a set of parameters as in the following example for RT1060 EVK board:
+
+IMPORTANT: Note that other boards may require different parameters. Check the section `Board settings` in this readme for details.
 
  imgtool sign --key sign-rsa2048-priv.pem
-	      --align 4
-	      --header-size 0x400
-	      --pad-header
-	      --slot-size 0x200000
-	      --max-sectors 800
-	      --version "1.0"
-	      app_binary.bin
-	      app_binary_SIGNED.bin 
+	          --align 4
+	          --header-size 0x400
+	          --pad-header
+	          --slot-size 0x200000
+	          --version "2.0"
+	          app_binary.bin
+	          app_binary_SIGNED.bin
 
 The parameters used in the example above are tested with out-of-the-box configuration of MCUBoot and OTA examples in the SDK package.
 However, some of them may depend on the application or board setup and thus may need to be modified.
 See the MCUBoot documentation for the meaning of the parameters and align them with your project setup if necessary.
 https://docs.mcuboot.com/imgtool.html
 
+Using MCUXpresso Secure Provisioning Tool for MCUBoot image signing
+-------------------------------------------------------------------
+MCUXpresso Secure Provisioning Tool from verion 9 supports automation for MCUBoot image signing. Using this tool
+it's possible to setup the device for entire boot chain (ROM->MCUBoot->application) in a few steps.
+
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  12.3
-- MCUXpresso  11.9.0
+- GCC ARM Embedded  13.2.1
+- MCUXpresso  11.10.0
 
 Hardware requirements
 =====================
@@ -110,7 +131,7 @@ MCUBoot layout is the following:
 
 Image signing example:
 
-  imgtool sign --key sign-ecdsa-p256.pem
+  imgtool sign --key sign-ecdsa-p256-priv.pem
                --align 16
                --version 1.1
                --slot-size 0x7c000
@@ -132,6 +153,7 @@ Prepare the Demo
     - No parity
     - One stop bit
     - No flow control
+    - line ending set for LF ('\n')
 3.  Build project and program it to the target board.
 4.  Either press the reset button on your board or launch the debugger in your IDE to begin running the demo.
 

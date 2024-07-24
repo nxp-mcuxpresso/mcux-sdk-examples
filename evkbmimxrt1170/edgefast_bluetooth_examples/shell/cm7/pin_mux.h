@@ -110,6 +110,25 @@ void BOARD_InitM2CodecPins(void);             /* Function assigned for the Corte
  */
 void BOARD_InitPinsM2(void);                  /* Function assigned for the Cortex-M7F */
 
+#define BOARD_INITIRPINS_IOMUXC_GPR_GPR42_GPIO_MUX3_GPIO_SEL_LOW_MASK 0x4000U /*!< GPIO3 and CM7_GPIO3 share same IO MUX function, GPIO_MUX3 selects one GPIO function: affected bits mask */
+
+/* GPIO_AD_15 (coord M14), IR */
+/* Routed pin properties */
+#define BOARD_INITIRPINS_IR_PERIPHERAL                                     GPIO3   /*!< Peripheral name */
+#define BOARD_INITIRPINS_IR_SIGNAL                                   gpio_mux_io   /*!< Signal name */
+#define BOARD_INITIRPINS_IR_CHANNEL                                          14U   /*!< Signal channel */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_INITIRPINS_IR_GPIO                                           GPIO3   /*!< GPIO peripheral base pointer */
+#define BOARD_INITIRPINS_IR_GPIO_PIN                                         14U   /*!< GPIO pin number */
+#define BOARD_INITIRPINS_IR_GPIO_PIN_MASK                            (1U << 14U)   /*!< GPIO pin mask */
+
+/*!
+ * @brief Configures pin routing and optionally pin electrical features.
+ *
+ */
+void BOARD_InitIRPins(void);                  /* Function assigned for the Cortex-M7F */
+
 #if defined(__cplusplus)
 }
 #endif

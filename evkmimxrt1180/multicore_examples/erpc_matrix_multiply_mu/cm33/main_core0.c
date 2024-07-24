@@ -151,7 +151,7 @@ int main(void)
 
     BOARD_ConfigMPU();
     BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Workaround: Disable interrupt which might be enabled by ROM. */

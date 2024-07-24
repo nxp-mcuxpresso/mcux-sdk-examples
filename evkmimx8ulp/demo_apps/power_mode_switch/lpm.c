@@ -238,9 +238,15 @@ static ps_rtd_swt_cfgs_t rtd_swt_cfgs = {
     /* ACT */
     [ACT_RTD_PWR_MODE] =
         {
-            .swt_board[0] = SWT_BOARD(0x00040001, 0x0007ff83),
+            /*
+             * RTD ACT settings
+             * swt_board bit can refer into upower_ps_mask_t, power on PS0(RTD A, RTD B), PS1(Fusion), PS17(Fusion AO),PS18(FUSE).
+             * swt_mem[1] refer into upower_mp1_mask_t, power on RTD domain periperal which are needed.
+             * such as PS1(DMA0) to assure PDM edma adapter service is available after RTD resume from low power mode.
+             */
+            .swt_board[0] = SWT_BOARD(0x00060003, 0x0007ff83),
             .swt_mem[0]   = SWT_MEM(0x0, 0x0, 0x0),
-            .swt_mem[1]   = SWT_MEM(0x003fff28, 0x003fff28, 0x003fffff),
+            .swt_mem[1]   = SWT_MEM(0x003fff2a, 0x003fff2a, 0x003fffff),
         },
 };
 

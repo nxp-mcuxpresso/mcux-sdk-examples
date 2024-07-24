@@ -10,12 +10,12 @@ flash memory are performed.
 
 SDK version
 ===========
-- Version: 2.15.000
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  12.2
-- MCUXpresso  11.8.0
+- GCC ARM Embedded  13.2.1
+- MCUXpresso  11.10.0
 
 Hardware requirements
 =====================
@@ -45,24 +45,21 @@ Running the demo
 ================
 These instructions are displayed/shown on the terminal window:
 ~~~~~~~~~~~~~~~~~~~~~~~~
-PFlash Example Start
+ PFlash Example Start
 
-PFlash Information:
+ PFlash Information:
+ Program Flash block base address:      0, Hex: (0x0)
+ Program Flash block Size:              1024 KB, Hex: (0x100000)
+ Program Flash block Sector Size:       8 KB, Hex: (0x2000)
+ Program Flash block count Size:        1
+ Total Program Flash Size:              1024 KB, Hex: (0x100000)
 
-Program Flash block base address:\t%d KB, Hex: (0x%x)
+ Erase a sector of flash
+ Successfully Erased Sector 0xfe000 -> 0x100000
 
-Program Flash block Size:\t%d KB, Hex: (0x%x)
+ Program a buffer to a phrase of flash
+ Successfully Programmed and Verified Location 0xfe000 -> 0xfe010
 
-Program Flash block Sector Size:\t%d KB, Hex: (0x%x)
-
-Program Flash block count Size:\t%d
-
-Total Program Flash Size:\t%d KB, Hex: (0x%x)
-
-Successfully Erased Sector 0x%x -> 0x%x
-
-Program a buffer to a sector of flash:
-
-Successfully Programmed and Verified Location 0x%x -> 0x%x
+ End of PFlash Example
 ~~~~~~~~~~~~~~~~~~~~~~~
 And you will find the flash has been programed.

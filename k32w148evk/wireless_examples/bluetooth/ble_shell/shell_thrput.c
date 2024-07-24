@@ -4,7 +4,7 @@
  ********************************************************************************** */
 /*! *********************************************************************************
 * Copyright 2015 Freescale Semiconductor, Inc.
-* Copyright 2016-2023 NXP
+* Copyright 2016-2024 NXP
 *
 *
 * \file
@@ -45,6 +45,8 @@
 #include "dynamic_gatt_database.h"
 
 #include "app_conn.h"
+#include "app_scanner.h"
+#include "app_advertiser.h"
 #include "app.h"
 
 #include <string.h>
@@ -63,9 +65,9 @@
 #define mShellThrBufferSizeMax_c           (244U)
 
 #define mShellThrTxInterval_c              ((mShellThrConnectionInterval_d + \
-                                            mShellThrConnectionInterval_d / 4) / 3)  /* ms */
+                                            mShellThrConnectionInterval_d / 4U) / 3U)  /* ms */
 
-#define mShellThrConnectionInterval_d      (12) /* 15 ms */
+#define mShellThrConnectionInterval_d      (12U) /* 15 ms */
 
 /************************************************************************************
 *************************************************************************************
@@ -98,7 +100,7 @@ static void ShellThr_PrintReport(appCallbackParam_t pParam);
 static void ShellThr_CheckResults(void* p);
 static bool_t ShellThr_CheckScanEvent(gapScannedDevice_t* pData);
 static bool_t ShellThr_MatchDataInAdvElementList(gapAdStructure_t *pElement, void *pData, uint8_t iDataLen);
-#if mShellThrTxInterval_c
+#if defined(mShellThrTxInterval_c) && (mShellThrTxInterval_c)
 static void ShellThr_TxTimerCallback(void *p);
 #endif
 static void ShellThr_SendData(void *p);
@@ -679,7 +681,7 @@ static shell_status_t ShellThr_Stop(uint8_t argc, char * argv[])
  *
  * \return       -
  ********************************************************************************** */
-#if mShellThrTxInterval_c
+#if defined(mShellThrTxInterval_c) && (mShellThrTxInterval_c)
 static void ShellThr_TxTimerCallback(void *p)
 {
     (void)App_PostCallbackMessage(ShellThr_SendData, p);
@@ -715,7 +717,7 @@ static void ShellThr_SendData(void *p)
             if (ShellThr_IsTestInProgress() == FALSE)
             {
             /* stop timer */
-#if mShellThrTxInterval_c
+#if defined(mShellThrTxInterval_c) && (mShellThrTxInterval_c)
                 (void)TM_Stop(gThroughputTestTimerId);
 #endif
                 (void)MEM_BufferFree(pDummyTestData);
@@ -1050,6 +1052,24 @@ static bool_t ShellThr_MatchDataInAdvElementList(gapAdStructure_t *pElement,
 static void ShellThr_StartThroughputTest(thrGapRoles_t role, deviceId_t peerId)
 {
     timer_status_t timerStatus = kStatus_TimerError;
+    
+    /* MISRA Rule 10.8 - The value of a composite expression shall not be cast to a different essential type category or a wider essential type */
+    union
+    {
+        uint8_t u8;
+        uint32_t u32;
+    } txInterval = {0};
+    
+    /* MISRA Rule 11.6 - A cast shall not be performed between pointer to void and an arithmetic type */
+    union
+    {
+        uint32_t u32;
+        void *ptr;
+    } peerDeviceId = {.ptr = NULL};
+    
+    peerDeviceId.u32 = (uint32_t)peerId;
+    
+    txInterval.u8 = mShellThrTxInterval_c;
 
     if (role == thrCentral) /* GAP Central */
     {
@@ -1096,7 +1116,7 @@ static void ShellThr_StartThroughputTest(thrGapRoles_t role, deviceId_t peerId)
             }
         }
 
-#if mShellThrTxInterval_c
+#if defined(mShellThrTxInterval_c) && (mShellThrTxInterval_c)
         if (mThrWaitMtuExchange == FALSE)
         {
             gThroughputConfig[peerId].bTestInProgress = TRUE;
@@ -1106,8 +1126,8 @@ static void ShellThr_StartThroughputTest(thrGapRoles_t role, deviceId_t peerId)
             
             if (timerStatus == kStatus_TimerSuccess)
             {
-                (void)TM_InstallCallback((timer_handle_t)gThroughputTestTimerId, ShellThr_TxTimerCallback, (void*)((uint32_t)peerId));
-                (void)TM_Start((timer_handle_t)gThroughputTestTimerId, (uint8_t)kTimerModeIntervalTimer, (uint32_t)mShellThrTxInterval_c);
+                (void)TM_InstallCallback((timer_handle_t)gThroughputTestTimerId, ShellThr_TxTimerCallback, peerDeviceId.ptr);
+                (void)TM_Start((timer_handle_t)gThroughputTestTimerId, (uint8_t)kTimerModeIntervalTimer, txInterval.u32);
                 shell_write("Throughput test started.\r\nSending packets...\r\n");
             }
             else

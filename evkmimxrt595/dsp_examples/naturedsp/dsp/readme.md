@@ -17,7 +17,7 @@ it must be loaded prior to loading the DSP application.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.16.000
 
 Toolchain supported
 ===================

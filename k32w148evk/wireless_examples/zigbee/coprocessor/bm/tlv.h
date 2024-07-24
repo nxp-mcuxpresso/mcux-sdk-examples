@@ -1,6 +1,6 @@
 /****************************************************************************
  *
- * Copyright 2022-2023 NXP
+ * Copyright 2022-2024 NXP
  *
  * NXP Confidential. 
  * 
@@ -273,6 +273,12 @@ TLV_DEF(tuSupportedKeyNegotiationMethods,
 );
 _Static_assert(sizeof(tuSupportedKeyNegotiationMethods) == 12, "TLV type error");
 
+TLV_DEF(tuCurve25519PublicPoint,
+        uint64, u64DeviceEui64,
+        uint8, au8PublicPoint[32]
+);
+_Static_assert(sizeof(tuCurve25519PublicPoint) == 42, "TLV type error");
+
 TLV_DEF(tuSupportedKeyNegotiationMethodsNoAddr,
         uint8, u8KeyNegotProtMask,
         uint8, u8SharedSecretsMask
@@ -420,7 +426,6 @@ typedef ZPS_teTlvEnum (*tpfParseTLVContent)(uint8 u8Tag, uint8 u8Len,
 
 #if 0
 extern tsTlvDescr g_Tlv_ManufacturerSpecific;
-extern tsTlvDescr g_Tlv_SupportedKeyNegotiationMethods;
 extern tsTlvDescr g_Tlv_NextPanidChange;
 extern tsTlvDescr g_Tlv_NextChannelChange;
 extern tsTlvDescr g_Tlv_SymPass;
@@ -438,8 +443,8 @@ extern tsTlvDescr g_Tlv_NodeDescRsp;
 extern tsTlvDescr g_Tlv_ClearAllBindingsReq;
 extern tsTlvDescr g_Tlv_BeaconSurveyConfig;
 extern tsTlvDescr g_Tlv_BeaconSurveyRsp;
-extern tsTlvDescr g_Tlv_SecStartKeyNegReq;
-extern tsTlvDescr g_Tlv_SecStartKeyNegRsp;
+extern tsTlvDescr g_Tlv_SecStartKeyNegotiationReq;
+extern tsTlvDescr g_Tlv_SecStartKeyNegotiationRsp;
 extern tsTlvDescr g_Tlv_SecRetrAuthTokenReq;
 extern tsTlvDescr g_Tlv_SecGetAuthLvlReq;
 extern tsTlvDescr g_Tlv_SecGetAuthLvlRsp;

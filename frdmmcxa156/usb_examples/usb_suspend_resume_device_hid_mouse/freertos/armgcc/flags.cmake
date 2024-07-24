@@ -34,6 +34,7 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -DFSL_OSA_BM_TIMER_CONFIG=0 \
     -DCPU_MCXA156VLL \
     -DMCUXPRESSO_SDK \
+    -DTIMER_PORT_TYPE_LPTMR=1 \
     -DSDK_OS_FREE_RTOS \
     -g \
     -O0 \
@@ -42,7 +43,6 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -60,6 +60,7 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DFSL_OSA_BM_TIMER_CONFIG=0 \
     -DCPU_MCXA156VLL \
     -DMCUXPRESSO_SDK \
+    -DTIMER_PORT_TYPE_LPTMR=1 \
     -DSDK_OS_FREE_RTOS \
     -Os \
     -mcpu=cortex-m33 \
@@ -67,7 +68,6 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -79,6 +79,7 @@ SET(CMAKE_CXX_FLAGS_DEBUG " \
     ${CMAKE_CXX_FLAGS_DEBUG} \
     -DCPU_MCXA156VLL \
     -DMCUXPRESSO_SDK \
+    -DTIMER_PORT_TYPE_LPTMR=1 \
     -g \
     -O0 \
     -mcpu=cortex-m33 \
@@ -86,7 +87,6 @@ SET(CMAKE_CXX_FLAGS_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -99,13 +99,13 @@ SET(CMAKE_CXX_FLAGS_RELEASE " \
     ${CMAKE_CXX_FLAGS_RELEASE} \
     -DCPU_MCXA156VLL \
     -DMCUXPRESSO_SDK \
+    -DTIMER_PORT_TYPE_LPTMR=1 \
     -Os \
     -mcpu=cortex-m33 \
     -Wall \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -122,7 +122,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -152,7 +151,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \

@@ -7,12 +7,12 @@ Note: Intput data and output buffer has to be in non-cached memory space.
 
 SDK version
 ===========
-- Version: 2.15.100
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  12.2
-- MCUXpresso  11.8.0
+- GCC ARM Embedded  13.2.1
+- MCUXpresso  11.10.0
 
 Hardware requirements
 =====================

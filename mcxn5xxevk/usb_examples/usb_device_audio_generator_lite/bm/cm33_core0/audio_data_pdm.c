@@ -142,7 +142,11 @@ void Board_PDM_EDMA_Init(void)
     PDM_Init(DEMO_PDM, &pdmConfig);
     PDM_TransferCreateHandleEDMA(DEMO_PDM, &s_pdmRxHandle, pdmEdmallback, NULL, &s_pdmDmaHandle);
     PDM_TransferInstallEDMATCDMemory(&s_pdmRxHandle, s_edmaTcd, 2);
+#if defined DEMO_PDM_ENABLE_CHANNEL
+    PDM_TransferSetChannelConfigEDMA(DEMO_PDM, &s_pdmRxHandle, DEMO_PDM_ENABLE_CHANNEL, &channelConfig);
+#else
     PDM_TransferSetChannelConfigEDMA(DEMO_PDM, &s_pdmRxHandle, DEMO_PDM_ENABLE_CHANNEL_LEFT, &channelConfig);
+#endif
     PDM_SetSampleRateConfig(DEMO_PDM, DEMO_PDM_CLK_FREQ, DEMO_AUDIO_SAMPLE_RATE);
     PDM_Reset(DEMO_PDM);
     PDM_TransferReceiveEDMA(DEMO_PDM, &s_pdmRxHandle, pdmXfer);

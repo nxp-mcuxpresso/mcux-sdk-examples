@@ -38,7 +38,7 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(lwip_ping_bm_cm4)
 
-set(MCUX_BUILD_TYPES debug release sdram_debug sdram_release flexspi_nor_debug flexspi_nor_release)
+set(MCUX_BUILD_TYPES flexspi_nor_debug flexspi_nor_release)
 
 set(MCUX_SDK_PROJECT_NAME lwip_ping_bm_cm4.elf)
 
@@ -62,7 +62,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/core/boards/evkmimxrt1170/dcd.c"
 "${SdkRootDirPath}/core/boards/evkmimxrt1170/dcd.h"
 "${ProjDirPath}/../evkmimxrt1170_connect_cm4_cm4side.jlinkscript"
-"${ProjDirPath}/../evkmimxrt1170_connect_cm4_cm4side_sdram.jlinkscript"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE

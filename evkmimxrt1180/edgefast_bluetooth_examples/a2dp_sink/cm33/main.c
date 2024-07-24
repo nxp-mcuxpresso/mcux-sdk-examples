@@ -175,7 +175,7 @@ hal_audio_config_t audioTxConfig = {
     .srcClock_Hz       = 12288000U,
     .sampleRate_Hz     = (uint32_t)DEMO_AUDIO_SAMPLING_RATE,
     .fifoWatermark     = (uint8_t)(FSL_FEATURE_SAI_FIFO_COUNTn(DEMO_AUDIO_SAI) - 1),
-    .msaterSlave       = kHAL_AudioMaster,
+    .masterSlave       = kHAL_AudioMaster,
     .bclkPolarity      = kHAL_AudioSampleOnRisingEdge,
     .frameSyncWidth    = kHAL_AudioFrameSyncWidthHalfFrame,
     .frameSyncPolarity = kHAL_AudioBeginAtFallingEdge,
@@ -527,22 +527,6 @@ int main(void)
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     BOARD_SetSAIDMAPermission();
-    /*
-     * Workaround to disable the cache for whole OCRAM1,
-     * since mbedtls component requires cache disabled.
-     */
-    /* Disable code & system cache */
-    XCACHE_DisableCache(XCACHE_PC);
-    XCACHE_DisableCache(XCACHE_PS);
-    /* Disable MPU */
-    ARM_MPU_Disable();
-    ARM_MPU_SetRegion(8U, ARM_MPU_RBAR(0x20480000, ARM_MPU_SH_NON, 0U, 1U, 0U),
-                          ARM_MPU_RLAR(0x204FFFFF, 1U));
-    /* Enable MPU */
-    ARM_MPU_Enable(MPU_CTRL_PRIVDEFENA_Msk);
-    /* Enable code & system cache */
-    XCACHE_EnableCache(XCACHE_PS);
-    XCACHE_EnableCache(XCACHE_PC);
 
     EDMA_GetDefaultConfig(&EdmaConfig);
     EdmaConfig.enableMasterIdReplication = true;

@@ -36,9 +36,11 @@ SET(CMAKE_ASM_FLAGS_FLEXSPI_NOR_RELEASE " \
 SET(CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG " \
     ${CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG} \
     -DXIP_EXTERNAL_FLASH=1 \
+    -DXIP_BOOT_HEADER_ENABLE=0 \
     -DDEBUG \
     -DCPU_MIMXRT1189CVM8B_cm33 \
     -DMBEDTLS_KEY_EXCHANGE_RSA_ENABLED \
+    -DPRINTF_ADVANCED_ENABLE=1 \
     -DMCUXPRESSO_SDK \
     -DMBEDTLS_MCUX_ELE_S400_API \
     -DMFLASH_FILE_BASEADDR=14221312 \
@@ -54,7 +56,6 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
@@ -66,9 +67,11 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG " \
 SET(CMAKE_C_FLAGS_FLEXSPI_NOR_RELEASE " \
     ${CMAKE_C_FLAGS_FLEXSPI_NOR_RELEASE} \
     -DXIP_EXTERNAL_FLASH=1 \
+    -DXIP_BOOT_HEADER_ENABLE=0 \
     -DNDEBUG \
     -DCPU_MIMXRT1189CVM8B_cm33 \
     -DMBEDTLS_KEY_EXCHANGE_RSA_ENABLED \
+    -DPRINTF_ADVANCED_ENABLE=1 \
     -DMCUXPRESSO_SDK \
     -DMBEDTLS_MCUX_ELE_S400_API \
     -DMFLASH_FILE_BASEADDR=14221312 \
@@ -83,7 +86,6 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
@@ -108,7 +110,6 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -fno-rtti \
@@ -131,7 +132,6 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -fno-rtti \
@@ -147,7 +147,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -177,7 +176,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \

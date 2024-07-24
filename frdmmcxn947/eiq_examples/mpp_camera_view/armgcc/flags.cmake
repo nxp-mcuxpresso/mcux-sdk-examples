@@ -20,7 +20,6 @@ SET(CMAKE_ASM_FLAGS_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
@@ -37,7 +36,6 @@ SET(CMAKE_ASM_FLAGS_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
@@ -184,10 +182,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     -Map=output.map \
     -Wl,--print-memory-usage \
     -Xlinker \
-    --defsym=__stack_size__=0x10000 \
-    -Xlinker \
-    --defsym=__heap_size__=0x80000 \
-    -Xlinker \
     --defsym=__stack_size__=0x0200 \
     -Xlinker \
     --defsym=__heap_size__=0x400 \
@@ -216,10 +210,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     -Xlinker \
     -Map=output.map \
     -Wl,--print-memory-usage \
-    -Xlinker \
-    --defsym=__stack_size__=0x10000 \
-    -Xlinker \
-    --defsym=__heap_size__=0x80000 \
     -Xlinker \
     --defsym=__stack_size__=0x0200 \
     -Xlinker \

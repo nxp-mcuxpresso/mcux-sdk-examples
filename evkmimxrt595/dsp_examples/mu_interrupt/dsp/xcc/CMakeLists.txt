@@ -117,8 +117,6 @@ include_directories(${ProjDirPath}/../../../../../../core/components/uart)
 
 include_directories(${ProjDirPath}/../../../../../../core/drivers/flexcomm/usart)
 
-include_directories(${ProjDirPath}/../../../../../../core/utilities/str)
-
 include_directories(${ProjDirPath}/../../../../../../core/utilities/debug_console_lite)
 
 include_directories(${ProjDirPath}/../../../../../../core/utilities/assert)
@@ -139,6 +137,8 @@ include_directories(${ProjDirPath}/../../../../../../core/devices/MIMXRT595S)
 
 include_directories(${ProjDirPath}/../../../../../../core/drivers/flexcomm)
 
+include_directories(${ProjDirPath}/../../../../../../core/utilities/str)
+
 include_directories(${ProjDirPath}/../../../../../../core/CMSIS/Core/Include)
 
 add_executable(dsp_mu_interrupt_fusionf1.elf 
@@ -153,8 +153,6 @@ add_executable(dsp_mu_interrupt_fusionf1.elf
 "${ProjDirPath}/../../../../../../core/components/uart/fsl_adapter_usart.c"
 "${ProjDirPath}/../../../../../../core/drivers/flexcomm/usart/fsl_usart.h"
 "${ProjDirPath}/../../../../../../core/drivers/flexcomm/usart/fsl_usart.c"
-"${ProjDirPath}/../../../../../../core/utilities/str/fsl_str.c"
-"${ProjDirPath}/../../../../../../core/utilities/str/fsl_str.h"
 "${ProjDirPath}/../../../../../../core/utilities/debug_console_lite/fsl_debug_console.c"
 "${ProjDirPath}/../../../../../../core/utilities/debug_console_lite/fsl_debug_console.h"
 "${ProjDirPath}/../../../../../../core/utilities/assert/fsl_assert.c"
@@ -181,6 +179,8 @@ add_executable(dsp_mu_interrupt_fusionf1.elf
 "${ProjDirPath}/../../../../../../core/devices/MIMXRT595S/drivers/fsl_inputmux_connections.h"
 "${ProjDirPath}/../../../../../../core/drivers/flexcomm/fsl_flexcomm.h"
 "${ProjDirPath}/../../../../../../core/drivers/flexcomm/fsl_flexcomm.c"
+"${ProjDirPath}/../../../../../../core/utilities/str/fsl_str.c"
+"${ProjDirPath}/../../../../../../core/utilities/str/fsl_str.h"
 )
 
 

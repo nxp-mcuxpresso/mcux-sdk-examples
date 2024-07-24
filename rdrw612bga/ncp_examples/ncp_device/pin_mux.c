@@ -30,10 +30,10 @@ void BOARD_InitPins(void) {                                /*!< Function assigne
     IO_MUX_SetPinMux(IO_MUX_FC3_USART_DATA);
     /* GPIO pin for PIN1 wakeup */
     IO_MUX_SetPinMux(IO_MUX_GPIO25);
-#ifdef CONFIG_NCP_BRIDGE
+#if CONFIG_NCP
     /* GPIO pin to wakeup external host */
     IO_MUX_SetPinMux(IO_MUX_GPIO50);
-#ifdef CONFIG_NCP_SPI
+#if CONFIG_NCP_SPI
     IO_MUX_SetPinMux(IO_MUX_FC0_SPI_SS0);
     IO_MUX_SetPinConfig(0U, IO_MUX_PinConfigNoPull);
     IO_MUX_SetPinConfig(2U, IO_MUX_PinConfigNoPull);
@@ -45,6 +45,7 @@ void BOARD_InitPins(void) {                                /*!< Function assigne
     IO_MUX_SetPinConfig(27U, IO_MUX_PinConfigNoPull);
 #else
     IO_MUX_SetPinMux(IO_MUX_FC0_USART_DATA);
+    IO_MUX_SetPinMux(IO_MUX_FC0_USART_CMD);
 #endif
 #endif
 }

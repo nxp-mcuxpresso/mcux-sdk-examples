@@ -38,7 +38,7 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(littlefs_shell)
 
-set(MCUX_BUILD_TYPES release hyperram_release debug)
+set(MCUX_BUILD_TYPES release debug)
 
 set(MCUX_SDK_PROJECT_NAME littlefs_shell.elf)
 

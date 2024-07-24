@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2021 NXP
+ * Copyright 2020-2021,2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -12,7 +12,7 @@
 #include "board.h"
 #include "mcuxCsslExamples.h"
 #include "els_symmetric.h"
-
+#include "mcux_els.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -39,6 +39,13 @@ int main(void)
     BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
+
+    /* Enable ELS and related clocks */
+    if (ELS_PowerDownWakeupInit(ELS) != kStatus_Success)
+    {
+        PRINTF("\r\nELS init failed\r\n");
+        return kStatus_Fail;
+    }
 
     PRINTF("\r\nELS symmetric cipher example\r\n");
     PRINTF("\r\n============================\r\n");

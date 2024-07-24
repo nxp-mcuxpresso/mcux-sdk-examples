@@ -29,7 +29,7 @@ void BOARD_InitBootPins(void)
 void BOARD_InitPins(void)
 { /*!< Function assigned for the core: Cortex-M33[cm33] */
     IO_MUX_SetPinMux(IO_MUX_FC3_USART_DATA);
-    IO_MUX_SetPinMux(IO_MUX_LCD_SPI);
+    IO_MUX_SetPinMux(IO_MUX_LCD_8080);
 }
 
 /***********************************************************************************************************************

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 NXP
+ * Copyright 2022-2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -127,8 +127,8 @@ void APP_InitDebugConsole(void)
 void APP_DeinitDebugConsole(void)
 {
     DbgConsole_Deinit();
-    PORT_SetPinMux(APP_DEBUG_CONSOLE_RX_PORT, APP_DEBUG_CONSOLE_RX_PIN, kPORT_PinDisabledOrAnalog);
-    PORT_SetPinMux(APP_DEBUG_CONSOLE_TX_PORT, APP_DEBUG_CONSOLE_TX_PIN, kPORT_PinDisabledOrAnalog);
+    PORT_SetPinMux(APP_DEBUG_CONSOLE_RX_PORT, APP_DEBUG_CONSOLE_RX_PIN, kPORT_MuxAsGpio);
+    PORT_SetPinMux(APP_DEBUG_CONSOLE_TX_PORT, APP_DEBUG_CONSOLE_TX_PIN, kPORT_MuxAsGpio);
 }
 
 void APP_LPTMR_IRQ_HANDLER(void)
@@ -159,7 +159,7 @@ void APP_WUU_IRQ_HANDLER(void)
 }
 
 
-void main(void)
+int main(void)
 {
     uint32_t freq;
     app_power_mode_t targetPowerMode;
@@ -260,9 +260,9 @@ static void APP_SetSPCConfiguration(void)
 
 #if defined(APP_INVALIDATE_CACHE)
     APP_INVALIDATE_CACHE;
-#endif /* defined(APP_INVALIDATE_CACHE)s */    
-    
-    /* Disable all modules that controlled by SPC in active mode.. */
+#endif /* defined(APP_INVALIDATE_CACHE) */
+
+    /* Disable all modules that controlled by SPC in active mode. */
     SPC_DisableActiveModeAnalogModules(APP_SPC, kSPC_controlAllModules);
 
     /* Disable LVDs and HVDs */
@@ -272,6 +272,9 @@ static void APP_SetSPCConfiguration(void)
     SPC_EnableActiveModeSystemLowVoltageDetect(APP_SPC, false);
     SPC_EnableActiveModeIOHighVoltageDetect(APP_SPC, false);
     SPC_EnableActiveModeIOLowVoltageDetect(APP_SPC, false);
+
+    while(SPC_GetBusyStatusFlag(APP_SPC))
+        ;
 
     activeModeRegulatorOption.bandgapMode = kSPC_BandgapEnabledBufferDisabled;
     activeModeRegulatorOption.lpBuff      = false;
@@ -303,7 +306,7 @@ static void APP_SetSPCConfiguration(void)
     lowPowerRegulatorOption.lpIREF      = false;
     lowPowerRegulatorOption.bandgapMode = kSPC_BandgapDisabled;
     lowPowerRegulatorOption.lpBuff      = false;
-    /* Enable Core IVS, which is only useful in power down mode.  */
+    /* Enable Core IVS, which is only useful in power down mode. */
     lowPowerRegulatorOption.CoreIVS = true;
     /* DCDC output voltage is 1.0V in some low power mode(Deep sleep, Power Down). DCDC is disabled in Deep Power Down.
      */

@@ -14,7 +14,7 @@
     <definition extID="platform.drivers.flexcomm_usart_freertos.RW612"/>
     <definition extID="component.ostimer_time_stamp_adapter.RW612"/>
     <definition extID="middleware.edgefast_bluetooth.ble.ethermind.cm33nodsp.RW612"/>
-    <definition extID="middleware.wireless.framework.platform_ble.RW612"/>
+    <definition extID="middleware.wireless.framework.platform_ble.rw61x.RW612"/>
     <definition extID="middleware.freertos-kernel.RW612"/>
     <definition extID="middleware.freertos-kernel.heap_4.RW612"/>
     <definition extID="middleware.wifi.RW612"/>
@@ -34,7 +34,6 @@
     <definition extID="platform.drivers.trng.RW612"/>
     <definition extID="component.mrt_adapter.RW612"/>
     <definition extID="component.sdu_adapter.RW612"/>
-    <definition extID="middleware.usb.phy.RW612"/>
     <definition extID="middleware.usb.device.controller.driver.RW612"/>
     <definition extID="middleware.usb.device_controller_ehci.RW612"/>
     <definition extID="middleware.edgefast_bluetooth.common.ethermind.RW612"/>
@@ -54,6 +53,8 @@
     <definition extID="platform.drivers.clock.RW612"/>
     <definition extID="middleware.wifi.common_files.RW612"/>
     <definition extID="platform.drivers.imu.RW612"/>
+    <definition extID="middleware.wifi.osa.RW612"/>
+    <definition extID="middleware.wifi.osa_free_rtos.RW612"/>
     <definition extID="platform.drivers.common.RW612"/>
     <definition extID="platform.drivers.gdma.RW612"/>
     <definition extID="component.power_manager_core.RW612"/>
@@ -62,6 +63,7 @@
     <definition extID="component.els_pkc.trng.type_rng4.RW612"/>
     <definition extID="component.els_pkc.standalone_gdet.RW612"/>
     <definition extID="component.els_pkc.random_modes_ctr.RW612"/>
+    <definition extID="component.els_pkc.platform.rw61x_inf_header_only.RW612"/>
     <definition extID="component.els_pkc.trng.RW612"/>
     <definition extID="component.els_pkc.flow_protection.RW612"/>
     <definition extID="component.els_pkc.secure_counter.RW612"/>
@@ -73,7 +75,6 @@
     <definition extID="component.els_pkc.toolchain.RW612"/>
     <definition extID="component.els_pkc.els_header_only.RW612"/>
     <definition extID="component.els_pkc.els_common.RW612"/>
-    <definition extID="component.els_pkc.standalone_keyManagement.RW612"/>
     <definition extID="component.els_pkc.hash.RW612"/>
     <definition extID="component.els_pkc.session.RW612"/>
     <definition extID="component.els_pkc.key.RW612"/>
@@ -121,9 +122,8 @@
     <definition extID="middleware.edgefast_bluetooth.porting.list.RW612"/>
     <definition extID="middleware.edgefast_bluetooth.porting.atomic.RW612"/>
     <definition extID="component.log.RW612"/>
-    <definition extID="component.log.backend.debugconsole.RW612"/>
-    <definition extID="utility.str.RW612"/>
     <definition extID="utility.debug_console.RW612"/>
+    <definition extID="utility.str.RW612"/>
     <definition extID="component.serial_manager.RW612"/>
     <definition extID="component.serial_manager_uart.RW612"/>
     <definition extID="component.usart_adapter.RW612"/>
@@ -133,18 +133,20 @@
     <definition extID="middleware.usb.host_msd.RW612"/>
     <definition extID="middleware.edgefast_bluetooth.config.template.RW612"/>
     <definition extID="middleware.edgefast_bluetooth.mcux.linker.template.rdrw612bga.RW612"/>
-    <definition extID="middleware.wireless.framework.platform.RW612"/>
-    <definition extID="middleware.wireless.framework.platform_coex.RW612"/>
+    <definition extID="middleware.wireless.framework.platform.rw61x.RW612"/>
+    <definition extID="middleware.wireless.framework.platform_coex.rw61x.RW612"/>
     <definition extID="middleware.wireless.framework.fwk_debug.RW612"/>
+    <definition extID="component.timer_manager.RW612"/>
     <definition extID="middleware.wireless.framework_swo_dbg.RW612"/>
     <definition extID="middleware.freertos-kernel.template.RW612"/>
     <definition extID="middleware.freertos-kernel.extension.RW612"/>
     <definition extID="middleware.wifi.template.RW612"/>
-    <definition extID="middleware.lwip.RW612"/>
     <definition extID="component.wifi_bt_module.tx_pwr_limits.RW612"/>
-    <definition extID="component.wifi_bt_module.config.RW612"/>
-    <definition extID="middleware.lwip.template.RW612"/>
+    <definition extID="middleware.wifi.net.RW612"/>
+    <definition extID="middleware.wifi.net_free_rtos.RW612"/>
+    <definition extID="middleware.lwip.RW612"/>
     <definition extID="middleware.lwip.apps.lwiperf.RW612"/>
+    <definition extID="middleware.lwip.template.RW612"/>
     <definition extID="component.els_pkc.doc.rw61x.RW612"/>
     <definition extID="component.els_pkc.static_lib.rw61x.RW612"/>
     <definition extID="component.osa_interface.RW612"/>
@@ -167,7 +169,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="rdrw612bga_ncp_device" name="ncp_device" device_core="cm33_RW612" dependency="middleware.wifi.imu.RW612 component.wireless_imu_adapter.RW612 driver.conn_fwloader.RW612 component.power_manager_rdrw610.RW612 component.els_pkc.platform.rw61x.RW612 platform.drivers.flexcomm_spi_dma.RW612 component.mflash.rdrw610.RW612 platform.drivers.flexcomm.RW612 platform.drivers.flexcomm_usart.RW612 platform.drivers.flexcomm_usart_freertos.RW612 component.ostimer_time_stamp_adapter.RW612 middleware.edgefast_bluetooth.ble.ethermind.cm33nodsp.RW612 middleware.wireless.framework.platform_ble.RW612 middleware.freertos-kernel.RW612 middleware.freertos-kernel.heap_4.RW612 middleware.wifi.RW612 middleware.wifi.wifidriver.RW612 middleware.wifi.cli.RW612 middleware.wireless.wpa_supplicant.rtos.RW612 middleware.mbedtls.RW612 middleware.littlefs.RW612 component.els_pkc.RW612 component.osa_free_rtos.RW612 middleware.mbedtls.port.els_pkc.RW612 middleware.wifi.ncp_supp_wmcrypto.RW612 middleware.lwip.apps.httpsrv.RW612 middleware.lwip.apps.mdns.RW612 platform.drivers.lpc_crc.RW612 platform.drivers.lpc_rtc.RW612 platform.drivers.trng.RW612 component.mrt_adapter.RW612 component.sdu_adapter.RW612 middleware.usb.phy.RW612 middleware.usb.device.controller.driver.RW612 middleware.usb.device_controller_ehci.RW612 middleware.edgefast_bluetooth.common.ethermind.RW612 middleware.freertos-kernel.cm33_non_trustzone.RW612 platform.drivers.flash_config.rdrw612bga.RW612 device.RW612_CMSIS.RW612 device.RW612_startup.RW612 platform.drivers.reset.RW612 platform.drivers.flexspi.RW612 platform.drivers.cache_cache64.RW612 platform.drivers.cns_io_mux.RW612 platform.drivers.lpc_gpio.RW612 platform.drivers.power.RW612 platform.drivers.ocotp.RW612 component.els_pkc.platform.rw61x_standalone_clib_gdet_sensor.RW612 platform.utilities.misc_utilities.RW612 platform.drivers.clock.RW612 middleware.wifi.common_files.RW612 platform.drivers.imu.RW612 platform.drivers.common.RW612 platform.drivers.gdma.RW612 component.power_manager_core.RW612 component.lists.RW612 component.els_pkc.platform.rw61x_interface_files.RW612 component.els_pkc.trng.type_rng4.RW612 component.els_pkc.standalone_gdet.RW612 component.els_pkc.random_modes_ctr.RW612 component.els_pkc.trng.RW612 component.els_pkc.flow_protection.RW612 component.els_pkc.secure_counter.RW612 component.els_pkc.pre_processor.RW612 component.els_pkc.memory.RW612 component.els_pkc.els.RW612 component.els_pkc.core.RW612 component.els_pkc.param_integrity.RW612 component.els_pkc.toolchain.RW612 component.els_pkc.els_header_only.RW612 component.els_pkc.els_common.RW612 component.els_pkc.standalone_keyManagement.RW612 component.els_pkc.hash.RW612 component.els_pkc.session.RW612 component.els_pkc.key.RW612 component.els_pkc.mac_modes.RW612 component.els_pkc.aead_modes.RW612 component.els_pkc.data_integrity.RW612 component.els_pkc.cipher_modes.RW612 component.els_pkc.hashmodes.RW612 component.els_pkc.buffer.RW612 component.els_pkc.random.RW612 component.els_pkc.random_modes.RW612 component.els_pkc.prng.RW612 component.els_pkc.aes.RW612 component.els_pkc.ecc.RW612 component.els_pkc.math.RW612 component.els_pkc.rsa.RW612 component.els_pkc.pkc.RW612 component.els_pkc.mac.RW612 component.els_pkc.padding.RW612 component.els_pkc.hmac.RW612 component.els_pkc.aead.RW612 component.els_pkc.cipher.RW612 platform.drivers.lpc_dma.RW612 platform.drivers.flexcomm_spi.RW612 platform.drivers.memory.RW612 component.mflash.common.RW612 platform.drivers.ostimer.RW612 middleware.edgefast_bluetooth.pal.RW612 middleware.edgefast_bluetooth.template.RW612 middleware.edgefast_bluetooth.ble.ethermind.lib.cm33nodsp.RW612 middleware.usb.host.stack.RW612 middleware.edgefast_bluetooth.porting.RW612 middleware.edgefast_bluetooth.pal.platform.ethermind.RW612 middleware.edgefast_bluetooth.pal.crypto.ethermind.RW612 middleware.edgefast_bluetooth.pal.host_msd_fatfs.ethermind.RW612 middleware.edgefast_bluetooth.pal.db_gen.ethermind.RW612 component.osa.RW612 middleware.usb.host_controller_ehci.RW612 middleware.usb.host.ehci_config_header.RW612 middleware.usb.host.common_header.RW612 middleware.usb.common_header.RW612 middleware.edgefast_bluetooth.porting.work_queue.RW612 middleware.edgefast_bluetooth.porting.toolchain.RW612 middleware.edgefast_bluetooth.porting.net.RW612 middleware.edgefast_bluetooth.porting.list.RW612 middleware.edgefast_bluetooth.porting.atomic.RW612 component.log.RW612 component.log.backend.debugconsole.RW612 utility.str.RW612 utility.debug_console.RW612 component.serial_manager.RW612 component.serial_manager_uart.RW612 component.usart_adapter.RW612 middleware.fatfs.usb.RW612 middleware.fatfs.RW612 middleware.fatfs.template_usb.RW612 middleware.usb.host_msd.RW612 middleware.edgefast_bluetooth.config.template.RW612 middleware.edgefast_bluetooth.mcux.linker.template.rdrw612bga.RW612 middleware.wireless.framework.platform.RW612 middleware.wireless.framework.platform_coex.RW612 middleware.wireless.framework.fwk_debug.RW612 middleware.wireless.framework_swo_dbg.RW612 middleware.freertos-kernel.template.RW612 middleware.freertos-kernel.extension.RW612 middleware.wifi.template.RW612 middleware.lwip.RW612 component.wifi_bt_module.tx_pwr_limits.RW612 component.wifi_bt_module.config.RW612 middleware.lwip.template.RW612 middleware.lwip.apps.lwiperf.RW612 component.els_pkc.doc.rw61x.RW612 component.els_pkc.static_lib.rw61x.RW612 component.osa_interface.RW612 middleware.mbedtls.port.els.RW612 middleware.mbedtls.els_pkc.config.RW612 platform.drivers.mrt.RW612 platform.drivers.sdu.RW612 middleware.usb.device.ehci_config_header.RW612 middleware.usb.device.common_header.RW612 middleware.edgefast_bluetooth.extension.common.ethermind.RW612 middleware.edgefast_bluetooth.common.ethermind.hci.RW612 middleware.edgefast_bluetooth.config.ethermind.RW612 middleware.edgefast_bluetooth.common.ethermind.hci_platform.RW612 middleware.edgefast_bluetooth.rw610.controller.RW612 CMSIS_Include_core_cm.RW612 device.RW612_system.RW612" category="ncp_examples">
+  <example id="rdrw612bga_ncp_device" name="ncp_device" device_core="cm33_RW612" dependency="middleware.wifi.imu.RW612 component.wireless_imu_adapter.RW612 driver.conn_fwloader.RW612 component.power_manager_rdrw610.RW612 component.els_pkc.platform.rw61x.RW612 platform.drivers.flexcomm_spi_dma.RW612 component.mflash.rdrw610.RW612 platform.drivers.flexcomm.RW612 platform.drivers.flexcomm_usart.RW612 platform.drivers.flexcomm_usart_freertos.RW612 component.ostimer_time_stamp_adapter.RW612 middleware.edgefast_bluetooth.ble.ethermind.cm33nodsp.RW612 middleware.wireless.framework.platform_ble.rw61x.RW612 middleware.freertos-kernel.RW612 middleware.freertos-kernel.heap_4.RW612 middleware.wifi.RW612 middleware.wifi.wifidriver.RW612 middleware.wifi.cli.RW612 middleware.wireless.wpa_supplicant.rtos.RW612 middleware.mbedtls.RW612 middleware.littlefs.RW612 component.els_pkc.RW612 component.osa_free_rtos.RW612 middleware.mbedtls.port.els_pkc.RW612 middleware.wifi.ncp_supp_wmcrypto.RW612 middleware.lwip.apps.httpsrv.RW612 middleware.lwip.apps.mdns.RW612 platform.drivers.lpc_crc.RW612 platform.drivers.lpc_rtc.RW612 platform.drivers.trng.RW612 component.mrt_adapter.RW612 component.sdu_adapter.RW612 middleware.usb.device.controller.driver.RW612 middleware.usb.device_controller_ehci.RW612 middleware.edgefast_bluetooth.common.ethermind.RW612 middleware.freertos-kernel.cm33_non_trustzone.RW612 platform.drivers.flash_config.rdrw612bga.RW612 device.RW612_CMSIS.RW612 device.RW612_startup.RW612 platform.drivers.reset.RW612 platform.drivers.flexspi.RW612 platform.drivers.cache_cache64.RW612 platform.drivers.cns_io_mux.RW612 platform.drivers.lpc_gpio.RW612 platform.drivers.power.RW612 platform.drivers.ocotp.RW612 component.els_pkc.platform.rw61x_standalone_clib_gdet_sensor.RW612 platform.utilities.misc_utilities.RW612 platform.drivers.clock.RW612 middleware.wifi.common_files.RW612 platform.drivers.imu.RW612 middleware.wifi.osa.RW612 middleware.wifi.osa_free_rtos.RW612 platform.drivers.common.RW612 platform.drivers.gdma.RW612 component.power_manager_core.RW612 component.lists.RW612 component.els_pkc.platform.rw61x_interface_files.RW612 component.els_pkc.trng.type_rng4.RW612 component.els_pkc.standalone_gdet.RW612 component.els_pkc.random_modes_ctr.RW612 component.els_pkc.platform.rw61x_inf_header_only.RW612 component.els_pkc.trng.RW612 component.els_pkc.flow_protection.RW612 component.els_pkc.secure_counter.RW612 component.els_pkc.pre_processor.RW612 component.els_pkc.memory.RW612 component.els_pkc.els.RW612 component.els_pkc.core.RW612 component.els_pkc.param_integrity.RW612 component.els_pkc.toolchain.RW612 component.els_pkc.els_header_only.RW612 component.els_pkc.els_common.RW612 component.els_pkc.hash.RW612 component.els_pkc.session.RW612 component.els_pkc.key.RW612 component.els_pkc.mac_modes.RW612 component.els_pkc.aead_modes.RW612 component.els_pkc.data_integrity.RW612 component.els_pkc.cipher_modes.RW612 component.els_pkc.hashmodes.RW612 component.els_pkc.buffer.RW612 component.els_pkc.random.RW612 component.els_pkc.random_modes.RW612 component.els_pkc.prng.RW612 component.els_pkc.aes.RW612 component.els_pkc.ecc.RW612 component.els_pkc.math.RW612 component.els_pkc.rsa.RW612 component.els_pkc.pkc.RW612 component.els_pkc.mac.RW612 component.els_pkc.padding.RW612 component.els_pkc.hmac.RW612 component.els_pkc.aead.RW612 component.els_pkc.cipher.RW612 platform.drivers.lpc_dma.RW612 platform.drivers.flexcomm_spi.RW612 platform.drivers.memory.RW612 component.mflash.common.RW612 platform.drivers.ostimer.RW612 middleware.edgefast_bluetooth.pal.RW612 middleware.edgefast_bluetooth.template.RW612 middleware.edgefast_bluetooth.ble.ethermind.lib.cm33nodsp.RW612 middleware.usb.host.stack.RW612 middleware.edgefast_bluetooth.porting.RW612 middleware.edgefast_bluetooth.pal.platform.ethermind.RW612 middleware.edgefast_bluetooth.pal.crypto.ethermind.RW612 middleware.edgefast_bluetooth.pal.host_msd_fatfs.ethermind.RW612 middleware.edgefast_bluetooth.pal.db_gen.ethermind.RW612 component.osa.RW612 middleware.usb.host_controller_ehci.RW612 middleware.usb.host.ehci_config_header.RW612 middleware.usb.host.common_header.RW612 middleware.usb.common_header.RW612 middleware.edgefast_bluetooth.porting.work_queue.RW612 middleware.edgefast_bluetooth.porting.toolchain.RW612 middleware.edgefast_bluetooth.porting.net.RW612 middleware.edgefast_bluetooth.porting.list.RW612 middleware.edgefast_bluetooth.porting.atomic.RW612 component.log.RW612 utility.debug_console.RW612 utility.str.RW612 component.serial_manager.RW612 component.serial_manager_uart.RW612 component.usart_adapter.RW612 middleware.fatfs.usb.RW612 middleware.fatfs.RW612 middleware.fatfs.template_usb.RW612 middleware.usb.host_msd.RW612 middleware.edgefast_bluetooth.config.template.RW612 middleware.edgefast_bluetooth.mcux.linker.template.rdrw612bga.RW612 middleware.wireless.framework.platform.rw61x.RW612 middleware.wireless.framework.platform_coex.rw61x.RW612 middleware.wireless.framework.fwk_debug.RW612 component.timer_manager.RW612 middleware.wireless.framework_swo_dbg.RW612 middleware.freertos-kernel.template.RW612 middleware.freertos-kernel.extension.RW612 middleware.wifi.template.RW612 component.wifi_bt_module.tx_pwr_limits.RW612 middleware.wifi.net.RW612 middleware.wifi.net_free_rtos.RW612 middleware.lwip.RW612 middleware.lwip.apps.lwiperf.RW612 middleware.lwip.template.RW612 component.els_pkc.doc.rw61x.RW612 component.els_pkc.static_lib.rw61x.RW612 component.osa_interface.RW612 middleware.mbedtls.port.els.RW612 middleware.mbedtls.els_pkc.config.RW612 platform.drivers.mrt.RW612 platform.drivers.sdu.RW612 middleware.usb.device.ehci_config_header.RW612 middleware.usb.device.common_header.RW612 middleware.edgefast_bluetooth.extension.common.ethermind.RW612 middleware.edgefast_bluetooth.common.ethermind.hci.RW612 middleware.edgefast_bluetooth.config.ethermind.RW612 middleware.edgefast_bluetooth.common.ethermind.hci_platform.RW612 middleware.edgefast_bluetooth.rw610.controller.RW612 CMSIS_Include_core_cm.RW612 device.RW612_system.RW612" category="ncp_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -198,6 +200,7 @@
           <value>CFG_BLE</value>
           <value>MBEDTLS_MCUX_ELS_PKC_API</value>
           <value>MBEDTLS_MCUX_USE_PKC</value>
+          <value>TIMER_PORT_TYPE_MRT=1</value>
           <value>LFS_NO_INTRINSICS=1</value>
           <value>LFS_NO_ERROR=1</value>
           <value>FSL_OSA_MAIN_FUNC_ENABLE=0</value>
@@ -207,10 +210,10 @@
           <value>LOG_ENABLE_OVERWRITE=0</value>
           <value>CONFIG_ARM=1</value>
           <value>SERIAL_PORT_TYPE_UART=1</value>
+          <value>OSA_USED</value>
           <value>LWIP_DNS=1</value>
           <value>LWIP_NETIF_HOSTNAME=1</value>
           <value>LWIP_IGMP=1</value>
-          <value>SDIO_ENABLED</value>
           <value>_XOPEN_SOURCE=500</value>
           <value>SO_REUSE=1</value>
           <value>MBEDTLS_MCUX_ELS_API</value>
@@ -227,7 +230,7 @@
           <value>com.crt.advproject.gcc.fpu.fpv5sp.hard</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-fomit-frame-pointer -mcpu=cortex-m33+nodsp -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-fomit-frame-pointer -mcpu=cortex-m33+nodsp -c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>
@@ -477,10 +480,12 @@
     <source path="../common/lpm" project_relative_path="ncp_common/lpm" type="src">
       <files mask="lpm.c"/>
       <files mask="host_sleep.c"/>
+      <files mask="host_sleep_wifi.c"/>
     </source>
     <source path="../common/lpm" project_relative_path="ncp_common/lpm" type="c_include">
       <files mask="lpm.h"/>
       <files mask="host_sleep.h"/>
+      <files mask="host_sleep_wifi.h"/>
     </source>
     <source path="../common/crc" project_relative_path="ncp_common/crc" type="src">
       <files mask="crc.c"/>

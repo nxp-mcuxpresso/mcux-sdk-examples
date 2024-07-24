@@ -1,17 +1,17 @@
 /****************************************************************************
  *
- * Copyright 2020, 2023 NXP
+ * Copyright 2020, 2023-2024 NXP
  *
- * NXP Confidential. 
- * 
- * This software is owned or controlled by NXP and may only be used strictly 
- * in accordance with the applicable license terms.  
- * By expressly accepting such terms or by downloading, installing, activating 
- * and/or otherwise using the software, you are agreeing that you have read, 
- * and that you agree to comply with and are bound by, such license terms.  
- * If you do not agree to be bound by the applicable license terms, 
- * then you may not retain, install, activate or otherwise use the software. 
- * 
+ * NXP Confidential.
+ *
+ * This software is owned or controlled by NXP and may only be used strictly
+ * in accordance with the applicable license terms.
+ * By expressly accepting such terms or by downloading, installing, activating
+ * and/or otherwise using the software, you are agreeing that you have read,
+ * and that you agree to comply with and are bound by, such license terms.
+ * If you do not agree to be bound by the applicable license terms,
+ * then you may not retain, install, activate or otherwise use the software.
+ *
  *
  ****************************************************************************/
 
@@ -33,29 +33,29 @@
 #include "pwrm.h"
 
 #if ZIGBEE_USE_FRAMEWORK
-	#if defined(K32W1480_SERIES) || defined(K32W1)
-		#include "fsl_component_messaging.h"
-	#else
-		#include "Messaging.h"
-	#endif
+    #if defined(K32W1480_SERIES) || defined(K32W1) || defined(MCXW716A_SERIES) || defined(MCXW716C_SERIES) || defined(RW612_SERIES)
+        #include "fsl_component_messaging.h"
+    #else
+        #include "Messaging.h"
+    #endif
 
-	#include "FunctionLib.h"
-	#include "fsl_os_abstraction.h"
+    #include "FunctionLib.h"
+    #include "fsl_os_abstraction.h"
     /*! The MemManager Pool Id used by the Zigbee layer */
     #ifndef gZbPoolId_d
         #define gZbPoolId_d 0
     #endif
     /* Default memory allocator */
     #ifndef ZB_BufferAlloc
-		#if defined(K32W1480_SERIES) || defined(K32W1)
-        	#define ZB_BufferAlloc(numBytes)   MSG_Alloc(numBytes)
-		#else
-			#define ZB_BufferAlloc(numBytes)   MEM_BufferAllocWithId(numBytes, gZbPoolId_d, (void*)__get_LR())
-		#endif
+        #if defined(K32W1480_SERIES) || defined(K32W1) || defined(MCXW716A_SERIES) || defined(MCXW716C_SERIES) || defined(RW612_SERIES)
+            #define ZB_BufferAlloc(numBytes)   MSG_Alloc(numBytes)
+        #else
+            #define ZB_BufferAlloc(numBytes)   MEM_BufferAllocWithId(numBytes, gZbPoolId_d, (void*)__get_LR())
+        #endif
     #endif
 #else
 #include <stdlib.h>
-#define ZB_BufferAlloc(numBytes)	malloc(numBytes)
+#define ZB_BufferAlloc(numBytes)    malloc(numBytes)
 #endif
 /****************************************************************************/
 /***        Macro Definitions                                             ***/
@@ -89,26 +89,26 @@
 /***        Local Functions                                               ***/
 /****************************************************************************/
 
-PUBLIC void ZQ_vQueueCreate ( tszQueue*       psQueueHandle, 
-                              const uint32    u32QueueLength, 
-                              const uint32    u32ItemSize, 
+PUBLIC void ZQ_vQueueCreate ( tszQueue*       psQueueHandle,
+                              const uint32    u32QueueLength,
+                              const uint32    u32ItemSize,
                               uint8*          pu8StartQueue )
 {
 #if ZIGBEE_USE_FRAMEWORK
-#if defined(K32W1480_SERIES) || defined(K32W1)
+#if defined(K32W1480_SERIES) || defined(K32W1) || defined(MCXW716A_SERIES) || defined(MCXW716C_SERIES) || defined(RW612_SERIES)
         LIST_Init(&psQueueHandle->list,u32QueueLength);
 #else
         ListInit(&psQueueHandle->list,u32QueueLength);
 #endif
         psQueueHandle->u32ItemSize =  u32ItemSize;
-#else    
+#else
         if (pu8StartQueue == NULL)
         {
-        	psQueueHandle->pvHead = malloc(u32ItemSize * u32QueueLength);
+            psQueueHandle->pvHead = malloc(u32ItemSize * u32QueueLength);
         }
         else
         {
-        	psQueueHandle->pvHead =  pu8StartQueue;
+            psQueueHandle->pvHead =  pu8StartQueue;
         }
         psQueueHandle->u32ItemSize =  u32ItemSize;
         psQueueHandle->u32Length =  u32QueueLength;
@@ -120,7 +120,7 @@ PUBLIC void ZQ_vQueueCreate ( tszQueue*       psQueueHandle,
 
 }
 
-PUBLIC bool_t ZQ_bQueueSend ( void*          pvQueueHandle, 
+PUBLIC bool_t ZQ_bQueueSend ( void*          pvQueueHandle,
                               const void*    pvItemToQueue )
 {
 #if ZIGBEE_USE_FRAMEWORK
@@ -128,7 +128,7 @@ PUBLIC bool_t ZQ_bQueueSend ( void*          pvQueueHandle,
     tszQueue *psQueueHandle = (tszQueue *)pvQueueHandle;
     /* Put a message in a queue. */
 
-#if defined(K32W1480_SERIES) || defined(K32W1)
+#if defined(K32W1480_SERIES) || defined(K32W1) || defined(MCXW716A_SERIES) || defined(MCXW716C_SERIES) || defined(RW612_SERIES)
     if(LIST_GetAvailableSize(&psQueueHandle->list) || (0 == psQueueHandle->list.max))
 #else
     if(ListGetAvailable(&psQueueHandle->list) || (0 == psQueueHandle->list.max))
@@ -140,17 +140,17 @@ PUBLIC bool_t ZQ_bQueueSend ( void*          pvQueueHandle,
             FLib_MemCpy(pMsg, (void*)pvItemToQueue, psQueueHandle->u32ItemSize);
 
             /* Put a message in a queue. */
-#if defined(K32W1480_SERIES) || defined(K32W1)
+#if defined(K32W1480_SERIES) || defined(K32W1) || defined(MCXW716A_SERIES) || defined(MCXW716C_SERIES) || defined(RW612_SERIES)
             MSG_QueueAddTail(&psQueueHandle->list, pMsg);
 #else
             MSG_Queue(&psQueueHandle->list, pMsg);
 #endif
 
             /* Increase power manager activity count */
-            PWRM_eStartActivity();     
+            PWRM_eStartActivity();
             OSA_InterruptEnable();
             return TRUE;
-        }   
+        }
     }
     OSA_InterruptEnable();
     return FALSE;
@@ -174,7 +174,7 @@ PUBLIC bool_t ZQ_bQueueSend ( void*          pvQueueHandle,
         psQueueHandle->pvWriteTo += psQueueHandle->u32ItemSize;
 
         /* Increase power manager activity count */
-        PWRM_eStartActivity();        
+        PWRM_eStartActivity();
         bReturn = TRUE;
     }
     MICRO_RESTORE_INTERRUPTS(u32Store);
@@ -182,20 +182,20 @@ PUBLIC bool_t ZQ_bQueueSend ( void*          pvQueueHandle,
 #endif
 }
 
-PUBLIC bool_t ZQ_bQueueReceive ( void*    pvQueueHandle, 
+PUBLIC bool_t ZQ_bQueueReceive ( void*    pvQueueHandle,
                                  void*    pvItemFromQueue )
 {
 #if ZIGBEE_USE_FRAMEWORK
     OSA_InterruptDisable();
     tszQueue *psQueueHandle = (tszQueue *)pvQueueHandle;
 
-#if defined(K32W1480_SERIES) || defined(K32W1)
+#if defined(K32W1480_SERIES) || defined(K32W1) || defined(MCXW716A_SERIES) || defined(MCXW716C_SERIES) || defined(RW612_SERIES)
     if( MSG_QueueGetHead(&psQueueHandle->list))
 #else
     if( MSG_Pending(&psQueueHandle->list))
 #endif
     {
-#if defined(K32W1480_SERIES) || defined(K32W1)
+#if defined(K32W1480_SERIES) || defined(K32W1) || defined(MCXW716A_SERIES) || defined(MCXW716C_SERIES) || defined(RW612_SERIES)
         void* pMsg = MSG_QueueRemoveHead(&psQueueHandle->list);
 #else
         void* pMsg = MSG_DeQueue(&psQueueHandle->list);
@@ -207,7 +207,7 @@ PUBLIC bool_t ZQ_bQueueReceive ( void*    pvQueueHandle,
     }
     else
     {
-        OSA_InterruptEnable(); 
+        OSA_InterruptEnable();
         return FALSE;
     }
     OSA_InterruptEnable();
@@ -227,10 +227,10 @@ PUBLIC bool_t ZQ_bQueueReceive ( void*    pvQueueHandle,
         ( void ) memcpy( pvItemFromQueue, psQueueHandle->pvReadFrom, psQueueHandle->u32ItemSize );
         psQueueHandle->pvReadFrom += psQueueHandle->u32ItemSize;
         psQueueHandle->u32MessageWaiting--;
-        
+
         /* Decrease power manager activity count */
         PWRM_eFinishActivity();
-        bReturn = TRUE;        
+        bReturn = TRUE;
     }
     else
     {
@@ -249,7 +249,7 @@ PUBLIC bool_t ZQ_bQueueIsEmpty ( void*    pvQueueHandle )
     else return (FALSE);
 #else
     uint32 u32Store;
-    
+
     bool bReturn = FALSE;
     MICRO_DISABLE_AND_SAVE_INTERRUPTS(u32Store);
     if (psQueueHandle->u32MessageWaiting == 0)
@@ -288,18 +288,18 @@ PUBLIC uint32 ZQ_u32QueueGetQueueMessageWaiting ( void*    pvQueueHandle )
 
 PUBLIC void* ZQ_pvGetFirstElementOnQueue ( void* pvQueueHandle )
 {
-    
+
 #if ZIGBEE_USE_FRAMEWORK
-#if defined(K32W1480_SERIES) || defined(K32W1)
-	return LIST_GetHead(&((tszQueue *)pvQueueHandle)->list);
+#if defined(K32W1480_SERIES) || defined(K32W1) || defined(MCXW716A_SERIES) || defined(MCXW716C_SERIES) || defined(RW612_SERIES)
+    return LIST_GetHead(&((tszQueue *)pvQueueHandle)->list);
 #else
-	return ListGetHeadMsg(&((tszQueue *)pvQueueHandle)->list);
+    return ListGetHeadMsg(&((tszQueue *)pvQueueHandle)->list);
 #endif
 #else
     uint32 u32Store;
     void* pvReadFrom = NULL;
-    MICRO_DISABLE_AND_SAVE_INTERRUPTS(u32Store); 
-    pvReadFrom = ( (tszQueue *) pvQueueHandle)->pvReadFrom;	
+    MICRO_DISABLE_AND_SAVE_INTERRUPTS(u32Store);
+    pvReadFrom = ( (tszQueue *) pvQueueHandle)->pvReadFrom;
     if (( (tszQueue *) pvQueueHandle )->pvReadFrom >=  (( (tszQueue *) pvQueueHandle )->pvHead +
         ( ( (tszQueue *) pvQueueHandle )->u32Length * ( (tszQueue *) pvQueueHandle )->u32ItemSize) ))
     {
@@ -314,18 +314,18 @@ PUBLIC void* ZQ_pvGetNextElementOnQueue ( void* pvQueueHandle, void* pvMsg )
 {
     if( pvQueueHandle == NULL || pvMsg == NULL )
         return NULL;
-	
+
 #if ZIGBEE_USE_FRAMEWORK
     void* pvReadFrom = NULL;
-#if defined(K32W1480_SERIES) || defined(K32W1)
+#if defined(K32W1480_SERIES) || defined(K32W1) || defined(MCXW716A_SERIES) || defined(MCXW716C_SERIES) || defined(RW612_SERIES)
     pvReadFrom = LIST_GetNext(pvMsg);
 #else
     pvReadFrom = ListGetNextMsg(pvMsg);
 #endif
-	return pvReadFrom;
+    return pvReadFrom;
 #else
     uint32 u32Store;
-    MICRO_DISABLE_AND_SAVE_INTERRUPTS(u32Store); 
+    MICRO_DISABLE_AND_SAVE_INTERRUPTS(u32Store);
     if(pvMsg < (( (tszQueue *) pvQueueHandle)->pvHead +
                ( ( (tszQueue *) pvQueueHandle)->u32Length * ( (tszQueue *) pvQueueHandle)->u32ItemSize) ))
     {

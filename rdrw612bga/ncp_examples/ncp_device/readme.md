@@ -13,11 +13,11 @@ For more information about Wi-Fi module connection see:
 
 SDK version
 ===========
-- Version: 2.15.000
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  12.2
+- GCC ARM Embedded  13.2.1
 
 Hardware requirements
 =====================

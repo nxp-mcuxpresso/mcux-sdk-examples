@@ -20,8 +20,8 @@
 
 #define PWM_SRC_CLK_FREQ CLOCK_GetFreq(kCLOCK_IpgClk)
 /* Definition for default PWM frequence in hz. */
-#ifndef APP_DEFAULT_PWM_FREQUENCE
-#define APP_DEFAULT_PWM_FREQUENCE (1000UL)
+#ifndef APP_DEFAULT_PWM_FREQUENCY
+#define APP_DEFAULT_PWM_FREQUENCY (1000UL)
 #endif
 /*******************************************************************************
  * Prototypes
@@ -39,7 +39,7 @@ static void PWM_DRV_Init3PhPwm(void)
     uint16_t deadTimeVal;
     pwm_signal_param_t pwmSignal[2];
     uint32_t pwmSourceClockInHz;
-    uint32_t pwmFrequencyInHz = APP_DEFAULT_PWM_FREQUENCE;
+    uint32_t pwmFrequencyInHz = APP_DEFAULT_PWM_FREQUENCY;
 
     pwmSourceClockInHz = PWM_SRC_CLK_FREQ;
 
@@ -198,7 +198,7 @@ int main(void)
     while (1U)
     {
         /* Delay at least 100 PWM periods. */
-        SDK_DelayAtLeastUs((1000000U / APP_DEFAULT_PWM_FREQUENCE) * 100, SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY);
+        SDK_DelayAtLeastUs((1000000U / APP_DEFAULT_PWM_FREQUENCY) * 100, SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY);
 
         pwmVal = pwmVal + 4;
 

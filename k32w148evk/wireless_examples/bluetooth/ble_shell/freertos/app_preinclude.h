@@ -66,6 +66,23 @@
 #define SHELL_EXT_ADV_DATA_SIZE        (500U)
 #endif /* BLE_SHELL_AE_SUPPORT */
 
+/* Enable Decision Based Advertising Filtering shell commands */
+#define BLE_SHELL_DBAF_SUPPORT            0
+
+#if BLE_SHELL_DBAF_SUPPORT
+
+#define gBLE60_d        1
+#define gBLE60_DecisionBasedAdvertisingFilteringSupport_d       1
+#define gExpmDecisionBasedAdvertisingFilteringBit_d     BIT1
+
+#define gMaxNumDecisionInstructions_c     8U
+
+/* Increase shell buffer size & task stack size to allow longer commands */
+#define SHELL_BUFFER_SIZE       128U
+#define SHELL_TASK_STACK_SIZE   1200U
+
+#endif /* BLE_SHELL_DBAF_SUPPORT */
+
 /*! *********************************************************************************
  *     Framework Configuration
  ********************************************************************************** */

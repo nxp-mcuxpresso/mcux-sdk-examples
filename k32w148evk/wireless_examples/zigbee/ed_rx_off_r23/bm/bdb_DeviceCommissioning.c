@@ -1,6 +1,6 @@
 /****************************************************************************
  *
- * Copyright 2020 NXP
+ * Copyright 2020, 2021, 2024 NXP
  *
  * NXP Confidential. 
  * 
@@ -38,11 +38,6 @@
 #include "pdum_gen.h"
 #include "bdb_DeviceCommissioning.h"
 #include "zb_platform.h"
-#if (defined JENNIC_CHIP_FAMILY_JN516x) || (defined JENNIC_CHIP_FAMILY_JN517x)
-#include "AHI_AES.h"
-#else
-#include "aessw_ccm.h"
-#endif
 #include <string.h>
 #include <stdlib.h>
 
@@ -64,7 +59,7 @@
 
 extern PUBLIC void zps_pvAesGetKeyFromInstallCode(uint8 *pu8installCode,
                     uint16 u16installCodeLength,
-                    AESSW_Block_u *puresult);
+                    CRYPTO_tsAesBlock *puresult);
 /****************************************************************************/
 /***        Local Variables                                               ***/
 /****************************************************************************/
@@ -91,8 +86,8 @@ PUBLIC BDB_teStatus BDB_eOutOfBandCommissionGetDataEncrypted (  BDB_tsOobWriteDa
                                                                 uint8*                                pu8ReturnAuthData,
                                                                 uint16*                               puSize)
 {
-    AESSW_Block_u    uNonce;
-    AESSW_Block_u    uKey;
+    CRYPTO_tsAesBlock    uNonce;
+    CRYPTO_tsAesBlock    uKey;
     uint8*           pu8MicLocation;
     bool_t           bAesReturn;
     uint8*           pu8Key =  ( uint8* ) ZPS_pvNwkSecGetNetworkKey ( ZPS_pvAplZdoGetNwkHandle ( ) );
@@ -122,16 +117,10 @@ PUBLIC BDB_teStatus BDB_eOutOfBandCommissionGetDataEncrypted (  BDB_tsOobWriteDa
     *puSize += 16;
     pu8MicLocation = &pu8ReturnAuthData [ *puSize];
     zps_pvAesGetKeyFromInstallCode ( psSrcCredentials->pu8InstallCode , 16, &uKey ) ;
-#if (defined LITTLE_ENDIAN_PROCESSOR) && (JENNIC_CHIP_FAMILY == JN517x)
-    tsReg128 sKeyRevIn;
-    vSwipeEndian(&uKey,&sKeyRevIn,TRUE);
-    bAesReturn = bACI_WriteKey(&sKeyRevIn);
-#else
-    bAesReturn = bACI_WriteKey((tsReg128*)&uKey);
-#endif
+    bAesReturn = zbPlatCryptoAesSetKey((CRYPTO_tsReg128*)&uKey);
     if ( bAesReturn )
     {
-        vACI_OptimisedCcmStar( TRUE,
+        zbPlatCryptoAesCcmStar( TRUE,
                                4,
                                0,
                                16,
@@ -181,7 +170,7 @@ PUBLIC BDB_teStatus BDB_eOutOfBandCommissionGetDataEncrypted (  BDB_tsOobWriteDa
  ****************************************************************************/																
 PUBLIC uint8 BDB_u8OutOfBandCommissionStartDevice ( BDB_tsOobWriteDataToCommission*    psStartupData )
 {
-    AESSW_Block_u    uKey = { { 0x5a, 0x69, 0x67, 0x42, 0x65, 0x65, 0x41, 0x6c,
+    CRYPTO_tsAesBlock    uKey = { { 0x5a, 0x69, 0x67, 0x42, 0x65, 0x65, 0x41, 0x6c,
                              0x6c, 0x69, 0x61, 0x6e, 0x63, 0x65, 0x30, 0x39 } };
     uint8            i;
 
@@ -204,7 +193,11 @@ PUBLIC uint8 BDB_u8OutOfBandCommissionStartDevice ( BDB_tsOobWriteDataToCommissi
     ZPS_vAplSecSetInitialSecurityState( ZPS_ZDO_PRECONFIGURED_LINK_KEY,
                                         uKey.au8,
                                         0x00,
-                                        ZPS_APS_GLOBAL_LINK_KEY );
+                                        ZPS_APS_GLOBAL_LINK_KEY
+#ifdef R23_UPDATES
+                                        , 0, NULL, 0
+#endif
+                                        );
 
     ZPS_vNwkSetDeviceType ( ZPS_pvAplZdoGetNwkHandle(),
                            ( psStartupData->u8DeviceType + 1 ) );  /* coordinator is 1 - ED is 3 Router is 2*/
@@ -356,8 +349,8 @@ PUBLIC bool_t BDB_bOutOfBandCommissionGetKey ( uint8*    pu8InstallCode,
                                                uint8*    pu8Mic )
 {
     bool_t           bReturn;
-    AESSW_Block_u    uNonce;
-    AESSW_Block_u    uKey;
+    CRYPTO_tsAesBlock    uNonce;
+    CRYPTO_tsAesBlock    uKey;
 
     /* Copy encrypted data into decryption buffer for in-situ decryption */
     memcpy(pu8DecKey, pu8EncKey, 16);
@@ -372,16 +365,10 @@ PUBLIC bool_t BDB_bOutOfBandCommissionGetKey ( uint8*    pu8InstallCode,
     uNonce.au8[3] = (uint8)((u64ExtAddress >> 40) & 0xFF);
     uNonce.au8[2] = (uint8)((u64ExtAddress >> 48) & 0xFF);
     uNonce.au8[1] = (uint8)((u64ExtAddress >> 56) & 0xFF);
-#if (defined LITTLE_ENDIAN_PROCESSOR) && (JENNIC_CHIP_FAMILY == JN517x)
-    tsReg128 sKeyRevIn;
-    vSwipeEndian(&uKey,&sKeyRevIn,TRUE);
-    bReturn = bACI_WriteKey(&sKeyRevIn);
-#else
-    bReturn = bACI_WriteKey((tsReg128*)&uKey);
-#endif
+    bReturn = zbPlatCryptoAesSetKey((CRYPTO_tsReg128*)&uKey);
     if(bReturn)
     {
-        vACI_OptimisedCcmStar(
+        zbPlatCryptoAesCcmStar(
             FALSE, /* TRUE=Encrypt / FALSE=Decrypt */
             4, /* Required number of checksum bytes */
             0, /* Length of authentication data in bytes */

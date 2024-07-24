@@ -6,3 +6,10 @@ PRIMARY_SERVICE(service_gatt, gBleSig_GenericAttributeProfile_d)
 PRIMARY_SERVICE(service_gap, gBleSig_GenericAccessProfile_d)
     CHARACTERISTIC(char_device_name, gBleSig_GapDeviceName_d, (gGattCharPropRead_c) )
             VALUE(value_device_name, gBleSig_GapDeviceName_d, (gPermissionFlagReadable_c), 12, "NXP_BLE_TEMP")
+
+/* Placed at end of file due to macro interpretation of line numbers. */
+/*
+ * Copyright 2024 NXP
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */

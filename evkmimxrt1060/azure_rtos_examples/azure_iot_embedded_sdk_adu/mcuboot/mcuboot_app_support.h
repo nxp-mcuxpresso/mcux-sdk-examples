@@ -11,12 +11,8 @@
 
 #include "fsl_common.h"
 #include "flash_partitioning.h"
-
-#define FLASH_AREA_IMAGE_1_OFFSET (BOOT_FLASH_ACT_APP - BOOT_FLASH_BASE)
-#define FLASH_AREA_IMAGE_1_SIZE   (BOOT_FLASH_CAND_APP - BOOT_FLASH_ACT_APP)
-#define FLASH_AREA_IMAGE_2_OFFSET (FLASH_AREA_IMAGE_1_OFFSET + FLASH_AREA_IMAGE_1_SIZE)
-#define FLASH_AREA_IMAGE_2_SIZE   FLASH_AREA_IMAGE_1_SIZE // image2 slot is the same size as image1
-#define FLASH_AREA_IMAGE_3_OFFSET (FLASH_AREA_IMAGE_2_OFFSET + FLASH_AREA_IMAGE_2_SIZE)
+#include "sysflash/sysflash.h"
+#include "flash_map.h"
 
 #define IMAGE_MAGIC       0x96f3b83d
 #define IMAGE_HEADER_SIZE 32
@@ -71,11 +67,14 @@ typedef struct
     uint32_t size;
 } partition_t;
 
-extern int32_t bl_verify_image(uint32_t addrphy, uint32_t size);
+typedef int (*bl_hashfunc_t) (uint32_t offset, size_t size, uint8_t sha256[32]);
 
-extern status_t bl_get_update_partition_info(uint32_t image, partition_t *ptn);
-extern status_t bl_update_image_state(uint32_t image, uint32_t state);
-extern status_t bl_get_image_state(uint32_t image, uint32_t *state);
+int32_t bl_verify_image(uint32_t addrphy, uint32_t size);
+status_t bl_get_update_partition_info(uint32_t image, partition_t *ptn);
+status_t bl_update_image_state(uint32_t image, uint32_t state);
+status_t bl_get_image_state(uint32_t image, uint32_t *state);
 const char *bl_imgstate_to_str(uint32_t state);
+void bl_print_image_info(bl_hashfunc_t hashfunc);
+int bl_flash_remap_active(void);
 
 #endif

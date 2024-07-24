@@ -4,7 +4,7 @@
   <externalDefinitions>
     <definition extID="MIMXRT595SFFOC"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK2150_evkmimxrt595_examples_manifest_v3_14" name="MCUXpressoSDK2150_evkmimxrt595_examples_manifest_v3_14" version="2.15.0" revision="2.15.0"/>
+  <ksdk id="MCUXpressoSDK216000_evkmimxrt595_examples_manifest_v3_14" name="MCUXpressoSDK216000_evkmimxrt595_examples_manifest_v3_14" version="2.16.000" revision="2.16.000"/>
   <boards>
     <board id="evkmimxrt595" name="EVK-MIMXRT595" href="https://www.nxp.com/pip/MIMXRT595-EVK" version="1.0.0" package="MIMXRT595SFFOC">
       <examples>
@@ -526,11 +526,6 @@
         <example id="evkmimxrt595_dsp_nn_demo_cm33" name="dsp_nn_demo_cm33" brief="The dsp_nn_demo demo application demonstrates starting DSP core with DSP image." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkmimxrt595/eiq_examples/nn_demo/cm33">
           <external path="eiq_examples/nn_demo/cm33" type="xml">
             <files mask="dsp_nn_demo_cm33_v3_14.xml"/>
-          </external>
-        </example>
-        <example id="evkmimxrt595_glow_cifar10_cm33" name="glow_cifar10_cm33" brief="The glow_cifar10 demo application demonstrates starting DSP core with DSP image." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkmimxrt595/eiq_examples/glow_cifar10/cm33">
-          <external path="eiq_examples/glow_cifar10/cm33" type="xml">
-            <files mask="glow_cifar10_cm33_v3_14.xml"/>
           </external>
         </example>
         <example id="evkmimxrt595_flash_component_octal" name="flash_component_octal" brief="octal flash demo shows the use of nor flash component to erase, program, and read an external serial nor flash device." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="component_examples/flash_component/flexspi_octal" path="examples/evkmimxrt595/component_examples/flash_component/flexspi_octal">
@@ -1298,7 +1293,12 @@
             <files mask="dsp_audio_demo_bm_cm33_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkmimxrt595_ota_mcuboot_server_wifi" name="ota_mcuboot_server_wifi" brief="This ota_mcuboot_server application demonstrates OTA using an HTTP server based on lwIP TCP/IP and the MbedTLS stack with FreeRTOS. The user uses an Internet browser to upload new update package to reprogram application running on the board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="ota_examples" path="examples/evkmimxrt595/ota_examples/ota_mcuboot_server/wifi">
+        <example id="evkmimxrt595_ota_mcuboot_basic" name="ota_mcuboot_basic" brief="This projects gives an example of a basic application bootable by MCUBoot" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="ota_examples" path="examples/evkmimxrt595/ota_examples/ota_mcuboot_basic">
+          <external path="ota_examples/ota_mcuboot_basic" type="xml">
+            <files mask="ota_mcuboot_basic_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_ota_mcuboot_server_wifi" name="ota_mcuboot_server_wifi" brief="This ota_mcuboot_server application demonstrates OTA using an HTTP server based on lwIP TCP/IP stack with FreeRTOS. The user uses an Internet browser to upload new update package to reprogram application running on the board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="ota_examples" path="examples/evkmimxrt595/ota_examples/ota_mcuboot_server/wifi">
           <external path="ota_examples/ota_mcuboot_server/wifi" type="xml">
             <files mask="ota_mcuboot_server_wifi_v3_14.xml"/>
           </external>
@@ -1363,7 +1363,7 @@
             <files mask="mcuboot_opensource_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkmimxrt595_freertos_hello" name="freertos_hello" brief="The Hello World project is a simple demonstration program that uses the SDK UART drivere incombination with FreeRTOS. The purpose of this demo is to show how to use the debug console and toprovide a simple project for debugging and further development.The example application creates one task called hello_task. This task print &quot;Hello world.&quot; messagevia debug console utility and suspend itself." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="freertos_examples" path="examples/evkmimxrt595/freertos_examples/freertos_hello">
+        <example id="evkmimxrt595_freertos_hello" name="freertos_hello" brief="The Hello World project is a simple demonstration program that uses the SDK UART driver in combination with FreeRTOS. The purpose of this demo is to show how to use the debug console and toprovide a simple project for debugging and further development.The example application creates one task called hello_task. This task print &quot;Hello world.&quot; messagevia debug console utility and suspend itself." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="freertos_examples" path="examples/evkmimxrt595/freertos_examples/freertos_hello">
           <external path="freertos_examples/freertos_hello" type="xml">
             <files mask="freertos_hello_v3_14.xml"/>
           </external>
@@ -1431,6 +1431,11 @@
         <example id="evkmimxrt595_tflm_xaf_dsp_cm33" name="tflm_xaf_dsp_cm33" brief="Xtensa Audio Framework example with TensorFlow Lite Micro word detection" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkmimxrt595/eiq_examples/tflm_xaf_dsp/cm33">
           <external path="eiq_examples/tflm_xaf_dsp/cm33" type="xml">
             <files mask="tflm_xaf_dsp_cm33_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt595_tflm_cm33" name="tflm_cm33" brief="Library build of TensorFlow Lite Micro" toolchain="mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkmimxrt595/eiq_examples/tflm_lib_cm33">
+          <external path="eiq_examples/tflm_lib_cm33" type="xml">
+            <files mask="tflm_cm33_v3_14.xml"/>
           </external>
         </example>
         <example id="evkmimxrt595_tflm_cifar10_cm33" name="tflm_cifar10_cm33" brief="CIFAR-10 example for TensorFlow Lite Micro" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkmimxrt595/eiq_examples/tflm_cifar10_cm33">

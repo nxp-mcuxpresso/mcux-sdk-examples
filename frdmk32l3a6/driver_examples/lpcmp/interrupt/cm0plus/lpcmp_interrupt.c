@@ -68,8 +68,12 @@ int main(void)
     LPCMP_Init(DEMO_LPCMP_BASE, &mLpcmpConfigStruct);
 
     /* Configure the internal DAC to output half of reference voltage. */
-    mLpcmpDacConfigStruct.enableLowPowerMode     = false;
+    mLpcmpDacConfigStruct.enableLowPowerMode = false;
+#ifdef DEMO_LPCMP_REFERENCE
+    mLpcmpDacConfigStruct.referenceVoltageSource = DEMO_LPCMP_REFERENCE;
+#else
     mLpcmpDacConfigStruct.referenceVoltageSource = kLPCMP_VrefSourceVin2;
+#endif
     mLpcmpDacConfigStruct.DACValue =
         ((LPCMP_DCR_DAC_DATA_MASK >> LPCMP_DCR_DAC_DATA_SHIFT) >> 1U); /* Half of reference voltage. */
     LPCMP_SetDACConfig(DEMO_LPCMP_BASE, &mLpcmpDacConfigStruct);

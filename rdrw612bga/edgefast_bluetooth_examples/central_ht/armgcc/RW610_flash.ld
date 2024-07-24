@@ -251,6 +251,16 @@ SECTIONS
   __VECTOR_RAM = DEFINED(__ram_vector_table__) ? __VECTOR_RAM__ : ORIGIN(m_interrupts);
   __RAM_VECTOR_TABLE_SIZE_BYTES = DEFINED(__ram_vector_table__) ? (__interrupts_ram_end__ - __interrupts_ram_start__) : 0x0;
 
+  .stack :
+  {
+    . = ALIGN(8);
+    __StackLimit = .;
+    . += STACK_SIZE;
+    __StackTop = .;
+  } > m_data
+
+  PROVIDE(__stack = __StackTop);
+
   .data : AT(__DATA_ROM)
   {
     . = ALIGN(4);
@@ -308,20 +318,7 @@ SECTIONS
     __heap_limit = .; /* Add for _sbrk */
   } > m_data
 
-  .stack :
-  {
-    . = ALIGN(8);
-    . += STACK_SIZE;
-  } > m_data
-
-  /* Initializes stack on the end of block */
-  __StackTop   = ORIGIN(m_data) + LENGTH(m_data);
-  __StackLimit = __StackTop - STACK_SIZE;
-  PROVIDE(__stack = __StackTop);
-
   .ARM.attributes 0 : { *(.ARM.attributes) }
-
-  ASSERT(__StackLimit >= __HeapLimit, "region m_data overflowed with stack and heap")
 
   .smu_cpu13_mbox (NOLOAD) :
   {

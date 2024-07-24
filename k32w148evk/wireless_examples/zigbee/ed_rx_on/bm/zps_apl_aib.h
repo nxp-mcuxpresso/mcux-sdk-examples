@@ -1,6 +1,6 @@
 /****************************************************************************
  *
- * Copyright 2020, 2022-2023 NXP
+ * Copyright 2020, 2022-2024 NXP
  *
  * NXP Confidential. 
  * 
@@ -65,6 +65,7 @@
 #define apsSecurityTimeoutPeriod    u16ApsSecurityTimeOutPeriod
 #ifdef R23_UPDATES
 #define apsSupportedKeyNegotiationMethods u8ApsSupportedKeyNegotiationMethods
+#define apsSharedSecretsMask u8SharedSecretsMask
 #define apsZdoRestrictedMode        bApsZdoRestrictedMode
 #endif
 
@@ -116,6 +117,13 @@ typedef enum
     ZPS_E_POST_JOIN_KEY_UPDATE_AUTH_KEY_NEGOTIATION   = 0x03,
     ZPS_E_POST_JOIN_KEY_UPDATE_APP_DEF_CERTIF_BASED   = 0x04
 } ZPS_teAibPostJoinKeyUpdateMethod;
+
+typedef enum
+{
+    ZPS_E_DLK_STATE_NONE               = 0x00,
+    ZPS_E_DLK_STATE_START              = 0x01,
+    ZPS_E_DLK_STATE_COMPLETE           = 0x02,
+} ZPS_teAibKeyNegotiationState;
 #endif
 
 /* [I SP001349_sfr 56]  */
@@ -199,6 +207,14 @@ typedef struct
     uint8 u8InitialJoinAuth;
     uint8 u8PostJoinKeyUpdateMethod;
     uint8 u8KeyNegotiationMethod;
+    uint8 u8PresharedSecretType;
+    struct
+	{
+        uint8 u8KeyNegotiationState: 2;
+        uint8 u8PassphraseUpdateAllowed: 1;
+        uint8 u8PassphraseLen:       5; /* Len == 0 means Passphrase unset */
+	};
+    uint8 au8Passphrase[ZPS_SEC_KEY_LENGTH];
 #endif
 } ZPS_tsAplApsKeyDescriptorEntry;
 
@@ -258,6 +274,8 @@ typedef struct
 #ifdef R23_UPDATES
     bool_t  bApsZdoRestrictedMode;
     bool_t  bRequireLinkKeyEncryptionForApsTransportKey;
+    uint8   u8ApsSupportedKeyNegotiationMethods;
+    uint8   u8SharedSecretsMask;
 #endif
     uint8   u8KeyType;
     /* volatile */
@@ -287,7 +305,6 @@ typedef struct
     uint16   u16ApsSecurityTimeOutPeriod;        /* [I SP001379_sr 344] */
 #ifdef R23_UPDATES
     ZPS_tsAplApsChallengeReqTable *psAplChallengeReqTable;
-    uint8    u8ApsSupportedKeyNegotiationMethods;
     uint8    u8ApsChallengePeriodTimeoutSeconds;
     uint32   u32ApsChallengeFrameCounter;
     bool_t   *pbVerifiedFrameCounter;

@@ -8,6 +8,8 @@
 #ifndef __MFG_WLAN_BT_FW_H__
 #define __MFG_WLAN_BT_FW_H__
 
+#include <wifi_config_default.h>
+
 #if defined(SD8801)
 #include "sd8801_mfg_wlan.h"
 #elif defined(SD8978)

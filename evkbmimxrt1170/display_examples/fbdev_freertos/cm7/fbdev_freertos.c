@@ -90,6 +90,10 @@ int main(void)
     BOARD_ConfigMPU();
     BOARD_InitLpuartPins();
     BOARD_InitMipiPanelPins();
+#if (DEMO_PANEL != DEMO_PANEL_RASPI_7INCH)
+    BOARD_MIPIPanelTouch_I2C_Init();
+    BOARD_InitLpi2cPins();
+#endif
     BOARD_InitDebugConsole();
 
     if (xTaskCreate(fbdev_task, "fbdev_task", configMINIMAL_STACK_SIZE + 200, NULL, configMAX_PRIORITIES - 1, NULL) !=

@@ -7,12 +7,14 @@
     <definition extID="platform.drivers.ii2c_cmsis.MIMX8MQ6"/>
     <definition extID="platform.drivers.common.MIMX8MQ6"/>
     <definition extID="platform.drivers.rdc.MIMX8MQ6"/>
+    <definition extID="driver.pca6416a.MIMX8MQ6"/>
     <definition extID="device.MIMX8MQ6_CMSIS.MIMX8MQ6"/>
     <definition extID="component.iuart_adapter.MIMX8MQ6"/>
     <definition extID="platform.drivers.iuart.MIMX8MQ6"/>
     <definition extID="component.lists.MIMX8MQ6"/>
     <definition extID="device.MIMX8MQ6_startup.MIMX8MQ6"/>
     <definition extID="platform.utilities.misc_utilities.MIMX8MQ6"/>
+    <definition extID="utility.str.MIMX8MQ6"/>
     <definition extID="platform.drivers.ii2c.MIMX8MQ6"/>
     <definition extID="CMSIS_Driver_Include.I2C.MIMX8MQ6"/>
     <definition extID="RTE_Device.MIMX8MQ6"/>
@@ -22,7 +24,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="evkmimx8mq_cmsis_ii2c_int_b2b_transfer_master" name="cmsis_ii2c_int_b2b_transfer_master" dependency="utility.debug_console_lite.MIMX8MQ6 platform.utilities.assert_lite.MIMX8MQ6 platform.drivers.clock.MIMX8MQ6 platform.drivers.ii2c_cmsis.MIMX8MQ6 platform.drivers.common.MIMX8MQ6 platform.drivers.rdc.MIMX8MQ6 device.MIMX8MQ6_CMSIS.MIMX8MQ6 component.iuart_adapter.MIMX8MQ6 platform.drivers.iuart.MIMX8MQ6 component.lists.MIMX8MQ6 device.MIMX8MQ6_startup.MIMX8MQ6 platform.utilities.misc_utilities.MIMX8MQ6 platform.drivers.ii2c.MIMX8MQ6 CMSIS_Driver_Include.I2C.MIMX8MQ6 RTE_Device.MIMX8MQ6 CMSIS_Include_core_cm.MIMX8MQ6 device.MIMX8MQ6_system.MIMX8MQ6" category="cmsis_driver_examples/i2c">
+  <example id="evkmimx8mq_cmsis_ii2c_int_b2b_transfer_master" name="cmsis_ii2c_int_b2b_transfer_master" dependency="utility.debug_console_lite.MIMX8MQ6 platform.utilities.assert_lite.MIMX8MQ6 platform.drivers.clock.MIMX8MQ6 platform.drivers.ii2c_cmsis.MIMX8MQ6 platform.drivers.common.MIMX8MQ6 platform.drivers.rdc.MIMX8MQ6 driver.pca6416a.MIMX8MQ6 device.MIMX8MQ6_CMSIS.MIMX8MQ6 component.iuart_adapter.MIMX8MQ6 platform.drivers.iuart.MIMX8MQ6 component.lists.MIMX8MQ6 device.MIMX8MQ6_startup.MIMX8MQ6 platform.utilities.misc_utilities.MIMX8MQ6 utility.str.MIMX8MQ6 platform.drivers.ii2c.MIMX8MQ6 CMSIS_Driver_Include.I2C.MIMX8MQ6 RTE_Device.MIMX8MQ6 CMSIS_Include_core_cm.MIMX8MQ6 device.MIMX8MQ6_system.MIMX8MQ6" category="cmsis_driver_examples/i2c">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -46,7 +48,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

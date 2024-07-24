@@ -155,7 +155,7 @@ void APP_vFactoryResetRecords(void)
     eNodeState = FACTORY_NEW;
 
     PDM_eSaveRecordData(PDM_ID_APP_COORD,&eNodeState,sizeof(teNodeState));
-#ifndef K32W1480_SERIES
+#if !defined(K32W1480_SERIES) && !defined(MCXW716A_SERIES) && !defined(MCXW716C_SERIES)
     APP_vSetLed(LED2, OFF);
 #endif
 }

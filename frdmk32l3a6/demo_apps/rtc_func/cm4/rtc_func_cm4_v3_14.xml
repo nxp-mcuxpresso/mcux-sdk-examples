@@ -18,6 +18,7 @@
     <definition extID="platform.devices.K32L3A60_CMSIS.K32L3A60"/>
     <definition extID="platform.devices.K32L3A60_startup.K32L3A60"/>
     <definition extID="platform.utilities.misc_utilities.K32L3A60"/>
+    <definition extID="utility.str.K32L3A60"/>
     <definition extID="CMSIS_Include_core_cm.K32L3A60"/>
     <definition extID="platform.devices.K32L3A60_system.K32L3A60"/>
     <definition extID="armgcc"/>
@@ -26,7 +27,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="frdmk32l3a6_rtc_func_cm4" name="rtc_func_cm4" device_core="cm4_K32L3A60xxx" dependency="platform.drivers.rtc.K32L3A60 platform.drivers.port.K32L3A60 platform.drivers.gpio.K32L3A60 platform.drivers.clock.K32L3A60 platform.drivers.common.K32L3A60 platform.drivers.msmc.K32L3A60 platform.drivers.lpuart.K32L3A60 platform.utilities.assert.K32L3A60 utility.debug_console.K32L3A60 component.lpuart_adapter.K32L3A60 component.serial_manager_uart.K32L3A60 component.serial_manager.K32L3A60 component.lists.K32L3A60 platform.devices.K32L3A60_CMSIS.K32L3A60 platform.devices.K32L3A60_startup.K32L3A60 platform.utilities.misc_utilities.K32L3A60 CMSIS_Include_core_cm.K32L3A60 platform.devices.K32L3A60_system.K32L3A60" category="demo_apps">
+  <example id="frdmk32l3a6_rtc_func_cm4" name="rtc_func_cm4" device_core="cm4_K32L3A60xxx" dependency="platform.drivers.rtc.K32L3A60 platform.drivers.port.K32L3A60 platform.drivers.gpio.K32L3A60 platform.drivers.clock.K32L3A60 platform.drivers.common.K32L3A60 platform.drivers.msmc.K32L3A60 platform.drivers.lpuart.K32L3A60 platform.utilities.assert.K32L3A60 utility.debug_console.K32L3A60 component.lpuart_adapter.K32L3A60 component.serial_manager_uart.K32L3A60 component.serial_manager.K32L3A60 component.lists.K32L3A60 platform.devices.K32L3A60_CMSIS.K32L3A60 platform.devices.K32L3A60_startup.K32L3A60 platform.utilities.misc_utilities.K32L3A60 utility.str.K32L3A60 CMSIS_Include_core_cm.K32L3A60 platform.devices.K32L3A60_system.K32L3A60" category="demo_apps">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -60,7 +61,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

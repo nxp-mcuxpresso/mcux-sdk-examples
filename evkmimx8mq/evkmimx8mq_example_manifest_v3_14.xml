@@ -4,7 +4,7 @@
   <externalDefinitions>
     <definition extID="MIMX8MQ6DVAJZ"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK2150_evkmimx8mq_examples_manifest_v3_14" name="MCUXpressoSDK2150_evkmimx8mq_examples_manifest_v3_14" version="2.15.0" revision="2.15.0"/>
+  <ksdk id="MCUXpressoSDK216000_evkmimx8mq_examples_manifest_v3_14" name="MCUXpressoSDK216000_evkmimx8mq_examples_manifest_v3_14" version="2.16.000" revision="2.16.000"/>
   <boards>
     <board id="evkmimx8mq" name="EVK-MIMX8MQ" href="https://www.nxp.com/pip/MCIMX8M-EVK" version="1.0.0" package="MIMX8MQ6DVAJZ">
       <examples>
@@ -133,6 +133,11 @@
             <files mask="qspi_polling_transfer_v3_14.xml"/>
           </external>
         </example>
+        <example id="evkmimx8mq_qspi_wevk_polling_transfer" name="qspi_wevk_polling_transfer" brief="The qspi_polling example shows how to use qspi driver with polling:In this example, qspi will send data and operate the external flash connected with QSPI. Some simple flash command will be executed, such as Write Enable, Erase sector, Program page. Example will first erase the sector and programe a page into the flash, at last check if the data in flash is correct.Notice: While do program, it is not suggested to make the flash write frequency bigger than the core clock frequency.In some tool chain's Debug version, this may cause core do not have enough speed to send data to flash.The flash write frequency equals to QSPI working frequency plus data line number. For example, if QSPI working in 48MHz,program command uses quad mode, the write frequency is 48MHz * 4 = 192MHz." toolchain="armgcc" compiler="compiler_gcc" category="driver_examples/qspi" path="examples/evkmimx8mq/driver_examples/qspi/wevk_polling_transfer">
+          <external path="driver_examples/qspi/wevk_polling_transfer" type="xml">
+            <files mask="qspi_wevk_polling_transfer_v3_14.xml"/>
+          </external>
+        </example>
         <example id="evkmimx8mq_rpmsg_lite_pingpong_rtos_linux_remote" name="rpmsg_lite_pingpong_rtos_linux_remote" brief="The Multicore RPMsg-Lite pingpong RTOS project is a simple demonstration program that uses theMCUXpresso SDK software and the RPMsg-Lite library and shows how to implement the inter-corecommunicaton between cores of the multicore system. The primary core releases the secondary corefrom the reset and then the inter-core communication is established. Once the RPMsg is initializedand endpoints are created the message exchange starts, incrementing a virtual counter that is partof the message payload. The message pingpong finishes when the counter reaches the value of 100.Then the RPMsg-Lite is deinitialized and the procedure of the data exchange is repeated again.Shared memory usageThis multicore example uses the shared memory for data exchange. The shared memory region isdefined and the size can be adjustable in the linker file. The shared memory region start addressand the size have to be defined in linker file for each core equally. The shared memory startaddress is then exported from the linker to the application." toolchain="armgcc" compiler="compiler_gcc" category="multicore_examples" path="examples/evkmimx8mq/multicore_examples/rpmsg_lite_pingpong_rtos/linux_remote">
           <external path="multicore_examples/rpmsg_lite_pingpong_rtos/linux_remote" type="xml">
             <files mask="rpmsg_lite_pingpong_rtos_linux_remote_v3_14.xml"/>
@@ -143,7 +148,7 @@
             <files mask="rpmsg_lite_str_echo_rtos_imxcm4_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkmimx8mq_freertos_hello" name="freertos_hello" brief="The Hello World project is a simple demonstration program that uses the SDK UART drivere incombination with FreeRTOS. The purpose of this demo is to show how to use the debug console and toprovide a simple project for debugging and further development.The example application creates one task called hello_task. This task print &quot;Hello world.&quot; messagevia debug console utility and suspend itself." toolchain="armgcc" compiler="compiler_gcc" category="freertos_examples" path="examples/evkmimx8mq/freertos_examples/freertos_hello">
+        <example id="evkmimx8mq_freertos_hello" name="freertos_hello" brief="The Hello World project is a simple demonstration program that uses the SDK UART driver in combination with FreeRTOS. The purpose of this demo is to show how to use the debug console and toprovide a simple project for debugging and further development.The example application creates one task called hello_task. This task print &quot;Hello world.&quot; messagevia debug console utility and suspend itself." toolchain="armgcc" compiler="compiler_gcc" category="freertos_examples" path="examples/evkmimx8mq/freertos_examples/freertos_hello">
           <external path="freertos_examples/freertos_hello" type="xml">
             <files mask="freertos_hello_v3_14.xml"/>
           </external>

@@ -44,7 +44,7 @@ ${PYTHON} - "$@" <<SCRIPT_DOCUMENT
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 # POSSIBILITY OF SUCH DAMAGE. 
 # 
-# Copyright 2015-2023 NXP
+# Copyright 2015-2024 NXP
 #
 ###############################################################################
 
@@ -1067,7 +1067,12 @@ typedef struct
 typedef struct
 {
     void (*prvTrustCenterInit)(void*);
-    void (*prvTrustCenterUpdateDevice)(void*, uint64, uint64, uint8, uint16);
+""")
+    if R23_UPDATES:
+        Cfile.write("    void (*prvTrustCenterUpdateDevice)(void*, uint64, uint64, uint8, uint16, uint16);")
+    else:
+        Cfile.write("    void (*prvTrustCenterUpdateDevice)(void*, uint64, uint64, uint8, uint16);")
+    Cfile.write("""
     void (*prvTrustCenterRequestKey)(void*, uint64, uint8, uint64);
     zps_tsAplTCib sTCib;
     bool_t bTcOverride;
@@ -1118,6 +1123,12 @@ typedef struct
 
 typedef struct {
     ZPS_tuAddress uDstAddr;
+    """)
+    if R23_UPDATES:
+        Cfile.write("""
+    ZPS_tuAddress uTnlDstAddr;
+    """)
+    Cfile.write("""
     PDUM_thAPduInstance hAPduInst;
     uint8 *pu8SeqCounter;
     uint16 u16ProfileId;
@@ -1688,7 +1699,10 @@ PUBLIC void vZdoServersInit(void);
     if hasattr(configNode, "TrustCenter"):
         Cfile.write("\n/* Trust Center */\n")
         Cfile.write("PUBLIC void zps_vAplTrustCenterInit(void *);")
-        Cfile.write("PUBLIC void zps_vAplTrustCenterUpdateDevice(void *, uint64 , uint64 , uint8 , uint16 );")
+        if R23_UPDATES:
+            Cfile.write("PUBLIC void zps_vAplTrustCenterUpdateDevice(void *, uint64 , uint64 , uint8 , uint16, uint16);")
+        else:
+            Cfile.write("PUBLIC void zps_vAplTrustCenterUpdateDevice(void *, uint64 , uint64 , uint8 , uint16);")
         Cfile.write("PUBLIC void zps_vAplTrustCenterRequestKey(void *, uint64 , uint8 , uint64 );")
         trustCenterPresent = True
 
@@ -1845,8 +1859,13 @@ PUBLIC void vZdoServersInit(void);
     Cfile.write("    %s,\n" % (useInsecureJoin))
     Cfile.write("    FALSE,\n" )
     if R23_UPDATES:
-        Cfile.write("    FALSE,\n" ) # ApsZdoRestrictedMode
+        Cfile.write("    FALSE,\n" ) # apsZdoRestrictedMode
         Cfile.write("    FALSE,\n" ) # bRequireLinkKeyEncryptionForApsTransportKey
+        apsSupportedKeyNegotiationMethods = "ZPS_TLV_G_SUPPKEYNEGMETH_STATKEYREQ"
+        if configNode.get("apsSupportedKeyNegotiationMethods"):
+            apsSupportedKeyNegotiationMethods = configNode.get("apsSupportedKeyNegotiationMethods")
+        Cfile.write("    %s,\n" % (apsSupportedKeyNegotiationMethods))
+        Cfile.write("    0,\n" ) # u8SharedSecretsMask
     Cfile.write("    0,\n") # KeyType
     if not R23_UPDATES:
         nonMemberRadius = 2
@@ -1888,7 +1907,6 @@ PUBLIC void vZdoServersInit(void);
     Cfile.write("    0x%04x,\n" % (apsSecurityTimeoutPeriod))
     if R23_UPDATES:
         Cfile.write("    %s,\n" % (challengeReqTable))
-        Cfile.write("    ZPS_TLV_G_SUPPKEYNEGMETH_STATKEYREQ,\n") # u8ApsSupportedKeyNegotiationMethods
         Cfile.write("    5,\n") # u8ApsChallengePeriodTimeoutSeconds;
         Cfile.write("    0,\n") # u32ApsChallengeFrameCounter
         Cfile.write("    abVerifiedFrameCounter,\n")

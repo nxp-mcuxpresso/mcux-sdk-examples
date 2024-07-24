@@ -19,9 +19,10 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-#define CTIMER          CTIMER0         /* Timer 0 */
-#define CTIMER_MAT_OUT  kCTIMER_Match_0 /* Match output 0 */
-#define CTIMER_CLK_FREQ CLOCK_GetCTimerClkFreq(0U)
+#define CTIMER          CTIMER3         /* Timer 3 */
+#define CTIMER_MAT_OUT  kCTIMER_Match_3 /* Match output 3 */
+#define CTIMER_CLK_FREQ CLOCK_GetCTimerClkFreq(3U)
+#define CTIMER_MAT_PWM_PERIOD_CHANNEL kCTIMER_Match_1
 #ifndef CTIMER_MAT_PWM_PERIOD_CHANNEL
 #define CTIMER_MAT_PWM_PERIOD_CHANNEL kCTIMER_Match_3
 #endif
@@ -65,8 +66,8 @@ int main(void)
     CLOCK_AttachClk(BOARD_DEBUG_UART_CLK_ATTACH);
 
     /* Use FRO HF clock for some of the Ctimers */
-    CLOCK_SetClkDiv(kCLOCK_DivCtimer0Clk, 1u);
-    CLOCK_AttachClk(kFRO_HF_to_CTIMER0);
+    CLOCK_SetClkDiv(kCLOCK_DivCtimer3Clk, 1u);
+    CLOCK_AttachClk(kFRO_HF_to_CTIMER3);
 
     BOARD_InitPins();
     BOARD_InitBootClocks();

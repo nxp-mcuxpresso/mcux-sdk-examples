@@ -46,10 +46,12 @@ extern uint32_t BOARD_DebugConsoleSrcFreq(void);
 #define PROTOCOL_UART_BAUDRATE  115200
 #define BACKGROUND_BUFFER_SIZE  256
 
-#ifdef CONFIG_NCP_WIFI
+#if CONFIG_NCP_WIFI
 #define NCP_UART_TASK_PRIORITY    3
-#elif defined(CONFIG_NCP_BLE)      
+#elif (CONFIG_NCP_BLE)      
 #define NCP_UART_TASK_PRIORITY    10
+#elif defined(CONFIG_NCP_OT)
+#define NCP_UART_TASK_PRIORITY    3
 #endif      
       
 #define NCP_UART_TASK_STACK_SIZE  1024
@@ -72,6 +74,7 @@ struct rtos_usart_config ncp_uart_config = {
     .stopbits    = kUSART_OneStopBit,
     .buffer      = ncp_uart_bgbuf,
     .buffer_size = sizeof(ncp_uart_bgbuf),
+    .enableHardwareFlowControl = true,
 };
 #elif defined(MIMXRT1062_SERIES)
 lpuart_rtos_handle_t  ncp_rtos_handle;
@@ -84,6 +87,8 @@ lpuart_rtos_config_t ncp_uart_config = {
     .stopbits    = kLPUART_OneStopBit,
     .buffer      = ncp_uart_bgbuf,
     .buffer_size = sizeof(ncp_uart_bgbuf),
+    .enableRxRTS = true,
+    .enableTxCTS = true,
 };
 #endif
 
@@ -93,8 +98,8 @@ static void ncp_uart_intf_task(void *argv);
 static OSA_TASK_HANDLE_DEFINE(ncp_uartTaskHandle);
 static OSA_TASK_DEFINE(ncp_uart_intf_task, NCP_UART_TASK_PRIORITY, 1, NCP_UART_TASK_STACK_SIZE, 0);
 #if defined(RW610)
-#ifdef CONFIG_HOST_SLEEP
-#ifdef CONFIG_POWER_MANAGER
+#if CONFIG_HOST_SLEEP
+#if CONFIG_POWER_MANAGER
 extern bool usart_suspend_flag;
 #endif
 #endif
@@ -191,7 +196,7 @@ restart:
     while (tmp_len != TLV_CMD_HEADER_LEN)
     {
 #if defined(RW610)
-#ifdef CONFIG_HOST_SLEEP
+#if CONFIG_HOST_SLEEP
         if (usart_suspend_flag)
         {
             vTaskDelay(1000);
@@ -245,7 +250,7 @@ restart:
     while (tmp_len != (cmd_len - TLV_CMD_HEADER_LEN + NCP_CHKSUM_LEN))
     {
 #if defined(RW610)
-#ifdef CONFIG_HOST_SLEEP
+#if CONFIG_HOST_SLEEP
         if (usart_suspend_flag)
         {
             vTaskDelay(1000);
@@ -300,9 +305,9 @@ int ncp_uart_send(uint8_t *tlv_buf, size_t tlv_sz, tlv_send_callback_t cb)
     NCP_ASSERT(NULL != tlv_buf);
 
 #if defined(RW610)
-    ret = USART_WriteBlocking(PROTOCOL_UART, tlv_buf, tlv_sz);
+    ret = USART_RTOS_Send(&ncp_rtos_handle, tlv_buf, tlv_sz);
 #elif defined(MIMXRT1062_SERIES)
-    ret = LPUART_WriteBlocking(PROTOCOL_UART, tlv_buf, tlv_sz);
+    ret = LPUART_RTOS_Send(&ncp_rtos_handle, tlv_buf, tlv_sz);
 #endif
     if (NCP_STATUS_SUCCESS != ret)
     {

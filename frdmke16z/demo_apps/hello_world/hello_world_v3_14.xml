@@ -14,13 +14,14 @@
     <definition extID="platform.drivers.port.MKE16Z4"/>
     <definition extID="platform.drivers.smc.MKE16Z4"/>
     <definition extID="platform.utilities.misc_utilities.MKE16Z4"/>
+    <definition extID="utility.str.MKE16Z4"/>
     <definition extID="CMSIS_Include_core_cm.MKE16Z4"/>
     <definition extID="device.MKE16Z4_system.MKE16Z4"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="frdmke16z_hello_world" name="hello_world" dependency="utility.debug_console_lite.MKE16Z4 platform.utilities.assert_lite.MKE16Z4 platform.drivers.gpio.MKE16Z4 platform.drivers.clock.MKE16Z4 platform.drivers.common.MKE16Z4 device.MKE16Z4_CMSIS.MKE16Z4 component.lpuart_adapter.MKE16Z4 platform.drivers.lpuart.MKE16Z4 component.lists.MKE16Z4 device.MKE16Z4_startup.MKE16Z4 platform.drivers.port.MKE16Z4 platform.drivers.smc.MKE16Z4 platform.utilities.misc_utilities.MKE16Z4 CMSIS_Include_core_cm.MKE16Z4 device.MKE16Z4_system.MKE16Z4" category="demo_apps">
+  <example id="frdmke16z_hello_world" name="hello_world" dependency="utility.debug_console_lite.MKE16Z4 platform.utilities.assert_lite.MKE16Z4 platform.drivers.gpio.MKE16Z4 platform.drivers.clock.MKE16Z4 platform.drivers.common.MKE16Z4 device.MKE16Z4_CMSIS.MKE16Z4 component.lpuart_adapter.MKE16Z4 platform.drivers.lpuart.MKE16Z4 component.lists.MKE16Z4 device.MKE16Z4_startup.MKE16Z4 platform.drivers.port.MKE16Z4 platform.drivers.smc.MKE16Z4 platform.utilities.misc_utilities.MKE16Z4 utility.str.MKE16Z4 CMSIS_Include_core_cm.MKE16Z4 device.MKE16Z4_system.MKE16Z4" category="demo_apps">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -49,7 +50,7 @@
           <value>com.crt.advproject.gcc.fpu.none</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

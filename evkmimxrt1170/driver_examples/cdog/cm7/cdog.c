@@ -43,31 +43,31 @@ void CDOG_AppIRQHandler(void)
 
     PRINTF("CDOG IRQ Reached \r\n");
 
-    if ((CDOG->FLAGS & CDOG_FLAGS_TO_FLAG_MASK))
+    if ((CDOG->FLAGS & CDOG_FLAGS_TO_FLAG_MASK) != 0u)
     {
         PRINTF("* Timeout fault occured *\r\n\r\n");
     }
-    if ((CDOG->FLAGS & CDOG_FLAGS_MISCOM_FLAG_MASK))
+    if ((CDOG->FLAGS & CDOG_FLAGS_MISCOM_FLAG_MASK) != 0u)
     {
         PRINTF("* Miscompare fault occured *\r\n\r\n");
     }
-    if ((CDOG->FLAGS & CDOG_FLAGS_SEQ_FLAG_MASK))
+    if ((CDOG->FLAGS & CDOG_FLAGS_SEQ_FLAG_MASK) != 0u)
     {
         PRINTF("* Sequence fault occured *\r\n\r\n");
     }
-    if ((CDOG->FLAGS & CDOG_FLAGS_CNT_FLAG_MASK))
+    if ((CDOG->FLAGS & CDOG_FLAGS_CNT_FLAG_MASK) != 0u)
     {
         PRINTF("* Control fault occured *\r\n\r\n");
     }
-    if ((CDOG->FLAGS & CDOG_FLAGS_STATE_FLAG_MASK))
+    if ((CDOG->FLAGS & CDOG_FLAGS_STATE_FLAG_MASK) != 0u)
     {
         PRINTF("* State fault occured *\r\n\r\n");
     }
-    if ((CDOG->FLAGS & CDOG_FLAGS_ADDR_FLAG_MASK))
+    if ((CDOG->FLAGS & CDOG_FLAGS_ADDR_FLAG_MASK) != 0u)
     {
         PRINTF("* Address fault occured *\r\n\r\n");
     }
-    if ((CDOG->FLAGS & CDOG_FLAGS_POR_FLAG_MASK))
+    if ((CDOG->FLAGS & CDOG_FLAGS_POR_FLAG_MASK) != 0u)
     {
         PRINTF("* POR occured *\r\n\r\n");
     }

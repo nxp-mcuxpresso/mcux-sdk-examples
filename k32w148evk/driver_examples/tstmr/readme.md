@@ -8,12 +8,12 @@ In this example, it would output a time stamp information when the application i
 
 SDK version
 ===========
-- Version: 2.15.000
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  12.2
-- MCUXpresso  11.8.0
+- GCC ARM Embedded  13.2.1
+- MCUXpresso  11.10.0
 
 Hardware requirements
 =====================
@@ -40,7 +40,7 @@ Running the demo
 ================
 The following lines are printed to the serial terminal when the demo program is executed.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Timestamp1 = 0627
+ Timestamp1 = 0627
 
  Test the delay function, delay for 1 second
 

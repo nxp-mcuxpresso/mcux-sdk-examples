@@ -1,5 +1,5 @@
 /*
- * FreeRTOS Kernel V10.5.1
+ * FreeRTOS Kernel V11.0.1
  * Copyright (C) 2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * SPDX-License-Identifier: MIT
@@ -26,10 +26,18 @@
  *
  */
 
-/******************************************************************************
-    See http://www.freertos.org/a00110.html for an explanation of the
-    definitions contained in this file.
-******************************************************************************/
+/*******************************************************************************
+ * This file provides an example FreeRTOSConfig.h header file, inclusive of an
+ * abbreviated explanation of each configuration item.  Online and reference
+ * documentation provides more information.
+ * https://www.freertos.org/a00110.html
+ *
+ * Constant values enclosed in square brackets ('[' and ']') must be completed
+ * before this file will build.
+ *
+ * Use the FreeRTOSConfig.h supplied with the RTOS port in use rather than this
+ * generic file, if one is available.
+ ******************************************************************************/
 
 #ifndef FREERTOS_CONFIG_H
 #define FREERTOS_CONFIG_H
@@ -91,6 +99,11 @@
 #define configTIMER_TASK_PRIORITY                           ( 3 )
 #define configTIMER_QUEUE_LENGTH                            5
 #define configTIMER_TASK_STACK_DEPTH                        ( configMINIMAL_STACK_SIZE )
+
+/* FreeRTOS MPU specific definitions. */
+#define configUSE_MPU_WRAPPERS_V1                                 0
+#define configPROTECTED_KERNEL_OBJECT_POOL_SIZE                   10
+#define configSYSTEM_CALL_STACK_SIZE                              128
 
 /* Set the following definitions to 1 to include the API function, or zero
  * to exclude the API function.  NOTE:  Setting an INCLUDE_ parameter to 0 is only

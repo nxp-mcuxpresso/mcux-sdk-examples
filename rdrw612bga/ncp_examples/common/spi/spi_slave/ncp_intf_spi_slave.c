@@ -61,6 +61,29 @@ static int ncp_spi_pm_flag   = 0;
 /*******************************************************************************
  * Code
  ******************************************************************************/
+__attribute__((__noinline__))
+static void spi_delay(uint32_t loop)
+{
+    if (loop > 0U)
+    {
+        __ASM volatile(
+            "1:                             \n"
+            "    SUBS   %0, %0, #1          \n"
+            "    CMP    %0, #0              \n"
+            "    BNE    1b                  \n"
+            :
+            : "r"(loop));
+    }
+}
+
+static void spi_delay_us(uint32_t us)
+{
+    uint32_t instNum;
+
+    instNum = ((SystemCoreClock + 999999UL) / 1000000UL) * us;
+    spi_delay((instNum + 2U) / 3U);
+}
+
 static void ncp_spi_slave_cb(SPI_Type *base,
                                     spi_dma_handle_t *handle,
                                     status_t status,
@@ -78,6 +101,7 @@ static void ncp_spi_slave_send_sd_signal(void)
 {
     /* Toggle GPIO to inform SPI master about slave start to send data. */
     GPIO_PortToggle(GPIO, 0, NCP_SPI_SLAVE_GPIO_TX_MASK);
+    spi_delay_us(1);
     /* Change GPIO signal level with twice toggle operations */
     GPIO_PortToggle(GPIO, 0, NCP_SPI_SLAVE_GPIO_TX_MASK);
 }
@@ -86,6 +110,7 @@ static void ncp_spi_slave_send_ready_signal(void)
 {
     /* Toggle GPIO to inform SPI master about slave TX ready. */
     GPIO_PortToggle(GPIO, 0, NCP_SPI_SLAVE_GPIO_RX_READY_MASK);
+    spi_delay_us(1);
     /* Change GPIO signal level with twice toggle operations */
     GPIO_PortToggle(GPIO, 0, NCP_SPI_SLAVE_GPIO_RX_READY_MASK);
 }
@@ -228,7 +253,7 @@ static int ncp_spi_rx(uint8_t *buff, size_t *tlv_sz)
 }
 
 
-static void ncp_bridge_output_gpio_init(void)
+static void ncp_spi_output_gpio_init(void)
 {
     IO_MUX_SetPinMux(IO_MUX_GPIO27);
     IO_MUX_SetPinMux(IO_MUX_GPIO11);
@@ -242,7 +267,7 @@ static void ncp_bridge_output_gpio_init(void)
     IO_MUX_SetPinOutLevelInSleep(11U, IO_MUX_SleepPinLevelUnchanged);
 }
 
-static void ncp_bridge_slave_dma_setup(void)
+static void ncp_spi_slave_dma_setup(void)
 {
     /* DMA init */
     DMA_Init(NCP_SPI_SLAVE_DMA);
@@ -257,7 +282,7 @@ static void ncp_bridge_slave_dma_setup(void)
 }
 
 bool spi_hs_task_init = false;
-static int ncp_bridge_slave_init(void)
+static int ncp_spi_slave_init(void)
 {
     int ret = 0;
     spi_slave_config_t slaveConfig;
@@ -291,16 +316,16 @@ static int ncp_spi_init(void *argv)
         ncp_adap_e("Create spi slave event fail");
         return ret;
     }
-    ncp_bridge_output_gpio_init();
+    ncp_spi_output_gpio_init();
     CLOCK_SetFRGClock(BOARD_NORMAL_FLEXCOMM0_FRG_CLK);
     CLOCK_AttachClk(kFRG_to_FLEXCOMM0);
-    ret = ncp_bridge_slave_init();
+    ret = ncp_spi_slave_init();
     if(ret != 0)
     {
         ncp_adap_e("Failed to initialize SPI slave(%d)", ret);
         return ret;
     }
-    ncp_bridge_slave_dma_setup();
+    ncp_spi_slave_dma_setup();
     /* Set up handle for spi slave */
     ret = (int)SPI_SlaveTransferCreateHandleDMA(NCP_SPI_SLAVE, &slaveHandle,
                                                 ncp_spi_slave_cb, NULL,

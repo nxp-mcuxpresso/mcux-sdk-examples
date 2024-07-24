@@ -94,6 +94,7 @@ int main(void)
 
     /* Init board hardware.*/
     BOARD_WaitAndClearSecondaryCoreGoFlag();
+    BOARD_ConfigMPU();
     BOARD_InitPins();
     /* Initialize LED */
     LED_INIT();

@@ -36,7 +36,7 @@ uint64_t eventcounter = 0;
 /*!
  * @brief Main function
  */
-void main(void)
+int main(void)
 {
     uint8_t count = 3;
 

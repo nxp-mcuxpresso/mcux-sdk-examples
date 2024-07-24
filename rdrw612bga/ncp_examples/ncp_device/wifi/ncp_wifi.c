@@ -15,13 +15,13 @@
 #include "wlan.h"
 #include "wifi.h"
 #include "wm_net.h"
-#include <wm_os.h>
+#include <osa.h>
 #include "dhcp-server.h"
 
 #ifndef RW610
 #include "wifi_bt_config.h"
 #endif
-#ifdef CONFIG_WIFI_USB_FILE_ACCESS
+#if CONFIG_WIFI_USB_FILE_ACCESS
 #include "usb_host_config.h"
 #include "usb_host.h"
 #include "usb_api.h"
@@ -35,7 +35,7 @@
 #include "uap_prov.h"
 #include "app_notify.h"
 
-#ifdef CONFIG_NCP_BRIDGE_DEBUG
+#if CONFIG_NCP_DEBUG
 #include "cli.h"
 #endif
 
@@ -59,8 +59,8 @@ extern const unsigned int wlan_fw_bin_len;
 
 extern int network_services;
 extern uint16_t g_cmd_seqno;
-extern uint8_t cmd_buf[NCP_BRIDGE_INBUF_SIZE];
-extern uint8_t res_buf[NCP_BRIDGE_INBUF_SIZE];
+extern uint8_t cmd_buf[NCP_INBUF_SIZE];
+extern uint8_t wifi_res_buf[NCP_INBUF_SIZE];
 
 /*WIFI NCP COMMAND TASK*/
 #define WIFI_NCP_COMMAND_QUEUE_NUM 160
@@ -68,14 +68,17 @@ static osa_msgq_handle_t wifi_ncp_command_queue; /* ncp adapter TX msgq */
 OSA_MSGQ_HANDLE_DEFINE(wifi_ncp_command_queue_buff, WIFI_NCP_COMMAND_QUEUE_NUM,  sizeof(wifi_ncp_command_t));
 
 OSA_SEMAPHORE_HANDLE_DEFINE(wifi_ncp_lock);
+OSA_SEMAPHORE_HANDLE_DEFINE(ncp_wifi_resp_buf_lock);
 
-os_thread_t wifi_ncp_thread;                         /* ncp bridge  task */
-static os_thread_stack_define(wifi_ncp_stack, 6144); /* ncp bridge task stack*/
+static void wifi_ncp_task(void *pvParameters);
+static OSA_TASK_HANDLE_DEFINE(wifi_ncp_thread);                         /* ncp  task */
+static OSA_TASK_DEFINE(wifi_ncp_task, PRIORITY_RTOS_TO_OSA(1), 1, 6144, 0); /* ncp task stack*/
 
 static struct wlan_network sta_network;
 static struct wlan_network uap_network;
 
 extern uint32_t current_cmd;
+extern wifi_bss_config wifi_lfs_bss_config[5];
 
 /*******************************************************************************
  * Code
@@ -90,22 +93,22 @@ static void printSeparator(void)
  * This involves
  * 1) sending cmd response out to interface
  * 2) computation of the crc of the cmd resp
- * 3) reset cmd_buf & res_buf
- * 4) release bridge lock
+ * 3) reset cmd_buf & wifi_res_buf
+ * 4) release lock
  */
 int wifi_ncp_send_response(uint8_t *pbuf)
 {
     int ret                = WM_SUCCESS;
     uint16_t transfer_len = 0;
-    NCP_BRIDGE_COMMAND *res = (NCP_BRIDGE_COMMAND *)pbuf;
+    NCP_COMMAND *res = (NCP_COMMAND *)pbuf;
 
     /* set cmd seqno */
     res->seqnum = g_cmd_seqno;
     transfer_len        = res->size;
-    if (transfer_len >= NCP_BRIDGE_CMD_HEADER_LEN)
+    if (transfer_len >= NCP_CMD_HEADER_LEN)
     {
         /* write response to host */
-        ncp_tlv_send(pbuf, transfer_len);
+        ret = ncp_tlv_send(pbuf, transfer_len);
         if (ret != WM_SUCCESS)
         {
             ncp_e("failed to write response");
@@ -118,14 +121,15 @@ int wifi_ncp_send_response(uint8_t *pbuf)
         ret = -WM_FAIL;
     }
 
-    if (res->msg_type != NCP_BRIDGE_MSG_TYPE_EVENT)
+    if (GET_MSG_TYPE(res->cmd) != NCP_MSG_TYPE_EVENT)
     {
         /* Reset cmd_buf */
         memset(cmd_buf, 0, sizeof(cmd_buf));
-        /* Reset res_buf */
-        memset(res_buf, 0, sizeof(res_buf));
+        /* Reset wifi_res_buf */
+        memset(wifi_res_buf, 0, sizeof(wifi_res_buf));
         OSA_SemaphorePost(wifi_ncp_lock);
-        ncp_d("put bridge lock");
+        ncp_d("put lock");
+        ncp_put_wifi_resp_buf_lock();
     }
 
     return ret;
@@ -133,7 +137,7 @@ int wifi_ncp_send_response(uint8_t *pbuf)
 
 static int wifi_ncp_command_handle_input(uint8_t *cmd)
 {
-    NCP_BRIDGE_COMMAND *input_cmd = (NCP_BRIDGE_COMMAND *)cmd;
+    NCP_COMMAND *input_cmd = (NCP_COMMAND *)cmd;
     struct cmd_t *command         = NULL;
     int ret                       = WM_SUCCESS;
 
@@ -141,9 +145,9 @@ static int wifi_ncp_command_handle_input(uint8_t *cmd)
     uint32_t cmd_subclass = GET_CMD_SUBCLASS(input_cmd->cmd);
     uint32_t cmd_id       = GET_CMD_ID(input_cmd->cmd);
     void *cmd_tlv         = GET_CMD_TLV(input_cmd);
-    current_cmd = cmd_id;
+    current_cmd           = input_cmd->cmd;
 
-    command = lookup_class(cmd_class, cmd_subclass, cmd_id);
+    command               = lookup_class(cmd_class, cmd_subclass, cmd_id);
     if (NULL == command)
     {
         ncp_d("ncp wifi lookup cmd failed\r\n");
@@ -154,13 +158,13 @@ static int wifi_ncp_command_handle_input(uint8_t *cmd)
 
     if (command->async == CMD_SYNC)
     {
-         wifi_ncp_send_response(res_buf);
+         wifi_ncp_send_response(wifi_res_buf);
     }
     else
     {
         /* Wait for cmd to execute, then
          * 1) send cmd response
-         * 2) reset cmd_buf & res_buf
+         * 2) reset cmd_buf & wifi_res_buf
          * 3) release wifi_ncp_lock */
     }
 
@@ -183,8 +187,7 @@ static void wifi_ncp_task(void *pvParameters)
         else
         {
             cmd_buf = cmd_item.cmd_buff;
-            if(((NCP_BRIDGE_COMMAND *)cmd_buf)->cmd != NCP_BRIDGE_CMD_WLAN_POWERMGMT_MCU_SLEEP_CFM)
-                OSA_SemaphoreWait(wifi_ncp_lock, osaWaitForever_c);
+            OSA_SemaphoreWait(wifi_ncp_lock, osaWaitForever_c);
             wifi_ncp_command_handle_input(cmd_buf);
             OSA_MemoryFree(cmd_buf);
             cmd_buf = NULL;
@@ -228,7 +231,7 @@ static void wifi_ncp_callback(void *tlv, size_t tlv_sz, int status)
  */
 int wlan_event_callback(enum wlan_event_reason reason, void *data)
 {
-#ifdef CONFIG_NCP_WIFI
+#if CONFIG_NCP_WIFI
     int ret;
     static int auth_fail = 0;
     struct wlan_ip_config addr;
@@ -249,7 +252,7 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
             PRINTF("app_cb: WLAN initialized\r\n");
             printSeparator();
 
-#ifdef CONFIG_NCP_BRIDGE_DEBUG
+#if CONFIG_NCP_DEBUG
             ret = wlan_basic_cli_init();
             if (ret != WM_SUCCESS)
             {
@@ -265,17 +268,6 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
             }
             PRINTF("WLAN CLIs are initialized\r\n");
             printSeparator();
-
-#ifdef CONFIG_HOST_SLEEP
-            ret = host_sleep_cli_init();
-            if (ret != WM_SUCCESS)
-            {
-                PRINTF("Failed to initialize WLAN host sleep CLIs\r\n");
-                return 0;
-            }
-            PRINTF("HOST SLEEP CLIs are initialized\r\n");
-            printSeparator();
-#endif
 
             ret = wlan_enhanced_cli_init();
             if (ret != WM_SUCCESS)
@@ -300,7 +292,7 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
                 return 0;
             }
 
-            ret = ncp_bridge_mdns_init();
+            ret = ncp_mdns_init();
             if (ret != WM_SUCCESS)
             {
                 (void)PRINTF("Failed to initialize mDNS\r\n");
@@ -335,7 +327,7 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
             {
                 PRINTF("IPv4 Address: [%s]\r\n", ip);
             }
-#ifdef CONFIG_IPV6
+#if CONFIG_IPV6
             int i;
             for (i = 0; i < CONFIG_MAX_IPV6_ADDRESSES; i++)
             {
@@ -348,7 +340,7 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
             }
             (void)PRINTF("\r\n");
 #endif
-#ifdef MDNS_STA_INTERFACE
+#if MDNS_STA_INTERFACE
             if (!network_services)
             {
                 ret = app_mdns_register_iface(net_get_sta_handle());
@@ -365,7 +357,7 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
                 app_mdns_resp_restart(net_get_sta_handle());
             }
 #endif
-            NCP_CMD_WLAN_CONN *conn_res = (NCP_CMD_WLAN_CONN *)os_mem_alloc(sizeof(NCP_CMD_WLAN_CONN));
+            NCP_CMD_WLAN_CONN *conn_res = (NCP_CMD_WLAN_CONN *)OSA_MemoryAllocate(sizeof(NCP_CMD_WLAN_CONN));
             if (conn_res == NULL)
             {
                 app_notify_event(APP_EVT_USER_CONNECT, APP_EVT_REASON_FAILURE, NULL, 0);
@@ -394,7 +386,7 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
                 wlan_disconnect();
                 auth_fail = 0;
             }
-#ifdef MDNS_STA_INTERFACE
+#if MDNS_STA_INTERFACE
             ret = app_mdns_deregister_iface(net_get_sta_handle());
             if (ret != WM_SUCCESS)
                 (void)PRINTF("Error in deregistering mDNS STA interface\r\n");
@@ -404,7 +396,7 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
             break;
         case WLAN_REASON_ADDRESS_SUCCESS:
             PRINTF("network mgr: DHCP new lease\r\n");
-#ifdef MDNS_STA_INTERFACE
+#if MDNS_STA_INTERFACE
             app_mdns_resp_restart(net_get_sta_handle());
 #endif
             break;
@@ -413,7 +405,7 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
             break;
         case WLAN_REASON_USER_DISCONNECT:
             PRINTF("app_cb: disconnected\r\n");
-#ifdef MDNS_STA_INTERFACE
+#if MDNS_STA_INTERFACE
             ret = app_mdns_deregister_iface(net_get_sta_handle());
             if (ret != WM_SUCCESS)
                 (void)PRINTF("Error in deregistering mDNS STA interface\r\n");
@@ -453,7 +445,7 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
 
             PRINTF("DHCP Server started successfully\r\n");
             printSeparator();
-            NCP_CMD_NETWORK_START *start_res = (NCP_CMD_NETWORK_START *)os_mem_alloc(sizeof(NCP_CMD_NETWORK_START));
+            NCP_CMD_NETWORK_START *start_res = (NCP_CMD_NETWORK_START *)OSA_MemoryAllocate(sizeof(NCP_CMD_NETWORK_START));
             (void)memcpy(start_res->ssid, uap_network.ssid, sizeof(uap_network.ssid));
             app_notify_event(APP_EVT_USER_START_NETWORK, APP_EVT_REASON_SUCCESS, start_res,
                              sizeof(NCP_CMD_NETWORK_START));
@@ -518,12 +510,7 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
     return 0;
 }
 
-#ifdef CONFIG_NCP_BRIDGE_DEBUG
-static void printSeparator(void)
-{
-    PRINTF("========================================\r\n");
-}
-
+#if CONFIG_NCP_DEBUG
 int wifi_ncp_cli_init(void)
 {
     int32_t result = 0;
@@ -539,9 +526,10 @@ int wifi_ncp_cli_init(void)
 int wifi_ncp_init(void)
 {
     int ret;
+    osa_status_t status;
     wifi_ncp_command_queue = (osa_msgq_handle_t)wifi_ncp_command_queue_buff;
 
-#ifdef CONFIG_NCP_BRIDGE_DEBUG
+#if CONFIG_NCP_DEBUG
     ret = wifi_ncp_cli_init();
     if (ret != WM_SUCCESS)
     {
@@ -550,36 +538,40 @@ int wifi_ncp_init(void)
     }
 #endif
 
-    ret = OSA_MsgQCreate(wifi_ncp_command_queue, WIFI_NCP_COMMAND_QUEUE_NUM,  sizeof(wifi_ncp_command_t));
-    if (ret != WM_SUCCESS)
+    status = OSA_MsgQCreate(wifi_ncp_command_queue, WIFI_NCP_COMMAND_QUEUE_NUM,  sizeof(wifi_ncp_command_t));
+    if (status != KOSA_StatusSuccess)
     {
-        app_e("failed to create wifi ncp command queue: %d", ret);
+        app_e("failed to create wifi ncp command queue: %d", status);
         return -WM_FAIL;
     }
 
-    ret = OSA_SemaphoreCreateBinary(wifi_ncp_lock);
-    if (ret != kStatus_Success)
+    status = OSA_SemaphoreCreateBinary(wifi_ncp_lock);
+    if (status != KOSA_StatusSuccess)
     {
-        ncp_e("failed to create wifi_ncp_lock: %d", ret);
-        return ret;
+        ncp_e("failed to create wifi_ncp_lock: %d", status);
+        return status;
     }
     else
     {
         OSA_SemaphorePost(wifi_ncp_lock);
     }
 
-    ncp_tlv_install_handler(GET_CMD_CLASS(NCP_BRIDGE_CMD_WLAN), (void *)wifi_ncp_callback);
-    ret = os_thread_create(&wifi_ncp_thread, "wifi_ncp_task", wifi_ncp_task, 0, &wifi_ncp_stack, OS_PRIO_3);
-    if (ret != WM_SUCCESS)
+     ret = OSA_SemaphoreCreateBinary(ncp_wifi_resp_buf_lock);
+    if (ret != kStatus_Success)
     {
-        ncp_e("failed to create ncp wifi task: %d", ret);
-        return -WM_FAIL;
+        ncp_e("failed to create system_ncp_lock: %d", ret);
+        return ret;
+    }
+    else
+    {
+        OSA_SemaphorePost(ncp_wifi_resp_buf_lock);
     }
 
-    ret = app_notify_init();
-    if (ret != WM_SUCCESS)
+    ncp_tlv_install_handler(GET_CMD_CLASS(NCP_CMD_WLAN), (void *)wifi_ncp_callback);
+    status = OSA_TaskCreate((osa_task_handle_t)wifi_ncp_thread, OSA_TASK(wifi_ncp_task), NULL);
+    if (status != KOSA_StatusSuccess)
     {
-        ncp_e("app notify failed to initialize: %d", ret);
+        ncp_e("failed to create ncp wifi task: %d", status);
         return -WM_FAIL;
     }
 
@@ -599,5 +591,67 @@ int wifi_ncp_init(void)
         ncp_e("wlan_start fail: %d", ret);
         return -WM_FAIL;
     }
+
+    if(is_nvm_enabled())
+    {
+        ncp_wifi_set_nvm_network();
+    }
+
     return WM_SUCCESS;
+}
+
+int ncp_wifi_set_nvm_network(void)
+{
+    struct wlan_network *network = NULL;
+    int res;
+
+    network = (struct wlan_network *)OSA_MemoryAllocate(sizeof(struct wlan_network));
+    if (network == NULL)
+    {
+        ncp_e("failed to allocate memory for network list");
+        res = -WM_FAIL;
+        goto done;
+    }
+    (void)memset(network, 0, sizeof(struct wlan_network));
+
+    for(int i = 0; i < WLAN_BSS_MAX_NUM; i++)
+    {
+        if(wifi_lfs_bss_config[i].flag != WLAN_BSS_STATUS_AVAILABLE)
+        {
+            continue;
+        }
+
+        res = wifi_get_network(network, WLAN_BSS_ROLE_UAP, wifi_lfs_bss_config[i].network_name);
+        if(res != WM_SUCCESS)
+        {
+            ncp_e("Failed to get network configuration from %s", wifi_lfs_bss_config[i].config_path);
+            goto done;
+        }
+
+        res = wlan_add_network(network);
+        if (res != WM_SUCCESS)
+        {
+            ncp_e("%s: add network fail %d.",__func__, res);
+            goto done;
+        }
+        (void)memset(network, 0, sizeof(struct wlan_network));
+    }
+
+done:
+    if(network != NULL)
+    {
+        OSA_MemoryFree(network);
+    }
+
+    return res;
+}
+
+void ncp_get_wifi_resp_buf_lock()
+{
+    OSA_SemaphoreWait(ncp_wifi_resp_buf_lock, osaWaitForever_c);
+}
+
+void ncp_put_wifi_resp_buf_lock()
+{
+    OSA_SemaphorePost(ncp_wifi_resp_buf_lock);
 }

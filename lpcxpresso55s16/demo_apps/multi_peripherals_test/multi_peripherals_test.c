@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 - 2021 NXP
+ * Copyright 2020 - 2021, 2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -159,7 +159,7 @@ void USB_DeviceTaskFn(void *deviceHandle)
 #endif
 
 
-void main(void)
+int main(void)
 {
     /* Init board hardware. */
     /* set BOD VBAT level to 1.65V */

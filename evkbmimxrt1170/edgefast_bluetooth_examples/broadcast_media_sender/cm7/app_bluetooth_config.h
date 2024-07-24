@@ -1,5 +1,5 @@
 /*
- *  Copyright 2020-2023 NXP
+ *  Copyright 2020-2024 NXP
  *  All rights reserved.
  *
  *  SPDX-License-Identifier: BSD-3-Clause
@@ -55,9 +55,6 @@
 #define CONFIG_BT_BAP_BROADCAST_SOURCE               1
 #define CONFIG_BT_BAP_BROADCAST_SRC_SUBGROUP_COUNT   1
 #define CONFIG_BT_BAP_BROADCAST_SRC_STREAM_COUNT     2
-
-/* The default frame duration is 10ms, below macro used to enable 7.5ms frame duration. */
-#define LE_AUDIO_FRAME_DURATION_7_5MS 0
 
 #define CONFIG_BT_HOST_USB_ENABLE     1
 #define CONFIG_BT_HOST_USB_IRQ_ENABLE 1

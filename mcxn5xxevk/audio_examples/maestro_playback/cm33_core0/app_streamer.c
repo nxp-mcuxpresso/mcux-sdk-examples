@@ -408,7 +408,7 @@ app_error_code_t resume()
     return kAppCodeError;
 }
 
-app_error_code_t volume()
+app_error_code_t set_volume()
 {
     if (get_app_data()->status == kAppRunning || get_app_data()->status == kAppPaused)
     {

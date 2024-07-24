@@ -54,6 +54,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/examples/evkmimxrt595/eiq_examples/nn_demo/dsp/binary/dsp_reset_release.bin"
 "${SdkRootDirPath}/examples/evkmimxrt595/eiq_examples/nn_demo/dsp/binary/dsp_text_release.bin"
 "${SdkRootDirPath}/examples/evkmimxrt595/eiq_examples/nn_demo/dsp/binary/dsp_data_release.bin"
+"${ProjDirPath}/../incbin.S"
 "${ProjDirPath}/../dsp_support.c"
 "${ProjDirPath}/../dsp_support.h"
 "${ProjDirPath}/../dsp_ipc.c"
@@ -93,7 +94,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../rpmsg_config.h"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
-"${ProjDirPath}/../incbin.S"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE

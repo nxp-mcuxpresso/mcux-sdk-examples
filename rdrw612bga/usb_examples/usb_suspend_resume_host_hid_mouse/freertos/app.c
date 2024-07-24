@@ -112,10 +112,6 @@ extern usb_host_handle g_HostHandle;
 uint32_t g_halTimerHandle[(HAL_TIMER_HANDLE_SIZE + 3) / 4];
 power_sleep_config_t s_slpCfg;
 static uint32_t systemTickControl;
-/* Allocate the memory for the heap. */
-#if defined(configAPPLICATION_ALLOCATED_HEAP) && (configAPPLICATION_ALLOCATED_HEAP)
-USB_DMA_NONINIT_DATA_ALIGN(USB_DATA_ALIGN_SIZE) uint8_t ucHeap[configTOTAL_HEAP_SIZE];
-#endif
 /*! @brief USB host mouse instance global variable */
 extern usb_host_mouse_instance_t g_HostHidMouse;
 usb_host_handle g_HostHandle;

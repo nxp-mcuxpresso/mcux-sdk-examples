@@ -22,13 +22,8 @@
 #include <stdlib.h>
 #include "dbg.h"
 #include "portmacro_JN518x.h"
-#if ZIGBEE_USE_FRAMEWORK
-#include "SecLib.h"
+#include "zb_platform.h"
 #include "fsl_os_abstraction.h"
-#else
-#include "aessw_ccm.h"
-#include "MicroSpecific.h"
-#endif
 
 /****************************************************************************/
 /***        Macro Definitions                                             ***/
@@ -55,51 +50,6 @@ PUBLIC uint32 u32Reverse(uint32 u32InWord)
     return u32OutWord;
 }
 
-#ifndef ZIGBEE_USE_FRAMEWORK
-PUBLIC bool_t bACI_WriteKey(tsReg128 *psKeyData)
-{
-    status_t status;
-    status = AES_SetKey(AES0, (uint8 *)psKeyData, 16);
-    if (status != kStatus_Success)
-    {
-        return FALSE;
-    }
-    return TRUE;
-}
-
-/****************************************************************************
- *
- * NAME:       vSwipeEndian
- */
-/**
- * Reverses 1282bit data between AESSW_Block_u and tsReg128
- *
- *
- * @param puBlock  128 bit data of type AESSW_Block_u
- *
- * @param psReg  128 bit data of type  tsReg128
- *
- * @param bBlockToReg  direction of converesion
- * 						1 = AESSW_Block_u to tsReg128
- *						0 = tsReg128 to AESSW_Block_u
- *
- * @return
- *
- * @note
- *
- ****************************************************************************/
-PUBLIC void vSwipeEndian(AESSW_Block_u *puBlock, tsReg128 *psReg, bool_t bBlockToReg)
-{
-    int i=0;
-    for (i = 0; i < 4 ; i++)
-    {
-        if(bBlockToReg)
-            ((uint32*)psReg)[i] = u32Reverse((uint32)(puBlock->au32[i]));
-        else
-            puBlock->au32[i]  = u32Reverse(((uint32*)psReg)[i]);
-	}
-}
-#endif
 #ifdef JENNIC_DEBUG_ENABLE
 #define BUFFER_SIZE 24
 

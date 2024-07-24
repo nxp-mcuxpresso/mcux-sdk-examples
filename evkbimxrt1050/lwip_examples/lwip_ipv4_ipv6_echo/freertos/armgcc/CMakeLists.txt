@@ -38,7 +38,7 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(lwip_ipv4_ipv6_echo_freertos)
 
-set(MCUX_BUILD_TYPES debug sdram_debug sdram_release release flexspi_nor_debug flexspi_nor_release)
+set(MCUX_BUILD_TYPES flexspi_nor_debug flexspi_nor_release)
 
 set(MCUX_SDK_PROJECT_NAME lwip_ipv4_ipv6_echo_freertos.elf)
 

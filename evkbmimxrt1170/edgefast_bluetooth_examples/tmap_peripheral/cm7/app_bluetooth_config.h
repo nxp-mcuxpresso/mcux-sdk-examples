@@ -1,5 +1,5 @@
 /*
- *  Copyright 2020-2023 NXP
+ *  Copyright 2020-2024 NXP
  *  All rights reserved.
  *
  *  SPDX-License-Identifier: BSD-3-Clause
@@ -39,8 +39,11 @@
 #define CONFIG_BT_HOST_CRYPTO           1
 #define CONFIG_BT_KEYS_OVERWRITE_OLDEST 1
 #define CONFIG_BT_RX_STACK_SIZE         2200
+#define CONFIG_BT_ATT_TX_COUNT          20
 #define CONFIG_BT_L2CAP_TX_BUF_COUNT    20
 #define CONFIG_BT_PRIVACY               1
+
+#define CONFIG_BT_ATT_RX_MAX 20
 
 // Demo setting.
 #define CONFIG_BT_CSIP_SET_MEMBER 0

@@ -67,10 +67,13 @@
 #define BOARD_APP_UART_DMAREQMUX_TX kDmaRequestMuxLPUART0Tx
 #define BOARD_APP_UART_DMAREQMUX_RX kDmaRequestMuxLPUART0Rx
 
-#define BOARD_APP2_UART_BASEADDR     (uint32_t) LPUART1 /*set lpuart1 as the default*/
-#define BOARD_APP2_UART_INSTANCE     1U                 /*set lpuart1 as the default*/
-#define BOARD_APP2_UART_CLK          kCLOCK_Lpuart1     /*set lpuart1 as the default*/
-#define BOARD_APP2_UART_CLKSRC       kCLOCK_IpSrcFro192M
+#define BOARD_APP2_UART_BASEADDR (uint32_t) LPUART1 /*set lpuart1 as the default*/
+#define BOARD_APP2_UART_INSTANCE 1U                 /*set lpuart1 as the default*/
+#define BOARD_APP2_UART_CLK      kCLOCK_Lpuart1     /*set lpuart1 as the default*/
+/* FRO6M is selected as srcclk, it limits the baudrate because of the oversamplig factor, you can change it to
+ * kCLOCK_IpSrcFro192M to allow higher baudrate but in this case you need to wait for its stabilization before using
+ * the UART */
+#define BOARD_APP2_UART_CLKSRC       kCLOCK_IpSrcFro6M
 #define BOARD_APP2_UART_DMAREQ_TX    kDmaRequestLPUART1Tx
 #define BOARD_APP2_UART_DMAREQ_RX    kDmaRequestLPUART1Rx
 #define BOARD_APP2_UART_DMAREQMUX_TX kDmaRequestMuxLPUART1Tx
@@ -79,7 +82,10 @@
 #define BOARD_APP_UART_BASEADDR     (uint32_t) LPUART1 /*set lpuart1 as the default*/
 #define BOARD_APP_UART_INSTANCE     1U                 /*set lpuart1 as the default*/
 #define BOARD_APP_UART_CLK          kCLOCK_Lpuart1     /*set lpuart1 as the default*/
-#define BOARD_APP_UART_CLKSRC       kCLOCK_IpSrcFro192M
+/* FRO6M is selected as srcclk, it limits the baudrate because of the oversamplig factor, you can change it to
+ * kCLOCK_IpSrcFro192M to allow higher baudrate but in this case you need to wait for its stabilization before using
+ * the UART */
+#define BOARD_APP_UART_CLKSRC       kCLOCK_IpSrcFro6M
 #define BOARD_APP_UART_DMAREQ_TX    kDmaRequestLPUART1Tx
 #define BOARD_APP_UART_DMAREQ_RX    kDmaRequestLPUART1Rx
 #define BOARD_APP_UART_DMAREQMUX_TX kDmaRequestMuxLPUART1Tx

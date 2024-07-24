@@ -81,7 +81,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>
@@ -163,14 +163,6 @@
       <files mask="CMakeLists.txt"/>
       <files mask="flags.cmake"/>
       <files mask="config.cmake"/>
-      <files mask="build_debug.bat"/>
-      <files mask="build_debug.sh"/>
-      <files mask="build_release.bat"/>
-      <files mask="build_release.sh"/>
-      <files mask="build_hyperram_debug.bat"/>
-      <files mask="build_hyperram_debug.sh"/>
-      <files mask="build_hyperram_release.bat"/>
-      <files mask="build_hyperram_release.sh"/>
       <files mask="build_flexspi_nor_debug.bat"/>
       <files mask="build_flexspi_nor_debug.sh"/>
       <files mask="build_flexspi_nor_release.bat"/>
@@ -213,8 +205,6 @@
       <files mask="readme.md"/>
     </source>
     <source path="armgcc" project_relative_path="MIMXRT1189/gcc" type="linker" toolchain="armgcc">
-      <files mask="MIMXRT1189xxxxx_cm7_ram.ld"/>
-      <files mask="MIMXRT1189xxxxx_cm7_hyperram.ld"/>
       <files mask="MIMXRT1189xxxxx_cm7_flexspi_nor.ld"/>
     </source>
   </example>

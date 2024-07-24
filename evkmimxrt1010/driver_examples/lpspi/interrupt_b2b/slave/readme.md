@@ -2,20 +2,21 @@ Overview
 ========
 The lpspi_interrupt_b2b example shows how to use LPSPI driver in interrupt way:
 
-In this example , we need two boards , one board used as LPSPI master and another board used as LPSPI slave.
-The file 'dspi_interrupt_b2b_slave.c' includes the LPSPI slave code.
-This example does not use the transactional API in LPSPI driver. It's a demonstration that how to use the interrupt in KSDK driver.
+In this example, we need two boards, one board used as LPSPI master and another board used as LPSPI slave.
+The file 'lpspi_interrupt_b2b_slave.c' includes the LPSPI slave code.
+This example does not use the transactional API in LPSPI driver.
+LPSPI master send/received data to/from LPSPI slave in interrupt. (LPSPI Slave using interrupt to receive/send the data)
 
-1. LPSPI master send/received data to/from LPSPI slave in interrupt . (LPSPI Slave using interrupt to receive/send the data)
+
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  12.2
-- MCUXpresso  11.8.0
+- GCC ARM Embedded  13.2.1
+- MCUXpresso  11.10.0
 
 Hardware requirements
 =====================
@@ -25,7 +26,7 @@ Hardware requirements
 
 Board settings
 ==============
-SPI one board:
+SPI two boards:
 Transfer data from one board instance to another board's instance.
 SPI1 pins are connected with SPI1 pins of another board
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -50,24 +51,7 @@ Prepare the Demo
 3.  Download the program to the target board.
 4.  Reset the SoC and run the project.
 
-Running the demo
-================
-When the demo runs successfully, the log would be seen on the OpenSDA terminal like:
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-LPSPI board to board functional interrupt example.
-  Slave start to receive data...
-
-LPSPI transfer all data matched! 
-
- Slave received:
-
-  0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F
- 10 11 12 13 14 15 16 17 18 19 1A 1B 1C 1D 1E 1F
- 20 21 22 23 24 25 26 27 28 29 2A 2B 2C 2D 2E 2F
- 30 31 32 33 34 35 36 37 38 39 3A 3B 3C 3D 3E 3F
-End of slave example! 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Note:
 To debug in qspiflash, following steps are needed:
@@ -75,3 +59,21 @@ To debug in qspiflash, following steps are needed:
 2. Set the SW8: 1 off 2 off 3 on 4 off, then power on the board and connect USB cable to J41.
 3. Start debugging in IDE.
    - Keil: Click "Download (F8)" to program the image to qspiflash first then clicking "Start/Stop Debug Session (Ctrl+F5)" to start debugging.
+Running the demo
+================
+When the demo runs successfully, the log would be seen in the terminal window:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+LPSPI interrupt board to board (b2b) slave example.
+  Slave start to receive data...
+
+LPSPI transfer all data matched!
+
+ Slave received:
+  0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F
+ 10 11 12 13 14 15 16 17 18 19 1A 1B 1C 1D 1E 1F
+ 20 21 22 23 24 25 26 27 28 29 2A 2B 2C 2D 2E 2F
+ 30 31 32 33 34 35 36 37 38 39 3A 3B 3C 3D 3E 3F
+
+End of slave example!
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+

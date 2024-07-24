@@ -95,6 +95,24 @@ static status_t MDIO_Read(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
     return ENET_MDIORead(EXAMPLE_ENET, phyAddr, regAddr, pData);
 }
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+int64_t getTime() { return os_clock_now(); }
+
+int gethostname(char *name)
+{
+    const char* host = "evkbmimxrt1170";
+    memcpy(name, host, strlen(host));
+    return 0;
+}
+
+#ifdef __cplusplus
+}
+#endif
+
 /*!
  * @brief Main function.
  */

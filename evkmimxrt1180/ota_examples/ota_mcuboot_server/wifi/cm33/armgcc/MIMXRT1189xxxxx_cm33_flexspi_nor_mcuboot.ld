@@ -51,7 +51,7 @@ m_qadata_start           = m_system_tcm_start;
 m_qadata_end             = m_system_tcm_start + m_system_tcm_size - 1;
 m_ram_vector_table_start = m_code_tcm_start;
 m_stack_size             = DEFINED(__stack_size__) ? __stack_size__ : 1000;
-m_heap_size              = DEFINED(__heap_size__)  ? __heap_size__  : 100000;
+m_heap_size              = DEFINED(__heap_size__)  ? __heap_size__  : 60000;
 
 /* Target specific definition, code & data allocation */
 m_code_size              = m_flash_size - app_image_offset - vector_table_size;

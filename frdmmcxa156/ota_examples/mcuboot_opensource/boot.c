@@ -21,6 +21,10 @@
 #include "fsl_debug_console.h"
 #include "mflash_drv.h"
 
+#ifdef CONFIG_MCUBOOT_ENCRYPTED_XIP_SUPPORT
+#include "mcuboot_enc_support.h"
+#endif
+
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -138,6 +142,15 @@ int sbl_boot_main(void)
             ;
     }
 
+#ifdef CONFIG_MCUBOOT_ENCRYPTED_XIP_SUPPORT
+    BOOT_LOG_INF("\nStarting post-bootloader process of encrypted image...");
+    if(mcuboot_process_encryption(&rsp) != kStatus_Success){
+      BOOT_LOG_ERR("Fatal error: failed to process encrypted image");
+      while(1)
+        ;
+    }
+    BOOT_LOG_INF("Post-bootloader process of encrypted image successful\n");
+#endif
     BOOT_LOG_INF("Bootloader chainload address offset: 0x%x", rsp.br_image_off);
     BOOT_LOG_INF("Reset_Handler address offset: 0x%x", rsp.br_image_off + rsp.br_hdr->ih_hdr_size);
     BOOT_LOG_INF("Jumping to the image\r\n\r\n");

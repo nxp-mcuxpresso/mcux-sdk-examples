@@ -10,31 +10,37 @@
 #include "ncp_cmd_common.h"
 
 extern struct cmd_subclass_t cmd_subclass_wlan[12];
+#if CONFIG_NCP_BLE
 extern struct cmd_subclass_t cmd_subclass_ble[8];
-extern struct cmd_subclass_t cmd_subclass_system[1];
+#endif
+extern struct cmd_subclass_t cmd_subclass_system[2];
 extern struct cmd_t error_ack_cmd;
 
 #define CMD_SUBCLASS_WLAN_LEN   (sizeof(cmd_subclass_wlan) / sizeof(struct cmd_subclass_t))
+#if CONFIG_NCP_BLE
 #define CMD_SUBCLASS_BLE_LEN    (sizeof(cmd_subclass_ble) / sizeof(struct cmd_subclass_t))
+#endif
 #define CMD_SUBCLASS_15D4_LEN   (sizeof(cmd_subclass_15D4) / sizeof(struct cmd_subclass_t))
 #define CMD_SUBCLASS_MATTER_LEN (sizeof(cmd_subclass_matter) / sizeof(struct cmd_subclass_t))
 #define CMD_SUBCLASS_SYSTEM_LEN (sizeof(cmd_subclass_system) / sizeof(struct cmd_subclass_t))
 
 __WEAK struct cmd_subclass_t cmd_subclass_15D4[] = {
-    {NCP_BRIDGE_CMD_INVALID, NULL},
+    {NCP_CMD_INVALID, NULL},
 };
 
 struct cmd_subclass_t cmd_subclass_matter[] = {
-    {NCP_BRIDGE_CMD_INVALID, NULL},
+    {NCP_CMD_INVALID, NULL},
 };
 
 struct cmd_class_t cmd_class_list[] = {
-    {NCP_BRIDGE_CMD_WLAN, cmd_subclass_wlan, CMD_SUBCLASS_WLAN_LEN},
-    {NCP_BRIDGE_CMD_BLE, cmd_subclass_ble, CMD_SUBCLASS_BLE_LEN},
-    {NCP_BRIDGE_CMD_15D4, cmd_subclass_15D4, CMD_SUBCLASS_15D4_LEN},
-    {NCP_BRIDGE_CMD_MATTER, cmd_subclass_matter, CMD_SUBCLASS_MATTER_LEN},
-    {NCP_BRIDGE_CMD_SYSTEM, cmd_subclass_system, CMD_SUBCLASS_SYSTEM_LEN},
-    {NCP_BRIDGE_CMD_INVALID, NULL, 0},
+    {NCP_CMD_WLAN, cmd_subclass_wlan, CMD_SUBCLASS_WLAN_LEN},
+#if CONFIG_NCP_BLE
+    {NCP_CMD_BLE, cmd_subclass_ble, CMD_SUBCLASS_BLE_LEN},
+#endif
+    {NCP_CMD_15D4, cmd_subclass_15D4, CMD_SUBCLASS_15D4_LEN},
+    {NCP_CMD_MATTER, cmd_subclass_matter, CMD_SUBCLASS_MATTER_LEN},
+    {NCP_CMD_SYSTEM, cmd_subclass_system, CMD_SUBCLASS_SYSTEM_LEN},
+    {NCP_CMD_INVALID, NULL, 0},
 };
 
 int ncp_register_class(struct cmd_class_t *cmd_class)
@@ -55,7 +61,7 @@ int ncp_register_class(struct cmd_class_t *cmd_class)
     {
         cmd_subclass = &cmd_class->cmd_subclass[subclass_idx];
 
-        if (cmd_subclass->cmd_subclass == NCP_BRIDGE_CMD_INVALID)
+        if (cmd_subclass->cmd_subclass == NCP_CMD_INVALID)
         {
             break;
         }
@@ -68,7 +74,7 @@ int ncp_register_class(struct cmd_class_t *cmd_class)
         {
             cmd = &cmd_subclass->cmd[cmd_idx];
 
-            if (cmd->cmd == NCP_BRIDGE_CMD_INVALID)
+            if (cmd->cmd == NCP_CMD_INVALID)
             {
                 break;
             }
@@ -89,7 +95,7 @@ int ncp_cmd_list_init(void)
     {
         cmd_class = &cmd_class_list[i];
 
-        if (cmd_class->cmd_class == NCP_BRIDGE_CMD_INVALID)
+        if (cmd_class->cmd_class == NCP_CMD_INVALID)
         {
             break;
         }
@@ -121,7 +127,7 @@ struct cmd_t *lookup_class(uint32_t cmd_class, uint32_t cmd_subclass, uint32_t c
         pclass = &cmd_class_list[i];
 
         /* when class id valid, subclass ptr should never be NULL */
-		if (GET_CMD_CLASS(pclass->cmd_class) == cmd_class)
+        if (GET_CMD_CLASS(pclass->cmd_class) == cmd_class)
         {
             /* lookup hash table */
             if (pclass->hash[cmd_subclass] != NCP_HASH_INVALID_KEY)
@@ -135,7 +141,7 @@ struct cmd_t *lookup_class(uint32_t cmd_class, uint32_t cmd_subclass, uint32_t c
             break;
         }
 
-        if((pclass->cmd_class == NCP_BRIDGE_CMD_INVALID) && (pclass->cmd_subclass == NULL))
+        if((pclass->cmd_class == NCP_CMD_INVALID) && (pclass->cmd_subclass == NULL))
         {
             break;
         }

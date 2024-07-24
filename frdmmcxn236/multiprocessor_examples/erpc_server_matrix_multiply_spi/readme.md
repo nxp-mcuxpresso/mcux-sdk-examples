@@ -24,7 +24,7 @@ PC Side Setup (Optional for PC-to-board communication)
 1. Make sure you have Python installed on your PC
 2. Install serial module by executing following command in command line: "python -m pip install pyserial"
 3. Install eRPC module to Python by executing setup.py located in: middleware\multicore\erpc\erpc_python - "python setup.py install"
-4. Install libusbsio module to Python by executing following command in command line: "python -m pip install libusbsio==2.1.0"
+4. Install libusbsio module to Python by executing following command in command line: "python -m pip install libusbsio"
 
 usage: run_spi.py [-h] [-b BD] [-g CS_PORT] [-p CS_PIN] [-d DEVIDX]
 
@@ -43,12 +43,12 @@ To run PC side as a client with a board connected as a server:
 
 SDK version
 ===========
-- Version: 2.14.0
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- MCUXpresso  11.9.0
-- GCC ARM Embedded  12.2
+- MCUXpresso  11.10.0
+- GCC ARM Embedded  13.2.1
 
 Hardware requirements
 =====================

@@ -1,1 +1,1 @@
-        *(EXCLUDE_FILE(*mflash_drv.o *fsl_flexspi.o) .text*)
+        *(EXCLUDE_FILE(*mflash_drv.o *fsl_flexspi.o *fsl_bee.o *platform_enc_bee.o) .text*)

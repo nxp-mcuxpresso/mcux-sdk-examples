@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2015, Freescale Semiconductor, Inc.
- * Copyright 2016-2023 NXP
+ * Copyright 2016-2024 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -35,11 +35,20 @@ extern phy_ksz8081_resource_t g_phy_resource;
 #ifndef PHY_AUTONEGO_TIMEOUT_COUNT
 #define PHY_AUTONEGO_TIMEOUT_COUNT (300000)
 #endif
-#ifndef PHY_STABILITY_DELAY_US
-#define PHY_STABILITY_DELAY_US (0U)
-#endif
 #ifndef EXAMPLE_PHY_LINK_INTR_SUPPORT
 #define EXAMPLE_PHY_LINK_INTR_SUPPORT (0U)
+#endif
+#ifndef EXAMPLE_USES_LOOPBACK_CABLE
+#define EXAMPLE_USES_LOOPBACK_CABLE (0U)
+#endif
+
+#ifndef PHY_STABILITY_DELAY_US
+#if EXAMPLE_USES_LOOPBACK_CABLE
+#define PHY_STABILITY_DELAY_US (0U)
+#else
+/* If cable is not used there is no "readiness wait" caused by auto negotiation. Lets wait 100ms.*/
+#define PHY_STABILITY_DELAY_US (100000U)
+#endif
 #endif
 
 /* @TEST_ANCHOR */
@@ -154,18 +163,20 @@ void PHY_LinkStatusChange(void)
  */
 int main(void)
 {
-    volatile uint32_t count = 0;
     phy_config_t phyConfig = {0};
-    uint32_t testTxNum = 0;
+    uint32_t testTxNum     = 0;
     uint32_t length        = 0;
-    bool autonego          = false;
-    bool link              = false;
-    bool tempLink          = false;
     enet_data_error_stats_t eErrStatic;
+    status_t status;
     enet_config_t config;
+#if EXAMPLE_USES_LOOPBACK_CABLE
+    volatile uint32_t count = 0;
     phy_speed_t speed;
     phy_duplex_t duplex;
-    status_t status;
+    bool autonego = false;
+    bool link     = false;
+    bool tempLink = false;
+#endif
 
     /* Hardware Initialization. */
     gpio_pin_config_t gpio_config = {kGPIO_DigitalOutput, 0, kGPIO_NoIntmode};
@@ -221,8 +232,13 @@ int main(void)
 #else
     config.miiMode = kENET_RmiiMode;
 #endif
-    phyConfig.phyAddr  = EXAMPLE_PHY_ADDRESS;
-    phyConfig.autoNeg  = true;
+    phyConfig.phyAddr = EXAMPLE_PHY_ADDRESS;
+#if EXAMPLE_USES_LOOPBACK_CABLE
+    phyConfig.autoNeg = true;
+#else
+    phyConfig.autoNeg = false;
+    config.miiDuplex  = kENET_MiiFullDuplex;
+#endif
     phyConfig.ops      = EXAMPLE_PHY_OPS;
     phyConfig.resource = EXAMPLE_PHY_RESOURCE;
 #if (defined(EXAMPLE_PHY_LINK_INTR_SUPPORT) && (EXAMPLE_PHY_LINK_INTR_SUPPORT))
@@ -231,6 +247,7 @@ int main(void)
 
     /* Initialize PHY and wait auto-negotiation over. */
     PRINTF("Wait for PHY init...\r\n");
+#if EXAMPLE_USES_LOOPBACK_CABLE
     do
     {
         status = PHY_Init(&phyHandle, &phyConfig);
@@ -257,16 +274,28 @@ int main(void)
             }
         }
     } while (!(link && autonego));
+#else
+    while (PHY_Init(&phyHandle, &phyConfig) != kStatus_Success)
+    {
+        PRINTF("PHY_Init failed\r\n");
+    }
+
+    /* set PHY link speed/duplex and enable loopback. */
+    PHY_SetLinkSpeedDuplex(&phyHandle, (phy_speed_t)config.miiSpeed, (phy_duplex_t)config.miiDuplex);
+    PHY_EnableLoopback(&phyHandle, kPHY_LocalLoop, (phy_speed_t)config.miiSpeed, true);
+#endif /* EXAMPLE_USES_LOOPBACK_CABLE */
 
 #if PHY_STABILITY_DELAY_US
     /* Wait a moment for PHY status to be stable. */
     SDK_DelayAtLeastUs(PHY_STABILITY_DELAY_US, SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY);
 #endif
 
+#if EXAMPLE_USES_LOOPBACK_CABLE
     /* Get the actual PHY link speed and set in MAC. */
     PHY_GetLinkSpeedDuplex(&phyHandle, &speed, &duplex);
     config.miiSpeed  = (enet_mii_speed_t)speed;
     config.miiDuplex = (enet_mii_duplex_t)duplex;
+#endif
 
 #ifndef USER_DEFINED_MAC_ADDRESS
     /* Set special address for each chip. */
@@ -282,6 +311,7 @@ int main(void)
 
     while (1)
     {
+#if EXAMPLE_USES_LOOPBACK_CABLE
         /* PHY link status update. */
 #if (defined(EXAMPLE_PHY_LINK_INTR_SUPPORT) && (EXAMPLE_PHY_LINK_INTR_SUPPORT))
         if (linkChange)
@@ -299,7 +329,7 @@ int main(void)
             PRINTF("PHY link changed, link status = %u\r\n", link);
             tempLink = link;
         }
-
+#endif /*EXAMPLE_USES_LOOPBACK_CABLE*/
         /* Get the Frame size */
         status = ENET_GetRxFrameSize(&g_handle, &length, 0);
         /* Call ENET_ReadFrame when there is a received frame. */
@@ -329,7 +359,9 @@ int main(void)
         if (testTxNum < ENET_TRANSMIT_DATA_NUM)
         {
             /* Send a multicast frame when the PHY is link up. */
+#if EXAMPLE_USES_LOOPBACK_CABLE
             if (link)
+#endif
             {
                 testTxNum++;
                 if (kStatus_Success ==

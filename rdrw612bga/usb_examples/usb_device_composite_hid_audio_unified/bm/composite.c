@@ -72,6 +72,12 @@ void USB_DeviceIsrEnable(void);
 void USB_DeviceTaskFn(void *deviceHandle);
 #endif
 
+#if (defined(USB_DEVICE_CONFIG_LPCIP3511HS) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U))
+#if !((defined FSL_FEATURE_SOC_USBPHY_COUNT) && (FSL_FEATURE_SOC_USBPHY_COUNT > 0U))
+void USB_DeviceHsPhyChirpIssueWorkaround(void);
+void USB_DeviceDisconnected(void);
+#endif
+#endif
 usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event, void *param);
 extern usb_status_t USB_DeviceHidKeyboardAction(void);
 extern char *SW_GetName(void);
@@ -422,6 +428,16 @@ usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event, void *
             g_composite.attach               = 0U;
             g_composite.currentConfiguration = 0U;
             error                            = kStatus_USB_Success;
+
+#if (defined(USB_DEVICE_CONFIG_LPCIP3511HS) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U))
+#if !((defined FSL_FEATURE_SOC_USBPHY_COUNT) && (FSL_FEATURE_SOC_USBPHY_COUNT > 0U))
+            /* The work-around is used to fix the HS device Chirping issue.
+             * Please refer to the implementation for the detail information.
+             */
+            USB_DeviceHsPhyChirpIssueWorkaround();
+#endif
+#endif
+
 #if (defined(USB_DEVICE_CONFIG_EHCI) && (USB_DEVICE_CONFIG_EHCI > 0U)) || \
     (defined(USB_DEVICE_CONFIG_LPCIP3511HS) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U))
             /* Get USB speed to configure the device, including max packet size and interval of the endpoints. */
@@ -500,6 +516,18 @@ usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event, void *
 #endif /* USB_DEVICE_CONFIG_EHCI, USB_DEVICE_CONFIG_LPCIP3511HS */
         }
         break;
+#if (defined(USB_DEVICE_CONFIG_DETACH_ENABLE) && (USB_DEVICE_CONFIG_DETACH_ENABLE > 0U))
+        case kUSB_DeviceEventDetach:
+        {
+#if (defined(USB_DEVICE_CONFIG_LPCIP3511HS) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U))
+#if !((defined FSL_FEATURE_SOC_USBPHY_COUNT) && (FSL_FEATURE_SOC_USBPHY_COUNT > 0U))
+            USB_DeviceDisconnected();
+#endif
+#endif
+            error = kStatus_USB_Success;
+        }
+        break;
+#endif
         case kUSB_DeviceEventSetConfiguration:
             if (0U == (*temp8))
             {
@@ -750,7 +778,7 @@ void main(void)
     audioTxConfig.instance          = DEMO_I2S_TX_INSTANCE_INDEX;
     audioTxConfig.srcClock_Hz       = CLOCK_GetMclkClkFreq();
     audioTxConfig.sampleRate_Hz     = 48000;
-    audioTxConfig.msaterSlave       = DEMO_I2S_TX_MODE;
+    audioTxConfig.masterSlave       = DEMO_I2S_TX_MODE;
     audioTxConfig.bclkPolarity      = kHAL_AudioSampleOnRisingEdge;
     audioTxConfig.frameSyncPolarity = kHAL_AudioBeginAtFallingEdge;
     audioTxConfig.frameSyncWidth    = kHAL_AudioFrameSyncWidthHalfFrame;
@@ -765,7 +793,7 @@ void main(void)
     audioRxConfig.instance          = DEMO_I2S_RX_INSTANCE_INDEX;
     audioRxConfig.srcClock_Hz       = CLOCK_GetMclkClkFreq();
     audioRxConfig.sampleRate_Hz     = 48000;
-    audioRxConfig.msaterSlave       = DEMO_I2S_RX_MODE;
+    audioRxConfig.masterSlave       = DEMO_I2S_RX_MODE;
     audioRxConfig.bclkPolarity      = kHAL_AudioSampleOnRisingEdge;
     audioRxConfig.frameSyncPolarity = kHAL_AudioBeginAtFallingEdge;
     audioRxConfig.frameSyncWidth    = kHAL_AudioFrameSyncWidthHalfFrame;

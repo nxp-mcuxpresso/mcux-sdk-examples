@@ -13,7 +13,6 @@
 #include "fsl_cache.h"
 #include "fsl_pdm.h"
 #include "fsl_pdm_edma.h"
-#include "fsl_os_abstraction.h"
 
 volatile int8_t PDM_started = 0;     /* Indicates that the PDM transfer has already started. */
 volatile int8_t SAI_started = 0;     /* Indicates that the SAI transfer has already started. */
@@ -27,7 +26,6 @@ volatile bool rx_sem_take   = false; /* Indicates that RX semaphore has been tak
 AT_NONCACHEABLE_SECTION_INIT(static pcm_rtos_t pcmHandle) = {0};
 AT_NONCACHEABLE_SECTION_ALIGN(static uint8_t s_buffer[BUFFER_SIZE], 32);
 extern codec_handle_t codecHandle;
-OSA_SEMAPHORE_HANDLE_DEFINE(streamer_semaphore);
 
 // Queue for storing data buffer addresses
 typedef struct
@@ -80,7 +78,7 @@ int Streamer_buff_addr_Push(uint8_t *buff_addr)
     if (streamer_buff_addr.count == (streamer_buff_addr.num_buffers - 1))
     {
         rx_sem_take = true;
-        OSA_SemaphoreWait(streamer_semaphore, osaWaitForever_c);
+        OSA_SemaphoreWait(pcmHandle.semaphoreRX, osaWaitForever_c);
     }
 
     streamer_buff_addr.buff_addr[streamer_buff_addr.head] = buff_addr;
@@ -112,12 +110,8 @@ uint8_t *Streamer_buff_addr_Pull(void)
  */
 static void saiTxCallback(I2S_Type *base, sai_edma_handle_t *handle, status_t status, void *userData)
 {
-    if (kStatus_SAI_TxError == status)
-    {
-        /* Handle the error. */
-    }
     BaseType_t reschedule = -1;
-    xSemaphoreGiveFromISR(pcmHandle.semaphoreTX, &reschedule);
+    OSA_SemaphorePost(pcmHandle.semaphoreTX);
     portYIELD_FROM_ISR(reschedule);
 }
 
@@ -128,7 +122,7 @@ static void pdmRxCallback(PDM_Type *base, pdm_edma_handle_t *handle, status_t st
     if (rx_sem_take == true)
     {
         rx_sem_take = false;
-        OSA_SemaphorePost(streamer_semaphore);
+        OSA_SemaphorePost(pcmHandle.semaphoreRX);
     }
     portYIELD_FROM_ISR(reschedule);
 }
@@ -184,20 +178,22 @@ void streamer_pcm_init(void)
     streamer_buff_addr.head  = 0;
     streamer_buff_addr.tail  = 0;
     rx_data_valid            = 0;
+    s_readIndex              = 0;
+    rx_sem_take              = false;
 
     PDM_TransferReceiveEDMA(DEMO_PDM, &pcmHandle.pdmRxHandle, s_receiveXfer);
     PDM_EnableDMA(DEMO_PDM, false);
-    OSA_SemaphoreCreateBinary(streamer_semaphore);
 }
 
 int streamer_pcm_tx_open(uint32_t num_buffers)
 {
-    pcmHandle.semaphoreTX = xSemaphoreCreateBinary();
+    OSA_SemaphoreCreateBinary(pcmHandle.semaphoreTX);
     return 0;
 }
 
 int streamer_pcm_rx_open(uint32_t num_buffers)
 {
+    OSA_SemaphoreCreateBinary(pcmHandle.semaphoreRX);
     return 0;
 }
 
@@ -205,7 +201,7 @@ void streamer_pcm_tx_close(void)
 {
     /* Stop playback.  This will flush the SAI transmit buffers. */
     SAI_TransferTerminateSendEDMA(DEMO_SAI, &(pcmHandle.saiTxHandle));
-    vSemaphoreDelete(pcmHandle.semaphoreTX);
+    OSA_SemaphoreDestroy(pcmHandle.semaphoreTX);
 }
 
 void streamer_pcm_rx_close(void)
@@ -213,6 +209,7 @@ void streamer_pcm_rx_close(void)
     /* Stop playback.  This will flush the SAI transmit buffers. */
     PDM_TransferTerminateReceiveEDMA(DEMO_PDM, &(pcmHandle.pdmRxHandle));
     PDM_Deinit(DEMO_PDM);
+    OSA_SemaphoreDestroy(pcmHandle.semaphoreRX);
 }
 
 int streamer_pcm_write(uint8_t *data, uint32_t size)
@@ -242,7 +239,7 @@ int streamer_pcm_write(uint8_t *data, uint32_t size)
     while (SAI_TransferSendEDMA(DEMO_SAI, &(pcmHandle.saiTxHandle), &(pcmHandle.saiTx)) == kStatus_SAI_QueueFull)
     {
         /* Wait for transfer to finish */
-        if (xSemaphoreTake(pcmHandle.semaphoreTX, portMAX_DELAY) != pdTRUE)
+        if (OSA_SemaphoreWait(pcmHandle.semaphoreTX, osaWaitForever_c) != KOSA_StatusSuccess)
         {
             return -1;
         }
@@ -254,6 +251,11 @@ int streamer_pcm_write(uint8_t *data, uint32_t size)
 int streamer_pcm_read(uint8_t *data, uint32_t size)
 {
     int ret = 1;
+
+    if (size != RECORD_BUFFER_SIZE)
+    {
+        return -1;
+    }
 
     if (pcmHandle.isFirstRx)
     {

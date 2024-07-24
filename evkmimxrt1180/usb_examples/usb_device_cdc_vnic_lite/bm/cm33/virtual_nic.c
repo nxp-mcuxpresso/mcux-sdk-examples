@@ -36,7 +36,6 @@
 #include "fsl_phyrtl8201.h"
 #include "fsl_msgintr.h"
 #include "fsl_phy.h"
-#include "fsl_cache.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -62,6 +61,13 @@ void USB_DeviceClockInit(void);
 void USB_DeviceIsrEnable(void);
 #if USB_DEVICE_CONFIG_USE_TASK
 void USB_DeviceTaskFn(void *deviceHandle);
+#endif
+
+#if (defined(USB_DEVICE_CONFIG_LPCIP3511HS) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U))
+#if !((defined FSL_FEATURE_SOC_USBPHY_COUNT) && (FSL_FEATURE_SOC_USBPHY_COUNT > 0U))
+void USB_DeviceHsPhyChirpIssueWorkaround(void);
+void USB_DeviceDisconnected(void);
+#endif
 #endif
 void VNIC_EnetRxBufFree(pbuf_t *pbuf);
 void VNIC_EnetTxBufFree(pbuf_t *pbuf);
@@ -801,6 +807,16 @@ usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event, void *
             g_cdcVnic.attach               = 0;
             g_cdcVnic.currentConfiguration = 0U;
             error                          = kStatus_USB_Success;
+
+#if (defined(USB_DEVICE_CONFIG_LPCIP3511HS) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U))
+#if !((defined FSL_FEATURE_SOC_USBPHY_COUNT) && (FSL_FEATURE_SOC_USBPHY_COUNT > 0U))
+            /* The work-around is used to fix the HS device Chirping issue.
+             * Please refer to the implementation for the detail information.
+             */
+            USB_DeviceHsPhyChirpIssueWorkaround();
+#endif
+#endif
+
 #if (defined(USB_DEVICE_CONFIG_EHCI) && (USB_DEVICE_CONFIG_EHCI > 0U)) || \
     (defined(USB_DEVICE_CONFIG_LPCIP3511HS) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U))
             /* Get USB speed to configure the device, including max packet size and interval of the endpoints. */
@@ -821,6 +837,18 @@ usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event, void *
             USB_DeviceVnicReceiveSetState(RX_PART_ONE_PROCESS);
         }
         break;
+#if (defined(USB_DEVICE_CONFIG_DETACH_ENABLE) && (USB_DEVICE_CONFIG_DETACH_ENABLE > 0U))
+        case kUSB_DeviceEventDetach:
+        {
+#if (defined(USB_DEVICE_CONFIG_LPCIP3511HS) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U))
+#if !((defined FSL_FEATURE_SOC_USBPHY_COUNT) && (FSL_FEATURE_SOC_USBPHY_COUNT > 0U))
+            USB_DeviceDisconnected();
+#endif
+#endif
+            error = kStatus_USB_Success;
+        }
+        break;
+#endif
         case kUSB_DeviceEventSetConfiguration:
             if (0U == (*temp8))
             {
@@ -1036,9 +1064,6 @@ void main(void)
     }
     BOARD_NETC_Init();
     APP_MDIO_Init();
-
-    XCACHE_DisableCache(XCACHE_PC);
-    XCACHE_DisableCache(XCACHE_PS);
 
     /* Reset all PHYs even some are not used in case unstable status has effect on other PHYs. */
     /* Reset PHY8201 for ETH4(EP), ETH0(Switch port0). Power on 150ms, reset 10ms, wait 150ms. */

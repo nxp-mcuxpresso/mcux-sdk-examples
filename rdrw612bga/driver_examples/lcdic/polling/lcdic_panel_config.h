@@ -12,7 +12,7 @@
  ******************************************************************************/
 
 /* Define 1 to use it */
-#define APP_PANEL_ADAFRUIT_2_8_CAPTATIVE 1
+#define APP_PANEL_LCD_PAR_S035_I8080 1
 
 #if defined(__cplusplus)
 extern "C" {

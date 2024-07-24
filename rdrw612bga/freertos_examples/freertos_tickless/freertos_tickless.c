@@ -31,8 +31,8 @@
 #define BOARD_SW_GPIO          BOARD_SW4_GPIO_PORT
 #define BOARD_SW_GPIO_PIN      BOARD_SW4_GPIO_PIN
 #define BOARD_PINT_PIN_INT_SRC kINPUTMUX_GpioPort0Pin25ToPintsel
-#define BOARD_SW_IRQ           GPIO_INTA_IRQn
-#define BOARD_SW_IRQ_HANDLER   GPIO_INTA_IRQHandler
+#define BOARD_SW_IRQ           PIN_INT0_IRQn
+#define BOARD_SW_IRQ_HANDLER   PIN_INT0_DriverIRQHandler
 #define BOARD_SW_NAME          "SW4"
 
 /* @brief FreeRTOS tickless timer configuration. */
@@ -120,8 +120,6 @@ int main(void)
     BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
-
-    RESET_PeripheralReset(kINPUTMUX_RST_SHIFT_RSTn);
 
     /* Print a note to terminal. */
     PRINTF("Tickless Demo example\r\n");

@@ -25,11 +25,11 @@ The assigned unique local or global unique addresses could be typed into the web
 
 SDK version
 ===========
-- Version: 2.15.001
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  12.3.1
+- GCC ARM Embedded  13.2.1
 
 Hardware requirements
 =====================

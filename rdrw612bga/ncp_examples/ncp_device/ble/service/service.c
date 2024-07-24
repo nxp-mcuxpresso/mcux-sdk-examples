@@ -4,6 +4,7 @@
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
+#if CONFIG_NCP_BLE
 
 #include <stdio.h>
 #include <string.h>
@@ -241,7 +242,7 @@ void le_service_device_found(const bt_addr_le_t *addr, int8_t rssi, uint8_t evty
     memcpy(net_buf_simple_add(svc_adv_buf, ad->len), ad->data, ad->len);
   
     // send adv report event to Host
-    ble_bridge_prepare_status(NCP_BRIDGE_EVENT_ADV_REPORT, NCP_BRIDGE_CMD_RESULT_OK, svc_adv_buf->data, svc_adv_buf->len);
+    ble_prepare_status(NCP_EVENT_ADV_REPORT, NCP_CMD_RESULT_OK, svc_adv_buf->data, svc_adv_buf->len);
     
     // only care about connectable adv for service profile
     if (evtype == BT_GAP_ADV_TYPE_ADV_IND || evtype == BT_GAP_ADV_TYPE_ADV_DIRECT_IND) {
@@ -283,12 +284,12 @@ void svc_scan_start(void)
     int status;
     
     if(bt_le_scan_start(&svc_common_scan_param, le_service_device_found) < 0) {
-        status = NCP_BRIDGE_CMD_RESULT_ERROR;
+        status = NCP_CMD_RESULT_ERROR;
     }else {
-        status = NCP_BRIDGE_CMD_RESULT_OK;
+        status = NCP_CMD_RESULT_OK;
     }
    
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GAP_START_SCAN, status, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE_GAP_START_SCAN, status, NULL, 0);
 }
 
 int ncp_ble_register_service(uint8_t id) {
@@ -298,14 +299,14 @@ int ncp_ble_register_service(uint8_t id) {
     if (svc_id < 0 || svc_id >= REG_SERVICE_LEN)
     {
        PRINTF("invalid service id : %d\r\n", id);
-       return NCP_BRIDGE_CMD_RESULT_INVALID_INDEX;
+       return NCP_CMD_RESULT_INVALID_INDEX;
     }
     
     // fixme : peripheral and central use the same service, fix this
     if (svc_list[svc_id].is_registered)
     {
        PRINTF("%s already registered\r\n", svc_list[id].def);
-       return NCP_BRIDGE_CMD_RESULT_ERROR;
+       return NCP_CMD_RESULT_ERROR;
     }
     svc_list[svc_id].is_registered = true;
 
@@ -317,7 +318,7 @@ int ncp_ble_register_service(uint8_t id) {
 
     if (svc_list[svc_id].svc_task == NULL)
     {
-        return NCP_BRIDGE_CMD_RESULT_OK;
+        return NCP_CMD_RESULT_OK;
     }
 
     // create service task
@@ -325,7 +326,9 @@ int ncp_ble_register_service(uint8_t id) {
     if (ret != pdPASS)
     {
       PRINTF("register service %d failed\r\n", id);
-      return NCP_BRIDGE_CMD_RESULT_ERROR;
+      return NCP_CMD_RESULT_ERROR;
     }
-    return NCP_BRIDGE_CMD_RESULT_OK;
+    return NCP_CMD_RESULT_OK;
 }
+
+#endif

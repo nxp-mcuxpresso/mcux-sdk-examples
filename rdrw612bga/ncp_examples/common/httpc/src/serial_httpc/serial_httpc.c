@@ -52,14 +52,14 @@ static int set_header(const char *name, const char *value)
         {
             /* same header name with different value overwrites */
             /* previous header value for same header name */
-            valptr = (char *)os_mem_alloc(strlen(value) + 1);
+            valptr = (char *)OSA_MemoryAllocate(strlen(value) + 1);
             if (!valptr)
             {
                 return -E_FAIL;
             }
             memcpy(valptr, value, strlen(value));
             valptr[strlen(value)] = '\0';
-            os_mem_free(headers[i].value);
+            OSA_MemoryFree(headers[i].value);
             headers[i].value = valptr;
             break;
         }
@@ -70,7 +70,7 @@ static int set_header(const char *name, const char *value)
         {
             if (headers[i].name == NULL)
             {
-                nameptr = (char *)os_mem_alloc(strlen(name) + 1);
+                nameptr = (char *)OSA_MemoryAllocate(strlen(name) + 1);
                 if (!nameptr)
                 {
                     return -E_FAIL;
@@ -79,16 +79,16 @@ static int set_header(const char *name, const char *value)
                 nameptr[strlen(name)] = '\0';
                 headers[i].name       = nameptr;
 
-                valptr = (char *)os_mem_alloc(strlen(value) + 1);
+                valptr = (char *)OSA_MemoryAllocate(strlen(value) + 1);
                 if (!valptr)
                 {
-                    os_mem_free(nameptr);
+                    OSA_MemoryFree(nameptr);
                     nameptr = NULL;
                     return -E_FAIL;
                 }
                 memcpy(valptr, value, strlen(value));
                 valptr[strlen(value)] = '\0';
-                os_mem_free(headers[i].value);
+                OSA_MemoryFree(headers[i].value);
                 headers[i].value = valptr;
                 no_of_headers += 1;
                 break;
@@ -107,9 +107,9 @@ static int unset_header(const char *name)
     {
         if (headers[i].name && !(strcasecmp(name, headers[i].name)))
         {
-            os_mem_free(headers[i].name);
+            OSA_MemoryFree(headers[i].name);
             headers[i].name = NULL;
-            os_mem_free(headers[i].value);
+            OSA_MemoryFree(headers[i].value);
             headers[i].value = NULL;
             no_of_headers -= 1;
             break;
@@ -190,7 +190,7 @@ int ncp_http_connect(char *host)
     int rc = WM_SUCCESS;
     http_session_t handle;
     int h_slot;
-#ifdef CONFIG_ENABLE_HTTPC_SECURE
+#if CONFIG_ENABLE_HTTPC_SECURE
     uint8_t *cert = 0;
     int cert_len  = 0;
     char cert_partition[6];
@@ -220,7 +220,7 @@ tryagain:
     memset(&httpc_cfg, 0x00, sizeof(httpc_cfg_t));
     httpc_cfg.flags     = HTTP_FLAGS;
     httpc_cfg.retry_cnt = HTTP_RETRY_CNT;
-#ifdef CONFIG_ENABLE_HTTPC_SECURE
+#if CONFIG_ENABLE_HTTPC_SECURE
     https_conn_attempts++;
     wm_mbedtls_cert_t wm_cert;
     memset(&wm_cert, 0, sizeof(wm_cert));
@@ -236,7 +236,7 @@ tryagain:
     if (rc == -WM_E_HTTPC_TLS_NOT_ENABLED)
     {
         httpc_e("status:cannot create session, tls is not enabled.");
-#ifdef CONFIG_ENABLE_HTTPC_SECURE
+#if CONFIG_ENABLE_HTTPC_SECURE
         if (httpc_cfg.ctx)
         {
             wm_mbedtls_ssl_config_free(httpc_cfg.ctx);
@@ -247,7 +247,7 @@ tryagain:
     }
     if (rc != WM_SUCCESS)
     {
-#ifdef CONFIG_ENABLE_HTTPC_SECURE
+#if CONFIG_ENABLE_HTTPC_SECURE
         if (httpc_cfg.ctx)
         {
             wm_mbedtls_ssl_config_free(httpc_cfg.ctx);
@@ -267,7 +267,7 @@ tryagain:
             }
             /*
                         if (cert)
-                            os_mem_free(cert);
+                            OSA_MemoryFree(cert);
             */
             goto tryagain;
         }
@@ -283,7 +283,7 @@ tryagain:
     if (rc != WM_SUCCESS)
     {
         http_close_session(&handle);
-#ifdef CONFIG_ENABLE_HTTPC_SECURE
+#if CONFIG_ENABLE_HTTPC_SECURE
         if (httpc_cfg.ctx)
         {
             wm_mbedtls_ssl_config_free(httpc_cfg.ctx);
@@ -327,11 +327,11 @@ int ncp_http_disconnect(uint32_t handle)
         ws_ctx = NULL;
     }
 
-#ifdef CONFIG_ENABLE_HTTPC_SECURE
+#if CONFIG_ENABLE_HTTPC_SECURE
     mbedtls_ssl_config *ctx = http_get_tls_context_from_handle(hs);
 #endif
     http_close_session(&hs);
-#ifdef CONFIG_ENABLE_HTTPC_SECURE
+#if CONFIG_ENABLE_HTTPC_SECURE
     if (ctx)
         wm_mbedtls_ssl_config_free(ctx);
 #endif
@@ -532,7 +532,7 @@ int ncp_http_request(uint32_t handle, char *s_method, char *uri, uint32_t req_si
         }
     }
 
-    header_arr = os_mem_alloc(header_arr_count * sizeof(http_header_pair_t));
+    header_arr = OSA_MemoryAllocate(header_arr_count * sizeof(http_header_pair_t));
     if (header_arr == NULL)
     {
         httpc_d("status:out of memory", NULL);
@@ -541,7 +541,7 @@ int ncp_http_request(uint32_t handle, char *s_method, char *uri, uint32_t req_si
     status = http_get_response_hdr_all(hs, header_arr, &header_arr_count);
     if (status == -WM_E_INVAL)
     {
-        os_mem_free(header_arr);
+        OSA_MemoryFree(header_arr);
         header_arr = NULL;
         httpc_e(
             "status:invalid parameter, "
@@ -551,21 +551,21 @@ int ncp_http_request(uint32_t handle, char *s_method, char *uri, uint32_t req_si
     }
     else if (status == -WM_E_IO)
     {
-        os_mem_free(header_arr);
+        OSA_MemoryFree(header_arr);
         header_arr = NULL;
         httpc_e("status:i/o error, unable to get response header");
         return -E_FAIL;
     }
     else if (status == -WM_FAIL)
     {
-        os_mem_free(header_arr);
+        OSA_MemoryFree(header_arr);
         header_arr = NULL;
         httpc_e("status:invalid response");
         return -E_FAIL;
     }
     else if (status != WM_SUCCESS)
     {
-        os_mem_free(header_arr);
+        OSA_MemoryFree(header_arr);
         header_arr = NULL;
         httpc_e("status:unknown error, unable to get response header");
         return -E_FAIL;
@@ -585,7 +585,7 @@ int ncp_http_request(uint32_t handle, char *s_method, char *uri, uint32_t req_si
         }
         arr_index++;
     }
-    os_mem_free(header_arr);
+    OSA_MemoryFree(header_arr);
     header_arr = NULL;
     return ret_size;
 end:
@@ -654,11 +654,11 @@ int ncp_http_recv(uint32_t handle, uint32_t recv_size, uint32_t timeout, char *r
     }
     outbuf = NULL;
     /* Put the semaphore to allow next asynchronous event to be scheduled */
-    os_semaphore_put(&(get_nw_handle_ptr(h_slot)->handle_sem));
+    OSA_SemaphorePost(get_nw_handle_ptr(h_slot)->handle_sem);
     return ret_len;
 }
 
-#ifdef APPCONFIG_WEB_SOCKET_SUPPORT
+#if APPCONFIG_WEB_SOCKET_SUPPORT
 int ncp_ws_upg(uint32_t handle, const char *uri, const char *proto)
 {
     int h_slot;

@@ -364,6 +364,31 @@ void BOARD_InitM2UARTPins(void) {
   IOMUXC_SetPinConfig(IOMUXC_GPIO_AD_B1_07_LPUART3_RX, 0x10B0U); 
 }
 
+/*
+ * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
+BOARD_InitSyncSignalPins:
+- options: {callFromInitBoot: 'false', coreID: core0, enableClock: 'true'}
+- pin_list:
+  - {pin_num: A7, peripheral: GPIO3, signal: 'gpio_io, 26', pin_signal: GPIO_EMC_40, direction: INPUT}
+ * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
+ */
+
+/* FUNCTION ************************************************************************************************************
+ *
+ * Function Name : BOARD_InitSyncSignalPins
+ * Description   : Configures pin routing and optionally pin electrical features.
+ *
+ * END ****************************************************************************************************************/
+void BOARD_InitSyncSignalPins(void) {
+  CLOCK_EnableClock(kCLOCK_Iomuxc);
+
+  IOMUXC_SetPinMux(IOMUXC_GPIO_EMC_40_GPIO3_IO26, 0U); 
+  IOMUXC_GPR->GPR28 = ((IOMUXC_GPR->GPR28 &
+    (~(IOMUXC_GPR_GPR28_GPIO_MUX3_GPIO_SEL_MASK))) 
+      | IOMUXC_GPR_GPR28_GPIO_MUX3_GPIO_SEL(0x00U) 
+    );
+}
+
 /***********************************************************************************************************************
  * EOF
  **********************************************************************************************************************/

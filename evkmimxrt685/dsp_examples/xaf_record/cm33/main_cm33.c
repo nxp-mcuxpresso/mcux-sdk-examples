@@ -61,7 +61,7 @@ wm8904_config_t g_wm8904Config = {
     .playSource         = kWM8904_PlaySourceDAC,
     .slaveAddress       = WM8904_I2C_ADDRESS,
     .protocol           = kWM8904_ProtocolI2S,
-    .format             = {.sampleRate = kWM8904_SampleRate48kHz, .bitWidth = kWM8904_BitWidth16},
+    .format             = {.sampleRate = kWM8904_SampleRate16kHz, .bitWidth = kWM8904_BitWidth16},
     .master             = false,
 };
 codec_config_t g_boardCodecConfig = {.codecDevType = kCODEC_WM8904, .codecDevConfig = &g_wm8904Config};

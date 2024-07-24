@@ -49,6 +49,7 @@
 #include "board.h"
 #include "app.h"
 #include "app_conn.h"
+#include "app_advertiser.h"
 #include "ancs_client.h"
 
 /************************************************************************************
@@ -602,14 +603,16 @@ static void AncsClient_ProcessNsNotification(deviceId_t deviceId, uint8_t *pNsDa
 static void AncsClient_ProcessDsNotifAttributes(deviceId_t deviceId, uint8_t *pDsData, uint16_t dsDataLength);
 static void AncsClient_ProcessDsNotifAppInfo(uint8_t *pDsData, uint16_t dsDataLength);
 static void AncsClient_ProcessDsNotification(deviceId_t deviceId, uint8_t *pDsData, uint16_t dsDataLength);
-static void AmsClient_ProcessRcNotification(deviceId_t deviceId, uint8_t *pRcData, uint16_t RcDataLength);
-static void AmsClient_ProcessEuNotification(deviceId_t deviceId, uint8_t *pEuData, uint16_t EuDataLength);
+static void AmsClient_ProcessRcNotification(deviceId_t deviceId, uint8_t *pRcData, uint16_t rcDataLength);
+static void AmsClient_ProcessEuNotification(deviceId_t deviceId, uint8_t *pEuData, uint16_t euDataLength);
 static void AncsClient_DisplayNotifications(void);
 static void AncsClient_SendCommandToAncsServer(deviceId_t ancsServerDevId, void *pCommand, uint16_t cmdLength);
 static void AmsClient_SendCommandToAmsServer(deviceId_t amsServerDevId, uint16_t amsCharHandle, void *pCommand, uint16_t cmdLength);
 
 static uint8_t AncsClient_CheckNeedGetNotifOrAppAttribute(void);
 static void AncsClient_SendGetNotificationOrApplicationAttribute(void);
+
+static void AppShell_RegisterCmdHandler(pfBleCallback_t pfShellEventHandler);
 
 /************************************************************************************
 *************************************************************************************
@@ -668,7 +671,7 @@ void AppShellInit(char* prompt)
  *
  * \param[in]    pCallback       event handler
  ********************************************************************************** */
-void AppShell_RegisterCmdHandler(pfBleCallback_t pfShellEventHandler)
+static void AppShell_RegisterCmdHandler(pfBleCallback_t pfShellEventHandler)
 {
     mpfShellEventHandler = pfShellEventHandler;
 }
@@ -821,9 +824,9 @@ void App_HandleShellCmds(void *pData)
     remoteCommandId.pAmsRemoteCommandId = pData;
 
     /* Prepare a Remote Command for media control */
-    amsRemoteCommandConstruct[0] = remoteCommandId.amsRemoteCommandId;
+    amsRemoteCommandConstruct[0] = (uint8_t)remoteCommandId.amsRemoteCommandId;
 
-    if ((amsClientData.amsAvailableCommandsBitmask & (1 << remoteCommandId.amsRemoteCommandId)) != 0)
+    if ((amsClientData.amsAvailableCommandsBitmask & (((uint16_t)0x01U) << (uint16_t)remoteCommandId.amsRemoteCommandId)) != (uint16_t)0x00U)
     {
         AmsClient_SendCommandToAmsServer(mPeerInformation.deviceId,
                                          mPeerInformation.customInfo.amsClientConfig.hRemoteCommand,
@@ -860,7 +863,15 @@ static shell_status_t ShellPlay_Command(shell_handle_t shellHandle, int32_t argc
 {
     if(mpfShellEventHandler != NULL)
     {
-        App_PostCallbackMessage(mpfShellEventHandler, (void *)gAmsRemoteCommandIdPlay_c);
+        union
+        {
+            amsRemoteCommandId_t    amsRemoteCommandId;
+            void                    *pAmsRemoteCommandId;
+        } remoteCommandId = {.pAmsRemoteCommandId = NULL};
+
+        remoteCommandId.amsRemoteCommandId = gAmsRemoteCommandIdPlay_c;
+
+        (void)App_PostCallbackMessage(mpfShellEventHandler, remoteCommandId.pAmsRemoteCommandId);
     }
 
     return kStatus_SHELL_Success;
@@ -879,7 +890,15 @@ static shell_status_t ShellPause_Command(shell_handle_t shellHandle, int32_t arg
 {
     if(mpfShellEventHandler != NULL)
     {
-        App_PostCallbackMessage(mpfShellEventHandler, (void *)gAmsRemoteCommandIdPause_c);
+        union
+        {
+            amsRemoteCommandId_t    amsRemoteCommandId;
+            void                    *pAmsRemoteCommandId;
+        } remoteCommandId = {.pAmsRemoteCommandId = NULL};
+
+        remoteCommandId.amsRemoteCommandId = gAmsRemoteCommandIdPause_c;
+
+        (void)App_PostCallbackMessage(mpfShellEventHandler, remoteCommandId.pAmsRemoteCommandId);
     }
 
     return kStatus_SHELL_Success;
@@ -898,7 +917,15 @@ static shell_status_t ShellTogglePlayPause_Command(shell_handle_t shellHandle, i
 {
     if(mpfShellEventHandler != NULL)
     {
-        App_PostCallbackMessage(mpfShellEventHandler, (void *)gAmsRemoteCommandIdTogglePlayPause_c);
+        union
+        {
+            amsRemoteCommandId_t    amsRemoteCommandId;
+            void                    *pAmsRemoteCommandId;
+        } remoteCommandId = {.pAmsRemoteCommandId = NULL};
+
+        remoteCommandId.amsRemoteCommandId = gAmsRemoteCommandIdTogglePlayPause_c;
+
+        (void)App_PostCallbackMessage(mpfShellEventHandler, remoteCommandId.pAmsRemoteCommandId);
     }
 
     return kStatus_SHELL_Success;
@@ -917,7 +944,15 @@ static shell_status_t ShellNextTrack_Command(shell_handle_t shellHandle, int32_t
 {
     if(mpfShellEventHandler != NULL)
     {
-        App_PostCallbackMessage(mpfShellEventHandler, (void *)gAmsRemoteCommandIdNextTrack_c);
+        union
+        {
+            amsRemoteCommandId_t    amsRemoteCommandId;
+            void                    *pAmsRemoteCommandId;
+        } remoteCommandId = {.pAmsRemoteCommandId = NULL};
+
+        remoteCommandId.amsRemoteCommandId = gAmsRemoteCommandIdNextTrack_c;
+
+        (void)App_PostCallbackMessage(mpfShellEventHandler, remoteCommandId.pAmsRemoteCommandId);
     }
 
     return kStatus_SHELL_Success;
@@ -936,7 +971,15 @@ static shell_status_t ShellPreviousTrack_Command(shell_handle_t shellHandle, int
 {
     if(mpfShellEventHandler != NULL)
     {
-        App_PostCallbackMessage(mpfShellEventHandler, (void *)gAmsRemoteCommandIdPreviousTrack_c);
+        union
+        {
+            amsRemoteCommandId_t    amsRemoteCommandId;
+            void                    *pAmsRemoteCommandId;
+        } remoteCommandId = {.pAmsRemoteCommandId = NULL};
+
+        remoteCommandId.amsRemoteCommandId = gAmsRemoteCommandIdPreviousTrack_c;
+
+        (void)App_PostCallbackMessage(mpfShellEventHandler, remoteCommandId.pAmsRemoteCommandId);
     }
 
     return kStatus_SHELL_Success;
@@ -955,7 +998,15 @@ static shell_status_t ShellVolumeUp_Command(shell_handle_t shellHandle, int32_t 
 {
     if(mpfShellEventHandler != NULL)
     {
-        App_PostCallbackMessage(mpfShellEventHandler, (void *)gAmsRemoteCommandIdVolumeUp_c);
+        union
+        {
+            amsRemoteCommandId_t    amsRemoteCommandId;
+            void                    *pAmsRemoteCommandId;
+        } remoteCommandId = {.pAmsRemoteCommandId = NULL};
+
+        remoteCommandId.amsRemoteCommandId = gAmsRemoteCommandIdVolumeUp_c;
+
+        (void)App_PostCallbackMessage(mpfShellEventHandler, remoteCommandId.pAmsRemoteCommandId);
     }
 
     return kStatus_SHELL_Success;
@@ -974,7 +1025,15 @@ static shell_status_t ShellVolumeDown_Command(shell_handle_t shellHandle, int32_
 {
     if(mpfShellEventHandler != NULL)
     {
-        App_PostCallbackMessage(mpfShellEventHandler, (void *)gAmsRemoteCommandIdVolumeDown_c);
+        union
+        {
+            amsRemoteCommandId_t    amsRemoteCommandId;
+            void                    *pAmsRemoteCommandId;
+        } remoteCommandId = {.pAmsRemoteCommandId = NULL};
+
+        remoteCommandId.amsRemoteCommandId = gAmsRemoteCommandIdVolumeDown_c;
+
+        (void)App_PostCallbackMessage(mpfShellEventHandler, remoteCommandId.pAmsRemoteCommandId);
     }
 
     return kStatus_SHELL_Success;
@@ -993,7 +1052,15 @@ static shell_status_t ShellAdvanceRepeatMode_Command(shell_handle_t shellHandle,
 {
     if(mpfShellEventHandler != NULL)
     {
-        App_PostCallbackMessage(mpfShellEventHandler, (void *)gAmsRemoteCommandIdAdvanceRepeatMode_c);
+        union
+        {
+            amsRemoteCommandId_t    amsRemoteCommandId;
+            void                    *pAmsRemoteCommandId;
+        } remoteCommandId = {.pAmsRemoteCommandId = NULL};
+
+        remoteCommandId.amsRemoteCommandId = gAmsRemoteCommandIdAdvanceRepeatMode_c;
+
+        (void)App_PostCallbackMessage(mpfShellEventHandler, remoteCommandId.pAmsRemoteCommandId);
     }
 
     return kStatus_SHELL_Success;
@@ -1012,7 +1079,15 @@ static shell_status_t ShellAdvanceShuffleMode_Command(shell_handle_t shellHandle
 {
     if(mpfShellEventHandler != NULL)
     {
-        App_PostCallbackMessage(mpfShellEventHandler, (void *)gAmsRemoteCommandIdAdvanceShuffleMode_c);
+        union
+        {
+            amsRemoteCommandId_t    amsRemoteCommandId;
+            void                    *pAmsRemoteCommandId;
+        } remoteCommandId = {.pAmsRemoteCommandId = NULL};
+
+        remoteCommandId.amsRemoteCommandId = gAmsRemoteCommandIdAdvanceShuffleMode_c;
+
+        (void)App_PostCallbackMessage(mpfShellEventHandler, remoteCommandId.pAmsRemoteCommandId);
     }
 
     return kStatus_SHELL_Success;
@@ -1031,7 +1106,15 @@ static shell_status_t ShellSkipForward_Command(shell_handle_t shellHandle, int32
 {
     if(mpfShellEventHandler != NULL)
     {
-        App_PostCallbackMessage(mpfShellEventHandler, (void *)gAmsRemoteCommandIdSkipForward_c);
+        union
+        {
+            amsRemoteCommandId_t    amsRemoteCommandId;
+            void                    *pAmsRemoteCommandId;
+        } remoteCommandId = {.pAmsRemoteCommandId = NULL};
+
+        remoteCommandId.amsRemoteCommandId = gAmsRemoteCommandIdSkipForward_c;
+
+        (void)App_PostCallbackMessage(mpfShellEventHandler, remoteCommandId.pAmsRemoteCommandId);
     }
 
     return kStatus_SHELL_Success;
@@ -1050,7 +1133,15 @@ static shell_status_t ShellSkipBackward_Command(shell_handle_t shellHandle, int3
 {
     if(mpfShellEventHandler != NULL)
     {
-        App_PostCallbackMessage(mpfShellEventHandler, (void *)gAmsRemoteCommandIdSkipBackward_c);
+        union
+        {
+            amsRemoteCommandId_t    amsRemoteCommandId;
+            void                    *pAmsRemoteCommandId;
+        } remoteCommandId = {.pAmsRemoteCommandId = NULL};
+
+        remoteCommandId.amsRemoteCommandId = gAmsRemoteCommandIdSkipBackward_c;
+
+        (void)App_PostCallbackMessage(mpfShellEventHandler, remoteCommandId.pAmsRemoteCommandId);
     }
 
     return kStatus_SHELL_Success;
@@ -1069,7 +1160,15 @@ static shell_status_t ShellLikeTrack_Command(shell_handle_t shellHandle, int32_t
 {
     if(mpfShellEventHandler != NULL)
     {
-        App_PostCallbackMessage(mpfShellEventHandler, (void *)gAmsRemoteCommandIdLikeTrack_c);
+        union
+        {
+            amsRemoteCommandId_t    amsRemoteCommandId;
+            void                    *pAmsRemoteCommandId;
+        } remoteCommandId = {.pAmsRemoteCommandId = NULL};
+
+        remoteCommandId.amsRemoteCommandId = gAmsRemoteCommandIdLikeTrack_c;
+
+        (void)App_PostCallbackMessage(mpfShellEventHandler, remoteCommandId.pAmsRemoteCommandId);
     }
 
     return kStatus_SHELL_Success;
@@ -1088,7 +1187,15 @@ static shell_status_t ShellDislikeTrack_Command(shell_handle_t shellHandle, int3
 {
     if(mpfShellEventHandler != NULL)
     {
-        App_PostCallbackMessage(mpfShellEventHandler, (void *)gAmsRemoteCommandIdDislikeTrack_c);
+        union
+        {
+            amsRemoteCommandId_t    amsRemoteCommandId;
+            void                    *pAmsRemoteCommandId;
+        } remoteCommandId = {.pAmsRemoteCommandId = NULL};
+
+        remoteCommandId.amsRemoteCommandId = gAmsRemoteCommandIdDislikeTrack_c;
+
+        (void)App_PostCallbackMessage(mpfShellEventHandler, remoteCommandId.pAmsRemoteCommandId);
     }
 
     return kStatus_SHELL_Success;
@@ -1107,7 +1214,15 @@ static shell_status_t ShellBookmarkTrack_Command(shell_handle_t shellHandle, int
 {
     if(mpfShellEventHandler != NULL)
     {
-        App_PostCallbackMessage(mpfShellEventHandler, (void *)gAmsRemoteCommandIdBookmarkTrack_c);
+        union
+        {
+            amsRemoteCommandId_t    amsRemoteCommandId;
+            void                    *pAmsRemoteCommandId;
+        } remoteCommandId = {.pAmsRemoteCommandId = NULL};
+
+        remoteCommandId.amsRemoteCommandId = gAmsRemoteCommandIdBookmarkTrack_c;
+
+        (void)App_PostCallbackMessage(mpfShellEventHandler, remoteCommandId.pAmsRemoteCommandId);
     }
 
     return kStatus_SHELL_Success;
@@ -3386,8 +3501,8 @@ static void AmsClient_ProcessEuTrackInfo(
         {
             FLib_MemCpy((uint8_t *)(amsClientData.euTrackArtist),
                         &(pEuData[3]),
-                        euDataLength - 3);
-            amsClientData.euTrackArtist[euDataLength - 3] = 0; /* add null terminator */
+                        ((uint32_t)euDataLength - 0x0003U));
+            amsClientData.euTrackArtist[euDataLength - 0x03U] = 0; /* add null terminator */
         }
         break;
 
@@ -3395,8 +3510,8 @@ static void AmsClient_ProcessEuTrackInfo(
         {
             FLib_MemCpy((uint8_t *)(amsClientData.euTrackAlbum),
                         &(pEuData[3]),
-                        euDataLength - 3);
-            amsClientData.euTrackAlbum[euDataLength - 3] = 0; /* add null terminator */
+                        ((uint32_t)euDataLength - 0x0003U));
+            amsClientData.euTrackAlbum[euDataLength - 0x03U] = 0; /* add null terminator */
         }
         break;
 
@@ -3404,8 +3519,8 @@ static void AmsClient_ProcessEuTrackInfo(
         {
             FLib_MemCpy((uint8_t *)(amsClientData.euTrackTitle),
                         &(pEuData[3]),
-                        euDataLength - 3);
-            amsClientData.euTrackTitle[euDataLength - 3] = 0; /* add null terminator */
+                        ((uint32_t)euDataLength - 0x0003U));
+            amsClientData.euTrackTitle[euDataLength - 0x03U] = 0; /* add null terminator */
         }
         break;
 
@@ -3413,8 +3528,8 @@ static void AmsClient_ProcessEuTrackInfo(
         {
             FLib_MemCpy((uint8_t *)(amsClientData.euTrackDuration),
                         &(pEuData[3]),
-                        euDataLength - 3);
-            amsClientData.euTrackDuration[euDataLength - 3] = 0; /* add null terminator */
+                        ((uint32_t)euDataLength - 0x0003U));
+            amsClientData.euTrackDuration[euDataLength - 0x03U] = 0; /* add null terminator */
         }
         break;
 
@@ -3493,7 +3608,7 @@ static void AmsClient_ProcessRcNotification(deviceId_t   deviceId,
 
     for (idx = 0x00U; idx < rcDataLength; idx++)
     {
-        commandBitmask |= (0x01U << pRcData[idx]);
+        commandBitmask |= (((uint16_t)0x01U) << (uint16_t)pRcData[idx]);
     }
 
     amsClientData.amsAvailableCommandsBitmask = commandBitmask;
@@ -3655,7 +3770,7 @@ static void AncsClient_DisplayNotifications(void)
 
         for (b_idx = 0x00U; b_idx < gAmsTotalRemoteCommandIds_c; b_idx++)
         {
-            if ((amsClientData.amsAvailableCommandsBitmask & (1 << b_idx)) != 0)
+            if ((amsClientData.amsAvailableCommandsBitmask & (((uint16_t)0x01U) << b_idx)) != (uint16_t)0x00U)
             {
                 shell_writeN((char *)(&(amsRemoteCommandToStringTable[b_idx])), mMaxRemoteCommandDisplayLength_c);
                 shell_write(" ");

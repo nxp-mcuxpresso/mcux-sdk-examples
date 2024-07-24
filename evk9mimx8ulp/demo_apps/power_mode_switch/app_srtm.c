@@ -26,6 +26,7 @@
 #include "srtm_lfcl_service.h"
 #include "srtm_rtc_service.h"
 #include "srtm_rtc_adapter.h"
+#include "srtm_pdm_edma_adapter.h"
 
 #include "app_srtm.h"
 #include "board.h"
@@ -92,6 +93,7 @@ typedef struct
     app_pedometer_t pedometer;
 } app_sensor_t;
 
+static uint8_t edmaUseCnt = 0U;
 #if SRTM_SAI_EDMA_LOCAL_BUF_ENABLE
 #define BUFFER_LEN (128 * 1024)
 #if (defined(__ICCARM__))
@@ -246,6 +248,7 @@ static srtm_service_t rtcService;
 static srtm_rtc_adapter_t rtcAdapter;
 static srtm_service_t i2cService;
 static srtm_service_t ioService;
+srtm_sai_adapter_t pdmAdapter;
 static srtm_service_t keypadService;
 static SemaphoreHandle_t monSig;
 static struct rpmsg_lite_instance *rpmsgHandle;
@@ -1330,6 +1333,12 @@ static void APP_SRTM_Linkup(void)
     chan               = SRTM_RPMsgEndpoint_Create(&rpmsgConfig);
     SRTM_PeerCore_AddChannel(core, chan);
 
+    /* Create and add SRTM PDM channel to peer core */
+    rpmsgConfig.epName = APP_SRTM_PDM_CHANNEL_NAME;
+    chan               = SRTM_RPMsgEndpoint_Create(&rpmsgConfig);
+    SRTM_PeerCore_AddChannel(core, chan);
+    SRTM_AudioService_BindChannel(audioService, pdmAdapter, chan);
+
     /* Create and add SRTM Sensor channel to peer core */
     if (sensorReady)
     {
@@ -1552,19 +1561,6 @@ static void APP_SRTM_DeinitPeerCore(void)
 
     /* Inform upower that m33 is not using the ddr(it's ready to reset ddr of lpavd) */
     UPOWER_SetRtdUseDdr(false);
-}
-
-static void APP_SRTM_InitAudioDevice(void)
-{
-    edma_config_t dmaConfig;
-
-    /* Initialize DMA0 for SAI */
-    EDMA_GetDefaultConfig(&dmaConfig);
-    EDMA_Init(DMA0, &dmaConfig);
-
-    /* Initialize DMAMUX for SAI */
-    EDMA_SetChannelMux(DMA0, APP_SAI_TX_DMA_CHANNEL, kDmaRequestMux0SAI0Tx);
-    EDMA_SetChannelMux(DMA0, APP_SAI_RX_DMA_CHANNEL, kDmaRequestMux0SAI0Rx);
 }
 
 /*
@@ -1800,20 +1796,71 @@ void APP_SRTM_PostCopyCallback()
 }
 #endif
 
+static void APP_SRTM_InitPdmDevice(bool enable)
+{
+    edma_config_t dmaConfig;
+
+    if (enable)
+    {
+        if (edmaUseCnt == 0U)
+        {
+            EDMA_GetDefaultConfig(&dmaConfig);
+            EDMA_Init(DMA0, &dmaConfig);
+        }
+        edmaUseCnt++;
+    }
+    else
+    {
+        edmaUseCnt--;
+        if (edmaUseCnt == 0U)
+        {
+            EDMA_Deinit(DMA0);
+        }
+    }
+}
+
+static void APP_SRTM_InitAudioDevice(void)
+{
+    edma_config_t dmaConfig;
+
+    CLOCK_EnableClock(kCLOCK_Dma0Ch0);
+
+    /* Initialize DMA0 for SAI */
+    EDMA_GetDefaultConfig(&dmaConfig);
+    EDMA_Init(DMA0, &dmaConfig);
+
+    /* Initialize DMAMUX for SAI */
+    EDMA_SetChannelMux(DMA0, APP_SAI_TX_DMA_CHANNEL, kDmaRequestMux0SAI0Tx);
+    EDMA_SetChannelMux(DMA0, APP_SAI_RX_DMA_CHANNEL, kDmaRequestMux0SAI0Rx);
+
+    APP_SRTM_InitPdmDevice(true);
+
+    EDMA_SetChannelMux(DMA0, APP_PDM_RX_DMA_CHANNEL, kDmaRequestMux0MICFIL);
+}
+
+static uint32_t APP_SRTM_ConfPdmDevice(srtm_audio_format_type_t format, uint32_t srate)
+{
+    return CLOCK_GetIpFreq(kCLOCK_Micfil);
+}
+
 static void APP_SRTM_InitAudioService(void)
 {
     srtm_sai_edma_config_t saiTxConfig;
     srtm_sai_edma_config_t saiRxConfig;
+    srtm_pdm_edma_config_t pdmConfig;
 
     APP_SRTM_InitAudioDevice();
 
     memset(&saiTxConfig, 0, sizeof(saiTxConfig));
     memset(&saiRxConfig, 0, sizeof(saiRxConfig));
+    memset(&pdmConfig, 0, sizeof(pdmConfig));
 
     /*  Set SAI DMA IRQ Priority. */
     NVIC_SetPriority(APP_DMA_IRQN(APP_SAI_TX_DMA_CHANNEL), APP_SAI_TX_DMA_IRQ_PRIO);
     NVIC_SetPriority(APP_DMA_IRQN(APP_SAI_RX_DMA_CHANNEL), APP_SAI_RX_DMA_IRQ_PRIO);
     NVIC_SetPriority(APP_SRTM_SAI_IRQn, APP_SAI_IRQ_PRIO);
+    NVIC_SetPriority(APP_DMA_IRQN(APP_PDM_RX_DMA_CHANNEL), APP_PDM_RX_DMA_IRQ_PRIO);
+    NVIC_SetPriority(APP_SRTM_PDM_IRQn, APP_PDM_IRQ_PRIO);
 
     /* Create SAI EDMA adapter */
     SAI_GetClassicI2SConfig(&saiTxConfig.config, kSAI_WordWidth16bits, kSAI_Stereo, kSAI_Channel0Mask);
@@ -1851,8 +1898,24 @@ static void APP_SRTM_InitAudioService(void)
     SRTM_SaiEdmaAdapter_SetTxPostCopyCallback(saiAdapter, APP_SRTM_PostCopyCallback);
 #endif
 
+    /* Creat PDM SDMA adapter */
+    pdmConfig.stopOnSuspend = true; // Halt recording on A core suspend.
+    pdmConfig.dmaChannel    = APP_PDM_RX_DMA_CHANNEL;
+    pdmConfig.eventSource              = APP_PDM_RX_DMA_SOURCE;
+    pdmConfig.extendConfig.audioDevInit = APP_SRTM_InitPdmDevice;
+    pdmConfig.extendConfig.audioDevConf = APP_SRTM_ConfPdmDevice;
+    pdmConfig.pdmSrcClk                 = APP_PDM_CLOCK;
+    pdmConfig.config.qualityMode        = APP_PDM_QUALITY_MODE;
+    pdmConfig.config.enableDoze         = false;
+    pdmConfig.config.fifoWatermark      = FSL_FEATURE_PDM_FIFO_DEPTH / 2U;
+    pdmConfig.config.cicOverSampleRate  = APP_PDM_CICOVERSAMPLE_RATE;
+    pdmConfig.channelConfig.gain        = APP_PDM_CHANNEL_GAIN;
+    pdmAdapter                          = SRTM_PdmEdmaAdapter_Create(PDM, DMA0, &pdmConfig);
+    assert(pdmAdapter);
+
     /* Create and register audio service */
     audioService = SRTM_AudioService_Create(saiAdapter, NULL);
+    SRTM_AudioService_AddAudioInterface(audioService, pdmAdapter);
     SRTM_Dispatcher_RegisterService(disp, audioService);
 }
 
@@ -2320,7 +2383,6 @@ static void SRTM_MonitorTask(void *pvParameters)
 
                 APP_SRTM_InitPeerCore();
                 SRTM_Dispatcher_Start(disp);
-
                 NVIC_ClearPendingIRQ(CMC1_IRQn);
                 EnableIRQ(CMC1_IRQn);
                 option_v_boot_flag = false;

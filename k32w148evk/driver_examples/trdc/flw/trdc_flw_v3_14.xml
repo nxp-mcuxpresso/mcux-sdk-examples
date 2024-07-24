@@ -47,7 +47,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>
@@ -110,9 +110,6 @@
     </source>
     <source path="." project_relative_path="doc" type="doc" toolchain="mcuxpresso armgcc">
       <files mask="readme.md"/>
-    </source>
-    <source path="armgcc" project_relative_path="K32W1480/gcc" type="linker" toolchain="armgcc">
-      <files mask="k32w148_flash.ld"/>
     </source>
   </example>
 </ksdk:examples>

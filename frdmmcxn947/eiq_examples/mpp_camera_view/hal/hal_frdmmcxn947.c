@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 NXP.
+ * Copyright 2023-2024 NXP.
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -30,10 +30,12 @@ int hal_gfx_setup(const char *name, gfx_dev_t *dev)
 }
 
 /* Display setup */
+int HAL_DisplayDev_McuLcdST7796S_setup(display_dev_t *dev);
 int HAL_DisplayDev_McuLcdSsd1963_setup(display_dev_t *dev);
 
 hal_display_setup_t display_setup[] =
 {
+    {"McuLcdST7796S", HAL_DisplayDev_McuLcdST7796S_setup},
     {"McuLcdSsd1963", HAL_DisplayDev_McuLcdSsd1963_setup},
 };
 

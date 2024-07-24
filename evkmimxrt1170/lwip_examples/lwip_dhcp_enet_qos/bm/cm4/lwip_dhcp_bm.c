@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2020,2023 NXP
+ * Copyright 2016-2020,2023-2024 NXP
  * All rights reserved.
  *
  *
@@ -23,10 +23,6 @@
 #include "lwip/prot/dhcp.h"
 #include "netif/ethernet.h"
 #include "ethernetif.h"
-
-#ifndef configMAC_ADDR
-#include "fsl_silicon_id.h"
-#endif
 #include "fsl_phy.h"
 #include "pin_mux.h"
 #include "board.h"
@@ -87,6 +83,11 @@ extern phy_rtl8211f_resource_t g_phy_resource;
 #define EXAMPLE_PHY_OPS      &phyrtl8211f_ops
 #define EXAMPLE_PHY_RESOURCE &g_phy_resource
 #define EXAMPLE_CLOCK_FREQ   CLOCK_GetRootClockFreq(kCLOCK_Root_Bus)
+
+/* Must be after include of app.h */
+#ifndef configMAC_ADDR
+#include "fsl_silicon_id.h"
+#endif
 
 #ifndef EXAMPLE_NETIF_INIT_FN
 /*! @brief Network interface initialization function. */

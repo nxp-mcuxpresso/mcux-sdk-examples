@@ -17,6 +17,7 @@
 #include "fsl_iomuxc.h"
 #include "fsl_reset.h"
 #include "fsl_upower.h"
+#include "fsl_fusion.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -133,6 +134,7 @@ int main(void)
     /* Use Pll1Pfd2Div clock source 12.288MHz. */
     CLOCK_SetIpSrc(kCLOCK_Sai0, kCLOCK_Cm33SaiClkSrcPll1Pfd2Div);
 
+    CLOCK_EnableClock(kCLOCK_Dma0Ch0);
     CLOCK_EnableClock(kCLOCK_Dma0Ch16);
     CLOCK_EnableClock(kCLOCK_Dma0Ch17);
     CLOCK_EnableClock(kCLOCK_RgpioA);
@@ -144,6 +146,8 @@ int main(void)
     RESET_PeripheralReset(kRESET_Lpi2c0);
     RESET_PeripheralReset(kRESET_Lpi2c1);
     RESET_PeripheralReset(kRESET_Tpm0);
+
+    Fusion_Init();
 
     /* RTD take LPAV master ownership to prevent APD putting DDR into retention when suspended */
     /* SIM_SEC->SYSCTRL0 &= ~SIM_SEC_SYSCTRL0_LPAV_MASTER_CTRL_MASK; */

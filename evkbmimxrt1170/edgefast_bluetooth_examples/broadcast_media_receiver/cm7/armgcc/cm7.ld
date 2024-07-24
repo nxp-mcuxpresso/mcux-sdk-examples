@@ -13,7 +13,7 @@
 **         Linker file for the GNU C Compiler
 **
 **     Copyright 2016 Freescale Semiconductor, Inc.
-**     Copyright 2016-2023 NXP
+**     Copyright 2016-2024 NXP
 **     All rights reserved.
 **
 **     SPDX-License-Identifier: BSD-3-Clause
@@ -123,9 +123,19 @@ SECTIONS
         */fsl_adapter_flexspi_nor_flash.c.obj
         */mflash_drv.c.obj
         */fsl_flexspi.c.obj
-        */libethermind_lc3_common.a
-        */libethermind_lc3_encoder.a
-        */libethermind_lc3_decoder.a
+
+        */srCvtFrm.c.obj
+
+        *libethermind_lc3_decoder.a:lc3_decoder_api.c.obj
+        *libethermind_lc3_decoder.a:lc3_decode.c.obj
+        *libethermind_lc3_encoder.a:lc3_encoder_api.c.obj
+        *libethermind_lc3_encoder.a:lc3_encode.c.obj
+        *libethermind_lc3_common.a:lc3_common.c.obj
+        *libethermind_lc3_common.a:lc3_fft.c.obj
+        *libethermind_lc3_common.a:lc3_init.c.obj
+        *libethermind_lc3_common.a:lc3_math_util.c.obj
+        *libethermind_lc3_common.a:lc3_tables.c.obj
+
         */fsl_edma.c.obj
         */fsl_sai.c.obj
         */fsl_sai_edma.c.obj
@@ -137,17 +147,61 @@ SECTIONS
         */fsl_adapter_flexspi_nor_flash.c.obj
         */mflash_drv.c.obj
         */fsl_flexspi.c.obj
-        */libethermind_lc3_common.a
-        */libethermind_lc3_encoder.a
-        */libethermind_lc3_decoder.a
+
+        */srCvtFrm.c.obj
+
+        *libethermind_lc3_decoder.a:lc3_decoder_api.c.obj
+        *libethermind_lc3_decoder.a:lc3_decode.c.obj
+        *libethermind_lc3_encoder.a:lc3_encoder_api.c.obj
+        *libethermind_lc3_encoder.a:lc3_encode.c.obj
+        *libethermind_lc3_common.a:lc3_common.c.obj
+        *libethermind_lc3_common.a:lc3_fft.c.obj
+        *libethermind_lc3_common.a:lc3_init.c.obj
+        *libethermind_lc3_common.a:lc3_math_util.c.obj
+        *libethermind_lc3_common.a:lc3_tables.c.obj
+
         */fsl_edma.c.obj
         */fsl_sai.c.obj
         */fsl_sai_edma.c.obj
         */hardware_init.c.obj
         */main.c.obj
     ) .text*)                /* .text* sections (code) */
-    *(.rodata)               /* .rodata sections (constants, strings, etc.) */
-    *(.rodata*)              /* .rodata* sections (constants, strings, etc.) */
+    *(EXCLUDE_FILE(
+        /* Exclude flash and frequently executed functions from XIP */
+        */fsl_adapter_flexspi_nor_flash.c.obj
+        */mflash_drv.c.obj
+        */fsl_flexspi.c.obj
+
+        */srCvtFrm.c.obj
+
+        *libethermind_lc3_decoder.a:lc3_decoder_api.c.obj
+        *libethermind_lc3_decoder.a:lc3_decode.c.obj
+        *libethermind_lc3_encoder.a:lc3_encoder_api.c.obj
+        *libethermind_lc3_encoder.a:lc3_encode.c.obj
+        *libethermind_lc3_common.a:lc3_common.c.obj
+        *libethermind_lc3_common.a:lc3_fft.c.obj
+        *libethermind_lc3_common.a:lc3_init.c.obj
+        *libethermind_lc3_common.a:lc3_math_util.c.obj
+        *libethermind_lc3_common.a:lc3_tables.c.obj
+    ) .rodata)                 /* .rodata sections (code) */
+    *(EXCLUDE_FILE(
+        /* Exclude flash and frequently executed functions from XIP */
+        */fsl_adapter_flexspi_nor_flash.c.obj
+        */mflash_drv.c.obj
+        */fsl_flexspi.c.obj
+
+        */srCvtFrm.c.obj
+
+        *libethermind_lc3_decoder.a:lc3_decoder_api.c.obj
+        *libethermind_lc3_decoder.a:lc3_decode.c.obj
+        *libethermind_lc3_encoder.a:lc3_encoder_api.c.obj
+        *libethermind_lc3_encoder.a:lc3_encode.c.obj
+        *libethermind_lc3_common.a:lc3_common.c.obj
+        *libethermind_lc3_common.a:lc3_fft.c.obj
+        *libethermind_lc3_common.a:lc3_init.c.obj
+        *libethermind_lc3_common.a:lc3_math_util.c.obj
+        *libethermind_lc3_common.a:lc3_tables.c.obj
+    ) .rodata*)                /* .rodata* sections (code) */
     *(.glue_7)               /* glue arm to thumb code */
     *(.glue_7t)              /* glue thumb to arm code */
     *(.eh_frame)
@@ -301,14 +355,26 @@ SECTIONS
     . = ALIGN(4);
     __DATA_RAM = .;
     __data_start__ = .;      /* create a global symbol at data start */
+    . = ALIGN(32);
     *(m_usb_dma_init_data)
+    . = ALIGN(32);
     /* Explicit placement of flash and frequently executed functions in RAM */
-    */fsl_adapter_flexspi_nor_flash.c.obj
-    */mflash_drv.c.obj
-    */fsl_flexspi.c.obj
-    */libethermind_lc3_common.a
-    */libethermind_lc3_encoder.a
-    */libethermind_lc3_decoder.a
+    */fsl_adapter_flexspi_nor_flash.c.obj(.text .text* .rodata .rodata*)
+    */mflash_drv.c.obj(.text .text* .rodata .rodata*)
+    */fsl_flexspi.c.obj(.text .text* .rodata .rodata*)
+
+    */srCvtFrm.c.obj(.text .text* .rodata .rodata*)
+
+    *libethermind_lc3_decoder.a:lc3_decoder_api.c.obj(.text .text* .rodata .rodata*)
+    *libethermind_lc3_decoder.a:lc3_decode.c.obj(.text .text* .rodata .rodata*)
+    *libethermind_lc3_encoder.a:lc3_encoder_api.c.obj(.text .text* .rodata .rodata*)
+    *libethermind_lc3_encoder.a:lc3_encode.c.obj(.text .text* .rodata .rodata*)
+    *libethermind_lc3_common.a:lc3_common.c.obj(.text .text* .rodata .rodata*)
+    *libethermind_lc3_common.a:lc3_fft.c.obj(.text .text* .rodata .rodata*)
+    *libethermind_lc3_common.a:lc3_init.c.obj(.text .text* .rodata .rodata*)
+    *libethermind_lc3_common.a:lc3_math_util.c.obj(.text .text* .rodata .rodata*)
+    *libethermind_lc3_common.a:lc3_tables.c.obj(.text .text* .rodata .rodata*)
+
     */fsl_edma.c.obj
     */fsl_sai.c.obj
     */fsl_sai_edma.c.obj
@@ -327,7 +393,7 @@ SECTIONS
     KEEP(*(SORT(._net_buf_pool*)))
     . = ALIGN(4);
     __data_end__ = .;        /* define a global symbol at data end */
-  } > m_data
+  } > m_data2
 
   __ram_function_flash_start = __DATA_ROM + (__data_end__ - __data_start__); /* Symbol is used by startup for TCM data initialization */
 
@@ -367,7 +433,9 @@ SECTIONS
     . = ALIGN(4);
     __START_BSS = .;
     __bss_start__ = .;
+    . = ALIGN(32);
     *(m_usb_dma_noninit_data)
+    . = ALIGN(32);
     *(.bss)
     *(.bss*)
     *(COMMON)
@@ -391,7 +459,7 @@ SECTIONS
   {
     . = ALIGN(8);
     . += STACK_SIZE;
-  } > m_data2
+  } > m_data
 
   /* Initializes stack on the end of block */
   __StackTop   = ORIGIN(m_data) + LENGTH(m_data);

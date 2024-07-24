@@ -10,7 +10,9 @@
 #include "clock_config.h"
 #include "board.h"
 #include "fsl_debug_console.h"
+#if defined(FSL_FEATURE_SOC_DMAMUX_COUNT) && FSL_FEATURE_SOC_DMAMUX_COUNT
 #include "fsl_dmamux.h"
+#endif
 #include "fsl_sai_edma.h"
 #include "fsl_codec_common.h"
 #include "fsl_codec_adapter.h"
@@ -112,8 +114,13 @@ cs42448_config_t cs42448Config = {
 
 codec_config_t boardCodecConfig = {.codecDevType = kCODEC_CS42448, .codecDevConfig = &cs42448Config};
 AT_NONCACHEABLE_SECTION_ALIGN(static uint8_t Buffer[BUFFER_NUMBER * BUFFER_SIZE], 4);
+#if defined(DEMO_QUICKACCESS_SECTION_CACHEABLE) && DEMO_QUICKACCESS_SECTION_CACHEABLE
+AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t txHandle);
+AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t rxHandle);
+#else
 AT_QUICKACCESS_SECTION_DATA(sai_edma_handle_t txHandle);
 AT_QUICKACCESS_SECTION_DATA(sai_edma_handle_t rxHandle);
+#endif
 static uint32_t tx_index = 0U, rx_index = 0U;
 volatile uint32_t emptyBlock = BUFFER_NUMBER;
 edma_handle_t dmaTxHandle = {0}, dmaRxHandle = {0};
@@ -231,16 +238,25 @@ int main(void)
 
     /* Init DMA and create handle for DMA */
     EDMA_GetDefaultConfig(&dmaConfig);
+#if defined(BOARD_GetEDMAConfig)
+    BOARD_GetEDMAConfig(dmaConfig);
+#endif
     EDMA_Init(EXAMPLE_DMA, &dmaConfig);
     EDMA_CreateHandle(&dmaTxHandle, EXAMPLE_DMA, EXAMPLE_TX_CHANNEL);
     EDMA_CreateHandle(&dmaRxHandle, EXAMPLE_DMA, EXAMPLE_RX_CHANNEL);
+#if defined(FSL_FEATURE_EDMA_HAS_CHANNEL_MUX) && FSL_FEATURE_EDMA_HAS_CHANNEL_MUX
+    EDMA_SetChannelMux(EXAMPLE_DMA, EXAMPLE_TX_CHANNEL, EXAMPLE_SAI_TX_SOURCE);
+    EDMA_SetChannelMux(EXAMPLE_DMA, EXAMPLE_RX_CHANNEL, EXAMPLE_SAI_RX_SOURCE);
+#endif
 
+#if defined(FSL_FEATURE_SOC_DMAMUX_COUNT) && FSL_FEATURE_SOC_DMAMUX_COUNT 
     /* Init DMAMUX */
     DMAMUX_Init(EXAMPLE_DMAMUX);
     DMAMUX_SetSource(EXAMPLE_DMAMUX, EXAMPLE_TX_CHANNEL, (uint8_t)EXAMPLE_SAI_TX_SOURCE);
     DMAMUX_EnableChannel(EXAMPLE_DMAMUX, EXAMPLE_TX_CHANNEL);
     DMAMUX_SetSource(EXAMPLE_DMAMUX, EXAMPLE_RX_CHANNEL, (uint8_t)EXAMPLE_SAI_RX_SOURCE);
     DMAMUX_EnableChannel(EXAMPLE_DMAMUX, EXAMPLE_RX_CHANNEL);
+#endif
 
     /* SAI init */
     SAI_Init(DEMO_SAI);

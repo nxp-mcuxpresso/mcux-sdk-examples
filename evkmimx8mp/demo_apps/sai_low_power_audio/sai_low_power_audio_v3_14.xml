@@ -30,6 +30,7 @@
     <definition extID="middleware.multicore.rpmsg_lite.imx8mp_m7_freertos.MIMX8ML8"/>
     <definition extID="platform.utilities.misc_utilities.MIMX8ML8"/>
     <definition extID="CMSIS_Include_core_cm.MIMX8ML8"/>
+    <definition extID="utility.str.MIMX8ML8"/>
     <definition extID="device.MIMX8ML8_system.MIMX8ML8"/>
     <definition extID="platform.drivers.memory.MIMX8ML8"/>
     <definition extID="driver.srtm.MIMX8ML8"/>
@@ -41,7 +42,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="evkmimx8mp_sai_low_power_audio" name="sai_low_power_audio" dependency="platform.drivers.igpio.MIMX8ML8 platform.drivers.ii2c.MIMX8ML8 platform.drivers.gpt.MIMX8ML8 platform.drivers.gpc_2.MIMX8ML8 platform.drivers.pdm.MIMX8ML8 platform.drivers.pdm_sdma.MIMX8ML8 middleware.multicore.rpmsg_lite.freertos.MIMX8ML8 middleware.multicore.rpmsg_lite.MIMX8ML8 platform.drivers.clock.MIMX8ML8 platform.drivers.sai.MIMX8ML8 platform.drivers.sai_sdma.MIMX8ML8 platform.drivers.common.MIMX8ML8 platform.drivers.rdc.MIMX8ML8 platform.drivers.audiomix.MIMX8ML8 device.MIMX8ML8_CMSIS.MIMX8ML8 utility.debug_console.MIMX8ML8 component.iuart_adapter.MIMX8ML8 component.serial_manager_uart.MIMX8ML8 component.serial_manager.MIMX8ML8 platform.drivers.iuart.MIMX8ML8 component.lists.MIMX8ML8 device.MIMX8ML8_startup.MIMX8ML8 platform.utilities.assert.MIMX8ML8 platform.drivers.sdma.MIMX8ML8 platform.drivers.mu.MIMX8ML8 driver.srtm.freertos.MIMX8ML8 middleware.multicore.rpmsg_lite.imx8mp_m7_freertos.MIMX8ML8 platform.utilities.misc_utilities.MIMX8ML8 CMSIS_Include_core_cm.MIMX8ML8 device.MIMX8ML8_system.MIMX8ML8 platform.drivers.memory.MIMX8ML8 driver.srtm.MIMX8ML8 middleware.freertos-kernel.MIMX8ML8 middleware.freertos-kernel.heap_4.MIMX8ML8 middleware.freertos-kernel.template.MIMX8ML8 middleware.freertos-kernel.extension.MIMX8ML8" category="demo_apps">
+  <example id="evkmimx8mp_sai_low_power_audio" name="sai_low_power_audio" dependency="platform.drivers.igpio.MIMX8ML8 platform.drivers.ii2c.MIMX8ML8 platform.drivers.gpt.MIMX8ML8 platform.drivers.gpc_2.MIMX8ML8 platform.drivers.pdm.MIMX8ML8 platform.drivers.pdm_sdma.MIMX8ML8 middleware.multicore.rpmsg_lite.freertos.MIMX8ML8 middleware.multicore.rpmsg_lite.MIMX8ML8 platform.drivers.clock.MIMX8ML8 platform.drivers.sai.MIMX8ML8 platform.drivers.sai_sdma.MIMX8ML8 platform.drivers.common.MIMX8ML8 platform.drivers.rdc.MIMX8ML8 platform.drivers.audiomix.MIMX8ML8 device.MIMX8ML8_CMSIS.MIMX8ML8 utility.debug_console.MIMX8ML8 component.iuart_adapter.MIMX8ML8 component.serial_manager_uart.MIMX8ML8 component.serial_manager.MIMX8ML8 platform.drivers.iuart.MIMX8ML8 component.lists.MIMX8ML8 device.MIMX8ML8_startup.MIMX8ML8 platform.utilities.assert.MIMX8ML8 platform.drivers.sdma.MIMX8ML8 platform.drivers.mu.MIMX8ML8 driver.srtm.freertos.MIMX8ML8 middleware.multicore.rpmsg_lite.imx8mp_m7_freertos.MIMX8ML8 platform.utilities.misc_utilities.MIMX8ML8 CMSIS_Include_core_cm.MIMX8ML8 utility.str.MIMX8ML8 device.MIMX8ML8_system.MIMX8ML8 platform.drivers.memory.MIMX8ML8 driver.srtm.MIMX8ML8 middleware.freertos-kernel.MIMX8ML8 middleware.freertos-kernel.heap_4.MIMX8ML8 middleware.freertos-kernel.template.MIMX8ML8 middleware.freertos-kernel.extension.MIMX8ML8" category="demo_apps">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -69,7 +70,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_LPCXpresso55S28_manifest_v3_14" name="2.15.100 GitHub SDK" brief="SDK Superset" format_version="3.14" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.14.xsd">
+<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_LPCXpresso55S28_manifest_v3_14" name="SDK Version Superset" brief="SDK Superset" format_version="3.14" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.14.xsd">
 
-  <ksdk id="MCUXpressoSDK215100" name="MCUXpresso SDK215100" version="2.15.100" revision="2.15.100"/>
+  <ksdk id="MCUXpressoSDK216000" name="MCUXpresso SDK216000" version="2.16.000" revision="2.16.000"/>
   <compilers>
     <compiler id="compiler_gcc" name="gcc" type="gcc"/>
   </compilers>
   <toolchainSettings>
-    <toolchainSetting id="com.nxp.mcuxpresso" name="mcuxpresso" version="11.8.0" full_name="MCUXpresso IDE" compiler="compiler_gcc" toolchain="mcuxpresso">
+    <toolchainSetting id="com.nxp.mcuxpresso" name="mcuxpresso" version="11.10.0" full_name="MCUXpresso IDE" compiler="compiler_gcc" toolchain="mcuxpresso">
       <option id="gnu.cpp.compiler.option.optimization.flags" type="string" user_name="">
         <value>-fno-common</value>
       </option>
@@ -28,8 +28,8 @@
     </toolchainSetting>
   </toolchainSettings>
   <toolchains>
-    <toolchain id="armgcc" name="GCC_ARM_Embedded_10-2021.10" version="12.2" full_name="GCC ARM Embedded 10-2021.10" compiler="compiler_gcc" type="armgcc" vendor="GCC ARM Embedded" vendor_url="http://launchpad.net/gcc-arm-embedded"/>
-    <toolchain id="mcuxpresso" name="MCUXpresso_IDE" version="11.8.0" full_name="MCUXpresso IDE" compiler="compiler_gcc" type="mcuxpresso" vendor="NXP Semiconductors" vendor_url="http://www.nxp.com">
+    <toolchain id="armgcc" name="GCC_ARM_Embedded_13-2023.10" version="13.2.1" full_name="GCC ARM Embedded 13-2023.10" compiler="compiler_gcc" type="armgcc" vendor="GCC ARM Embedded" vendor_url="https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads"/>
+    <toolchain id="mcuxpresso" name="MCUXpresso_IDE" version="11.10.0" full_name="MCUXpresso IDE" compiler="compiler_gcc" type="mcuxpresso" vendor="NXP Semiconductors" vendor_url="http://www.nxp.com">
       <debug>
         <debug_configuration id="com.crt.advproject.config.exe.release" name="Release Configuration" probe="LinkServer">
           <scripts>
@@ -928,7 +928,7 @@ ${load}</script>
             <files mask="freertos_generic_v3_14.xml"/>
           </external>
         </example>
-        <example id="lpcxpresso55s28_freertos_hello" name="freertos_hello" brief="The Hello World project is a simple demonstration program that uses the SDK UART drivere incombination with FreeRTOS. The purpose of this demo is to show how to use the debug console and toprovide a simple project for debugging and further development.The example application creates one task called hello_task. This task print &quot;Hello world.&quot; messagevia debug console utility and suspend itself." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="freertos_examples" path="examples/lpcxpresso55s28/freertos_examples/freertos_hello">
+        <example id="lpcxpresso55s28_freertos_hello" name="freertos_hello" brief="The Hello World project is a simple demonstration program that uses the SDK UART driver in combination with FreeRTOS. The purpose of this demo is to show how to use the debug console and toprovide a simple project for debugging and further development.The example application creates one task called hello_task. This task print &quot;Hello world.&quot; messagevia debug console utility and suspend itself." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="freertos_examples" path="examples/lpcxpresso55s28/freertos_examples/freertos_hello">
           <external path="examples/lpcxpresso55s28/freertos_examples/freertos_hello" type="xml">
             <files mask="freertos_hello_v3_14.xml"/>
           </external>
@@ -1219,7 +1219,7 @@ ${load}</script>
         <files mask="mcux_config.cmake"/>
       </source>
     </component>
-    <component id="CMSIS_Include_core_cm.LPC55S28" name="CMSIS_Include_CM" brief="CMSIS-CORE for Cortex-M, ARMv8-M, ARMv8.1-M" version="5.5.0" full_name="CMSIS Include For Cortex-M, ARMv8-M, ARMv8.1-M" category="CMSIS/CORE" user_visible="true" type="CMSIS_Include" package_base_path="core/CMSIS/Core/Include" project_base_path="CMSIS">
+    <component id="CMSIS_Include_core_cm.LPC55S28" name="CMSIS_Include_CM" brief="CMSIS-CORE for Cortex-M, ARMv8-M, ARMv8.1-M" version="5.9.0" full_name="CMSIS Include For Cortex-M, ARMv8-M, ARMv8.1-M" category="CMSIS/CORE" user_visible="true" type="CMSIS_Include" package_base_path="core/CMSIS/Core/Include" project_base_path="CMSIS">
       <dependencies>
         <device_dependency value="LPC55S28"/>
       </dependencies>
@@ -1262,11 +1262,13 @@ ${load}</script>
     <files mask="BasicMathFunctionsF16.c"/>
     <files mask="arm_abs_f16.c"/>
     <files mask="arm_abs_f32.c"/>
+    <files mask="arm_abs_f64.c"/>
     <files mask="arm_abs_q15.c"/>
     <files mask="arm_abs_q31.c"/>
     <files mask="arm_abs_q7.c"/>
     <files mask="arm_add_f16.c"/>
     <files mask="arm_add_f32.c"/>
+    <files mask="arm_add_f64.c"/>
     <files mask="arm_add_q15.c"/>
     <files mask="arm_add_q31.c"/>
     <files mask="arm_add_q7.c"/>
@@ -1280,16 +1282,19 @@ ${load}</script>
     <files mask="arm_clip_q7.c"/>
     <files mask="arm_dot_prod_f16.c"/>
     <files mask="arm_dot_prod_f32.c"/>
+    <files mask="arm_dot_prod_f64.c"/>
     <files mask="arm_dot_prod_q15.c"/>
     <files mask="arm_dot_prod_q31.c"/>
     <files mask="arm_dot_prod_q7.c"/>
     <files mask="arm_mult_f16.c"/>
     <files mask="arm_mult_f32.c"/>
+    <files mask="arm_mult_f64.c"/>
     <files mask="arm_mult_q15.c"/>
     <files mask="arm_mult_q31.c"/>
     <files mask="arm_mult_q7.c"/>
     <files mask="arm_negate_f16.c"/>
     <files mask="arm_negate_f32.c"/>
+    <files mask="arm_negate_f64.c"/>
     <files mask="arm_negate_q15.c"/>
     <files mask="arm_negate_q31.c"/>
     <files mask="arm_negate_q7.c"/>
@@ -1298,6 +1303,7 @@ ${load}</script>
     <files mask="arm_not_u8.c"/>
     <files mask="arm_offset_f16.c"/>
     <files mask="arm_offset_f32.c"/>
+    <files mask="arm_offset_f64.c"/>
     <files mask="arm_offset_q15.c"/>
     <files mask="arm_offset_q31.c"/>
     <files mask="arm_offset_q7.c"/>
@@ -1306,6 +1312,7 @@ ${load}</script>
     <files mask="arm_or_u8.c"/>
     <files mask="arm_scale_f16.c"/>
     <files mask="arm_scale_f32.c"/>
+    <files mask="arm_scale_f64.c"/>
     <files mask="arm_scale_q15.c"/>
     <files mask="arm_scale_q31.c"/>
     <files mask="arm_scale_q7.c"/>
@@ -1314,6 +1321,7 @@ ${load}</script>
     <files mask="arm_shift_q7.c"/>
     <files mask="arm_sub_f16.c"/>
     <files mask="arm_sub_f32.c"/>
+    <files mask="arm_sub_f64.c"/>
     <files mask="arm_sub_q15.c"/>
     <files mask="arm_sub_q31.c"/>
     <files mask="arm_sub_q7.c"/>
@@ -1344,14 +1352,18 @@ ${load}</script>
     <files mask="arm_cmplx_dot_prod_q31.c"/>
     <files mask="arm_cmplx_mag_f16.c"/>
     <files mask="arm_cmplx_mag_f32.c"/>
+    <files mask="arm_cmplx_mag_f64.c"/>
+    <files mask="arm_cmplx_mag_fast_q15.c"/>
     <files mask="arm_cmplx_mag_q15.c"/>
     <files mask="arm_cmplx_mag_q31.c"/>
     <files mask="arm_cmplx_mag_squared_f16.c"/>
     <files mask="arm_cmplx_mag_squared_f32.c"/>
+    <files mask="arm_cmplx_mag_squared_f64.c"/>
     <files mask="arm_cmplx_mag_squared_q15.c"/>
     <files mask="arm_cmplx_mag_squared_q31.c"/>
     <files mask="arm_cmplx_mult_cmplx_f16.c"/>
     <files mask="arm_cmplx_mult_cmplx_f32.c"/>
+    <files mask="arm_cmplx_mult_cmplx_f64.c"/>
     <files mask="arm_cmplx_mult_cmplx_q15.c"/>
     <files mask="arm_cmplx_mult_cmplx_q31.c"/>
     <files mask="arm_cmplx_mult_real_f16.c"/>
@@ -1376,15 +1388,22 @@ ${load}</script>
     <files mask="arm_canberra_distance_f32.c"/>
     <files mask="arm_chebyshev_distance_f16.c"/>
     <files mask="arm_chebyshev_distance_f32.c"/>
+    <files mask="arm_chebyshev_distance_f64.c"/>
     <files mask="arm_cityblock_distance_f16.c"/>
     <files mask="arm_cityblock_distance_f32.c"/>
+    <files mask="arm_cityblock_distance_f64.c"/>
     <files mask="arm_correlation_distance_f16.c"/>
     <files mask="arm_correlation_distance_f32.c"/>
     <files mask="arm_cosine_distance_f16.c"/>
     <files mask="arm_cosine_distance_f32.c"/>
+    <files mask="arm_cosine_distance_f64.c"/>
     <files mask="arm_dice_distance.c"/>
+    <files mask="arm_dtw_distance_f32.c"/>
+    <files mask="arm_dtw_init_window_q7.c"/>
+    <files mask="arm_dtw_path_f32.c"/>
     <files mask="arm_euclidean_distance_f16.c"/>
     <files mask="arm_euclidean_distance_f32.c"/>
+    <files mask="arm_euclidean_distance_f64.c"/>
     <files mask="arm_hamming_distance.c"/>
     <files mask="arm_jaccard_distance.c"/>
     <files mask="arm_jensenshannon_distance_f16.c"/>
@@ -1399,10 +1418,15 @@ ${load}</script>
     <files mask="arm_yule_distance.c"/>
     <files mask="FastMathFunctions.c"/>
     <files mask="FastMathFunctionsF16.c"/>
+    <files mask="arm_atan2_f16.c"/>
+    <files mask="arm_atan2_f32.c"/>
+    <files mask="arm_atan2_q15.c"/>
+    <files mask="arm_atan2_q31.c"/>
     <files mask="arm_cos_f32.c"/>
     <files mask="arm_cos_q15.c"/>
     <files mask="arm_cos_q31.c"/>
     <files mask="arm_divide_q15.c"/>
+    <files mask="arm_divide_q31.c"/>
     <files mask="arm_sin_f32.c"/>
     <files mask="arm_sin_q15.c"/>
     <files mask="arm_sin_q31.c"/>
@@ -1410,9 +1434,13 @@ ${load}</script>
     <files mask="arm_sqrt_q31.c"/>
     <files mask="arm_vexp_f16.c"/>
     <files mask="arm_vexp_f32.c"/>
+    <files mask="arm_vexp_f64.c"/>
     <files mask="arm_vinverse_f16.c"/>
     <files mask="arm_vlog_f16.c"/>
     <files mask="arm_vlog_f32.c"/>
+    <files mask="arm_vlog_f64.c"/>
+    <files mask="arm_vlog_q15.c"/>
+    <files mask="arm_vlog_q31.c"/>
     <files mask="FilteringFunctions.c"/>
     <files mask="FilteringFunctionsF16.c"/>
     <files mask="arm_biquad_cascade_df1_32x64_init_q31.c"/>
@@ -1457,6 +1485,7 @@ ${load}</script>
     <files mask="arm_conv_q7.c"/>
     <files mask="arm_correlate_f16.c"/>
     <files mask="arm_correlate_f32.c"/>
+    <files mask="arm_correlate_f64.c"/>
     <files mask="arm_correlate_fast_opt_q15.c"/>
     <files mask="arm_correlate_fast_q15.c"/>
     <files mask="arm_correlate_fast_q31.c"/>
@@ -1475,10 +1504,12 @@ ${load}</script>
     <files mask="arm_fir_decimate_q31.c"/>
     <files mask="arm_fir_f16.c"/>
     <files mask="arm_fir_f32.c"/>
+    <files mask="arm_fir_f64.c"/>
     <files mask="arm_fir_fast_q15.c"/>
     <files mask="arm_fir_fast_q31.c"/>
     <files mask="arm_fir_init_f16.c"/>
     <files mask="arm_fir_init_f32.c"/>
+    <files mask="arm_fir_init_f64.c"/>
     <files mask="arm_fir_init_q15.c"/>
     <files mask="arm_fir_init_q31.c"/>
     <files mask="arm_fir_init_q7.c"/>
@@ -1542,6 +1573,9 @@ ${load}</script>
     <files mask="arm_spline_interp_init_f32.c"/>
     <files mask="MatrixFunctions.c"/>
     <files mask="MatrixFunctionsF16.c"/>
+    <files mask="arm_householder_f16.c"/>
+    <files mask="arm_householder_f32.c"/>
+    <files mask="arm_householder_f64.c"/>
     <files mask="arm_mat_add_f16.c"/>
     <files mask="arm_mat_add_f32.c"/>
     <files mask="arm_mat_add_q15.c"/>
@@ -1559,6 +1593,7 @@ ${load}</script>
     <files mask="arm_mat_cmplx_trans_q31.c"/>
     <files mask="arm_mat_init_f16.c"/>
     <files mask="arm_mat_init_f32.c"/>
+    <files mask="arm_mat_init_f64.c"/>
     <files mask="arm_mat_init_q15.c"/>
     <files mask="arm_mat_init_q31.c"/>
     <files mask="arm_mat_inverse_f16.c"/>
@@ -1571,9 +1606,13 @@ ${load}</script>
     <files mask="arm_mat_mult_f64.c"/>
     <files mask="arm_mat_mult_fast_q15.c"/>
     <files mask="arm_mat_mult_fast_q31.c"/>
+    <files mask="arm_mat_mult_opt_q31.c"/>
     <files mask="arm_mat_mult_q15.c"/>
     <files mask="arm_mat_mult_q31.c"/>
     <files mask="arm_mat_mult_q7.c"/>
+    <files mask="arm_mat_qr_f16.c"/>
+    <files mask="arm_mat_qr_f32.c"/>
+    <files mask="arm_mat_qr_f64.c"/>
     <files mask="arm_mat_scale_f16.c"/>
     <files mask="arm_mat_scale_f32.c"/>
     <files mask="arm_mat_scale_q15.c"/>
@@ -1631,14 +1670,31 @@ ${load}</script>
     <files mask="StatisticsFunctionsF16.c"/>
     <files mask="arm_absmax_f16.c"/>
     <files mask="arm_absmax_f32.c"/>
+    <files mask="arm_absmax_f64.c"/>
+    <files mask="arm_absmax_no_idx_f16.c"/>
+    <files mask="arm_absmax_no_idx_f32.c"/>
+    <files mask="arm_absmax_no_idx_f64.c"/>
+    <files mask="arm_absmax_no_idx_q15.c"/>
+    <files mask="arm_absmax_no_idx_q31.c"/>
+    <files mask="arm_absmax_no_idx_q7.c"/>
     <files mask="arm_absmax_q15.c"/>
     <files mask="arm_absmax_q31.c"/>
     <files mask="arm_absmax_q7.c"/>
     <files mask="arm_absmin_f16.c"/>
     <files mask="arm_absmin_f32.c"/>
+    <files mask="arm_absmin_f64.c"/>
+    <files mask="arm_absmin_no_idx_f16.c"/>
+    <files mask="arm_absmin_no_idx_f32.c"/>
+    <files mask="arm_absmin_no_idx_f64.c"/>
+    <files mask="arm_absmin_no_idx_q15.c"/>
+    <files mask="arm_absmin_no_idx_q31.c"/>
+    <files mask="arm_absmin_no_idx_q7.c"/>
     <files mask="arm_absmin_q15.c"/>
     <files mask="arm_absmin_q31.c"/>
     <files mask="arm_absmin_q7.c"/>
+    <files mask="arm_accumulate_f16.c"/>
+    <files mask="arm_accumulate_f32.c"/>
+    <files mask="arm_accumulate_f64.c"/>
     <files mask="arm_entropy_f16.c"/>
     <files mask="arm_entropy_f32.c"/>
     <files mask="arm_entropy_f64.c"/>
@@ -1651,23 +1707,43 @@ ${load}</script>
     <files mask="arm_logsumexp_f32.c"/>
     <files mask="arm_max_f16.c"/>
     <files mask="arm_max_f32.c"/>
+    <files mask="arm_max_f64.c"/>
     <files mask="arm_max_no_idx_f16.c"/>
     <files mask="arm_max_no_idx_f32.c"/>
+    <files mask="arm_max_no_idx_f64.c"/>
+    <files mask="arm_max_no_idx_q15.c"/>
+    <files mask="arm_max_no_idx_q31.c"/>
+    <files mask="arm_max_no_idx_q7.c"/>
     <files mask="arm_max_q15.c"/>
     <files mask="arm_max_q31.c"/>
     <files mask="arm_max_q7.c"/>
     <files mask="arm_mean_f16.c"/>
     <files mask="arm_mean_f32.c"/>
+    <files mask="arm_mean_f64.c"/>
     <files mask="arm_mean_q15.c"/>
     <files mask="arm_mean_q31.c"/>
     <files mask="arm_mean_q7.c"/>
     <files mask="arm_min_f16.c"/>
     <files mask="arm_min_f32.c"/>
+    <files mask="arm_min_f64.c"/>
+    <files mask="arm_min_no_idx_f16.c"/>
+    <files mask="arm_min_no_idx_f32.c"/>
+    <files mask="arm_min_no_idx_f64.c"/>
+    <files mask="arm_min_no_idx_q15.c"/>
+    <files mask="arm_min_no_idx_q31.c"/>
+    <files mask="arm_min_no_idx_q7.c"/>
     <files mask="arm_min_q15.c"/>
     <files mask="arm_min_q31.c"/>
     <files mask="arm_min_q7.c"/>
+    <files mask="arm_mse_f16.c"/>
+    <files mask="arm_mse_f32.c"/>
+    <files mask="arm_mse_f64.c"/>
+    <files mask="arm_mse_q15.c"/>
+    <files mask="arm_mse_q31.c"/>
+    <files mask="arm_mse_q7.c"/>
     <files mask="arm_power_f16.c"/>
     <files mask="arm_power_f32.c"/>
+    <files mask="arm_power_f64.c"/>
     <files mask="arm_power_q15.c"/>
     <files mask="arm_power_q31.c"/>
     <files mask="arm_power_q7.c"/>
@@ -1677,10 +1753,12 @@ ${load}</script>
     <files mask="arm_rms_q31.c"/>
     <files mask="arm_std_f16.c"/>
     <files mask="arm_std_f32.c"/>
+    <files mask="arm_std_f64.c"/>
     <files mask="arm_std_q15.c"/>
     <files mask="arm_std_q31.c"/>
     <files mask="arm_var_f16.c"/>
     <files mask="arm_var_f32.c"/>
+    <files mask="arm_var_f64.c"/>
     <files mask="arm_var_q15.c"/>
     <files mask="arm_var_q31.c"/>
     <files mask="SupportFunctions.c"/>
@@ -1691,17 +1769,26 @@ ${load}</script>
     <files mask="arm_bubble_sort_f32.c"/>
     <files mask="arm_copy_f16.c"/>
     <files mask="arm_copy_f32.c"/>
+    <files mask="arm_copy_f64.c"/>
     <files mask="arm_copy_q15.c"/>
     <files mask="arm_copy_q31.c"/>
     <files mask="arm_copy_q7.c"/>
+    <files mask="arm_f16_to_f64.c"/>
     <files mask="arm_f16_to_float.c"/>
     <files mask="arm_f16_to_q15.c"/>
+    <files mask="arm_f64_to_f16.c"/>
+    <files mask="arm_f64_to_float.c"/>
+    <files mask="arm_f64_to_q15.c"/>
+    <files mask="arm_f64_to_q31.c"/>
+    <files mask="arm_f64_to_q7.c"/>
     <files mask="arm_fill_f16.c"/>
     <files mask="arm_fill_f32.c"/>
+    <files mask="arm_fill_f64.c"/>
     <files mask="arm_fill_q15.c"/>
     <files mask="arm_fill_q31.c"/>
     <files mask="arm_fill_q7.c"/>
     <files mask="arm_float_to_f16.c"/>
+    <files mask="arm_float_to_f64.c"/>
     <files mask="arm_float_to_q15.c"/>
     <files mask="arm_float_to_q31.c"/>
     <files mask="arm_float_to_q7.c"/>
@@ -1710,12 +1797,15 @@ ${load}</script>
     <files mask="arm_merge_sort_f32.c"/>
     <files mask="arm_merge_sort_init_f32.c"/>
     <files mask="arm_q15_to_f16.c"/>
+    <files mask="arm_q15_to_f64.c"/>
     <files mask="arm_q15_to_float.c"/>
     <files mask="arm_q15_to_q31.c"/>
     <files mask="arm_q15_to_q7.c"/>
+    <files mask="arm_q31_to_f64.c"/>
     <files mask="arm_q31_to_float.c"/>
     <files mask="arm_q31_to_q15.c"/>
     <files mask="arm_q31_to_q7.c"/>
+    <files mask="arm_q7_to_f64.c"/>
     <files mask="arm_q7_to_float.c"/>
     <files mask="arm_q7_to_q15.c"/>
     <files mask="arm_q7_to_q31.c"/>
@@ -1764,6 +1854,14 @@ ${load}</script>
     <files mask="arm_dct4_init_q31.c"/>
     <files mask="arm_dct4_q15.c"/>
     <files mask="arm_dct4_q31.c"/>
+    <files mask="arm_mfcc_f16.c"/>
+    <files mask="arm_mfcc_f32.c"/>
+    <files mask="arm_mfcc_init_f16.c"/>
+    <files mask="arm_mfcc_init_f32.c"/>
+    <files mask="arm_mfcc_init_q15.c"/>
+    <files mask="arm_mfcc_init_q31.c"/>
+    <files mask="arm_mfcc_q15.c"/>
+    <files mask="arm_mfcc_q31.c"/>
     <files mask="arm_rfft_f32.c"/>
     <files mask="arm_rfft_fast_f16.c"/>
     <files mask="arm_rfft_fast_f32.c"/>
@@ -1776,6 +1874,47 @@ ${load}</script>
     <files mask="arm_rfft_init_q31.c"/>
     <files mask="arm_rfft_q15.c"/>
     <files mask="arm_rfft_q31.c"/>
+    <files mask="WindowFunctions.c"/>
+    <files mask="arm_bartlett_f32.c"/>
+    <files mask="arm_bartlett_f64.c"/>
+    <files mask="arm_blackman_harris_92db_f32.c"/>
+    <files mask="arm_blackman_harris_92db_f64.c"/>
+    <files mask="arm_hamming_f32.c"/>
+    <files mask="arm_hamming_f64.c"/>
+    <files mask="arm_hanning_f32.c"/>
+    <files mask="arm_hanning_f64.c"/>
+    <files mask="arm_hft116d_f32.c"/>
+    <files mask="arm_hft116d_f64.c"/>
+    <files mask="arm_hft144d_f32.c"/>
+    <files mask="arm_hft144d_f64.c"/>
+    <files mask="arm_hft169d_f32.c"/>
+    <files mask="arm_hft169d_f64.c"/>
+    <files mask="arm_hft196d_f32.c"/>
+    <files mask="arm_hft196d_f64.c"/>
+    <files mask="arm_hft223d_f32.c"/>
+    <files mask="arm_hft223d_f64.c"/>
+    <files mask="arm_hft248d_f32.c"/>
+    <files mask="arm_hft248d_f64.c"/>
+    <files mask="arm_hft90d_f32.c"/>
+    <files mask="arm_hft90d_f64.c"/>
+    <files mask="arm_hft95_f32.c"/>
+    <files mask="arm_hft95_f64.c"/>
+    <files mask="arm_nuttall3_f32.c"/>
+    <files mask="arm_nuttall3_f64.c"/>
+    <files mask="arm_nuttall3a_f32.c"/>
+    <files mask="arm_nuttall3a_f64.c"/>
+    <files mask="arm_nuttall3b_f32.c"/>
+    <files mask="arm_nuttall3b_f64.c"/>
+    <files mask="arm_nuttall4_f32.c"/>
+    <files mask="arm_nuttall4_f64.c"/>
+    <files mask="arm_nuttall4a_f32.c"/>
+    <files mask="arm_nuttall4a_f64.c"/>
+    <files mask="arm_nuttall4b_f32.c"/>
+    <files mask="arm_nuttall4b_f64.c"/>
+    <files mask="arm_nuttall4c_f32.c"/>
+    <files mask="arm_nuttall4c_f64.c"/>
+    <files mask="arm_welch_f32.c"/>
+    <files mask="arm_welch_f64.c"/>
   </source>
   <source relative_path="./" type="c_include">
     <files mask="Driver_CAN.h"/>
@@ -1803,29 +1942,13 @@ ${load}</script>
     <files mask="CMSIS.yml"/>
     <files mask="CMSIS_v2.yml"/>
     <files mask="CMSIS_v3.yml"/>
-    <files mask="arm_bitreversal2.S"/>
+    <files mask="README.md"/>
   </source>
   <source relative_path="./" type="doc">
     <files mask="LICENSE.txt"/>
-    <files mask="CMakeLists.txt"/>
-    <files mask="CMakeLists.txt"/>
-    <files mask="CMakeLists.txt"/>
-    <files mask="CMakeLists.txt"/>
-    <files mask="CMakeLists.txt"/>
-    <files mask="CMakeLists.txt"/>
-    <files mask="CMakeLists.txt"/>
-    <files mask="CMakeLists.txt"/>
-    <files mask="CMakeLists.txt"/>
-    <files mask="CMakeLists.txt"/>
-    <files mask="CMakeLists.txt"/>
-    <files mask="CMakeLists.txt"/>
-    <files mask="CMakeLists.txt"/>
-    <files mask="CMakeLists.txt"/>
-    <files mask="CMakeLists.txt"/>
-    <files mask="CMakeLists.txt"/>
   </source>
 </component>-->
-    <component id="CMSIS_DSP_Include.LPC55S28" name="CMSIS_DSP_Library_Header" brief="CMSIS-DSP Library Header" version="1.9.0" full_name="CMSIS DSP Library Header" category="CMSIS/DSP" user_visible="true" type="CMSIS_driver" package_base_path="core/CMSIS/DSP" project_base_path="CMSIS/DSP">
+    <component id="CMSIS_DSP_Include.LPC55S28" name="CMSIS_DSP_Library_Header" brief="CMSIS-DSP Library Header" version="1.15.0" full_name="CMSIS DSP Library Header" category="CMSIS/DSP" user_visible="true" type="CMSIS_driver" package_base_path="core/CMSIS/DSP" project_base_path="CMSIS/DSP">
       <dependencies>
         <device_dependency value="LPC55S28"/>
       </dependencies>
@@ -1834,11 +1957,11 @@ ${load}</script>
       </source>
       <source relative_path="Include" type="c_include">
         <files mask="arm_common_tables.h"/>
-        <files mask="arm_const_structs.h"/>
-        <files mask="arm_math.h"/>
         <files mask="arm_common_tables_f16.h"/>
+        <files mask="arm_const_structs.h"/>
         <files mask="arm_const_structs_f16.h"/>
         <files mask="arm_helium_utils.h"/>
+        <files mask="arm_math.h"/>
         <files mask="arm_math_f16.h"/>
         <files mask="arm_math_memory.h"/>
         <files mask="arm_math_types.h"/>
@@ -1857,6 +1980,7 @@ ${load}</script>
         <files mask="complex_math_functions_f16.h"/>
         <files mask="controller_functions.h"/>
         <files mask="controller_functions_f16.h"/>
+        <files mask="debug.h"/>
         <files mask="distance_functions.h"/>
         <files mask="distance_functions_f16.h"/>
         <files mask="fast_math_functions.h"/>
@@ -1867,6 +1991,7 @@ ${load}</script>
         <files mask="interpolation_functions_f16.h"/>
         <files mask="matrix_functions.h"/>
         <files mask="matrix_functions_f16.h"/>
+        <files mask="matrix_utils.h"/>
         <files mask="none.h"/>
         <files mask="quaternion_math_functions.h"/>
         <files mask="statistics_functions.h"/>
@@ -1879,6 +2004,7 @@ ${load}</script>
         <files mask="transform_functions.h"/>
         <files mask="transform_functions_f16.h"/>
         <files mask="utils.h"/>
+        <files mask="window_functions.h"/>
       </source>
       <source relative_path="PrivateInclude" type="c_include">
         <files mask="arm_sorting.h"/>
@@ -1893,7 +2019,7 @@ ${load}</script>
         <include_path relative_path="PrivateInclude" type="c_include"/>
       </include_paths>
     </component>
-    <component id="CMSIS_DSP_Source.LPC55S28" name="CMSIS_DSP_Library_Source" brief="CMSIS-DSP Library" version="1.9.0" full_name="CMSIS DSP Library Source" category="CMSIS/DSP" user_visible="true" type="CMSIS_driver" package_base_path="core/CMSIS/DSP" project_base_path="CMSIS/DSP">
+    <component id="CMSIS_DSP_Source.LPC55S28" name="CMSIS_DSP_Library_Source" brief="CMSIS-DSP Library" version="1.15.0" full_name="CMSIS DSP Library Source" category="CMSIS/DSP" user_visible="true" type="CMSIS_driver" package_base_path="core/CMSIS/DSP" project_base_path="CMSIS/DSP">
       <defines>
         <define name="DISABLEFLOAT16" value=""/>
       </defines>
@@ -1905,11 +2031,11 @@ ${load}</script>
       </source>
       <source relative_path="Include" type="c_include">
         <files mask="arm_common_tables.h"/>
-        <files mask="arm_const_structs.h"/>
-        <files mask="arm_math.h"/>
         <files mask="arm_common_tables_f16.h"/>
+        <files mask="arm_const_structs.h"/>
         <files mask="arm_const_structs_f16.h"/>
         <files mask="arm_helium_utils.h"/>
+        <files mask="arm_math.h"/>
         <files mask="arm_math_f16.h"/>
         <files mask="arm_math_memory.h"/>
         <files mask="arm_math_types.h"/>
@@ -1928,6 +2054,7 @@ ${load}</script>
         <files mask="complex_math_functions_f16.h"/>
         <files mask="controller_functions.h"/>
         <files mask="controller_functions_f16.h"/>
+        <files mask="debug.h"/>
         <files mask="distance_functions.h"/>
         <files mask="distance_functions_f16.h"/>
         <files mask="fast_math_functions.h"/>
@@ -1938,6 +2065,7 @@ ${load}</script>
         <files mask="interpolation_functions_f16.h"/>
         <files mask="matrix_functions.h"/>
         <files mask="matrix_functions_f16.h"/>
+        <files mask="matrix_utils.h"/>
         <files mask="none.h"/>
         <files mask="quaternion_math_functions.h"/>
         <files mask="statistics_functions.h"/>
@@ -1950,6 +2078,7 @@ ${load}</script>
         <files mask="transform_functions.h"/>
         <files mask="transform_functions_f16.h"/>
         <files mask="utils.h"/>
+        <files mask="window_functions.h"/>
       </source>
       <source relative_path="PrivateInclude" type="c_include">
         <files mask="arm_sorting.h"/>
@@ -1962,10 +2091,12 @@ ${load}</script>
       </source>
       <source exclude="true" relative_path="Source/BasicMathFunctions" type="src">
         <files mask="arm_abs_f32.c"/>
+        <files mask="arm_abs_f64.c"/>
         <files mask="arm_abs_q15.c"/>
         <files mask="arm_abs_q31.c"/>
         <files mask="arm_abs_q7.c"/>
         <files mask="arm_add_f32.c"/>
+        <files mask="arm_add_f64.c"/>
         <files mask="arm_add_q15.c"/>
         <files mask="arm_add_q31.c"/>
         <files mask="arm_add_q7.c"/>
@@ -1977,14 +2108,17 @@ ${load}</script>
         <files mask="arm_clip_q31.c"/>
         <files mask="arm_clip_q7.c"/>
         <files mask="arm_dot_prod_f32.c"/>
+        <files mask="arm_dot_prod_f64.c"/>
         <files mask="arm_dot_prod_q15.c"/>
         <files mask="arm_dot_prod_q31.c"/>
         <files mask="arm_dot_prod_q7.c"/>
         <files mask="arm_mult_f32.c"/>
+        <files mask="arm_mult_f64.c"/>
         <files mask="arm_mult_q15.c"/>
         <files mask="arm_mult_q31.c"/>
         <files mask="arm_mult_q7.c"/>
         <files mask="arm_negate_f32.c"/>
+        <files mask="arm_negate_f64.c"/>
         <files mask="arm_negate_q15.c"/>
         <files mask="arm_negate_q31.c"/>
         <files mask="arm_negate_q7.c"/>
@@ -1992,6 +2126,7 @@ ${load}</script>
         <files mask="arm_not_u32.c"/>
         <files mask="arm_not_u8.c"/>
         <files mask="arm_offset_f32.c"/>
+        <files mask="arm_offset_f64.c"/>
         <files mask="arm_offset_q15.c"/>
         <files mask="arm_offset_q31.c"/>
         <files mask="arm_offset_q7.c"/>
@@ -1999,6 +2134,7 @@ ${load}</script>
         <files mask="arm_or_u32.c"/>
         <files mask="arm_or_u8.c"/>
         <files mask="arm_scale_f32.c"/>
+        <files mask="arm_scale_f64.c"/>
         <files mask="arm_scale_q15.c"/>
         <files mask="arm_scale_q31.c"/>
         <files mask="arm_scale_q7.c"/>
@@ -2006,6 +2142,7 @@ ${load}</script>
         <files mask="arm_shift_q31.c"/>
         <files mask="arm_shift_q7.c"/>
         <files mask="arm_sub_f32.c"/>
+        <files mask="arm_sub_f64.c"/>
         <files mask="arm_sub_q15.c"/>
         <files mask="arm_sub_q31.c"/>
         <files mask="arm_sub_q7.c"/>
@@ -2054,12 +2191,16 @@ ${load}</script>
         <files mask="arm_cmplx_dot_prod_q15.c"/>
         <files mask="arm_cmplx_dot_prod_q31.c"/>
         <files mask="arm_cmplx_mag_f32.c"/>
+        <files mask="arm_cmplx_mag_f64.c"/>
+        <files mask="arm_cmplx_mag_fast_q15.c"/>
         <files mask="arm_cmplx_mag_q15.c"/>
         <files mask="arm_cmplx_mag_q31.c"/>
         <files mask="arm_cmplx_mag_squared_f32.c"/>
+        <files mask="arm_cmplx_mag_squared_f64.c"/>
         <files mask="arm_cmplx_mag_squared_q15.c"/>
         <files mask="arm_cmplx_mag_squared_q31.c"/>
         <files mask="arm_cmplx_mult_cmplx_f32.c"/>
+        <files mask="arm_cmplx_mult_cmplx_f64.c"/>
         <files mask="arm_cmplx_mult_cmplx_q15.c"/>
         <files mask="arm_cmplx_mult_cmplx_q31.c"/>
         <files mask="arm_cmplx_mult_real_f32.c"/>
@@ -2097,11 +2238,18 @@ ${load}</script>
         <files mask="arm_braycurtis_distance_f32.c"/>
         <files mask="arm_canberra_distance_f32.c"/>
         <files mask="arm_chebyshev_distance_f32.c"/>
+        <files mask="arm_chebyshev_distance_f64.c"/>
         <files mask="arm_cityblock_distance_f32.c"/>
+        <files mask="arm_cityblock_distance_f64.c"/>
         <files mask="arm_correlation_distance_f32.c"/>
         <files mask="arm_cosine_distance_f32.c"/>
+        <files mask="arm_cosine_distance_f64.c"/>
         <files mask="arm_dice_distance.c"/>
+        <files mask="arm_dtw_distance_f32.c"/>
+        <files mask="arm_dtw_init_window_q7.c"/>
+        <files mask="arm_dtw_path_f32.c"/>
         <files mask="arm_euclidean_distance_f32.c"/>
+        <files mask="arm_euclidean_distance_f64.c"/>
         <files mask="arm_hamming_distance.c"/>
         <files mask="arm_jaccard_distance.c"/>
         <files mask="arm_jensenshannon_distance_f32.c"/>
@@ -2113,8 +2261,8 @@ ${load}</script>
         <files mask="arm_sokalsneath_distance.c"/>
         <files mask="arm_yule_distance.c"/>
         <files mask="arm_braycurtis_distance_f16.c"/>
-        <files mask="arm_canberra_distance_f16.c"/>
         <files mask="arm_chebyshev_distance_f16.c"/>
+        <files mask="arm_canberra_distance_f16.c"/>
         <files mask="arm_cityblock_distance_f16.c"/>
         <files mask="arm_correlation_distance_f16.c"/>
         <files mask="arm_cosine_distance_f16.c"/>
@@ -2127,17 +2275,26 @@ ${load}</script>
         <files mask="FastMathFunctionsF16.c"/>
       </source>
       <source exclude="true" relative_path="Source/FastMathFunctions" type="src">
+        <files mask="arm_atan2_f32.c"/>
+        <files mask="arm_atan2_q15.c"/>
+        <files mask="arm_atan2_q31.c"/>
         <files mask="arm_cos_f32.c"/>
         <files mask="arm_cos_q15.c"/>
         <files mask="arm_cos_q31.c"/>
         <files mask="arm_divide_q15.c"/>
+        <files mask="arm_divide_q31.c"/>
         <files mask="arm_sin_f32.c"/>
         <files mask="arm_sin_q15.c"/>
         <files mask="arm_sin_q31.c"/>
         <files mask="arm_sqrt_q15.c"/>
         <files mask="arm_sqrt_q31.c"/>
         <files mask="arm_vexp_f32.c"/>
+        <files mask="arm_vexp_f64.c"/>
         <files mask="arm_vlog_f32.c"/>
+        <files mask="arm_vlog_f64.c"/>
+        <files mask="arm_vlog_q15.c"/>
+        <files mask="arm_vlog_q31.c"/>
+        <files mask="arm_atan2_f16.c"/>
         <files mask="arm_vexp_f16.c"/>
         <files mask="arm_vinverse_f16.c"/>
         <files mask="arm_vlog_f16.c"/>
@@ -2182,6 +2339,7 @@ ${load}</script>
         <files mask="arm_conv_q31.c"/>
         <files mask="arm_conv_q7.c"/>
         <files mask="arm_correlate_f32.c"/>
+        <files mask="arm_correlate_f64.c"/>
         <files mask="arm_correlate_fast_opt_q15.c"/>
         <files mask="arm_correlate_fast_q15.c"/>
         <files mask="arm_correlate_fast_q31.c"/>
@@ -2199,9 +2357,11 @@ ${load}</script>
         <files mask="arm_fir_decimate_q15.c"/>
         <files mask="arm_fir_decimate_q31.c"/>
         <files mask="arm_fir_f32.c"/>
+        <files mask="arm_fir_f64.c"/>
         <files mask="arm_fir_fast_q15.c"/>
         <files mask="arm_fir_fast_q31.c"/>
         <files mask="arm_fir_init_f32.c"/>
+        <files mask="arm_fir_init_f64.c"/>
         <files mask="arm_fir_init_q15.c"/>
         <files mask="arm_fir_init_q31.c"/>
         <files mask="arm_fir_init_q7.c"/>
@@ -2282,6 +2442,8 @@ ${load}</script>
         <files mask="MatrixFunctionsF16.c"/>
       </source>
       <source exclude="true" relative_path="Source/MatrixFunctions" type="src">
+        <files mask="arm_householder_f32.c"/>
+        <files mask="arm_householder_f64.c"/>
         <files mask="arm_mat_add_f32.c"/>
         <files mask="arm_mat_add_q15.c"/>
         <files mask="arm_mat_add_q31.c"/>
@@ -2294,6 +2456,7 @@ ${load}</script>
         <files mask="arm_mat_cmplx_trans_q15.c"/>
         <files mask="arm_mat_cmplx_trans_q31.c"/>
         <files mask="arm_mat_init_f32.c"/>
+        <files mask="arm_mat_init_f64.c"/>
         <files mask="arm_mat_init_q15.c"/>
         <files mask="arm_mat_init_q31.c"/>
         <files mask="arm_mat_inverse_f32.c"/>
@@ -2304,9 +2467,12 @@ ${load}</script>
         <files mask="arm_mat_mult_f64.c"/>
         <files mask="arm_mat_mult_fast_q15.c"/>
         <files mask="arm_mat_mult_fast_q31.c"/>
+        <files mask="arm_mat_mult_opt_q31.c"/>
         <files mask="arm_mat_mult_q15.c"/>
         <files mask="arm_mat_mult_q31.c"/>
         <files mask="arm_mat_mult_q7.c"/>
+        <files mask="arm_mat_qr_f32.c"/>
+        <files mask="arm_mat_qr_f64.c"/>
         <files mask="arm_mat_scale_f32.c"/>
         <files mask="arm_mat_scale_q15.c"/>
         <files mask="arm_mat_scale_q31.c"/>
@@ -2327,12 +2493,14 @@ ${load}</script>
         <files mask="arm_mat_vec_mult_q15.c"/>
         <files mask="arm_mat_vec_mult_q31.c"/>
         <files mask="arm_mat_vec_mult_q7.c"/>
+        <files mask="arm_householder_f16.c"/>
         <files mask="arm_mat_add_f16.c"/>
         <files mask="arm_mat_cholesky_f16.c"/>
         <files mask="arm_mat_cmplx_mult_f16.c"/>
         <files mask="arm_mat_cmplx_trans_f16.c"/>
         <files mask="arm_mat_init_f16.c"/>
         <files mask="arm_mat_inverse_f16.c"/>
+        <files mask="arm_mat_qr_f16.c"/>
         <files mask="arm_mat_mult_f16.c"/>
         <files mask="arm_mat_scale_f16.c"/>
         <files mask="arm_mat_solve_lower_triangular_f16.c"/>
@@ -2348,8 +2516,8 @@ ${load}</script>
         <files mask="arm_quaternion2rotation_f32.c"/>
         <files mask="arm_quaternion_conjugate_f32.c"/>
         <files mask="arm_quaternion_inverse_f32.c"/>
-        <files mask="arm_quaternion_norm_f32.c"/>
         <files mask="arm_quaternion_normalize_f32.c"/>
+        <files mask="arm_quaternion_norm_f32.c"/>
         <files mask="arm_quaternion_product_f32.c"/>
         <files mask="arm_quaternion_product_single_f32.c"/>
         <files mask="arm_rotation2quaternion_f32.c"/>
@@ -2382,13 +2550,27 @@ ${load}</script>
       </source>
       <source exclude="true" relative_path="Source/StatisticsFunctions" type="src">
         <files mask="arm_absmax_f32.c"/>
+        <files mask="arm_absmax_f64.c"/>
+        <files mask="arm_absmax_no_idx_f32.c"/>
+        <files mask="arm_absmax_no_idx_f64.c"/>
+        <files mask="arm_absmax_no_idx_q15.c"/>
+        <files mask="arm_absmax_no_idx_q31.c"/>
+        <files mask="arm_absmax_no_idx_q7.c"/>
         <files mask="arm_absmax_q15.c"/>
         <files mask="arm_absmax_q31.c"/>
         <files mask="arm_absmax_q7.c"/>
         <files mask="arm_absmin_f32.c"/>
+        <files mask="arm_absmin_f64.c"/>
+        <files mask="arm_absmin_no_idx_f32.c"/>
+        <files mask="arm_absmin_no_idx_f64.c"/>
+        <files mask="arm_absmin_no_idx_q15.c"/>
+        <files mask="arm_absmin_no_idx_q31.c"/>
+        <files mask="arm_absmin_no_idx_q7.c"/>
         <files mask="arm_absmin_q15.c"/>
         <files mask="arm_absmin_q31.c"/>
         <files mask="arm_absmin_q7.c"/>
+        <files mask="arm_accumulate_f32.c"/>
+        <files mask="arm_accumulate_f64.c"/>
         <files mask="arm_entropy_f32.c"/>
         <files mask="arm_entropy_f64.c"/>
         <files mask="arm_kullback_leibler_f32.c"/>
@@ -2396,19 +2578,37 @@ ${load}</script>
         <files mask="arm_logsumexp_dot_prod_f32.c"/>
         <files mask="arm_logsumexp_f32.c"/>
         <files mask="arm_max_f32.c"/>
+        <files mask="arm_max_f64.c"/>
         <files mask="arm_max_no_idx_f32.c"/>
+        <files mask="arm_max_no_idx_f64.c"/>
+        <files mask="arm_max_no_idx_q15.c"/>
+        <files mask="arm_max_no_idx_q31.c"/>
+        <files mask="arm_max_no_idx_q7.c"/>
         <files mask="arm_max_q15.c"/>
         <files mask="arm_max_q31.c"/>
         <files mask="arm_max_q7.c"/>
         <files mask="arm_mean_f32.c"/>
+        <files mask="arm_mean_f64.c"/>
         <files mask="arm_mean_q15.c"/>
         <files mask="arm_mean_q31.c"/>
         <files mask="arm_mean_q7.c"/>
         <files mask="arm_min_f32.c"/>
+        <files mask="arm_min_f64.c"/>
+        <files mask="arm_min_no_idx_f32.c"/>
+        <files mask="arm_min_no_idx_f64.c"/>
+        <files mask="arm_min_no_idx_q15.c"/>
+        <files mask="arm_min_no_idx_q31.c"/>
+        <files mask="arm_min_no_idx_q7.c"/>
         <files mask="arm_min_q15.c"/>
         <files mask="arm_min_q31.c"/>
         <files mask="arm_min_q7.c"/>
+        <files mask="arm_mse_f32.c"/>
+        <files mask="arm_mse_f64.c"/>
+        <files mask="arm_mse_q15.c"/>
+        <files mask="arm_mse_q31.c"/>
+        <files mask="arm_mse_q7.c"/>
         <files mask="arm_power_f32.c"/>
+        <files mask="arm_power_f64.c"/>
         <files mask="arm_power_q15.c"/>
         <files mask="arm_power_q31.c"/>
         <files mask="arm_power_q7.c"/>
@@ -2416,13 +2616,18 @@ ${load}</script>
         <files mask="arm_rms_q15.c"/>
         <files mask="arm_rms_q31.c"/>
         <files mask="arm_std_f32.c"/>
+        <files mask="arm_std_f64.c"/>
         <files mask="arm_std_q15.c"/>
         <files mask="arm_std_q31.c"/>
         <files mask="arm_var_f32.c"/>
+        <files mask="arm_var_f64.c"/>
         <files mask="arm_var_q15.c"/>
         <files mask="arm_var_q31.c"/>
         <files mask="arm_absmax_f16.c"/>
+        <files mask="arm_absmax_no_idx_f16.c"/>
         <files mask="arm_absmin_f16.c"/>
+        <files mask="arm_absmin_no_idx_f16.c"/>
+        <files mask="arm_accumulate_f16.c"/>
         <files mask="arm_entropy_f16.c"/>
         <files mask="arm_kullback_leibler_f16.c"/>
         <files mask="arm_logsumexp_dot_prod_f16.c"/>
@@ -2431,6 +2636,8 @@ ${load}</script>
         <files mask="arm_max_no_idx_f16.c"/>
         <files mask="arm_mean_f16.c"/>
         <files mask="arm_min_f16.c"/>
+        <files mask="arm_min_no_idx_f16.c"/>
+        <files mask="arm_mse_f16.c"/>
         <files mask="arm_power_f16.c"/>
         <files mask="arm_rms_f16.c"/>
         <files mask="arm_std_f16.c"/>
@@ -2445,13 +2652,20 @@ ${load}</script>
         <files mask="arm_bitonic_sort_f32.c"/>
         <files mask="arm_bubble_sort_f32.c"/>
         <files mask="arm_copy_f32.c"/>
+        <files mask="arm_copy_f64.c"/>
         <files mask="arm_copy_q15.c"/>
         <files mask="arm_copy_q31.c"/>
         <files mask="arm_copy_q7.c"/>
+        <files mask="arm_f64_to_float.c"/>
+        <files mask="arm_f64_to_q31.c"/>
+        <files mask="arm_f64_to_q15.c"/>
+        <files mask="arm_f64_to_q7.c"/>
         <files mask="arm_fill_f32.c"/>
+        <files mask="arm_fill_f64.c"/>
         <files mask="arm_fill_q15.c"/>
         <files mask="arm_fill_q31.c"/>
         <files mask="arm_fill_q7.c"/>
+        <files mask="arm_float_to_f64.c"/>
         <files mask="arm_float_to_q15.c"/>
         <files mask="arm_float_to_q31.c"/>
         <files mask="arm_float_to_q7.c"/>
@@ -2459,12 +2673,15 @@ ${load}</script>
         <files mask="arm_insertion_sort_f32.c"/>
         <files mask="arm_merge_sort_f32.c"/>
         <files mask="arm_merge_sort_init_f32.c"/>
+        <files mask="arm_q15_to_f64.c"/>
         <files mask="arm_q15_to_float.c"/>
         <files mask="arm_q15_to_q31.c"/>
         <files mask="arm_q15_to_q7.c"/>
+        <files mask="arm_q31_to_f64.c"/>
         <files mask="arm_q31_to_float.c"/>
         <files mask="arm_q31_to_q15.c"/>
         <files mask="arm_q31_to_q7.c"/>
+        <files mask="arm_q7_to_f64.c"/>
         <files mask="arm_q7_to_float.c"/>
         <files mask="arm_q7_to_q15.c"/>
         <files mask="arm_q7_to_q31.c"/>
@@ -2477,6 +2694,8 @@ ${load}</script>
         <files mask="arm_copy_f16.c"/>
         <files mask="arm_f16_to_float.c"/>
         <files mask="arm_f16_to_q15.c"/>
+        <files mask="arm_f16_to_f64.c"/>
+        <files mask="arm_f64_to_f16.c"/>
         <files mask="arm_fill_f16.c"/>
         <files mask="arm_float_to_f16.c"/>
         <files mask="arm_q15_to_f16.c"/>
@@ -2489,7 +2708,6 @@ ${load}</script>
       <source exclude="true" relative_path="Source/TransformFunctions" type="src">
         <files mask="arm_bitreversal.c"/>
         <files mask="arm_bitreversal2.c"/>
-        <files mask="arm_bitreversal2.S"/>
         <files mask="arm_cfft_f32.c"/>
         <files mask="arm_cfft_f64.c"/>
         <files mask="arm_cfft_init_f32.c"/>
@@ -2517,6 +2735,12 @@ ${load}</script>
         <files mask="arm_dct4_init_q31.c"/>
         <files mask="arm_dct4_q15.c"/>
         <files mask="arm_dct4_q31.c"/>
+        <files mask="arm_mfcc_f32.c"/>
+        <files mask="arm_mfcc_init_f32.c"/>
+        <files mask="arm_mfcc_init_q15.c"/>
+        <files mask="arm_mfcc_init_q31.c"/>
+        <files mask="arm_mfcc_q15.c"/>
+        <files mask="arm_mfcc_q31.c"/>
         <files mask="arm_rfft_f32.c"/>
         <files mask="arm_rfft_fast_f32.c"/>
         <files mask="arm_rfft_fast_f64.c"/>
@@ -2533,10 +2757,57 @@ ${load}</script>
         <files mask="arm_cfft_radix2_f16.c"/>
         <files mask="arm_cfft_radix2_init_f16.c"/>
         <files mask="arm_cfft_radix4_f16.c"/>
-        <files mask="arm_cfft_radix4_init_f16.c"/>
         <files mask="arm_cfft_radix8_f16.c"/>
+        <files mask="arm_mfcc_f16.c"/>
+        <files mask="arm_cfft_radix4_init_f16.c"/>
+        <files mask="arm_mfcc_init_f16.c"/>
         <files mask="arm_rfft_fast_f16.c"/>
         <files mask="arm_rfft_fast_init_f16.c"/>
+      </source>
+      <source relative_path="Source/WindowFunctions" type="src">
+        <files mask="WindowFunctions.c"/>
+      </source>
+      <source exclude="true" relative_path="Source/WindowFunctions" type="src">
+        <files mask="arm_bartlett_f32.c"/>
+        <files mask="arm_bartlett_f64.c"/>
+        <files mask="arm_blackman_harris_92db_f32.c"/>
+        <files mask="arm_blackman_harris_92db_f64.c"/>
+        <files mask="arm_hamming_f32.c"/>
+        <files mask="arm_hamming_f64.c"/>
+        <files mask="arm_hanning_f32.c"/>
+        <files mask="arm_hanning_f64.c"/>
+        <files mask="arm_hft116d_f32.c"/>
+        <files mask="arm_hft116d_f64.c"/>
+        <files mask="arm_hft144d_f32.c"/>
+        <files mask="arm_hft144d_f64.c"/>
+        <files mask="arm_hft169d_f32.c"/>
+        <files mask="arm_hft169d_f64.c"/>
+        <files mask="arm_hft196d_f32.c"/>
+        <files mask="arm_hft196d_f64.c"/>
+        <files mask="arm_hft223d_f32.c"/>
+        <files mask="arm_hft223d_f64.c"/>
+        <files mask="arm_hft248d_f32.c"/>
+        <files mask="arm_hft248d_f64.c"/>
+        <files mask="arm_hft90d_f32.c"/>
+        <files mask="arm_hft90d_f64.c"/>
+        <files mask="arm_hft95_f32.c"/>
+        <files mask="arm_hft95_f64.c"/>
+        <files mask="arm_nuttall3a_f32.c"/>
+        <files mask="arm_nuttall3a_f64.c"/>
+        <files mask="arm_nuttall3b_f32.c"/>
+        <files mask="arm_nuttall3b_f64.c"/>
+        <files mask="arm_nuttall3_f32.c"/>
+        <files mask="arm_nuttall3_f64.c"/>
+        <files mask="arm_nuttall4a_f32.c"/>
+        <files mask="arm_nuttall4a_f64.c"/>
+        <files mask="arm_nuttall4b_f32.c"/>
+        <files mask="arm_nuttall4b_f64.c"/>
+        <files mask="arm_nuttall4c_f32.c"/>
+        <files mask="arm_nuttall4c_f64.c"/>
+        <files mask="arm_nuttall4_f32.c"/>
+        <files mask="arm_nuttall4_f64.c"/>
+        <files mask="arm_welch_f32.c"/>
+        <files mask="arm_welch_f64.c"/>
       </source>
       <source toolchain="armgcc" relative_path="./" type="workspace">
         <files mask="CMSIS_DSP_Source.cmake" hidden="true"/>
@@ -2806,7 +3077,7 @@ ${load}</script>
         <include_path relative_path="Include" type="c_include"/>
       </include_paths>
     </component>
-    <component id="CMSIS_Device_API_OSTick.LPC55S28" name="CMSIS_Device_API_OSTick" brief="Device interrupt controller interface" version="1.0.1" full_name="CMSIS Device API OSTick" category="Device/OS Tick" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/RTOS2/Include" project_base_path="CMSIS/RTOS2/Include">
+    <component id="CMSIS_Device_API_OSTick.LPC55S28" name="CMSIS_Device_API_OSTick" brief="Device interrupt controller interface" version="1.0.2" full_name="CMSIS Device API OSTick" category="Device/OS Tick" user_visible="false" type="CMSIS_driver" package_base_path="core/CMSIS/RTOS2/Include" project_base_path="CMSIS/RTOS2/Include">
       <dependencies>
         <device_dependency value="LPC55S28"/>
       </dependencies>
@@ -2863,92 +3134,7 @@ ${load}</script>
         <include_path relative_path="template" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.fatfs.template_mmc.LPC55S28" name="fatfs_mmc" brief="FatFs template MMC" version="0.15.0" full_name="FatFs template configuration for MMC disk" category="File System/FAT File System" user_visible="true" type="project_template" package_base_path="middleware/fatfs" project_base_path="source">
-      <dependencies>
-        <device_dependency value="LPC55S28"/>
-      </dependencies>
-      <source relative_path="template/mmc" project_relative_path="./" config="true" type="c_include">
-        <files mask="ffconf.h"/>
-      </source>
-      <source toolchain="armgcc" relative_path="./" type="workspace">
-        <files mask="middleware_fatfs_template_mmc.cmake" hidden="true"/>
-      </source>
-      <include_paths>
-        <include_path relative_path="template/mmc" project_relative_path="./" type="c_include"/>
-      </include_paths>
-    </component>
-    <component id="middleware.fatfs.template_nand.LPC55S28" name="fatfs_nand" brief="FatFs template NAND" version="0.15.0" full_name="FatFs template configuration for NAND disk" category="File System/FAT File System" user_visible="true" type="project_template" package_base_path="middleware/fatfs" project_base_path="source">
-      <dependencies>
-        <device_dependency value="LPC55S28"/>
-      </dependencies>
-      <source relative_path="template/nand" project_relative_path="./" config="true" type="c_include">
-        <files mask="ffconf.h"/>
-        <files mask="dhara_nand_config.h"/>
-      </source>
-      <source toolchain="armgcc" relative_path="./" type="workspace">
-        <files mask="middleware_fatfs_template_nand.cmake" hidden="true"/>
-      </source>
-      <include_paths>
-        <include_path relative_path="template/nand" project_relative_path="./" type="c_include"/>
-      </include_paths>
-    </component>
-    <component id="middleware.fatfs.template_ram.LPC55S28" name="fatfs_ram" brief="FatFs template RAM" version="0.15.0" full_name="FatFs template configuration for RAM disk" category="File System/FAT File System" user_visible="true" type="project_template" package_base_path="middleware/fatfs" project_base_path="source">
-      <dependencies>
-        <device_dependency value="LPC55S28"/>
-      </dependencies>
-      <source relative_path="template/ram" project_relative_path="./" config="true" type="c_include">
-        <files mask="ffconf.h"/>
-      </source>
-      <source toolchain="armgcc" relative_path="./" type="workspace">
-        <files mask="middleware_fatfs_template_ram.cmake" hidden="true"/>
-      </source>
-      <include_paths>
-        <include_path relative_path="template/ram" project_relative_path="./" type="c_include"/>
-      </include_paths>
-    </component>
-    <component id="middleware.fatfs.template_sd.LPC55S28" name="fatfs_sd" brief="FatFs template SD" version="0.15.0" full_name="FatFs template configuration for SD disk" category="File System/FAT File System" user_visible="true" type="project_template" package_base_path="middleware/fatfs" project_base_path="source">
-      <dependencies>
-        <device_dependency value="LPC55S28"/>
-      </dependencies>
-      <source relative_path="template/sd" project_relative_path="./" config="true" type="c_include">
-        <files mask="ffconf.h"/>
-      </source>
-      <source toolchain="armgcc" relative_path="./" type="workspace">
-        <files mask="middleware_fatfs_template_sd.cmake" hidden="true"/>
-      </source>
-      <include_paths>
-        <include_path relative_path="template/sd" project_relative_path="./" type="c_include"/>
-      </include_paths>
-    </component>
-    <component id="middleware.fatfs.template_sdspi.LPC55S28" name="fatfs_sdspi" brief="FatFs template SDSPI" version="0.15.0" full_name="FatFs template configuration for SDSPI disk" category="File System/FAT File System" user_visible="true" type="project_template" package_base_path="middleware/fatfs" project_base_path="source">
-      <dependencies>
-        <device_dependency value="LPC55S28"/>
-      </dependencies>
-      <source relative_path="template/sdspi" project_relative_path="./" config="true" type="c_include">
-        <files mask="ffconf.h"/>
-      </source>
-      <source toolchain="armgcc" relative_path="./" type="workspace">
-        <files mask="middleware_fatfs_template_sdspi.cmake" hidden="true"/>
-      </source>
-      <include_paths>
-        <include_path relative_path="template/sdspi" project_relative_path="./" type="c_include"/>
-      </include_paths>
-    </component>
-    <component id="middleware.fatfs.template_usb.LPC55S28" name="fatfs_usb" brief="FatFs template USB" version="0.15.0" full_name="FatFs template configuration for USB disk" category="File System/FAT File System" user_visible="true" type="project_template" package_base_path="middleware/fatfs" project_base_path="source">
-      <dependencies>
-        <device_dependency value="LPC55S28"/>
-      </dependencies>
-      <source relative_path="template/usb" project_relative_path="./" config="true" type="c_include">
-        <files mask="ffconf.h"/>
-      </source>
-      <source toolchain="armgcc" relative_path="./" type="workspace">
-        <files mask="middleware_fatfs_template_usb.cmake" hidden="true"/>
-      </source>
-      <include_paths>
-        <include_path relative_path="template/usb" project_relative_path="./" type="c_include"/>
-      </include_paths>
-    </component>
-    <component id="middleware.freertos-kernel.extension.LPC55S28" name="FreeRTOS NXP extension" brief="FreeRTOS NXP extension" version="10.5.1" full_name="FreeRTOS NXP extension" category="RTOS/TAD extension" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
+    <component id="middleware.freertos-kernel.extension.LPC55S28" name="FreeRTOS NXP extension" brief="FreeRTOS NXP extension" version="11.0.1" full_name="FreeRTOS NXP extension" category="RTOS/TAD extension" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <dependencies>
         <device_dependency value="LPC55S28"/>
       </dependencies>
@@ -2962,7 +3148,7 @@ ${load}</script>
         <include_path relative_path="include" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.freertos-kernel.template.LPC55S28" name="FreeRTOS configuration template" brief="Template configuration file to be edited by user. Provides also memory allocator (heap_x), change variant if needed." version="10.5.1" full_name="FreeRTOS configuration template" category="RTOS/freertos template" user_visible="false" type="project_template" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
+    <component id="middleware.freertos-kernel.template.LPC55S28" name="FreeRTOS configuration template" brief="Template configuration file to be edited by user. Provides also memory allocator (heap_x), change variant if needed." version="11.0.1" full_name="FreeRTOS configuration template" category="RTOS/freertos template" user_visible="false" type="project_template" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <dependencies>
         <device_dependency value="LPC55S28"/>
       </dependencies>
@@ -2976,7 +3162,7 @@ ${load}</script>
         <include_path relative_path="template/ARM_CM33_3_priority_bits" project_relative_path="../../source" type="c_include" device_cores="cm33_core0_LPC55S28"/>
       </include_paths>
     </component>
-    <component id="middleware.lwip.template.LPC55S28" name="lwIP_template" brief="lwIP Template" version="2.2.0" revision="10" full_name="lwIP Template Application" category="Network/lwIP TCPIP Networking Stack" user_visible="false" type="project_template" package_base_path="middleware/lwip" project_base_path="lwip">
+    <component id="middleware.lwip.template.LPC55S28" name="lwIP_template" brief="lwIP Template" version="2.2.1" revision="1" full_name="lwIP Template Application" category="Network/lwIP TCPIP Networking Stack" user_visible="false" type="project_template" package_base_path="middleware/lwip" project_base_path="lwip">
       <dependencies>
         <device_dependency value="LPC55S28"/>
       </dependencies>
@@ -2990,7 +3176,21 @@ ${load}</script>
         <include_path relative_path="template" type="c_include"/>
       </include_paths>
     </component>
-    <!--<component id="middleware.lwip.unused_files.LPC55S28" name="lwIP_unused_files" version="2.2.0" package_base_path="middleware/lwip" project_base_path="lwip">
+    <component id="middleware.lwip.empty_ethernetif.LPC55S28" name="Empty ethernet interface" brief="Empty ethernet interface" version="2.2.1" revision="1" full_name="Empty ethernet interface" category="Network/lwIP TCPIP Networking Stack" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
+      <dependencies>
+        <device_dependency value="LPC55S28"/>
+      </dependencies>
+      <source relative_path="./" type="doc">
+        <files mask="README" hidden="true"/>
+      </source>
+      <source toolchain="armgcc" relative_path="./" type="workspace">
+        <files mask="middleware_lwip_empty_ethernetif.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="port" type="c_include"/>
+      </include_paths>
+    </component>
+    <!--<component id="middleware.lwip.unused_files.LPC55S28" name="lwIP_unused_files" version="2.2.1" package_base_path="middleware/lwip" project_base_path="lwip">
   <source exclude="true" relative_path="./" type="other">
     <files mask="CMakeLists.txt" hidden="true"/>
     <files mask="Filelists.cmake" hidden="true"/>
@@ -3021,9 +3221,11 @@ ${load}</script>
     <files mask="lwIP_Test.sln" hidden="true"/>
     <files mask="lwIP_Test.vcxproj" hidden="true"/>
     <files mask="lwIP_Test.vcxproj.filters" hidden="true"/>
+    <files mask="lwIP_fuzz.sln" hidden="true"/>
     <files mask="lwIP_pcapif.vcxproj" hidden="true"/>
     <files mask="lwIP_pcapif.vcxproj.filters" hidden="true"/>
     <files mask="lwIP_unittests.sln" hidden="true"/>
+    <files mask="lwip_fuzz.vcxproj" hidden="true"/>
     <files mask="lwip_unittests.vcxproj" hidden="true"/>
     <files mask="lwip_unittests.vcxproj.filters" hidden="true"/>
     <files mask="makefsdata.vcxproj" hidden="true"/>
@@ -3303,7 +3505,7 @@ ${load}</script>
     <files mask="sics.gif" hidden="true"/>
   </source>
 </component>-->
-    <component id="middleware.mbedtls.template.LPC55S28" name="mbedtls_template" brief="mbedTLS Template" version="2.28.5" full_name="mbedTLS Template" category="Security/mbedTLS library" user_visible="false" type="project_template" package_base_path="middleware/mbedtls" project_base_path="mbedtls">
+    <component id="middleware.mbedtls.template.LPC55S28" name="mbedtls_template" brief="mbedTLS Template" version="2.28.8" full_name="mbedTLS Template" category="Security/mbedTLS library" user_visible="false" type="project_template" package_base_path="middleware/mbedtls" project_base_path="mbedtls">
       <defines>
         <define name="MBEDTLS_CONFIG_FILE" value="'&quot;ksdk_mbedtls_config.h&quot;'"/>
       </defines>
@@ -3320,7 +3522,7 @@ ${load}</script>
         <include_path relative_path="port/ksdk" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.mbedtls.els_pkc.config.LPC55S28" name="els_pkc_config" brief="els_pkc config" version="2.28.5" full_name="els_pkc config" category="Security/mbedTLS library" user_visible="false" type="software_component" package_base_path="middleware/mbedtls" project_base_path="mbedtls">
+    <component id="middleware.mbedtls.els_pkc.config.LPC55S28" name="els_pkc_config" brief="els_pkc config" version="2.28.8" full_name="els_pkc config" category="Security/mbedTLS library" user_visible="false" type="software_component" package_base_path="middleware/mbedtls" project_base_path="mbedtls">
       <defines>
         <define name="MBEDTLS_CONFIG_FILE" value="'&quot;els_pkc_mbedtls_config.h&quot;'"/>
       </defines>
@@ -3337,7 +3539,7 @@ ${load}</script>
         <include_path relative_path="port/pkc" type="c_include"/>
       </include_paths>
     </component>
-    <!--<component id="container.middleware.mbedtls.unused_files.LPC55S28" name="unused_files" version="2.28.5" package_base_path="middleware/mbedtls" project_base_path="mbedtls">
+    <!--<component id="container.middleware.mbedtls.unused_files.LPC55S28" name="unused_files" version="2.28.8" package_base_path="middleware/mbedtls" project_base_path="mbedtls">
   <source exclude="true" relative_path="./" type="other">
     <files mask="issue_template.md" hidden="true"/>
     <files mask="pull_request_template.md" hidden="true"/>
@@ -3349,7 +3551,10 @@ ${load}</script>
     <files mask=".gitignore" hidden="true"/>
     <files mask=".gitignore" hidden="true"/>
     <files mask="Makefile" hidden="true"/>
-    <files mask="Makefile" hidden="true"/>
+    <files mask="mbedcrypto.pc.in" hidden="true"/>
+    <files mask="mbedtls.pc.in" hidden="true"/>
+    <files mask="mbedx509.pc.in" hidden="true"/>
+    <files mask="README.md" hidden="true"/>
     <files mask="README.md" hidden="true"/>
     <files mask="fuzz_client.options" hidden="true"/>
     <files mask="fuzz_dtlsclient.options" hidden="true"/>
@@ -3361,14 +3566,12 @@ ${load}</script>
     <files mask="fuzz_x509crt.options" hidden="true"/>
     <files mask="fuzz_x509csr.options" hidden="true"/>
     <files mask="config.pl" hidden="true"/>
-    <files mask="find-mem-leak.cocci" hidden="true"/>
     <files mask="generate_errors.pl" hidden="true"/>
     <files mask="generate_features.pl" hidden="true"/>
     <files mask="generate_query_config.pl" hidden="true"/>
     <files mask="generate_visualc_files.pl" hidden="true"/>
     <files mask="massif_max.pl" hidden="true"/>
     <files mask="rename.pl" hidden="true"/>
-    <files mask="rm-calloc-cast.cocci" hidden="true"/>
     <files mask="error.fmt" hidden="true"/>
     <files mask="query_config.fmt" hidden="true"/>
     <files mask="version_features.fmt" hidden="true"/>
@@ -3411,8 +3614,6 @@ ${load}</script>
     <files mask="test_suite_aes.ofb.data" hidden="true"/>
     <files mask="test_suite_aes.rest.data" hidden="true"/>
     <files mask="test_suite_aes.xts.data" hidden="true"/>
-    <files mask="test_suite_all.data" hidden="true"/>
-    <files mask="test_suite_all.function" hidden="true"/>
     <files mask="test_suite_arc4.data" hidden="true"/>
     <files mask="test_suite_arc4.function" hidden="true"/>
     <files mask="test_suite_aria.data" hidden="true"/>
@@ -3541,6 +3742,10 @@ ${load}</script>
     <files mask="test_suite_psa_crypto_hash.function" hidden="true"/>
     <files mask="test_suite_psa_crypto_init.data" hidden="true"/>
     <files mask="test_suite_psa_crypto_init.function" hidden="true"/>
+    <files mask="test_suite_psa_crypto_low_hash.function" hidden="true"/>
+    <files mask="test_suite_psa_crypto_low_hash.generated.data" hidden="true"/>
+    <files mask="test_suite_psa_crypto_memory.data" hidden="true"/>
+    <files mask="test_suite_psa_crypto_memory.function" hidden="true"/>
     <files mask="test_suite_psa_crypto_metadata.data" hidden="true"/>
     <files mask="test_suite_psa_crypto_metadata.function" hidden="true"/>
     <files mask="test_suite_psa_crypto_not_supported.function" hidden="true"/>
@@ -3573,6 +3778,8 @@ ${load}</script>
     <files mask="test_suite_ssl.function" hidden="true"/>
     <files mask="test_suite_ssl_decrypt.function" hidden="true"/>
     <files mask="test_suite_ssl_decrypt.misc.data" hidden="true"/>
+    <files mask="test_suite_test_helpers.data" hidden="true"/>
+    <files mask="test_suite_test_helpers.function" hidden="true"/>
     <files mask="test_suite_timing.data" hidden="true"/>
     <files mask="test_suite_timing.function" hidden="true"/>
     <files mask="test_suite_version.data" hidden="true"/>
@@ -3609,6 +3816,7 @@ ${load}</script>
     <files mask="load_roots.vcxproj" hidden="true"/>
     <files mask="mbedTLS.sln" hidden="true"/>
     <files mask="mbedTLS.vcxproj" hidden="true"/>
+    <files mask="metatest.vcxproj" hidden="true"/>
     <files mask="mini_client.vcxproj" hidden="true"/>
     <files mask="mpi_demo.vcxproj" hidden="true"/>
     <files mask="pem2der.vcxproj" hidden="true"/>
@@ -3660,6 +3868,8 @@ ${load}</script>
     <files mask="CMakeLists.txt" hidden="true"/>
     <files mask="CMakeLists.txt" hidden="true"/>
     <files mask="CMakeLists.txt" hidden="true"/>
+    <files mask="CMakeLists.txt" hidden="true"/>
+    <files mask="CMakeLists.txt" hidden="true"/>
     <files mask="dh_prime.txt" hidden="true"/>
     <files mask="rsa_priv.txt" hidden="true"/>
     <files mask="rsa_pub.txt" hidden="true"/>
@@ -3700,6 +3910,8 @@ ${load}</script>
   </source>
   <source exclude="true" relative_path="./" type="script">
     <files mask="conf.py" hidden="true"/>
+    <files mask="JoinPaths.cmake" hidden="true"/>
+    <files mask="demo_common.sh" hidden="true"/>
     <files mask="dlopen_demo.sh" hidden="true"/>
     <files mask="generate_cpp_dummy_build.sh" hidden="true"/>
     <files mask="udp_proxy_wrapper.sh" hidden="true"/>
@@ -3722,8 +3934,12 @@ ${load}</script>
     <files mask="asymmetric_key_data.py" hidden="true"/>
     <files mask="build_tree.py" hidden="true"/>
     <files mask="c_build_helper.py" hidden="true"/>
+    <files mask="c_parsing_helper.py" hidden="true"/>
+    <files mask="c_wrapper_generator.py" hidden="true"/>
+    <files mask="crypto_data_tests.py" hidden="true"/>
     <files mask="crypto_knowledge.py" hidden="true"/>
     <files mask="macro_collector.py" hidden="true"/>
+    <files mask="psa_information.py" hidden="true"/>
     <files mask="psa_storage.py" hidden="true"/>
     <files mask="test_case.py" hidden="true"/>
     <files mask="test_data_generation.py" hidden="true"/>
@@ -3746,10 +3962,14 @@ ${load}</script>
     <files mask="generate-afl-tests.sh" hidden="true"/>
     <files mask="generate_bignum_tests.py" hidden="true"/>
     <files mask="generate_psa_tests.py" hidden="true"/>
+    <files mask="generate_psa_wrappers.py" hidden="true"/>
+    <files mask="generate_server9_bad_saltlen.py" hidden="true"/>
     <files mask="generate_test_code.py" hidden="true"/>
     <files mask="list-identifiers.sh" hidden="true"/>
     <files mask="list_internal_identifiers.py" hidden="true"/>
     <files mask="psa_collect_statuses.py" hidden="true"/>
+    <files mask="run-metatests.sh" hidden="true"/>
+    <files mask="run_demos.py" hidden="true"/>
     <files mask="scripts_path.py" hidden="true"/>
     <files mask="set_psa_test_dependencies.py" hidden="true"/>
     <files mask="test_config_script.py" hidden="true"/>
@@ -3759,6 +3979,7 @@ ${load}</script>
     <files mask="travis-log-failure.sh" hidden="true"/>
   </source>
   <source exclude="true" relative_path="./" type="src">
+    <files mask="wince_main.c" hidden="true"/>
     <files mask="crypt_and_hash.c" hidden="true"/>
     <files mask="common.c" hidden="true"/>
     <files mask="fuzz_client.c" hidden="true"/>
@@ -3811,6 +4032,7 @@ ${load}</script>
     <files mask="ssl_test_lib.c" hidden="true"/>
     <files mask="benchmark.c" hidden="true"/>
     <files mask="dlopen.c" hidden="true"/>
+    <files mask="metatest.c" hidden="true"/>
     <files mask="query_compile_time_config.c" hidden="true"/>
     <files mask="query_config.c" hidden="true"/>
     <files mask="selftest.c" hidden="true"/>
@@ -3829,10 +4051,118 @@ ${load}</script>
     <files mask="helpers.c" hidden="true"/>
     <files mask="psa_crypto_helpers.c" hidden="true"/>
     <files mask="psa_exercise_key.c" hidden="true"/>
+    <files mask="psa_memory_poisoning_wrappers.c" hidden="true"/>
+    <files mask="psa_test_wrappers.c" hidden="true"/>
     <files mask="random.c" hidden="true"/>
+    <files mask="test_memory.c" hidden="true"/>
     <files mask="threading_helpers.c" hidden="true"/>
   </source>
 </component>-->
+    <component id="middleware.mbedtls.tests.LPC55S28" name="mbedtls_tests" brief="mbedTLS test suite" version="2.28.8" full_name="MbedTLS open source Crypto library" category="Security/mbedTLS library" user_visible="false" type="middleware" package_base_path="middleware/mbedtls" project_base_path="mbedtls">
+      <dependencies>
+        <device_dependency value="LPC55S28"/>
+      </dependencies>
+      <source relative_path="tests/src" type="src">
+        <files mask="asn1_helpers.c"/>
+        <files mask="helpers.c"/>
+        <files mask="psa_crypto_helpers.c"/>
+        <files mask="psa_exercise_key.c"/>
+        <files mask="random.c"/>
+        <files mask="threading_helpers.c"/>
+        <files mask="fake_external_rng_for_test.c"/>
+      </source>
+      <source relative_path="tests/src/test_helpers" type="src">
+        <files mask="ssl_helpers.c"/>
+      </source>
+      <source relative_path="tests/include/test" type="c_include">
+        <files mask="arguments.h"/>
+        <files mask="asn1_helpers.h"/>
+        <files mask="constant_flow.h"/>
+        <files mask="fake_external_rng_for_test.h"/>
+        <files mask="helpers.h"/>
+        <files mask="macros.h"/>
+        <files mask="psa_crypto_helpers.h"/>
+        <files mask="psa_exercise_key.h"/>
+        <files mask="psa_helpers.h"/>
+        <files mask="random.h"/>
+        <files mask="ssl_helpers.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="./" type="workspace">
+        <files mask="middleware_mbedtls_tests.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="tests/include/test" type="c_include"/>
+        <include_path relative_path="tests/include" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.mbedtls.3rdparty.LPC55S28" name="mbedtls_3rdparty" brief="mbedTLS 3rdparty code" version="2.28.8" full_name="MbedTLS open source Crypto library 3rdparty" category="Security/mbedTLS library" user_visible="false" type="middleware" package_base_path="middleware/mbedtls" project_base_path="mbedtls">
+      <dependencies>
+        <device_dependency value="LPC55S28"/>
+      </dependencies>
+      <source relative_path="3rdparty" type="doc">
+        <files mask="CMakeLists.txt"/>
+      </source>
+      <source relative_path="3rdparty" type="asm_include">
+        <files mask="Makefile.inc"/>
+      </source>
+      <source relative_path="3rdparty/everest" type="doc">
+        <files mask="CMakeLists.txt"/>
+        <files mask="README.md"/>
+      </source>
+      <source relative_path="3rdparty/everest" type="asm_include">
+        <files mask="Makefile.inc"/>
+      </source>
+      <source relative_path="3rdparty/everest/include/everest" type="c_include">
+        <files mask="Hacl_Curve25519.h"/>
+        <files mask="everest.h"/>
+        <files mask="kremlib.h"/>
+        <files mask="x25519.h"/>
+      </source>
+      <source relative_path="3rdparty/everest/include/everest/kremlib" type="c_include">
+        <files mask="FStar_UInt128.h"/>
+        <files mask="FStar_UInt64_FStar_UInt32_FStar_UInt16_FStar_UInt8.h"/>
+      </source>
+      <source relative_path="3rdparty/everest/include/everest/kremlin" type="c_include">
+        <files mask="c_endianness.h"/>
+      </source>
+      <source relative_path="3rdparty/everest/include/everest/kremlin/internal" type="c_include">
+        <files mask="builtin.h"/>
+        <files mask="callconv.h"/>
+        <files mask="compat.h"/>
+        <files mask="debug.h"/>
+        <files mask="target.h"/>
+        <files mask="types.h"/>
+        <files mask="wasmsupport.h"/>
+      </source>
+      <source relative_path="3rdparty/everest/include/everest/vs2010" type="c_include">
+        <files mask="Hacl_Curve25519.h"/>
+        <files mask="inttypes.h"/>
+        <files mask="stdbool.h"/>
+      </source>
+      <source relative_path="3rdparty/everest/library" type="src">
+        <files mask="Hacl_Curve25519.c"/>
+        <files mask="Hacl_Curve25519_joined.c"/>
+        <files mask="everest.c"/>
+        <files mask="x25519.c"/>
+      </source>
+      <source relative_path="3rdparty/everest/library/kremlib" type="src">
+        <files mask="FStar_UInt128_extracted.c"/>
+        <files mask="FStar_UInt64_FStar_UInt32_FStar_UInt16_FStar_UInt8.c"/>
+      </source>
+      <source relative_path="3rdparty/everest/library/legacy" type="src">
+        <files mask="Hacl_Curve25519.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="./" type="workspace">
+        <files mask="middleware_mbedtls_3rdparty.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="3rdparty/everest/include" type="c_include"/>
+        <include_path relative_path="3rdparty/everest/include/everest" type="c_include"/>
+        <include_path relative_path="3rdparty/everest/include/everest/kremlib" type="c_include"/>
+        <include_path relative_path="3rdparty/everest/include/everest/kremlin" type="c_include"/>
+        <include_path relative_path="3rdparty/everest/include/everest/kremlin/internal" type="c_include"/>
+      </include_paths>
+    </component>
     <component id="middleware.sdmmc.common.LPC55S28" name="sdmmc_common" brief="Middleware sdmmc common" version="2.3.0" full_name="SDMMC common stack" category="Memories/SDMMC Stack" user_visible="false" type="middleware" package_base_path="middleware/sdmmc" project_base_path="sdmmc">
       <dependencies>
         <device_dependency value="LPC55S28"/>
@@ -3934,15 +4264,16 @@ ${load}</script>
       <dependencies>
         <device_dependency value="LPC55S28"/>
       </dependencies>
-      <source condition="middleware.usb.host.stack.LPC55S28" relative_path="./" type="doc">
+      <source condition="middleware.usb.host.stack.LPC55S28 middleware.usb.device.controller.driver.LPC55S28" relative_path="./" type="doc">
         <files mask="MCUXpresso SDK USB Stack User's Guide.pdf"/>
       </source>
-      <source relative_path="./" type="doc">
-        <files mask="MCUXpresso SDK USB Stack OTG Reference Manual.pdf"/>
+      <source condition="middleware.usb.host.stack.LPC55S28" relative_path="./" type="doc">
         <files mask="MCUXpresso SDK USB Stack Host Reference Manual.pdf"/>
         <files mask="MCUXpresso SDK USB Stack Composite Host User's Guide.pdf"/>
-        <files mask="MCUXpresso SDK USB Type-C PD Stack Reference Manual.pdf"/>
-        <files mask="MCUXpresso SDK USB Type-C Power Delivery Stack User's Guide.pdf"/>
+      </source>
+      <source condition="middleware.usb.device.controller.driver.LPC55S28" relative_path="./" type="doc">
+        <files mask="MCUXpresso SDK USB Stack Device Reference Manual.pdf"/>
+        <files mask="MCUXpresso SDK USB Stack Composite Device User's Guide.pdf"/>
       </source>
     </component>
     <component id="driver.nand_flash-common.LPC55S28" name="nand_flash-common" brief="Driver nand_flash-common" version="1.0.0" full_name="Driver nand_flash-common" category="Device/SDK Drivers" user_visible="true" type="abstraction_layer" package_base_path="core/components/flash/nand" project_base_path="nand_flash">
@@ -3999,6 +4330,23 @@ ${load}</script>
       </source>
       <source toolchain="armgcc" relative_path="./" type="workspace">
         <files mask="driver_mx25r_flash.LPC55S28.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="component.osa_zephyr.LPC55S28" name="osa_zephyr" brief="Component osa_zephyr" version="1.0.0" full_name="Component osa_zephyr" category="NXP Component/OS Abstraction Layer" user_visible="true" type="software_component" package_base_path="core/components/osa" project_base_path="component/osa">
+      <dependencies>
+        <device_dependency value="LPC55S28"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_os_abstraction_zephyr.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_os_abstraction_zephyr.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="./" type="workspace">
+        <files mask="component_osa_zephyr.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -9388,15 +9736,10 @@ ${load}</script>
         <all>
           <component_dependency value="component.usart_adapter.LPC55S28"/>
           <component_dependency value="platform.drivers.common.LPC55S28"/>
+          <component_dependency value="utility.str.LPC55S28"/>
           <device_dependency value="LPC55S28"/>
         </all>
       </dependencies>
-      <source relative_path="str" project_relative_path="./" type="src">
-        <files mask="fsl_str.c"/>
-      </source>
-      <source relative_path="str" project_relative_path="./" type="c_include">
-        <files mask="fsl_str.h"/>
-      </source>
       <source relative_path="debug_console_lite" project_relative_path="./" type="src">
         <files mask="fsl_debug_console.c"/>
       </source>
@@ -9407,7 +9750,6 @@ ${load}</script>
         <files mask="utility_debug_console_lite.LPC55S28.cmake" hidden="true"/>
       </source>
       <include_paths>
-        <include_path relative_path="str" project_relative_path="./" type="c_include"/>
         <include_path relative_path="debug_console_lite" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
@@ -9459,7 +9801,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexcomm_i2s_dma.LPC55S28" name="flexcomm_i2s_dma" brief="I2S Driver" version="2.3.2" full_name="FLEXCOMM I2S DMA Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm/i2s" project_base_path="drivers">
+    <component id="platform.drivers.flexcomm_i2s_dma.LPC55S28" name="flexcomm_i2s_dma" brief="I2S Driver" version="2.3.3" full_name="FLEXCOMM I2S DMA Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm/i2s" project_base_path="drivers">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.lpc_dma.LPC55S28"/>
@@ -9666,8 +10008,6 @@ ${load}</script>
         <files mask="a00069.js"/>
         <files mask="a00070.html"/>
         <files mask="a00070.js"/>
-        <files mask="a00235.html"/>
-        <files mask="a00235.js"/>
         <files mask="a00236.html"/>
         <files mask="a00236.js"/>
         <files mask="a00237.html"/>
@@ -9687,16 +10027,16 @@ ${load}</script>
         <files mask="a00244.html"/>
         <files mask="a00244.js"/>
         <files mask="a00245.html"/>
+        <files mask="a00245.js"/>
         <files mask="a00246.html"/>
-        <files mask="a00246.js"/>
         <files mask="a00247.html"/>
         <files mask="a00247.js"/>
         <files mask="a00248.html"/>
+        <files mask="a00248.js"/>
         <files mask="a00249.html"/>
-        <files mask="a00249.js"/>
         <files mask="a00250.html"/>
+        <files mask="a00250.js"/>
         <files mask="a00251.html"/>
-        <files mask="a00251.js"/>
         <files mask="a00252.html"/>
         <files mask="a00252.js"/>
         <files mask="a00253.html"/>
@@ -9728,9 +10068,9 @@ ${load}</script>
         <files mask="a00266.html"/>
         <files mask="a00266.js"/>
         <files mask="a00267.html"/>
+        <files mask="a00267.js"/>
         <files mask="a00268.html"/>
         <files mask="a00269.html"/>
-        <files mask="a00269.js"/>
         <files mask="a00270.html"/>
         <files mask="a00270.js"/>
         <files mask="a00271.html"/>
@@ -9748,16 +10088,16 @@ ${load}</script>
         <files mask="a00277.html"/>
         <files mask="a00277.js"/>
         <files mask="a00278.html"/>
+        <files mask="a00278.js"/>
         <files mask="a00279.html"/>
-        <files mask="a00279.js"/>
         <files mask="a00280.html"/>
         <files mask="a00280.js"/>
         <files mask="a00281.html"/>
+        <files mask="a00281.js"/>
         <files mask="a00282.html"/>
         <files mask="a00283.html"/>
         <files mask="a00284.html"/>
         <files mask="a00285.html"/>
-        <files mask="a00285.js"/>
         <files mask="a00286.html"/>
         <files mask="a00286.js"/>
         <files mask="a00287.html"/>
@@ -9765,11 +10105,13 @@ ${load}</script>
         <files mask="a00288.html"/>
         <files mask="a00288.js"/>
         <files mask="a00289.html"/>
+        <files mask="a00289.js"/>
         <files mask="a00290.html"/>
         <files mask="a00291.html"/>
-        <files mask="a00291.js"/>
         <files mask="a00292.html"/>
-        <files mask="a00294.html"/>
+        <files mask="a00292.js"/>
+        <files mask="a00293.html"/>
+        <files mask="a00295.html"/>
         <files mask="arm_logo.png"/>
         <files mask="bc_s.png"/>
         <files mask="bdwn.png"/>
@@ -10258,7 +10600,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="CMSIS_NN_Source.LPC55S28" name="CMSIS_NN_Library_Source" brief="CMSIS-NN Library" version="3.0.0" full_name="CMSIS NN Library Source" category="CMSIS/NN" user_visible="true" type="CMSIS_driver" package_base_path="core/CMSIS/NN" project_base_path="CMSIS/NN">
+    <component id="CMSIS_NN_Source.LPC55S28" name="CMSIS_NN_Library_Source" brief="CMSIS-NN Library" version="5.0.0" full_name="CMSIS NN Library Source" category="CMSIS/NN" user_visible="true" type="CMSIS_driver" package_base_path="core/CMSIS/NN" project_base_path="CMSIS/NN">
       <dependencies>
         <all>
           <component_dependency value="CMSIS_DSP_Source.LPC55S28"/>
@@ -10269,20 +10611,26 @@ ${load}</script>
         <files mask="README.md" hidden="true"/>
       </source>
       <source relative_path="Include" type="c_include">
-        <files mask="arm_nn_tables.h"/>
-        <files mask="arm_nn_types.h"/>
         <files mask="arm_nnfunctions.h"/>
         <files mask="arm_nnsupportfunctions.h"/>
+        <files mask="arm_nn_math_types.h"/>
+        <files mask="arm_nn_tables.h"/>
+        <files mask="arm_nn_types.h"/>
+      </source>
+      <source relative_path="Include/Internal" type="c_include">
+        <files mask="arm_nn_compiler.h"/>
       </source>
       <source relative_path="Source/ActivationFunctions" type="src">
-        <files mask="arm_nn_activations_q15.c"/>
-        <files mask="arm_nn_activations_q7.c"/>
+        <files mask="arm_nn_activation_s16.c"/>
         <files mask="arm_relu6_s8.c"/>
         <files mask="arm_relu_q15.c"/>
         <files mask="arm_relu_q7.c"/>
       </source>
       <source relative_path="Source/BasicMathFunctions" type="src">
+        <files mask="arm_elementwise_add_s16.c"/>
         <files mask="arm_elementwise_add_s8.c"/>
+        <files mask="arm_elementwise_mul_s16.c"/>
+        <files mask="arm_elementwise_mul_s16_s8.c"/>
         <files mask="arm_elementwise_mul_s8.c"/>
       </source>
       <source relative_path="Source/ConcatenationFunctions" type="src">
@@ -10292,77 +10640,97 @@ ${load}</script>
         <files mask="arm_concatenation_s8_z.c"/>
       </source>
       <source relative_path="Source/ConvolutionFunctions" type="src">
-        <files mask="arm_convolve_1x1_HWC_q7_fast_nonsquare.c"/>
+        <files mask="arm_convolve_1x1_s4.c"/>
+        <files mask="arm_convolve_1x1_s4_fast.c"/>
+        <files mask="arm_convolve_1x1_s8.c"/>
         <files mask="arm_convolve_1x1_s8_fast.c"/>
         <files mask="arm_convolve_1_x_n_s8.c"/>
-        <files mask="arm_convolve_HWC_q15_basic.c"/>
-        <files mask="arm_convolve_HWC_q15_fast.c"/>
-        <files mask="arm_convolve_HWC_q15_fast_nonsquare.c"/>
-        <files mask="arm_convolve_HWC_q7_basic.c"/>
-        <files mask="arm_convolve_HWC_q7_basic_nonsquare.c"/>
-        <files mask="arm_convolve_HWC_q7_fast.c"/>
-        <files mask="arm_convolve_HWC_q7_fast_nonsquare.c"/>
-        <files mask="arm_convolve_HWC_q7_RGB.c"/>
+        <files mask="arm_convolve_fast_s16.c"/>
+        <files mask="arm_convolve_get_buffer_sizes_s16.c"/>
+        <files mask="arm_convolve_get_buffer_sizes_s4.c"/>
+        <files mask="arm_convolve_get_buffer_sizes_s8.c"/>
+        <files mask="arm_convolve_s16.c"/>
+        <files mask="arm_convolve_s4.c"/>
         <files mask="arm_convolve_s8.c"/>
+        <files mask="arm_convolve_wrapper_s16.c"/>
+        <files mask="arm_convolve_wrapper_s4.c"/>
         <files mask="arm_convolve_wrapper_s8.c"/>
         <files mask="arm_depthwise_conv_3x3_s8.c"/>
+        <files mask="arm_depthwise_conv_fast_s16.c"/>
+        <files mask="arm_depthwise_conv_get_buffer_sizes_s16.c"/>
+        <files mask="arm_depthwise_conv_get_buffer_sizes_s4.c"/>
+        <files mask="arm_depthwise_conv_get_buffer_sizes_s8.c"/>
+        <files mask="arm_depthwise_conv_s16.c"/>
+        <files mask="arm_depthwise_conv_s4.c"/>
+        <files mask="arm_depthwise_conv_s4_opt.c"/>
         <files mask="arm_depthwise_conv_s8.c"/>
         <files mask="arm_depthwise_conv_s8_opt.c"/>
-        <files mask="arm_depthwise_conv_u8_basic_ver1.c"/>
+        <files mask="arm_depthwise_conv_wrapper_s16.c"/>
+        <files mask="arm_depthwise_conv_wrapper_s4.c"/>
         <files mask="arm_depthwise_conv_wrapper_s8.c"/>
-        <files mask="arm_depthwise_separable_conv_HWC_q7.c"/>
-        <files mask="arm_depthwise_separable_conv_HWC_q7_nonsquare.c"/>
         <files mask="arm_nn_depthwise_conv_s8_core.c"/>
-        <files mask="arm_nn_mat_mult_kernel_q7_q15.c"/>
-        <files mask="arm_nn_mat_mult_kernel_q7_q15_reordered.c"/>
+        <files mask="arm_nn_mat_mult_kernel_s4_s16.c"/>
         <files mask="arm_nn_mat_mult_kernel_s8_s16.c"/>
-        <files mask="arm_nn_mat_mult_kernel_s8_s16_reordered.c"/>
         <files mask="arm_nn_mat_mult_s8.c"/>
+        <files mask="arm_transpose_conv_get_buffer_sizes_s8.c"/>
+        <files mask="arm_transpose_conv_s8.c"/>
       </source>
       <source relative_path="Source/FullyConnectedFunctions" type="src">
-        <files mask="arm_fully_connected_mat_q7_vec_q15.c"/>
-        <files mask="arm_fully_connected_mat_q7_vec_q15_opt.c"/>
-        <files mask="arm_fully_connected_q15.c"/>
-        <files mask="arm_fully_connected_q15_opt.c"/>
-        <files mask="arm_fully_connected_q7.c"/>
-        <files mask="arm_fully_connected_q7_opt.c"/>
+        <files mask="arm_fully_connected_get_buffer_sizes_s16.c"/>
+        <files mask="arm_fully_connected_get_buffer_sizes_s8.c"/>
+        <files mask="arm_fully_connected_s16.c"/>
+        <files mask="arm_fully_connected_s4.c"/>
         <files mask="arm_fully_connected_s8.c"/>
+        <files mask="arm_vector_sum_s8.c"/>
+      </source>
+      <source relative_path="Source/LSTMFunctions" type="src">
+        <files mask="arm_lstm_unidirectional_s8_s16.c"/>
       </source>
       <source relative_path="Source/NNSupportFunctions" type="src">
         <files mask="arm_nntables.c"/>
-        <files mask="arm_nn_accumulate_q7_to_q15.c"/>
-        <files mask="arm_nn_add_q7.c"/>
         <files mask="arm_nn_depthwise_conv_nt_t_padded_s8.c"/>
+        <files mask="arm_nn_depthwise_conv_nt_t_s16.c"/>
         <files mask="arm_nn_depthwise_conv_nt_t_s8.c"/>
+        <files mask="arm_nn_lstm_calculate_gate_s8_s16.c"/>
+        <files mask="arm_nn_lstm_step_s8_s16.c"/>
+        <files mask="arm_nn_lstm_update_cell_state_s16.c"/>
+        <files mask="arm_nn_lstm_update_output_s8_s16.c"/>
+        <files mask="arm_nn_mat_mult_nt_t_s4.c"/>
         <files mask="arm_nn_mat_mult_nt_t_s8.c"/>
+        <files mask="arm_nn_mat_mult_nt_t_s8_s32.c"/>
         <files mask="arm_nn_mat_mul_core_1x_s8.c"/>
         <files mask="arm_nn_mat_mul_core_4x_s8.c"/>
-        <files mask="arm_nn_mult_q15.c"/>
-        <files mask="arm_nn_mult_q7.c"/>
+        <files mask="arm_nn_mat_mul_kernel_s16.c"/>
+        <files mask="arm_nn_vec_mat_mult_t_s16.c"/>
+        <files mask="arm_nn_vec_mat_mult_t_s4.c"/>
         <files mask="arm_nn_vec_mat_mult_t_s8.c"/>
         <files mask="arm_nn_vec_mat_mult_t_svdf_s8.c"/>
-        <files mask="arm_q7_to_q15_no_shift.c"/>
-        <files mask="arm_q7_to_q15_reordered_no_shift.c"/>
-        <files mask="arm_q7_to_q15_reordered_with_offset.c"/>
+        <files mask="arm_nn_vec_mat_mul_result_acc_s8.c"/>
         <files mask="arm_q7_to_q15_with_offset.c"/>
+        <files mask="arm_s8_to_s16_unordered_with_offset.c"/>
       </source>
       <source relative_path="Source/PoolingFunctions" type="src">
+        <files mask="arm_avgpool_get_buffer_sizes_s16.c"/>
+        <files mask="arm_avgpool_get_buffer_sizes_s8.c"/>
+        <files mask="arm_avgpool_s16.c"/>
         <files mask="arm_avgpool_s8.c"/>
+        <files mask="arm_max_pool_s16.c"/>
         <files mask="arm_max_pool_s8.c"/>
-        <files mask="arm_pool_q7_HWC.c"/>
       </source>
       <source relative_path="Source/ReshapeFunctions" type="src">
         <files mask="arm_reshape_s8.c"/>
       </source>
       <source relative_path="Source/SoftmaxFunctions" type="src">
-        <files mask="arm_softmax_q15.c"/>
-        <files mask="arm_softmax_q7.c"/>
+        <files mask="arm_nn_softmax_common_s8.c"/>
+        <files mask="arm_softmax_s16.c"/>
         <files mask="arm_softmax_s8.c"/>
+        <files mask="arm_softmax_s8_s16.c"/>
         <files mask="arm_softmax_u8.c"/>
-        <files mask="arm_softmax_with_batch_q7.c"/>
       </source>
       <source relative_path="Source/SVDFunctions" type="src">
+        <files mask="arm_svdf_get_buffer_sizes_s8.c"/>
         <files mask="arm_svdf_s8.c"/>
+        <files mask="arm_svdf_state_s16_s8.c"/>
       </source>
       <source toolchain="armgcc" relative_path="./" type="workspace">
         <files mask="CMSIS_NN_Source.cmake" hidden="true"/>
@@ -10480,7 +10848,7 @@ ${load}</script>
         <include_path relative_path="drivers" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.common.LPC55S28" name="common" brief="COMMON Driver" version="2.4.0" full_name="COMMON Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/common" project_base_path="drivers">
+    <component id="platform.drivers.common.LPC55S28" name="common" brief="COMMON Driver" version="2.4.1" full_name="COMMON Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/common" project_base_path="drivers">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.reset.LPC55S28"/>
@@ -10595,15 +10963,10 @@ ${load}</script>
         <all>
           <component_dependency value="component.serial_manager.LPC55S28"/>
           <component_dependency value="platform.drivers.common.LPC55S28"/>
+          <component_dependency value="utility.str.LPC55S28"/>
           <device_dependency value="LPC55S28"/>
         </all>
       </dependencies>
-      <source relative_path="str" project_relative_path="./" type="src">
-        <files mask="fsl_str.c"/>
-      </source>
-      <source relative_path="str" project_relative_path="./" type="c_include">
-        <files mask="fsl_str.h"/>
-      </source>
       <source relative_path="debug_console" project_relative_path="./" type="src">
         <files mask="fsl_debug_console.c"/>
       </source>
@@ -10615,7 +10978,6 @@ ${load}</script>
         <files mask="utility_debug_console.LPC55S28.cmake" hidden="true"/>
       </source>
       <include_paths>
-        <include_path relative_path="str" project_relative_path="./" type="c_include"/>
         <include_path relative_path="debug_console" project_relative_path="./" type="c_include"/>
       </include_paths>
     </component>
@@ -10758,6 +11120,74 @@ ${load}</script>
         <include_path relative_path="source/fsl_sd_disk" type="c_include"/>
       </include_paths>
     </component>
+    <component id="middleware.fatfs.template_mmc.LPC55S28" name="fatfs_mmc" brief="FatFs template MMC" version="0.15.0" full_name="FatFs template configuration for MMC disk" category="File System/FAT File System" user_visible="true" type="project_template" package_base_path="middleware/fatfs" project_base_path="source">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.fatfs.mmc.LPC55S28"/>
+          <device_dependency value="LPC55S28"/>
+        </all>
+      </dependencies>
+      <source relative_path="template/mmc" project_relative_path="./" config="true" type="c_include">
+        <files mask="ffconf.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="./" type="workspace">
+        <files mask="middleware_fatfs_template_mmc.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="template/mmc" project_relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.fatfs.template_ram.LPC55S28" name="fatfs_ram" brief="FatFs template RAM" version="0.15.0" full_name="FatFs template configuration for RAM disk" category="File System/FAT File System" user_visible="true" type="project_template" package_base_path="middleware/fatfs" project_base_path="source">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.fatfs.ram.LPC55S28"/>
+          <device_dependency value="LPC55S28"/>
+        </all>
+      </dependencies>
+      <source relative_path="template/ram" project_relative_path="./" config="true" type="c_include">
+        <files mask="ffconf.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="./" type="workspace">
+        <files mask="middleware_fatfs_template_ram.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="template/ram" project_relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.fatfs.template_sd.LPC55S28" name="fatfs_sd" brief="FatFs template SD" version="0.15.0" full_name="FatFs template configuration for SD disk" category="File System/FAT File System" user_visible="true" type="project_template" package_base_path="middleware/fatfs" project_base_path="source">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.fatfs.sd.LPC55S28"/>
+          <device_dependency value="LPC55S28"/>
+        </all>
+      </dependencies>
+      <source relative_path="template/sd" project_relative_path="./" config="true" type="c_include">
+        <files mask="ffconf.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="./" type="workspace">
+        <files mask="middleware_fatfs_template_sd.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="template/sd" project_relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.fatfs.template_usb.LPC55S28" name="fatfs_usb" brief="FatFs template USB" version="0.15.0" full_name="FatFs template configuration for USB disk" category="File System/FAT File System" user_visible="true" type="project_template" package_base_path="middleware/fatfs" project_base_path="source">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.fatfs.usb.LPC55S28"/>
+          <device_dependency value="LPC55S28"/>
+        </all>
+      </dependencies>
+      <source relative_path="template/usb" project_relative_path="./" config="true" type="c_include">
+        <files mask="ffconf.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="./" type="workspace">
+        <files mask="middleware_fatfs_template_usb.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="template/usb" project_relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
     <component id="middleware.fatfs.usb.LPC55S28" name="usb" brief="FatFs_USB" version="0.15.0" full_name="Fatfs USB layer" category="File System/FAT File System" user_visible="true" type="middleware" package_base_path="middleware/fatfs" project_base_path="fatfs">
       <dependencies>
         <all>
@@ -10784,7 +11214,7 @@ ${load}</script>
         <include_path relative_path="source/fsl_usb_disk" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.freertos-kernel.LPC55S28" name="FreeRTOS kernel" brief="FreeRTOS kernel" version="10.5.1" full_name="FreeRTOS kernel" category="RTOS/Core" user_visible="true" type="OS" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
+    <component id="middleware.freertos-kernel.LPC55S28" name="FreeRTOS kernel" brief="FreeRTOS kernel" version="11.0.1" full_name="FreeRTOS kernel" category="RTOS/Core" user_visible="true" type="OS" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <defines>
         <define name="SDK_OS_FREE_RTOS" value=""/>
       </defines>
@@ -10813,7 +11243,10 @@ ${load}</script>
         <files mask="list.h"/>
         <files mask="message_buffer.h"/>
         <files mask="mpu_prototypes.h"/>
+        <files mask="mpu_syscall_numbers.h"/>
         <files mask="mpu_wrappers.h"/>
+        <files mask="newlib-freertos.h"/>
+        <files mask="picolibc-freertos.h"/>
         <files mask="portable.h"/>
         <files mask="projdefs.h"/>
         <files mask="queue.h"/>
@@ -10838,9 +11271,10 @@ ${load}</script>
       </source>
       <include_paths>
         <include_path relative_path="include" type="c_include"/>
+        <include_path relative_path="include" type="asm_include"/>
       </include_paths>
     </component>
-    <component id="middleware.freertos-kernel.cm33_non_trustzone.LPC55S28" name="cm33 nontrustzone port" brief="FreeRTOS cm33 non trustzone port" version="10.5.1" full_name="FreeRTOS cm33 non trustzone port" category="RTOS/cm33_non_trustzone_port" user_visible="true" type="middleware" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
+    <component id="middleware.freertos-kernel.cm33_non_trustzone.LPC55S28" name="cm33 nontrustzone port" brief="FreeRTOS cm33 non trustzone port" version="11.0.1" full_name="FreeRTOS cm33 non trustzone port" category="RTOS/cm33_non_trustzone_port" user_visible="true" type="middleware" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <dependencies>
         <all>
           <any_of>
@@ -10861,6 +11295,7 @@ ${load}</script>
         </all>
       </dependencies>
       <source toolchain="armgcc mcuxpresso" relative_path="portable/GCC/ARM_CM33_NTZ/non_secure" type="src" device_cores="cm33_core0_LPC55S28">
+        <files mask="mpu_wrappers_v2_asm.c"/>
         <files mask="port.c"/>
         <files mask="portasm.c"/>
       </source>
@@ -10876,20 +11311,21 @@ ${load}</script>
         <include_path relative_path="portable/GCC/ARM_CM33_NTZ/non_secure" toolchain="armgcc mcuxpresso" type="c_include" device_cores="cm33_core0_LPC55S28"/>
       </include_paths>
     </component>
-    <component id="middleware.freertos-kernel.cm33_trustzone.non_secure.LPC55S28" name="cm33 secure port" brief="FreeRTOS cm33 secure port" version="10.5.1" full_name="FreeRTOS cm33 secure port" category="RTOS/cm33_secure_port" user_visible="false" type="middleware" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
+    <component id="middleware.freertos-kernel.cm33_trustzone.non_secure.LPC55S28" name="cm33 secure port" brief="FreeRTOS cm33 secure port" version="11.0.1" full_name="FreeRTOS cm33 secure port" category="RTOS/cm33_secure_port" user_visible="true" type="middleware" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <dependencies>
         <all>
           <not>
             <component_dependency value="middleware.freertos-kernel.cm33_non_trustzone.LPC55S28"/>
           </not>
           <component_dependency value="middleware.freertos-kernel.LPC55S28"/>
-          <component_dependency value="middleware.freertos-kernel.mpu_wrappers.LPC55S28"/>
+          <component_dependency value="middleware.freertos-kernel.mpu_wrappers_v2.LPC55S28"/>
           <component_dependency value="middleware.freertos-kernel.cm33_trustzone.secure.context.LPC55S28"/>
           <device_dependency value="LPC55S28"/>
           <device_core_dependency value="cm33_core0_LPC55S28"/>
         </all>
       </dependencies>
       <source toolchain="armgcc mcuxpresso" relative_path="portable/GCC/ARM_CM33/non_secure" type="src" device_cores="cm33_core0_LPC55S28">
+        <files mask="mpu_wrappers_v2_asm.c"/>
         <files mask="port.c"/>
         <files mask="portasm.c"/>
       </source>
@@ -10905,7 +11341,7 @@ ${load}</script>
         <include_path relative_path="portable/GCC/ARM_CM33/non_secure" toolchain="armgcc mcuxpresso" type="c_include" device_cores="cm33_core0_LPC55S28"/>
       </include_paths>
     </component>
-    <component id="middleware.freertos-kernel.heap_1.LPC55S28" name="FreeRTOS heap 1" brief="FreeRTOS heap 1" version="10.5.1" full_name="FreeRTOS heap 1" category="RTOS/Heap" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
+    <component id="middleware.freertos-kernel.heap_1.LPC55S28" name="FreeRTOS heap 1" brief="FreeRTOS heap 1" version="11.0.1" full_name="FreeRTOS heap 1" category="RTOS/Heap" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <dependencies>
         <all>
           <not>
@@ -10931,7 +11367,7 @@ ${load}</script>
         <files mask="middleware_freertos-kernel_heap_1.cmake" hidden="true"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.heap_2.LPC55S28" name="FreeRTOS heap 2" brief="FreeRTOS heap 2" version="10.5.1" full_name="FreeRTOS heap 2" category="RTOS/Heap" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
+    <component id="middleware.freertos-kernel.heap_2.LPC55S28" name="FreeRTOS heap 2" brief="FreeRTOS heap 2" version="11.0.1" full_name="FreeRTOS heap 2" category="RTOS/Heap" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <dependencies>
         <all>
           <not>
@@ -10957,7 +11393,7 @@ ${load}</script>
         <files mask="middleware_freertos-kernel_heap_2.cmake" hidden="true"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.heap_3.LPC55S28" name="FreeRTOS heap 3" brief="FreeRTOS heap 3" version="10.5.1" full_name="FreeRTOS heap_3" category="RTOS/Heap" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
+    <component id="middleware.freertos-kernel.heap_3.LPC55S28" name="FreeRTOS heap 3" brief="FreeRTOS heap 3" version="11.0.1" full_name="FreeRTOS heap_3" category="RTOS/Heap" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <dependencies>
         <all>
           <not>
@@ -10983,7 +11419,7 @@ ${load}</script>
         <files mask="middleware_freertos-kernel_heap_3.cmake" hidden="true"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.heap_4.LPC55S28" name="FreeRTOS heap 4" brief="FreeRTOS heap 4" version="10.5.1" full_name="FreeRTOS heap 4" category="RTOS/Heap" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
+    <component id="middleware.freertos-kernel.heap_4.LPC55S28" name="FreeRTOS heap 4" brief="FreeRTOS heap 4" version="11.0.1" full_name="FreeRTOS heap 4" category="RTOS/Heap" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <dependencies>
         <all>
           <not>
@@ -11009,7 +11445,7 @@ ${load}</script>
         <files mask="middleware_freertos-kernel_heap_4.cmake" hidden="true"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.heap_5.LPC55S28" name="FreeRTOS heap 5" brief="FreeRTOS heap 5" version="10.5.1" full_name="FreeRTOS heap 5" category="RTOS/Heap" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
+    <component id="middleware.freertos-kernel.heap_5.LPC55S28" name="FreeRTOS heap 5" brief="FreeRTOS heap 5" version="11.0.1" full_name="FreeRTOS heap 5" category="RTOS/Heap" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <dependencies>
         <all>
           <not>
@@ -11035,7 +11471,21 @@ ${load}</script>
         <files mask="middleware_freertos-kernel_heap_5.cmake" hidden="true"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.mpu_wrappers.LPC55S28" name="FreeRTOS MPU wrappers" brief="FreeRTOS MPU wrappers" version="10.5.1" full_name="FreeRTOS MPU wrappers" category="RTOS/MPU wrappers" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
+    <component id="middleware.freertos-kernel.mpu_wrappers_v2.LPC55S28" name="new V2 FreeRTOS MPU wrappers introduced in V10.6.0" brief="new V2 FreeRTOS MPU wrappers introduced in V10.6.0" version="11.0.1" full_name="new V2 FreeRTOS MPU wrappers introduced in V10.6.0" category="RTOS/MPU wrappers V2" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.freertos-kernel.LPC55S28"/>
+          <device_dependency value="LPC55S28"/>
+        </all>
+      </dependencies>
+      <source relative_path="portable/Common" type="src">
+        <files mask="mpu_wrappers_v2.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="./" type="workspace">
+        <files mask="middleware_freertos-kernel_mpu_wrappers_v2.cmake" hidden="true"/>
+      </source>
+    </component>
+    <component id="middleware.freertos-kernel.mpu_wrappers.LPC55S28" name="old FreeRTOS MPU wrappers used before V10.6.0" brief="old FreeRTOS MPU wrappers used before V10.6.0" version="11.0.1" full_name="old FreeRTOS MPU wrappers used before V10.6.0" category="RTOS/MPU wrappers" user_visible="false" type="other" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <dependencies>
         <all>
           <component_dependency value="middleware.freertos-kernel.LPC55S28"/>
@@ -11049,7 +11499,7 @@ ${load}</script>
         <files mask="middleware_freertos-kernel_mpu_wrappers.cmake" hidden="true"/>
       </source>
     </component>
-    <component id="middleware.freertos-kernel.cm33_trustzone.secure.context.LPC55S28" name="cm33 trustzone secure context" brief="FreeRTOS cm33 TrustZone secure port" version="10.5.1" full_name="FreeRTOS cm33 TrustZone secure port" category="RTOS/cm33 trustzone secure context" user_visible="false" type="middleware" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
+    <component id="middleware.freertos-kernel.cm33_trustzone.secure.context.LPC55S28" name="cm33 trustzone secure context" brief="FreeRTOS cm33 TrustZone secure port" version="11.0.1" full_name="FreeRTOS cm33 TrustZone secure port" category="RTOS/cm33 trustzone secure context" user_visible="false" type="middleware" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <dependencies>
         <all>
           <device_dependency value="LPC55S28"/>
@@ -11067,7 +11517,7 @@ ${load}</script>
         <include_path relative_path="portable/GCC/ARM_CM33/secure" toolchain="armgcc mcuxpresso" type="c_include" device_cores="cm33_core0_LPC55S28"/>
       </include_paths>
     </component>
-    <component id="middleware.freertos-kernel.cm33_trustzone.secure.LPC55S28" name="cm33 secure port" brief="FreeRTOS Secure Context" version="10.5.1" full_name="FreeRTOS Secure Context" category="RTOS/cm33 secure port" user_visible="true" type="middleware" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
+    <component id="middleware.freertos-kernel.cm33_trustzone.secure.LPC55S28" name="cm33 secure port" brief="FreeRTOS Secure Context" version="11.0.1" full_name="FreeRTOS Secure Context" category="RTOS/cm33 secure port" user_visible="true" type="middleware" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <dependencies>
         <all>
           <any_of>
@@ -11109,11 +11559,15 @@ ${load}</script>
         <files mask="Getting Started with MCUXpressoSDK and FreeRTOS OS.pdf"/>
       </source>
     </component>
-    <component id="middleware.lwip.LPC55S28" name="lwIP" brief="lwIP - A Lightweight TCP/IP Stack" version="2.2.0" revision="10" full_name="lwIP" category="Network/lwIP TCPIP Networking Stack" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
+    <component id="middleware.lwip.LPC55S28" name="lwIP" brief="lwIP - A Lightweight TCP/IP Stack" version="2.2.1" revision="1" full_name="lwIP" category="Network/lwIP TCPIP Networking Stack" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
       <dependencies>
         <all>
+          <any_of>
+            <component_dependency value="middleware.lwip.usb_ethernetif.LPC55S28"/>
+            <component_dependency value="middleware.lwip.empty_ethernetif.LPC55S28"/>
+            <component_dependency value="middleware.lwip.eoe_ethernetif.LPC55S28"/>
+          </any_of>
           <component_dependency value="middleware.lwip.template.LPC55S28"/>
-          <component_dependency value="middleware.lwip.usb_ethernetif.LPC55S28"/>
           <device_dependency value="LPC55S28"/>
         </all>
       </dependencies>
@@ -11426,12 +11880,44 @@ ${load}</script>
         <include_path relative_path="src/include" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.lwip.usb_ethernetif.LPC55S28" name="lwIP_usb_ethernetif" brief="USB network layer" version="2.2.0" revision="10" full_name="lwIP Adaptation for USB Network Layer" category="Network/lwIP TCPIP Networking Stack" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
+    <component id="middleware.lwip.eoe_ethernetif.LPC55S28" name="EtherCAT EOE ethernet interface" brief="EtherCAT EOE ethernet interface" version="2.2.1" revision="1" full_name="EtherCAT EOE ethernet interface" category="Network/lwIP TCPIP Networking Stack" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
+      <defines>
+        <define name="CHECKSUM_GEN_IP" value="1"/>
+        <define name="CHECKSUM_GEN_UDP" value="1"/>
+        <define name="CHECKSUM_GEN_TCP" value="1"/>
+        <define name="CHECKSUM_GEN_ICMP" value="1"/>
+        <define name="CHECKSUM_CHECK_ICMP" value="1"/>
+      </defines>
       <dependencies>
         <all>
           <component_dependency value="middleware.lwip.LPC55S28"/>
+          <component_dependency value="middleware.lwip.template.LPC55S28"/>
+          <component_dependency value="middleware.freertos-kernel.LPC55S28"/>
+          <device_dependency value="LPC55S28"/>
+        </all>
+      </dependencies>
+      <source relative_path="port" type="src">
+        <files mask="eoe_ethernetif.c"/>
+      </source>
+      <source relative_path="port" type="c_include">
+        <files mask="eoe_ethernetif.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="./" type="workspace">
+        <files mask="middleware_lwip_eoe_ethernetif.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="port" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.lwip.usb_ethernetif.LPC55S28" name="lwIP_usb_ethernetif" brief="USB network layer" version="2.2.1" revision="1" full_name="lwIP Adaptation for USB Network Layer" category="Network/lwIP TCPIP Networking Stack" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
+      <dependencies>
+        <all>
+          <any_of>
+            <component_dependency value="middleware.usb.host_cdc_ecm.LPC55S28"/>
+            <component_dependency value="middleware.usb.host_cdc_rndis.LPC55S28"/>
+          </any_of>
+          <component_dependency value="middleware.lwip.LPC55S28"/>
           <component_dependency value="middleware.usb.host_cdc.LPC55S28"/>
-          <component_dependency value="middleware.usb.host_cdc_rndis.LPC55S28"/>
           <component_dependency value="middleware.usb.host_controller_ohci.LPC55S28"/>
           <device_dependency value="LPC55S28"/>
         </all>
@@ -11452,7 +11938,7 @@ ${load}</script>
         <include_path relative_path="port" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.lwip.apps.httpd.support.LPC55S28" name="lwIP_HTTPD_support" brief="lwIP HTTP Daemon Implementation Support Files" version="2.2.0" revision="10" full_name="lwIP HTTP Daemon Implementation Support Files" category="Network/lwIP TCPIP Application protocols" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
+    <component id="middleware.lwip.apps.httpd.support.LPC55S28" name="lwIP_HTTPD_support" brief="lwIP HTTP Daemon Implementation Support Files" version="2.2.1" revision="1" full_name="lwIP HTTP Daemon Implementation Support Files" category="Network/lwIP TCPIP Application protocols" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
       <dependencies>
         <all>
           <component_dependency value="middleware.lwip.LPC55S28"/>
@@ -11501,7 +11987,7 @@ ${load}</script>
         <include_path relative_path="src/include/lwip/apps" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.lwip.apps.httpd.LPC55S28" name="lwIP_HTTPD" brief="lwIP HTTP Daemon" version="2.2.0" revision="10" full_name="lwIP HTTP Daemon" category="Network/lwIP TCPIP Application protocols" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
+    <component id="middleware.lwip.apps.httpd.LPC55S28" name="lwIP_HTTPD" brief="lwIP HTTP Daemon" version="2.2.1" revision="1" full_name="lwIP HTTP Daemon" category="Network/lwIP TCPIP Application protocols" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
       <dependencies>
         <all>
           <component_dependency value="middleware.lwip.LPC55S28"/>
@@ -11516,7 +12002,7 @@ ${load}</script>
         <files mask="middleware_lwip_apps_httpd.cmake" hidden="true"/>
       </source>
     </component>
-    <component id="middleware.lwip.apps.httpsrv.LPC55S28" name="lwIP_HTTP_srv" brief="lwIP HTTP Server Implementation" version="2.2.0" revision="10" full_name="lwIP HTTP Server" category="Network/lwIP TCPIP Application protocols" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
+    <component id="middleware.lwip.apps.httpsrv.LPC55S28" name="lwIP_HTTP_srv" brief="lwIP HTTP Server Implementation" version="2.2.1" revision="1" full_name="lwIP HTTP Server" category="Network/lwIP TCPIP Application protocols" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
       <defines>
         <define name="USE_RTOS" value="1"/>
       </defines>
@@ -11565,7 +12051,7 @@ ${load}</script>
         <include_path relative_path="src/apps/httpsrv" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.lwip.apps.httpssrv.LPC55S28" name="lwIP_HTTPS_srv" brief="lwIP HTTPS Server Implementation" version="2.2.0" revision="10" full_name="lwIP HTTPS Server" category="Network/lwIP TCPIP Application protocols" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
+    <component id="middleware.lwip.apps.httpssrv.LPC55S28" name="lwIP_HTTPS_srv" brief="lwIP HTTPS Server Implementation" version="2.2.1" revision="1" full_name="lwIP HTTPS Server" category="Network/lwIP TCPIP Application protocols" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
       <defines>
         <define name="MBEDTLS_THREADING_C" value=""/>
         <define name="MBEDTLS_THREADING_ALT" value=""/>
@@ -11587,7 +12073,7 @@ ${load}</script>
         <include_path relative_path="src/apps/httpsrv" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.lwip.apps.mdns.LPC55S28" name="lwIP_MDNS" brief="lwIP mDNS Implementation" version="2.2.0" revision="10" full_name="lwIP mDNS" category="Network/lwIP TCPIP Application protocols" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
+    <component id="middleware.lwip.apps.mdns.LPC55S28" name="lwIP_MDNS" brief="lwIP mDNS Implementation" version="2.2.1" revision="1" full_name="lwIP mDNS" category="Network/lwIP TCPIP Application protocols" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
       <dependencies>
         <all>
           <component_dependency value="middleware.lwip.LPC55S28"/>
@@ -11613,7 +12099,7 @@ ${load}</script>
         <include_path relative_path="src/include/lwip/apps" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.lwip.apps.lwiperf.LPC55S28" name="lwIP_IPERF" brief="lwIP IPERF Implementation" version="2.2.0" revision="10" full_name="lwIP IPERF" category="Network/lwIP TCPIP Application protocols" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
+    <component id="middleware.lwip.apps.lwiperf.LPC55S28" name="lwIP_IPERF" brief="lwIP IPERF Implementation" version="2.2.1" revision="1" full_name="lwIP IPERF" category="Network/lwIP TCPIP Application protocols" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
       <defines>
         <define name="SO_REUSE" value="1"/>
       </defines>
@@ -11640,7 +12126,7 @@ ${load}</script>
         <include_path relative_path="src/include/lwip/apps" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.lwip.apps.mqtt.LPC55S28" name="lwIP_MQTT" brief="lwIP MQTT Client" version="2.2.0" revision="10" full_name="lwIP MQTT Client" category="Network/lwIP TCPIP Application protocols" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
+    <component id="middleware.lwip.apps.mqtt.LPC55S28" name="lwIP_MQTT" brief="lwIP MQTT Client" version="2.2.1" revision="1" full_name="lwIP MQTT Client" category="Network/lwIP TCPIP Application protocols" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
       <dependencies>
         <all>
           <component_dependency value="middleware.lwip.LPC55S28"/>
@@ -11662,7 +12148,7 @@ ${load}</script>
         <include_path relative_path="src/include/lwip/apps" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.lwip.apps.sntp.LPC55S28" name="lwIP_SNTP" brief="lwIP SNTP" version="2.2.0" revision="10" full_name="lwIP SNTP" category="Network/lwIP TCPIP Application protocols" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
+    <component id="middleware.lwip.apps.sntp.LPC55S28" name="lwIP_SNTP" brief="lwIP SNTP" version="2.2.1" revision="1" full_name="lwIP SNTP" category="Network/lwIP TCPIP Application protocols" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
       <dependencies>
         <all>
           <component_dependency value="middleware.lwip.LPC55S28"/>
@@ -11683,7 +12169,7 @@ ${load}</script>
         <include_path relative_path="src/include/lwip/apps" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.lwip.contrib.ping.LPC55S28" name="lwIP_ping" brief="lwIP Ping Sender contrib" version="2.2.0" revision="10" full_name="lwIP Ping Sender" category="Network/lwIP TCPIP Application protocols" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
+    <component id="middleware.lwip.contrib.ping.LPC55S28" name="lwIP_ping" brief="lwIP Ping Sender contrib" version="2.2.1" revision="1" full_name="lwIP Ping Sender" category="Network/lwIP TCPIP Application protocols" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
       <dependencies>
         <all>
           <component_dependency value="middleware.lwip.LPC55S28"/>
@@ -11703,7 +12189,7 @@ ${load}</script>
         <include_path relative_path="contrib/apps/ping" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.lwip.contrib.tcpecho.LPC55S28" name="lwIP_tcpecho" brief="lwIP TCP Echo contrib" version="2.2.0" revision="10" full_name="lwIP TCP Echo" category="Network/lwIP TCPIP Application protocols" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
+    <component id="middleware.lwip.contrib.tcpecho.LPC55S28" name="lwIP_tcpecho" brief="lwIP TCP Echo contrib" version="2.2.1" revision="1" full_name="lwIP TCP Echo" category="Network/lwIP TCPIP Application protocols" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
       <dependencies>
         <all>
           <component_dependency value="middleware.lwip.LPC55S28"/>
@@ -11723,7 +12209,7 @@ ${load}</script>
         <include_path relative_path="contrib/apps/tcpecho" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.lwip.contrib.tcpecho_raw.LPC55S28" name="lwIP_tcpecho_raw" brief="lwIP TCP Echo Raw API contrib" version="2.2.0" revision="10" full_name="lwIP TCP Echo Raw API" category="Network/lwIP TCPIP Application protocols" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
+    <component id="middleware.lwip.contrib.tcpecho_raw.LPC55S28" name="lwIP_tcpecho_raw" brief="lwIP TCP Echo Raw API contrib" version="2.2.1" revision="1" full_name="lwIP TCP Echo Raw API" category="Network/lwIP TCPIP Application protocols" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
       <dependencies>
         <all>
           <component_dependency value="middleware.lwip.LPC55S28"/>
@@ -11743,7 +12229,7 @@ ${load}</script>
         <include_path relative_path="contrib/apps/tcpecho_raw" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.lwip.contrib.udpecho.LPC55S28" name="lwIP_udpecho" brief="lwIP UDP Echo contrib" version="2.2.0" revision="10" full_name="lwIP UDP Echo" category="Network/lwIP TCPIP Application protocols" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
+    <component id="middleware.lwip.contrib.udpecho.LPC55S28" name="lwIP_udpecho" brief="lwIP UDP Echo contrib" version="2.2.1" revision="1" full_name="lwIP UDP Echo" category="Network/lwIP TCPIP Application protocols" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
       <dependencies>
         <all>
           <component_dependency value="middleware.lwip.LPC55S28"/>
@@ -11763,7 +12249,7 @@ ${load}</script>
         <include_path relative_path="contrib/apps/udpecho" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.lwip.contrib.udpecho_raw.LPC55S28" name="lwIP_udpecho_raw" brief="lwIP UDP Echo Raw API contrib" version="2.2.0" revision="10" full_name="lwIP UDP Echo Raw API" category="Network/lwIP TCPIP Application protocols" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
+    <component id="middleware.lwip.contrib.udpecho_raw.LPC55S28" name="lwIP_udpecho_raw" brief="lwIP UDP Echo Raw API contrib" version="2.2.1" revision="1" full_name="lwIP UDP Echo Raw API" category="Network/lwIP TCPIP Application protocols" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
       <dependencies>
         <all>
           <component_dependency value="middleware.lwip.LPC55S28"/>
@@ -11783,7 +12269,7 @@ ${load}</script>
         <include_path relative_path="contrib/apps/udpecho_raw" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.mbedtls.port.ksdk.LPC55S28" name="mbedtls_ksdk" brief="mbedTLS port library for KPSDK" version="2.28.5" full_name="MbedTLS MCUX SDK port layer" category="Security/mbedTLS library" user_visible="true" type="middleware" package_base_path="middleware/mbedtls" project_base_path="mbedtls">
+    <component id="middleware.mbedtls.port.ksdk.LPC55S28" name="mbedtls_ksdk" brief="mbedTLS port library for KPSDK" version="2.28.8" full_name="MbedTLS MCUX SDK port layer" category="Security/mbedTLS library" user_visible="true" type="middleware" package_base_path="middleware/mbedtls" project_base_path="mbedtls">
       <dependencies>
         <all>
           <component_dependency value="middleware.mbedtls.LPC55S28"/>
@@ -11820,10 +12306,13 @@ ${load}</script>
         <include_path relative_path="port/ksdk" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.mbedtls.LPC55S28" name="mbedtls" brief="mbedTLS library" version="2.28.5" full_name="MbedTLS open source SSL library" category="Security/mbedTLS library" user_visible="true" type="middleware" package_base_path="middleware/mbedtls" project_base_path="mbedtls">
+    <component id="middleware.mbedtls.LPC55S28" name="mbedtls" brief="mbedTLS library" version="2.28.8" full_name="MbedTLS open source SSL library" category="Security/mbedTLS library" user_visible="true" type="middleware" package_base_path="middleware/mbedtls" project_base_path="mbedtls">
       <dependencies>
         <all>
-          <component_dependency value="utility.debug_console.LPC55S28"/>
+          <any_of>
+            <component_dependency value="utility.debug_console.LPC55S28"/>
+            <component_dependency value="utility.debug_console_lite.LPC55S28"/>
+          </any_of>
           <component_dependency value="middleware.mbedtls.port.ksdk.LPC55S28"/>
           <device_dependency value="LPC55S28"/>
         </all>
@@ -12027,6 +12516,7 @@ ${load}</script>
         <files mask="xtea.c"/>
       </source>
       <source relative_path="library" type="c_include">
+        <files mask="bignum_internal.h"/>
         <files mask="check_crypto_config.h"/>
         <files mask="common.h"/>
         <files mask="constant_time_internal.h"/>
@@ -12147,7 +12637,7 @@ ${load}</script>
         <include_path relative_path="sd" project_relative_path="inc" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.sdmmc.mmc.LPC55S28" name="mmc" brief="Middleware sdmmc mmc" version="2.5.0" full_name="SDMMC mmc stack" category="Memories/SDMMC Stack" user_visible="true" type="middleware" package_base_path="middleware/sdmmc" project_base_path="sdmmc">
+    <component id="middleware.sdmmc.mmc.LPC55S28" name="mmc" brief="Middleware sdmmc mmc" version="2.5.1" full_name="SDMMC mmc stack" category="Memories/SDMMC Stack" user_visible="true" type="middleware" package_base_path="middleware/sdmmc" project_base_path="sdmmc">
       <defines>
         <define name="MMC_ENABLED" value=""/>
       </defines>
@@ -12380,7 +12870,7 @@ ${load}</script>
         <include_path relative_path="host/usdhc" project_relative_path="host" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.ip3511fs_config_header.LPC55S28" name="USB device ip3511fs config header" brief="USB device ip3511fs config header" version="2.9.1" full_name="USB device ip3511fs config header" category="USB/USB Device" user_visible="true" type="project_template" package_base_path="middleware/usb" project_base_path="source">
+    <component id="middleware.usb.device.ip3511fs_config_header.LPC55S28" name="USB device ip3511fs config header" brief="USB device ip3511fs config header" version="2.10.0" full_name="USB device ip3511fs config header" category="USB/USB Device" user_visible="true" type="project_template" package_base_path="middleware/usb" project_base_path="source">
       <dependencies>
         <device_dependency value="LPC55S28"/>
       </dependencies>
@@ -12394,7 +12884,7 @@ ${load}</script>
         <include_path relative_path="output/npw/device_config/ip3511fs" project_relative_path="generated" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.ip3511hs_config_header.LPC55S28" name="USB device ip3511hs config header" brief="USB device ip3511hs config header" version="2.9.1" full_name="USB device ip3511hs config header" category="USB/USB Device" user_visible="true" type="project_template" package_base_path="middleware/usb" project_base_path="source">
+    <component id="middleware.usb.device.ip3511hs_config_header.LPC55S28" name="USB device ip3511hs config header" brief="USB device ip3511hs config header" version="2.10.0" full_name="USB device ip3511hs config header" category="USB/USB Device" user_visible="true" type="project_template" package_base_path="middleware/usb" project_base_path="source">
       <dependencies>
         <device_dependency value="LPC55S28"/>
       </dependencies>
@@ -12408,7 +12898,7 @@ ${load}</script>
         <include_path relative_path="output/npw/device_config/ip3511hs" project_relative_path="generated" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.common_header.LPC55S28" name="USB Common Header" brief="Middleware usb common_header" version="2.9.1" full_name="USB Common Header" category="USB/USB Common Header" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.common_header.LPC55S28" name="USB Common Header" brief="Middleware usb common_header" version="2.10.0" full_name="USB Common Header" category="USB/USB Common Header" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="component.osa.LPC55S28"/>
@@ -12427,7 +12917,7 @@ ${load}</script>
         <include_path relative_path="include" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.common_header.LPC55S28" name="USB Device Common Header" brief="Middleware usb device common_header" version="2.9.1" full_name="USB Device Common Header" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.common_header.LPC55S28" name="USB Device Common Header" brief="Middleware usb device common_header" version="2.10.0" full_name="USB Device Common Header" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="component.osa.LPC55S28"/>
@@ -12449,7 +12939,7 @@ ${load}</script>
         <include_path relative_path="device" project_relative_path="device/source" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device_controller_ip3511fs.LPC55S28" name="USB Device IP3511FS Controller Driver(FS)" brief="Middleware usb device ip3511fs" version="2.9.1" full_name="USB Device IP3511FS Controller Driver(FS)" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device_controller_ip3511fs.LPC55S28" name="USB Device IP3511FS Controller Driver(FS)" brief="Middleware usb device ip3511fs" version="2.10.0" full_name="USB Device IP3511FS Controller Driver(FS)" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.ip3511fs_config_header.LPC55S28"/>
@@ -12471,7 +12961,7 @@ ${load}</script>
         <include_path relative_path="include" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device_controller_ip3511hs.LPC55S28" name="USB Device IP3511HS Controller Driver(HS)" brief="Middleware usb device ip3511hs" version="2.9.1" full_name="USB Device IP3511HS Controller Driver(HS)" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device_controller_ip3511hs.LPC55S28" name="USB Device IP3511HS Controller Driver(HS)" brief="Middleware usb device ip3511hs" version="2.10.0" full_name="USB Device IP3511HS Controller Driver(HS)" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.ip3511hs_config_header.LPC55S28"/>
@@ -12494,7 +12984,7 @@ ${load}</script>
         <include_path relative_path="include" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.phy.LPC55S28" name="USB PHY" brief="Middleware usb phy" version="2.9.1" full_name="USB PHY" category="USB/USB PHY" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.phy.LPC55S28" name="USB PHY" brief="Middleware usb phy" version="2.10.0" full_name="USB PHY" category="USB/USB PHY" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.common_header.LPC55S28"/>
@@ -12514,7 +13004,7 @@ ${load}</script>
         <include_path relative_path="phy" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.stack.external.LPC55S28" name="USB Device Stack" brief="Middleware usb device stack external" version="2.9.1" full_name="USB Device Stack" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.stack.external.LPC55S28" name="USB Device Stack" brief="Middleware usb device stack external" version="2.10.0" full_name="USB Device Stack" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="component.osa.LPC55S28"/>
@@ -12544,7 +13034,7 @@ ${load}</script>
         <include_path relative_path="output/source/device" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.audio.external.LPC55S28" name="USB Device Audio" brief="Middleware usb device audio external" version="2.9.1" full_name="USB Device Audio" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.audio.external.LPC55S28" name="USB Device Audio" brief="Middleware usb device audio external" version="2.10.0" full_name="USB Device Audio" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.LPC55S28"/>
@@ -12565,7 +13055,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.cdc.external.LPC55S28" name="USB Device CDC" brief="Middleware usb device cdc external" version="2.9.1" full_name="USB Device CDC" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.cdc.external.LPC55S28" name="USB Device CDC" brief="Middleware usb device cdc external" version="2.10.0" full_name="USB Device CDC" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.LPC55S28"/>
@@ -12586,7 +13076,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.cdc.rndis.external.LPC55S28" name="USB Device CDC RNDIS" brief="Middleware usb device cdc rndis external" version="2.9.1" full_name="USB Device CDC RNDIS" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.cdc.rndis.external.LPC55S28" name="USB Device CDC RNDIS" brief="Middleware usb device cdc rndis external" version="2.10.0" full_name="USB Device CDC RNDIS" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.LPC55S28"/>
@@ -12608,7 +13098,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.hid.external.LPC55S28" name="USB Device HID" brief="Middleware usb device hid external" version="2.9.1" full_name="USB Device HID" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.hid.external.LPC55S28" name="USB Device HID" brief="Middleware usb device hid external" version="2.10.0" full_name="USB Device HID" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.LPC55S28"/>
@@ -12629,7 +13119,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.dfu.external.LPC55S28" name="USB Device DFU" brief="Middleware usb device dfu external" version="2.9.1" full_name="USB Device DFU" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.dfu.external.LPC55S28" name="USB Device DFU" brief="Middleware usb device dfu external" version="2.10.0" full_name="USB Device DFU" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.LPC55S28"/>
@@ -12650,7 +13140,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.msd.external.LPC55S28" name="USB Device MSD" brief="Middleware usb device msd external" version="2.9.1" full_name="USB Device MSD" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.msd.external.LPC55S28" name="USB Device MSD" brief="Middleware usb device msd external" version="2.10.0" full_name="USB Device MSD" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.LPC55S28"/>
@@ -12673,7 +13163,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.phdc.external.LPC55S28" name="USB Device PHDC" brief="Middleware usb device phdc external" version="2.9.1" full_name="USB Device PHDC" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.phdc.external.LPC55S28" name="USB Device PHDC" brief="Middleware usb device phdc external" version="2.10.0" full_name="USB Device PHDC" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.LPC55S28"/>
@@ -12694,7 +13184,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.video.external.LPC55S28" name="USB Device Video" brief="Middleware usb device video external" version="2.9.1" full_name="USB Device Video" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.video.external.LPC55S28" name="USB Device Video" brief="Middleware usb device video external" version="2.10.0" full_name="USB Device Video" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.LPC55S28"/>
@@ -12715,7 +13205,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.ccid.external.LPC55S28" name="USB Device CCID" brief="Middleware usb device ccid external" version="2.9.1" full_name="USB Device CCID" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.ccid.external.LPC55S28" name="USB Device CCID" brief="Middleware usb device ccid external" version="2.10.0" full_name="USB Device CCID" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.LPC55S28"/>
@@ -12736,7 +13226,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.printer.external.LPC55S28" name="USB Device Printer" brief="Middleware usb device printer external" version="2.9.1" full_name="USB Device Printer" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.printer.external.LPC55S28" name="USB Device Printer" brief="Middleware usb device printer external" version="2.10.0" full_name="USB Device Printer" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.LPC55S28"/>
@@ -12757,7 +13247,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.controller.driver.LPC55S28" name="USB Device Common Controller" brief="Middleware usb device controller driver" version="2.9.1" full_name="USB Device Common Controller" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.controller.driver.LPC55S28" name="USB Device Common Controller" brief="Middleware usb device controller driver" version="2.10.0" full_name="USB Device Common Controller" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <any_of>
@@ -12788,7 +13278,7 @@ ${load}</script>
         <include_path relative_path="device" project_relative_path="device/source" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host_controller_ohci.LPC55S28" name="USB Host OHCI Controller Driver(FS)" brief="Middleware usb host ohci" version="2.9.1" full_name="USB Host OHCI Controller Driver(FS)" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host_controller_ohci.LPC55S28" name="USB Host OHCI Controller Driver(FS)" brief="Middleware usb host ohci" version="2.10.0" full_name="USB Host OHCI Controller Driver(FS)" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.host.ohci_config_header.LPC55S28"/>
@@ -12810,7 +13300,7 @@ ${load}</script>
         <include_path relative_path="include" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host_controller_ip3516hs.LPC55S28" name="USB Host IP3516HS Controller Driver(HS)" brief="Middleware usb host ip3516hs" version="2.9.1" full_name="USB Host IP3516HS Controller Driver(HS)" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host_controller_ip3516hs.LPC55S28" name="USB Host IP3516HS Controller Driver(HS)" brief="Middleware usb host ip3516hs" version="2.10.0" full_name="USB Host IP3516HS Controller Driver(HS)" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.host.ip3516hs_config_header.LPC55S28"/>
@@ -12833,7 +13323,7 @@ ${load}</script>
         <include_path relative_path="include" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host_audio.LPC55S28" name="USB Host Audio" brief="Middleware usb host audio" version="2.9.1" full_name="USB Host Audio" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host_audio.LPC55S28" name="USB Host Audio" brief="Middleware usb host audio" version="2.10.0" full_name="USB Host Audio" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.host.stack.LPC55S28"/>
@@ -12853,7 +13343,7 @@ ${load}</script>
         <include_path relative_path="host/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host_cdc.LPC55S28" name="USB Host CDC" brief="Middleware usb host cdc" version="2.9.1" full_name="USB Host CDC" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host_cdc.LPC55S28" name="USB Host CDC" brief="Middleware usb host cdc" version="2.10.0" full_name="USB Host CDC" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.host.stack.LPC55S28"/>
@@ -12873,7 +13363,28 @@ ${load}</script>
         <include_path relative_path="host/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host_cdc_rndis.LPC55S28" name="USB Host CDC RNDIS" brief="Middleware usb host cdc_rndis" version="2.9.1" full_name="USB Host CDC RNDIS" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host_cdc_ecm.LPC55S28" name="USB Host CDC ECM" brief="Middleware usb host cdc_ecm" version="2.9.1" full_name="USB Host CDC ECM" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.usb.host.stack.LPC55S28"/>
+          <component_dependency value="middleware.usb.host_cdc.LPC55S28"/>
+          <device_dependency value="LPC55S28"/>
+        </all>
+      </dependencies>
+      <source relative_path="host/class" type="src">
+        <files mask="usb_host_cdc_ecm.c"/>
+      </source>
+      <source relative_path="host/class" type="c_include">
+        <files mask="usb_host_cdc_ecm.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="./" type="workspace">
+        <files mask="middleware_usb_host_cdc_ecm.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="host/class" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.usb.host_cdc_rndis.LPC55S28" name="USB Host CDC RNDIS" brief="Middleware usb host cdc_rndis" version="2.10.0" full_name="USB Host CDC RNDIS" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.host.stack.LPC55S28"/>
@@ -12894,7 +13405,7 @@ ${load}</script>
         <include_path relative_path="host/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host_hid.LPC55S28" name="USB Host HID" brief="Middleware usb host hid" version="2.9.1" full_name="USB Host HID" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host_hid.LPC55S28" name="USB Host HID" brief="Middleware usb host hid" version="2.10.0" full_name="USB Host HID" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.host.stack.LPC55S28"/>
@@ -12914,7 +13425,7 @@ ${load}</script>
         <include_path relative_path="host/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host_msd.LPC55S28" name="USB Host MSD" brief="Middleware usb host msd" version="2.9.1" full_name="USB Host MSD" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host_msd.LPC55S28" name="USB Host MSD" brief="Middleware usb host msd" version="2.10.0" full_name="USB Host MSD" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.host.stack.LPC55S28"/>
@@ -12935,7 +13446,7 @@ ${load}</script>
         <include_path relative_path="host/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host_video.LPC55S28" name="USB Host Video" brief="Middleware usb host video" version="2.9.1" full_name="USB Host Video" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host_video.LPC55S28" name="USB Host Video" brief="Middleware usb host video" version="2.10.0" full_name="USB Host Video" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.host.stack.LPC55S28"/>
@@ -12955,7 +13466,7 @@ ${load}</script>
         <include_path relative_path="host/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host_phdc.LPC55S28" name="USB Host PHDC" brief="Middleware usb host phdc" version="2.9.1" full_name="USB Host PHDC" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host_phdc.LPC55S28" name="USB Host PHDC" brief="Middleware usb host phdc" version="2.10.0" full_name="USB Host PHDC" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.host.stack.LPC55S28"/>
@@ -12975,7 +13486,7 @@ ${load}</script>
         <include_path relative_path="host/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host_printer.LPC55S28" name="USB Host Printer" brief="Middleware usb host printer" version="2.9.1" full_name="USB Host Printer" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host_printer.LPC55S28" name="USB Host Printer" brief="Middleware usb host printer" version="2.10.0" full_name="USB Host Printer" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.host.stack.LPC55S28"/>
@@ -12995,7 +13506,7 @@ ${load}</script>
         <include_path relative_path="host/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host.common_header.LPC55S28" name="USB Host Common Header" brief="Middleware usb host common_header" version="2.9.1" full_name="USB Host Common Header" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host.common_header.LPC55S28" name="USB Host Common Header" brief="Middleware usb host common_header" version="2.10.0" full_name="USB Host Common Header" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="component.osa.LPC55S28"/>
@@ -13016,7 +13527,7 @@ ${load}</script>
         <include_path relative_path="host" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host.ohci_config_header.LPC55S28" name="USB host ohci config header" brief="USB host ohci config header" version="2.9.1" full_name="USB host ohci config header" category="USB/USB Host" user_visible="true" type="project_template" package_base_path="middleware/usb" project_base_path="source">
+    <component id="middleware.usb.host.ohci_config_header.LPC55S28" name="USB host ohci config header" brief="USB host ohci config header" version="2.10.0" full_name="USB host ohci config header" category="USB/USB Host" user_visible="true" type="project_template" package_base_path="middleware/usb" project_base_path="source">
       <dependencies>
         <device_dependency value="LPC55S28"/>
       </dependencies>
@@ -13030,7 +13541,7 @@ ${load}</script>
         <include_path relative_path="output/npw/host_config/ohci" project_relative_path="generated" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host.ip3516hs_config_header.LPC55S28" name="USB host ip3516hs config header" brief="USB host ip3516hs config header" version="2.9.1" full_name="USB host ip3516hs config header" category="USB/USB Host" user_visible="true" type="project_template" package_base_path="middleware/usb" project_base_path="source">
+    <component id="middleware.usb.host.ip3516hs_config_header.LPC55S28" name="USB host ip3516hs config header" brief="USB host ip3516hs config header" version="2.10.0" full_name="USB host ip3516hs config header" category="USB/USB Host" user_visible="true" type="project_template" package_base_path="middleware/usb" project_base_path="source">
       <dependencies>
         <device_dependency value="LPC55S28"/>
       </dependencies>
@@ -13044,7 +13555,7 @@ ${load}</script>
         <include_path relative_path="output/npw/host_config/ip3516hs" project_relative_path="generated" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host.stack.LPC55S28" name="USB Host Stack" brief="Middleware usb host stack" version="2.9.1" full_name="USB Host Stack" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host.stack.LPC55S28" name="USB Host Stack" brief="Middleware usb host stack" version="2.10.0" full_name="USB Host Stack" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <any_of>
@@ -13500,7 +14011,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="driver.dialog7212.LPC55S28" name="dialog7212" brief="Driver dialog7212" version="2.3.0" full_name="Driver dialog7212" category="Device/SDK Drivers" user_visible="true" type="software_component" package_base_path="core/components/codec/da7212" project_base_path="codec">
+    <component id="driver.dialog7212.LPC55S28" name="dialog7212" brief="Driver dialog7212" version="2.3.1" full_name="Driver dialog7212" category="Device/SDK Drivers" user_visible="true" type="software_component" package_base_path="core/components/codec/da7212" project_base_path="codec">
       <defines>
         <define name="SDK_I2C_BASED_COMPONENT_USED" value="1"/>
         <define name="BOARD_USE_CODEC" value="1"/>
@@ -13649,7 +14160,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="driver.ili9341.LPC55S28" name="ili9341" brief="Driver ili9341" version="1.0.2" full_name="Driver ili9341" category="Device/SDK Drivers" user_visible="true" type="board_component" package_base_path="core/components/ili9341" project_base_path="lcd">
+    <component id="driver.ili9341.LPC55S28" name="ili9341" brief="Driver ili9341" version="1.0.2" full_name="Driver ili9341" category="Device/SDK Drivers" user_visible="true" type="board_component" package_base_path="core/components/ili9341" project_base_path="lcdc">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.common.LPC55S28"/>
@@ -13835,6 +14346,27 @@ ${load}</script>
       </source>
       <source toolchain="armgcc" relative_path="./" type="workspace">
         <files mask="component_mem_manager_light.LPC55S28.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="component.mem_manager_freertos.LPC55S28" name="mem_manager_freertos" brief="Component mem_manager_freertos" version="1.0.0" full_name="Component mem_manager_freertos" category="Device/SDK Drivers" user_visible="true" type="software_component" package_base_path="core/components/mem_manager" project_base_path="component/mem_manager">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.common.LPC55S28"/>
+          <component_dependency value="middleware.freertos-kernel.LPC55S28"/>
+          <device_dependency value="LPC55S28"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_component_mem_manager.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_component_mem_manager_freertos.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="./" type="workspace">
+        <files mask="component_mem_manager_freertos.LPC55S28.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="./" type="c_include"/>
@@ -14387,6 +14919,9 @@ ${load}</script>
       </include_paths>
     </component>
     <component id="component.ctimer_adapter.LPC55S28" name="ctimer_adapter" brief="Component ctimer_adapter" version="1.0.0" full_name="Component ctimer_adapter" category="Device/SDK Drivers" user_visible="true" type="abstraction_layer" package_base_path="core/components/timer" project_base_path="component/timer">
+      <defines>
+        <define name="TIMER_PORT_TYPE_CTIMER" value="1"/>
+      </defines>
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.common.LPC55S28"/>
@@ -14408,6 +14943,9 @@ ${load}</script>
       </include_paths>
     </component>
     <component id="component.mrt_adapter.LPC55S28" name="mrt_adapter" brief="Component mrt_adapter" version="1.0.0" full_name="Component mrt_adapter" category="Device/SDK Drivers" user_visible="true" type="abstraction_layer" package_base_path="core/components/timer" project_base_path="component/timer">
+      <defines>
+        <define name="TIMER_PORT_TYPE_MRT" value="1"/>
+      </defines>
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.common.LPC55S28"/>
@@ -14429,6 +14967,9 @@ ${load}</script>
       </include_paths>
     </component>
     <component id="component.ostimer_adapter.LPC55S28" name="ostimer_adapter" brief="Component ostimer_adapter" version="1.0.0" full_name="Component ostimer_adapter" category="Device/SDK Drivers" user_visible="true" type="abstraction_layer" package_base_path="core/components/timer" project_base_path="component/timer">
+      <defines>
+        <define name="TIMER_PORT_TYPE_OSTIMER" value="1"/>
+      </defines>
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.common.LPC55S28"/>
@@ -14757,7 +15298,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.hashcrypt.LPC55S28" name="hashcrypt" brief="Hashcrypt Driver" version="2.2.14" full_name="Hashcrypt Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/hashcrypt" project_base_path="drivers">
+    <component id="platform.drivers.hashcrypt.LPC55S28" name="hashcrypt" brief="Hashcrypt Driver" version="2.2.15" full_name="Hashcrypt Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/hashcrypt" project_base_path="drivers">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.common.LPC55S28"/>
@@ -14798,7 +15339,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexcomm_i2c_freertos.LPC55S28" name="i2c_freertos" brief="I2C Driver" version="2.0.8" full_name="FLEXCOMM I2C FREERTOS Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm/i2c" project_base_path="drivers/freertos">
+    <component id="platform.drivers.flexcomm_i2c_freertos.LPC55S28" name="i2c_freertos" brief="FLEXCOMM I2C FreeRTOS Driver" version="2.0.8" full_name="FLEXCOMM I2C FreeRTOS Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/devices/LPC55S28/drivers" project_base_path="drivers/freertos">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.flexcomm.LPC55S28"/>
@@ -14863,7 +15404,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.lpc_dma.LPC55S28" name="dma" brief="DMA Driver" version="2.5.1" full_name="DMA Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/lpc_dma" project_base_path="drivers">
+    <component id="platform.drivers.lpc_dma.LPC55S28" name="dma" brief="DMA Driver" version="2.5.3" full_name="DMA Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/lpc_dma" project_base_path="drivers">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.common.LPC55S28"/>
@@ -14940,7 +15481,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.ostimer.LPC55S28" name="ostimer" brief="OSTimer Driver" version="2.2.1" full_name="OSTimer Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/ostimer" project_base_path="drivers">
+    <component id="platform.drivers.ostimer.LPC55S28" name="ostimer" brief="OSTimer Driver" version="2.2.2" full_name="OSTimer Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/ostimer" project_base_path="drivers">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.common.LPC55S28"/>
@@ -14960,7 +15501,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.pint.LPC55S28" name="pint" brief="PINT Driver" version="2.1.12" full_name="PINT Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/pint" project_base_path="drivers">
+    <component id="platform.drivers.pint.LPC55S28" name="pint" brief="PINT Driver" version="2.1.13" full_name="PINT Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/pint" project_base_path="drivers">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.common.LPC55S28"/>
@@ -15080,7 +15621,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.sctimer.LPC55S28" name="sctimer" brief="SCT Driver" version="2.4.9" full_name="SCT Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/sctimer" project_base_path="drivers">
+    <component id="platform.drivers.sctimer.LPC55S28" name="sctimer" brief="SCT Driver" version="2.5.1" full_name="SCT Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/sctimer" project_base_path="drivers">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.common.LPC55S28"/>
@@ -15120,7 +15661,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexcomm_spi.LPC55S28" name="spi" brief="SPI Driver" version="2.3.1" full_name="FLEXCOMM SPI Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm/spi" project_base_path="drivers">
+    <component id="platform.drivers.flexcomm_spi.LPC55S28" name="spi" brief="SPI Driver" version="2.3.2" full_name="FLEXCOMM SPI Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm/spi" project_base_path="drivers">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.flexcomm.LPC55S28"/>
@@ -15141,7 +15682,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexcomm_spi_freertos.LPC55S28" name="spi_freertos" brief="SPI Driver" version="2.1.0" full_name="FLEXCOMM SPI FREERTOS Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm/spi" project_base_path="drivers/freertos">
+    <component id="platform.drivers.flexcomm_spi_freertos.LPC55S28" name="spi_freertos" brief="FLEXCOMM SPI FreeRTOS Driver" version="2.1.0" full_name="FLEXCOMM SPI FreeRTOS Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/devices/LPC55S28/drivers" project_base_path="drivers/freertos">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.flexcomm.LPC55S28"/>
@@ -15184,7 +15725,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexcomm_usart.LPC55S28" name="usart" brief="USART Driver" version="2.8.3" full_name="FLEXCOMM USART Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm/usart" project_base_path="drivers">
+    <component id="platform.drivers.flexcomm_usart.LPC55S28" name="usart" brief="USART Driver" version="2.8.4" full_name="FLEXCOMM USART Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm/usart" project_base_path="drivers">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.flexcomm.LPC55S28"/>
@@ -15204,7 +15745,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexcomm_usart_freertos.LPC55S28" name="usart_freertos" brief="USART Driver" version="2.6.0" full_name="FLEXCOMM USART FREERTOS Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm/usart" project_base_path="drivers/freertos">
+    <component id="platform.drivers.flexcomm_usart_freertos.LPC55S28" name="usart_freertos" brief="FLEXCOMM USART FreeRTOS Driver" version="2.7.0" full_name="FLEXCOMM USART FreeRTOS Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/devices/LPC55S28/drivers" project_base_path="drivers/freertos">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.flexcomm.LPC55S28"/>

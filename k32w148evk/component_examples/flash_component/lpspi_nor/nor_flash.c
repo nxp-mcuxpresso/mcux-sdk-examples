@@ -16,6 +16,7 @@
 #include "fsl_debug_console.h"
 
 #include "fsl_lpspi_mem_adapter.h"
+#include "fsl_lpspi_nor_flash.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -46,7 +47,18 @@ extern status_t Nor_Flash_Initialization(nor_config_t *config, nor_handle_t *han
 /*******************************************************************************
  * Code
  ******************************************************************************/
-nor_config_t norConfig;
+lpspi_memory_config_t AT25XE161DConfig = 
+{
+    .bytesInPageSize = 256UL, /* Page size: 256 Byte. */
+    .bytesInSectorSize = 4096UL, /* AT25XE161D support page erase and 4/32/64 KB
+                                  block erase, set sector size as 4KB. */
+    .bytesInMemorySize = 0x200000UL, /* 2MB, 16Mbit. */
+};
+
+nor_config_t norConfig = 
+{
+    .memControlConfig = &AT25XE161DConfig,
+};
 
 
 uint32_t BOARD_GetLpspiClock(void)

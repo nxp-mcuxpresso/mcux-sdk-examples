@@ -42,6 +42,7 @@
 #include "mdns.h"
 #include "mdns_priv.h"
 #include "ncp_cmd_wifi.h"
+#include "mdns_out.h"
 
 /*******************************************************************************
  * Definitions
@@ -49,7 +50,7 @@
 #define mdns_e(...) wmlog_e("MDNS", ##__VA_ARGS__)
 #define mdns_w(...) wmlog_w("MDNS", ##__VA_ARGS__)
 
-#ifdef CONFIG_NCP_BRIDGE_DEBUG
+#if CONFIG_NCP_DEBUG
 #define mdns_d(...) wmlog("MDNS", ##__VA_ARGS__)
 #else
 #define mdns_d(...)

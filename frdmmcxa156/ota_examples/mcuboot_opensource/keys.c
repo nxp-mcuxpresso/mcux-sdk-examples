@@ -51,3 +51,14 @@ const struct bootutil_key bootutil_keys[] = {
 
 const int bootutil_key_cnt = 1;
 
+#if defined(MCUBOOT_ENCRYPT_RSA)
+
+#include "enc-rsa2048-priv-minimal.c"
+
+const struct bootutil_key bootutil_enc_key = {
+    .key = enc_priv_key,
+    .len = &enc_priv_key_len,
+};
+#elif defined(MCUBOOT_ENCRYPT_KW)
+#error "Encrypted images with AES-KW is not implemented yet."
+#endif

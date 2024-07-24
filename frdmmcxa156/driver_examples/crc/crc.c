@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2015, Freescale Semiconductor, Inc.
- * Copyright 2016-2017 NXP
+ * Copyright 2016-2017, 2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -23,6 +23,10 @@
  * Definitions
  ******************************************************************************/
 
+
+#ifndef CRC_INSTANCE
+#define CRC_INSTANCE CRC0
+#endif
 
 /*******************************************************************************
  * Prototypes
@@ -155,7 +159,7 @@ int main(void)
     const uint32_t checkCrc32           = 0xcbf43926u;
     const uint32_t checkPosixCrc32      = 0x765e7680u;
 
-    CRC_Type *base = CRC0;
+    CRC_Type *base = CRC_INSTANCE;
     uint16_t checksum16;
     uint32_t checksum32;
 

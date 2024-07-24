@@ -297,7 +297,9 @@ SECTIONS
     . = ALIGN(4);
     __DATA_RAM = .;
     __data_start__ = .;      /* create a global symbol at data start */
+    . = ALIGN(32);
     *(m_usb_dma_init_data)
+    . = ALIGN(32);
     *(.data)                 /* .data sections */
     *(.data*)                /* .data* sections */
     *(DataQuickAccess)       /* quick access data section */
@@ -311,7 +313,7 @@ SECTIONS
     KEEP(*(SORT(._net_buf_pool*)))
     . = ALIGN(4);
     __data_end__ = .;        /* define a global symbol at data end */
-  } > m_data
+  } > m_data2
 
   __ram_function_flash_start = __DATA_ROM + (__data_end__ - __data_start__); /* Symbol is used by startup for TCM data initialization */
 
@@ -361,7 +363,9 @@ SECTIONS
     . = ALIGN(4);
     __START_BSS = .;
     __bss_start__ = .;
+    . = ALIGN(32);
     *(m_usb_dma_noninit_data)
+    . = ALIGN(32);
     *(.bss)
     *(.bss*)
     *(COMMON)
@@ -385,7 +389,7 @@ SECTIONS
   {
     . = ALIGN(8);
     . += STACK_SIZE;
-  } > m_data2
+  } > m_data
 
   /* Initializes stack on the end of block */
   __StackTop   = ORIGIN(m_data) + LENGTH(m_data);

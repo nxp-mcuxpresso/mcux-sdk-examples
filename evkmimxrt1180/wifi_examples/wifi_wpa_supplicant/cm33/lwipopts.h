@@ -57,8 +57,8 @@
 #define TCPIP_THREAD_NAME      "tcp/ip"
 #define TCPIP_THREAD_STACKSIZE 1024
 #define TCPIP_THREAD_PRIO      2
-#ifdef CONFIG_NETWORK_HIGH_PERF
-#define TCPIP_MBOX_SIZE 64
+#if CONFIG_NETWORK_HIGH_PERF
+#define TCPIP_MBOX_SIZE 96
 #else
 #define TCPIP_MBOX_SIZE 32
 #endif
@@ -68,7 +68,7 @@
  * NETCONN_RAW. The queue size value itself is platform-dependent, but is passed
  * to sys_mbox_new() when the recvmbox is created.
  */
-#ifdef CONFIG_NETWORK_HIGH_PERF
+#if CONFIG_NETWORK_HIGH_PERF
 #define DEFAULT_RAW_RECVMBOX_SIZE 32
 #else
 #define DEFAULT_RAW_RECVMBOX_SIZE 12
@@ -79,7 +79,7 @@
  * NETCONN_UDP. The queue size value itself is platform-dependent, but is passed
  * to sys_mbox_new() when the recvmbox is created.
  */
-#ifdef CONFIG_NETWORK_HIGH_PERF
+#if CONFIG_NETWORK_HIGH_PERF
 #define DEFAULT_UDP_RECVMBOX_SIZE 32
 #else
 #define DEFAULT_UDP_RECVMBOX_SIZE 12
@@ -90,7 +90,7 @@
  * NETCONN_TCP. The queue size value itself is platform-dependent, but is passed
  * to sys_mbox_new() when the recvmbox is created.
  */
-#ifdef CONFIG_NETWORK_HIGH_PERF
+#if CONFIG_NETWORK_HIGH_PERF
 #define DEFAULT_TCP_RECVMBOX_SIZE 32
 #else
 #define DEFAULT_TCP_RECVMBOX_SIZE 12
@@ -110,11 +110,11 @@
 #define LWIP_DEBUG_TRACE 0
 #define SOCKETS_DEBUG    LWIP_DBG_OFF // | LWIP_DBG_MASK_LEVEL
 
-#define IP_DEBUG         LWIP_DBG_OFF
+#define IP_DEBUG LWIP_DBG_OFF
 
-#define IP6_DEBUG        LWIP_DBG_OFF
-#define ICMP6_DEBUG      LWIP_DBG_OFF
-#define DHCP6_DEBUG      LWIP_DBG_OFF
+#define IP6_DEBUG   LWIP_DBG_OFF
+#define ICMP6_DEBUG LWIP_DBG_OFF
+#define DHCP6_DEBUG LWIP_DBG_OFF
 
 #define ETHARP_DEBUG     LWIP_DBG_OFF
 #define NETIF_DEBUG      LWIP_DBG_OFF
@@ -161,8 +161,12 @@
 /* Value of TCP_SND_BUF_COUNT denotes the number of buffers and is set by
  * CONFIG option available in the SDK
  */
-#ifdef CONFIG_NETWORK_HIGH_PERF
+#if CONFIG_NETWORK_HIGH_PERF
+#ifdef RW610
+#define TCP_SND_BUF (12 * TCP_MSS)
+#else
 #define TCP_SND_BUF (24 * TCP_MSS)
+#endif
 #else
 #define TCP_SND_BUF (TCP_SND_BUF_COUNT * TCP_MSS)
 #endif
@@ -189,7 +193,7 @@
 #define MEM_SIZE (TCPIP_STACK_TX_HEAP_SIZE * 1024)
 #endif
 
-#ifdef CONFIG_NETWORK_HIGH_PERF
+#if CONFIG_NETWORK_HIGH_PERF
 #undef MEM_SIZE
 #define MEM_SIZE (40 * 1024)
 #endif
@@ -199,14 +203,14 @@
    ---------- Internal Memory Pool Sizes ----------
    ------------------------------------------------
 */
-//#define MEMP_USE_CUSTOM_POOLS 1
+// #define MEMP_USE_CUSTOM_POOLS 1
 
 /**
  * MEMP_NUM_PBUF: the number of memp struct pbufs (used for PBUF_ROM and PBUF_REF).
  * If the application sends a lot of data out of ROM (or other static memory),
  * this should be set high.
  */
-#ifdef CONFIG_NETWORK_HIGH_PERF
+#if CONFIG_NETWORK_HIGH_PERF
 #define MEMP_NUM_PBUF 20
 #else
 #define MEMP_NUM_PBUF 10
@@ -224,8 +228,12 @@
  * MEMP_NUM_TCP_SEG: the number of simultaneously queued TCP segments.
  * (requires the LWIP_TCP option)
  */
-#ifdef CONFIG_NETWORK_HIGH_PERF
+#if CONFIG_NETWORK_HIGH_PERF
+#ifdef RW610
+#define MEMP_NUM_TCP_SEG 48
+#else
 #define MEMP_NUM_TCP_SEG 96
+#endif
 #else
 #define MEMP_NUM_TCP_SEG 12
 #endif
@@ -235,7 +243,7 @@
  * for incoming packets.
  * (only needed if you use tcpip.c)
  */
-#ifdef CONFIG_NETWORK_HIGH_PERF
+#if CONFIG_NETWORK_HIGH_PERF
 #define MEMP_NUM_TCPIP_MSG_INPKT 32
 #else
 #define MEMP_NUM_TCPIP_MSG_INPKT 16
@@ -244,8 +252,12 @@
 /** MEMP_NUM_TCPIP_MSG_*: the number of struct tcpip_msg, which is used
    for sequential API communication and incoming packets. Used in
    src/api/tcpip.c. */
-#ifdef CONFIG_NETWORK_HIGH_PERF
+#if CONFIG_NETWORK_HIGH_PERF
+#ifdef RW610
+#define MEMP_NUM_TCPIP_MSG_API 16
+#else
 #define MEMP_NUM_TCPIP_MSG_API 32
+#endif
 #else
 #define MEMP_NUM_TCPIP_MSG_API 8
 #endif
@@ -260,7 +272,7 @@
  * MEMP_NUM_NETBUF: the number of struct netbufs.
  * (only needed if you use the sequential API, like api_lib.c)
  */
-#ifdef CONFIG_NETWORK_HIGH_PERF
+#if CONFIG_NETWORK_HIGH_PERF
 #define MEMP_NUM_NETBUF 32
 #else
 #define MEMP_NUM_NETBUF 16
@@ -292,7 +304,22 @@
  * designed to accomodate single full size TCP frame in one pbuf, including
  * TCP_MSS, IP header, and link header.
  */
+#if CONFIG_TX_RX_ZERO_COPY
+/**
+ * Original PBUF_POOL_BUFSIZE + interface header + rxpd->rx_pkt_offset
+ * + sizeof(mlan_buffer)
+ */
+#define PBUF_POOL_BUFSIZE 1752
+
+/**
+ * PBUF_LINK_ENCAPSULATION_HLEN: interface header + sizeof(TxPD)
+ */
+/**
+#define PBUF_LINK_ENCAPSULATION_HLEN 26
+*/
+#else
 #define PBUF_POOL_BUFSIZE 1580
+#endif
 
 /**
  * MEMP_NUM_FRAG_PBUF: the number of IP fragments simultaneously sent
@@ -307,7 +334,7 @@
  * MEMP_NUM_REASSDATA: the number of IP packets simultaneously queued for
  * reassembly (whole packets, not fragments!)
  */
-#define MEMP_NUM_REASSDATA 8
+#define MEMP_NUM_REASSDATA 2
 
 /**
  * IP_REASS_MAXAGE: Maximum time (in multiples of IP_TMR_INTERVAL - so seconds, normally)
@@ -324,7 +351,7 @@
  * When IPv4 *and* IPv6 are enabled, this even changes to
  * (PBUF_POOL_SIZE > 2 * IP_REASS_MAX_PBUFS)!
  */
-#define IP_REASS_MAX_PBUFS 16
+#define IP_REASS_MAX_PBUFS 7
 
 /**
  * TCP_MSS: TCP Maximum segment size. (default is 536, a conservative default,
@@ -382,12 +409,15 @@
  * TCP_WND: The size of a TCP window.  This must be at least
  * (2 * TCP_MSS) for things to work well
  **/
-#ifdef CONFIG_NETWORK_HIGH_PERF
+#if CONFIG_NETWORK_HIGH_PERF
+#ifdef RW610
+#define TCP_WND (15 * TCP_MSS)
+#else
 #define TCP_WND (32 * TCP_MSS)
+#endif
 #else
 #define TCP_WND (10 * TCP_MSS)
 #endif
-
 
 /**
  * Enable TCP_KEEPALIVE
@@ -471,7 +501,7 @@
 #define LWIP_PROVIDE_ERRNO 1
 #define ERRNO              1
 
-//#define LWIP_SNMP 1
+// #define LWIP_SNMP 1
 
 /*
    ------------------------------------------------
@@ -510,22 +540,31 @@ u32_t lwip_rand(void);
 #define LWIP_RAND() lwip_rand()
 #endif
 
-#define LWIP_NETIF_TX_SINGLE_PBUF   1
-
+#ifndef RW610
+#define LWIP_NETIF_TX_SINGLE_PBUF 1
 #if (LWIP_NETIF_TX_SINGLE_PBUF)
 #define PBUF_LINK_ENCAPSULATION_HLEN 26
 #endif
+#endif
 
-#define LWIP_NUM_NETIF_CLIENT_DATA  2
+#define LWIP_NUM_NETIF_CLIENT_DATA 2
 
 /* ---------- Core locking ---------- */
 
 #define LWIP_TCPIP_CORE_LOCKING 1
 
-#ifdef CONFIG_CLOUD_KEEP_ALIVE
 #ifndef LWIP_HOOK_FILENAME
-#define LWIP_HOOK_FILENAME "lwiphooks.h"
+#define LWIP_HOOK_FILENAME                               "lwiphooks.h"
+#endif
+
 #define LWIP_HOOK_TCP_OUT_ADD_TCPOPTS(p, hdr, pcb, opts) lwip_hook_tcp_out_add_tcpopts(p, hdr, pcb, opts)
-#endif
-#endif
+
+#define LWIP_HOOK_IP4_ROUTE_SRC(src, dest) lwip_hook_ip4_route_src(src, dest)
+
+/**
+ * Support ip fragment max size 10000 in arp queue
+ */
+#define ARP_QUEUEING  1
+#define ARP_QUEUE_LEN 8
+
 #endif /* __LWIPOPTS_H__ */

@@ -251,11 +251,7 @@ void USB_HostIsrEnable(void)
 #endif
     EnableIRQ((IRQn_Type)irqNumber);
 }
-void HF_DriverIRQHandler(void)
-{
-  while(1)
-  {}
-}
+
 int main(void)
 {
     BOARD_ConfigMPU();
@@ -263,22 +259,6 @@ int main(void)
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     BOARD_SetDMA4Permission();
-    /*
-     * Workaround to disable the cache for whole OCRAM1,
-     * since mbedtls component requires cache disabled.
-     */
-    /* Disable code & system cache */
-    XCACHE_DisableCache(XCACHE_PC);
-    XCACHE_DisableCache(XCACHE_PS);
-    /* Disable MPU */
-    ARM_MPU_Disable();
-    ARM_MPU_SetRegion(8U, ARM_MPU_RBAR(0x20480000, ARM_MPU_SH_NON, 0U, 1U, 0U),
-                          ARM_MPU_RLAR(0x204FFFFF, 1U));
-    /* Enable MPU */
-    ARM_MPU_Enable(MPU_CTRL_PRIVDEFENA_Msk);
-    /* Enable code & system cache */
-    XCACHE_EnableCache(XCACHE_PS);
-    XCACHE_EnableCache(XCACHE_PC);
 
 #if (((defined(CONFIG_BT_SMP)) && (CONFIG_BT_SMP)))
     CRYPTO_InitHardware();
@@ -310,15 +290,6 @@ void vPortSuppressTicksAndSleep(TickType_t xExpectedIdleTime)
 
     /* Disable and prepare systicks for low power. */
     abortIdle = PWR_SysticksPreProcess((uint32_t)xExpectedIdleTime, &expectedIdleTimeUs);
-
-#if defined(WIFI_IW416_BOARD_MURATA_1XK_M2)
-    /* Check if host is allowed to enter low power mode. */
-    if(0 == PLATFORM_AllowEnterLowPower())
-    {
-        abortIdle = true;
-        SysTick->CTRL |= (SysTick_CTRL_TICKINT_Msk | SysTick_CTRL_ENABLE_Msk);
-    }
-#endif
 
     if (abortIdle == false)
     {

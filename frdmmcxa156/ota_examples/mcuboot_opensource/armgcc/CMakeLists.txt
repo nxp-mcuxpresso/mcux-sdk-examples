@@ -54,6 +54,10 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../mbedtls_user_config.h"
 "${ProjDirPath}/../flash/flash_api_mcxn10.c"
 "${ProjDirPath}/../tinycrypt/ecc_platform_specific.h"
+"${SdkRootDirPath}/core/boards/frdmmcxa156/board.c"
+"${SdkRootDirPath}/core/boards/frdmmcxa156/board.h"
+"${SdkRootDirPath}/core/boards/frdmmcxa156/clock_config.c"
+"${SdkRootDirPath}/core/boards/frdmmcxa156/clock_config.h"
 "${ProjDirPath}/../boot.c"
 "${ProjDirPath}/../boot.h"
 "${ProjDirPath}/../keys.c"
@@ -70,10 +74,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../flash_partitioning.h"
 "${ProjDirPath}/../flash_partitioning.c"
-"${SdkRootDirPath}/core/boards/frdmmcxa156/board.c"
-"${SdkRootDirPath}/core/boards/frdmmcxa156/board.h"
-"${SdkRootDirPath}/core/boards/frdmmcxa156/clock_config.c"
-"${SdkRootDirPath}/core/boards/frdmmcxa156/clock_config.h"
 "${ProjDirPath}/../board.c"
 "${ProjDirPath}/../board.h"
 "${ProjDirPath}/../clock_config.c"
@@ -81,13 +81,13 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
+    ${SdkRootDirPath}/core/boards/frdmmcxa156
     ${ProjDirPath}/..
     ${ProjDirPath}/../include
     ${ProjDirPath}/../include/mcuboot_config
     ${ProjDirPath}/../include/sysflash
     ${ProjDirPath}/../keys
     ${ProjDirPath}/../flash
-    ${SdkRootDirPath}/core/boards/frdmmcxa156
 )
 
 

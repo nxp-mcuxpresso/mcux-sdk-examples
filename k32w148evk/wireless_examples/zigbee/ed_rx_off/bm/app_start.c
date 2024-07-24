@@ -20,8 +20,7 @@
 #endif
 #include "dbg.h"
 #include "app_crypto.h"
-#include "SecLib.h"
-#ifndef K32W1480_SERIES
+#if !defined(K32W1480_SERIES) && !defined(MCXW716A_SERIES) && !defined(MCXW716C_SERIES)
 #include "MemManager.h"
 #include "TimersManager.h"
 #endif
@@ -60,7 +59,7 @@ extern void *_stack_low_water_mark;
 /****************************************************************************/
 /***        Local Variables                                               ***/
 /****************************************************************************/
-#ifdef K32W1480_SERIES
+#if defined(K32W1480_SERIES) || defined(MCXW716A_SERIES) || defined(MCXW716C_SERIES)
 static uint8_t led_states;
 #endif
 /**
@@ -149,7 +148,7 @@ void vAppRegisterPWRCallbacks(void)
 void vAppPreSleep(void)
 {
     DBG_vPrintf(TRACE_APP, "sleeping \n");
-#ifndef K32W1480_SERIES
+#if !defined(K32W1480_SERIES) && !defined(MCXW716A_SERIES) && !defined(MCXW716C_SERIES)
     vSetReportDataForMinRetention();
 
     /* If the power mode is with RAM held do the following
@@ -177,7 +176,7 @@ void vAppPreSleep(void)
 
 void vAppWakeup(void)
 {
-#ifndef K32W1480_SERIES
+#if !defined(K32W1480_SERIES) && !defined(MCXW716A_SERIES) && !defined(MCXW716C_SERIES)
     /* If the power status is OK and RAM held while sleeping
      * restore the MAC settings
      * */
@@ -188,7 +187,7 @@ void vAppWakeup(void)
         vAppApiRestoreMacSettings();
         TMR_Init();
         CRYPTO_u8RandomInit();
-        SecLib_Init();
+        CRYPTO_Init();
         MEM_Init();
         vAppMain(FALSE);
         APP_vAlignStatesAfterSleep();
@@ -223,7 +222,7 @@ static void APP_vInitialise(bool_t bColdStart)
 {
     if(bColdStart)
     {
-#ifndef K32W1480_SERIES
+#if !defined(K32W1480_SERIES) && !defined(MCXW716A_SERIES) && !defined(MCXW716C_SERIES)
         PWR_ChangeDeepSleepMode((uint8_t)E_AHI_SLEEP_OSCON_RAMON);
         PWR_Init();
         PWR_vForceRadioRetention(TRUE);

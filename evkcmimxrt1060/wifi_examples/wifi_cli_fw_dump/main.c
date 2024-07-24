@@ -21,14 +21,17 @@
 #include "wlan.h"
 #include "wifi.h"
 #include "wm_net.h"
-#include <wm_os.h>
+#include <osa.h>
 #include "dhcp-server.h"
 #include "cli.h"
 #include "wifi_ping.h"
 #include "iperf.h"
 
+#ifdef RW610
+#include "fsl_power.h"
+#endif
 
-#ifdef CONFIG_WIFI_FW_DEBUG
+#if CONFIG_WIFI_FW_DEBUG
 #include "usb_api.h"
 #endif
 #include "fsl_device_registers.h"
@@ -36,30 +39,10 @@
 #include "usb_host.h"
 #include "usb_support.h"
 #include "usb_phy.h"
-#include "fsl_common.h"
-#ifdef CONFIG_WIFI_SMOKE_TESTS
-#include "fsl_iomuxc.h"
-#include "fsl_enet.h"
-#endif
-#ifdef CONFIG_WIFI_SMOKE_TESTS
-#include "fsl_phyksz8081.h"
-#endif
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
 
-
-/* @TEST_ANCHOR */
-
-/* Ethernet configuration. */
-#ifdef CONFIG_WIFI_SMOKE_TESTS
-extern phy_ksz8081_resource_t g_phy_resource;
-#define EXAMPLE_ENET         ENET
-#define EXAMPLE_PHY_ADDRESS  BOARD_ENET0_PHY_ADDRESS
-#define EXAMPLE_PHY_OPS      &phyksz8081_ops
-#define EXAMPLE_PHY_RESOURCE &g_phy_resource
-#define EXAMPLE_CLOCK_FREQ   CLOCK_GetFreq(kCLOCK_IpgClk)
-#endif
 
 /*******************************************************************************
  * Prototypes
@@ -126,65 +109,14 @@ void USB_HostTaskFn(void *param)
 {
     USB_HostEhciTaskFunction(param);
 }
-#ifdef CONFIG_WIFI_SMOKE_TESTS
-phy_ksz8081_resource_t g_phy_resource;
 
-void BOARD_InitModuleClock(void)
-{
-    const clock_enet_pll_config_t config = {.enableClkOutput = true, .enableClkOutput25M = false, .loopDivider = 1};
-    CLOCK_InitEnetPll(&config);
-}
+#define MAIN_TASK_STACK_SIZE 4096
 
-static void MDIO_Init(void)
-{
-    (void)CLOCK_EnableClock(s_enetClock[ENET_GetInstance(EXAMPLE_ENET)]);
-    ENET_SetSMI(EXAMPLE_ENET, EXAMPLE_CLOCK_FREQ, false);
-}
+static void main_task(osa_task_param_t arg);
 
-static status_t MDIO_Write(uint8_t phyAddr, uint8_t regAddr, uint16_t data)
-{
-    return ENET_MDIOWrite(EXAMPLE_ENET, phyAddr, regAddr, data);
-}
+static OSA_TASK_DEFINE(main_task, OSA_PRIORITY_BELOW_NORMAL, 1, MAIN_TASK_STACK_SIZE, 0);
 
-static status_t MDIO_Read(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
-{
-    return ENET_MDIORead(EXAMPLE_ENET, phyAddr, regAddr, pData);
-}
-#endif
-
-void BOARD_InitHardware(void)
-{
-    BOARD_ConfigMPU();
-    BOARD_InitBootPins();
-    BOARD_InitBootClocks();
-    BOARD_InitDebugConsole();
-
-#ifdef CONFIG_WIFI_SMOKE_TESTS
-    BOARD_InitModuleClock();
-
-    IOMUXC_EnableMode(IOMUXC_GPR, kIOMUXC_GPR_ENET1TxClkOutputDir, true);
-
-    gpio_pin_config_t gpio_config = {kGPIO_DigitalOutput, 0, kGPIO_NoIntmode};
-
-    GPIO_PinInit(GPIO1, 9, &gpio_config);
-    GPIO_PinInit(GPIO1, 10, &gpio_config);
-    /* Pull up the ENET_INT before RESET. */
-    GPIO_WritePinOutput(GPIO1, 10, 1);
-    GPIO_WritePinOutput(GPIO1, 9, 0);
-    SDK_DelayAtLeastUs(10000, CLOCK_GetFreq(kCLOCK_CpuClk));
-    GPIO_WritePinOutput(GPIO1, 9, 1);
-
-    MDIO_Init();
-    g_phy_resource.read  = MDIO_Read;
-    g_phy_resource.write = MDIO_Write;
-#endif
-}
-
-const int TASK_MAIN_PRIO       = OS_PRIO_3;
-const int TASK_MAIN_STACK_SIZE = 800;
-
-portSTACK_TYPE *task_main_stack = NULL;
-TaskHandle_t task_main_task_handler;
+OSA_TASK_HANDLE_DEFINE(main_task_Handle);
 
 static void printSeparator(void)
 {
@@ -287,13 +219,14 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
             {
                 PRINTF("IPv4 Address: [%s]\r\n", ip);
             }
-#ifdef CONFIG_IPV6
+#if CONFIG_IPV6
             int i;
             for (i = 0; i < CONFIG_MAX_IPV6_ADDRESSES; i++)
             {
                 if (ip6_addr_isvalid(addr.ipv6[i].addr_state))
                 {
-                    (void)PRINTF("IPv6 Address: %-13s:\t%s (%s)\r\n", ipv6_addr_type_to_desc((struct net_ipv6_config *)&addr.ipv6[i]),
+                    (void)PRINTF("IPv6 Address: %-13s:\t%s (%s)\r\n",
+                                 ipv6_addr_type_to_desc((struct net_ipv6_config *)&addr.ipv6[i]),
                                  inet6_ntoa(addr.ipv6[i].address), ipv6_addr_state_to_desc(addr.ipv6[i].addr_state));
                 }
             }
@@ -392,7 +325,7 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
     return 0;
 }
 
-void task_main(void *param)
+static void main_task(osa_task_param_t arg)
 {
     int32_t result = 0;
     (void)result;
@@ -419,7 +352,7 @@ void task_main(void *param)
     while (1)
     {
         /* wait for interface up */
-        os_thread_sleep(os_msec_to_ticks(5000));
+        OSA_TimeDelay(5000);
     }
 }
 
@@ -429,33 +362,34 @@ void task_main(void *param)
 
 int main(void)
 {
-    BaseType_t result = 0;
-    (void)result;
+    OSA_Init();
 
     BOARD_ConfigMPU();
 
     BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
-
-#ifdef CONFIG_WIFI_FW_DEBUG
-    //SCB_DisableDCache();
-    wlan_register_fw_dump_cb(usb_init, usb_mount, usb_file_open, usb_file_write, usb_file_close
-#if defined(CONFIG_FW_DUMP_EVENT) || defined(CONFIG_CSI)
-                             , usb_file_lseek
+#ifdef RW610
+    POWER_PowerOffBle();
 #endif
-                              );
+
+#if CONFIG_WIFI_FW_DEBUG
+    // SCB_DisableDCache();
+    wlan_register_fw_dump_cb(usb_init, usb_mount, usb_file_open, usb_file_write, usb_file_close
+#if (CONFIG_FW_DUMP_EVENT) || (CONFIG_CSI)
+                             ,
+                             usb_file_lseek
+#endif
+    );
 #endif
 
     printSeparator();
     PRINTF("wifi cli fw dump demo\r\n");
     printSeparator();
 
-    result =
-        xTaskCreate(task_main, "main", TASK_MAIN_STACK_SIZE, task_main_stack, TASK_MAIN_PRIO, &task_main_task_handler);
-    assert(pdPASS == result);
+    (void)OSA_TaskCreate((osa_task_handle_t)main_task_Handle, OSA_TASK(main_task), NULL);
 
-    vTaskStartScheduler();
-    for (;;)
-        ;
+    OSA_Start();
+
+    return 0;
 }

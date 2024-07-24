@@ -88,7 +88,7 @@ struct wm_stats
     unsigned long wm_cl_post_fail;
     unsigned long wm_cl_total;
     unsigned int wm_cl_cum_total;
-#ifdef CONFIG_ENABLE_HTTPD_STATS
+#if CONFIG_ENABLE_HTTPD_STATS
     /** HTTP Stats */
     /* Note: wm_hd_file is always included in hd_wsgi_call count */
     unsigned short wm_hd_wsgi_call;

@@ -1,30 +1,35 @@
 Overview
 ========
 
-This application demonstrates OTA update through HTTP server set up on lwIP TCP/IP and the MbedTLS stack with
+This application demonstrates OTA update through HTTP server set up on lwIP TCP/IP stack with
 FreeRTOS. The user uses an Internet browser to upload new version of firmware and restarts the board to perform the update
 
 
 SDK version
 ===========
-- Version: 2.14.0
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- MCUXpresso  11.9.0
-- GCC ARM Embedded  12.2
+- MCUXpresso  11.10.0
+- GCC ARM Embedded  13.2.1
 
 Hardware requirements
 =====================
 - Mini/micro USB cable
 - RJ45 Network cable
-- MCX-N5XX-EVK board
+- MCX-N9XX-EVK board
 - Personal Computer
 
 Board settings
 ==============
 Connect JP13 2-3 pin.
 Populate R274 to sync reference clock.
+Note that when HW flash swapping feature is used the images are swapped so that address
+range of the primary image translates to the range of the secondary image and vice versa.
+The web page of the ota_mcuboot_server example shows image state as read from the bus
+so when HW flash swapping is used it will not match with the physical image state - the slots
+will be swapped.
 Prepare the Demo
 ================
 1. The demo requires MCUBoot bootloader to be present in the FLASH memory to function properly.
@@ -64,16 +69,15 @@ The latter method is described step by step below:
         Initializing PHY...
 
         ************************************************
-         mbedSSL HTTPS Server example
+         mbedSSL HTTP Server example
         ************************************************
          IPv4 Address     : 192.168.0.102
          IPv4 Subnet mask : 255.255.255.0
          IPv4 Gateway     : 192.168.0.100
         ************************************************
-5. Open web browser and type https://192.168.0.102 (IP address of the board) on the browser address bar.
+5. Open web browser and type http://192.168.0.102 (IP address of the board) on the browser address bar.
    The browser should show the main web page of the example.
-   Note: Be sure to include "https" protocol specifier in the address bar, so that your browser attempts to establish secure connection to TCP port 443,
-   as browsers generally tend to use non-secure connection to port 80 by default.
+   Note: Be sure to include "http" protocol specifier in the address bar, so that your browser attempts to establish HTTP connection using port 80
 6. Go to OTA page, select file with udpated firmware (signed image) and upload it.
 7. After the file is uploaded, click "Reboot" button to start newly uploaded firmware in test mode.
 8. Once the updated firmware executes, the "accept" button becomes active. Click it to make the update permanent.

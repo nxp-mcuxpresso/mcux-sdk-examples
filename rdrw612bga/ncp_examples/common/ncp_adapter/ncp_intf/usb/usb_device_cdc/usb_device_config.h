@@ -149,7 +149,7 @@
 #define USB_DEVICE_CONFIG_BUFFER_PROPERTY_CACHEABLE (0U)
 #endif
 
-#ifdef CONFIG_HOST_SLEEP
+#if CONFIG_HOST_SLEEP
 /*! @brief Whether the low power mode is enabled or not. */
 #define USB_DEVICE_CONFIG_LOW_POWER_MODE (1U)
 #endif

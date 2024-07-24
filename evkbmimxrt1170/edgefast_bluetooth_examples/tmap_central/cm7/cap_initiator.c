@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2022-2023 Nordic Semiconductor ASA
- * Copyright 2023 NXP
+ * Copyright 2023-2024 NXP
  *
  * SPDX-License-Identifier: Apache-2.0
  */
@@ -124,8 +124,7 @@ static void cap_discovery_complete_cb(struct bt_conn *conn, int err,
 	OSA_SemaphorePost(sem_cas_discovery);
 }
 
-static void unicast_start_complete_cb(struct bt_bap_unicast_group *unicast_group,
-				      int err, struct bt_conn *conn)
+static void unicast_start_complete_cb(int err, struct bt_conn *conn)
 {
 	if (err != 0) {
 		printk("Failed to start (failing conn %p): %d", conn, err);
@@ -143,8 +142,7 @@ static void unicast_update_complete_cb(int err, struct bt_conn *conn)
 	}
 }
 
-static void unicast_stop_complete_cb(struct bt_bap_unicast_group *unicast_group, int err,
-				     struct bt_conn *conn)
+static void unicast_stop_complete_cb(int err, struct bt_conn *conn)
 {
 	if (err != 0) {
 		printk("Failed to stop (failing conn %p): %d", conn, err);
@@ -335,7 +333,7 @@ static int unicast_group_create(struct bt_bap_unicast_group **out_unicast_group)
 	return err;
 }
 
-static int unicast_audio_start(struct bt_conn *conn, struct bt_bap_unicast_group *unicast_group)
+static int unicast_audio_start(struct bt_conn *conn)
 {
 	int err = 0;
 	struct bt_cap_unicast_audio_start_stream_param stream_param;
@@ -350,7 +348,7 @@ static int unicast_audio_start(struct bt_conn *conn, struct bt_bap_unicast_group
 	stream_param.ep = unicast_sink_eps[0];
 	stream_param.codec_cfg = &unicast_preset_48_2_1.codec_cfg;
 
-	err = bt_cap_initiator_unicast_audio_start(&param, unicast_group);
+	err = bt_cap_initiator_unicast_audio_start(&param);
 	if (err != 0) {
 		printk("Failed to start unicast audio: %d\n", err);
 		return err;
@@ -394,7 +392,7 @@ static void audio_timer_timeout(struct k_work *work)
 	net_buf_add_mem(buf, buf_data, len_to_send);
 	buf_to_send = buf;
 
-	ret = bt_bap_stream_send(stream, buf_to_send, 0, BT_ISO_TIMESTAMP_NONE);
+	ret = bt_bap_stream_send(stream, buf_to_send, 0);
 	if (ret < 0) {
 		printk("Failed to send audio data on streams: (%d)\n", ret);
 		net_buf_unref(buf_to_send);
@@ -472,7 +470,7 @@ int cap_initiator_setup(struct bt_conn *conn)
 		return err;
 	}
 
-	err = unicast_audio_start(conn, unicast_group);
+	err = unicast_audio_start(conn);
 	if (err != 0) {
 		return err;
 	}

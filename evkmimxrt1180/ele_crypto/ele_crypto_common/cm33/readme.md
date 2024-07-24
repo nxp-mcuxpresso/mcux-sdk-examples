@@ -7,12 +7,12 @@ its services with direct use of Messaging Unit driver.
 
 SDK version
 ===========
-- Version: 2.15.001
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  12.3.1
-- MCUXpresso  11.9.0
+- GCC ARM Embedded  13.2.1
+- MCUXpresso  11.10.0
 
 Hardware requirements
 =====================
@@ -43,7 +43,7 @@ Example output on terminal:
 EdgeLock Enclave Sub-System crypto example:
 
 ****************** Load EdgeLock FW ***********************
-EndgeLock FW loaded and authenticated successfully.
+EdgeLock FW loaded and authenticated successfully.
 
 ****************** Compute Hash (SHA256) of massage *******
 *SUCCESS* Computed HASH matches the expected value.

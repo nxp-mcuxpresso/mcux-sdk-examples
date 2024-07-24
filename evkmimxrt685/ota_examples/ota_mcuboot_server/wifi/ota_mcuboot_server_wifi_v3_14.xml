@@ -9,20 +9,19 @@
     <definition extID="middleware.freertos-kernel.cm33_non_trustzone.MIMXRT685S"/>
     <definition extID="platform.drivers.flexcomm_i2c.MIMXRT685S"/>
     <definition extID="driver.pca9420.MIMXRT685S"/>
-    <definition extID="middleware.mbedtls.MIMXRT685S"/>
-    <definition extID="middleware.mbedtls.port.ksdk.MIMXRT685S"/>
     <definition extID="middleware.wifi.sdio.MIMXRT685S"/>
     <definition extID="middleware.wifi.wifidriver.MIMXRT685S"/>
     <definition extID="middleware.sdmmc.host.usdhc.MIMXRT685S"/>
     <definition extID="middleware.sdmmc.sdio.MIMXRT685S"/>
     <definition extID="middleware.sdmmc.host.usdhc.freertos.MIMXRT685S"/>
     <definition extID="component.rt_gpio_adapter.MIMXRT685S"/>
-    <definition extID="middleware.lwip.apps.httpssrv.MIMXRT685S"/>
+    <definition extID="middleware.lwip.apps.httpsrv.MIMXRT685S"/>
     <definition extID="platform.drivers.clock.MIMXRT685S"/>
     <definition extID="middleware.freertos-kernel.MIMXRT685S"/>
     <definition extID="middleware.freertos-kernel.heap_3.MIMXRT685S"/>
     <definition extID="middleware.wifi.MIMXRT685S"/>
     <definition extID="middleware.lwip.MIMXRT685S"/>
+    <definition extID="middleware.edgefast_wifi_nxp.MIMXRT685S"/>
     <definition extID="platform.drivers.common.MIMXRT685S"/>
     <definition extID="device.MIMXRT685S_CMSIS.MIMXRT685S"/>
     <definition extID="utility.debug_console.MIMXRT685S"/>
@@ -42,33 +41,38 @@
     <definition extID="platform.drivers.reset.MIMXRT685S"/>
     <definition extID="platform.utilities.misc_utilities.MIMXRT685S"/>
     <definition extID="component.mflash.common.MIMXRT685S"/>
-    <definition extID="middleware.mbedtls.template.MIMXRT685S"/>
     <definition extID="middleware.wifi.mlan_sdio.MIMXRT685S"/>
     <definition extID="middleware.wifi.template.MIMXRT685S"/>
     <definition extID="middleware.wifi.common_files.MIMXRT685S"/>
     <definition extID="component.wifi_bt_module.tx_pwr_limits.MIMXRT685S"/>
     <definition extID="component.wifi_bt_module.config.MIMXRT685S"/>
+    <definition extID="middleware.wifi.wifi_bt_config.template.MIMXRT685S"/>
+    <definition extID="middleware.wifi.osa.MIMXRT685S"/>
+    <definition extID="middleware.wifi.osa_free_rtos.MIMXRT685S"/>
+    <definition extID="component.osa_free_rtos.MIMXRT685S"/>
+    <definition extID="component.osa_interface.MIMXRT685S"/>
+    <definition extID="middleware.wifi.net.MIMXRT685S"/>
     <definition extID="middleware.wifi.fwdnld.MIMXRT685S"/>
     <definition extID="middleware.wifi.fwdnld_intf_abs.MIMXRT685S"/>
+    <definition extID="middleware.wifi.net_free_rtos.MIMXRT685S"/>
+    <definition extID="middleware.lwip.apps.lwiperf.MIMXRT685S"/>
     <definition extID="middleware.sdmmc.common.MIMXRT685S"/>
     <definition extID="middleware.sdmmc.osa.freertos.MIMXRT685S"/>
     <definition extID="middleware.sdmmc.usdhc.template.MIMXRT685S"/>
     <definition extID="middleware.sdmmc.host.usdhc.cache.MIMXRT685S"/>
     <definition extID="platform.drivers.usdhc.MIMXRT685S"/>
-    <definition extID="component.osa_free_rtos.MIMXRT685S"/>
-    <definition extID="component.osa_interface.MIMXRT685S"/>
-    <definition extID="middleware.lwip.apps.httpsrv.MIMXRT685S"/>
     <definition extID="middleware.freertos-kernel.template.MIMXRT685S"/>
     <definition extID="middleware.freertos-kernel.extension.MIMXRT685S"/>
     <definition extID="middleware.lwip.template.MIMXRT685S"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT685S"/>
+    <definition extID="utility.str.MIMXRT685S"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt685_ota_mcuboot_server_wifi" name="ota_mcuboot_server_wifi" device_core="cm33_MIMXRT685S" dependency="platform.drivers.casper.MIMXRT685S platform.drivers.hashcrypt.MIMXRT685S platform.drivers.trng.MIMXRT685S component.mflash.rt685.MIMXRT685S middleware.freertos-kernel.cm33_non_trustzone.MIMXRT685S platform.drivers.flexcomm_i2c.MIMXRT685S driver.pca9420.MIMXRT685S middleware.mbedtls.MIMXRT685S middleware.mbedtls.port.ksdk.MIMXRT685S middleware.wifi.sdio.MIMXRT685S middleware.wifi.wifidriver.MIMXRT685S middleware.sdmmc.host.usdhc.MIMXRT685S middleware.sdmmc.sdio.MIMXRT685S middleware.sdmmc.host.usdhc.freertos.MIMXRT685S component.rt_gpio_adapter.MIMXRT685S middleware.lwip.apps.httpssrv.MIMXRT685S platform.drivers.clock.MIMXRT685S middleware.freertos-kernel.MIMXRT685S middleware.freertos-kernel.heap_3.MIMXRT685S middleware.wifi.MIMXRT685S middleware.lwip.MIMXRT685S platform.drivers.common.MIMXRT685S device.MIMXRT685S_CMSIS.MIMXRT685S utility.debug_console.MIMXRT685S platform.utilities.assert.MIMXRT685S component.usart_adapter.MIMXRT685S platform.drivers.power.MIMXRT685S platform.drivers.flexspi.MIMXRT685S platform.drivers.cache_cache64.MIMXRT685S component.serial_manager_uart.MIMXRT685S component.serial_manager.MIMXRT685S platform.drivers.flexcomm_usart.MIMXRT685S component.lists.MIMXRT685S device.MIMXRT685S_startup.MIMXRT685S platform.drivers.flexcomm.MIMXRT685S platform.drivers.lpc_iopctl.MIMXRT685S platform.drivers.lpc_gpio.MIMXRT685S platform.drivers.reset.MIMXRT685S platform.utilities.misc_utilities.MIMXRT685S component.mflash.common.MIMXRT685S middleware.mbedtls.template.MIMXRT685S middleware.wifi.mlan_sdio.MIMXRT685S middleware.wifi.template.MIMXRT685S middleware.wifi.common_files.MIMXRT685S component.wifi_bt_module.tx_pwr_limits.MIMXRT685S component.wifi_bt_module.config.MIMXRT685S middleware.wifi.fwdnld.MIMXRT685S middleware.wifi.fwdnld_intf_abs.MIMXRT685S middleware.sdmmc.common.MIMXRT685S middleware.sdmmc.osa.freertos.MIMXRT685S middleware.sdmmc.usdhc.template.MIMXRT685S middleware.sdmmc.host.usdhc.cache.MIMXRT685S platform.drivers.usdhc.MIMXRT685S component.osa_free_rtos.MIMXRT685S component.osa_interface.MIMXRT685S middleware.lwip.apps.httpsrv.MIMXRT685S middleware.freertos-kernel.template.MIMXRT685S middleware.freertos-kernel.extension.MIMXRT685S middleware.lwip.template.MIMXRT685S CMSIS_Include_core_cm.MIMXRT685S" category="ota_examples">
+  <example id="evkmimxrt685_ota_mcuboot_server_wifi" name="ota_mcuboot_server_wifi" device_core="cm33_MIMXRT685S" dependency="platform.drivers.casper.MIMXRT685S platform.drivers.hashcrypt.MIMXRT685S platform.drivers.trng.MIMXRT685S component.mflash.rt685.MIMXRT685S middleware.freertos-kernel.cm33_non_trustzone.MIMXRT685S platform.drivers.flexcomm_i2c.MIMXRT685S driver.pca9420.MIMXRT685S middleware.wifi.sdio.MIMXRT685S middleware.wifi.wifidriver.MIMXRT685S middleware.sdmmc.host.usdhc.MIMXRT685S middleware.sdmmc.sdio.MIMXRT685S middleware.sdmmc.host.usdhc.freertos.MIMXRT685S component.rt_gpio_adapter.MIMXRT685S middleware.lwip.apps.httpsrv.MIMXRT685S platform.drivers.clock.MIMXRT685S middleware.freertos-kernel.MIMXRT685S middleware.freertos-kernel.heap_3.MIMXRT685S middleware.wifi.MIMXRT685S middleware.lwip.MIMXRT685S middleware.edgefast_wifi_nxp.MIMXRT685S platform.drivers.common.MIMXRT685S device.MIMXRT685S_CMSIS.MIMXRT685S utility.debug_console.MIMXRT685S platform.utilities.assert.MIMXRT685S component.usart_adapter.MIMXRT685S platform.drivers.power.MIMXRT685S platform.drivers.flexspi.MIMXRT685S platform.drivers.cache_cache64.MIMXRT685S component.serial_manager_uart.MIMXRT685S component.serial_manager.MIMXRT685S platform.drivers.flexcomm_usart.MIMXRT685S component.lists.MIMXRT685S device.MIMXRT685S_startup.MIMXRT685S platform.drivers.flexcomm.MIMXRT685S platform.drivers.lpc_iopctl.MIMXRT685S platform.drivers.lpc_gpio.MIMXRT685S platform.drivers.reset.MIMXRT685S platform.utilities.misc_utilities.MIMXRT685S component.mflash.common.MIMXRT685S middleware.wifi.mlan_sdio.MIMXRT685S middleware.wifi.template.MIMXRT685S middleware.wifi.common_files.MIMXRT685S component.wifi_bt_module.tx_pwr_limits.MIMXRT685S component.wifi_bt_module.config.MIMXRT685S middleware.wifi.wifi_bt_config.template.MIMXRT685S middleware.wifi.osa.MIMXRT685S middleware.wifi.osa_free_rtos.MIMXRT685S component.osa_free_rtos.MIMXRT685S component.osa_interface.MIMXRT685S middleware.wifi.net.MIMXRT685S middleware.wifi.fwdnld.MIMXRT685S middleware.wifi.fwdnld_intf_abs.MIMXRT685S middleware.wifi.net_free_rtos.MIMXRT685S middleware.lwip.apps.lwiperf.MIMXRT685S middleware.sdmmc.common.MIMXRT685S middleware.sdmmc.osa.freertos.MIMXRT685S middleware.sdmmc.usdhc.template.MIMXRT685S middleware.sdmmc.host.usdhc.cache.MIMXRT685S platform.drivers.usdhc.MIMXRT685S middleware.freertos-kernel.template.MIMXRT685S middleware.freertos-kernel.extension.MIMXRT685S middleware.lwip.template.MIMXRT685S CMSIS_Include_core_cm.MIMXRT685S utility.str.MIMXRT685S" category="ota_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -92,7 +96,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>
@@ -112,21 +116,19 @@
           <value>USE_RTOS=1</value>
           <value>PRINTF_ADVANCED_ENABLE=1</value>
           <value>HTTPSRV_CFG_WEBSOCKET_ENABLED=0</value>
-          <value>HTTPSRV_CFG_MBEDTLS_ENABLE=1</value>
-          <value>HTTPSRV_CFG_DEFAULT_SES_CNT=8</value>
-          <value>MBEDTLS_CONFIG_FILE='"mbedtls_config.h"'</value>
           <value>MCUXPRESSO_SDK</value>
           <value>MFLASH_FILE_BASEADDR=7340032</value>
           <value>SDK_I2C_BASED_COMPONENT_USED=1</value>
           <value>SDIO_ENABLED</value>
-          <value>MBEDTLS_THREADING_C</value>
-          <value>MBEDTLS_THREADING_ALT</value>
           <value>SDK_OS_FREE_RTOS</value>
           <value>SERIAL_PORT_TYPE_UART=1</value>
+          <value>OSA_USED</value>
+          <value>FSL_OSA_TASK_ENABLE=1</value>
           <value>LWIP_DNS=1</value>
           <value>LWIP_NETIF_HOSTNAME=1</value>
-          <value>LWIP_NETIF_STATUS_CALLBACK=1</value>
           <value>LWIP_IGMP=1</value>
+          <value>_XOPEN_SOURCE=500</value>
+          <value>SO_REUSE=1</value>
         </option>
         <option id="com.crt.advproject.gas.hdrlib" type="enum">
           <value>com.crt.advproject.gas.hdrlib.newlibnano</value>
@@ -150,7 +152,7 @@
           <value>true</value>
         </option>
         <option id="com.crt.advproject.link.memory.heapAndStack" type="string">
-          <value>&amp;Heap:Default;Default;0x186a0&amp;Stack:Default;Default;0x3e8</value>
+          <value>&amp;Heap:Default;Default;0xea60&amp;Stack:Default;Default;0x3e8</value>
         </option>
         <option id="gnu.c.link.option.other" type="stringList">
           <value>-no-warn-rwx-segments</value>
@@ -174,12 +176,12 @@
     <include_paths>
       <include_path path="." project_relative_path="source" type="c_include"/>
       <include_path path="." project_relative_path="." type="c_include"/>
+      <include_path path="../../.." project_relative_path="board" type="c_include"/>
+      <include_path path="../../../../../core/boards/evkmimxrt685" project_relative_path="board" type="c_include"/>
       <include_path path="bootutil_port" project_relative_path="bootutil_port" type="c_include"/>
       <include_path path="bootutil_port/mcuboot_config" project_relative_path="bootutil_port/mcuboot_config" type="c_include"/>
       <include_path path="bootutil_port/sysflash" project_relative_path="bootutil_port/sysflash" type="c_include"/>
       <include_path path="bootutil_port/board_specific" project_relative_path="bootutil_port/board_specific" type="c_include"/>
-      <include_path path="../../.." project_relative_path="board" type="c_include"/>
-      <include_path path="../../../../../core/boards/evkmimxrt685" project_relative_path="board" type="c_include"/>
       <include_path path="." project_relative_path="source" type="asm_include"/>
     </include_paths>
     <source path="armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">
@@ -218,10 +220,6 @@
     </source>
     <source path="." project_relative_path="source" type="src">
       <files mask="init_wifi.c"/>
-      <files mask="wpl_nxp.c"/>
-    </source>
-    <source path="." project_relative_path="source" type="c_include">
-      <files mask="wpl.h"/>
     </source>
     <source path="." project_relative_path="source" type="c_include" config="true">
       <files mask="lwipopts.h"/>
@@ -244,6 +242,35 @@
     <source path="." project_relative_path="source" type="c_include" exclude="true">
       <files mask="mbedtls_config.h"/>
     </source>
+    <source path="webpage" project_relative_path="src/ota_examples/ota_mcuboot_server/webpage" type="other" exclude="true">
+      <files mask="httpsrv.css" hidden="true"/>
+      <files mask="index.html" hidden="true"/>
+      <files mask="ota_reboot.html" hidden="true"/>
+      <files mask="welcome.html" hidden="true"/>
+      <files mask="favicon.ico" hidden="true"/>
+      <files mask="request.js" hidden="true"/>
+      <files mask="NXP_logo.png" hidden="true"/>
+      <files mask="ota.shtml" hidden="true"/>
+    </source>
+    <source path="." project_relative_path="board" type="src" config="true">
+      <files mask="sdmmc_config.c"/>
+      <files mask="wifi_bt_config.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include" config="true">
+      <files mask="sdmmc_config.h"/>
+      <files mask="wifi_bt_config.h"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include" config="true">
+      <files mask="app_config.h"/>
+    </source>
+    <source path="../../../../../core/boards/evkmimxrt685" project_relative_path="board" type="src">
+      <files mask="board.c"/>
+      <files mask="clock_config.c"/>
+    </source>
+    <source path="../../../../../core/boards/evkmimxrt685" project_relative_path="board" type="c_include">
+      <files mask="board.h"/>
+      <files mask="clock_config.h"/>
+    </source>
     <source path="." project_relative_path="source" type="src">
       <files mask="mcuboot_app_support.c"/>
     </source>
@@ -265,39 +292,9 @@
     </source>
     <source path="bootutil_port" project_relative_path="bootutil_port" type="c_include">
       <files mask="flash_map.h"/>
-      <files mask="sbldef.h"/>
     </source>
     <source path="bootutil_port/sysflash" project_relative_path="bootutil_port/sysflash" type="c_include">
       <files mask="sysflash.h"/>
-    </source>
-    <source path="webpage" project_relative_path="src/ota_examples/ota_mcuboot_server/webpage" type="other" exclude="true">
-      <files mask="httpsrv.css" hidden="true"/>
-      <files mask="index.html" hidden="true"/>
-      <files mask="ota_reboot.html" hidden="true"/>
-      <files mask="welcome.html" hidden="true"/>
-      <files mask="favicon.ico" hidden="true"/>
-      <files mask="request.js" hidden="true"/>
-      <files mask="NXP_logo.png" hidden="true"/>
-      <files mask="ota.shtml" hidden="true"/>
-    </source>
-    <source path="." project_relative_path="board" type="src" config="true">
-      <files mask="sdmmc_config.c"/>
-      <files mask="wifi_bt_config.c"/>
-    </source>
-    <source path="." project_relative_path="board" type="c_include" config="true">
-      <files mask="sdmmc_config.h"/>
-      <files mask="wifi_bt_config.h"/>
-    </source>
-    <source path="." project_relative_path="source" type="c_preinclude" config="true">
-      <files mask="app_config.h"/>
-    </source>
-    <source path="../../../../../core/boards/evkmimxrt685" project_relative_path="board" type="src">
-      <files mask="board.c"/>
-      <files mask="clock_config.c"/>
-    </source>
-    <source path="../../../../../core/boards/evkmimxrt685" project_relative_path="board" type="c_include">
-      <files mask="board.h"/>
-      <files mask="clock_config.h"/>
     </source>
     <source path="." project_relative_path="doc" type="doc" toolchain="mcuxpresso armgcc">
       <files mask="readme.md"/>

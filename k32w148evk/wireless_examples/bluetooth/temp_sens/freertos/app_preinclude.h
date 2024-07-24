@@ -90,7 +90,7 @@
 
 #define gHost_TaskStackSize_c           1764
 
-#define BUTTON_TASK_STACK_SIZE          400
+#define BUTTON_TASK_STACK_SIZE          432
 
 #define SERIAL_MANAGER_TASK_STACK_SIZE  232
 

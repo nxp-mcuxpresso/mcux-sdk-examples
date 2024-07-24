@@ -12,12 +12,12 @@ For more information about Wi-Fi module connection see:
 
 SDK version
 ===========
-- Version: 2.14.0
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  12.2
-- MCUXpresso  11.9.0
+- GCC ARM Embedded  13.2.1
+- MCUXpresso  11.10.0
 
 Hardware requirements
 =====================
@@ -52,37 +52,37 @@ Running the demo
 wifi test mode demo
 Initialize CLI
 Initialize WLAN Driver
-MAC Address: 00:13:43:91:8A:3D 
+MAC Address: 00:13:43:91:8A:3D
 [net] Initialized TCP/IP networking stack
 app_cb: WLAN: received event 10
 app_cb: WLAN initialized
 WLAN Test Mode CLIs are initialized
 CLIs Available:
 
-help 
-wlan-version 
-wlan-mac 
-wlan-set-rf-test-mode 
+help
+wlan-version
+wlan-mac
+wlan-set-rf-test-mode
 wlan-set-rf-channel <channel>
-wlan-get-rf-channel 
+wlan-get-rf-channel
 wlan-set-rf-band <band>
-wlan-get-rf-band 
+wlan-get-rf-band
 wlan-set-rf-bandwidth <bandwidth>
-wlan-get-rf-bandwidth 
-wlan-get-rf-per 
+wlan-get-rf-bandwidth
+wlan-get-rf-per
 wlan-set-rf-tx-cont-mode <enable_tx> <cw_mode> <payload_pattern> <cs_mode> <act_sub_ch> <tx_rate>
 wlan-set-rf-tx-antenna <antenna>
-wlan-get-rf-tx-antenna 
+wlan-get-rf-tx-antenna
 wlan-set-rf-rx-antenna <antenna>
-wlan-get-rf-rx-antenna 
+wlan-get-rf-rx-antenna
 wlan-set-rf-tx-power <tx_power> <modulation> <path_id>
 wlan-set-rf-tx-frame <start> <data_rate> <frame_pattern> <frame_len> <adjust_burst_sifs> <burst_sifs_in_us> <short_preamble> <act_sub_ch> <short_gi> <adv_coding> <tx_bf> <gf_mode> <stbc> <bssid>
 
-# 
+#
 # wlan-set-rf-test-mode
 RF Test Mode configuration successful
 
-# 
+#
 # wlan-set-rf-channel 6
 Channel configuration successful
 
@@ -101,9 +101,9 @@ Bandwidth configuration successful
 # wlan-get-rf-bandwidth
 Configured bandwidth is: 20MHz
 
-# 
+#
 # wlan-get-and-reset-rf-per
-PER is as below: 
+PER is as below:
   Total Rx Packet Count                    : 3
   Total Rx Multicast/Broadcast Packet Count: 3
   Total Rx Packets with FCS error          : 2
@@ -141,5 +141,5 @@ Tx Frame configuration successful
   Beamforming               : disable
   GreenField Mode           : disable
   STBC                      : disable
-  BSSID                     : AD:AD:23:12:45:57 
+  BSSID                     : AD:AD:23:12:45:57
 

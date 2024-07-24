@@ -34,13 +34,14 @@
     <definition extID="middleware.usb.device.ip3511hs_config_header.MIMXRT685S"/>
     <definition extID="middleware.usb.device.common_header.MIMXRT685S"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT685S"/>
+    <definition extID="utility.str.MIMXRT685S"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt685_hello_world_virtual_com" name="hello_world_virtual_com" device_core="cm33_MIMXRT685S" dependency="component.serial_manager_usb_cdc.MIMXRT685S component.serial_manager.MIMXRT685S middleware.usb.phy.MIMXRT685S middleware.usb.device_controller_ip3511hs.MIMXRT685S middleware.usb.device.controller.driver.MIMXRT685S middleware.baremetal.MIMXRT685S platform.drivers.common.MIMXRT685S platform.drivers.clock.MIMXRT685S platform.drivers.power.MIMXRT685S platform.drivers.reset.MIMXRT685S device.MIMXRT685S_CMSIS.MIMXRT685S utility.debug_console.MIMXRT685S platform.utilities.assert.MIMXRT685S component.usart_adapter.MIMXRT685S platform.drivers.flash_config.evkmimxrt685.MIMXRT685S platform.drivers.flexspi.MIMXRT685S platform.drivers.cache_cache64.MIMXRT685S component.serial_manager_uart.MIMXRT685S platform.drivers.flexcomm_usart.MIMXRT685S component.lists.MIMXRT685S device.MIMXRT685S_startup.MIMXRT685S platform.drivers.flexcomm.MIMXRT685S platform.drivers.lpc_iopctl.MIMXRT685S platform.drivers.lpc_gpio.MIMXRT685S platform.utilities.misc_utilities.MIMXRT685S middleware.usb.device.cdc.external.MIMXRT685S middleware.usb.device.stack.external.MIMXRT685S component.osa.MIMXRT685S middleware.usb.common_header.MIMXRT685S middleware.usb.device.ip3511hs_config_header.MIMXRT685S middleware.usb.device.common_header.MIMXRT685S CMSIS_Include_core_cm.MIMXRT685S" category="demo_apps">
+  <example id="evkmimxrt685_hello_world_virtual_com" name="hello_world_virtual_com" device_core="cm33_MIMXRT685S" dependency="component.serial_manager_usb_cdc.MIMXRT685S component.serial_manager.MIMXRT685S middleware.usb.phy.MIMXRT685S middleware.usb.device_controller_ip3511hs.MIMXRT685S middleware.usb.device.controller.driver.MIMXRT685S middleware.baremetal.MIMXRT685S platform.drivers.common.MIMXRT685S platform.drivers.clock.MIMXRT685S platform.drivers.power.MIMXRT685S platform.drivers.reset.MIMXRT685S device.MIMXRT685S_CMSIS.MIMXRT685S utility.debug_console.MIMXRT685S platform.utilities.assert.MIMXRT685S component.usart_adapter.MIMXRT685S platform.drivers.flash_config.evkmimxrt685.MIMXRT685S platform.drivers.flexspi.MIMXRT685S platform.drivers.cache_cache64.MIMXRT685S component.serial_manager_uart.MIMXRT685S platform.drivers.flexcomm_usart.MIMXRT685S component.lists.MIMXRT685S device.MIMXRT685S_startup.MIMXRT685S platform.drivers.flexcomm.MIMXRT685S platform.drivers.lpc_iopctl.MIMXRT685S platform.drivers.lpc_gpio.MIMXRT685S platform.utilities.misc_utilities.MIMXRT685S middleware.usb.device.cdc.external.MIMXRT685S middleware.usb.device.stack.external.MIMXRT685S component.osa.MIMXRT685S middleware.usb.common_header.MIMXRT685S middleware.usb.device.ip3511hs_config_header.MIMXRT685S middleware.usb.device.common_header.MIMXRT685S CMSIS_Include_core_cm.MIMXRT685S utility.str.MIMXRT685S" category="demo_apps">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -79,7 +80,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-mno-unaligned-access -mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-mno-unaligned-access -mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>
@@ -147,9 +148,6 @@
     </source>
     <source path="." project_relative_path="board" type="c_include">
       <files mask="pin_mux.h"/>
-    </source>
-    <source path="." project_relative_path="." type="other">
-      <files mask="hello_world_virtual_com.mex"/>
     </source>
     <source path="." project_relative_path="evkmimxrt685/demo_apps/hello_world_virtual_com" type="binary">
       <files mask="hello_world_virtual_com.bin" hidden="true"/>

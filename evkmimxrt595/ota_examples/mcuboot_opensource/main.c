@@ -6,23 +6,39 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-#include <sbl.h>
 #include "fsl_device_registers.h"
 #include "fsl_debug_console.h"
-
 #include "pin_mux.h"
 #include "clock_config.h"
 #include "board.h"
 #include "fsl_power.h"
+#include "boot.h"
 
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-#ifdef SOC_REMAP_ENABLE
-#define REMAPADDRSTART  (FLEXSPI0_BASE + 0x420)
-#define REMAPADDREND    (FLEXSPI0_BASE + 0x424)
-#define REMAPADDROFFSET (FLEXSPI0_BASE + 0x428)
-#endif
+#ifdef CONFIG_MCUBOOT_FLASH_REMAP_ENABLE
+void SBL_EnableRemap(uint32_t start_addr, uint32_t end_addr, uint32_t off)
+{
+      __DMB();
+      *((volatile uint32_t*) FLASH_REMAP_END_REG) = end_addr;
+      *((volatile uint32_t*) FLASH_REMAP_OFFSET_REG) = off;
+      *((volatile uint32_t*) FLASH_REMAP_START_REG) = start_addr | 0x1;
+      __DSB();
+      __ISB();
+}
+
+void SBL_DisableRemap(void)
+{
+    __DMB();
+    /* Disable REMAPEN bit first! */
+    *((volatile uint32_t*) FLASH_REMAP_START_REG) = 0;
+    *((volatile uint32_t*) FLASH_REMAP_END_REG) = 0;
+    *((volatile uint32_t*) FLASH_REMAP_OFFSET_REG) = 0;
+    __DSB();
+    __ISB();
+}
+#endif /* CONFIG_MCUBOOT_FLASH_REMAP_ENABLE */
 
 #define APP_DEBUG_UART_TYPE     kSerialPort_Uart
 #define APP_DEBUG_UART_INSTANCE 12U
@@ -35,11 +51,6 @@
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
-#if (defined(COMPONENT_MCU_ISP))
-extern int isp_kboot_main(bool isInfiniteIsp);
-#endif
-
-/* Initialize debug console. */
 
 /*******************************************************************************
  * Code
@@ -65,11 +76,6 @@ void APP_InitAppDebugConsole(void)
  */
 int main(void)
 {
-#if (defined(COMPONENT_MCU_ISP))
-    bool isInfiniteIsp = false;
-    (void)isp_kboot_main(isInfiniteIsp);
-#endif
-
     /* Init board hardware. */
     BOARD_InitBootPins();
     BOARD_BootClockRUN();
@@ -80,6 +86,14 @@ int main(void)
     POWER_ApplyPD();
 
     PRINTF("hello sbl.\r\n");
+    
+#if defined(MCUBOOT_DIRECT_XIP) && defined(CONFIG_MCUBOOT_FLASH_REMAP_ENABLE)
+    /* Make sure flash remapping function is disabled before running the
+     * bootloader application .
+     */
+    PRINTF("Disabling flash remapping function\n");
+    SBL_DisableRemap();
+#endif
 
     (void)sbl_boot_main();
 
@@ -89,27 +103,3 @@ int main(void)
 void SBL_DisablePeripherals(void)
 {
 }
-
-#ifdef SOC_REMAP_ENABLE
-void SBL_EnableRemap(uint32_t start_addr, uint32_t end_addr, uint32_t off)
-{
-    uint32_t *remap_start  = (uint32_t *)REMAPADDRSTART;
-    uint32_t *remap_end    = (uint32_t *)REMAPADDREND;
-    uint32_t *remap_offset = (uint32_t *)REMAPADDROFFSET;
-
-    *remap_start  = start_addr + 1;
-    *remap_end    = end_addr;
-    *remap_offset = off;
-}
-
-void SBL_DisableRemap(void)
-{
-    uint32_t *remap_start  = (uint32_t *)REMAPADDRSTART;
-    uint32_t *remap_end    = (uint32_t *)REMAPADDREND;
-    uint32_t *remap_offset = (uint32_t *)REMAPADDROFFSET;
-
-    *remap_start  = 0;
-    *remap_end    = 0;
-    *remap_offset = 0;
-}
-#endif

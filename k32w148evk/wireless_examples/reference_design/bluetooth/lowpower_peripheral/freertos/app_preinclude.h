@@ -81,7 +81,6 @@
 
 /*! Set maximum number of connection supported by the application
  *  Set by default to 1 in app_preinclude_common.h
- *  Overriden to 2 connection for this application here
  *  Connection number over 2 is not tested.
  *  You may face issues when setting gAppAdvUseLowPowerTimers to 1.
  *  Best configuration to test 2 connections is:
@@ -89,7 +88,7 @@
  *  - bond both devices seperately.
  *  - set gAppDisconnectOnTimeoutOnly_s to 1.
  *  - increase gAppConnectionTimeoutInSecs_c to 30sec. */
-#define gAppMaxConnections_c           (1U)
+//#define gAppMaxConnections_c           (2U)
 
 /*! Enable/disable use of bonding capability */
 #define gAppUseBonding_d                1
@@ -234,7 +233,7 @@
        each power down wakeup so only temporary data could be stored there.)
 	   Power down feature not supported. */
 
-#define gAppLowPowerConstraintInAdvertising_c          3
+#define gAppLowPowerConstraintInAdvertising_c          2
 /* Scanning not supported on peripheral */
 //#define gAppLowPowerConstraintInScanning_c             2
 #define gAppLowPowerConstraintInConnected_c            2

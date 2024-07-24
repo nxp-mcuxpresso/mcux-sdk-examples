@@ -28,15 +28,14 @@
 /* Entry Point */
 ENTRY(Reset_Handler)
 
-HEAP_SIZE  = DEFINED(__heap_size__)  ? __heap_size__  : 100000;
+HEAP_SIZE  = DEFINED(__heap_size__)  ? __heap_size__  : 60000;
 STACK_SIZE = DEFINED(__stack_size__) ? __stack_size__ : 1000;
 RPMSG_SHMEM_SIZE = DEFINED(__use_shmem__) ? 0x2000 : 0;
 
 
 /*
- * Flash range to be used is from 0x0002_0000 to 0x0010_0000
+ * Flash range to be used is from 0x0000_0000 to 0x0010_0000
 
-    - the region before is used by MCU Boot
     - the region after is a storage for Candidate application
     - there is 0x400 bytes of the MCU boot header at the beginning of the 1st slot
     - the *core1_image_size* parameter allocates space for core1 image that will be merged
@@ -45,9 +44,9 @@ RPMSG_SHMEM_SIZE = DEFINED(__use_shmem__) ? 0x2000 : 0;
       of size of one flash sector (8 kB)
 */
 
-SLOT_START    = 0x00020000; /* Internal flash; 128 kB offset by MCUBoot */
-SLOT_SIZE     = 0x000E0000;
-APP_SIZE      = 0x000A0000;
+SLOT_START    = 0x00000000; /* Internal flasht */
+SLOT_SIZE     = 0x00100000;
+APP_SIZE      = 0x000C0000;
 
 IVEC_SIZE = 0x400;
 MCUBOOT_HEADER_SIZE = 0x400;

@@ -34,6 +34,14 @@
 #define CCC_RSTDAA  0x06U
 #define CCC_SETDASA 0x87U
 
+#ifndef I3C_MASTER_SLAVE_ADDR_7BIT
+#define I3C_MASTER_SLAVE_ADDR_7BIT 0x1EU
+#endif
+
+#ifndef I3C_DATA_LENGTH
+#define I3C_DATA_LENGTH 33U
+#endif
+
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/

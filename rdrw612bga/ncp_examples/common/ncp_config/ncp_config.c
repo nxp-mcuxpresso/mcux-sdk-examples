@@ -62,6 +62,7 @@ const wifi_flash_table_type_t g_wifi_flash_table_wlan_sta[WLAN_STA_MAX_TYPE] = {
     {WLAN_PASSPHRASE_NAME, WLAN_PASSPHRASE_OFT, WLAN_PASSPHRASE_MAX_LEN},
     {WLAN_MFPC_NAME, WLAN_MFPC_OFT, WLAN_MFPC_MAX_LEN},
     {WLAN_MFPR_NAME, WLAN_MFPR_OFT, WLAN_MFPR_MAX_LEN},
+    {WLAN_PWE_NAME, WLAN_PWE_OFT, WLAN_PWE_MAX_LEN},
     {WLAN_ANONYMOUS_IDENTITY_NAME, WLAN_ANONYMOUS_IDENTITY_OFT, WLAN_ANONYMOUS_IDENTITY_MAX_LEN},
     {WLAN_CLIENT_KEY_PASSWD_NAME, WLAN_CLIENT_KEY_PASSWD_OFT, WLAN_CLIENT_KEY_PASSWD_MAX_LEN},
     {WLAN_IP_ADDR_TYPE_NAME, WLAN_IP_ADDR_TYPE_OFT, WLAN_IP_ADDR_TYPE_MAX_LEN},
@@ -75,6 +76,7 @@ const wifi_flash_table_type_t g_wifi_flash_table_wlan_sta[WLAN_STA_MAX_TYPE] = {
     {WLAN_CHK_SERVER_CERT_NAME, WLAN_CHK_SERVER_CERT_OFT, WLAN_CHK_SERVER_CERT_MAX_LEN},
     {WLAN_REGION_CODE_NAME, WLAN_REGION_CODE_OFT, WLAN_REGION_CODE_MAX_LEN},
     {WLAN_PROFILE_NAME, WLAN_PROFILE_NAME_OFT, WLAN_PROFILE_NAME_MAX_LEN},
+    {WLAN_STATUS_NAME, WLAN_STATUS_OFT, WLAN_STATUS_MAX_LEN},
     {WLAN_ROLE_NAME, WLAN_ROLE_OFT, WLAN_ROLE_MAX_LEN}};
 
 const wifi_flash_table_type_t g_wifi_flash_table_wlan_uap[WLAN_UAP_MAX_TYPE] = {
@@ -88,6 +90,7 @@ const wifi_flash_table_type_t g_wifi_flash_table_wlan_uap[WLAN_UAP_MAX_TYPE] = {
     {WLAN_PASSPHRASE_NAME, WLAN_PASSPHRASE_OFT, WLAN_PASSPHRASE_MAX_LEN},
     {WLAN_MFPC_NAME, WLAN_MFPC_OFT, WLAN_MFPC_MAX_LEN},
     {WLAN_MFPR_NAME, WLAN_MFPR_OFT, WLAN_MFPR_MAX_LEN},
+    {WLAN_PWE_NAME, WLAN_PWE_OFT, WLAN_PWE_MAX_LEN},
     {WLAN_ANONYMOUS_IDENTITY_NAME, WLAN_ANONYMOUS_IDENTITY_OFT, WLAN_ANONYMOUS_IDENTITY_MAX_LEN},
     {WLAN_CLIENT_KEY_PASSWD_NAME, WLAN_CLIENT_KEY_PASSWD_OFT, WLAN_CLIENT_KEY_PASSWD_MAX_LEN},
     {WLAN_IP_ADDR_TYPE_NAME, WLAN_IP_ADDR_TYPE_OFT, WLAN_IP_ADDR_TYPE_MAX_LEN},
@@ -101,6 +104,7 @@ const wifi_flash_table_type_t g_wifi_flash_table_wlan_uap[WLAN_UAP_MAX_TYPE] = {
     {WLAN_CHK_SERVER_CERT_NAME, WLAN_CHK_SERVER_CERT_OFT, WLAN_CHK_SERVER_CERT_MAX_LEN},
     {WLAN_REGION_CODE_NAME, WLAN_REGION_CODE_OFT, WLAN_REGION_CODE_MAX_LEN},
     {WLAN_PROFILE_NAME, WLAN_PROFILE_NAME_OFT, WLAN_PROFILE_NAME_MAX_LEN},
+    {WLAN_STATUS_NAME, WLAN_STATUS_OFT, WLAN_STATUS_MAX_LEN},
     {WLAN_ROLE_NAME, WLAN_ROLE_OFT, WLAN_ROLE_MAX_LEN},
     {WLAN_CAPA_NAME, WLAN_CAPA_OFT, WLAN_CAPA_MAX_LEN},
     {WLAN_DTIM_NAME, WLAN_DTIM_OFT, WLAN_DTIM_MAX_LEN},
@@ -108,8 +112,11 @@ const wifi_flash_table_type_t g_wifi_flash_table_wlan_uap[WLAN_UAP_MAX_TYPE] = {
 
 static struct ncp_conf_t ncp_conf_list[] = {{"sys", g_wifi_flash_table_system, SYS_MAX_TYPE},
                                             {"prov", g_wifi_flash_table_provision, PROV_MAX_TYPE},
-                                            {"wlan_sta", g_wifi_flash_table_wlan_sta, WLAN_STA_MAX_TYPE},
-                                            {"wlan_uap", g_wifi_flash_table_wlan_uap, WLAN_UAP_MAX_TYPE},
+                                            {"wlan_bssA", g_wifi_flash_table_wlan_uap, WLAN_UAP_MAX_TYPE},
+                                            {"wlan_bssB", g_wifi_flash_table_wlan_uap, WLAN_UAP_MAX_TYPE},
+                                            {"wlan_bssC", g_wifi_flash_table_wlan_uap, WLAN_UAP_MAX_TYPE},
+                                            {"wlan_bssD", g_wifi_flash_table_wlan_uap, WLAN_UAP_MAX_TYPE},
+                                            {"wlan_bssE", g_wifi_flash_table_wlan_uap, WLAN_UAP_MAX_TYPE},
                                             {NULL, NULL, 0}};
 
 extern int lfs_mounted;
@@ -131,15 +138,10 @@ extern lfs_t lfs;
 /* Enabling NVM means using LittleFS to save configuration information. */
 static uint8_t is_nvm_enable = ENABLE_NVM;
 
-typedef struct
-{
-    char *config_path; // ncp lfs bss config path
-    int flag;  //write flag.
-}wifi_bss_config;
-
-char *wifi_bss_config_file[5] = {WLAN_BSS_CONFIG_FILE_PATH, WLAN_BSS2_CONFIG_FILE_PATH, WLAN_BSS3_CONFIG_FILE_PATH, WLAN_BSS4_CONFIG_FILE_PATH, WLAN_BSS5_CONFIG_FILE_PATH};
+char *wifi_bss_config_file[5] = {WLAN_BSS1_CONFIG_FILE_PATH, WLAN_BSS2_CONFIG_FILE_PATH, WLAN_BSS3_CONFIG_FILE_PATH, WLAN_BSS4_CONFIG_FILE_PATH, WLAN_BSS5_CONFIG_FILE_PATH};
 
 wifi_bss_config wifi_lfs_bss_config[5];
+
 /*******************************************************************************
  * Code
  ******************************************************************************/
@@ -777,7 +779,10 @@ done:
     return ret;
 }
 
-/* try to read file "/etc/wlan_bss*_conf", if not exist, create one and set default config */
+/* There are 5 bss profiles which are used to save bss information.
+ * try to read file "/etc/wlan_bss*_conf", if not exist, create one and set default config.
+ * Initialize bss profile to uap network profile.
+*/
 static int wifi_save_default_config_wlan_bss(void)
 {
     int res, index;
@@ -787,7 +792,7 @@ static int wifi_save_default_config_wlan_bss(void)
 
     for(index = 0; index < 5; index++)
     {
-        path = wifi_lfs_bss_config[index].config_path;
+        path = wifi_bss_config_file[index];
         res = lfs_file_open(&lfs, &file, path, LFS_O_RDONLY);
         if (res == 0)
         {
@@ -873,6 +878,13 @@ static int wifi_save_default_config_wlan_bss(void)
         res = lfs_file_write(&lfs, &file, WLAN_MFPR_NAME, WLAN_MFPR_NAME_LEN);
         wifi_flash_check_rw_ret(res);
         res = lfs_file_write(&lfs, &file, WLAN_MFPR_DEF, WLAN_MFPR_MAX_LEN);
+        wifi_flash_check_rw_ret(res);
+
+        res = lfs_file_write(&lfs, &file, WLAN_PWE_NAME, WLAN_PWE_NAME_LEN);
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, WLAN_PWE_DEF, strlen(WLAN_PWE_DEF));
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, buf, WLAN_PWE_MAX_LEN - strlen(WLAN_PWE_DEF));
         wifi_flash_check_rw_ret(res);
 
         res = lfs_file_write(&lfs, &file, WLAN_ANONYMOUS_IDENTITY_NAME, WLAN_ANONYMOUS_IDENTITY_NAME_LEN);
@@ -962,6 +974,13 @@ static int wifi_save_default_config_wlan_bss(void)
         res = lfs_file_write(&lfs, &file, buf, WLAN_PROFILE_NAME_MAX_LEN - strlen(WLAN_PROFILE_NAME_DEF));
         wifi_flash_check_rw_ret(res);
 
+        res = lfs_file_write(&lfs, &file, WLAN_STATUS_NAME, WLAN_STATUS_NAME_LEN);
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, WLAN_STATUS_DEF, strlen(WLAN_STATUS_DEF));
+        wifi_flash_check_rw_ret(res);
+        res = lfs_file_write(&lfs, &file, buf, WLAN_STATUS_MAX_LEN - strlen(WLAN_STATUS_DEF));
+        wifi_flash_check_rw_ret(res);
+
         res = lfs_file_write(&lfs, &file, WLAN_ROLE_NAME, WLAN_ROLE_NAME_LEN);
         wifi_flash_check_rw_ret(res);
         res = lfs_file_write(&lfs, &file, WLAN_ROLE_DEF, strlen(WLAN_ROLE_DEF));
@@ -997,18 +1016,62 @@ done:
     return WM_SUCCESS;
 }
 
-int ncp_bss_index = 0;
-/*If a file doesn't exist in a sta config file path, create a new file in this path to save network information.
-    If files exist in all sta config file paths, find file paths with wifi_bss_config_file_index 0.
-    The newly added network will overwrite the earliest saved network if the board has just been started.
-    The new network will be added to the path of the deleted network if a network is deleted.*/
+static int wifi_init_lfs_config()
+{
+    int res, index;
+    lfs_file_t file;
+    char * path, status[2];
+
+    for(index = 0; index < WLAN_BSS_MAX_NUM; index++)
+    {
+        wifi_lfs_bss_config[index].config_path = wifi_bss_config_file[index];
+        memset(wifi_lfs_bss_config[index].network_name, 0, 33);
+
+        path = wifi_bss_config_file[index];
+        res = lfs_file_open(&lfs, &file, path, LFS_O_RDONLY);
+        if (res != 0)
+        {
+            flash_log_w("open file %s fail res %d", path, res);
+            wifi_lfs_bss_config[index].flag = WLAN_BSS_STATUS_NONAVAILABLE;
+            continue;
+        }
+
+        res = wifi_load_wlan_sta_config(&file, WLAN_PROFILE, wifi_lfs_bss_config[index].network_name, 32);
+        if(res != 0)
+        {
+            flash_log_e("file %s load profile fail res %d", path, res);
+        }
+
+        res = wifi_load_wlan_sta_config(&file, WLAN_STATUS, status, sizeof(status));
+        if(res != 0)
+        {
+            flash_log_e("file %s load status fail res %d", path, res);
+        }
+        wifi_lfs_bss_config[index].flag = atoi(status);
+
+        res = lfs_file_close(&lfs, &file);
+        if (res != 0)
+        {
+            flash_log_e("%s close file %s fail res %d", __func__, path, res);
+            return -WM_FAIL;
+        }
+    }
+
+    return WM_SUCCESS;
+}
+
+/* If a file doesn't exist in a sta config file path, create a new file in this path to save network information.
+ * When add a new network, find a file with the same profile name and overwrite it.
+ * When add a new network, find the first unavailable network profile and overwrite it.
+ */
 int wifi_set_network(struct wlan_network *network)
 {
-    int res, i, index = 0;
+    int res, i, index = 0, bss_status;
     int ret = -WM_FAIL;
-    char channel[4], security_type[3], mfpc[2], mfpr[2], addr_type[2];
+    char channel[4], security_type[3], mfpc[2], mfpr[2], addr_type[2], pwe[2];
     struct in_addr ip, gw, nm, dns1, dns2;
-    char ip_addr_temp[17], configured[2], role[2];
+    char ip_addr_temp[17], configured[2], role[2], status[2];
+    char uap_prov_sta_name[] = "uap_prov_sta_label";
     lfs_file_t file;
     char *path;
     wifi_save_wlan_config_fn_t save_config;
@@ -1023,7 +1086,41 @@ int wifi_set_network(struct wlan_network *network)
         save_config = wifi_save_wlan_uap_config;
     }
 
-    for(i = 0; i < 5; i++)
+    /*uap prov station network is always saved in */
+    if(strcmp(network->name, uap_prov_sta_name) == 0)
+    {
+        path = wifi_lfs_bss_config[0].config_path;
+
+        res = lfs_file_open(&lfs, &file, path, LFS_O_RDWR | LFS_O_CREAT);
+        if (res != 0)
+        {
+            flash_log_e("create file %s fail res %d", path, res);
+            return -WM_FAIL;
+        }
+        index = 0;
+        goto ncp_set_bss;
+    }
+
+    /*Network alredy exist in little file system, overwrite it.*/
+    for(i = 0; i < WLAN_BSS_MAX_NUM; i++)
+    {
+        if(strcmp(wifi_lfs_bss_config[i].network_name, network->name) == 0)
+        {
+            index = i;
+            path = wifi_lfs_bss_config[i].config_path;
+            flash_log_d("%s: path = %s\r\n",__func__, path);
+            res = lfs_file_open(&lfs, &file, path, LFS_O_RDWR);
+            if (res != 0)
+            {
+                flash_log_e("open file %s fail res %d", path, res);
+                return -WM_FAIL;
+            }
+            goto ncp_set_bss;
+        }
+    }
+
+    /*If there is empty file path, create file in this path.*/
+    for(i = 0; i < WLAN_BSS_MAX_NUM; i++)
     {
         path = wifi_lfs_bss_config[i].config_path;
         /* If file exists, can open it with only read and write flag*/
@@ -1041,6 +1138,7 @@ int wifi_set_network(struct wlan_network *network)
             index = i;
             goto ncp_set_bss;
         }
+
         flash_log_d("%s: path = %s\r\n",__func__, path);
         res = lfs_file_close(&lfs, &file);
         if (res != 0)
@@ -1050,22 +1148,27 @@ int wifi_set_network(struct wlan_network *network)
         }
     }
 
-    /*After removing old network, should */
-    for(i = 0; i < 5; i++)
+    /*Find unavailable network, overwrite it.*/
+    for(i = 0; i < WLAN_BSS_MAX_NUM; i++)
     {
-        if(wifi_lfs_bss_config[i].flag == 0)
+        if(wifi_lfs_bss_config[i].flag == WLAN_BSS_STATUS_NONAVAILABLE)
         {
             index = i;
+            path = wifi_lfs_bss_config[i].config_path;
+            flash_log_d("%s: path = %s\r\n",__func__, path);
+            res = lfs_file_open(&lfs, &file, path, LFS_O_RDWR);
+            if (res != 0)
+            {
+                flash_log_e("open file %s fail res %d", path, res);
+                return -WM_FAIL;
+            }
             break;
         }
     }
 
-    path = wifi_lfs_bss_config[index].config_path; // Overwrite wifi_bss_config_file[ncp_bss_index] file.
-    flash_log_d("%s: path = %s\r\n",__func__, path);
-    res = lfs_file_open(&lfs, &file, path, LFS_O_RDWR);
-    if (res != 0)
+    if(i == WLAN_BSS_MAX_NUM)
     {
-        flash_log_e("open file %s fail res %d", path, res);
+        flash_log_e("can't find unavailable bss profile to overwrite it.");
         return -WM_FAIL;
     }
 
@@ -1083,7 +1186,9 @@ ncp_set_bss:
     res += save_config(&file, WLAN_MFPC, mfpc, sizeof(mfpc));
     snprintf(mfpr, sizeof(mfpr), "%u", network->security.mfpr);
     res += save_config(&file, WLAN_MFPR, mfpr, sizeof(mfpr));
-#ifdef CONFIG_EAP_TLS
+    snprintf(pwe, sizeof(pwe), "%u", network->security.pwe_derivation);
+    res += save_config(&file, WLAN_PWE, pwe, sizeof(network->security.pwe_derivation));
+#if CONFIG_EAP_TLS
     res += save_config(&file, WLAN_ANONYMOUS_IDENTITY, network->security.anonymous_identity, sizeof(network->security.anonymous_identity));
     res += save_config(&file, WLAN_CLIENT_KEY_PASSWD, network->security.client_key_passwd, sizeof(network->security.client_key_passwd));
 #endif
@@ -1139,6 +1244,9 @@ ncp_set_bss:
 
     snprintf(configured, sizeof(configured), "%u", WLAN_NETWORK_PROVISIONED);
     res += save_config(&file, WLAN_CONFIGURED, configured, sizeof(configured));
+    bss_status = WLAN_BSS_STATUS_AVAILABLE;
+    snprintf(status, sizeof(status), "%u", bss_status);
+    res += save_config(&file, WLAN_STATUS, status, sizeof(status));
     snprintf(role, sizeof(role), "%u", network->role);
     res += save_config(&file, WLAN_ROLE, role, sizeof(role));
 
@@ -1155,10 +1263,7 @@ ncp_set_bss:
 
         snprintf(acs_band, sizeof(acs_band), "%u", network->acs_band);
         ret += save_config(&file, WLAN_ACS_BAND, acs_band, sizeof(acs_band));
-
     }
-
-    ncp_bss_index++;
 
     if (res != 0)
     {
@@ -1170,23 +1275,28 @@ ncp_set_bss:
         ret = WM_SUCCESS;
     }
 
-    /*Set wifi_bss_config_file_index to 1 beacuse new network has been saved in this path.*/
-    wifi_lfs_bss_config[index].flag = 1;
+    wifi_lfs_bss_config[index].flag = WLAN_BSS_STATUS_AVAILABLE;
+    memcpy(wifi_lfs_bss_config[index].network_name, network->name, sizeof(network->name));
 
     res = lfs_file_close(&lfs, &file);
     if (res != 0)
     {
         flash_log_e("%s close file %s fail res %d", __func__, path, res);
-        return -WM_FAIL;
+        ret = -WM_FAIL;
     }
+
     return ret;
 }
+
+/* If net_name is null, find the first available network according to bss_role.
+ * If net_name isn't null, find the available network which name is same as net_name.
+ */
 
 int wifi_get_network(struct wlan_network *network, enum wlan_bss_role bss_role, char *net_name)
 {
     int res, i;
     int ret = -WM_FAIL;
-    char channel[4], security_type[3], mfpc[2], mfpr[2], addr_type[2];
+    char channel[4], security_type[3], mfpc[2], mfpr[2], addr_type[2], pwe[2];
     char ip_addr_temp[17], role[2];
     lfs_file_t file;
     char *path;
@@ -1199,7 +1309,7 @@ int wifi_get_network(struct wlan_network *network, enum wlan_bss_role bss_role, 
             load_config = wifi_load_wlan_uap_config;
         }
 
-        for (i = 0; i < 5; i++)
+        for (i = 0; i < WLAN_BSS_MAX_NUM; i++)
         {
             path = wifi_lfs_bss_config[i].config_path;
             res = lfs_file_open(&lfs, &file, path, LFS_O_RDONLY);
@@ -1215,13 +1325,13 @@ int wifi_get_network(struct wlan_network *network, enum wlan_bss_role bss_role, 
             
             res = lfs_file_close(&lfs, &file);
         }
-        if( i == 5)
+        if( i == WLAN_BSS_MAX_NUM)
         {
             flash_log_e("can't find %s bss in lfs file", bss_role == 0 ? "sta" : "uap");
             return -WM_FAIL;
         }
 
-        res = load_config(&file, WLAN_PROFILE, network->name, sizeof(network->name));
+        res = load_config(&file, WLAN_PROFILE, network->name, 32);
     }
     else
     {
@@ -1229,10 +1339,15 @@ int wifi_get_network(struct wlan_network *network, enum wlan_bss_role bss_role, 
         {
             load_config = wifi_load_wlan_uap_config;
         }
-        
-        for (i = 0; i < 5; i++)
+
+        for (i = 0; i < WLAN_BSS_MAX_NUM; i++)
         {
-            path = wifi_bss_config_file[i];
+            path = wifi_lfs_bss_config[i].config_path;
+
+            if(wifi_lfs_bss_config[i].flag != WLAN_BSS_STATUS_AVAILABLE)
+            {
+                continue;
+            }
             
             res = lfs_file_open(&lfs, &file, path, LFS_O_RDONLY);
             if (res != 0)
@@ -1242,15 +1357,27 @@ int wifi_get_network(struct wlan_network *network, enum wlan_bss_role bss_role, 
             }
             
             res = load_config(&file, WLAN_PROFILE, network->name, sizeof(network->name));
+            if(res != 0)
+            {
+                flash_log_e("read file profile %s fail res %d", path, res);
+                return -WM_FAIL;
+            }
             flash_log_d("%s: network->name = %s\r\n", __func__, network->name);
             if(strcmp(network->name, net_name) == 0)
                 goto ncp_get_bss;
 
             res = lfs_file_close(&lfs, &file);
+            if (res != 0)
+            {
+                flash_log_e("%s close file %s fail res %d", __func__, path, res);
+                return -WM_FAIL;
+            }
             memset(network, 0, sizeof(struct wlan_network));
         }
-        if(i == 5) // Can't find specified network, retrurn flase.
+
+        if(i == WLAN_BSS_MAX_NUM)  // Can't find specified network, retrurn flase.
         {
+            flash_log_e("%s can't find specified network. net_name = %s", __func__, net_name);
             return -WM_FAIL;
         }
     }
@@ -1284,8 +1411,9 @@ ncp_get_bss:
     network->security.mfpc = atoi(mfpc);
     res += load_config(&file, WLAN_MFPR, mfpr, sizeof(mfpr));
     network->security.mfpr = atoi(mfpr);
-
-#ifdef CONFIG_EAP_TLS
+    res += load_config(&file, WLAN_PWE, pwe, sizeof(network->security.pwe_derivation));
+    network->security.pwe_derivation = atoi(pwe);
+#if CONFIG_EAP_TLS
     res += load_config(&file, WLAN_ANONYMOUS_IDENTITY, network->security.anonymous_identity, sizeof(network->security.anonymous_identity));
     res += load_config(&file, WLAN_CLIENT_KEY_PASSWD, network->security.client_key_passwd, sizeof(network->security.client_key_passwd));
 #endif
@@ -1345,51 +1473,53 @@ ncp_get_bss:
     return ret;
 }
 
-int wifi_overwrite_network(char* removed_network)
+/* If remove a network or want to reset it, call this function to set flag of
+ * the network profile to WLAN_BSS_STATUS_NONAVAILABLE.
+ */
+int wifi_overwrite_network(char *removed_network)
 {
     char *path = NULL;
-    char name[33] = {0};
-    int res, i;
+    char status[2];
+    int res, i, bss_status;
     int ret = WM_SUCCESS;
     lfs_file_t file;
 
-    for (i = 0; i < 5; i++)
+    for (i = 0; i < WLAN_BSS_MAX_NUM; i++)
     {
+        if(strcmp(wifi_lfs_bss_config[i].network_name, removed_network) != 0)
+        {
+            continue;
+        }
+
         path = wifi_lfs_bss_config[i].config_path;
             
-        res = lfs_file_open(&lfs, &file, path, LFS_O_RDONLY);
+        res = lfs_file_open(&lfs, &file, path, LFS_O_RDWR);
         if (res != 0)
         {
             flash_log_e("open file %s fail res %d", path, res);
             ret = -WM_FAIL;
             goto done;
         }
-            
-        res = wifi_load_wlan_sta_config(&file, WLAN_PROFILE, name, 33);
+
+        /*The network has been removed, this file can store new network.*/
+        wifi_lfs_bss_config[i].flag = WLAN_BSS_STATUS_NONAVAILABLE;
+        bss_status = WLAN_BSS_STATUS_NONAVAILABLE;
+        snprintf(status, sizeof(status), "%u", bss_status);
+        res = wifi_save_wlan_sta_config(&file, WLAN_STATUS, status, sizeof(status));
         if (res != 0)
         {
-            flash_log_e("open file %s, load name fail res %d", path, res);
+            flash_log_e("file %s, save status fail res %d", path, res);
             ret = -WM_FAIL;
             goto done;
         }
-        if(strcmp(name, removed_network) == 0)
-        {
-            /*The network has been removed, this file can store new network.*/
-            wifi_lfs_bss_config[i].flag = 0;
-            break;
-        }
-
-        res = lfs_file_close(&lfs, &file);
-        if(res != 0)
-        {
-            flash_log_e("close file fail res %d", res);
-            ret = -WM_FAIL;
-            goto done;
-        }
+        flash_log_d("%s: Set %s flag to 0.\r\n",__func__, removed_network);
+        break;
     }
-    if(i == 5) // Can't find specified network, retrurn flase.
+    if(i == WLAN_BSS_MAX_NUM) // Can't find specified network, retrurn flase.
     {
+        flash_log_e("Can't find removed %s network", removed_network);
         ret = -WM_FAIL;
+        return ret;
     }
 
 done:
@@ -1402,6 +1532,32 @@ done:
 
     return ret;
 }
+
+bool ncp_network_is_added(char *network)
+{
+    int  i;
+    bool flag = false;
+
+    for (i = 0; i < WLAN_BSS_MAX_NUM; i++)
+    {
+        if(strcmp(wifi_lfs_bss_config[i].network_name, network) != 0)
+        {
+            continue;
+        }
+        else
+        {
+            break;
+        }
+    }
+
+    if(i == WLAN_BSS_MAX_NUM)
+        flag = false;
+    else
+        flag = true;
+
+    return flag;
+}
+
 
 /* Search for a matching entry in the flash_table.
  * return WM_SUCCESS on success, other num on fail
@@ -1434,10 +1590,10 @@ static int search_active_object(const char *mod_name, const char *variable, wifi
     return ret;
 }
 
-/* ncp bridge set variable
+/* ncp set variable
  * return WM_SUCCESS on success, other num on fail
  */
-static int ncp_bridge_set_variable(
+static int ncp_set_variable(
     lfs_file_t *file, const char *mod_name, const char *variable, IN const void *value, uint32_t len)
 {
     int ret = WM_SUCCESS;
@@ -1466,10 +1622,10 @@ static int ncp_bridge_set_variable(
     return ret;
 }
 
-/* ncp bridge set variable
+/* ncp set variable
  * return WM_SUCCESS on success, other num on fail
  */
-static int ncp_bridge_get_variable(
+static int ncp_get_variable(
     lfs_file_t *file, const char *mod_name, const char *variable, OUT void *value, uint32_t max_len)
 {
     int ret = WM_SUCCESS;
@@ -1500,7 +1656,7 @@ static int ncp_bridge_get_variable(
     return ret;
 }
 
-int ncp_bridge_set_conf(const char *mod_name, const char *var_name, IN const char *value)
+int ncp_set_conf(const char *mod_name, const char *var_name, IN const char *value)
 {
     int ret = WM_SUCCESS;
     lfs_file_t file;
@@ -1530,7 +1686,7 @@ int ncp_bridge_set_conf(const char *mod_name, const char *var_name, IN const cha
         return -WM_FAIL;
     }
 
-    ret = ncp_bridge_set_variable(&file, mod_name, variable, value, strlen(value) + 1);
+    ret = ncp_set_variable(&file, mod_name, variable, value, strlen(value) + 1);
 
     ret = lfs_file_close(&lfs, &file);
     if (ret != 0)
@@ -1542,7 +1698,7 @@ int ncp_bridge_set_conf(const char *mod_name, const char *var_name, IN const cha
     return ret;
 }
 
-int ncp_bridge_get_conf(const char *mod_name, const char *var_name, OUT char *value, uint32_t max_len)
+int ncp_get_conf(const char *mod_name, const char *var_name, OUT char *value, uint32_t max_len)
 {
     int ret = WM_SUCCESS;
     lfs_file_t file;
@@ -1572,7 +1728,7 @@ int ncp_bridge_get_conf(const char *mod_name, const char *var_name, OUT char *va
         return -WM_FAIL;
     }
 
-    ret = ncp_bridge_get_variable(&file, mod_name, variable, value, max_len);
+    ret = ncp_get_variable(&file, mod_name, variable, value, max_len);
 
     ret = lfs_file_close(&lfs, &file);
     if (ret != 0)
@@ -1584,7 +1740,7 @@ int ncp_bridge_get_conf(const char *mod_name, const char *var_name, OUT char *va
     return ret;
 }
 
-int ncp_bridge_get_uart_conf(struct rtos_usart_config *usart_cfg)
+int ncp_get_uart_conf(struct rtos_usart_config *usart_cfg)
 {
     int res;
     int ret = WM_SUCCESS;
@@ -1695,20 +1851,21 @@ int ncp_config_init(void)
         return -WM_FAIL;
     }
 
-    for(int i = 0; i < 5; i++)
-    {
-        wifi_lfs_bss_config[i].config_path = wifi_bss_config_file[i];
-        wifi_lfs_bss_config[i].flag = 0;
-    }
-
     res = wifi_save_default_config_wlan_bss();
     if (res != WM_SUCCESS)
     {
-        flash_log_e("%s set wifi default uAP config fail res %d\r\n", __func__, res);
+        flash_log_e("%s set wifi default bss config fail res %d\r\n", __func__, res);
         return -WM_FAIL;
     }
 
-    res = ncp_bridge_get_conf("sys", "nvm", nvm, sizeof(nvm));
+    res = wifi_init_lfs_config();
+    if (res != WM_SUCCESS)
+    {
+        flash_log_e("%s Init lfs config fail res %d\r\n", __func__, res);
+        return -WM_FAIL;
+    }
+
+    res = ncp_get_conf("sys", "nvm", nvm, sizeof(nvm));
     if (res != WM_SUCCESS)
     {
         flash_log_e("%s, failed to read NVM value from LittleFS, res %d\r\n", __func__, res);
@@ -1735,5 +1892,16 @@ void ncp_config_reset_factory(void)
 
 bool is_nvm_enabled(void)
 {
+    int res;
+    char nvm[2];
+
+    res = ncp_get_conf("sys", "nvm", nvm, sizeof(nvm));
+    if (res != WM_SUCCESS)
+    {
+        flash_log_e("%s, failed to read NVM value from LittleFS, res %d\r\n", __func__, res);
+        return false;
+    }
+    is_nvm_enable = atoi(nvm);
+
     return (is_nvm_enable == ENABLE_NVM) ? true : false;
 }

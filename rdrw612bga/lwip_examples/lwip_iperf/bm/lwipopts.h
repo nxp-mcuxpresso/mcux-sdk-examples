@@ -73,7 +73,9 @@
 /**
  * Limit maximal count of received packets being read out at once.
  */
+#ifndef ETH_MAX_RX_PKTS_AT_ONCE
 #define ETH_MAX_RX_PKTS_AT_ONCE 5
+#endif
 
 /* ---------- Core locking ---------- */
 

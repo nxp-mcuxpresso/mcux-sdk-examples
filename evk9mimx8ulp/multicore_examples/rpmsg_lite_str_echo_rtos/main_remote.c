@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2017 NXP
+ * Copyright 2016-2023 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -22,6 +22,7 @@
 #include "fsl_reset.h"
 #include "app_srtm.h"
 #include "fsl_upower.h"
+#include "fsl_fusion.h"
 extern void app_create_task(void);
 extern void app_destroy_task(void);
 /*******************************************************************************
@@ -95,7 +96,7 @@ void app_destroy_task(void)
 
 void app_task(void *param)
 {
-    volatile uint32_t remote_addr;
+    volatile uint32_t remote_addr = 0U;
     void *rx_buf;
     uint32_t len;
     int32_t result;
@@ -186,7 +187,7 @@ int main(void)
     /* Initialize standard SDK demo application pins */
     BOARD_ConfigMPU();
     BOARD_InitBootPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     UPOWER_PowerOnMemPart(0U, (uint32_t)kUPOWER_MP1_DMA0);
@@ -197,6 +198,7 @@ int main(void)
     /* Use Pll1Pfd2Div clock source 12.288MHz. */
     CLOCK_SetIpSrc(kCLOCK_Sai0, kCLOCK_Cm33SaiClkSrcPll1Pfd2Div);
 
+    CLOCK_EnableClock(kCLOCK_Dma0Ch0);
     CLOCK_EnableClock(kCLOCK_Dma0Ch16);
     CLOCK_EnableClock(kCLOCK_Dma0Ch17);
     CLOCK_EnableClock(kCLOCK_RgpioA);
@@ -208,6 +210,8 @@ int main(void)
     RESET_PeripheralReset(kRESET_Lpi2c0);
     RESET_PeripheralReset(kRESET_Lpi2c1);
     RESET_PeripheralReset(kRESET_Tpm0);
+
+    Fusion_Init();
 
     APP_SRTM_Init();
 

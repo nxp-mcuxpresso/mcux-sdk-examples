@@ -69,7 +69,7 @@ int wslay_frame_context_init(wslay_frame_context_ptr *ctx,
                              const struct wslay_frame_callbacks *callbacks,
                              void *user_data)
 {
-    *ctx = (wslay_frame_context_ptr)os_mem_alloc(sizeof(struct wslay_frame_context));
+    *ctx = (wslay_frame_context_ptr)OSA_MemoryAllocate(sizeof(struct wslay_frame_context));
     if (ctx == NULL || *ctx == NULL)
     {
         return -1;
@@ -88,7 +88,7 @@ void wslay_frame_context_free(wslay_frame_context_ptr ctx)
 {
     if (ctx)
     {
-        os_mem_free(ctx);
+        OSA_MemoryFree(ctx);
         ctx = NULL;
     }
 }
@@ -202,7 +202,7 @@ signed int wslay_frame_send(wslay_frame_context_ptr ctx, struct wslay_frame_iocb
         {
             if (ctx->omask)
             {
-                uint8_t *temp = (uint8_t *)os_mem_alloc(WEBSOCKET_IBUF_LENGTH);
+                uint8_t *temp = (uint8_t *)OSA_MemoryAllocate(WEBSOCKET_IBUF_LENGTH);
                 if (!temp)
                 {
                     return -1;
@@ -226,7 +226,7 @@ signed int wslay_frame_send(wslay_frame_context_ptr ctx, struct wslay_frame_iocb
                     {
                         if (r > writelen)
                         {
-                            os_mem_free(temp);
+                            OSA_MemoryFree(temp);
                             return WSLAY_ERR_INVALID_CALLBACK;
                         }
                         else
@@ -238,7 +238,7 @@ signed int wslay_frame_send(wslay_frame_context_ptr ctx, struct wslay_frame_iocb
                     }
                     else
                     {
-                        os_mem_free(temp);
+                        OSA_MemoryFree(temp);
                         if (totallen > 0)
                         {
                             break;

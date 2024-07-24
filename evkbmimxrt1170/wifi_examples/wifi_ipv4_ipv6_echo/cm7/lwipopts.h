@@ -32,9 +32,6 @@
 #ifndef __LWIPOPTS_H__
 #define __LWIPOPTS_H__
 
-#define LWIP_IPV6            1
-#define LWIP_IPV6_AUTOCONFIG 1
-
 /**
  * NO_SYS==0: Use RTOS
  */

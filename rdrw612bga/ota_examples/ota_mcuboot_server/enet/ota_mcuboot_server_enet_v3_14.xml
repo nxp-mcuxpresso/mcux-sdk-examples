@@ -6,9 +6,7 @@
     <definition extID="component.osa_free_rtos.RW612"/>
     <definition extID="driver.conn_fwloader.RW612"/>
     <definition extID="component.mflash.rdrw610.RW612"/>
-    <definition extID="middleware.mbedtls.port.els_pkc.RW612"/>
     <definition extID="platform.drivers.trng.RW612"/>
-    <definition extID="component.els_pkc.platform.rw61x.RW612"/>
     <definition extID="driver.phy-device-ksz8081.RW612"/>
     <definition extID="platform.drivers.enet.RW612"/>
     <definition extID="middleware.lwip.kinetis_ethernetif.RW612"/>
@@ -17,8 +15,7 @@
     <definition extID="component.silicon_id_rw610.RW612"/>
     <definition extID="utility.debug_console.RW612"/>
     <definition extID="platform.utilities.assert.RW612"/>
-    <definition extID="middleware.lwip.apps.httpssrv.RW612"/>
-    <definition extID="middleware.mbedtls.RW612"/>
+    <definition extID="middleware.lwip.apps.httpsrv.RW612"/>
     <definition extID="platform.drivers.clock.RW612"/>
     <definition extID="middleware.freertos-kernel.heap_3.RW612"/>
     <definition extID="middleware.freertos-kernel.cm33_non_trustzone.RW612"/>
@@ -43,49 +40,6 @@
     <definition extID="component.lists.RW612"/>
     <definition extID="component.osa_interface.RW612"/>
     <definition extID="component.mflash.common.RW612"/>
-    <definition extID="middleware.mbedtls.port.els.RW612"/>
-    <definition extID="component.els_pkc.RW612"/>
-    <definition extID="middleware.mbedtls.els_pkc.config.RW612"/>
-    <definition extID="component.els_pkc.els.RW612"/>
-    <definition extID="component.els_pkc.els_header_only.RW612"/>
-    <definition extID="component.els_pkc.els_common.RW612"/>
-    <definition extID="component.els_pkc.standalone_keyManagement.RW612"/>
-    <definition extID="component.els_pkc.hash.RW612"/>
-    <definition extID="component.els_pkc.core.RW612"/>
-    <definition extID="component.els_pkc.session.RW612"/>
-    <definition extID="component.els_pkc.key.RW612"/>
-    <definition extID="component.els_pkc.mac_modes.RW612"/>
-    <definition extID="component.els_pkc.aead_modes.RW612"/>
-    <definition extID="component.els_pkc.data_integrity.RW612"/>
-    <definition extID="component.els_pkc.cipher_modes.RW612"/>
-    <definition extID="component.els_pkc.memory.RW612"/>
-    <definition extID="component.els_pkc.param_integrity.RW612"/>
-    <definition extID="component.els_pkc.flow_protection.RW612"/>
-    <definition extID="component.els_pkc.secure_counter.RW612"/>
-    <definition extID="component.els_pkc.pre_processor.RW612"/>
-    <definition extID="component.els_pkc.toolchain.RW612"/>
-    <definition extID="component.els_pkc.hashmodes.RW612"/>
-    <definition extID="component.els_pkc.buffer.RW612"/>
-    <definition extID="component.els_pkc.random.RW612"/>
-    <definition extID="component.els_pkc.random_modes.RW612"/>
-    <definition extID="component.els_pkc.prng.RW612"/>
-    <definition extID="component.els_pkc.aes.RW612"/>
-    <definition extID="component.els_pkc.trng.RW612"/>
-    <definition extID="component.els_pkc.ecc.RW612"/>
-    <definition extID="component.els_pkc.math.RW612"/>
-    <definition extID="component.els_pkc.rsa.RW612"/>
-    <definition extID="component.els_pkc.pkc.RW612"/>
-    <definition extID="component.els_pkc.mac.RW612"/>
-    <definition extID="component.els_pkc.padding.RW612"/>
-    <definition extID="component.els_pkc.hmac.RW612"/>
-    <definition extID="component.els_pkc.aead.RW612"/>
-    <definition extID="component.els_pkc.cipher.RW612"/>
-    <definition extID="component.els_pkc.doc.rw61x.RW612"/>
-    <definition extID="component.els_pkc.static_lib.rw61x.RW612"/>
-    <definition extID="component.els_pkc.platform.rw61x_interface_files.RW612"/>
-    <definition extID="component.els_pkc.trng.type_rng4.RW612"/>
-    <definition extID="component.els_pkc.standalone_gdet.RW612"/>
-    <definition extID="component.els_pkc.random_modes_ctr.RW612"/>
     <definition extID="driver.phy-common.RW612"/>
     <definition extID="platform.drivers.memory.RW612"/>
     <definition extID="middleware.lwip.template.RW612"/>
@@ -97,16 +51,28 @@
     <definition extID="component.serial_manager.RW612"/>
     <definition extID="component.silicon_id.RW612"/>
     <definition extID="utility.str.RW612"/>
-    <definition extID="middleware.lwip.apps.httpsrv.RW612"/>
     <definition extID="CMSIS_Include_core_cm.RW612"/>
     <definition extID="device.RW612_system.RW612"/>
+    <definition extID="component.els_pkc.els_header_only.RW612"/>
+    <definition extID="component.els_pkc.els_common.RW612"/>
+    <definition extID="component.els_pkc.memory.RW612"/>
+    <definition extID="component.els_pkc.standalone_gdet.RW612"/>
+    <definition extID="component.els_pkc.platform.rw61x_inf_header_only.RW612"/>
+    <definition extID="component.els_pkc.buffer.RW612"/>
+    <definition extID="component.els_pkc.core.RW612"/>
+    <definition extID="component.els_pkc.param_integrity.RW612"/>
+    <definition extID="component.els_pkc.flow_protection.RW612"/>
+    <definition extID="component.els_pkc.secure_counter.RW612"/>
+    <definition extID="component.els_pkc.pre_processor.RW612"/>
+    <definition extID="component.els_pkc.toolchain.RW612"/>
+    <definition extID="component.els_pkc.data_integrity.RW612"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="rdrw612bga_ota_mcuboot_server_enet" name="ota_mcuboot_server_enet" device_core="cm33_RW612" dependency="platform.drivers.flexcomm_usart_freertos.RW612 component.osa_free_rtos.RW612 driver.conn_fwloader.RW612 component.mflash.rdrw610.RW612 middleware.mbedtls.port.els_pkc.RW612 platform.drivers.trng.RW612 component.els_pkc.platform.rw61x.RW612 driver.phy-device-ksz8081.RW612 platform.drivers.enet.RW612 middleware.lwip.kinetis_ethernetif.RW612 middleware.lwip.RW612 component.serial_manager_uart.RW612 component.silicon_id_rw610.RW612 utility.debug_console.RW612 platform.utilities.assert.RW612 middleware.lwip.apps.httpssrv.RW612 middleware.mbedtls.RW612 platform.drivers.clock.RW612 middleware.freertos-kernel.heap_3.RW612 middleware.freertos-kernel.cm33_non_trustzone.RW612 platform.drivers.flash_config.rdrw612bga.RW612 device.RW612_CMSIS.RW612 device.RW612_startup.RW612 platform.drivers.reset.RW612 platform.drivers.flexspi.RW612 platform.drivers.cache_cache64.RW612 platform.drivers.cns_io_mux.RW612 platform.drivers.lpc_gpio.RW612 platform.drivers.power.RW612 platform.drivers.ocotp.RW612 component.els_pkc.platform.rw61x_standalone_clib_gdet_sensor.RW612 platform.utilities.misc_utilities.RW612 platform.drivers.flexcomm.RW612 platform.drivers.flexcomm_usart.RW612 middleware.freertos-kernel.RW612 platform.drivers.common.RW612 middleware.freertos-kernel.template.RW612 middleware.freertos-kernel.extension.RW612 component.lists.RW612 component.osa_interface.RW612 component.mflash.common.RW612 middleware.mbedtls.port.els.RW612 component.els_pkc.RW612 middleware.mbedtls.els_pkc.config.RW612 component.els_pkc.els.RW612 component.els_pkc.els_header_only.RW612 component.els_pkc.els_common.RW612 component.els_pkc.standalone_keyManagement.RW612 component.els_pkc.hash.RW612 component.els_pkc.core.RW612 component.els_pkc.session.RW612 component.els_pkc.key.RW612 component.els_pkc.mac_modes.RW612 component.els_pkc.aead_modes.RW612 component.els_pkc.data_integrity.RW612 component.els_pkc.cipher_modes.RW612 component.els_pkc.memory.RW612 component.els_pkc.param_integrity.RW612 component.els_pkc.flow_protection.RW612 component.els_pkc.secure_counter.RW612 component.els_pkc.pre_processor.RW612 component.els_pkc.toolchain.RW612 component.els_pkc.hashmodes.RW612 component.els_pkc.buffer.RW612 component.els_pkc.random.RW612 component.els_pkc.random_modes.RW612 component.els_pkc.prng.RW612 component.els_pkc.aes.RW612 component.els_pkc.trng.RW612 component.els_pkc.ecc.RW612 component.els_pkc.math.RW612 component.els_pkc.rsa.RW612 component.els_pkc.pkc.RW612 component.els_pkc.mac.RW612 component.els_pkc.padding.RW612 component.els_pkc.hmac.RW612 component.els_pkc.aead.RW612 component.els_pkc.cipher.RW612 component.els_pkc.doc.rw61x.RW612 component.els_pkc.static_lib.rw61x.RW612 component.els_pkc.platform.rw61x_interface_files.RW612 component.els_pkc.trng.type_rng4.RW612 component.els_pkc.standalone_gdet.RW612 component.els_pkc.random_modes_ctr.RW612 driver.phy-common.RW612 platform.drivers.memory.RW612 middleware.lwip.template.RW612 component.lpc_gpio_adapter.RW612 platform.drivers.inputmux.RW612 platform.drivers.pint.RW612 platform.drivers.inputmux_connections.RW612 component.usart_adapter.RW612 component.serial_manager.RW612 component.silicon_id.RW612 utility.str.RW612 middleware.lwip.apps.httpsrv.RW612 CMSIS_Include_core_cm.RW612 device.RW612_system.RW612" category="ota_examples">
+  <example id="rdrw612bga_ota_mcuboot_server_enet" name="ota_mcuboot_server_enet" device_core="cm33_RW612" dependency="platform.drivers.flexcomm_usart_freertos.RW612 component.osa_free_rtos.RW612 driver.conn_fwloader.RW612 component.mflash.rdrw610.RW612 platform.drivers.trng.RW612 driver.phy-device-ksz8081.RW612 platform.drivers.enet.RW612 middleware.lwip.kinetis_ethernetif.RW612 middleware.lwip.RW612 component.serial_manager_uart.RW612 component.silicon_id_rw610.RW612 utility.debug_console.RW612 platform.utilities.assert.RW612 middleware.lwip.apps.httpsrv.RW612 platform.drivers.clock.RW612 middleware.freertos-kernel.heap_3.RW612 middleware.freertos-kernel.cm33_non_trustzone.RW612 platform.drivers.flash_config.rdrw612bga.RW612 device.RW612_CMSIS.RW612 device.RW612_startup.RW612 platform.drivers.reset.RW612 platform.drivers.flexspi.RW612 platform.drivers.cache_cache64.RW612 platform.drivers.cns_io_mux.RW612 platform.drivers.lpc_gpio.RW612 platform.drivers.power.RW612 platform.drivers.ocotp.RW612 component.els_pkc.platform.rw61x_standalone_clib_gdet_sensor.RW612 platform.utilities.misc_utilities.RW612 platform.drivers.flexcomm.RW612 platform.drivers.flexcomm_usart.RW612 middleware.freertos-kernel.RW612 platform.drivers.common.RW612 middleware.freertos-kernel.template.RW612 middleware.freertos-kernel.extension.RW612 component.lists.RW612 component.osa_interface.RW612 component.mflash.common.RW612 driver.phy-common.RW612 platform.drivers.memory.RW612 middleware.lwip.template.RW612 component.lpc_gpio_adapter.RW612 platform.drivers.inputmux.RW612 platform.drivers.pint.RW612 platform.drivers.inputmux_connections.RW612 component.usart_adapter.RW612 component.serial_manager.RW612 component.silicon_id.RW612 utility.str.RW612 CMSIS_Include_core_cm.RW612 device.RW612_system.RW612 component.els_pkc.els_header_only.RW612 component.els_pkc.els_common.RW612 component.els_pkc.memory.RW612 component.els_pkc.standalone_gdet.RW612 component.els_pkc.platform.rw61x_inf_header_only.RW612 component.els_pkc.buffer.RW612 component.els_pkc.core.RW612 component.els_pkc.param_integrity.RW612 component.els_pkc.flow_protection.RW612 component.els_pkc.secure_counter.RW612 component.els_pkc.pre_processor.RW612 component.els_pkc.toolchain.RW612 component.els_pkc.data_integrity.RW612" category="ota_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -129,7 +95,7 @@
           <value>com.crt.advproject.gcc.fpu.fpv5sp.hard</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-mcpu=cortex-m33+nodsp -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-mcpu=cortex-m33+nodsp -c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>
@@ -140,31 +106,20 @@
         <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
           <value>_POSIX_SOURCE</value>
           <value>FSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1</value>
-          <value>MBEDTLS_CONFIG_FILE='"els_pkc_mbedtls_config.h"'</value>
-          <value>MBEDTLS_USER_CONFIG_FILE='"mbedtls_user_config.h"'</value>
           <value>FSL_FEATURE_PHYKSZ8081_USE_RMII50M_MODE</value>
           <value>MCUBOOT_APPLICATION=1</value>
           <value>USE_RTOS=1</value>
           <value>PRINTF_ADVANCED_ENABLE=1</value>
           <value>HTTPSRV_CFG_WEBSOCKET_ENABLED=0</value>
-          <value>HTTPSRV_CFG_MBEDTLS_ENABLE=1</value>
-          <value>HTTPSRV_CFG_DEFAULT_SES_CNT=8</value>
           <value>CPU_RW612ETA2I</value>
           <value>MCUXPRESSO_SDK</value>
           <value>BOOT_HEADER_ENABLE=1</value>
           <value>MFLASH_FILE_BASEADDR=7340032</value>
-          <value>MBEDTLS_MCUX_ELS_PKC_API</value>
-          <value>MBEDTLS_MCUX_USE_PKC</value>
           <value>LWIP_DISABLE_PBUF_POOL_SIZE_SANITY_CHECKS=1</value>
           <value>CHECKSUM_GEN_ICMP6=1</value>
           <value>CHECKSUM_CHECK_ICMP6=1</value>
           <value>SERIAL_PORT_TYPE_UART=1</value>
-          <value>MBEDTLS_THREADING_C</value>
-          <value>MBEDTLS_THREADING_ALT</value>
           <value>SDK_OS_FREE_RTOS</value>
-          <value>MBEDTLS_MCUX_ELS_API</value>
-          <value>MBEDTLS_MCUX_USE_ELS</value>
-          <value>MCUXCL_FEATURE_CSSL_MEMORY_C_FALLBACK</value>
         </option>
         <option id="com.crt.advproject.gas.hdrlib" type="enum">
           <value>com.crt.advproject.gas.hdrlib.newlibnano</value>
@@ -188,7 +143,7 @@
           <value>com.crt.advproject.link.fpu.fpv5sp.hard</value>
         </option>
         <option id="com.crt.advproject.link.memory.heapAndStack" type="string">
-          <value>&amp;Heap:Default;Default;0x186a0&amp;Stack:Default;Default;0x3e8</value>
+          <value>&amp;Heap:Default;Default;0xea60&amp;Stack:Default;Default;0x3e8</value>
         </option>
         <option id="gnu.c.link.option.other" type="stringList">
           <value>-no-warn-rwx-segments</value>
@@ -211,11 +166,11 @@
     </debug_configurations>
     <include_paths>
       <include_path path="." project_relative_path="source" type="c_include"/>
+      <include_path path="../../../../../core/boards/rdrw612bga" project_relative_path="board" type="c_include"/>
       <include_path path="bootutil_port" project_relative_path="bootutil_port" type="c_include"/>
       <include_path path="bootutil_port/mcuboot_config" project_relative_path="bootutil_port/mcuboot_config" type="c_include"/>
       <include_path path="bootutil_port/sysflash" project_relative_path="bootutil_port/sysflash" type="c_include"/>
       <include_path path="bootutil_port/board_specific" project_relative_path="bootutil_port/board_specific" type="c_include"/>
-      <include_path path="../../../../../core/boards/rdrw612bga" project_relative_path="board" type="c_include"/>
       <include_path path="../../../../../core/boards/rdrw612bga" project_relative_path="." type="c_include"/>
       <include_path path="." project_relative_path="source" type="asm_include"/>
     </include_paths>
@@ -234,9 +189,6 @@
     </source>
     <source path="../../../../../core/devices/RW612" project_relative_path="./" type="workspace" toolchain="armgcc">
       <files mask="all_lib_device.cmake"/>
-    </source>
-    <source path="." project_relative_path="source" type="c_include">
-      <files mask="mbedtls_user_config.h"/>
     </source>
     <source path="." project_relative_path="source" type="src">
       <files mask="ota_mcuboot_server.c"/>
@@ -271,6 +223,24 @@
     <source path="armgcc" project_relative_path="examples/rdrw612bga/ota_examples/ota_mcuboot_server/enet/armgcc/linker" type="linker" toolchain="armgcc">
       <files mask="RW610_flash.ld"/>
     </source>
+    <source path="webpage" project_relative_path="src/ota_examples/ota_mcuboot_server/webpage" type="other" exclude="true">
+      <files mask="httpsrv.css" hidden="true"/>
+      <files mask="index.html" hidden="true"/>
+      <files mask="ota_reboot.html" hidden="true"/>
+      <files mask="welcome.html" hidden="true"/>
+      <files mask="favicon.ico" hidden="true"/>
+      <files mask="request.js" hidden="true"/>
+      <files mask="NXP_logo.png" hidden="true"/>
+      <files mask="ota.shtml" hidden="true"/>
+    </source>
+    <source path="../../../../../core/boards/rdrw612bga" project_relative_path="board" type="src">
+      <files mask="board.c"/>
+      <files mask="clock_config.c"/>
+    </source>
+    <source path="../../../../../core/boards/rdrw612bga" project_relative_path="board" type="c_include">
+      <files mask="board.h"/>
+      <files mask="clock_config.h"/>
+    </source>
     <source path="." project_relative_path="source" type="src">
       <files mask="mcuboot_app_support.c"/>
     </source>
@@ -292,28 +262,9 @@
     </source>
     <source path="bootutil_port" project_relative_path="bootutil_port" type="c_include">
       <files mask="flash_map.h"/>
-      <files mask="sbldef.h"/>
     </source>
     <source path="bootutil_port/sysflash" project_relative_path="bootutil_port/sysflash" type="c_include">
       <files mask="sysflash.h"/>
-    </source>
-    <source path="webpage" project_relative_path="src/ota_examples/ota_mcuboot_server/webpage" type="other" exclude="true">
-      <files mask="httpsrv.css" hidden="true"/>
-      <files mask="index.html" hidden="true"/>
-      <files mask="ota_reboot.html" hidden="true"/>
-      <files mask="welcome.html" hidden="true"/>
-      <files mask="favicon.ico" hidden="true"/>
-      <files mask="request.js" hidden="true"/>
-      <files mask="NXP_logo.png" hidden="true"/>
-      <files mask="ota.shtml" hidden="true"/>
-    </source>
-    <source path="../../../../../core/boards/rdrw612bga" project_relative_path="board" type="src">
-      <files mask="board.c"/>
-      <files mask="clock_config.c"/>
-    </source>
-    <source path="../../../../../core/boards/rdrw612bga" project_relative_path="board" type="c_include">
-      <files mask="board.h"/>
-      <files mask="clock_config.h"/>
     </source>
     <source path="." project_relative_path="doc" type="doc" toolchain="mcuxpresso armgcc">
       <files mask="readme.md"/>

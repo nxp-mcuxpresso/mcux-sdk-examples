@@ -104,6 +104,12 @@ void BOARD_InitMipiPanelPins(void);                        /*!< Function assigne
  */
 void BOARD_InitPsRamPins(void);                            /*!< Function assigned for the core: Cortex-M33[cm33] */
 
+/*!
+ * @brief Configures pin routing and optionally pin electrical features.
+ *
+ */
+void BOARD_InitPdmPins(void);                              /*!< Function assigned for the core: Cortex-M33[cm33] */
+
 #if defined(__cplusplus)
 }
 #endif

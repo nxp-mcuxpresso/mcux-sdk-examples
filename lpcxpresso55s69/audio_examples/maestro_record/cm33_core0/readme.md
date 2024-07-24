@@ -53,12 +53,12 @@ use https://vit.nxp.com/
 
 SDK version
 ===========
-- Version: 2.15.100
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- MCUXpresso  11.8.0
-- GCC ARM Embedded  12.2
+- MCUXpresso  11.10.0
+- GCC ARM Embedded  13.2.1
 
 Hardware requirements
 =====================
@@ -94,7 +94,7 @@ Prepare the Demo
    1. define VIT_PROC symbol
       (Project -> Properties -> C/C++ Build -> Settings -> MCU C Compiler -> Preprocessor)
    2. remove SD_ENABLED and STREAMER_ENABLE_FILE_SINK symbols
-
+   3. change the DEMO_MIC_CHANNEL_NUM symbol value from 2 to 1 in the app_definitions.h file
 Running the demo
 ================
 When the example runs successfully, you should see similar output on the serial terminal as below:

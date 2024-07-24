@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 NXP
+ * Copyright 2023-2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -28,6 +28,8 @@
 #define DEMO_LPADC_USER_CMDID     1U
 #define DEMO_LPADC_USER_FIFOID    0U
 #define DEMO_LPADC_USER_CHANNEL   0U
+#define DEMO_LPADC_OFFSET_VALUE_A 0x10U
+#define DEMO_LPADC_OFFSET_VALUE_B 0x10U
 
 /* Set VREF output voltage to 1.8v. */
 #define DEMO_VREF_OUTPUT_VOLTAGE 0x8U
@@ -36,6 +38,8 @@
 #define DEMO_LPADC_FULL_RANGE 65536U
 /* Different lpadc resolution cause different result shift, see chip reference manual for detail. */
 #define DEMO_LPADC_RESULT_SHIFT 0U
+/* Single-end mode, only A-side channel is converted. */
+#define DEMO_LPADC_SAMPLE_CHANNEL_MODE kLPADC_SampleChannelSingleEndSideA
 
 /*******************************************************************************
  * Prototypes
@@ -79,18 +83,23 @@ int main(void)
     BOARD_InitPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
-    
+
     PRINTF("\r\nLPADC Light Sensor Example.\r\n");
-    
+
     DEMO_LPADCInit();
-    
+
     PRINTF("Please press any key to get the light sensor value.\r\n");
 
     while (1)
     {
         GETCHAR();
         LPADC_DoSoftwareTrigger(DEMO_LPADC_BASE, 1U);
+
+#if (defined(FSL_FEATURE_LPADC_FIFO_COUNT) && (FSL_FEATURE_LPADC_FIFO_COUNT == 2U))
         while (!LPADC_GetConvResult(DEMO_LPADC_BASE, &mLpadcResultConfigStruct, DEMO_LPADC_USER_FIFOID))
+#else
+        while (!LPADC_GetConvResult(DEMO_LPADC_BASE, &mLpadcResultConfigStruct))
+#endif /* (defined(FSL_FEATURE_LPADC_FIFO_COUNT) && (FSL_FEATURE_LPADC_FIFO_COUNT == 2U)) */
         {
         }
         PRINTF("light sensor value: %d\r\n", ((mLpadcResultConfigStruct.convValue) >> DEMO_LPADC_RESULT_SHIFT));
@@ -111,18 +120,51 @@ static void DEMO_LPADCInit(void)
 #endif /* FSL_FEATURE_LPADC_HAS_CTRL_CAL_AVGS */
     LPADC_Init(DEMO_LPADC_BASE, &mLpadcConfigStruct);
 
+    /* Request LPADC calibration. */
+#if defined(FSL_FEATURE_LPADC_HAS_CTRL_CALOFSMODE) && FSL_FEATURE_LPADC_HAS_CTRL_CALOFSMODE
+    LPADC_SetOffsetCalibrationMode(DEMO_LPADC_BASE, DEMO_LPADC_OFFSET_CALIBRATION_MODE);
+#endif /* FSL_FEATURE_LPADC_HAS_CTRL_CALOFSMODE */
+
 #if defined(FSL_FEATURE_LPADC_HAS_CTRL_CALOFS) && FSL_FEATURE_LPADC_HAS_CTRL_CALOFS
-    /* Request offset calibration. */
-    LPADC_DoOffsetCalibration(DEMO_LPADC_BASE);
+#if defined(DEMO_LPADC_DO_OFFSET_CALIBRATION) && DEMO_LPADC_DO_OFFSET_CALIBRATION
+    LPADC_DoOffsetCalibration(DEMO_LPADC_BASE); /* Request offset calibration, automatic update OFSTRIM register. */
+#else                                           /* Update OFSTRIM register manually. */
+
+#if defined(FSL_FEATURE_LPADC_HAS_OFSTRIM) && FSL_FEATURE_LPADC_HAS_OFSTRIM
+#if defined(FSL_FEATURE_LPADC_OFSTRIM_COUNT) && (FSL_FEATURE_LPADC_OFSTRIM_COUNT == 2U)
+    LPADC_SetOffsetValue(DEMO_LPADC_BASE, DEMO_LPADC_OFFSET_VALUE_A, DEMO_LPADC_OFFSET_VALUE_B);
+#elif defined(FSL_FEATURE_LPADC_OFSTRIM_COUNT) && (FSL_FEATURE_LPADC_OFSTRIM_COUNT == 1U)
+    LPADC_SetOffsetValue(DEMO_LPADC_BASE, DEMO_LPADC_OFFSET_VALUE);
+#endif /* FSL_FEATURE_LPADC_OFSTRIM_COUNT */
+
+#else  /* For other OFSTRIM register type. */
+    if (DEMO_LPADC_OFFSET_CALIBRATION_MODE == kLPADC_OffsetCalibration12bitMode)
+    {
+        LPADC_SetOffset12BitValue(DEMO_LPADC_BASE, DEMO_LPADC_OFFSET_VALUE_A, DEMO_LPADC_OFFSET_VALUE_B);
+    }
+    else
+    {
+        LPADC_SetOffset16BitValue(DEMO_LPADC_BASE, DEMO_LPADC_OFFSET_VALUE_A, DEMO_LPADC_OFFSET_VALUE_B);
+    }
+#endif /* FSL_FEATURE_LPADC_HAS_OFSTRIM */
+
+#endif /* DEMO_LPADC_DO_OFFSET_CALIBRATION */
+#endif /* FSL_FEATURE_LPADC_HAS_CTRL_CALOFS */
+
 #if defined(FSL_FEATURE_LPADC_HAS_CTRL_CAL_REQ) && FSL_FEATURE_LPADC_HAS_CTRL_CAL_REQ
-    /* Request auto calibration. */
+    /* Request auto calibration (including gain error calibration and linearity error calibration). */
     LPADC_DoAutoCalibration(DEMO_LPADC_BASE);
 #endif /* FSL_FEATURE_LPADC_HAS_CTRL_CAL_REQ */
-#endif /* FSL_FEATURE_LPADC_HAS_CTRL_CALOFS */
+
+#if (defined(FSL_FEATURE_LPADC_HAS_CFG_CALOFS) && FSL_FEATURE_LPADC_HAS_CFG_CALOFS)
+    /* Do auto calibration. */
+    LPADC_DoAutoCalibration(DEMO_LPADC_BASE);
+#endif /* FSL_FEATURE_LPADC_HAS_CFG_CALOFS */
 
     /* Set conversion CMD configuration. */
     LPADC_GetDefaultConvCommandConfig(&mLpadcCommandConfigStruct);
     mLpadcCommandConfigStruct.channelNumber       = DEMO_LPADC_USER_CHANNEL;
+    mLpadcCommandConfigStruct.sampleChannelMode   = DEMO_LPADC_SAMPLE_CHANNEL_MODE;
     mLpadcCommandConfigStruct.hardwareAverageMode = kLPADC_HardwareAverageCount128;
 #if defined(FSL_FEATURE_LPADC_HAS_CMDL_MODE) && FSL_FEATURE_LPADC_HAS_CMDL_MODE
     mLpadcCommandConfigStruct.conversionResolutionMode = kLPADC_ConversionResolutionHigh;

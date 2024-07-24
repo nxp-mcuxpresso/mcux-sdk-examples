@@ -328,9 +328,7 @@ void sys_mark_tcpip_thread(void);
 /**
  * LWIP_IPV6==1: Enable IPv6
  */
-#ifdef CONFIG_IPV6
 #define LWIP_IPV6 1
-#endif
 
 #define LWIP_DNS_SECURE 0
 

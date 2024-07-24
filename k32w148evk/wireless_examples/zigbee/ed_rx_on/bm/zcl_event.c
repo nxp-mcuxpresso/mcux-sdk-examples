@@ -1,6 +1,6 @@
 /****************************************************************************
  *
- * Copyright 2020, 2022 NXP
+ * Copyright 2020, 2022-2024 NXP
  *
  * NXP Confidential. 
  * 
@@ -792,7 +792,10 @@ PRIVATE void vZCL_HandleDataIndication(ZPS_tsAfEvent *pZPSevent)
                 if ((psClusterInstance == NULL) ||
                     bZCL_OverrideHandlingEntireProfileCmd(pZPSevent->uEvent.sApsDataIndEvent.u16ClusterId))
                 {
-                    eZCL_SendDefaultResponse(pZPSevent, E_ZCL_CMDS_UNSUPPORTED_CLUSTER);
+                    if (!sZCL_HeaderParams.bDisableDefaultResponse)
+                    {
+                        eZCL_SendDefaultResponse(pZPSevent, E_ZCL_CMDS_UNSUPPORTED_CLUSTER);
+                    }
                 }
                 else
                 {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2020, 2023 NXP
+ * Copyright 2020, 2023-2024 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -30,6 +30,11 @@
 #ifndef EXAMPLE_I3C_PP_BAUDRATE
 #define EXAMPLE_I3C_PP_BAUDRATE 4000000U
 #endif
+#ifndef I3C_MASTER_SLAVE_ADDR_7BIT
+#define I3C_MASTER_SLAVE_ADDR_7BIT 0x1E
+#endif
+
+#define I3C_NXP_VENDOR_ID 0x11B
 
 /*******************************************************************************
  * Prototypes
@@ -38,8 +43,10 @@
 /*******************************************************************************
  * Variables
  ******************************************************************************/
-i3c_bus_t demo_i3cBus;
-i3c_device_t demo_slaveDev;
+static i3c_bus_t demo_i3cBus;
+static i3c_device_t demo_slaveDev;
+
+extern i3c_device_control_info_t i3cMasterCtlInfo;
 
 /*******************************************************************************
  * Code
@@ -54,6 +61,9 @@ i3c_device_control_info_t i3cMasterCtlInfo        = {
  */
 int main(void)
 {
+    i3c_device_information_t masterInfo;
+    i3c_device_information_t devInfo;
+    i3c_bus_config_t busConfig;
     status_t result;
 
     /* Attach main clock to I3C, 396MHz / 4 = 99MHz. */
@@ -73,13 +83,12 @@ int main(void)
     PRINTF("\r\nI3C bus slave example.\r\n");
 
     /* Create I3C bus, work as secondary master. */
-    i3c_bus_config_t busConfig;
     I3C_BusGetDefaultBusConfig(&busConfig);
     busConfig.i2cBaudRate = EXAMPLE_I2C_BAUDRATE;
     busConfig.i3cOpenDrainBaudRate = EXAMPLE_I3C_OD_BAUDRATE;
     busConfig.i3cPushPullBaudRate = EXAMPLE_I3C_PP_BAUDRATE;
     I3C_BusCreate(&demo_i3cBus, &busConfig);
-    i3c_device_information_t masterInfo;
+
     memset(&masterInfo, 0, sizeof(masterInfo));
     masterInfo.staticAddr = I3C_MASTER_SLAVE_ADDR_7BIT;
     masterInfo.bcr        = 0x60U;
@@ -87,9 +96,7 @@ int main(void)
     masterInfo.bcr |= I3C_BUS_DEV_BCR_IBI_PAYLOAD_MASK;
 #endif
     masterInfo.dcr        = 0x00U;
-    masterInfo.vendorID   = 0x346U;
-
-    extern i3c_device_control_info_t i3cMasterCtlInfo;
+    masterInfo.vendorID   = I3C_NXP_VENDOR_ID;
     I3C_BusMasterCreate(&demo_slaveDev, &demo_i3cBus, &masterInfo, &i3cMasterCtlInfo);
 
     PRINTF("I3C bus secondary master creates.\r\n");
@@ -98,7 +105,6 @@ int main(void)
     while (EXAMPLE_MASTER->SDYNADDR == 0U)
     {
     }
-
     PRINTF("I3C bus second master requires to be primary master.\r\n");
 
     /* Request mastership. */
@@ -115,9 +121,7 @@ int main(void)
 
     PRINTF("I3C bus mastership takeover.\r\n");
 
-    i3c_device_information_t devInfo;
     uint8_t slaveAddr = 0xFF;
-
     for (list_element_handle_t listItem = demo_i3cBus.i3cDevList.head; listItem != NULL; listItem = listItem->next)
     {
         if ((i3c_device_t *)listItem == &demo_slaveDev)
@@ -130,11 +134,20 @@ int main(void)
             break;
         }
     }
+    if (slaveAddr == 0xFFU)
+    {
+        PRINTF("I3C dynamic address is wrong.\r\n");
+        return kStatus_Fail;
+    }
+
     result = I3C_BusMasterGetDeviceInfo(&demo_slaveDev, slaveAddr, &devInfo);
     if (result != kStatus_Success)
     {
+        PRINTF("I3C bus master get device info fails with error code %u.\r\n", result);
         return result;
     }
+
+    PRINTF("I3C bus get device info:\r\nDynamicAddr - 0x%X, VendorID - 0x%X.\r\n", devInfo.dynamicAddr, devInfo.vendorID);
 
     while (1)
     {

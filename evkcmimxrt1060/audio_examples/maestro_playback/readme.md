@@ -23,13 +23,12 @@ Type "help" to see the command list. Similar description will be displayed on se
 
     "file": Perform audio file decode and playback
 
-      USAGE: file [start|stop|pause|volume|seek|track|list|info]
-        start             Play default (first found) or specified audio track file.
+      USAGE: file [stop|pause|volume|seek|play|list|info]
         stop              Stops actual playback.
         pause             Pause actual track or resume if already paused.
         volume=<volume>   Set volume. The volume can be set from 0 to 100.
         seek=<seek_time>  Seek currently paused track. Seek time is absolute time in milliseconds.
-        track=<filename>  Select audio track to play.
+        play=<filename>   Select audio track to play.
         list              List audio files available on mounted SD card.
         info              Prints playback info.
 ```
@@ -37,12 +36,12 @@ Type "help" to see the command list. Similar description will be displayed on se
 
 SDK version
 ===========
-- Version: 2.15.100
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  12.2
-- MCUXpresso  11.8.0
+- GCC ARM Embedded  13.2.1
+- MCUXpresso  11.10.0
 
 Hardware requirements
 =====================
@@ -121,4 +120,4 @@ terminal as below:
 # Known issues
 1. MP3 decoder has issues with some of the files. One of the channels can be sometimes
    distorted or missing parts of the signal.
-2. When running the "file start" command during playback, the example fails. It is necessary to stop or pause the playback first.
+2. Playback is missing a fraction of second in the beginning and end of the stream.

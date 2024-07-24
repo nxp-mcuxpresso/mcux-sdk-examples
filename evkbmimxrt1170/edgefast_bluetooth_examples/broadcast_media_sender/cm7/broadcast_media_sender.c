@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 NXP
+ * Copyright 2023-2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -21,6 +21,14 @@
 #include "le_audio_common.h"
 #include "le_audio_shell.h"
 #include "broadcast_media_sender.h"
+
+/* Note: this include should be remove once audio api could get bt_iso_chan. */
+#include "audio/bap_endpoint.h"
+#include "audio/bap_iso.h"
+
+extern void BOARD_SyncSignal_Start(uint32_t init_offset);
+extern void BOARD_SyncSignal_Stop(void);
+extern uint32_t BOARD_SyncSignal_Count(void);
 
 #ifndef printk
 #define printk PRINTF
@@ -60,6 +68,56 @@ BUILD_ASSERT_MSG(CONFIG_BT_ISO_TX_BUF_COUNT >= TOTAL_BUF_NEEDED,
 	     "BROADCAST_ENQUEUE_COUNT * CONFIG_BT_BAP_BROADCAST_SRC_STREAM_COUNT");
 
 static struct bt_bap_lc3_preset lc3_preset;
+static int new_rtn = -1;
+static int new_pd = -1;
+static int new_phy = -1;
+static uint8_t iso_packing = BT_ISO_PACKING_SEQUENTIAL;
+static uint8_t broadcast_code[BT_AUDIO_BROADCAST_CODE_SIZE] = { 0 };
+static bool broadcast_code_set = false;
+
+struct named_lc3_preset {
+	const char *name;
+	struct bt_bap_lc3_preset preset;
+};
+
+#define LOCATION BT_AUDIO_LOCATION_FRONT_LEFT | BT_AUDIO_LOCATION_FRONT_RIGHT
+#define CONTEXT BT_AUDIO_CONTEXT_TYPE_MEDIA
+
+static const struct named_lc3_preset lc3_broadcast_presets[] = {
+	{"8_1_1", BT_BAP_LC3_BROADCAST_PRESET_8_1_1(LOCATION, CONTEXT)},
+	{"8_2_1", BT_BAP_LC3_BROADCAST_PRESET_8_2_1(LOCATION, CONTEXT)},
+	{"16_1_1", BT_BAP_LC3_BROADCAST_PRESET_16_1_1(LOCATION, CONTEXT)},
+	{"16_2_1", BT_BAP_LC3_BROADCAST_PRESET_16_2_1(LOCATION, CONTEXT)},
+	{"24_1_1", BT_BAP_LC3_BROADCAST_PRESET_24_1_1(LOCATION, CONTEXT)},
+	{"24_2_1", BT_BAP_LC3_BROADCAST_PRESET_24_2_1(LOCATION, CONTEXT)},
+	{"32_1_1", BT_BAP_LC3_BROADCAST_PRESET_32_1_1(LOCATION, CONTEXT)},
+	{"32_2_1", BT_BAP_LC3_BROADCAST_PRESET_32_2_1(LOCATION, CONTEXT)},
+	{"441_1_1", BT_BAP_LC3_BROADCAST_PRESET_441_1_1(LOCATION, CONTEXT)},
+	{"441_2_1", BT_BAP_LC3_BROADCAST_PRESET_441_2_1(LOCATION, CONTEXT)},
+	{"48_1_1", BT_BAP_LC3_BROADCAST_PRESET_48_1_1(LOCATION, CONTEXT)},
+	{"48_2_1", BT_BAP_LC3_BROADCAST_PRESET_48_2_1(LOCATION, CONTEXT)},
+	{"48_3_1", BT_BAP_LC3_BROADCAST_PRESET_48_3_1(LOCATION, CONTEXT)},
+	{"48_4_1", BT_BAP_LC3_BROADCAST_PRESET_48_4_1(LOCATION, CONTEXT)},
+	{"48_5_1", BT_BAP_LC3_BROADCAST_PRESET_48_5_1(LOCATION, CONTEXT)},
+	{"48_6_1", BT_BAP_LC3_BROADCAST_PRESET_48_6_1(LOCATION, CONTEXT)},
+	/* High-reliability presets */
+	{"8_1_2", BT_BAP_LC3_BROADCAST_PRESET_8_1_2(LOCATION, CONTEXT)},
+	{"8_2_2", BT_BAP_LC3_BROADCAST_PRESET_8_2_2(LOCATION, CONTEXT)},
+	{"16_1_2", BT_BAP_LC3_BROADCAST_PRESET_16_1_2(LOCATION, CONTEXT)},
+	{"16_2_2", BT_BAP_LC3_BROADCAST_PRESET_16_2_2(LOCATION, CONTEXT)},
+	{"24_1_2", BT_BAP_LC3_BROADCAST_PRESET_24_1_2(LOCATION, CONTEXT)},
+	{"24_2_2", BT_BAP_LC3_BROADCAST_PRESET_24_2_2(LOCATION, CONTEXT)},
+	{"32_1_2", BT_BAP_LC3_BROADCAST_PRESET_32_1_2(LOCATION, CONTEXT)},
+	{"32_2_2", BT_BAP_LC3_BROADCAST_PRESET_32_2_2(LOCATION, CONTEXT)},
+	{"441_1_2", BT_BAP_LC3_BROADCAST_PRESET_441_1_2(LOCATION, CONTEXT)},
+	{"441_2_2", BT_BAP_LC3_BROADCAST_PRESET_441_2_2(LOCATION, CONTEXT)},
+	{"48_1_2", BT_BAP_LC3_BROADCAST_PRESET_48_1_2(LOCATION, CONTEXT)},
+	{"48_2_2", BT_BAP_LC3_BROADCAST_PRESET_48_2_2(LOCATION, CONTEXT)},
+	{"48_3_2", BT_BAP_LC3_BROADCAST_PRESET_48_3_2(LOCATION, CONTEXT)},
+	{"48_4_2", BT_BAP_LC3_BROADCAST_PRESET_48_4_2(LOCATION, CONTEXT)},
+	{"48_5_2", BT_BAP_LC3_BROADCAST_PRESET_48_5_2(LOCATION, CONTEXT)},
+	{"48_6_2", BT_BAP_LC3_BROADCAST_PRESET_48_6_2(LOCATION, CONTEXT)},
+};
 
 static struct bt_audio_codec_cfg bis_codec_specific_config[CONFIG_BT_BAP_BROADCAST_SRC_STREAM_COUNT][1];
 
@@ -74,16 +132,62 @@ NET_BUF_POOL_FIXED_DEFINE(tx_pool,
 			  TOTAL_BUF_NEEDED,
 			  BT_ISO_SDU_BUF_SIZE(CONFIG_BT_ISO_TX_MTU), NULL);
 static uint16_t seq_num;
+static uint64_t tx_samples = 0;
+static uint32_t tx_time_stamp_start;
 
+static OSA_SEMAPHORE_HANDLE_DEFINE(sem_wav_opened);
+static OSA_SEMAPHORE_HANDLE_DEFINE(sem_lc3_preset);
 static OSA_SEMAPHORE_HANDLE_DEFINE(sem_started);
 static OSA_SEMAPHORE_HANDLE_DEFINE(sem_stopped);
 
 #define BROADCAST_SOURCE_LIFETIME  120U /* seconds */
 
+static uint32_t get_big_sync_delay(void)
+{
+	struct bt_iso_info iso_info;
+	uint32_t BIG_Sync_Delay_us;
+
+	bt_iso_chan_get_info(&streams[0].stream.ep->iso->chan, &iso_info);
+
+	BIG_Sync_Delay_us = iso_info.broadcaster.sync_delay;
+
+	return BIG_Sync_Delay_us;
+}
+
+static uint32_t get_iso_interval(void)
+{
+	struct bt_iso_info iso_info;
+	uint32_t ISO_Interval_us;
+
+	bt_iso_chan_get_info(&streams[0].stream.ep->iso->chan, &iso_info);
+
+	ISO_Interval_us = iso_info.iso_interval * 1250;
+
+	return ISO_Interval_us;
+}
+
+static uint32_t get_sync_signal_timestamp(void)
+{
+	uint32_t time_stamp;
+
+	time_stamp = BOARD_SyncSignal_Count() * get_iso_interval() + get_big_sync_delay();
+
+	return time_stamp;
+}
+
 static void stream_started_cb(struct bt_bap_stream *stream)
 {
 	struct broadcast_source_stream *source_stream =
 		CONTAINER_OF(stream, struct broadcast_source_stream, stream);
+
+	if(stream == &streams[0].stream)
+	{
+		seq_num = 0;
+		if(lc3_preset.qos.framing == BT_AUDIO_CODEC_QOS_FRAMING_FRAMED)
+		{
+			BOARD_SyncSignal_Start(0);
+		}
+	}
 
 	source_stream->seq_num = 0U;
 	source_stream->sent_cnt = 0U;
@@ -92,6 +196,10 @@ static void stream_started_cb(struct bt_bap_stream *stream)
 
 static void stream_stopped_cb(struct bt_bap_stream *stream, uint8_t reason)
 {
+	if(lc3_preset.qos.framing == BT_AUDIO_CODEC_QOS_FRAMING_FRAMED)
+	{
+		BOARD_SyncSignal_Stop();
+	}
 	OSA_SemaphorePost(sem_stopped);
 }
 
@@ -130,8 +238,13 @@ static int setup_broadcast_source(struct bt_bap_broadcast_source **source)
 	create_param.params_count = ARRAY_SIZE(subgroup_param);
 	create_param.params = subgroup_param;
 	create_param.qos = &lc3_preset.qos;
-	create_param.encryption = false;
-	create_param.packing = BT_ISO_PACKING_SEQUENTIAL;
+	create_param.encryption = broadcast_code_set;
+	create_param.packing = iso_packing;
+
+	if(broadcast_code_set)
+	{
+		memcpy(create_param.broadcast_code, broadcast_code, BT_AUDIO_BROADCAST_CODE_SIZE);
+	}
 
 	printk("Creating broadcast source with %zu subgroups with %zu streams\n",
 	       ARRAY_SIZE(subgroup_param),
@@ -146,10 +259,10 @@ static int setup_broadcast_source(struct bt_bap_broadcast_source **source)
 	return 0;
 }
 
-
 static int audio_stream_encode(void)
 {
 	int res;
+	uint32_t sdu_time_stamp;
 
 	/* read one frame samples. */
 	do
@@ -212,9 +325,28 @@ static int audio_stream_encode(void)
 		net_buf_add_mem(buf[i], sdu_buff[i], lc3_codec_info.octets_per_frame);
 	}
 
+	if(lc3_preset.qos.framing == BT_AUDIO_CODEC_QOS_FRAMING_FRAMED)
+	{
+		if(seq_num == 0)
+		{
+			tx_samples = 0;
+			tx_time_stamp_start = get_sync_signal_timestamp() + get_iso_interval();
+			sdu_time_stamp = tx_time_stamp_start;
+		}
+		else
+		{
+			tx_samples += lc3_codec_info.samples_per_frame;
+			sdu_time_stamp = (uint32_t)((double)tx_time_stamp_start + (double)tx_samples * 1000000.0 / (double)lc3_codec_info.sample_rate);
+		}
+	}
+	else
+	{
+		sdu_time_stamp = BT_ISO_TIMESTAMP_NONE;
+	}
+
 	for(int i = 0; i < CONFIG_BT_BAP_BROADCAST_SRC_STREAM_COUNT; i++)
 	{
-		int ret = bt_bap_stream_send(&streams[i].stream, buf[i], seq_num, BT_ISO_TIMESTAMP_NONE);
+		int ret = bt_bap_stream_send_ts(&streams[i].stream, buf[i], seq_num, sdu_time_stamp);
 		if (ret < 0) {
 			/* This will end broadcasting on this stream. */
 			PRINTF("Unable to broadcast data on %p: %d\n", &streams[i], ret);
@@ -228,35 +360,48 @@ static int audio_stream_encode(void)
 	return 0;
 }
 
-static void open_wav_file(void)
+static void wav_file_list(const char *path)
+{
+	DIR dir;
+	FRESULT res;
+	FILINFO info;
+	char fname[FF_LFN_BUF + 1];
+	int i = 0;
+
+	PRINTF("\nwav file list:\n");
+
+	res = f_findfirst(&dir, &info, path, "*.wav");
+	while((res == FR_OK) && (info.fname[0]))
+	{
+		i++;
+		memset(fname, 0, sizeof(fname));
+		strcat(fname, path);
+		strcat(fname, info.fname);
+		PRINTF("%d, %s\n", i, fname);
+		res = f_findnext(&dir, &info);
+	}
+
+	PRINTF("wav file list complete!\n");
+}
+
+int open_wav_file(char *path)
 {
 	int res;
 
-	/* Host msd init. */
-#if (defined(BT_BLE_PLATFORM_INIT_ESCAPE) && (BT_BLE_PLATFORM_INIT_ESCAPE > 0))
-	USB_HostMsdFatfsInit();
-	PRINTF("FatFs initialized\n");
-#endif
-
-	/* Try to open wav file until success, because we don't know when the USB storage is ready. */
-	while(true)
+	res = wav_file_open(&wav_file, path);
+	if(res)
 	{
-		res = wav_file_open(&wav_file, "1:/music_16_2.wav");
-		if(res)
-		{
-			PRINTF("\nwav_file_open fail!\n");
-			OSA_TimeDelay(1000);
-			continue;
-		}
-
-		PRINTF("wav file info:\n");
-		PRINTF("\tsample_rate: %d\n", 	wav_file.sample_rate);
-		PRINTF("\tchannels: %d\n", 		wav_file.channels);
-		PRINTF("\tbits: %d\n", 			wav_file.bits);
-		PRINTF("\tsize: %d\n", 			wav_file.size);
-		PRINTF("\tsamples: %d\n", 		wav_file.samples);
-		break;
+		PRINTF("\nwav_file_open fail!\n");
+		return -1;
 	}
+
+	PRINTF("wav file info:\n");
+	PRINTF("\tsample_rate: %d\n", 	wav_file.sample_rate);
+	PRINTF("\tchannels: %d\n", 		wav_file.channels);
+	PRINTF("\tbits: %d\n", 			wav_file.bits);
+	PRINTF("\tsize: %d\n", 			wav_file.size);
+	PRINTF("\tsamples: %d\n", 		wav_file.samples);
+
 
 	switch (wav_file.sample_rate)
 	{
@@ -264,85 +409,28 @@ static void open_wav_file(void)
 		case 16000: break;
 		case 24000: break;
 		case 32000: break;
+		case 44100: break;
 		case 48000: break;
 		default:
 			PRINTF("\nwav file sample rate %d not support!\n", wav_file.sample_rate);
-			while(1);
-			break;
+			return -1;
 	}
 
 	if(wav_file.channels != 2)
 	{
 		PRINTF("\nwav file not 2 channels!\n");
-		while(1);
+		return -1;
 	}
 
 	if((wav_file.bits != 16) && (wav_file.bits != 24) && (wav_file.bits != 32))
 	{
 		PRINTF("\nwav file %d bits not support!\n", wav_file.bits);
-		while(1);
+		return -1;
 	}
 
-	/* set the LC3 encoder parameters. */
-	lc3_codec_info.sample_rate = wav_file.sample_rate;
-#if LE_AUDIO_FRAME_DURATION_7_5MS
-	lc3_codec_info.frame_duration_us = 7500;
-#else
-	lc3_codec_info.frame_duration_us = 10000;
-#endif
-	lc3_codec_info.octets_per_frame = lc3_preset_get_octets_per_frame_value(lc3_codec_info.sample_rate, lc3_codec_info.frame_duration_us);
-	lc3_codec_info.blocks_per_sdu = 1;
-	lc3_codec_info.chan_allocation = BT_AUDIO_LOCATION_FRONT_LEFT | BT_AUDIO_LOCATION_FRONT_RIGHT;
+	(void)OSA_SemaphorePost(sem_wav_opened);
 
-	lc3_codec_info.channels = wav_file.channels;
-	lc3_codec_info.samples_per_frame = lc3_codec_info.sample_rate * (lc3_codec_info.frame_duration_us / 100) / 10000;
-	lc3_codec_info.bytes_per_channel_frame = lc3_codec_info.samples_per_frame * wav_file.bits / 8;
-
-	/* LC3 Encoder Init. */
-	for (int i = 0; i < lc3_codec_info.channels; i++)
-	{
-		int lc3_res = lc3_encoder_init(&encoder[i], wav_file.sample_rate, lc3_codec_info.frame_duration_us, lc3_codec_info.octets_per_frame, wav_file.bits);
-		if(lc3_res)
-		{
-			PRINTF("\nlc3_encoder_init fail!\n");
-		}
-	}
-	PRINTF("LC3 encoder setup done!\n");
-
-	/* set codec data. */
-	lc3_preset.codec_cfg.id = BT_HCI_CODING_FORMAT_LC3;
-	lc3_preset.codec_cfg.cid = 0x0000;
-	lc3_preset.codec_cfg.vid = 0x0000;
-
-	bt_audio_codec_cfg_set_freq(&lc3_preset.codec_cfg, (enum bt_audio_codec_config_freq)bt_audio_codec_cfg_freq_hz_to_freq(lc3_codec_info.sample_rate));
-	bt_audio_codec_cfg_set_frame_duration(&lc3_preset.codec_cfg, lc3_preset_get_duration_value(lc3_codec_info.frame_duration_us));
-	bt_audio_codec_cfg_set_octets_per_frame(&lc3_preset.codec_cfg, (uint16_t)lc3_codec_info.octets_per_frame);
-	bt_audio_codec_cfg_set_frame_blocks_per_sdu(&lc3_preset.codec_cfg, (uint8_t)lc3_codec_info.blocks_per_sdu);
-
-	uint16_t meta_context = BT_AUDIO_CONTEXT_TYPE_MEDIA;
-	bt_audio_codec_cfg_meta_set_val(&lc3_preset.codec_cfg, BT_AUDIO_METADATA_TYPE_STREAM_CONTEXT, (uint8_t *)&meta_context, sizeof(meta_context));
-
-	/* config bis codec for each. */
-	bt_audio_codec_cfg_set_chan_allocation(&bis_codec_specific_config[0][0], BT_AUDIO_LOCATION_FRONT_LEFT);
-	bt_audio_codec_cfg_set_chan_allocation(&bis_codec_specific_config[1][0], BT_AUDIO_LOCATION_FRONT_RIGHT);
-
-	PRINTF("Codec setup done!\n");
-
-	/* Set Qos */
-#if LE_AUDIO_FRAME_DURATION_7_5MS
-	struct bt_audio_codec_qos qos = BT_AUDIO_CODEC_LC3_QOS_7_5_UNFRAMED(lc3_codec_info.blocks_per_sdu * lc3_codec_info.octets_per_frame,
-													 lc3_preset_get_rtn_value(lc3_codec_info.sample_rate, lc3_codec_info.frame_duration_us),
-													 lc3_preset_get_latency_value(lc3_codec_info.sample_rate, lc3_codec_info.frame_duration_us),
-													 40000);
-#else
-	struct bt_audio_codec_qos qos = BT_AUDIO_CODEC_LC3_QOS_10_UNFRAMED(lc3_codec_info.blocks_per_sdu * lc3_codec_info.octets_per_frame,
-													 lc3_preset_get_rtn_value(lc3_codec_info.sample_rate, lc3_codec_info.frame_duration_us),
-													 lc3_preset_get_latency_value(lc3_codec_info.sample_rate, lc3_codec_info.frame_duration_us),
-													 40000);
-#endif
-	memcpy(&lc3_preset.qos, &qos, sizeof(qos));
-	PRINTF("Qos setup done!\n");
-
+	return 0;
 }
 
 static void close_wav_file(void)
@@ -352,6 +440,199 @@ static void close_wav_file(void)
 	{
 		PRINTF("\nwav_file_close fail!\n");
 	}
+}
+
+static void print_lc3_preset(const char *name, const struct bt_bap_lc3_preset *preset)
+{
+	const struct bt_audio_codec_cfg *codec_cfg = &preset->codec_cfg;
+	const struct bt_audio_codec_qos *qos = &preset->qos;
+
+	PRINTF("%s:\n", name);
+
+	PRINTF("\tcodec_cfg - sample_rate: %d, duration: %d, len: %d\n",
+			bt_audio_codec_cfg_freq_to_freq_hz((enum bt_audio_codec_cfg_freq)bt_audio_codec_cfg_get_freq(codec_cfg)),
+			bt_audio_codec_cfg_frame_dur_to_frame_dur_us((enum bt_audio_codec_cfg_frame_dur)bt_audio_codec_cfg_get_frame_dur(codec_cfg)),
+			bt_audio_codec_cfg_get_octets_per_frame(codec_cfg)
+		);
+
+	PRINTF("\tqos - interval: %d, framing: %d, phy: %d, sdu: %d, rtn: %d, pd: %d\n",
+			qos->interval,
+			qos->framing,
+			qos->phy,
+			qos->sdu,
+			qos->rtn,
+			qos->pd
+		);
+}
+
+void print_all_preset(int sample_rate)
+{
+	PRINTF("\nlc3 preset list:\n");
+	for(int i = 0; i < ARRAY_SIZE(lc3_broadcast_presets); i++)
+	{
+		if(sample_rate != 0)
+		{
+			const struct bt_audio_codec_cfg *codec_cfg = &lc3_broadcast_presets[i].preset.codec_cfg;
+			int codec_sample_rate = bt_audio_codec_cfg_freq_to_freq_hz((enum bt_audio_codec_cfg_freq)bt_audio_codec_cfg_get_freq(codec_cfg));
+			if(codec_sample_rate != sample_rate)
+			{
+				continue;
+			}
+		}
+		print_lc3_preset(lc3_broadcast_presets[i].name, &lc3_broadcast_presets[i].preset);
+	}
+}
+
+int select_lc3_preset(char *preset_name)
+{
+	bool find = false;
+
+	for(int i = 0; i < ARRAY_SIZE(lc3_broadcast_presets); i++)
+	{
+		const struct bt_audio_codec_cfg *codec_cfg = &lc3_broadcast_presets[i].preset.codec_cfg;
+		
+		if(0 == strcmp(lc3_broadcast_presets[i].name, preset_name))
+		{
+			int sample_rate = bt_audio_codec_cfg_freq_to_freq_hz((enum bt_audio_codec_cfg_freq)bt_audio_codec_cfg_get_freq(codec_cfg));
+			if(sample_rate != wav_file.sample_rate)
+			{
+				PRINTF("preset sample rate %d not align with wav %d\n", sample_rate, wav_file.sample_rate);
+				return -1;
+			}
+			find = true;
+			memcpy(&lc3_preset, codec_cfg, sizeof(lc3_preset));
+		}
+	}
+
+	if(!find)
+	{
+		return -1;
+	}
+
+	print_lc3_preset(preset_name, &lc3_preset);
+
+	(void)OSA_SemaphorePost(sem_lc3_preset);
+
+	return 0;
+}
+
+int modify_rtn(int rtn)
+{
+	if(!IN_RANGE(rtn, 0, 255))
+	{
+		return -1;
+	}
+
+	new_rtn = rtn;
+
+	return 0;
+}
+
+int modify_pd(int pd)
+{
+	if(!IN_RANGE(pd, 10000, 70000))
+	{
+		return -1;
+	}
+
+	new_pd = pd;
+
+	return 0;
+}
+
+int modify_phy(int phy)
+{
+	/* 1: 1M, 2: 2M, 4: Coded. */
+	if((phy == BT_AUDIO_CODEC_QOS_1M) || (phy == BT_AUDIO_CODEC_QOS_2M) || (phy == BT_AUDIO_CODEC_QOS_CODED))
+	{
+		new_phy = phy;
+		return 0;
+	}
+
+	return -1;
+}
+
+int modify_packing(int packing)
+{
+	/* 0: sequentially, 1: interleaved. */
+	if((packing == BT_ISO_PACKING_SEQUENTIAL) || (packing == BT_ISO_PACKING_INTERLEAVED))
+	{
+		iso_packing = packing;
+		return 0;
+	}
+
+	return -1;
+}
+
+void print_sync_info(void)
+{
+	uint32_t iso_interval = get_iso_interval();
+	uint32_t sync_delay = get_big_sync_delay();
+
+	PRINTF("sync info - iso_interval: %u, sync_delay: %u\n", iso_interval, sync_delay);
+}
+
+/* Here we don't require the user input all the bytes, and the left bytes will fill with 0. */
+int config_broadcast_code(uint8_t *data, int len)
+{
+	memset(broadcast_code, 0, BT_AUDIO_BROADCAST_CODE_SIZE);
+	if(len <= BT_AUDIO_BROADCAST_CODE_SIZE)
+	{
+		memcpy(broadcast_code, data, len);
+		broadcast_code_set = true;
+
+		PRINTF("broadcast_code: %s\n", bt_hex(broadcast_code, BT_AUDIO_BROADCAST_CODE_SIZE));
+	}
+	else
+	{
+		return -1;
+	}
+
+	return 0;
+}
+
+void config_audio_parameters(int sample_rate, int channels, int bits)
+{
+	/* set the LC3 encoder parameters. */
+	lc3_codec_info.sample_rate = sample_rate;
+	lc3_codec_info.frame_duration_us = bt_audio_codec_cfg_frame_dur_to_frame_dur_us((enum bt_audio_codec_cfg_frame_dur)bt_audio_codec_cfg_get_frame_dur(&lc3_preset.codec_cfg));
+	lc3_codec_info.octets_per_frame = bt_audio_codec_cfg_get_octets_per_frame(&lc3_preset.codec_cfg);
+	lc3_codec_info.blocks_per_sdu = 1;
+	lc3_codec_info.chan_allocation = BT_AUDIO_LOCATION_FRONT_LEFT | BT_AUDIO_LOCATION_FRONT_RIGHT;
+
+	lc3_codec_info.channels = channels;
+	if(lc3_codec_info.sample_rate == 44100)
+	{
+		if(lc3_codec_info.frame_duration_us == 7500)
+		{
+			lc3_codec_info.samples_per_frame = 360;
+		}
+		else
+		{
+			lc3_codec_info.samples_per_frame = 480;
+		}
+	}
+	else
+	{
+		lc3_codec_info.samples_per_frame = lc3_codec_info.sample_rate * (lc3_codec_info.frame_duration_us / 100) / 10000;
+	}
+	lc3_codec_info.bytes_per_channel_frame = lc3_codec_info.samples_per_frame * bits / 8;
+
+	/* LC3 Encoder Init. */
+	for (int i = 0; i < lc3_codec_info.channels; i++)
+	{
+		int lc3_res = lc3_encoder_init(&encoder[i], sample_rate, lc3_codec_info.frame_duration_us, lc3_codec_info.octets_per_frame, bits);
+		if(lc3_res)
+		{
+			PRINTF("\nlc3_encoder_init fail!\n");
+		}
+	}
+	PRINTF("LC3 encoder setup done!\n");
+
+	/* config bis codec for each. */
+	bt_audio_codec_cfg_unset_val(&lc3_preset.codec_cfg, BT_AUDIO_CODEC_CFG_CHAN_ALLOC);
+	bt_audio_codec_cfg_set_chan_allocation(&bis_codec_specific_config[0][0], BT_AUDIO_LOCATION_FRONT_LEFT);
+	bt_audio_codec_cfg_set_chan_allocation(&bis_codec_specific_config[1][0], BT_AUDIO_LOCATION_FRONT_RIGHT);
 }
 
 static volatile bool bis_stream_play = true;
@@ -383,7 +664,9 @@ void broadcast_media_sender_task(void *param)
 {
 	struct bt_le_ext_adv *adv;
 	int err;
-        
+
+	OSA_SemaphoreCreate(sem_wav_opened, 0);
+	OSA_SemaphoreCreate(sem_lc3_preset, 0);
 	OSA_SemaphoreCreate(sem_started, 0);
 	OSA_SemaphoreCreate(sem_stopped, 0);
 
@@ -398,8 +681,41 @@ void broadcast_media_sender_task(void *param)
 	}
 	printk("Bluetooth initialized\n");
 
+	/* Host msd init. */
+#if (defined(BT_BLE_PLATFORM_INIT_ESCAPE) && (BT_BLE_PLATFORM_INIT_ESCAPE > 0))
+	USB_HostMsdFatfsInit();
+	PRINTF("FatFs initialized\n");
+#endif
+	/* List wav file in the root dir. */
+	wav_file_list("1:/");
 	/* Open wav file */
-	open_wav_file();
+	PRINTF("\nPlease open the wav file you want use \"wav_open <path>\" command.\n");
+	OSA_SemaphoreWait(sem_wav_opened, osaWaitForever_c);
+	/* Select LC3 preset */
+	print_all_preset(wav_file.sample_rate);
+	PRINTF("\nPlease select lc3 preset use \"lc3_preset <name>\" command.\n");
+	OSA_SemaphoreWait(sem_lc3_preset, osaWaitForever_c);
+	/* overlay rtn & pd if set */
+	if(new_rtn >= 0)
+	{
+		lc3_preset.qos.rtn = new_rtn;
+	}
+	if(new_pd >= 0)
+	{
+		lc3_preset.qos.pd = new_pd;
+	}
+	if(new_phy > 0)
+	{
+		lc3_preset.qos.phy = new_phy;
+	}
+
+	if((new_rtn >= 0) || (new_pd >= 0) || (new_phy > 0))
+	{
+		print_lc3_preset("new_preset", &lc3_preset);
+	}
+
+	/* Config audio parameters. */
+	config_audio_parameters(wav_file.sample_rate, wav_file.channels, wav_file.bits);
 
 	while (true) {
 		/* Broadcast Audio Streaming Endpoint advertising data */
@@ -498,7 +814,7 @@ void broadcast_media_sender_task(void *param)
 		}
 		printk("Broadcast source started\n");
 
-		int res;
+		int res = 0;
 		do{
 			if (bis_stream_play)
 			{

@@ -3,31 +3,31 @@ Overview
 This example demonstrates how to develop a remote IO device based on Slave Stack Code(SSC).
 
 This remote IO device only supports SM-Synchron mode for DC operation, and implements one Input channel and one Output channel:
-	Output channel: connected with the D7 LED and used to control this LED.
-	Input channel: used to read the D7 LED current status. 
+	Output channel: connected with the D6 LED and used to control this LED.
+	Input channel: used to read the D6 LED current status. 
 
 Note that the demo CAN NOT be built directly. Please see the "Prepare the Demo" section for more details.
 
 
 SDK version
 ===========
-- Version: 2.15.001
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  12.3.1
-- MCUXpresso  11.9.0
+- GCC ARM Embedded  13.2.1
+- MCUXpresso  11.10.0
 
 Hardware requirements
 =====================
-- MIMXRT1180-EVK RevB
+- MIMXRT1180-EVK RevC
 - RJ45 Network cable
 - Mini/micro USB cable
 - Personal Computer on which the TwinCat3 has been installed
 
 Board settings
 ==============
-No special settings are required.
+For multiple boards cascades, R142 register needs to be removed.
 
 Prepare the Demo
 ================
@@ -87,7 +87,7 @@ When the example is running, the serial port will output:
 
        Start the SSC digital_io example...
 
-After the PLC program started, the D7 LED starts to blink with 0.5Hz frequency.
+After the PLC program started, the D6 LED starts to blink with 0.5Hz frequency.
 
 NOTE: refer to the User Guide for the details of how to setup the PLC project on TwinCAT3.
 

@@ -38,11 +38,12 @@
     <definition extID="middleware.freertos-kernel.extension.LPC55S36"/>
     <definition extID="CMSIS_Include_core_cm.LPC55S36"/>
     <definition extID="device.LPC55S36_system.LPC55S36"/>
+    <definition extID="utility.str.LPC55S36"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="lpcxpresso55s36_host_suspend_resume_hid_mouse_freertos" name="host_suspend_resume_hid_mouse_freertos" dependency="component.gint_adapter.LPC55S36 component.mrt_adapter.LPC55S36 platform.drivers.gint.LPC55S36 platform.drivers.inputmux.LPC55S36 platform.drivers.inputmux_connections.LPC55S36 middleware.freertos-kernel.cm33_non_trustzone.LPC55S36 middleware.usb.host_controller_ohci.LPC55S36 middleware.freertos-kernel.LPC55S36 middleware.freertos-kernel.heap_4.LPC55S36 middleware.usb.host_hid.LPC55S36 component.lists.LPC55S36 component.serial_manager_uart.LPC55S36 component.serial_manager.LPC55S36 platform.drivers.flexcomm_usart.LPC55S36 component.usart_adapter.LPC55S36 device.LPC55S36_CMSIS.LPC55S36 device.LPC55S36_startup.LPC55S36 platform.drivers.clock.LPC55S36 platform.drivers.common.LPC55S36 platform.drivers.flexcomm.LPC55S36 platform.drivers.lpc_gpio.LPC55S36 platform.drivers.lpc_iocon.LPC55S36 platform.drivers.power.LPC55S36 platform.drivers.reset.LPC55S36 middleware.usb.host.stack.LPC55S36 platform.utilities.assert.LPC55S36 utility.debug_console.LPC55S36 platform.utilities.misc_utilities.LPC55S36 platform.drivers.mrt.LPC55S36 middleware.usb.host.ohci_config_header.LPC55S36 middleware.usb.host.common_header.LPC55S36 component.osa.LPC55S36 middleware.usb.common_header.LPC55S36 middleware.freertos-kernel.template.LPC55S36 middleware.freertos-kernel.extension.LPC55S36 CMSIS_Include_core_cm.LPC55S36 device.LPC55S36_system.LPC55S36" category="usb_examples">
+  <example id="lpcxpresso55s36_host_suspend_resume_hid_mouse_freertos" name="host_suspend_resume_hid_mouse_freertos" dependency="component.gint_adapter.LPC55S36 component.mrt_adapter.LPC55S36 platform.drivers.gint.LPC55S36 platform.drivers.inputmux.LPC55S36 platform.drivers.inputmux_connections.LPC55S36 middleware.freertos-kernel.cm33_non_trustzone.LPC55S36 middleware.usb.host_controller_ohci.LPC55S36 middleware.freertos-kernel.LPC55S36 middleware.freertos-kernel.heap_4.LPC55S36 middleware.usb.host_hid.LPC55S36 component.lists.LPC55S36 component.serial_manager_uart.LPC55S36 component.serial_manager.LPC55S36 platform.drivers.flexcomm_usart.LPC55S36 component.usart_adapter.LPC55S36 device.LPC55S36_CMSIS.LPC55S36 device.LPC55S36_startup.LPC55S36 platform.drivers.clock.LPC55S36 platform.drivers.common.LPC55S36 platform.drivers.flexcomm.LPC55S36 platform.drivers.lpc_gpio.LPC55S36 platform.drivers.lpc_iocon.LPC55S36 platform.drivers.power.LPC55S36 platform.drivers.reset.LPC55S36 middleware.usb.host.stack.LPC55S36 platform.utilities.assert.LPC55S36 utility.debug_console.LPC55S36 platform.utilities.misc_utilities.LPC55S36 platform.drivers.mrt.LPC55S36 middleware.usb.host.ohci_config_header.LPC55S36 middleware.usb.host.common_header.LPC55S36 component.osa.LPC55S36 middleware.usb.common_header.LPC55S36 middleware.freertos-kernel.template.LPC55S36 middleware.freertos-kernel.extension.LPC55S36 CMSIS_Include_core_cm.LPC55S36 device.LPC55S36_system.LPC55S36 utility.str.LPC55S36" category="usb_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -58,6 +59,7 @@
           <value>FSL_OSA_BM_TIMER_CONFIG=0</value>
           <value>SDK_DEBUGCONSOLE=1</value>
           <value>MCUXPRESSO_SDK</value>
+          <value>TIMER_PORT_TYPE_MRT=1</value>
           <value>SDK_OS_FREE_RTOS</value>
           <value>SERIAL_PORT_TYPE_UART=1</value>
         </option>
@@ -71,7 +73,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-mno-unaligned-access -mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-mno-unaligned-access -mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

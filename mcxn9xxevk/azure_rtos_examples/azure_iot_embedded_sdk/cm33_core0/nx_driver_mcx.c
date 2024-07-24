@@ -76,7 +76,7 @@ static ENET_Type *nx_driver_enet_ptrs[] = ENET_BASE_PTRS;
 
 
 /* The default MAC address. */
-uint8_t _nx_driver_mac_address[] = {0x00, 0x11, 0x22, 0x33, 0x44, 0x56};
+uint8_t _nx_driver_hardware_address[] = {0x00, 0x11, 0x22, 0x33, 0x44, 0x56};
 
 AT_NONCACHEABLE_SECTION_ALIGN(enet_tx_bd_struct_t g_txBuffDescrip[ENET_TXBD_NUM], ENET_BUFF_ALIGNMENT);
 
@@ -266,7 +266,7 @@ static status_t _nx_driver_hardware_initialize(struct eth_if *enet)
 
     nx_drvier_phy_init(&enet->phy_handle, &config, mdio_read, mdio_write);
 
-    ENET_Init(enet->base, &config, &_nx_driver_mac_address[0], ENET_REF_CLOCK);
+    ENET_Init(enet->base, &config, &_nx_driver_hardware_address[0], ENET_REF_CLOCK);
 
     status = ENET_DescriptorInit(enet->base, &config, &buff_config);
     if (status != kStatus_Success) {
@@ -315,13 +315,13 @@ static void _nx_driver_initialize(NX_IP_DRIVER *driver_req_ptr,
     }
     nx_ip_interface_mtu_set(enet->ip_ptr, interface_index, NX_DRIVER_IP_MTU);
 
-    msw = (ULONG)((_nx_driver_mac_address[0] << 8)
-                  | (_nx_driver_mac_address[1]));
+    msw = (ULONG)((_nx_driver_hardware_address[0] << 8)
+                  | (_nx_driver_hardware_address[1]));
 
-    lsw = (ULONG)((_nx_driver_mac_address[2] << 24)
-                  | (_nx_driver_mac_address[3] << 16)
-                  | (_nx_driver_mac_address[4] << 8)
-                  | (_nx_driver_mac_address[5]));
+    lsw = (ULONG)((_nx_driver_hardware_address[2] << 24)
+                  | (_nx_driver_hardware_address[3] << 16)
+                  | (_nx_driver_hardware_address[4] << 8)
+                  | (_nx_driver_hardware_address[5]));
     nx_ip_interface_physical_address_set(enet->ip_ptr, interface_index,
                                          msw, lsw, NX_FALSE);
 
@@ -334,12 +334,12 @@ static void _nx_driver_initialize(NX_IP_DRIVER *driver_req_ptr,
     enet->driver_state = NX_DRIVER_STATE_INITIALIZED;
 
     PRINTF("MAC address: %02x:%02x:%02x:%02x:%02x:%02x\r\n",
-           _nx_driver_mac_address[0],
-           _nx_driver_mac_address[1],
-           _nx_driver_mac_address[2],
-           _nx_driver_mac_address[3],
-           _nx_driver_mac_address[4],
-           _nx_driver_mac_address[5]);
+           _nx_driver_hardware_address[0],
+           _nx_driver_hardware_address[1],
+           _nx_driver_hardware_address[2],
+           _nx_driver_hardware_address[3],
+           _nx_driver_hardware_address[4],
+           _nx_driver_hardware_address[5]);
 
     driver_req_ptr->nx_ip_driver_status = NX_SUCCESS;
 

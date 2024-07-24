@@ -1,6 +1,6 @@
 /* @file app_notify.h
  *
- *  @brief This file contains ncp bridge API functions definitions
+ *  @brief This file contains ncp device API functions definitions
  *
  *  Copyright 2008-2023 NXP
  *
@@ -15,7 +15,7 @@
 #define app_e(...) wmlog_e("app_notify", ##__VA_ARGS__)
 #define app_w(...) wmlog_w("app_notify", ##__VA_ARGS__)
 
-#ifdef CONFIG_APP_NOTIFY_DEBUG
+#if CONFIG_APP_NOTIFY_DEBUG
 #define app_d(...) wmlog("app_notify", ##__VA_ARGS__)
 #else
 #define app_d(...)

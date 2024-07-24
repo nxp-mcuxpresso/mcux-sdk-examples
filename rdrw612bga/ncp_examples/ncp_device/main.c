@@ -22,25 +22,36 @@
 
 #include "fsl_rtc.h"
 #include "fsl_power.h"
-#ifdef CONFIG_HOST_SLEEP
+#if CONFIG_HOST_SLEEP
 #include "host_sleep.h"
 #endif
 
 #include "ncp_adapter.h"
 
 #include "fsl_device_registers.h"
-#ifdef CONFIG_WIFI_USB_FILE_ACCESS
+#if (CONFIG_WIFI_USB_FILE_ACCESS || (defined(CONFIG_BT_SNOOP) && (CONFIG_BT_SNOOP > 0)))
 #include "usb_host_config.h"
 #include "usb_host.h"
+#if (CONFIG_WIFI_USB_FILE_ACCESS || (!defined(CONFIG_BT_SNOOP) || (CONFIG_BT_SNOOP == 0)))
 #include "usb_support.h"
+#endif
 #endif
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
+#if (defined(CONFIG_BT_SNOOP) && (CONFIG_BT_SNOOP > 0))
+#if defined(__GIC_PRIO_BITS)
+#define USB_HOST_INTERRUPT_PRIORITY (25U)
+#elif defined(__NVIC_PRIO_BITS) && (__NVIC_PRIO_BITS >= 3)
+#define USB_HOST_INTERRUPT_PRIORITY (6U)
+#else
+#define USB_HOST_INTERRUPT_PRIORITY (3U)
+#endif
+#endif
 
-#define NCP_BRIDGE_INBUF_SIZE     4096
+#define NCP_INBUF_SIZE     4096
 
-#if defined (CONFIG_NCP_WIFI) && !defined (CONFIG_NCP_BLE)
+#if (CONFIG_NCP_WIFI) && !(CONFIG_NCP_BLE)
 #define TASK_MAIN_PRIO         configMAX_PRIORITIES - 4
 #else
 #define TASK_MAIN_PRIO         OSA_TASK_PRIORITY_MIN - 2
@@ -53,17 +64,17 @@
 
 extern int system_ncp_init(void);
 extern int ncp_cmd_list_init(void);
-#ifdef CONFIG_NCP_WIFI
+#if CONFIG_NCP_WIFI
 extern int wifi_ncp_init(void);
 #endif
-#ifdef CONFIG_NCP_BLE
+#if CONFIG_NCP_BLE
 extern int ble_ncp_init(void);
 #endif
 
 /*******************************************************************************
  * Variables
  ******************************************************************************/
-#ifdef CONFIG_WIFI_USB_FILE_ACCESS
+#if CONFIG_WIFI_USB_FILE_ACCESS
 extern usb_host_handle g_HostHandle;
 #endif
 
@@ -73,19 +84,20 @@ static OSA_TASK_HANDLE_DEFINE(main_task_handle);
 
 uint32_t current_cmd = 0;
 uint16_t g_cmd_seqno = 0;
-uint8_t cmd_buf[NCP_BRIDGE_INBUF_SIZE];
-uint8_t res_buf[NCP_BRIDGE_INBUF_SIZE];
+uint8_t cmd_buf[NCP_INBUF_SIZE];
 
 /*******************************************************************************
  * Code
  ******************************************************************************/
 
-#ifdef CONFIG_WIFI_USB_FILE_ACCESS
+#if (CONFIG_WIFI_USB_FILE_ACCESS || (defined(CONFIG_BT_SNOOP) && (CONFIG_BT_SNOOP > 0)))
 
+#if (CONFIG_WIFI_USB_FILE_ACCESS || (!defined(CONFIG_BT_SNOOP) || (CONFIG_BT_SNOOP == 0)))
 void USBHS_IRQHandler(void)
 {
     USB_HostEhciIsrFunction(g_HostHandle);
 }
+#endif
 
 void USB_HostClockInit(void)
 {
@@ -110,10 +122,12 @@ void USB_HostIsrEnable(void)
     EnableIRQ((IRQn_Type)irqNumber);
 }
 
+#if (CONFIG_WIFI_USB_FILE_ACCESS || (!defined(CONFIG_BT_SNOOP) || (CONFIG_BT_SNOOP == 0)))
 void USB_HostTaskFn(void *param)
 {
     USB_HostEhciTaskFunction(param);
 }
+#endif
 #endif
 
 static void printSeparator(void)
@@ -134,12 +148,12 @@ void task_main(void *param)
     result = system_ncp_init();
     assert(NCP_SUCCESS == result);
 
-#ifdef CONFIG_NCP_WIFI
+#if CONFIG_NCP_WIFI
     result = wifi_ncp_init();
     assert(NCP_SUCCESS == result);
 #endif
 
-#ifdef CONFIG_NCP_BLE
+#if CONFIG_NCP_BLE
     result = ble_ncp_init();
     assert(NCP_SUCCESS == result);
 #endif
@@ -148,7 +162,7 @@ void task_main(void *param)
     assert(NCP_SUCCESS == result);
 
     printSeparator();
-#ifdef CONFIG_HOST_SLEEP
+#if CONFIG_HOST_SLEEP
     hostsleep_init();
 #endif
 
@@ -195,7 +209,7 @@ int main(void)
     PRINTF("NCP device demo\r\n");
     printSeparator();
 
-#if defined(CONFIG_NCP_USB) && defined(CONFIG_WIFI_USB_FILE_ACCESS)
+#if (CONFIG_NCP_USB) && (CONFIG_WIFI_USB_FILE_ACCESS)
     usb_init();
 #endif
     (void)OSA_TaskCreate((osa_task_handle_t)main_task_handle, OSA_TASK(task_main), NULL);

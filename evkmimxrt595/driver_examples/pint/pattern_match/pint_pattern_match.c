@@ -1,7 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2017 NXP
- * All rights reserved.
+ * Copyright 2016-2017, 2023 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -19,6 +18,9 @@
 #define DEMO_PINT_BSLICE0_SRC kPINT_PatternMatchInp0Src
 #define DEMO_PINT_BSLICE1_SRC kPINT_PatternMatchInp0Src
 #define DEMO_PINT_BSLICE2_SRC kPINT_PatternMatchInp1Src
+#ifndef EXAMPLE_PINT_BASE
+#define EXAMPLE_PINT_BASE PINT
+#endif
 
 /*******************************************************************************
  * Prototypes
@@ -69,7 +71,7 @@ int main(void)
     PRINTF("\f\r\nPINT Pattern Match example\r\n");
 
     /* Initialize PINT */
-    PINT_Init(PINT);
+    PINT_Init(EXAMPLE_PINT_BASE);
 
     /* configure kPINT_PatternMatchBSlice0 to show the single inputsrc */
     /* Setup Pattern Match Bit Slice 0 */
@@ -77,10 +79,10 @@ int main(void)
     pmcfg.bs_cfg    = kPINT_PatternMatchStickyFall;
     pmcfg.callback  = pint_intr_callback;
     pmcfg.end_point = true;
-    PINT_PatternMatchConfig(PINT, kPINT_PatternMatchBSlice0, &pmcfg);
+    PINT_PatternMatchConfig(EXAMPLE_PINT_BASE, kPINT_PatternMatchBSlice0, &pmcfg);
 
     /* Enable callbacks for PINT0 by Index */
-    PINT_EnableCallbackByIndex(PINT, kPINT_PinInt0);
+    PINT_EnableCallbackByIndex(EXAMPLE_PINT_BASE, kPINT_PinInt0);
 
     /* configure kPINT_PatternMatchBSlice1 and kPINT_PatternMatchBSlice2 to show the combined inputsrc */
 #if (FSL_FEATURE_PINT_NUMBER_OF_CONNECTED_OUTPUTS > 1U)
@@ -89,7 +91,7 @@ int main(void)
     pmcfg.bs_cfg    = kPINT_PatternMatchStickyRise;
     pmcfg.callback  = pint_intr_callback;
     pmcfg.end_point = false;
-    PINT_PatternMatchConfig(PINT, kPINT_PatternMatchBSlice1, &pmcfg);
+    PINT_PatternMatchConfig(EXAMPLE_PINT_BASE, kPINT_PatternMatchBSlice1, &pmcfg);
 #endif
 
 #if (FSL_FEATURE_PINT_NUMBER_OF_CONNECTED_OUTPUTS > 2U)
@@ -98,14 +100,14 @@ int main(void)
     pmcfg.bs_cfg    = kPINT_PatternMatchStickyRise;
     pmcfg.callback  = pint_intr_callback;
     pmcfg.end_point = true;
-    PINT_PatternMatchConfig(PINT, kPINT_PatternMatchBSlice2, &pmcfg);
+    PINT_PatternMatchConfig(EXAMPLE_PINT_BASE, kPINT_PatternMatchBSlice2, &pmcfg);
 
     /* Enable callbacks for PINT2 by Index */
-    PINT_EnableCallbackByIndex(PINT, kPINT_PinInt2);
+    PINT_EnableCallbackByIndex(EXAMPLE_PINT_BASE, kPINT_PinInt2);
 #endif
 
     /* Enable PatternMatch */
-    PINT_PatternMatchEnable(PINT);
+    PINT_PatternMatchEnable(EXAMPLE_PINT_BASE);
 
     PRINTF("\r\nPINT Pattern match events are configured\r\n");
     PRINTF("\r\nPress corresponding switches to generate events\r\n");

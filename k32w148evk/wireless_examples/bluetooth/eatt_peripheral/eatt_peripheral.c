@@ -3,7 +3,7 @@
 * @{
 ********************************************************************************** */
 /*! *********************************************************************************
-* Copyright 2021-2023 NXP
+* Copyright 2021-2024 NXP
 *
 *
 * \file
@@ -46,6 +46,7 @@
 #include "ble_conn_manager.h"
 #include "board.h"
 #include "app_conn.h"
+#include "app_advertiser.h"
 #include "app.h"
 #include "eatt_peripheral.h"
 

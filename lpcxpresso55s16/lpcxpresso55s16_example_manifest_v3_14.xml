@@ -4,7 +4,7 @@
   <externalDefinitions>
     <definition extID="LPC55S16JBD100"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK215100_lpcxpresso55s16_examples_manifest_v3_14" name="MCUXpressoSDK215100_lpcxpresso55s16_examples_manifest_v3_14" version="2.15.100" revision="2.15.100"/>
+  <ksdk id="MCUXpressoSDK216000_lpcxpresso55s16_examples_manifest_v3_14" name="MCUXpressoSDK216000_lpcxpresso55s16_examples_manifest_v3_14" version="2.16.000" revision="2.16.000"/>
   <boards>
     <board id="lpcxpresso55s16" name="LPCXpresso55S16" href="https://www.nxp.com/pip/LPC55S16-EVK" version="1.0.0" package="LPC55S16JBD100">
       <examples>
@@ -228,6 +228,11 @@
             <files mask="host_audio_speaker_bm_v3_14.xml"/>
           </external>
         </example>
+        <example id="lpcxpresso55s16_host_audio_unified_bm" name="host_audio_unified_bm" brief="The Host Audio example supports the audio unified device. @n The application prints the audio unified information when the USB unified device is attached." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso55s16/usb_examples/usb_host_audio_unified/bm">
+          <external path="usb_examples/usb_host_audio_unified/bm" type="xml">
+            <files mask="host_audio_unified_bm_v3_14.xml"/>
+          </external>
+        </example>
         <example id="lpcxpresso55s16_host_cdc_bm" name="host_cdc_bm" brief="The host CDC project is a simple demonstration program based on the MCUXpresso SDK. It enumerates a COM port and echoes back the data from the UART." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso55s16/usb_examples/usb_host_cdc/bm">
           <external path="usb_examples/usb_host_cdc/bm" type="xml">
             <files mask="host_cdc_bm_v3_14.xml"/>
@@ -276,6 +281,11 @@
         <example id="lpcxpresso55s16_host_audio_speaker_freertos" name="host_audio_speaker_freertos" brief="The Host Audio example supports the audio speaker device. @n The application prints the audio speaker information when the USB speaker device is attached." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso55s16/usb_examples/usb_host_audio_speaker/freertos">
           <external path="usb_examples/usb_host_audio_speaker/freertos" type="xml">
             <files mask="host_audio_speaker_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="lpcxpresso55s16_host_audio_unified_freertos" name="host_audio_unified_freertos" brief="The Host Audio example supports the audio unified device. @n The application prints the audio unified information when the USB unified device is attached." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso55s16/usb_examples/usb_host_audio_unified/freertos">
+          <external path="usb_examples/usb_host_audio_unified/freertos" type="xml">
+            <files mask="host_audio_unified_freertos_v3_14.xml"/>
           </external>
         </example>
         <example id="lpcxpresso55s16_host_cdc_freertos" name="host_cdc_freertos" brief="The host CDC project is a simple demonstration program based on the MCUXpresso SDK. It enumerates a COM port and echoes back the data from the UART ." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/lpcxpresso55s16/usb_examples/usb_host_cdc/freertos">
@@ -838,7 +848,7 @@
             <files mask="freertos_generic_v3_14.xml"/>
           </external>
         </example>
-        <example id="lpcxpresso55s16_freertos_hello" name="freertos_hello" brief="The Hello World project is a simple demonstration program that uses the SDK UART drivere incombination with FreeRTOS. The purpose of this demo is to show how to use the debug console and toprovide a simple project for debugging and further development.The example application creates one task called hello_task. This task print &quot;Hello world.&quot; messagevia debug console utility and suspend itself." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="freertos_examples" path="examples/lpcxpresso55s16/freertos_examples/freertos_hello">
+        <example id="lpcxpresso55s16_freertos_hello" name="freertos_hello" brief="The Hello World project is a simple demonstration program that uses the SDK UART driver in combination with FreeRTOS. The purpose of this demo is to show how to use the debug console and toprovide a simple project for debugging and further development.The example application creates one task called hello_task. This task print &quot;Hello world.&quot; messagevia debug console utility and suspend itself." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="freertos_examples" path="examples/lpcxpresso55s16/freertos_examples/freertos_hello">
           <external path="freertos_examples/freertos_hello" type="xml">
             <files mask="freertos_hello_v3_14.xml"/>
           </external>

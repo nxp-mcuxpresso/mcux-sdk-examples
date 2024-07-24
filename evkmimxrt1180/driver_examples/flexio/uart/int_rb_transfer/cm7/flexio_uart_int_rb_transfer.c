@@ -75,7 +75,7 @@ int main(void)
     flexio_uart_transfer_t xfer;
     flexio_uart_transfer_t sendXfer;
     flexio_uart_transfer_t receiveXfer;
-    size_t receivedBytes;
+    size_t receivedBytes = 0U;
     uint32_t i;
     status_t result = kStatus_Success;
 

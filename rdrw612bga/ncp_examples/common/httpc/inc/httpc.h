@@ -63,13 +63,13 @@
 #ifndef _HTTPC_H_
 #define _HTTPC_H_
 
-#include "wm_os.h"
+#include "osa.h"
 #include "fsl_debug_console.h"
 #include <wmlog.h>
 #define httpc_e(...) wmlog_e("httpc", ##__VA_ARGS__)
 #define httpc_w(...) wmlog_w("httpc", ##__VA_ARGS__)
 
-#ifdef CONFIG_HTTPC_DEBUG
+#if CONFIG_HTTPC_DEBUG
 #define httpc_d(...) wmlog("httpc", ##__VA_ARGS__)
 #else
 #define httpc_d(...)
@@ -79,7 +79,7 @@
 #include <wmtime.h>
 #endif /* CONFIG_ENABLE_HTTPC_MODIFY_TIME	*/
 #include <wm_net.h>
-#ifdef CONFIG_ENABLE_TLS
+#if CONFIG_ENABLE_TLS
 #include <wm_mbedtls_helper_api.h>
 #else
 typedef void wm_mbedtls_cert_t;
@@ -169,7 +169,7 @@ typedef struct
      */
     unsigned int socket_timeout;
 
-#ifdef CONFIG_ENABLE_HTTPC_SECURE
+#if CONFIG_ENABLE_HTTPC_SECURE
     /** If TLS connection with specific certificates is to be done,
         this member should be populated using
         wm_mbedtls_ssl_config_new(). If TLS connection without specific
@@ -918,7 +918,7 @@ int httpc_validate_url(const char *url_str);
  */
 int httpc_get(const char *url_str, http_session_t *handle, http_resp_t **http_resp, const httpc_cfg_t *httpc_cfg);
 
-#ifdef CONFIG_ENABLE_HTTPC_SECURE
+#if CONFIG_ENABLE_HTTPC_SECURE
 /**
  * Get TLS context for the given session.
  *

@@ -1,6 +1,6 @@
 Overview
 ========
-This example showcases the usability of Azure RTOS API to connect to Azure IoT Hub and start interacting with Azure IoT services.
+This example showcases the usability of NETX DUO API to connect to Azure IoT Hub and start interacting with Azure IoT services.
 When the example is running, it will periodically report the temperature value to the IoT Hub.
 
 This example also used the Azure IoT Plug and Play feature. And, user can send the target temperature value to the device via the IoT Hub.
@@ -77,12 +77,12 @@ Note that these steps assume you use the Azure IoT Hub for the first time.
 
 SDK version
 ===========
-- Version: 2.14.0
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  12.2
-- MCUXpresso  11.9.0
+- GCC ARM Embedded  13.2.1
+- MCUXpresso  11.10.0
 
 Hardware requirements
 =====================

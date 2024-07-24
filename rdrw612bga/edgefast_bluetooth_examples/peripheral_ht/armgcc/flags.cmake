@@ -58,6 +58,7 @@ SET(CMAKE_C_FLAGS_FLASH_DEBUG " \
     -DMFLASH_FILE_BASEADDR=7340032 \
     -DMBEDTLS_MCUX_ELS_PKC_API \
     -DMBEDTLS_MCUX_USE_PKC \
+    -DTIMER_PORT_TYPE_MRT=1 \
     -DGENERIC_LIST_LIGHT=1 \
     -DMBEDTLS_MCUX_ELS_API \
     -DMBEDTLS_MCUX_USE_ELS \
@@ -69,7 +70,6 @@ SET(CMAKE_C_FLAGS_FLASH_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -113,6 +113,7 @@ SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
     -DMFLASH_FILE_BASEADDR=7340032 \
     -DMBEDTLS_MCUX_ELS_PKC_API \
     -DMBEDTLS_MCUX_USE_PKC \
+    -DTIMER_PORT_TYPE_MRT=1 \
     -DGENERIC_LIST_LIGHT=1 \
     -DMBEDTLS_MCUX_ELS_API \
     -DMBEDTLS_MCUX_USE_ELS \
@@ -123,7 +124,6 @@ SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -140,6 +140,7 @@ SET(CMAKE_CXX_FLAGS_FLASH_DEBUG " \
     -DMCUXPRESSO_SDK \
     -DBOOT_HEADER_ENABLE=1 \
     -DSERIAL_PORT_TYPE_UART=1 \
+    -DTIMER_PORT_TYPE_MRT=1 \
     -g \
     -O0 \
     -mcpu=cortex-m33+nodsp \
@@ -147,7 +148,6 @@ SET(CMAKE_CXX_FLAGS_FLASH_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -163,13 +163,13 @@ SET(CMAKE_CXX_FLAGS_FLASH_RELEASE " \
     -DMCUXPRESSO_SDK \
     -DBOOT_HEADER_ENABLE=1 \
     -DSERIAL_PORT_TYPE_UART=1 \
+    -DTIMER_PORT_TYPE_MRT=1 \
     -Os \
     -mcpu=cortex-m33+nodsp \
     -Wall \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -186,7 +186,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -212,7 +211,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \

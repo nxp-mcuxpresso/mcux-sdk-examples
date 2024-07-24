@@ -1,0 +1,2 @@
+       *(EXCLUDE_FILE(*fsl_i3c.o *fsl_i3c_edma.o *fsl_edma.o) .text)
+       *(EXCLUDE_FILE(*fsl_i3c.o *fsl_i3c_edma.o *fsl_edma.o) .text.*)

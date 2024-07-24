@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 NXP
+ * Copyright 2019, 2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -117,7 +117,7 @@ int main(void)
 
         /* Convert ADC value to a voltage based on 3.3V VREFH on board */
         voltRead = (float)(g_Adc16ConversionValue * (VREF_BRD / SE_12BIT));
-        PRINTF("\r\nADC Voltage: %0.3f\r\n", voltRead);
+        PRINTF("\r\nADC Voltage: %0.3f\r\n", (double)voltRead);
 
         /* Determine what to do next based on user's request */
         PRINTF("\r\nWhat next?:\r\n\t1. Test another DAC output value.\r\n\t2. Terminate demo.\r\n-->");

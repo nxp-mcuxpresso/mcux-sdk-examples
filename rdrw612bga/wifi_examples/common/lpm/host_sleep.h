@@ -16,7 +16,7 @@
 /* Leave AON modules on in PM2 */
 #define WLAN_PM2_MEM_PU_CFG ((uint32_t)kPOWER_Pm2MemPuAon1 | (uint32_t)kPOWER_Pm2MemPuAon0)
 /* All ANA in low power mode in PM2 */
-#ifdef CONFIG_NCP_BRIDGE
+#if CONFIG_NCP_BRIDGE
 #define WLAN_PM2_ANA_PU_CFG (10U)
 #else
 #define WLAN_PM2_ANA_PU_CFG (0U)
@@ -28,7 +28,7 @@
 /* All SRAM kept in retention in PM3, AON SRAM shutdown in PM4 */
 #define WLAN_MEM_PD_CFG (1UL << 8)
 
-#ifdef CONFIG_POWER_MANAGER
+#if CONFIG_POWER_MANAGER
 #define APP_PM2_CONSTRAINTS                                                                              \
     7U, PM_RESC_SRAM_0K_384K_STANDBY, PM_RESC_SRAM_384K_448K_STANDBY, PM_RESC_SRAM_448K_512K_STANDBY,    \
         PM_RESC_SRAM_512K_640K_STANDBY, PM_RESC_SRAM_640K_896K_STANDBY, PM_RESC_SRAM_896K_1216K_STANDBY, \
@@ -42,7 +42,7 @@
 #define WAKEUP_BY_WLAN   0x1
 #define WAKEUP_BY_RTC    0x2
 #define WAKEUP_BY_PIN    0x4
-#ifdef CONFIG_NCP_BRIDGE
+#if CONFIG_NCP_BRIDGE
 #define WAKEUP_BY_USART0 0x8
 #else
 #define WAKEUP_BY_USART3 0x8
@@ -58,7 +58,7 @@ void host_sleep_post_cfg(int mode);
 void host_sleep_dump_wakeup_source();
 void test_wlan_suspend(int argc, char **argv);
 int wlan_config_suspend_mode(int mode);
-#ifdef CONFIG_POWER_MANAGER
+#if CONFIG_POWER_MANAGER
 void powerManager_EnterLowPower();
 #endif
 int host_sleep_cli_init(void);

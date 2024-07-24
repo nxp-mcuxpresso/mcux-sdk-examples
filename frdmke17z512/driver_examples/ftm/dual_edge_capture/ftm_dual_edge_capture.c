@@ -170,7 +170,7 @@ int main(void)
         (float)(((secondChannelOverflowCount - firstChannelOverflowCount) * 65536 + capture2Val - capture1Val) + 1) /
         ((float)FTM_SOURCE_CLOCK / 1000000);
 
-    PRINTF("\r\nInput signals pulse width = %f us\r\n", pulseWidth);
+    PRINTF("\r\nInput signals pulse width = %f us\r\n", (double)pulseWidth);
 
     while (1)
     {

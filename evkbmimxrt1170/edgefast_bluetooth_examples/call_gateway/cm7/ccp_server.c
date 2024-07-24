@@ -168,7 +168,7 @@ static int start_ringtone(void)
 #else
     if (err >= 0)
     {
-        err = unicast_client_enable_streams(BT_AUDIO_CONTEXT_TYPE_RINGTONE, BT_AUDIO_CONTEXT_TYPE_RINGTONE);
+        err = unicast_client_enable_streams(BT_AUDIO_CONTEXT_TYPE_RINGTONE, BT_AUDIO_CONTEXT_TYPE_UNSPECIFIED);
     }
 
     if (err >= 0)
@@ -178,7 +178,7 @@ static int start_ringtone(void)
 #endif
     if (err >= 0)
     {
-        err = unicast_client_start_ringtone(music, sizeof(music));
+        err = unicast_client_start_ringtone(music, sizeof(music), MUSIC_CHANNEL_COUNT);
     }
 
     if (err < 0)
@@ -267,7 +267,9 @@ static int retrieve_call(void)
 
 static void connected(struct bt_conn *conn, uint8_t err)
 {
-    default_conn = conn;
+    if (default_conn == NULL) {
+        default_conn = conn;
+    }
 }
 
 static void disconnected(struct bt_conn *conn, uint8_t reason)
@@ -835,7 +837,7 @@ static shell_status_t remote_call_incoming(shell_handle_t shellHandle, int32_t a
                 bt_tbs_terminate(s_callIndex);
             }
         }
-        SHELL_Printf(s_shellHandle, "done, call index is %d\r\n", ret);
+        SHELL_Printf(s_shellHandle, "done, call index is %d\r\n", s_callIndex);
     }
     return kStatus_SHELL_Success;
 }

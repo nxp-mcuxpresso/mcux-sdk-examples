@@ -7,12 +7,12 @@ debugging and further development.
 
 SDK version
 ===========
-- Version: 2.15.000
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  12.2
-- MCUXpresso  11.8.0
+- GCC ARM Embedded  13.2.1
+- MCUXpresso  11.10.0
 
 Hardware requirements
 =====================
@@ -41,12 +41,12 @@ Running the demo
 ================
 When the example runs successfully, the following message is displayed in the terminal:
 ~~~~~~~~~~~~~~~~~~~~~
-DMA memory to memory transfer example begin.
+EDMA memory to memory transfer example begin.
 
 Destination Buffer:
 0       0       0       0
 
-DMA memory to memory transfer example finish.
+EDMA memory to memory transfer example finish.
 
 Destination Buffer:
 1       2       3       4

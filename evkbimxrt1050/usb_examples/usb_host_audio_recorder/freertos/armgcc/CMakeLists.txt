@@ -38,7 +38,7 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(host_audio_recorder_freertos)
 
-set(MCUX_BUILD_TYPES flexspi_nor_debug flexspi_nor_release sdram_debug sdram_release)
+set(MCUX_BUILD_TYPES flexspi_nor_debug flexspi_nor_release sdram_release)
 
 set(MCUX_SDK_PROJECT_NAME host_audio_recorder_freertos.elf)
 

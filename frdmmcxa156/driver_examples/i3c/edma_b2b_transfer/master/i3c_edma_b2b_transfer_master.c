@@ -27,6 +27,9 @@
 #define EXAMPLE_I3C_RX_DMA_CHANNEL     (1U)
 #define EXAMPLE_I3C_TX_DMA_CHANNEL_MUX (kDma0RequestMuxI3c0Tx)
 #define EXAMPLE_I3C_RX_DMA_CHANNEL_MUX (kDma0RequestMuxI3c0Rx)
+#define CCC_RSTDAA  0x06U
+#define CCC_SETDASA 0x87U
+
 #ifndef I3C_MASTER_SLAVE_ADDR_7BIT
 #define I3C_MASTER_SLAVE_ADDR_7BIT 0x1EU
 #endif
@@ -110,6 +113,7 @@ int main(void)
     status_t result  = kStatus_Success;
     i3c_master_config_t masterConfig;
     i3c_master_transfer_t masterXfer;
+    uint8_t slaveAddr = 0;
 
     /* Attach peripheral clock */
     CLOCK_SetClockDiv(kCLOCK_DivI3C0_FCLK, 4U);
@@ -166,7 +170,7 @@ int main(void)
     /* Reset dynamic address before DAA */
     memset(&masterXfer, 0, sizeof(masterXfer));
     masterXfer.slaveAddress   = 0x7EU; /* Broadcast address */
-    masterXfer.subaddress     = 0x06U; /* CCC command RSTDAA */
+    masterXfer.subaddress     = CCC_RSTDAA;
     masterXfer.subaddressSize = 1U;
     masterXfer.direction      = kI3C_Write;
     masterXfer.busType        = kI3C_TypeI3CSdr;
@@ -192,6 +196,65 @@ int main(void)
     }
     g_masterCompletionFlag = false;
 
+#if defined(EXAMPLE_USE_SETDASA_ASSIGN_ADDR) && (EXAMPLE_USE_SETDASA_ASSIGN_ADDR)
+    /* Assign dynamic address. */
+    memset(&masterXfer, 0, sizeof(masterXfer));
+    masterXfer.slaveAddress   = 0x7EU;
+    masterXfer.subaddress     = CCC_SETDASA;
+    masterXfer.subaddressSize = 1U;
+    masterXfer.direction      = kI3C_Write;
+    masterXfer.busType        = kI3C_TypeI3CSdr;
+    masterXfer.flags          = kI3C_TransferNoStopFlag;
+    masterXfer.ibiResponse    = kI3C_IbiRespAckMandatory;
+    result                    = I3C_MasterTransferEDMA(EXAMPLE_MASTER, &g_i3c_m_handle, &masterXfer);
+    if (kStatus_Success != result)
+    {
+        return result;
+    }
+
+    /* Wait for transfer completed. */
+    while ((!g_ibiWonFlag) && (!g_masterCompletionFlag) && (g_completionStatus == kStatus_Success))
+    {
+        __NOP();
+    }
+    g_ibiWonFlag = false;
+
+    result = g_completionStatus;
+    if (result != kStatus_Success)
+    {
+        return -1;
+    }
+    g_masterCompletionFlag = false;
+
+    slaveAddr = 0x30;;
+    memset(&masterXfer, 0, sizeof(masterXfer));
+    masterXfer.slaveAddress   = I3C_MASTER_SLAVE_ADDR_7BIT;
+    masterXfer.subaddress     = slaveAddr << 1U;
+    masterXfer.subaddressSize = 1U;
+    masterXfer.direction      = kI3C_Write;
+    masterXfer.busType        = kI3C_TypeI3CSdr;
+    masterXfer.flags          = kI3C_TransferDefaultFlag;
+    masterXfer.ibiResponse    = kI3C_IbiRespAckMandatory;
+    result                    = I3C_MasterTransferEDMA(EXAMPLE_MASTER, &g_i3c_m_handle, &masterXfer);
+    if (kStatus_Success != result)
+    {
+        return result;
+    }
+
+    /* Wait for transfer completed. */
+    while ((!g_ibiWonFlag) && (!g_masterCompletionFlag) && (g_completionStatus == kStatus_Success))
+    {
+        __NOP();
+    }
+    g_ibiWonFlag = false;
+
+    result = g_completionStatus;
+    if (result != kStatus_Success)
+    {
+        return -1;
+    }
+    g_masterCompletionFlag = false;
+#else
     uint8_t addressList[8] = {0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37};
     result                 = I3C_MasterProcessDAA(EXAMPLE_MASTER, addressList, 8);
     if (result != kStatus_Success)
@@ -199,13 +262,11 @@ int main(void)
         return -1;
     }
 
-    PRINTF("\r\nI3C master dynamic address assignment done.\r\n");
-
-    uint8_t devCount;
     i3c_device_info_t *devList;
-    uint8_t slaveAddr = 0x0U;
-    devList           = I3C_MasterGetDeviceListAfterDAA(EXAMPLE_MASTER, &devCount);
-    for (uint8_t devIndex = 0; devIndex < devCount; devIndex++)
+    uint8_t devIndex;
+    uint8_t devCount;
+    devList = I3C_MasterGetDeviceListAfterDAA(EXAMPLE_MASTER, &devCount);
+    for (devIndex = 0; devIndex < devCount; devIndex++)
     {
         if (devList[devIndex].vendorID == 0x123U)
         {
@@ -213,6 +274,14 @@ int main(void)
             break;
         }
     }
+    if (devIndex == devCount)
+    {
+        PRINTF("\r\nI3C master dynamic address assignment fails!\r\n");
+        return -1;
+    }
+#endif
+
+    PRINTF("\r\nI3C master dynamic address assignment done.\r\n");
 
     PRINTF("\r\nStart to do I3C master transfer in I3C SDR mode.\r\n");
     memset(&masterXfer, 0, sizeof(masterXfer));

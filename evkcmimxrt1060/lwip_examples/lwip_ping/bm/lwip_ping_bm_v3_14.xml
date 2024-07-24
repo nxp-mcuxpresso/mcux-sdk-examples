@@ -29,6 +29,7 @@
     <definition extID="middleware.lwip.template.MIMXRT1062"/>
     <definition extID="component.igpio_adapter.MIMXRT1062"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT1062"/>
+    <definition extID="utility.str.MIMXRT1062"/>
     <definition extID="device.MIMXRT1062_system.MIMXRT1062"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
@@ -36,7 +37,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkcmimxrt1060_lwip_ping_bm" name="lwip_ping_bm" dependency="driver.phy-device-ksz8081.MIMXRT1062 platform.drivers.cache_armv7_m7.MIMXRT1062 component.silicon_id_rt10xx.MIMXRT1062 component.silicon_id.MIMXRT1062 platform.drivers.enet.MIMXRT1062 middleware.lwip.kinetis_ethernetif.MIMXRT1062 middleware.lwip.MIMXRT1062 middleware.lwip.contrib.ping.MIMXRT1062 platform.drivers.clock.MIMXRT1062 platform.drivers.common.MIMXRT1062 device.MIMXRT1062_CMSIS.MIMXRT1062 utility.debug_console.MIMXRT1062 component.lpuart_adapter.MIMXRT1062 component.serial_manager_uart.MIMXRT1062 component.serial_manager.MIMXRT1062 platform.drivers.lpuart.MIMXRT1062 component.lists.MIMXRT1062 device.MIMXRT1062_startup.MIMXRT1062 platform.drivers.iomuxc.MIMXRT1062 platform.utilities.assert.MIMXRT1062 platform.drivers.igpio.MIMXRT1062 platform.drivers.xip_device.MIMXRT1062 platform.drivers.xip_board.evkcmimxrt1060.MIMXRT1062 platform.utilities.misc_utilities.MIMXRT1062 driver.phy-common.MIMXRT1062 middleware.lwip.template.MIMXRT1062 component.igpio_adapter.MIMXRT1062 CMSIS_Include_core_cm.MIMXRT1062 device.MIMXRT1062_system.MIMXRT1062" category="lwip_examples">
+  <example id="evkcmimxrt1060_lwip_ping_bm" name="lwip_ping_bm" dependency="driver.phy-device-ksz8081.MIMXRT1062 platform.drivers.cache_armv7_m7.MIMXRT1062 component.silicon_id_rt10xx.MIMXRT1062 component.silicon_id.MIMXRT1062 platform.drivers.enet.MIMXRT1062 middleware.lwip.kinetis_ethernetif.MIMXRT1062 middleware.lwip.MIMXRT1062 middleware.lwip.contrib.ping.MIMXRT1062 platform.drivers.clock.MIMXRT1062 platform.drivers.common.MIMXRT1062 device.MIMXRT1062_CMSIS.MIMXRT1062 utility.debug_console.MIMXRT1062 component.lpuart_adapter.MIMXRT1062 component.serial_manager_uart.MIMXRT1062 component.serial_manager.MIMXRT1062 platform.drivers.lpuart.MIMXRT1062 component.lists.MIMXRT1062 device.MIMXRT1062_startup.MIMXRT1062 platform.drivers.iomuxc.MIMXRT1062 platform.utilities.assert.MIMXRT1062 platform.drivers.igpio.MIMXRT1062 platform.drivers.xip_device.MIMXRT1062 platform.drivers.xip_board.evkcmimxrt1060.MIMXRT1062 platform.utilities.misc_utilities.MIMXRT1062 driver.phy-common.MIMXRT1062 middleware.lwip.template.MIMXRT1062 component.igpio_adapter.MIMXRT1062 CMSIS_Include_core_cm.MIMXRT1062 utility.str.MIMXRT1062 device.MIMXRT1062_system.MIMXRT1062" category="lwip_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -77,7 +78,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>
@@ -127,14 +128,6 @@
       <files mask="CMakeLists.txt"/>
       <files mask="flags.cmake"/>
       <files mask="config.cmake"/>
-      <files mask="build_sdram_debug.bat"/>
-      <files mask="build_sdram_debug.sh"/>
-      <files mask="build_sdram_release.bat"/>
-      <files mask="build_sdram_release.sh"/>
-      <files mask="build_debug.bat"/>
-      <files mask="build_debug.sh"/>
-      <files mask="build_release.bat"/>
-      <files mask="build_release.sh"/>
       <files mask="build_flexspi_nor_debug.bat"/>
       <files mask="build_flexspi_nor_debug.sh"/>
       <files mask="build_flexspi_nor_release.bat"/>
@@ -169,8 +162,6 @@
       <files mask="readme.md"/>
     </source>
     <source path="armgcc" project_relative_path="MIMXRT1062/gcc" type="linker" toolchain="armgcc">
-      <files mask="MIMXRT1062xxxxx_ram.ld"/>
-      <files mask="MIMXRT1062xxxxx_sdram.ld"/>
       <files mask="MIMXRT1062xxxxx_flexspi_nor.ld"/>
     </source>
   </example>

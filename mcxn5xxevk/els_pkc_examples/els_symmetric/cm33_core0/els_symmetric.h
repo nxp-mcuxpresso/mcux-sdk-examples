@@ -18,6 +18,6 @@
  ******************************************************************************/
 extern bool mcuxClEls_Cipher_Aes128_Cbc_Encrypt_example(void);
 extern bool mcuxClEls_Cipher_Aes128_Ecb_Encrypt_example(void);
-extern bool mcuxClMacModes_cmac_oneshot_example(void);
+extern bool mcuxClMacModes_Els_Cmac_Aes128_Oneshot_example(void);
 
 #endif /* _ELS_PKC_SYMMETRIC_H_ */

@@ -3,19 +3,21 @@
   <externalDefinitions>
     <definition extID="middleware.freertos-kernel.cm33_non_trustzone.K32W1480"/>
     <definition extID="middleware.freertos-kernel.heap_4.K32W1480"/>
+    <definition extID="component.lists.K32W1480"/>
+    <definition extID="component.lpuart_adapter.K32W1480"/>
+    <definition extID="component.serial_manager.K32W1480"/>
+    <definition extID="component.serial_manager_uart.K32W1480"/>
+    <definition extID="device.K32W1480_CMSIS.K32W1480"/>
+    <definition extID="platform.devices.K32W1480.K32W1480"/>
+    <definition extID="platform.drivers.ccm32k.K32W1480"/>
     <definition extID="platform.drivers.clock.K32W1480"/>
     <definition extID="platform.drivers.common.K32W1480"/>
-    <definition extID="device.K32W1480_CMSIS.K32W1480"/>
-    <definition extID="component.lpuart_adapter.K32W1480"/>
-    <definition extID="platform.drivers.lpuart.K32W1480"/>
-    <definition extID="component.lists.K32W1480"/>
-    <definition extID="platform.devices.K32W1480.K32W1480"/>
-    <definition extID="platform.drivers.port.K32W1480"/>
     <definition extID="platform.drivers.gpio.K32W1480"/>
-    <definition extID="platform.drivers.ccm32k.K32W1480"/>
+    <definition extID="platform.drivers.lpuart.K32W1480"/>
+    <definition extID="platform.drivers.port.K32W1480"/>
     <definition extID="platform.drivers.spc.K32W1480"/>
-    <definition extID="utility.debug_console_lite.K32W1480"/>
-    <definition extID="platform.utilities.assert_lite.K32W1480"/>
+    <definition extID="platform.utilities.assert.K32W1480"/>
+    <definition extID="utility.debug_console.K32W1480"/>
     <definition extID="platform.utilities.misc_utilities.K32W1480"/>
     <definition extID="middleware.freertos-kernel.K32W1480"/>
     <definition extID="middleware.freertos-kernel.template.K32W1480"/>
@@ -27,7 +29,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="k32w148evk_freertos_mutex" name="freertos_mutex" dependency="middleware.freertos-kernel.cm33_non_trustzone.K32W1480 middleware.freertos-kernel.heap_4.K32W1480 platform.drivers.clock.K32W1480 platform.drivers.common.K32W1480 device.K32W1480_CMSIS.K32W1480 component.lpuart_adapter.K32W1480 platform.drivers.lpuart.K32W1480 component.lists.K32W1480 platform.devices.K32W1480.K32W1480 platform.drivers.port.K32W1480 platform.drivers.gpio.K32W1480 platform.drivers.ccm32k.K32W1480 platform.drivers.spc.K32W1480 utility.debug_console_lite.K32W1480 platform.utilities.assert_lite.K32W1480 platform.utilities.misc_utilities.K32W1480 middleware.freertos-kernel.K32W1480 middleware.freertos-kernel.template.K32W1480 middleware.freertos-kernel.extension.K32W1480 CMSIS_Include_core_cm.K32W1480 device.K32W1480_system.K32W1480 utility.str.K32W1480" category="freertos_examples">
+  <example id="k32w148evk_freertos_mutex" name="freertos_mutex" dependency="middleware.freertos-kernel.cm33_non_trustzone.K32W1480 middleware.freertos-kernel.heap_4.K32W1480 component.lists.K32W1480 component.lpuart_adapter.K32W1480 component.serial_manager.K32W1480 component.serial_manager_uart.K32W1480 device.K32W1480_CMSIS.K32W1480 platform.devices.K32W1480.K32W1480 platform.drivers.ccm32k.K32W1480 platform.drivers.clock.K32W1480 platform.drivers.common.K32W1480 platform.drivers.gpio.K32W1480 platform.drivers.lpuart.K32W1480 platform.drivers.port.K32W1480 platform.drivers.spc.K32W1480 platform.utilities.assert.K32W1480 utility.debug_console.K32W1480 platform.utilities.misc_utilities.K32W1480 middleware.freertos-kernel.K32W1480 middleware.freertos-kernel.template.K32W1480 middleware.freertos-kernel.extension.K32W1480 CMSIS_Include_core_cm.K32W1480 device.K32W1480_system.K32W1480 utility.str.K32W1480" category="freertos_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -36,6 +38,7 @@
         <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
           <value>CPU_K32W1480VFTA</value>
           <value>MCUXPRESSO_SDK</value>
+          <value>SERIAL_PORT_TYPE_UART=1</value>
           <value>SDK_OS_FREE_RTOS</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
@@ -51,7 +54,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

@@ -32,7 +32,7 @@
 
 #define ncp_adap_e(...) ncplog_e("NCP Adap", ##__VA_ARGS__)
 #define ncp_adap_w(...) ncplog_w("NCP Adap", ##__VA_ARGS__)
-#ifdef CONFIG_NCP_DEBUG_ADAP
+#if CONFIG_NCP_DEBUG_ADAP
 #define ncp_adap_d(...) ncplog("NCP Adap", ##__VA_ARGS__)
 #else
 #define ncp_adap_d(...)

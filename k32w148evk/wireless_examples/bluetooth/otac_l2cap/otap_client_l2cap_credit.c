@@ -4,7 +4,7 @@
 ********************************************************************************** */
 /*! *********************************************************************************
 * Copyright 2015 Freescale Semiconductor, Inc.
-* Copyright 2016-2023 NXP
+* Copyright 2016-2024 NXP
 *
 *
 * \file
@@ -52,6 +52,7 @@
 #include "board.h"
 #include "board_comp.h"
 #include "app_conn.h"
+#include "app_advertiser.h"
 #include "app.h"
 #include "otap_client_l2cap_credit.h"
 #include "otap_client.h"

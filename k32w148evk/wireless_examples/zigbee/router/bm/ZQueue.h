@@ -1,17 +1,17 @@
 /****************************************************************************
  *
- * Copyright 2020, 2023 NXP
+ * Copyright 2020, 2023-2024 NXP
  *
- * NXP Confidential. 
- * 
- * This software is owned or controlled by NXP and may only be used strictly 
- * in accordance with the applicable license terms.  
- * By expressly accepting such terms or by downloading, installing, activating 
- * and/or otherwise using the software, you are agreeing that you have read, 
- * and that you agree to comply with and are bound by, such license terms.  
- * If you do not agree to be bound by the applicable license terms, 
- * then you may not retain, install, activate or otherwise use the software. 
- * 
+ * NXP Confidential.
+ *
+ * This software is owned or controlled by NXP and may only be used strictly
+ * in accordance with the applicable license terms.
+ * By expressly accepting such terms or by downloading, installing, activating
+ * and/or otherwise using the software, you are agreeing that you have read,
+ * and that you agree to comply with and are bound by, such license terms.
+ * If you do not agree to be bound by the applicable license terms,
+ * then you may not retain, install, activate or otherwise use the software.
+ *
  *
  ****************************************************************************/
 
@@ -35,7 +35,7 @@
 #endif
 
 #if ZIGBEE_USE_FRAMEWORK
-#if defined(K32W1480_SERIES) || defined(K32W1)
+#if defined(K32W1480_SERIES) || defined(K32W1) || defined(MCXW716A_SERIES) || defined(MCXW716C_SERIES) || defined(RW612_SERIES)
 #include "fsl_component_generic_list.h"
 #else
 #include "GenericList.h"
@@ -43,12 +43,12 @@
 
 typedef struct
 {
-#if defined(K32W1480_SERIES) || defined(K32W1)
+#if defined(K32W1480_SERIES) || defined(K32W1) || defined(MCXW716A_SERIES) || defined(MCXW716C_SERIES) || defined(RW612_SERIES)
     list_label_t list;
 #else
     list_t list;
 #endif
-    uint32 u32ItemSize; 
+    uint32 u32ItemSize;
 }tszQueue;
 #else
 typedef struct

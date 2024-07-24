@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 ,2021 NXP
+ * Copyright 2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,13 +14,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v9.0
-processor: MIMXRT685S
-package_id: MIMXRT685SFVKB
+product: Pins v15.0
+processor: RW612
+package_id: RW612ETA2I
 mcu_data: ksdk2_0
-processor_version: 9.0.0
-pin_labels:
-- {pin_num: G15, pin_signal: PIO1_1/FC4_SSEL2/SCT0_GPI2/SCT0_OUT8/CTIMER1_MAT0, label: 'FLEXSPI_B_DATA, 2'}
+processor_version: 0.0.0
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -38,7 +36,6 @@ pin_labels:
 void BOARD_InitBootPins(void)
 {
     BOARD_InitPins();
-    BOARD_InitQuadSpiFlashPins();
 }
 
 /* clang-format off */
@@ -47,10 +44,14 @@ void BOARD_InitBootPins(void)
 BOARD_InitPins:
 - options: {callFromInitBoot: 'true', coreID: cm33, enableClock: 'true'}
 - pin_list:
-  - {pin_num: G4, peripheral: FLEXCOMM0, signal: RXD_SDA_MOSI_DATA, pin_signal: PIO0_2/FC0_RXD_SDA_MOSI_DATA/CTIMER0_MAT2/I2S_BRIDGE_DATA_IN/SEC_PIO0_2, pupdena: disabled,
-    pupdsel: pullDown, ibena: enabled, slew_rate: normal, drive: normal, amena: disabled, odena: disabled, iiena: disabled}
-  - {pin_num: G2, peripheral: FLEXCOMM0, signal: TXD_SCL_MISO_WS, pin_signal: PIO0_1/FC0_TXD_SCL_MISO_WS/CTIMER0_MAT1/I2S_BRIDGE_WS_IN/SEC_PIO0_1, pupdena: disabled,
-    pupdsel: pullDown, ibena: disabled, slew_rate: normal, drive: normal, amena: disabled, odena: disabled, iiena: disabled}
+  - {pin_num: F3, peripheral: FLEXCOMM3, signal: USART_RXD, pin_signal: GPIO_24}
+  - {pin_num: E5, peripheral: FLEXSPI, signal: FLASH_CLK0, pin_signal: GPIO_34}
+  - {pin_num: A4, peripheral: FLEXSPI, signal: FLASH_DATA0, pin_signal: GPIO_30}
+  - {pin_num: D5, peripheral: FLEXSPI, signal: FLASH_DATA1, pin_signal: GPIO_31}
+  - {pin_num: C4, peripheral: FLEXSPI, signal: FLASH_DATA2, pin_signal: GPIO_32}
+  - {pin_num: C5, peripheral: FLEXSPI, signal: FLASH_DATA3, pin_signal: GPIO_33}
+  - {pin_num: D4, peripheral: FLEXSPI, signal: FLASH_DQS, pin_signal: GPIO_29}
+  - {pin_num: F5, peripheral: FLEXSPI, signal: FLASH_SSEL0, pin_signal: GPIO_28}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -58,42 +59,16 @@ BOARD_InitPins:
 /* FUNCTION ************************************************************************************************************
  *
  * Function Name : BOARD_InitPins
- * Description   : Configures pin routing and optionally pin electrical features.
+ * Description   : 
  *
  * END ****************************************************************************************************************/
 /* Function assigned for the Cortex-M33 */
 void BOARD_InitPins(void)
 {
+    /* Initialize FC3_USART_DATA functionality on pin GPIO_24 (pin F3) */
     IO_MUX_SetPinMux(IO_MUX_FC3_USART_DATA);
-}
-
-/* clang-format off */
-/*
- * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
-BOARD_InitFlexSPI0BPins:
-- options: {callFromInitBoot: 'true', coreID: cm33, enableClock: 'true'}
-- pin_list:
-  - {pin_num: L2, peripheral: FLEXSPI, signal: FLEXSPI_B_DATA0, pin_signal: PIO1_11/HS_SPI_SCK/CTIMER2_MAT0/FLEXSPI0B_DATA0, ibena: enabled, drive: full}
-  - {pin_num: M2, peripheral: FLEXSPI, signal: FLEXSPI_B_DATA1, pin_signal: PIO1_12/HS_SPI_MISO/CTIMER2_MAT1/FLEXSPI0B_DATA1, ibena: enabled, drive: full}
-  - {pin_num: N1, peripheral: FLEXSPI, signal: FLEXSPI_B_DATA2, pin_signal: PIO1_13/HS_SPI_MOSI/CTIMER2_MAT2/FLEXSPI0B_DATA2, ibena: enabled, drive: full}
-  - {pin_num: N2, peripheral: FLEXSPI, signal: FLEXSPI_B_DATA3, pin_signal: PIO1_14/HS_SPI_SSEL0/CTIMER2_MAT3/FLEXSPI0B_DATA3, ibena: enabled, drive: full}
-  - {pin_num: U3, peripheral: FLEXSPI, signal: FLEXSPI_B_SCLK, pin_signal: PIO1_29/FLEXSPI0A_SS1_N/SCT0_OUT5/UTICK_CAP2/CTIMER_INP13/FLEXSPI0B_SCLK, ibena: enabled,
-    drive: full}
-  - {pin_num: T2, peripheral: FLEXSPI, signal: FLEXSPI_B_SS0_B, pin_signal: PIO2_19/PDM_CLK67/FLEXSPI0B_SS0_N, ibena: enabled, drive: full}
-  - {pin_num: T3, peripheral: GPIO, signal: 'PIO2, 12', pin_signal: PIO2_12/SCT0_OUT6/CTIMER2_MAT2}
- * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
- */
-/* clang-format on */
-
-/* FUNCTION ************************************************************************************************************
- *
- * Function Name : BOARD_InitFlexSPI0BPins
- * Description   : Configures pin routing and optionally pin electrical features.
- *
- * END ****************************************************************************************************************/
-/* Function assigned for the Cortex-M33 */
-void BOARD_InitQuadSpiFlashPins(void)
-{
+    /* Initialize QUAD_SPI_FLASH functionality on pin GPIO_34, GPIO_30, GPIO_31, GPIO_32, GPIO_33, GPIO_29, GPIO_28
+     * (pin E5_A4_D5_C4_C5_D4_F5) */
     IO_MUX_SetPinMux(IO_MUX_QUAD_SPI_FLASH);
 }
 /***********************************************************************************************************************

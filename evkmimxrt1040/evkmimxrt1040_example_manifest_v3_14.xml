@@ -4,7 +4,7 @@
   <externalDefinitions>
     <definition extID="MIMXRT1042XJM5B"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK215100_evkmimxrt1040_examples_manifest_v3_14" name="MCUXpressoSDK215100_evkmimxrt1040_examples_manifest_v3_14" version="2.15.100" revision="2.15.100"/>
+  <ksdk id="MCUXpressoSDK216000_evkmimxrt1040_examples_manifest_v3_14" name="MCUXpressoSDK216000_evkmimxrt1040_examples_manifest_v3_14" version="2.16.000" revision="2.16.000"/>
   <boards>
     <board id="evkmimxrt1040" name="MIMXRT1040-EVK" href="https://www.nxp.com/pip/MIMXRT1040-EVK" version="1.0.0" package="MIMXRT1042XJM5B">
       <examples>
@@ -1393,14 +1393,9 @@
             <files mask="lpi2c_polling_b2b_slave_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkmimxrt1040_ota_mcuboot_server_enet" name="ota_mcuboot_server_enet" brief="This ota_mcuboot_server application demonstrates OTA update using an HTTP server based on lwIP TCP/IP and the MbedTLS stack with FreeRTOS. The user uses an Internet browser to upload new update package to reprogram application running on the board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="ota_examples" path="examples/evkmimxrt1040/ota_examples/ota_mcuboot_server/enet">
+        <example id="evkmimxrt1040_ota_mcuboot_server_enet" name="ota_mcuboot_server_enet" brief="This ota_mcuboot_server application demonstrates OTA update using an HTTP server based on lwIP TCP/IP stack with FreeRTOS. The user uses an Internet browser to upload new update package to reprogram application running on the board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="ota_examples" path="examples/evkmimxrt1040/ota_examples/ota_mcuboot_server/enet">
           <external path="ota_examples/ota_mcuboot_server/enet" type="xml">
             <files mask="ota_mcuboot_server_enet_v3_14.xml"/>
-          </external>
-        </example>
-        <example id="evkmimxrt1040_ota_mcuboot_server_wifi" name="ota_mcuboot_server_wifi" brief="This ota_mcuboot_server application demonstrates OTA using an HTTP server based on lwIP TCP/IP and the MbedTLS stack with FreeRTOS. The user uses an Internet browser to upload new update package to reprogram application running on the board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="ota_examples" path="examples/evkmimxrt1040/ota_examples/ota_mcuboot_server/wifi">
-          <external path="ota_examples/ota_mcuboot_server/wifi" type="xml">
-            <files mask="ota_mcuboot_server_wifi_v3_14.xml"/>
           </external>
         </example>
         <example id="evkmimxrt1040_wifi_cert" name="wifi_cert" brief="wifi_cert" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="examples/evkmimxrt1040/wifi_examples/wifi_cert">
@@ -1438,7 +1433,12 @@
             <files mask="mcuboot_opensource_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkmimxrt1040_freertos_hello" name="freertos_hello" brief="The Hello World project is a simple demonstration program that uses the SDK UART drivere incombination with FreeRTOS. The purpose of this demo is to show how to use the debug console and toprovide a simple project for debugging and further development.The example application creates one task called hello_task. This task print &quot;Hello world.&quot; messagevia debug console utility and suspend itself." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="freertos_examples" path="examples/evkmimxrt1040/freertos_examples/freertos_hello">
+        <example id="evkmimxrt1040_ota_mcuboot_basic" name="ota_mcuboot_basic" brief="This projects gives an example of a basic application bootable by MCUBoot" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="ota_examples" path="examples/evkmimxrt1040/ota_examples/ota_mcuboot_basic">
+          <external path="ota_examples/ota_mcuboot_basic" type="xml">
+            <files mask="ota_mcuboot_basic_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkmimxrt1040_freertos_hello" name="freertos_hello" brief="The Hello World project is a simple demonstration program that uses the SDK UART driver in combination with FreeRTOS. The purpose of this demo is to show how to use the debug console and toprovide a simple project for debugging and further development.The example application creates one task called hello_task. This task print &quot;Hello world.&quot; messagevia debug console utility and suspend itself." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="freertos_examples" path="examples/evkmimxrt1040/freertos_examples/freertos_hello">
           <external path="freertos_examples/freertos_hello" type="xml">
             <files mask="freertos_hello_v3_14.xml"/>
           </external>
@@ -1483,6 +1483,11 @@
             <files mask="freertos_tickless_v3_14.xml"/>
           </external>
         </example>
+        <example id="evkmimxrt1040_tflm_lib" name="tflm_lib" brief="Library build of TensorFlow Lite Micro" toolchain="mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkmimxrt1040/eiq_examples/tflm_lib">
+          <external path="eiq_examples/tflm_lib" type="xml">
+            <files mask="tflm_lib_v3_14.xml"/>
+          </external>
+        </example>
         <example id="evkmimxrt1040_tflm_cifar10" name="tflm_cifar10" brief="CIFAR-10 example for TensorFlow Lite Micro" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkmimxrt1040/eiq_examples/tflm_cifar10">
           <external path="eiq_examples/tflm_cifar10" type="xml">
             <files mask="tflm_cifar10_v3_14.xml"/>
@@ -1496,36 +1501,6 @@
         <example id="evkmimxrt1040_tflm_kws" name="tflm_kws" brief="Keyword spotting example for TensorFlow Lite Micro" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkmimxrt1040/eiq_examples/tflm_kws">
           <external path="eiq_examples/tflm_kws" type="xml">
             <files mask="tflm_kws_v3_14.xml"/>
-          </external>
-        </example>
-        <example id="evkmimxrt1040_glow_lenet_mnist" name="glow_lenet_mnist" brief="LeNet MNIST example for Glow NN compiler" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkmimxrt1040/eiq_examples/glow_lenet_mnist">
-          <external path="eiq_examples/glow_lenet_mnist" type="xml">
-            <files mask="glow_lenet_mnist_v3_14.xml"/>
-          </external>
-        </example>
-        <example id="evkmimxrt1040_glow_cifar10" name="glow_cifar10" brief="Cifar10 example for Glow NN compiler" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkmimxrt1040/eiq_examples/glow_cifar10">
-          <external path="eiq_examples/glow_cifar10" type="xml">
-            <files mask="glow_cifar10_v3_14.xml"/>
-          </external>
-        </example>
-        <example id="evkmimxrt1040_deepviewrt_modelrunner" name="deepviewrt_modelrunner" brief="DeepViewRT ModelRunner is a dedicated service for hosting and evaluating RTM graphs through a set of RPC protocols, it provides an HTTP REST API for loading an evaluating models. It can work with eIQ toolkit to evaluating and profiling models." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkmimxrt1040/eiq_examples/deepviewrt_modelrunner">
-          <external path="eiq_examples/deepviewrt_modelrunner" type="xml">
-            <files mask="deepviewrt_modelrunner_v3_14.xml"/>
-          </external>
-        </example>
-        <example id="evkmimxrt1040_deepviewrt_modelrunner-glow" name="deepviewrt_modelrunner-glow" brief="DeepViewRT ModelRunner for GLOW" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkmimxrt1040/eiq_examples/deepviewrt_modelrunner-glow">
-          <external path="eiq_examples/deepviewrt_modelrunner-glow" type="xml">
-            <files mask="deepviewrt_modelrunner-glow_v3_14.xml"/>
-          </external>
-        </example>
-        <example id="evkmimxrt1040_deepviewrt_labelimage" name="deepviewrt_labelimage" brief="DeepViewRT LabelImage is as a basic &quot;labelimage&quot; example for using DeepViewRT on an RT106x platform.  The firmware integrates a user defined model with an example provided as well as a user provided image to classify." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkmimxrt1040/eiq_examples/deepviewrt_labelimage">
-          <external path="eiq_examples/deepviewrt_labelimage" type="xml">
-            <files mask="deepviewrt_labelimage_v3_14.xml"/>
-          </external>
-        </example>
-        <example id="evkmimxrt1040_deepviewrt_image_detection" name="deepviewrt_image_detection" brief="DeepViewRT Image Detection example shows the demonstration of image detection using DeepViewRT on an IMXRT platform. The application will identify multiple objects in a single image and output the result via UART console." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkmimxrt1040/eiq_examples/deepviewrt_image_detection">
-          <external path="eiq_examples/deepviewrt_image_detection" type="xml">
-            <files mask="deepviewrt_image_detection_v3_14.xml"/>
           </external>
         </example>
         <example id="evkmimxrt1040_threadx_lib" name="threadx_lib" brief="ThreadX library" toolchain="mcuxpresso" compiler="compiler_gcc" category="azure_rtos_libs" path="examples/evkmimxrt1040/azure_rtos_examples/threadx_lib">

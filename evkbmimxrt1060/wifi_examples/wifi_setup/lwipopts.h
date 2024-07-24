@@ -336,12 +336,15 @@ void sys_mark_tcpip_thread(void);
  */
 #define LWIP_RAW 1
 
-/* Enable IPv4 Auto IP	*/
-#ifdef CONFIG_AUTOIP
-#define LWIP_AUTOIP                 1
-#define LWIP_DHCP_AUTOIP_COOP       1
-#define LWIP_DHCP_AUTOIP_COOP_TRIES 5
-#endif
+/*
+   ---------------------------------------
+   ---------- IPv6 options ---------------
+   ---------------------------------------
+*/
+/**
+ * LWIP_IPV6==1: Enable IPv6
+ */
+#define LWIP_IPV6 0
 
 #define LWIP_DNS_SECURE 0
 

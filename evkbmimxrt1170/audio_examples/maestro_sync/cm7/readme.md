@@ -50,11 +50,11 @@ please use https://vit.nxp.com/
 
 SDK version
 ===========
-- Version: 2.15.100
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- MCUXpresso  11.8.0
+- MCUXpresso  11.10.0
 
 Hardware requirements
 =====================

@@ -1,5 +1,5 @@
 /*
- * Copyright 2021-2023 NXP
+ * Copyright 2021-2024 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -18,9 +18,6 @@
  ******************************************************************************/
 #define EXAMPLE_SLAVE              I3C2
 #define I3C_SLAVE_CLOCK_FREQUENCY  CLOCK_GetRootClockFreq(kCLOCK_Root_I3c2)
-#define I3C_TIME_OUT_INDEX         100000000
-#define I3C_MASTER_SLAVE_ADDR_7BIT 0x1EU
-#define I3C_DATA_LENGTH            34U
 #define I3C_ASYNC_WAKE_UP_INTR_CLEAR                    \
     {                                                   \
         BLK_CTRL_WAKEUPMIX->I3C2_ASYNC_WAKEUP_CTRL = 1; \
@@ -34,6 +31,8 @@
 #ifndef I3C_DATA_LENGTH
 #define I3C_DATA_LENGTH 34U
 #endif
+
+#define I3C_VENDOR_ID      0x11BU
 
 /*******************************************************************************
  * Prototypes
@@ -150,7 +149,7 @@ int main(void)
 
     I3C_SlaveGetDefaultConfig(&slaveConfig);
     slaveConfig.staticAddr = I3C_MASTER_SLAVE_ADDR_7BIT;
-    slaveConfig.vendorID   = 0x123U;
+    slaveConfig.vendorID   = I3C_VENDOR_ID;
     slaveConfig.offline    = false;
     I3C_SlaveInit(EXAMPLE_SLAVE, &slaveConfig, I3C_SLAVE_CLOCK_FREQUENCY);
     I3C_SlaveTransferCreateHandle(EXAMPLE_SLAVE, &g_i3c_s_handle, i3c_slave_callback, NULL);

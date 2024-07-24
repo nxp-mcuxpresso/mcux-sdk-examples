@@ -70,8 +70,10 @@ extern PUBLIC uint8 au8DefaultTCLinkKey[16];
 extern PUBLIC uint8 au8DistributedLinkKey[16];
 extern PUBLIC uint8 au8PreConfgLinkKey[16];
 #if (defined JENNIC_CHIP_FAMILY_JN516x) || (defined JENNIC_CHIP_FAMILY_JN517x)
-extern PUBLIC tsReg128 sTLMasterKey;
-extern PUBLIC tsReg128 sTLCertKey;
+extern PUBLIC CRYPTO_tsReg128 sTLMasterKey;
+extern PUBLIC CRYPTO_tsReg128 sTLCertKey;
+extern PUBLIC uint8 *au8TLMasterKey;
+extern PUBLIC uint8 *au8TLCertKey;
 #else
 extern PUBLIC uint8 au8TLMasterKey[16];
 extern PUBLIC uint8 au8TLCertKey[16];

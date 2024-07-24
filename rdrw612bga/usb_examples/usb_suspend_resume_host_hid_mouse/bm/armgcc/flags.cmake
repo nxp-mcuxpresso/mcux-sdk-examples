@@ -50,6 +50,7 @@ SET(CMAKE_C_FLAGS_FLASH_DEBUG " \
     -DCPU_RW612ETA2I \
     -DMCUXPRESSO_SDK \
     -DBOOT_HEADER_ENABLE=1 \
+    -DTIMER_PORT_TYPE_MRT=1 \
     -DSDK_OS_BAREMETAL \
     -DSERIAL_PORT_TYPE_UART=1 \
     -g \
@@ -59,7 +60,6 @@ SET(CMAKE_C_FLAGS_FLASH_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -77,6 +77,7 @@ SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
     -DCPU_RW612ETA2I \
     -DMCUXPRESSO_SDK \
     -DBOOT_HEADER_ENABLE=1 \
+    -DTIMER_PORT_TYPE_MRT=1 \
     -DSDK_OS_BAREMETAL \
     -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
@@ -85,7 +86,6 @@ SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -104,6 +104,7 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -DCPU_RW612ETA2I \
     -DMCUXPRESSO_SDK \
     -DBOOT_HEADER_ENABLE=1 \
+    -DTIMER_PORT_TYPE_MRT=1 \
     -DSDK_OS_BAREMETAL \
     -DSERIAL_PORT_TYPE_UART=1 \
     -g \
@@ -113,7 +114,6 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -132,6 +132,7 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DCPU_RW612ETA2I \
     -DMCUXPRESSO_SDK \
     -DBOOT_HEADER_ENABLE=1 \
+    -DTIMER_PORT_TYPE_MRT=1 \
     -DSDK_OS_BAREMETAL \
     -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
@@ -140,7 +141,6 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -154,6 +154,7 @@ SET(CMAKE_CXX_FLAGS_FLASH_DEBUG " \
     -DCPU_RW612ETA2I \
     -DMCUXPRESSO_SDK \
     -DBOOT_HEADER_ENABLE=1 \
+    -DTIMER_PORT_TYPE_MRT=1 \
     -DSERIAL_PORT_TYPE_UART=1 \
     -g \
     -O0 \
@@ -162,7 +163,6 @@ SET(CMAKE_CXX_FLAGS_FLASH_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -177,6 +177,7 @@ SET(CMAKE_CXX_FLAGS_FLASH_RELEASE " \
     -DCPU_RW612ETA2I \
     -DMCUXPRESSO_SDK \
     -DBOOT_HEADER_ENABLE=1 \
+    -DTIMER_PORT_TYPE_MRT=1 \
     -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
     -mcpu=cortex-m33+nodsp \
@@ -184,7 +185,6 @@ SET(CMAKE_CXX_FLAGS_FLASH_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -199,6 +199,7 @@ SET(CMAKE_CXX_FLAGS_DEBUG " \
     -DCPU_RW612ETA2I \
     -DMCUXPRESSO_SDK \
     -DBOOT_HEADER_ENABLE=1 \
+    -DTIMER_PORT_TYPE_MRT=1 \
     -DSERIAL_PORT_TYPE_UART=1 \
     -g \
     -O0 \
@@ -207,7 +208,6 @@ SET(CMAKE_CXX_FLAGS_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -222,6 +222,7 @@ SET(CMAKE_CXX_FLAGS_RELEASE " \
     -DCPU_RW612ETA2I \
     -DMCUXPRESSO_SDK \
     -DBOOT_HEADER_ENABLE=1 \
+    -DTIMER_PORT_TYPE_MRT=1 \
     -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
     -mcpu=cortex-m33+nodsp \
@@ -229,7 +230,6 @@ SET(CMAKE_CXX_FLAGS_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -246,7 +246,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -274,7 +273,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -303,7 +301,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -331,7 +328,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \

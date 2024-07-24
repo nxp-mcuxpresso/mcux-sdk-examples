@@ -312,7 +312,7 @@ enet_err_t ENETIF_Init(void)
     config.specialControl = kENET_StoreAndForward;
     config.interrupt      = (kENET_DmaTx | kENET_DmaRx);
     ENET_Init(ENET, &config, &g_hwaddr[0], refClock);
-    NVIC_SetPriority(ETHERNET_IRQn, 3U);
+    NVIC_SetPriority(ETHERNET_IRQn, ENET_INTERRUPT_PRIORITY);
 
     /* Initialize Descriptor. */
     ENET_DescriptorInit(ENET, &config, &buffConfig);

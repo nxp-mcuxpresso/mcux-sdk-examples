@@ -30,8 +30,8 @@
 #define BOARD_SW_GPIO          BOARD_SW1_GPIO
 #define BOARD_SW_GPIO_PIN      BOARD_SW1_GPIO_PIN
 #define BOARD_PINT_PIN_INT_SRC kINPUTMUX_GpioPort1Pin1ToPintsel
-#define BOARD_SW_IRQ           GPIO_INTA_IRQn
-#define BOARD_SW_IRQ_HANDLER   GPIO_INTA_IRQHandler
+#define BOARD_SW_IRQ           PIN_INT0_IRQn
+#define BOARD_SW_IRQ_HANDLER   PIN_INT0_IRQHandler
 #define BOARD_SW_NAME          "SW1"
 
 /* @brief FreeRTOS tickless timer configuration. */

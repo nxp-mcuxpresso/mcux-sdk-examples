@@ -1,7 +1,7 @@
 #include "serial_httpc.h"
 #include <stdint.h>
 #include "serial_socket.h"
-#include "wm_os.h"
+#include "osa.h"
 
 enum mwm_handle_type
 {
@@ -14,7 +14,7 @@ enum mwm_handle_type
 typedef struct
 {
     uint8_t type;
-    os_semaphore_t handle_sem;
+    OSA_SEMAPHORE_HANDLE_DEFINE(handle_sem);
     union
     {
         http_handle_t http;

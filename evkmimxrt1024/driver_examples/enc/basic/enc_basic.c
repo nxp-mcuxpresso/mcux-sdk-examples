@@ -46,6 +46,18 @@ int main(void)
 
     /* Initialize the ENC module. */
     ENC_GetDefaultConfig(&mEncConfigStruct);
+#if (defined(FSL_FEATURE_ENC_HAS_CTRL3) && FSL_FEATURE_ENC_HAS_CTRL3)
+    /*
+     * If there is CTRL3, the period measurement is enabled by default,
+     * with this setting, the POSD is loaded to POSDH only when POSD
+     * is read (calling ENC_GetPositionDifferenceValue).
+     * In this project, the POSD is desired to be loaded to POSDH when
+     * UPOS is read (calling ENC_GetPositionValue), so disable the
+     * period measurement here.
+     */
+    mEncConfigStruct.enablePeriodMeasurementFunction = false;
+#endif
+
     ENC_Init(DEMO_ENC_BASEADDR, &mEncConfigStruct);
     ENC_DoSoftwareLoadInitialPositionValue(DEMO_ENC_BASEADDR); /* Update the position counter with initial value. */
 

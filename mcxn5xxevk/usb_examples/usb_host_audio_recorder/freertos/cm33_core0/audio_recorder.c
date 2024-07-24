@@ -32,8 +32,12 @@ static void USB_HostAudioRecorderWaitCommand();
 /* should set it as 1024U, set as 256U for saving memory */
 #define MAX_ISO_PACKET_SIZE                     (256U)
 #define USB_AUDIO_RECORDER_STREAM_PRIME_COUNT   (5U)
+#ifndef USB_AUDIO_RECORDER_SDCARD_BUFFER_LENGTH
 #define USB_AUDIO_RECORDER_SDCARD_BUFFER_LENGTH (1024U * 3U)
+#endif
+#ifndef USB_AUDIO_RECORDER_SDCARD_WRITE_LENGTH
 #define USB_AUDIO_RECORDER_SDCARD_WRITE_LENGTH  (1024U)
+#endif
 #define NUMBER_OF_COMMAND_RETRY                 0x3U
 /* USB audio transfer Types string*/
 static char *strTransferType[4] = {"Control", "Isochronous", "Bulk", "Interrupt"};
@@ -67,7 +71,7 @@ USB_DMA_NONINIT_DATA_ALIGN(USB_DATA_ALIGN_SIZE) uint8_t g_curMute[2];
 USB_DMA_NONINIT_DATA_ALIGN(USB_DATA_ALIGN_SIZE) static uint16_t minVol[2];
 USB_DMA_NONINIT_DATA_ALIGN(USB_DATA_ALIGN_SIZE) static uint16_t maxVol[2];
 USB_DMA_NONINIT_DATA_ALIGN(USB_DATA_ALIGN_SIZE) static uint16_t resVol[2];
-USB_DMA_NONINIT_DATA_ALIGN(USB_DATA_ALIGN_SIZE) uint32_t freq;
+USB_DMA_NONINIT_DATA_ALIGN(USB_DATA_ALIGN_SIZE) uint32_t g_sampleFreq;
 uint8_t *g_frequencyAllRang;
 /* File system object */
 static FATFS g_fileSystem;
@@ -902,12 +906,11 @@ void USB_AudioTask(void *arg)
                 }
                 usb_echo("   - Sample size    : %d bits\n\r", g_pFormatTypeDesc->bbitresolution);
                 usb_echo("   - Number of channels : %d channels\n\r", g_pFormatTypeDesc->bnrchannels);
+                g_sampleFreq = (((uint32_t)g_pFormatTypeDesc->tsamfreq[0][2]) << 16U) |
+                               (((uint32_t)g_pFormatTypeDesc->tsamfreq[0][1]) << 8U) |
+                               (((uint32_t)g_pFormatTypeDesc->tsamfreq[0][0]) << 0U);
                 usb_echo("USB Recorder example try to record %dk_%dbit_%dch audio using PCM format.\r\n",
-                         ((((uint32_t)g_pFormatTypeDesc->tsamfreq[0][2]) << 16U) |
-                          (((uint32_t)g_pFormatTypeDesc->tsamfreq[0][1]) << 8U) |
-                          (((uint32_t)g_pFormatTypeDesc->tsamfreq[0][0]) << 0U)) /
-                             1000U,
-                         g_pFormatTypeDesc->bbitresolution, g_pFormatTypeDesc->bnrchannels);
+                         g_sampleFreq / 1000U, g_pFormatTypeDesc->bbitresolution, g_pFormatTypeDesc->bnrchannels);
             }
             else if ((AUDIO_DEVICE_VERSION_02 == g_audioRecorder.deviceAudioVersion))
             {
@@ -933,8 +936,13 @@ void USB_AudioTask(void *arg)
                         USB_LONG_FROM_LITTLE_ENDIAN_ADDRESS((frequencyArrayStart)),
                         USB_LONG_FROM_LITTLE_ENDIAN_ADDRESS((frequencyArrayStart + 4U)),
                         USB_LONG_FROM_LITTLE_ENDIAN_ADDRESS((frequencyArrayStart + 8U)));
+                    if (48000U == USB_LONG_FROM_LITTLE_ENDIAN_ADDRESS((frequencyArrayStart)))
+                    {
+                        frequencyArray = frequencyArrayStart;
+                    }
                     frequencyArrayStart += sizeof(usb_audio_2_0_layout3_struct_t);
                 }
+                g_sampleFreq = USB_SHORT_FROM_LITTLE_ENDIAN_ADDRESS((frequencyArray));
                 usb_echo("   - Bit resolution : %d bits\n\r", g_pFormatTypeDesc_20->bBitResolution);
                 usb_echo("   - Number of channels : %d channels\n\r", g_generalDesc_20->bNrChannels);
                 usb_echo("   - Transfer type : %s\n\r", strTransferType[(g_pIsoEndpDesc->bmAttributes) & EP_TYPE_MASK]);
@@ -943,8 +951,7 @@ void USB_AudioTask(void *arg)
                 usb_echo("   - Usage type : %s  \n\r",
                          strDataType[(uint8_t)(g_pIsoEndpDesc->bmAttributes >> 4U) & EP_TYPE_MASK]);
                 usb_echo("USB Host Recorder example try to record %dk_%dbit_%d ch audio using PCM format.\r\n",
-                         USB_SHORT_FROM_LITTLE_ENDIAN_ADDRESS((frequencyArray)) / 1000U,
-                         g_pFormatTypeDesc_20->bBitResolution, g_generalDesc_20->bNrChannels);
+                         g_sampleFreq / 1000U, g_pFormatTypeDesc_20->bBitResolution, g_generalDesc_20->bNrChannels);
             }
             else
             {
@@ -963,15 +970,15 @@ void USB_AudioTask(void *arg)
             {
                 USB_HostAudioGetSetEndpointRequest(g_audioRecorder.classHandle,
                                                    (uint32_t)((USB_AUDIO_EP_CS_SAMPING_FREQ_CONTROL << 8U)),
-                                                   ((0U << 8U) | USB_AUDIO_CS_REQUEST_CODE_SET_CUR), &freq,
-                                                   sizeof(freq), Audio_ControlCallback, &g_audioRecorder);
+                                                   ((0U << 8U) | USB_AUDIO_CS_REQUEST_CODE_SET_CUR), &g_sampleFreq,
+                                                   sizeof(g_sampleFreq), Audio_ControlCallback, &g_audioRecorder);
             }
             else if ((AUDIO_DEVICE_VERSION_02 == g_audioRecorder.deviceAudioVersion))
             {
                 USB_HostAudioGetSetClockSourceRequest(g_audioRecorder.classHandle,
                                                       (uint32_t)((USB_AUDIO_CS_SAM_FREQ_CONTROL_20 << 8U) | 0U),
-                                                      ((0U << 8U) | USB_AUDIO_CS_REQUEST_CODE_CUR_20), &freq,
-                                                      sizeof(freq), Audio_ControlCallback, &g_audioRecorder);
+                                                      ((0U << 8U) | USB_AUDIO_CS_REQUEST_CODE_CUR_20), &g_sampleFreq,
+                                                      sizeof(g_sampleFreq), Audio_ControlCallback, &g_audioRecorder);
             }
             else
             {

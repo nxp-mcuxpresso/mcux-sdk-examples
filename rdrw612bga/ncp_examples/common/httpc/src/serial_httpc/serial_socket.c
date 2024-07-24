@@ -1,5 +1,5 @@
 #include <wmtypes.h>
-#include <wm_os.h>
+#include <osa.h>
 #include <wm_utils.h>
 #include <wm_net.h>
 #include <stdlib.h>
@@ -21,9 +21,10 @@
 #define END_INDICATOR  "$$"
 #define ESCAPE_CHAR    "\\"
 
+static void serial_mwm_bridge_recv(void *arg);
 /* Thread handle */
-os_thread_t mwm_recv_thread;
-os_thread_stack_define(mwm_recv_stack, 1024);
+OSA_TASK_HANDLE_DEFINE(mwm_recv_thread);
+OSA_TASK_DEFINE(serial_mwm_bridge_recv, OSA_PRIORITY_NORMAL, 1, 1024, 0);
 uint8_t *recvbuf;
 
 typedef struct
@@ -173,7 +174,7 @@ int ncp_sock_open(const char *socket_type, const char *domain_type, const char *
         if (sockfd >= 0)
             break;
         /* Wait some time to allow some sockets to get released */
-        os_thread_sleep(os_msec_to_ticks(1000));
+        OSA_TimeDelay(1000);
     }
     if (sockfd == -1)
     {
@@ -625,10 +626,10 @@ int ncp_sock_close(uint32_t handle)
     }
     set_connected_state(sockfd, false);
     set_bind_state(sockfd, false);
-    remove_handle(h_slot);
     /* Put the semaphore to allow next asynchronous event
        to be scheduled */
-    os_semaphore_put(&(get_nw_handle_ptr(h_slot)->handle_sem));
+    OSA_SemaphorePost(get_nw_handle_ptr(h_slot)->handle_sem);
+    remove_handle(h_slot);
     httpc_d("SUCCESS");
     return E_SUCCESS;
 }
@@ -676,7 +677,7 @@ static void serial_mwm_bridge_recv(void *arg)
             httpc_e("status:error in reading data");
             httpc_e("errno:%d", errno);
             set_connected_state(sockfd, false);
-            os_thread_self_complete(&mwm_recv_thread);
+            OSA_ThreadSelfComplete(NULL);
             break;
         }
         else if (ret_len == 0)
@@ -684,7 +685,7 @@ static void serial_mwm_bridge_recv(void *arg)
             /* Write $$ on uart to indicate bridge mode end */
             httpc_e("status:peer has performed orderly shutdown");
             set_connected_state(sockfd, false);
-            os_thread_self_complete(&mwm_recv_thread);
+            OSA_ThreadSelfComplete(NULL);
             break;
         }
         if (ret_len)
@@ -730,6 +731,8 @@ static int serial_mwm_bridge_send(int sockfd, conn_type_t type, int chunk_size)
 
 int serial_mwm_bridge_mode(const int argc, const char **argv)
 {
+    int ret = -E_FAIL;
+    osa_status_t status;
     char *endptr;
     const char *str_val;
     int h_slot, chunk_size;
@@ -780,7 +783,7 @@ int serial_mwm_bridge_mode(const int argc, const char **argv)
     /* Check if socket is bind or connected */
     if (is_connected(sockfd) || is_bind(sockfd))
     {
-        recvbuf = os_mem_alloc(RECV_CHUNK_LEN);
+        recvbuf = OSA_MemoryAllocate(RECV_CHUNK_LEN);
         if (!recvbuf)
         {
             httpc_e("status:out of memory");
@@ -790,13 +793,12 @@ int serial_mwm_bridge_mode(const int argc, const char **argv)
         /* Get the UART mutex unpon entry into bridge mode */
 
         /* Spawn a thread which blocks on recv */
-        int ret = os_thread_create(&mwm_recv_thread, "mwm_rx", serial_mwm_bridge_recv, (void *)&sockfd, &mwm_recv_stack,
-                                   OS_PRIO_3);
+        status = OSA_TaskCreate((osa_task_handle_t)mwm_recv_thread, OSA_TASK(serial_mwm_bridge_recv), NULL);
 
-        if (ret == -WM_FAIL)
+        if (status != KOSA_StatusSuccess)
         {
             /* Put the UART mutex */
-            os_mem_free(recvbuf);
+            OSA_MemoryFree(recvbuf);
             recvbuf = NULL;
             httpc_e("status:failure");
             return -E_FAIL;
@@ -807,12 +809,12 @@ int serial_mwm_bridge_mode(const int argc, const char **argv)
 
         /* Delete the recv thread since user has terminated
            from bridge mode */
-        os_thread_delete(&mwm_recv_thread);
+        OSA_TaskDestroy((osa_task_handle_t)mwm_recv_thread);
 
         /* Put the UART mutex */
 
         /* Free the allocated buffer */
-        os_mem_free(recvbuf);
+        OSA_MemoryFree(recvbuf);
         recvbuf = NULL;
 
         if (ret != E_SUCCESS)

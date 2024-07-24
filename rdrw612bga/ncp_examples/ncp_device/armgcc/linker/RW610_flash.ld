@@ -33,7 +33,11 @@ HEAP_SIZE  = DEFINED(__heap_size__)  ? __heap_size__  : 0x8000;
 STACK_SIZE = DEFINED(__stack_size__) ? __stack_size__ : 0x2000;
 M_VECTOR_RAM_SIZE = DEFINED(__ram_vector_table__) ? 0x00000280 : 0;
 
-LITTLEFS_REGION_SIZE = 0x00200000;
+/* 2M for edgefast, 64K for wifi,  4K for reserved*/
+EDGEFAST_LITTLEFS_REGION_SIZE = 0x200000;
+WIFI_LITTLEFS_REGION_SIZE     = 0x10000;
+RESERVED_FOR_USE_REGION_SIZE  = 0X1000;
+LITTLEFS_REGION_SIZE          = EDGEFAST_LITTLEFS_REGION_SIZE + WIFI_LITTLEFS_REGION_SIZE + RESERVED_FOR_USE_REGION_SIZE;
 
 m_text_start         = 0x08001280;
 m_text_size          = 0x03FFED80 - LITTLEFS_REGION_SIZE;
@@ -53,12 +57,12 @@ MEMORY
 }
 /* 0x2012_3000 - 0x2012_FFFF is reserved for BootROM usage */
 
-/* NOTE: The last LITTLEFS_REGION_SIZE Flash( in range (m_text_start + m_text_size) ~ (m_text_start + m_text_size + LITTLEFS_REGION_SIZE -1)) is reserved for litteFS data */
+/* NOTE: The last LITTLEFS_REGION_SIZE Flash( in range (m_text_start + m_text_size) ~ (m_text_start + m_text_size + LITTLEFS_REGION_SIZE - 1)) is reserved for litteFS data */
 
 /*** littleFS configuration Start ***/
-EDGEFAST_BT_LITTLEFS_STORAGE_START_ADDRESS = m_text_start + m_text_size;
+EDGEFAST_BT_LITTLEFS_STORAGE_START_ADDRESS = m_text_start + m_text_size + WIFI_LITTLEFS_REGION_SIZE + RESERVED_FOR_USE_REGION_SIZE; /* edgefast bt littlefs start address at 0x0BE0,0000 */
 EDGEFAST_BT_LITTLEFS_STORAGE_SECTOR_SIZE   = 0x1000;  /* 4k flash sector size */
-EDGEFAST_BT_LITTLEFS_STORAGE_MAX_SECTORS   = LITTLEFS_REGION_SIZE / EDGEFAST_BT_LITTLEFS_STORAGE_SECTOR_SIZE;
+EDGEFAST_BT_LITTLEFS_STORAGE_MAX_SECTORS   = EDGEFAST_LITTLEFS_REGION_SIZE / EDGEFAST_BT_LITTLEFS_STORAGE_SECTOR_SIZE;
 /*** littleFS configuration End ***/
 
 /* Define output sections */

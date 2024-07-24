@@ -6,12 +6,12 @@ terminal.
 
 SDK version
 ===========
-- Version: 2.15.000
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  12.2
-- MCUXpresso  11.8.0
+- GCC ARM Embedded  13.2.1
+- MCUXpresso  11.10.0
 
 Hardware requirements
 =====================
@@ -40,7 +40,7 @@ Running the demo
 ================
 The following lines are printed to the serial terminal when the demo program is executed.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-mbedTLS version 2.28.0
+mbedTLS version 2.28.8
 fsys=96000000
 Using following implementations:
   SHA: ELE200 HW accelerated
@@ -48,18 +48,6 @@ Using following implementations:
   AES GCM: Software implementation
   DES: Software implementation
   Asymmetric cryptography: ELE200 HW accelerated ECDSA and ECDH
-  MD5 test #1: passed
-  MD5 test #2: passed
-  MD5 test #3: passed
-  MD5 test #4: passed
-  MD5 test #5: passed
-  MD5 test #6: passed
-  MD5 test #7: passed
-
-  SHA-1 test #1: passed
-  SHA-1 test #2: passed
-  SHA-1 test #3: passed
-
   SHA-224 test #1: passed
   SHA-224 test #2: passed
   SHA-224 test #3: passed
@@ -74,24 +62,7 @@ Using following implementations:
   SHA-512 test #2: passed
   SHA-512 test #3: passed
 
-  ARC4 test #1: passed
-  ARC4 test #2: passed
-  ARC4 test #3: passed
-
-  DES -ECB- 56 (dec): passed
-  DES -ECB- 56 (enc): passed
-  DES3-ECB-112 (dec): passed
-  DES3-ECB-112 (enc): passed
-  DES3-ECB-168 (dec): passed
-  DES3-ECB-168 (enc): passed
-
-  DES -CBC- 56 (dec): passed
-  DES -CBC- 56 (enc): passed
-  DES3-CBC-112 (dec): passed
-  DES3-CBC-112 (enc): passed
-  DES3-CBC-168 (dec): passed
-  DES3-CBC-168 (enc): passed
-
+  AES note: alternative implementation.
   AES-ECB-128 (dec): passed
   AES-ECB-128 (enc): passed
   AES-ECB-192 (dec): passed
@@ -106,13 +77,6 @@ Using following implementations:
   AES-CBC-256 (dec): passed
   AES-CBC-256 (enc): passed
 
-  AES-CFB128-128 (dec): passed
-  AES-CFB128-128 (enc): passed
-  AES-CFB128-192 (dec): passed
-  AES-CFB128-192 (enc): passed
-  AES-CFB128-256 (dec): passed
-  AES-CFB128-256 (enc): passed
-
   AES-CTR-128 (dec): passed
   AES-CTR-128 (enc): passed
   AES-CTR-128 (dec): passed
@@ -120,6 +84,7 @@ Using following implementations:
   AES-CTR-128 (dec): passed
   AES-CTR-128 (enc): passed
 
+  GCM note: built-in implementation.
   AES-GCM-128 #0 (enc): passed
   AES-GCM-128 #0 (dec): passed
   AES-GCM-128 #0 split (enc): passed
@@ -144,6 +109,30 @@ Using following implementations:
   AES-GCM-128 #5 (dec): passed
   AES-GCM-128 #5 split (enc): passed
   AES-GCM-128 #5 split (dec): passed
+  AES-GCM-192 #0 (enc): passed
+  AES-GCM-192 #0 (dec): passed
+  AES-GCM-192 #0 split (enc): passed
+  AES-GCM-192 #0 split (dec): passed
+  AES-GCM-192 #1 (enc): passed
+  AES-GCM-192 #1 (dec): passed
+  AES-GCM-192 #1 split (enc): passed
+  AES-GCM-192 #1 split (dec): passed
+  AES-GCM-192 #2 (enc): passed
+  AES-GCM-192 #2 (dec): passed
+  AES-GCM-192 #2 split (enc): passed
+  AES-GCM-192 #2 split (dec): passed
+  AES-GCM-192 #3 (enc): passed
+  AES-GCM-192 #3 (dec): passed
+  AES-GCM-192 #3 split (enc): passed
+  AES-GCM-192 #3 split (dec): passed
+  AES-GCM-192 #4 (enc): passed
+  AES-GCM-192 #4 (dec): passed
+  AES-GCM-192 #4 split (enc): passed
+  AES-GCM-192 #4 split (dec): passed
+  AES-GCM-192 #5 (enc): passed
+  AES-GCM-192 #5 (dec): passed
+  AES-GCM-192 #5 split (enc): passed
+  AES-GCM-192 #5 split (dec): passed
   AES-GCM-256 #0 (enc): passed
   AES-GCM-256 #0 (dec): passed
   AES-GCM-256 #0 split (enc): passed
@@ -181,6 +170,14 @@ Using following implementations:
   AES 128 CMAC #2: passed
   AES 128 CMAC #3: passed
   AES 128 CMAC #4: passed
+  AES 256 CMAC subkey #1: passed
+  AES 256 CMAC subkey #2: passed
+  AES 256 CMAC subkey #3: passed
+  AES 256 CMAC subkey #4: passed
+  AES 256 CMAC #1: passed
+  AES 256 CMAC #2: passed
+  AES 256 CMAC #3: passed
+  AES 256 CMAC #4: passed
   AES CMAC 128 PRF #0: passed
   AES CMAC 128 PRF #1: passed
   AES CMAC 128 PRF #2: passed
@@ -197,8 +194,9 @@ Using following implementations:
   RSA key validation: passed
   PKCS#1 encryption : passed
   PKCS#1 decryption : passed
-  PKCS#1 data sign  : passed
-  PKCS#1 sig. verify: passed
+
+  X.509 certificate load: passed
+  X.509 signature verify: passed
 
   CAMELLIA-ECB-128 (dec): passed
   CAMELLIA-ECB-128 (enc): passed
@@ -224,9 +222,6 @@ Using following implementations:
   CTR_DRBG (PR = TRUE) : passed
   CTR_DRBG (PR = FALSE): passed
 
-  HMAC_DRBG (PR = True) : passed
-  HMAC_DRBG (PR = False) : passed
-
   ECP SW test #1 (constant op_count, base point G): passed
   ECP SW test #2 (constant op_count, other point): passed
 
@@ -234,16 +229,15 @@ Using following implementations:
 
   ENTROPY test: passed
 
-  PBKDF2 (SHA1) #0: passed
-  PBKDF2 (SHA1) #1: passed
-  PBKDF2 (SHA1) #2: passed
-  PBKDF2 (SHA1) #3: passed
-  PBKDF2 (SHA1) #4: passed
-  PBKDF2 (SHA1) #5: passed
+  PBKDF2 (SHA1): skipped
 
-  ECDH secp256r1 - #1: passed
+  ECDH secp521r1 - #1: passed
 
-  Executed 21 test suites
+  ECDH secp384r1 - #2: passed
+
+  ECDH secp256r1 - #3: passed
+
+  Executed 18 test suites
 
   [ All tests PASS ]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

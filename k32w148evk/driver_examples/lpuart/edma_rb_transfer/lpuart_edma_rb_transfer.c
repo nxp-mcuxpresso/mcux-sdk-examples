@@ -151,11 +151,19 @@ static void EXAMPLE_StartRingBufferEDMA(void)
     /* Submit transfer. */
     g_lpuartRxEdmaHandle.tcdUsed = 1U;
     g_lpuartRxEdmaHandle.tail    = 0U;
+#if defined FSL_EDMA_DRIVER_EDMA4 && FSL_EDMA_DRIVER_EDMA4
+    EDMA_TcdResetExt(g_lpuartRxEdmaHandle.base, &g_lpuartRxEdmaHandle.tcdPool[0U]);
+    EDMA_TcdSetTransferConfigExt(g_lpuartRxEdmaHandle.base, &g_lpuartRxEdmaHandle.tcdPool[0U], &xferConfig,
+                                 tcdMemoryPoolPtr);
+    /* Enable major interrupt for counting received bytes. */
+    EDMA_TcdEnableInterruptsExt(g_lpuartRxEdmaHandle.base, &g_lpuartRxEdmaHandle.tcdPool[0U],
+                                kEDMA_MajorInterruptEnable);
+#else
     EDMA_TcdReset(&g_lpuartRxEdmaHandle.tcdPool[0U]);
     EDMA_TcdSetTransferConfig(&g_lpuartRxEdmaHandle.tcdPool[0U], &xferConfig, tcdMemoryPoolPtr);
-
     /* Enable major interrupt for counting received bytes. */
     EDMA_TcdEnableInterrupts(&g_lpuartRxEdmaHandle.tcdPool[0U], kEDMA_MajorInterruptEnable);
+#endif
 
     /* There is no live chain, TCD block need to be installed in TCD registers. */
     EDMA_InstallTCD(g_lpuartRxEdmaHandle.base, g_lpuartRxEdmaHandle.channel, &g_lpuartRxEdmaHandle.tcdPool[0U]);
@@ -222,7 +230,11 @@ void EXAMPLE_LPUART_IRQHandler(void)
             __NOP();
         }
     }
+#if defined(FSL_LP_FLEXCOMM_DRIVER_VERSION)
+    LPUART_TransferEdmaHandleIRQ(LPUART_GetInstance(EXAMPLE_LPUART), &g_lpuartEdmaHandle);
+#else
     LPUART_TransferEdmaHandleIRQ(EXAMPLE_LPUART, &g_lpuartEdmaHandle);
+#endif
     SDK_ISR_EXIT_BARRIER;
 }
 

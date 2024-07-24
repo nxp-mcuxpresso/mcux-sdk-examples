@@ -47,7 +47,7 @@ typedef enum
     NCP_SLAVE_SPI_END,
 } ncp__slave_state;
 
-#ifdef CONFIG_NCP_SPI_DEBUG
+#if CONFIG_NCP_SPI_DEBUG
 #define ncp_dev_spi(...) ncplog("NCP", ##__VA_ARGS__)
 #else
 #define ncp_dev_spi(...)

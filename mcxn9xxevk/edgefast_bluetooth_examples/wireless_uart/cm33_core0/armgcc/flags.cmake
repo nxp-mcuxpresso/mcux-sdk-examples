@@ -21,7 +21,6 @@ SET(CMAKE_ASM_FLAGS_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
@@ -37,7 +36,6 @@ SET(CMAKE_ASM_FLAGS_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
@@ -71,6 +69,7 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -DHAL_UART_DMA_ENABLE=1 \
     -DLPFLEXCOMM_INIT_NOT_USED_IN_DRIVER=1 \
     -DMCUXPRESSO_SDK \
+    -DTIMER_PORT_TYPE_MRT=1 \
     -DLOG_ENABLE_ASYNC_MODE=1 \
     -DLOG_MAX_ARGUMENT_COUNT=10 \
     -DLOG_ENABLE_OVERWRITE=0 \
@@ -78,10 +77,11 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -DMFLASH_FILE_BASEADDR=131072 \
     -DMBEDTLS_MCUX_ELS_PKC_API \
     -DMBEDTLS_MCUX_USE_PKC \
+    -DOSA_USED \
     -DLWIP_DNS=1 \
     -DLWIP_NETIF_HOSTNAME=1 \
-    -DLWIP_NETIF_STATUS_CALLBACK=1 \
     -DLWIP_IGMP=1 \
+    -D_XOPEN_SOURCE=500 \
     -DMBEDTLS_MCUX_ELS_API \
     -DMBEDTLS_MCUX_USE_ELS \
     -DMCUXCL_FEATURE_CSSL_MEMORY_C_FALLBACK \
@@ -95,7 +95,6 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
@@ -132,6 +131,7 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DHAL_UART_DMA_ENABLE=1 \
     -DLPFLEXCOMM_INIT_NOT_USED_IN_DRIVER=1 \
     -DMCUXPRESSO_SDK \
+    -DTIMER_PORT_TYPE_MRT=1 \
     -DLOG_ENABLE_ASYNC_MODE=1 \
     -DLOG_MAX_ARGUMENT_COUNT=10 \
     -DLOG_ENABLE_OVERWRITE=0 \
@@ -139,10 +139,11 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DMFLASH_FILE_BASEADDR=131072 \
     -DMBEDTLS_MCUX_ELS_PKC_API \
     -DMBEDTLS_MCUX_USE_PKC \
+    -DOSA_USED \
     -DLWIP_DNS=1 \
     -DLWIP_NETIF_HOSTNAME=1 \
-    -DLWIP_NETIF_STATUS_CALLBACK=1 \
     -DLWIP_IGMP=1 \
+    -D_XOPEN_SOURCE=500 \
     -DMBEDTLS_MCUX_ELS_API \
     -DMBEDTLS_MCUX_USE_ELS \
     -DMCUXCL_FEATURE_CSSL_MEMORY_C_FALLBACK \
@@ -155,7 +156,6 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
@@ -169,6 +169,7 @@ SET(CMAKE_CXX_FLAGS_DEBUG " \
     -DDEBUG \
     -DCPU_MCXN947VDF_cm33_core0 \
     -DMCUXPRESSO_SDK \
+    -DTIMER_PORT_TYPE_MRT=1 \
     -DSERIAL_PORT_TYPE_UART=1 \
     -g \
     -O0 \
@@ -180,7 +181,6 @@ SET(CMAKE_CXX_FLAGS_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -fno-rtti \
@@ -193,6 +193,7 @@ SET(CMAKE_CXX_FLAGS_RELEASE " \
     -DNDEBUG \
     -DCPU_MCXN947VDF_cm33_core0 \
     -DMCUXPRESSO_SDK \
+    -DTIMER_PORT_TYPE_MRT=1 \
     -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
     -mcpu=cortex-m33 \
@@ -203,7 +204,6 @@ SET(CMAKE_CXX_FLAGS_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -fno-rtti \
@@ -219,7 +219,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -245,7 +244,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \

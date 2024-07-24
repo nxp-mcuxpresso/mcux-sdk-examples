@@ -16,13 +16,14 @@
     <definition extID="platform.drivers.smc.MKM34Z7"/>
     <definition extID="platform.drivers.gpio.MKM34Z7"/>
     <definition extID="platform.utilities.misc_utilities.MKM34Z7"/>
+    <definition extID="utility.str.MKM34Z7"/>
     <definition extID="CMSIS_Include_core_cm.MKM34Z7"/>
     <definition extID="device.MKM34Z7_system.MKM34Z7"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="twrkm34z75m_uart_interrupt_rb_transfer" name="uart_interrupt_rb_transfer" dependency="utility.debug_console_lite.MKM34Z7 platform.utilities.assert_lite.MKM34Z7 platform.drivers.port.MKM34Z7 platform.drivers.uart.MKM34Z7 platform.drivers.clock.MKM34Z7 platform.drivers.common.MKM34Z7 device.MKM34Z7_CMSIS.MKM34Z7 component.uart_adapter.MKM34Z7 component.lists.MKM34Z7 device.MKM34Z7_startup.MKM34Z7 platform.drivers.lpuart.MKM34Z7 platform.drivers.irtc.MKM34Z7 platform.drivers.smc.MKM34Z7 platform.drivers.gpio.MKM34Z7 platform.utilities.misc_utilities.MKM34Z7 CMSIS_Include_core_cm.MKM34Z7 device.MKM34Z7_system.MKM34Z7" category="driver_examples/uart">
+  <example id="twrkm34z75m_uart_interrupt_rb_transfer" name="uart_interrupt_rb_transfer" dependency="utility.debug_console_lite.MKM34Z7 platform.utilities.assert_lite.MKM34Z7 platform.drivers.port.MKM34Z7 platform.drivers.uart.MKM34Z7 platform.drivers.clock.MKM34Z7 platform.drivers.common.MKM34Z7 device.MKM34Z7_CMSIS.MKM34Z7 component.uart_adapter.MKM34Z7 component.lists.MKM34Z7 device.MKM34Z7_startup.MKM34Z7 platform.drivers.lpuart.MKM34Z7 platform.drivers.irtc.MKM34Z7 platform.drivers.smc.MKM34Z7 platform.drivers.gpio.MKM34Z7 platform.utilities.misc_utilities.MKM34Z7 utility.str.MKM34Z7 CMSIS_Include_core_cm.MKM34Z7 device.MKM34Z7_system.MKM34Z7" category="driver_examples/uart">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -47,7 +48,7 @@
           <value>com.crt.advproject.gcc.fpu.none</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

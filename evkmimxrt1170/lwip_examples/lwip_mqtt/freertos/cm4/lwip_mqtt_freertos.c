@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2022 NXP
+ * Copyright 2016-2024 NXP
  * All rights reserved.
  *
  *
@@ -12,7 +12,6 @@
  ******************************************************************************/
 #include "pin_mux.h"
 #include "board.h"
-#include "fsl_silicon_id.h"
 #include "fsl_phy.h"
 #include "mqtt_freertos.h"
 
@@ -104,6 +103,10 @@ extern phy_rtl8211f_resource_t g_phy_resource;
 /* ENET clock frequency. */
 #define EXAMPLE_CLOCK_FREQ CLOCK_GetRootClockFreq(kCLOCK_Root_Bus)
 
+/* Must be after include of app.h */
+#ifndef configMAC_ADDR
+#include "fsl_silicon_id.h"
+#endif
 
 #ifndef EXAMPLE_NETIF_INIT_FN
 /*! @brief Network interface initialization function. */
@@ -200,14 +203,15 @@ static void stack_init(void *arg)
         .phyOps      = EXAMPLE_PHY_OPS,
         .phyResource = EXAMPLE_PHY_RESOURCE,
         .srcClockHz  = EXAMPLE_CLOCK_FREQ,
+#ifdef configMAC_ADDR
+        .macAddress = configMAC_ADDR,
+#endif
     };
 
     LWIP_UNUSED_ARG(arg);
 
     /* Set MAC address. */
-#ifdef configMAC_ADDR
-    enet_config.macAddress = configMAC_ADDR,
-#else
+#ifndef configMAC_ADDR
     (void)SILICONID_ConvertToMacAddr(&enet_config.macAddress);
 #endif
 

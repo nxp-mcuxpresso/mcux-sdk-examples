@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:examples xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd manifest.xsd">
+  <externalDefinitions>
+    <definition extID="platform.drivers.port.MCXN236"/>
+    <definition extID="platform.drivers.lpflexcomm_lpi2c.MCXN236"/>
+    <definition extID="platform.drivers.common.MCXN236"/>
+    <definition extID="platform.drivers.clock.MCXN236"/>
+    <definition extID="platform.drivers.reset.MCXN236"/>
+    <definition extID="device.MCXN236_CMSIS.MCXN236"/>
+    <definition extID="device.MCXN236_startup.MCXN236"/>
+    <definition extID="platform.drivers.lpflexcomm_lpuart.MCXN236"/>
+    <definition extID="platform.drivers.gpio.MCXN236"/>
+    <definition extID="utility.debug_console_lite.MCXN236"/>
+    <definition extID="platform.utilities.assert_lite.MCXN236"/>
+    <definition extID="component.lpuart_adapter.MCXN236"/>
+    <definition extID="component.lists.MCXN236"/>
+    <definition extID="platform.utilities.misc_utilities.MCXN236"/>
+    <definition extID="platform.drivers.lpflexcomm.MCXN236"/>
+    <definition extID="platform.drivers.mcx_spc.MCXN236"/>
+    <definition extID="CMSIS_Include_core_cm.MCXN236"/>
+    <definition extID="device.MCXN236_system.MCXN236"/>
+    <definition extID="utility.str.MCXN236"/>
+    <definition extID="armgcc"/>
+    <definition extID="mcuxpresso"/>
+    <definition extID="com.nxp.mcuxpresso"/>
+  </externalDefinitions>
+  <example id="frdmmcxn236_lpi2c_polling_b2b_slave" name="lpi2c_polling_b2b_slave" dependency="platform.drivers.port.MCXN236 platform.drivers.lpflexcomm_lpi2c.MCXN236 platform.drivers.common.MCXN236 platform.drivers.clock.MCXN236 platform.drivers.reset.MCXN236 device.MCXN236_CMSIS.MCXN236 device.MCXN236_startup.MCXN236 platform.drivers.lpflexcomm_lpuart.MCXN236 platform.drivers.gpio.MCXN236 utility.debug_console_lite.MCXN236 platform.utilities.assert_lite.MCXN236 component.lpuart_adapter.MCXN236 component.lists.MCXN236 platform.utilities.misc_utilities.MCXN236 platform.drivers.lpflexcomm.MCXN236 platform.drivers.mcx_spc.MCXN236 CMSIS_Include_core_cm.MCXN236 device.MCXN236_system.MCXN236 utility.str.MCXN236" category="driver_examples/lpi2c">
+    <projects>
+      <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
+    </projects>
+    <toolchainSettings>
+      <toolchainSetting id_refs="com.nxp.mcuxpresso">
+        <buildSteps>
+          <postBuildStep>arm-none-eabi-size '${BuildArtifactFileName}'; arm-none-eabi-objcopy -v -O binary '${BuildArtifactFileName}' '${BuildArtifactFileBaseName}.bin'</postBuildStep>
+        </buildSteps>
+        <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
+          <value>CPU_MCXN236VDF</value>
+          <value>MCUXPRESSO_SDK</value>
+        </option>
+        <option id="com.crt.advproject.gas.fpu" type="enum">
+          <value>com.crt.advproject.gas.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="com.crt.advproject.gcc.fpu" type="enum">
+          <value>com.crt.advproject.gcc.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="gnu.c.compiler.option.optimization.flags" type="string">
+          <value>-fno-common</value>
+        </option>
+        <option id="com.crt.advproject.c.misc.dialect" type="enum">
+          <value>com.crt.advproject.misc.dialect.gnu99</value>
+        </option>
+        <option id="gnu.c.compiler.option.misc.other" type="string">
+          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -fno-builtin</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.toerrors" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="com.crt.advproject.link.fpu" type="enum">
+          <value>com.crt.advproject.link.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="gnu.c.link.option.nostdlibs" type="boolean">
+          <value>true</value>
+        </option>
+        <option id="gnu.c.link.option.other" type="stringList">
+          <value>-no-warn-rwx-segments</value>
+        </option>
+      </toolchainSetting>
+    </toolchainSettings>
+    <include_paths>
+      <include_path path="." project_relative_path="board" type="c_include"/>
+      <include_path path="." project_relative_path="frdmmcxn236/driver_examples/lpi2c/polling_b2b/slave" type="c_include"/>
+      <include_path path="../../../../../../core/boards/frdmmcxn236" project_relative_path="board" type="c_include"/>
+      <include_path path="../../../.." project_relative_path="board" type="c_include"/>
+    </include_paths>
+    <source path="armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">
+      <files mask="build_all.bat"/>
+      <files mask="build_all.sh"/>
+      <files mask="clean.bat"/>
+      <files mask="clean.sh"/>
+      <files mask="CMakeLists.txt"/>
+      <files mask="flags.cmake"/>
+      <files mask="config.cmake"/>
+      <files mask="build_debug.bat"/>
+      <files mask="build_debug.sh"/>
+      <files mask="build_release.bat"/>
+      <files mask="build_release.sh"/>
+    </source>
+    <source path="../../../../../../core/devices/MCXN236" project_relative_path="./" type="workspace" toolchain="armgcc">
+      <files mask="all_lib_device.cmake"/>
+    </source>
+    <source path="." project_relative_path="source" type="src">
+      <files mask="lpi2c_polling_b2b_slave.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="pin_mux.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="pin_mux.h"/>
+    </source>
+    <source path="../../../../../../core/boards/frdmmcxn236" project_relative_path="board" type="src">
+      <files mask="board.c"/>
+      <files mask="clock_config.c"/>
+    </source>
+    <source path="../../../../../../core/boards/frdmmcxn236" project_relative_path="board" type="c_include">
+      <files mask="board.h"/>
+      <files mask="clock_config.h"/>
+    </source>
+    <source path="../../../.." project_relative_path="board" type="src">
+      <files mask="board.c"/>
+      <files mask="clock_config.c"/>
+    </source>
+    <source path="../../../.." project_relative_path="board" type="c_include">
+      <files mask="board.h"/>
+      <files mask="clock_config.h"/>
+    </source>
+    <source path="." project_relative_path="doc" type="doc" toolchain="mcuxpresso armgcc">
+      <files mask="readme.md"/>
+    </source>
+    <source path="armgcc" project_relative_path="MCXN236/gcc" type="linker" toolchain="armgcc">
+      <files mask="MCXN236_flash.ld"/>
+    </source>
+  </example>
+</ksdk:examples>

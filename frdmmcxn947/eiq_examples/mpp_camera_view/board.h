@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 NXP
+ * Copyright 2022-2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -190,19 +190,20 @@
 
 /* board DMA configuration */
 #define BOARD_EDMA                    DMA0
+#define BOARD_EDMA_IRQ                EDMA_0_CH0_IRQn
 #define BOARD_FLEXIO_TX_DMA_CHANNEL   0
 #define BOARD_FLEXIO_TX_DMA_REQUEST   kDma0RequestMuxFlexIO0ShiftRegister0Request
 
 /* flexio configuration */
 #define BOARD_FLEXIO_MCU_LCD_IRQ      FLEXIO_IRQn
 
-/* Board SSD1963 */
-#define BOARD_SSD1963_RST_GPIO        GPIO4
-#define BOARD_SSD1963_RST_PIN         7
-#define BOARD_SSD1963_CS_GPIO         GPIO0
-#define BOARD_SSD1963_CS_PIN          12
-#define BOARD_SSD1963_RS_GPIO         GPIO0
-#define BOARD_SSD1963_RS_PIN          7
+/* LCD SSD1963 or ST7796S */
+#define BOARD_LCD_RST_GPIO        GPIO4
+#define BOARD_LCD_RST_PIN         7
+#define BOARD_LCD_CS_GPIO         GPIO0
+#define BOARD_LCD_CS_PIN          12
+#define BOARD_LCD_RS_GPIO         GPIO0
+#define BOARD_LCD_RS_PIN          7
 
 /* ERPC LPSPI configuration */
 #define ERPC_BOARD_LPSPI_SLAVE_READY_USE_GPIO (1)

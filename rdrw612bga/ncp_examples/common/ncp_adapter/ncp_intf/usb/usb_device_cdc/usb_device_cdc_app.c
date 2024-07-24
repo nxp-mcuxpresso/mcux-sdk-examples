@@ -36,7 +36,7 @@
 
 #include "usb_device_dci.h"
 
-#ifdef CONFIG_NCP_USB
+#if CONFIG_NCP_USB
 #include "ncp_intf_usb_device_cdc.h"
 #endif
 #include "ncp_adapter.h"
@@ -232,7 +232,7 @@ usb_status_t USB_DeviceCdcVcomCallback(class_handle_t handle, uint32_t event, vo
             }
             else
             {
-#ifdef CONFIG_NCP_USB
+#if CONFIG_NCP_USB
                 ncp_usb_put_tx_sem();
 #endif
             }
@@ -256,7 +256,7 @@ usb_status_t USB_DeviceCdcVcomCallback(class_handle_t handle, uint32_t event, vo
                  */
                 if (s_recvSize > 0 && s_recvSize <= DATA_BUFF_SIZE)
                 {
-#ifdef CONFIG_NCP_USB
+#if CONFIG_NCP_USB
                     ncp_usb_device_recv(&s_currRecvBuf[0], s_recvSize);
 #endif
                 }
@@ -692,7 +692,7 @@ void USB_DeviceApplicationInit(void)
     SDK_DelayAtLeastUs(5000, SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY);
     USB_DeviceRun(s_cdcVcom.deviceHandle);
 }
-#ifdef CONFIG_NCP_USB
+#if CONFIG_NCP_USB
 void USBHS_IRQHandler(void)
 {
     USB_DeviceEhciIsrFunction(s_cdcVcom.deviceHandle);
@@ -788,7 +788,7 @@ void usb_pm_task(void *handle)
                 USB_PowerPreSwitchHook();
                 USB_DeviceSetStatus(s_cdcVcom.deviceHandle, kUSB_DeviceStatusBusSuspend, NULL);
 
-                if (kStatus_Success != wlan_config_suspend_mode(2))
+                if (kStatus_Success != ncp_config_suspend_mode(2))
                 {
                     //Currently this case only deal detach case, if happend with remote wakeup will add Passive remote wakeup action
                     USB_PowerPostSwitchHook();

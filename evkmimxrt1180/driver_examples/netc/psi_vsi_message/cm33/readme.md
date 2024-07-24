@@ -7,19 +7,18 @@ indicating that the secondary core is running and uses NETC VSI to send/receive 
 
 SDK version
 ===========
-- Version: 2.15.001
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  12.3.1
-- MCUXpresso  11.9.0
+- GCC ARM Embedded  13.2.1
+- MCUXpresso  11.10.0
 
 Hardware requirements
 =====================
 - Mini/micro USB cable
 - MIMXRT1180-EVK board
 - Personal Computer
-- Loopback network cable RJ45 standard
 
 Board settings
 ==============
@@ -34,9 +33,8 @@ Prepare the Demo
     - No parity
     - One stop bit
     - No flow control
-3.  Insert loopback network cable to Ethernet RJ45 port(J29).
-4.  Download the program to the target board.
-5.  Either press the reset button on your board or launch the debugger in your IDE to begin running the demo.
+3.  Download the program to the target board.
+4.  Either press the reset button on your board or launch the debugger in your IDE to begin running the demo.
 
 Running the demo
 ================

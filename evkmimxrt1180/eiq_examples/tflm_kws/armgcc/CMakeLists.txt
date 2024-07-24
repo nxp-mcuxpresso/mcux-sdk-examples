@@ -80,7 +80,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../board.h"
 "${ProjDirPath}/../clock_config.c"
 "${ProjDirPath}/../clock_config.h"
-"${SdkRootDirPath}/middleware/eiq/common/audio/audio_load.cpp"
+"${ProjDirPath}/../source/audio/audio_load.cpp"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE

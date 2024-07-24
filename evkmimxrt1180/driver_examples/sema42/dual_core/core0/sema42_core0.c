@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2015, Freescale Semiconductor, Inc.
- * Copyright 2016-2017 NXP
+ * Copyright 2016-2017, 2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -8,13 +8,13 @@
 
 #include "fsl_common.h"
 #include "fsl_sema42.h"
-#include "fsl_mu.h"
 #include "pin_mux.h"
 #include "board.h"
 #include "fsl_debug_console.h"
 
 #include "fsl_soc_src.h"
 #include "fsl_ele_base_api.h"
+#include "fsl_mu.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -36,11 +36,11 @@
 #else
 #define ELE_IS_FAILED(x) false
 #endif
-#define LED_INIT()           USER_LED_INIT(LOGIC_LED_ON)
-#define APP_MU               MU1_MUA
-#define APP_SEMA42           SEMA1
-#define APP_STATIC_DOMAIN_ID 8
-#define BOOT_CORE1_BY_MU     0
+#define LED_INIT()                    USER_LED_INIT(LOGIC_LED_ON)
+#define APP_MU                        MU1_MUA
+#define APP_SEMA42                    SEMA1
+#define APP_STATIC_DOMAIN_ID          8
+#define BOOT_CORE1_BY_MU              0
 #define CORE0_BOOT_CORE1_SPECIFIC_WAY (!BOOT_CORE1_BY_MU)
 /* Address of memory, from which the secondary core will boot */
 #define CORE1_BOOT_ADDRESS    (void *)0x303C0000
@@ -93,6 +93,13 @@ extern int core1_image_size;
  */
 #ifndef USE_STATIC_DOMAIN_ID
 #define USE_STATIC_DOMAIN_ID 1
+#endif
+
+/*
+ * Use MU peripheral for inter-core notifications.
+ */
+#ifndef USE_MU_NOTIFICATIONS
+#define USE_MU_NOTIFICATIONS 1
 #endif
 
 /*
@@ -256,8 +263,12 @@ int main(void)
     LED_INIT();
 #endif
 
+#if USE_MU_NOTIFICATIONS
     /* MUA init */
     MU_Init(APP_MU);
+#else
+    APP_InitInterCoreNotifications();
+#endif
 
     /* Print the initial banner */
     PRINTF("\r\nSema42 example!\r\n");
@@ -275,10 +286,18 @@ int main(void)
     APP_InitCore0Domain();
 #endif
 
+#if USE_MU_NOTIFICATIONS
     MU_SetFlags(APP_MU, BOOT_FLAG);
+#else
+    APP_SetInterCoreNotificationsData((uint32_t)BOOT_FLAG);
+#endif
 
     /* Wait Core 1 is Boot Up */
+#if USE_MU_NOTIFICATIONS
     while (BOOT_FLAG != MU_GetFlags(APP_MU))
+#else
+    while (BOOT_FLAG != APP_GetInterCoreNotificationsData())
+#endif
     {
     }
 
@@ -287,7 +306,11 @@ int main(void)
     /* Lock the sema42 gate. */
     SEMA42_Lock(APP_SEMA42, SEMA42_GATE, domainId);
 
+#if USE_MU_NOTIFICATIONS
     MU_SetFlags(APP_MU, SEMA42_LOCK_FLAG);
+#else
+    APP_SetInterCoreNotificationsData((uint32_t)SEMA42_LOCK_FLAG);
+#endif
 
     /* Wait until user press any key */
 #if APP_BOARD_HAS_LED
@@ -306,7 +329,11 @@ int main(void)
     PRINTF("Wait for core 1 lock the semaphore\r\n");
 #endif
     /* Wait for core 1 lock the sema */
+#if USE_MU_NOTIFICATIONS
     while (SEMA42_CORE1_LOCK_FLAG != MU_GetFlags(APP_MU))
+#else
+    while (SEMA42_CORE1_LOCK_FLAG != APP_GetInterCoreNotificationsData())
+#endif
     {
     }
 

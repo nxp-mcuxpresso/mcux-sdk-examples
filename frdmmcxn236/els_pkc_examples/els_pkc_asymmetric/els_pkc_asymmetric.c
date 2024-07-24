@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2021 NXP
+ * Copyright 2020-2021,2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -11,7 +11,7 @@
 #include "board.h"
 #include "mcuxCsslExamples.h"
 #include "els_pkc_asymmetric.h"
-
+#include "mcux_els.h"
 #include "fsl_clock.h"
 #include "fsl_reset.h"
 #include <stdbool.h>
@@ -44,6 +44,13 @@ int main(void)
     BOARD_InitPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
+
+    /* Enable ELS and related clocks */
+    if (ELS_PowerDownWakeupInit(ELS) != kStatus_Success)
+    {
+        PRINTF("\r\nELS init failed\r\n");
+        return kStatus_Fail;
+    }
 
     PRINTF("\r\nELS PKC asymmetric cipher example\r\n");
     PRINTF("\r\n============================\r\n");
@@ -109,7 +116,7 @@ int main(void)
     }
 
     PRINTF("PKC ECC Curve25519:");
-    if (mcuxClEcc_Mont_Curve25519_example() == true)
+    if (mcuxClEcc_MontDH_Curve25519_example() == true)
     {
         pass++;
         PRINTF("pass \r\n");

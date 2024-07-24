@@ -189,21 +189,12 @@ int main(void)
     status_t status;
 
     /* Hardware Initialization. */
-    gpio_pin_config_t gpio_config = {kGPIO_DigitalOutput, 1U};
-
     BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     BOARD_InitModuleClock();
 
     ENET_ResetHardware();
-
-    GPIO_PortInit(GPIO, 0U);
-    GPIO_PortInit(GPIO, 1U);
-    GPIO_PinInit(GPIO, 0U, 21U, &gpio_config); /* ENET_RST */
-    gpio_config.pinDirection = kGPIO_DigitalInput;
-    gpio_config.outputLogic  = 0U;
-    GPIO_PinInit(GPIO, 1U, 23U, &gpio_config); /* ENET_INT */
 
     GPIO_PinWrite(GPIO, 0U, 21U, 0U);
     SDK_DelayAtLeastUs(1000000, CLOCK_GetCoreSysClkFreq());

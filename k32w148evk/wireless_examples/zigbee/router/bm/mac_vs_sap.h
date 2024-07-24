@@ -645,6 +645,7 @@ PUBLIC	void 		ZPS_vMacSetEBRPayloadJoin(bool_t bPermitJoin);
 PUBLIC	void 		ZPS_vMacSetEBRPayloadReJoin(uint64 u64ExtPanId, uint16 u16ShortAddress);
 PUBLIC  void        ZPS_vMacBeaconRequest(bool_t bEnable);
 PUBLIC  void 		ZPS_vMacPibSetRxOnWhenIdleForInterface(uint8 u8MacIntfID, bool_t bNewState, bool_t bInReset);
+PUBLIC  void        ZPS_vMacPibSetAutoRequest(bool_t bAutoRequest);
 
 /****************************************************************************/
 /***       Beacons		                                                  ***/

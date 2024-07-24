@@ -1,5 +1,5 @@
 /*
- * Copyright 2021-2023 NXP
+ * Copyright 2021-2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -85,7 +85,7 @@ void APP_InitAppDebugConsole(void)
     DbgConsole_Init(APP_DEBUG_UART_INSTANCE, APP_DEBUG_UART_BAUDRATE, APP_DEBUG_UART_TYPE, uartClkSrcFreq);
 }
 #if defined(WIFI_88W8987_BOARD_AW_CM358MA) || defined(WIFI_IW416_BOARD_MURATA_1XK_M2) || \
-    defined(WIFI_88W8987_BOARD_MURATA_1ZM_M2)
+    defined(WIFI_88W8987_BOARD_MURATA_1ZM_M2) || defined(WIFI_IW612_BOARD_MURATA_2EL_M2)
 int controller_hci_uart_get_configuration(controller_hci_uart_config_t *config)
 {
     if (NULL == config)
@@ -273,15 +273,6 @@ void vPortSuppressTicksAndSleep(TickType_t xExpectedIdleTime)
 
     /* Disable and prepare systicks for low power. */
     abortIdle = PWR_SysticksPreProcess((uint32_t)xExpectedIdleTime, &expectedIdleTimeUs);
-
-#if defined(WIFI_IW416_BOARD_MURATA_1XK_M2)
-    /* Check if host is allowed to enter low power mode. */
-    if(0 == PLATFORM_AllowEnterLowPower())
-    {
-        abortIdle = true;
-        SysTick->CTRL |= (SysTick_CTRL_TICKINT_Msk | SysTick_CTRL_ENABLE_Msk);
-    }
-#endif
 
     if (abortIdle == false)
     {

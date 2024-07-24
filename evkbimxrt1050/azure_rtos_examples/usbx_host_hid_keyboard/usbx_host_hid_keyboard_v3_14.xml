@@ -32,6 +32,7 @@
     <definition extID="middleware.usb.common_header.MIMXRT1052"/>
     <definition extID="component.osa.MIMXRT1052"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT1052"/>
+    <definition extID="utility.str.MIMXRT1052"/>
     <definition extID="device.MIMXRT1052_system.MIMXRT1052"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
@@ -39,7 +40,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkbimxrt1050_usbx_host_hid_keyboard" name="usbx_host_hid_keyboard" dependency="middleware.azure_rtos.ux.MIMXRT1052 component.osa_thread.MIMXRT1052 middleware.usb.phy.MIMXRT1052 middleware.azure_rtos.ux.ehci.MIMXRT1052 platform.drivers.clock.MIMXRT1052 platform.drivers.common.MIMXRT1052 device.MIMXRT1052_CMSIS.MIMXRT1052 utility.debug_console.MIMXRT1052 component.lpuart_adapter.MIMXRT1052 component.serial_manager_uart.MIMXRT1052 component.serial_manager.MIMXRT1052 platform.drivers.lpuart.MIMXRT1052 component.lists.MIMXRT1052 device.MIMXRT1052_startup.MIMXRT1052 platform.drivers.iomuxc.MIMXRT1052 platform.utilities.assert.MIMXRT1052 platform.drivers.igpio.MIMXRT1052 platform.drivers.xip_device.MIMXRT1052 platform.drivers.xip_board.evkbimxrt1050.MIMXRT1052 platform.utilities.misc_utilities.MIMXRT1052 middleware.azure_rtos.ux.template.MIMXRT1052 middleware.azure_rtos.nxd.MIMXRT1052 middleware.azure_rtos.nxd.template.MIMXRT1052 middleware.azure_rtos.fx.MIMXRT1052 middleware.azure_rtos.fx.template.MIMXRT1052 middleware.azure_rtos.tx.MIMXRT1052 middleware.azure_rtos.tx.template.MIMXRT1052 component.osa_interface.MIMXRT1052 middleware.usb.common_header.MIMXRT1052 component.osa.MIMXRT1052 CMSIS_Include_core_cm.MIMXRT1052 device.MIMXRT1052_system.MIMXRT1052" category="azure_rtos_examples">
+  <example id="evkbimxrt1050_usbx_host_hid_keyboard" name="usbx_host_hid_keyboard" dependency="middleware.azure_rtos.ux.MIMXRT1052 component.osa_thread.MIMXRT1052 middleware.usb.phy.MIMXRT1052 middleware.azure_rtos.ux.ehci.MIMXRT1052 platform.drivers.clock.MIMXRT1052 platform.drivers.common.MIMXRT1052 device.MIMXRT1052_CMSIS.MIMXRT1052 utility.debug_console.MIMXRT1052 component.lpuart_adapter.MIMXRT1052 component.serial_manager_uart.MIMXRT1052 component.serial_manager.MIMXRT1052 platform.drivers.lpuart.MIMXRT1052 component.lists.MIMXRT1052 device.MIMXRT1052_startup.MIMXRT1052 platform.drivers.iomuxc.MIMXRT1052 platform.utilities.assert.MIMXRT1052 platform.drivers.igpio.MIMXRT1052 platform.drivers.xip_device.MIMXRT1052 platform.drivers.xip_board.evkbimxrt1050.MIMXRT1052 platform.utilities.misc_utilities.MIMXRT1052 middleware.azure_rtos.ux.template.MIMXRT1052 middleware.azure_rtos.nxd.MIMXRT1052 middleware.azure_rtos.nxd.template.MIMXRT1052 middleware.azure_rtos.fx.MIMXRT1052 middleware.azure_rtos.fx.template.MIMXRT1052 middleware.azure_rtos.tx.MIMXRT1052 middleware.azure_rtos.tx.template.MIMXRT1052 component.osa_interface.MIMXRT1052 middleware.usb.common_header.MIMXRT1052 component.osa.MIMXRT1052 CMSIS_Include_core_cm.MIMXRT1052 utility.str.MIMXRT1052 device.MIMXRT1052_system.MIMXRT1052" category="azure_rtos_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -86,7 +87,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

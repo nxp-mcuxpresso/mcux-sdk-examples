@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 NXP
+ * Copyright 2023-2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -17,13 +17,13 @@
 #if defined(CONFIG_BT_VCP_VOL_CTLR) && (CONFIG_BT_VCP_VOL_CTLR > 0)
 #include <sys/work_queue.h>
 static struct bt_vcp_vol_ctlr *vcs_remote = NULL;
-static struct bt_vcp_vol_ctlr *vcs_clients[CONFIG_BT_MAX_CONN];
-static struct bt_conn *vcs_conn[CONFIG_BT_MAX_CONN];
+static struct bt_vcp_vol_ctlr *vcs_clients[LE_CONN_COUNT];
+static struct bt_conn *vcs_conn[LE_CONN_COUNT];
 
 #define LOCAL_VOL_CHANGE_VOL_REQ          0x01
 #define LOCAL_VOL_CHANGE_MUTE_REQ         0x02
 
-static volatile uint32_t local_vol_change_req[CONFIG_BT_MAX_CONN] = { 0 };
+static volatile uint32_t local_vol_change_req[LE_CONN_COUNT] = { 0 };
 
 #define LOCAL_VOL_CHANGE_VOL_SET(i)     (local_vol_change_req[i] |= LOCAL_VOL_CHANGE_VOL_REQ)
 #define LOCAL_VOL_CHANGE_VOL_CLEAR(i)   (local_vol_change_req[i] &= (~LOCAL_VOL_CHANGE_VOL_REQ))
@@ -33,8 +33,8 @@ static volatile uint32_t local_vol_change_req[CONFIG_BT_MAX_CONN] = { 0 };
 #define LOCAL_VOL_CHANGE_MUTE_CLEAR(i)   (local_vol_change_req[i] &= (~LOCAL_VOL_CHANGE_MUTE_REQ))
 #define LOCAL_VOL_CHANGE_MUTE_IS_SET(i)  (local_vol_change_req[i] & LOCAL_VOL_CHANGE_MUTE_REQ)
 
-static int     pre_volume[CONFIG_BT_MAX_CONN] = { -1 };
-static int     pre_mute[CONFIG_BT_MAX_CONN]   = { -1 };
+static int     pre_volume[LE_CONN_COUNT] = { -1 };
+static int     pre_mute[LE_CONN_COUNT]   = { -1 };
 
 static vcs_client_discover_callback_t vcs_client_discover_user_callback;
 #endif /* CONFIG_BT_VCP_VOL_CTLR */
@@ -94,7 +94,7 @@ static void vcs_client_discover_callback(struct bt_vcp_vol_ctlr *vol_ctlr, int e
 		PRINTF("\nVCS discover finished\n");
 	}
     
-    for (int i = 0; i < CONFIG_BT_MAX_CONN; i++)
+    for (int i = 0; i < LE_CONN_COUNT; i++)
     {
         if (vol_ctlr == vcs_clients[i])
         {
@@ -106,7 +106,7 @@ static void vcs_client_discover_callback(struct bt_vcp_vol_ctlr *vol_ctlr, int e
 static void mute_operation_delay(struct bt_work *work)
 {
     /* Get current device index. */
-    for (int i = 0; i < CONFIG_BT_MAX_CONN; i++)
+    for (int i = 0; i < LE_CONN_COUNT; i++)
     {
         if (LOCAL_VOL_CHANGE_MUTE_IS_SET(i))
         {
@@ -127,7 +127,7 @@ static void mute_operation_delay(struct bt_work *work)
 static void unmute_operation_delay(struct bt_work *work)
 {
     /* Get current device index. */
-    for (int i = 0; i < CONFIG_BT_MAX_CONN; i++)
+    for (int i = 0; i < LE_CONN_COUNT; i++)
     {
         if (LOCAL_VOL_CHANGE_MUTE_IS_SET(i))
         {
@@ -160,7 +160,7 @@ static void vcs_client_state_callback(struct bt_vcp_vol_ctlr *vol_ctlr, int err,
     }
 
     /* Get current device index. */
-    for (int i = 0; i < CONFIG_BT_MAX_CONN; i++)
+    for (int i = 0; i < LE_CONN_COUNT; i++)
     {
         if (vol_ctlr == vcs_clients[i])
         {
@@ -192,7 +192,7 @@ static void vcs_client_state_callback(struct bt_vcp_vol_ctlr *vol_ctlr, int err,
     /* Here we need sync the volume/mute to another render,
     but we only handle the case volume/mute not change at the same time, otherwise we will meet the "-EBUSY" error.
     In most case this will not have effect, except for Unmute/Relative Volume Down/Up operation, but here we not implement them. */
-    for(int i = 0; i < CONFIG_BT_MAX_CONN; i++)
+    for(int i = 0; i < LE_CONN_COUNT; i++)
     {
         bool volume_changed = false;
 
@@ -301,7 +301,7 @@ int le_audio_vcs_client_init(vcs_client_discover_callback_t callback)
 
 int le_audio_vcs_discover(struct bt_conn *conn, uint8_t channel)
 {
-    if (channel >= CONFIG_BT_MAX_CONN)
+    if (channel >= LE_CONN_COUNT)
     {
         return -EINVAL;
     }
@@ -316,7 +316,7 @@ int le_audio_vcs_vol_set(uint8_t volume)
 {
 #if defined(CONFIG_BT_VCP_VOL_CTLR) && (CONFIG_BT_VCP_VOL_CTLR > 0)
     /* Volume change to all render. */
-    for(int i = 0; i < CONFIG_BT_MAX_CONN; i++)
+    for(int i = 0; i < LE_CONN_COUNT; i++)
     {
         vcs_remote = vcs_clients[i];
         int ret = bt_vcp_vol_ctlr_set_vol(vcs_remote, volume);
@@ -340,7 +340,7 @@ int le_audio_vcs_vol_up(void)
 {
 #if defined(CONFIG_BT_VCP_VOL_CTLR) && (CONFIG_BT_VCP_VOL_CTLR > 0)
     /* Volume change to all render. */
-    for(int i = 0; i < CONFIG_BT_MAX_CONN; i++)
+    for(int i = 0; i < LE_CONN_COUNT; i++)
     {
         vcs_remote = vcs_clients[i];
         int ret = bt_vcp_vol_ctlr_vol_up(vcs_remote);
@@ -364,7 +364,7 @@ int le_audio_vcs_vol_down(void)
 {
 #if defined(CONFIG_BT_VCP_VOL_CTLR) && (CONFIG_BT_VCP_VOL_CTLR > 0)
     /* Volume change to all render. */
-    for(int i = 0; i < CONFIG_BT_MAX_CONN; i++)
+    for(int i = 0; i < LE_CONN_COUNT; i++)
     {
         vcs_remote = vcs_clients[i];
         int ret = bt_vcp_vol_ctlr_vol_down(vcs_remote);
@@ -388,7 +388,7 @@ int le_audio_vcs_vol_mute(void)
 {
 #if defined(CONFIG_BT_VCP_VOL_CTLR) && (CONFIG_BT_VCP_VOL_CTLR > 0)
     /* Mute all render. */
-    for(int i = 0; i < CONFIG_BT_MAX_CONN; i++)
+    for(int i = 0; i < LE_CONN_COUNT; i++)
     {
         vcs_remote = vcs_clients[i];
         int ret = bt_vcp_vol_ctlr_mute(vcs_remote);
@@ -412,7 +412,7 @@ int le_audio_vcs_vol_unmute(void)
 {
 #if defined(CONFIG_BT_VCP_VOL_CTLR) && (CONFIG_BT_VCP_VOL_CTLR > 0)
     /* Unmute to all render. */
-    for(int i = 0; i < CONFIG_BT_MAX_CONN; i++)
+    for(int i = 0; i < LE_CONN_COUNT; i++)
     {
         vcs_remote = vcs_clients[i];
         int ret = bt_vcp_vol_ctlr_unmute(vcs_remote);

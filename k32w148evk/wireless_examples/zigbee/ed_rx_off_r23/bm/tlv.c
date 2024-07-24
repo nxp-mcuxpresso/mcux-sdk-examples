@@ -249,7 +249,8 @@ tsTlvDescr g_Tlv_SecChallengeReq =
     0,       /* Local TLVs are not illegal */
     0,
     0,
-    {{0, 16}}/* APS Frame Counter Challenge ID = 0, min len 16 B */
+    {{0, 16}, /* APS Frame Counter Challenge ID = 0, min len 16 B */
+     {0, 0}}, /* Empty Data */ 
 };
 
 tsTlvDescr g_Tlv_ApsFrameCounterRsp =
@@ -262,23 +263,38 @@ tsTlvDescr g_Tlv_ApsFrameCounterRsp =
     {{0, 32}}/* APS Frame Counter Response ID = 0, min len 32 B */
 };
 
+tsTlvDescr g_Tlv_SecStartKeyUpdateReq =
+{
+    1,       /* One TLV defined for this command */
+    0,       /* Do not discard payload if unexpected TLV is found */
+    0,       /* Local TLVs are not illegal */
+    0,
+    0,
+    {{ZPS_TLV_G_FRAGPARAMS, ZPS_TLVLEN_G_FRAGPARAMS}, /* 2.4.4.2.3.1 */
+    {0, 10}} /* Selected Key Negotiation Method ID = 0, min len 10 B */
+};
+
+tsTlvDescr g_Tlv_SecStartKeyNegotiationReq =
+{
+    1,       /* One TLV defined for this command */
+    0,       /* Do not discard payload if unexpected TLV is found */
+    0,       /* Local TLVs are not illegal */
+    0,
+    0,
+    {{0, 40}}/* Curve25519 Public Point ID = 0, min len 40 B */
+};
+
+tsTlvDescr g_Tlv_SecStartKeyNegotiationRsp =
+{
+    1,       /* One TLV defined for this command */
+    0,       /* Do not discard payload if unexpected TLV is found */
+    0,       /* Local TLVs are not illegal */
+    0,
+    0,
+    {{0, 40}}/* Curve25519 Public Point ID = 0, min len 40 B */
+};
+
 #if 0
-tsTlvDescr g_Tlv_SecStartKeyNegReq =
-{
-    1,       /* One TLV defined for this command */
-    0,       /* Do not discard payload if unexpected TLV is found */
-    0,
-    {{0, 40}}/* Curve25519 Public Point ID = 0, min len 40 B */
-};
-
-tsTlvDescr g_Tlv_SecStartKeyNegRsp =
-{
-    1,       /* One TLV defined for this command */
-    0,       /* Do not discard payload if unexpected TLV is found */
-    0,
-    {{0, 40}}/* Curve25519 Public Point ID = 0, min len 40 B */
-};
-
 tsTlvDescr g_Tlv_SecRetrAuthTokenReq =
 {
     1,       /* One TLV defined for this command */
@@ -333,14 +349,6 @@ tsTlvDescr g_Tlv_NetworkStatus =
     0,       /* Do not discard payload if unexpected TLV is found */
     0,
     {{0, 2}} /* Ext Route Info ID = 0, min len 2 B */
-};
-
-tsTlvDescr g_Tlv_SecStartKeyUpdateReq =
-{
-    1,       /* One TLV defined for this command */
-    0,       /* Do not discard payload if unexpected TLV is found */
-    0,
-    {{0, 10}}/* Selected Key Negotiation Method ID = 0, min len 10 B */
 };
 
 #endif

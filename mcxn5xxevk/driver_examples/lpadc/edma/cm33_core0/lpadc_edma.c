@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2023 NXP
+ * Copyright 2016-2024 NXP
  * All rights reserved.
  *
  *
@@ -76,7 +76,7 @@ static void EDMA_Configuration(void);
  * Variables
  ******************************************************************************/
 
-volatile uint32_t DMACounter                                             = 0U;
+volatile uint32_t DMACounter                                              = 0U;
 AT_NONCACHEABLE_SECTION_ALIGN_INIT(uint32_t destAddr[BUFFER_LENGTH], 32U) = {0x00U};
 
 /*******************************************************************************
@@ -187,7 +187,11 @@ static void EDMA_Configuration(void)
     EDMA_GetDefaultConfig(&userConfig);
     EDMA_Init(DEMO_DMA_BASEADDR, &userConfig);
 
+#if (defined(FSL_FEATURE_LPADC_FIFO_COUNT) && (FSL_FEATURE_LPADC_FIFO_COUNT == 2U))
     void *srcAddr = (uint32_t *)&(DEMO_LPADC_BASE->RESFIFO[0U]);
+#else
+    void *srcAddr = (uint32_t *)&(DEMO_LPADC_BASE->RESFIFO);
+#endif /* (defined(FSL_FEATURE_LPADC_FIFO_COUNT) && (FSL_FEATURE_LPADC_FIFO_COUNT == 2U)) */
     EDMA_PrepareTransfer(&transferConfig, srcAddr, sizeof(uint32_t), destAddr, sizeof(destAddr[0]), sizeof(destAddr[0]),
                          sizeof(destAddr), kEDMA_PeripheralToMemory);
 
@@ -233,29 +237,51 @@ static void ADC_Configuration(void)
     lpadcConfigStruct.referenceVoltageSource = DEMO_LPADC_VREF_SOURCE;
 #endif /* DEMO_LPADC_VREF_SOURCE */
 #if defined(FSL_FEATURE_LPADC_HAS_CTRL_CAL_AVGS) && FSL_FEATURE_LPADC_HAS_CTRL_CAL_AVGS
-    lpadcConfigStruct.conversionAverageMode = kLPADC_ConversionAverage128; 
-#endif                             /* FSL_FEATURE_LPADC_HAS_CTRL_CAL_AVGS */
+    lpadcConfigStruct.conversionAverageMode = kLPADC_ConversionAverage128;
+#endif /* FSL_FEATURE_LPADC_HAS_CTRL_CAL_AVGS */
     lpadcConfigStruct.enableInDozeMode = true;
     LPADC_Init(DEMO_LPADC_BASE, &lpadcConfigStruct);
-    
-#if defined(FSL_FEATURE_LPADC_HAS_CTRL_CALOFS) && FSL_FEATURE_LPADC_HAS_CTRL_CALOFS
-#if defined(FSL_FEATURE_LPADC_HAS_OFSTRIM) && FSL_FEATURE_LPADC_HAS_OFSTRIM
-    /* Request offset calibration. */
-#if defined(DEMO_LPADC_DO_OFFSET_CALIBRATION) && DEMO_LPADC_DO_OFFSET_CALIBRATION
-    LPADC_DoOffsetCalibration(DEMO_LPADC_BASE);
-#else
-    LPADC_SetOffsetValue(DEMO_LPADC_BASE, DEMO_LPADC_OFFSET_VALUE_A, DEMO_LPADC_OFFSET_VALUE_B);
-#endif /* DEMO_LPADC_DO_OFFSET_CALIBRATION */
-#endif /* FSL_FEATURE_LPADC_HAS_OFSTRIM */
 
+    /* Request LPADC calibration. */
 #if defined(FSL_FEATURE_LPADC_HAS_CTRL_CALOFSMODE) && FSL_FEATURE_LPADC_HAS_CTRL_CALOFSMODE
     LPADC_SetOffsetCalibrationMode(DEMO_LPADC_BASE, DEMO_LPADC_OFFSET_CALIBRATION_MODE);
-    LPADC_DoOffsetCalibration(DEMO_LPADC_BASE);
 #endif /* FSL_FEATURE_LPADC_HAS_CTRL_CALOFSMODE */
-       /* Request gain calibration. */
-    LPADC_DoAutoCalibration(DEMO_LPADC_BASE);
 
+#if defined(FSL_FEATURE_LPADC_HAS_CTRL_CALOFS) && FSL_FEATURE_LPADC_HAS_CTRL_CALOFS
+#if defined(DEMO_LPADC_DO_OFFSET_CALIBRATION) && DEMO_LPADC_DO_OFFSET_CALIBRATION
+    LPADC_DoOffsetCalibration(DEMO_LPADC_BASE); /* Request offset calibration, automatic update OFSTRIM register. */
+#else                                           /* Update OFSTRIM register manually. */
+
+#if defined(FSL_FEATURE_LPADC_HAS_OFSTRIM) && FSL_FEATURE_LPADC_HAS_OFSTRIM
+#if defined(FSL_FEATURE_LPADC_OFSTRIM_COUNT) && (FSL_FEATURE_LPADC_OFSTRIM_COUNT == 2U)
+    LPADC_SetOffsetValue(DEMO_LPADC_BASE, DEMO_LPADC_OFFSET_VALUE_A, DEMO_LPADC_OFFSET_VALUE_B);
+#elif defined(FSL_FEATURE_LPADC_OFSTRIM_COUNT) && (FSL_FEATURE_LPADC_OFSTRIM_COUNT == 1U)
+    LPADC_SetOffsetValue(DEMO_LPADC_BASE, DEMO_LPADC_OFFSET_VALUE);
+#endif /* FSL_FEATURE_LPADC_OFSTRIM_COUNT */
+
+#else  /* For other OFSTRIM register type. */
+    if (DEMO_LPADC_OFFSET_CALIBRATION_MODE == kLPADC_OffsetCalibration12bitMode)
+    {
+        LPADC_SetOffset12BitValue(DEMO_LPADC_BASE, DEMO_LPADC_OFFSET_VALUE_A, DEMO_LPADC_OFFSET_VALUE_B);
+    }
+    else
+    {
+        LPADC_SetOffset16BitValue(DEMO_LPADC_BASE, DEMO_LPADC_OFFSET_VALUE_A, DEMO_LPADC_OFFSET_VALUE_B);
+    }
+#endif /* FSL_FEATURE_LPADC_HAS_OFSTRIM */
+
+#endif /* DEMO_LPADC_DO_OFFSET_CALIBRATION */
 #endif /* FSL_FEATURE_LPADC_HAS_CTRL_CALOFS */
+
+#if defined(FSL_FEATURE_LPADC_HAS_CTRL_CAL_REQ) && FSL_FEATURE_LPADC_HAS_CTRL_CAL_REQ
+    /* Request auto calibration (including gain error calibration and linearity error calibration). */
+    LPADC_DoAutoCalibration(DEMO_LPADC_BASE);
+#endif /* FSL_FEATURE_LPADC_HAS_CTRL_CAL_REQ */
+
+#if (defined(FSL_FEATURE_LPADC_HAS_CFG_CALOFS) && FSL_FEATURE_LPADC_HAS_CFG_CALOFS)
+    /* Do auto calibration. */
+    LPADC_DoAutoCalibration(DEMO_LPADC_BASE);
+#endif /* FSL_FEATURE_LPADC_HAS_CFG_CALOFS */
 
 #if (defined(FSL_FEATURE_LPADC_HAS_CFG_CALOFS) && FSL_FEATURE_LPADC_HAS_CFG_CALOFS)
     /* Do auto calibration. */
@@ -308,7 +334,11 @@ static void ADC_Configuration(void)
     LPADC_SetConvTriggerConfig(DEMO_LPADC_BASE, 0U, &lpadcTriggerConfigStruct);
 
     /* Enable the watermark DMA in the ADC block */
+#if (defined(FSL_FEATURE_LPADC_FIFO_COUNT) && (FSL_FEATURE_LPADC_FIFO_COUNT == 2U))
     LPADC_EnableFIFO0WatermarkDMA(DEMO_LPADC_BASE, true);
+#else
+    LPADC_EnableFIFOWatermarkDMA(DEMO_LPADC_BASE, true);
+#endif /* (defined(FSL_FEATURE_LPADC_FIFO_COUNT) && (FSL_FEATURE_LPADC_FIFO_COUNT == 2U)) */
 
     PRINTF("\r\nADC Full Range: %d", LPADC_FULLRANGE);
 #if defined(FSL_FEATURE_LPADC_HAS_CMDL_CSCALE) && FSL_FEATURE_LPADC_HAS_CMDL_CSCALE
@@ -318,7 +348,7 @@ static void ADC_Configuration(void)
     }
     else if (kLPADC_SamplePartScale == lpadcCommandConfigStruct.sampleScaleMode)
     {
-        PRINTF("Divided input voltage signal. (Factor of 30/64).\r\n"); 
+        PRINTF("Divided input voltage signal. (Factor of 30/64).\r\n");
     }
 #endif
 }

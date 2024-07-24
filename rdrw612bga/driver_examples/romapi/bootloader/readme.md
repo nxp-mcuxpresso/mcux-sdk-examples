@@ -5,11 +5,11 @@ The ROM API project is a simple demonstration program of the SDK ROM API driver.
 
 SDK version
 ===========
-- Version: 2.15.000
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  12.2
+- GCC ARM Embedded  13.2.1
 
 Hardware requirements
 =====================
@@ -40,17 +40,13 @@ When the example runs successfully, the following message is displayed in the te
 
 ```
 INFO: Bootloader version [K-v3.1.1]
-INFO: Bootloader Copyright [Copyright 2021 NXP]
+INFO: Bootloader Copyright [Copyright 2022 NXP]
 TC INFO: Starting TC test_runBootloaderEnter boot image...
 Calling the runBootloader API to force into the ISP mode: 0
 The runBootloader ISP interface is choosen from the following one:
 kUserAppBootPeripheral_UART     0
 kUserAppBootPeripheral_I2C      1
 kUserAppBootPeripheral_SPI      2
-kUserAppBootPeripheral_USB_HID  3
-kUserAppBootPeripheral_FLEXSPI  4
-kUserAppBootPeripheral_DFU      5
-kUserAppBootPeripheral_SDIO     6
 Call the runBootloader API based on the arg : eb100000...
 ```
 

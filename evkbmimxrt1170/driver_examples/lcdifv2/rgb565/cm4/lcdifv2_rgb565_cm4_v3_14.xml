@@ -12,6 +12,8 @@
     <definition extID="utility.debug_console_lite.MIMXRT1176"/>
     <definition extID="platform.utilities.assert_lite.MIMXRT1176"/>
     <definition extID="driver.display-hx8394.MIMXRT1176"/>
+    <definition extID="driver.display-rpi.MIMXRT1176"/>
+    <definition extID="platform.drivers.lpi2c.MIMXRT1176"/>
     <definition extID="platform.drivers.igpio.MIMXRT1176"/>
     <definition extID="platform.drivers.lcdifv2.MIMXRT1176"/>
     <definition extID="platform.drivers.clock.MIMXRT1176"/>
@@ -31,6 +33,7 @@
     <definition extID="platform.utilities.misc_utilities.MIMXRT1176"/>
     <definition extID="platform.drivers.soc_mipi_dsi.MIMXRT1176"/>
     <definition extID="platform.drivers.soc_mipi_csi2rx.MIMXRT1176"/>
+    <definition extID="utility.str.MIMXRT1176"/>
     <definition extID="platform.drivers.memory.MIMXRT1176"/>
     <definition extID="platform.drivers.anatop_ai.MIMXRT1176"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT1176"/>
@@ -43,7 +46,7 @@
     <definition extID="com.nxp.mcuxpresso.core.debug.support.segger.debug"/>
     <definition extID="com.nxp.mcuxpresso.core.debug.support.segger.release"/>
   </externalDefinitions>
-  <example id="evkbmimxrt1170_lcdifv2_rgb565_cm4" name="lcdifv2_rgb565_cm4" device_core="cm4_MIMXRT1176xxxxx" dependency="driver.video-common.MIMXRT1176 driver.display-common.MIMXRT1176 driver.display-rm68191.MIMXRT1176 platform.drivers.mipi_dsi_split.MIMXRT1176 driver.display-mipi-dsi-cmd.MIMXRT1176 driver.display-rm68200.MIMXRT1176 platform.drivers.soc_src.MIMXRT1176 utility.debug_console_lite.MIMXRT1176 platform.utilities.assert_lite.MIMXRT1176 driver.display-hx8394.MIMXRT1176 platform.drivers.igpio.MIMXRT1176 platform.drivers.lcdifv2.MIMXRT1176 platform.drivers.clock.MIMXRT1176 platform.drivers.common.MIMXRT1176 platform.devices.MIMXRT1176_CMSIS.MIMXRT1176 component.lpuart_adapter.MIMXRT1176 platform.drivers.lpuart.MIMXRT1176 component.lists.MIMXRT1176 platform.devices.MIMXRT1176_startup.MIMXRT1176 platform.drivers.iomuxc.MIMXRT1176 platform.drivers.xip_device.MIMXRT1176 platform.drivers.xip_board.evkbmimxrt1170.MIMXRT1176 platform.drivers.pmu_1.MIMXRT1176 platform.drivers.dcdc_soc.MIMXRT1176 platform.drivers.cache_lmem.MIMXRT1176 platform.drivers.xmcd.evkbmimxrt1170.MIMXRT1176 platform.utilities.misc_utilities.MIMXRT1176 platform.drivers.soc_mipi_dsi.MIMXRT1176 platform.drivers.soc_mipi_csi2rx.MIMXRT1176 platform.drivers.memory.MIMXRT1176 platform.drivers.anatop_ai.MIMXRT1176 CMSIS_Include_core_cm.MIMXRT1176 platform.devices.MIMXRT1176_system.MIMXRT1176" category="driver_examples/lcdifv2">
+  <example id="evkbmimxrt1170_lcdifv2_rgb565_cm4" name="lcdifv2_rgb565_cm4" device_core="cm4_MIMXRT1176xxxxx" dependency="driver.video-common.MIMXRT1176 driver.display-common.MIMXRT1176 driver.display-rm68191.MIMXRT1176 platform.drivers.mipi_dsi_split.MIMXRT1176 driver.display-mipi-dsi-cmd.MIMXRT1176 driver.display-rm68200.MIMXRT1176 platform.drivers.soc_src.MIMXRT1176 utility.debug_console_lite.MIMXRT1176 platform.utilities.assert_lite.MIMXRT1176 driver.display-hx8394.MIMXRT1176 driver.display-rpi.MIMXRT1176 platform.drivers.lpi2c.MIMXRT1176 platform.drivers.igpio.MIMXRT1176 platform.drivers.lcdifv2.MIMXRT1176 platform.drivers.clock.MIMXRT1176 platform.drivers.common.MIMXRT1176 platform.devices.MIMXRT1176_CMSIS.MIMXRT1176 component.lpuart_adapter.MIMXRT1176 platform.drivers.lpuart.MIMXRT1176 component.lists.MIMXRT1176 platform.devices.MIMXRT1176_startup.MIMXRT1176 platform.drivers.iomuxc.MIMXRT1176 platform.drivers.xip_device.MIMXRT1176 platform.drivers.xip_board.evkbmimxrt1170.MIMXRT1176 platform.drivers.pmu_1.MIMXRT1176 platform.drivers.dcdc_soc.MIMXRT1176 platform.drivers.cache_lmem.MIMXRT1176 platform.drivers.xmcd.evkbmimxrt1170.MIMXRT1176 platform.utilities.misc_utilities.MIMXRT1176 platform.drivers.soc_mipi_dsi.MIMXRT1176 platform.drivers.soc_mipi_csi2rx.MIMXRT1176 utility.str.MIMXRT1176 platform.drivers.memory.MIMXRT1176 platform.drivers.anatop_ai.MIMXRT1176 CMSIS_Include_core_cm.MIMXRT1176 platform.devices.MIMXRT1176_system.MIMXRT1176" category="driver_examples/lcdifv2">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -67,6 +70,7 @@
           <value>CPU_MIMXRT1176DVMAA_cm4</value>
           <value>SDK_DEBUGCONSOLE=1</value>
           <value>XIP_BOOT_HEADER_ENABLE=0</value>
+          <value>SDK_I2C_BASED_COMPONENT_USED=1</value>
           <value>FSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1</value>
           <value>MCUXPRESSO_SDK</value>
         </option>
@@ -100,7 +104,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>
@@ -138,8 +142,9 @@
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="../.." project_relative_path="board" type="c_include"/>
-      <include_path path="." project_relative_path="evkbmimxrt1170/driver_examples/lcdifv2/rgb565/cm4" type="c_include"/>
       <include_path path="../../../../../../core/boards/evkbmimxrt1170" project_relative_path="board" type="c_include"/>
+      <include_path path="../../../../../../examples/evkbmimxrt1170/driver_examples/lcdifv2" project_relative_path="board" type="c_include"/>
+      <include_path path="../../../../../../examples/evkbmimxrt1170/driver_examples/lcdifv2/cm4" project_relative_path="source" type="c_include"/>
     </include_paths>
     <source path="armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">
       <files mask="build_all.bat"/>
@@ -164,14 +169,6 @@
     <source path="." project_relative_path="source" type="src">
       <files mask="lcdifv2_rgb565.c"/>
     </source>
-    <source path="." project_relative_path="board" type="src">
-      <files mask="pin_mux.c"/>
-      <files mask="lcdifv2_support.c"/>
-    </source>
-    <source path="." project_relative_path="board" type="c_include">
-      <files mask="pin_mux.h"/>
-      <files mask="lcdifv2_support.h"/>
-    </source>
     <source path="../../../../../../core/boards/evkbmimxrt1170" project_relative_path="board" type="src">
       <files mask="board.c"/>
       <files mask="clock_config.c"/>
@@ -184,6 +181,14 @@
     </source>
     <source path="." project_relative_path="doc" type="doc" toolchain="mcuxpresso armgcc">
       <files mask="readme.md"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="pin_mux.c"/>
+      <files mask="lcdifv2_support.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="pin_mux.h"/>
+      <files mask="lcdifv2_support.h"/>
     </source>
     <source path="armgcc" project_relative_path="MIMXRT1176/gcc" type="linker" toolchain="armgcc">
       <files mask="MIMXRT1176xxxxx_cm4_sdram.ld"/>

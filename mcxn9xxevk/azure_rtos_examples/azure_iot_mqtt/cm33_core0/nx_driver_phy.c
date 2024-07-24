@@ -34,8 +34,8 @@ void nx_drvier_phy_init(phy_handle_t *handle,
     phy_speed_t speed;
     uint32_t count;
     status_t status;
-    bool link;
-    bool autonego;
+    bool link = false;
+    bool autonego = false;
 
     res = phy_config->resource;
     res->read  = read;

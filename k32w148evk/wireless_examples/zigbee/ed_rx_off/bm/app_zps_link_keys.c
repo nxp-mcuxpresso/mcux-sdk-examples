@@ -59,19 +59,21 @@ PUBLIC uint8 au8DistributedLinkKey[16]  = {0xd0, 0xd1, 0xd2, 0xd3, 0xd4, 0xd5, 0
 /* Touchlink preconfigured link keys*/
 #ifndef BDB_APPLICATION_DEFINED_TL_MASTER_KEY
 #if (defined JENNIC_CHIP_FAMILY_JN516x) || (defined JENNIC_CHIP_FAMILY_JN517x)
-PUBLIC PUBLIC tsReg128 sTLMasterKey = {0x11223344, 0x55667788, 0x99aabbcc, 0xddeeff00 };
+PUBLIC PUBLIC CRYPTO_tsReg128 sTLMasterKey = {0x11223344, 0x55667788, 0x99aabbcc, 0xddeeff00 };
+PUBLIC uint8 *au8TLMasterKey = (uint8*)&sTLMasterKey;
 #else
 PUBLIC uint8 au8TLMasterKey[16] = {0x11,0x22,0x33,0x44,0x55,0x66,0x77,0x88,0x99,0xaa,0xbb,0xcc,0xdd,0xee,0xff,0x00};
 #endif
 #else
 #if (defined JENNIC_CHIP_FAMILY_JN516x) || (defined JENNIC_CHIP_FAMILY_JN517x)
-extern PUBLIC tsReg128 sTLMasterKey;
+extern PUBLIC CRYPTO_tsReg128 sTLMasterKey;
 #else
 extern PUBLIC uint8 au8TLMasterKey[16];
 #endif
 #endif
 #if (defined JENNIC_CHIP_FAMILY_JN516x) || (defined JENNIC_CHIP_FAMILY_JN517x)
-PUBLIC tsReg128 sTLCertKey = {0xc0c1c2c3, 0xc4c5c6c7,0xc8c9cacb,0xcccdcecf};
+PUBLIC CRYPTO_tsReg128 sTLCertKey = {0xc0c1c2c3, 0xc4c5c6c7,0xc8c9cacb,0xcccdcecf};
+PUBLIC uint8 *au8TLCertKey = (uint8*)&sTLCertKey;
 #else
 PUBLIC uint8 au8TLCertKey[16] = {0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf};
 #endif

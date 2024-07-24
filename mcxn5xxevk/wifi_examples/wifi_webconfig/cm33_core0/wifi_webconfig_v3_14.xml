@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:examples xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd manifest.xsd">
+  <externalDefinitions>
+    <definition extID="cm33_core0_MCXN547"/>
+    <definition extID="middleware.wifi.sdio.MCXN547"/>
+    <definition extID="middleware.wifi.wifidriver.MCXN547"/>
+    <definition extID="middleware.sdmmc.host.usdhc.MCXN547"/>
+    <definition extID="middleware.sdmmc.sdio.MCXN547"/>
+    <definition extID="middleware.sdmmc.host.usdhc.freertos.MCXN547"/>
+    <definition extID="middleware.freertos-kernel.cm33_non_trustzone.MCXN547"/>
+    <definition extID="component.gpio_adapter.MCXN547"/>
+    <definition extID="component.mflash.mcxnx4x_onchip.MCXN547"/>
+    <definition extID="component.mflash_file.MCXN547"/>
+    <definition extID="middleware.edgefast_wifi_nxp.MCXN547"/>
+    <definition extID="middleware.lwip.apps.httpsrv.MCXN547"/>
+    <definition extID="platform.drivers.clock.MCXN547"/>
+    <definition extID="middleware.freertos-kernel.heap_3.MCXN547"/>
+    <definition extID="middleware.wifi.MCXN547"/>
+    <definition extID="middleware.lwip.MCXN547"/>
+    <definition extID="platform.drivers.common.MCXN547"/>
+    <definition extID="platform.drivers.reset.MCXN547"/>
+    <definition extID="platform.devices.MCXN547_CMSIS.MCXN547"/>
+    <definition extID="platform.devices.MCXN547_startup.MCXN547"/>
+    <definition extID="platform.drivers.lpflexcomm_lpuart.MCXN547"/>
+    <definition extID="platform.drivers.gpio.MCXN547"/>
+    <definition extID="platform.drivers.port.MCXN547"/>
+    <definition extID="platform.utilities.assert.MCXN547"/>
+    <definition extID="utility.debug_console.MCXN547"/>
+    <definition extID="component.lpuart_adapter.MCXN547"/>
+    <definition extID="component.serial_manager_uart.MCXN547"/>
+    <definition extID="component.serial_manager.MCXN547"/>
+    <definition extID="component.lists.MCXN547"/>
+    <definition extID="platform.utilities.misc_utilities.MCXN547"/>
+    <definition extID="middleware.wifi.mlan_sdio.MCXN547"/>
+    <definition extID="middleware.wifi.template.MCXN547"/>
+    <definition extID="middleware.wifi.common_files.MCXN547"/>
+    <definition extID="component.wifi_bt_module.tx_pwr_limits.MCXN547"/>
+    <definition extID="component.wifi_bt_module.config.MCXN547"/>
+    <definition extID="middleware.wifi.wifi_bt_config.template.MCXN547"/>
+    <definition extID="middleware.wifi.osa.MCXN547"/>
+    <definition extID="middleware.wifi.osa_free_rtos.MCXN547"/>
+    <definition extID="component.osa_free_rtos.MCXN547"/>
+    <definition extID="middleware.freertos-kernel.MCXN547"/>
+    <definition extID="component.osa_interface.MCXN547"/>
+    <definition extID="middleware.freertos-kernel.template.MCXN547"/>
+    <definition extID="middleware.freertos-kernel.extension.MCXN547"/>
+    <definition extID="middleware.wifi.net.MCXN547"/>
+    <definition extID="middleware.wifi.fwdnld.MCXN547"/>
+    <definition extID="middleware.wifi.fwdnld_intf_abs.MCXN547"/>
+    <definition extID="middleware.wifi.net_free_rtos.MCXN547"/>
+    <definition extID="middleware.lwip.apps.lwiperf.MCXN547"/>
+    <definition extID="middleware.sdmmc.common.MCXN547"/>
+    <definition extID="middleware.sdmmc.osa.freertos.MCXN547"/>
+    <definition extID="middleware.sdmmc.usdhc.template.MCXN547"/>
+    <definition extID="middleware.sdmmc.host.usdhc.cache.MCXN547"/>
+    <definition extID="platform.drivers.usdhc.MCXN547"/>
+    <definition extID="component.mflash.common.MCXN547"/>
+    <definition extID="platform.drivers.flashiap.MCXN547"/>
+    <definition extID="platform.drivers.mcx_spc.MCXN547"/>
+    <definition extID="middleware.lwip.template.MCXN547"/>
+    <definition extID="CMSIS_Include_core_cm.MCXN547"/>
+    <definition extID="platform.devices.MCXN547_system.MCXN547"/>
+    <definition extID="platform.drivers.lpflexcomm.MCXN547"/>
+    <definition extID="utility.str.MCXN547"/>
+    <definition extID="armgcc"/>
+    <definition extID="mcuxpresso"/>
+    <definition extID="com.nxp.mcuxpresso"/>
+  </externalDefinitions>
+  <example id="mcxn5xxevk_wifi_webconfig" name="wifi_webconfig" device_core="cm33_core0_MCXN547" dependency="middleware.wifi.sdio.MCXN547 middleware.wifi.wifidriver.MCXN547 middleware.sdmmc.host.usdhc.MCXN547 middleware.sdmmc.sdio.MCXN547 middleware.sdmmc.host.usdhc.freertos.MCXN547 middleware.freertos-kernel.cm33_non_trustzone.MCXN547 component.gpio_adapter.MCXN547 component.mflash.mcxnx4x_onchip.MCXN547 component.mflash_file.MCXN547 middleware.edgefast_wifi_nxp.MCXN547 middleware.lwip.apps.httpsrv.MCXN547 platform.drivers.clock.MCXN547 middleware.freertos-kernel.heap_3.MCXN547 middleware.wifi.MCXN547 middleware.lwip.MCXN547 platform.drivers.common.MCXN547 platform.drivers.reset.MCXN547 platform.devices.MCXN547_CMSIS.MCXN547 platform.devices.MCXN547_startup.MCXN547 platform.drivers.lpflexcomm_lpuart.MCXN547 platform.drivers.gpio.MCXN547 platform.drivers.port.MCXN547 platform.utilities.assert.MCXN547 utility.debug_console.MCXN547 component.lpuart_adapter.MCXN547 component.serial_manager_uart.MCXN547 component.serial_manager.MCXN547 component.lists.MCXN547 platform.utilities.misc_utilities.MCXN547 middleware.wifi.mlan_sdio.MCXN547 middleware.wifi.template.MCXN547 middleware.wifi.common_files.MCXN547 component.wifi_bt_module.tx_pwr_limits.MCXN547 component.wifi_bt_module.config.MCXN547 middleware.wifi.wifi_bt_config.template.MCXN547 middleware.wifi.osa.MCXN547 middleware.wifi.osa_free_rtos.MCXN547 component.osa_free_rtos.MCXN547 middleware.freertos-kernel.MCXN547 component.osa_interface.MCXN547 middleware.freertos-kernel.template.MCXN547 middleware.freertos-kernel.extension.MCXN547 middleware.wifi.net.MCXN547 middleware.wifi.fwdnld.MCXN547 middleware.wifi.fwdnld_intf_abs.MCXN547 middleware.wifi.net_free_rtos.MCXN547 middleware.lwip.apps.lwiperf.MCXN547 middleware.sdmmc.common.MCXN547 middleware.sdmmc.osa.freertos.MCXN547 middleware.sdmmc.usdhc.template.MCXN547 middleware.sdmmc.host.usdhc.cache.MCXN547 platform.drivers.usdhc.MCXN547 component.mflash.common.MCXN547 platform.drivers.flashiap.MCXN547 platform.drivers.mcx_spc.MCXN547 middleware.lwip.template.MCXN547 CMSIS_Include_core_cm.MCXN547 platform.devices.MCXN547_system.MCXN547 platform.drivers.lpflexcomm.MCXN547 utility.str.MCXN547" category="wifi_examples">
+    <projects>
+      <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
+    </projects>
+    <toolchainSettings>
+      <toolchainSetting id_refs="com.nxp.mcuxpresso">
+        <option id="com.crt.advproject.gcc.exe.debug.option.optimization.level" type="enum">
+          <value>gnu.c.optimization.level.optimize</value>
+        </option>
+        <option id="com.crt.advproject.gcc.fpu" type="enum">
+          <value>com.crt.advproject.gcc.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="gnu.c.compiler.option.optimization.flags" type="string">
+          <value>-fno-common</value>
+        </option>
+        <option id="com.crt.advproject.c.misc.dialect" type="enum">
+          <value>com.crt.advproject.misc.dialect.gnu99</value>
+        </option>
+        <option id="gnu.c.compiler.option.misc.other" type="string">
+          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -fno-builtin</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.toerrors" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
+          <value>LWIP_TIMEVAL_PRIVATE=0</value>
+          <value>CPU_MCXN547VDF_cm33_core0</value>
+          <value>MFLASH_FILE_BASEADDR=2064384</value>
+          <value>USE_RTOS=1</value>
+          <value>PRINTF_ADVANCED_ENABLE=1</value>
+          <value>LWIP_NETIF_API=1</value>
+          <value>HTTPSRV_CFG_WEBSOCKET_ENABLED=1</value>
+          <value>HTTPSRV_CFG_DEFAULT_SES_CNT=8</value>
+          <value>SDK_DEBUGCONSOLE_UART</value>
+          <value>MCUXPRESSO_SDK</value>
+          <value>SDIO_ENABLED</value>
+          <value>SERIAL_PORT_TYPE_UART=1</value>
+          <value>OSA_USED</value>
+          <value>FSL_OSA_TASK_ENABLE=1</value>
+          <value>LWIP_DNS=1</value>
+          <value>LWIP_NETIF_HOSTNAME=1</value>
+          <value>LWIP_IGMP=1</value>
+          <value>_XOPEN_SOURCE=500</value>
+          <value>SDK_OS_FREE_RTOS</value>
+          <value>SO_REUSE=1</value>
+        </option>
+        <option id="com.crt.advproject.gas.hdrlib" type="enum">
+          <value>com.crt.advproject.gas.hdrlib.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.gas.specs" type="enum">
+          <value>com.crt.advproject.gas.specs.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.gcc.hdrlib" type="enum">
+          <value>com.crt.advproject.gcc.hdrlib.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.gcc.specs" type="enum">
+          <value>com.crt.advproject.gcc.specs.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.link.gcc.hdrlib" type="enum">
+          <value>com.crt.advproject.gcc.link.hdrlib.newlibnano.nohost</value>
+        </option>
+        <option id="com.crt.advproject.link.fpu" type="enum">
+          <value>com.crt.advproject.link.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="gnu.c.link.option.nostdlibs" type="boolean">
+          <value>true</value>
+        </option>
+        <option id="com.crt.advproject.link.memory.heapAndStack" type="string">
+          <value>&amp;Heap:Default;Default;0x15f90&amp;Stack:Default;Default;0x800</value>
+        </option>
+        <option id="gnu.c.link.option.other" type="stringList">
+          <value>-no-warn-rwx-segments</value>
+        </option>
+        <option id="com.crt.advproject.gas.fpu" type="enum">
+          <value>com.crt.advproject.gas.fpu.fpv5sp.hard</value>
+        </option>
+      </toolchainSetting>
+    </toolchainSettings>
+    <include_paths>
+      <include_path path="." project_relative_path="board" type="c_include"/>
+      <include_path path="." project_relative_path="source" type="c_include"/>
+      <include_path path="../../common/cm33_core0" project_relative_path="board" type="c_include"/>
+      <include_path path="../../../../../core/boards/mcxn5xxevk" project_relative_path="board" type="c_include"/>
+      <include_path path="../../.." project_relative_path="board" type="c_include"/>
+      <include_path path="." project_relative_path="source" type="asm_include"/>
+      <include_path path="../../../../../core/boards/mcxn5xxevk" project_relative_path="board" type="asm_include"/>
+    </include_paths>
+    <source path="armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">
+      <files mask="build_all.bat"/>
+      <files mask="build_all.sh"/>
+      <files mask="clean.bat"/>
+      <files mask="clean.sh"/>
+      <files mask="CMakeLists.txt"/>
+      <files mask="flags.cmake"/>
+      <files mask="config.cmake"/>
+      <files mask="build_debug.bat"/>
+      <files mask="build_debug.sh"/>
+      <files mask="build_release.bat"/>
+      <files mask="build_release.sh"/>
+    </source>
+    <source path="../../../../../core/devices/MCXN547" project_relative_path="./" type="workspace" toolchain="armgcc">
+      <files mask="all_lib_device.cmake"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="pin_mux.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="pin_mux.h"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include" config="true">
+      <files mask="lwipopts.h"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include">
+      <files mask="lwippools.h"/>
+    </source>
+    <source path="." project_relative_path="source" type="src">
+      <files mask="webconfig.c"/>
+      <files mask="cred_flash_storage.c"/>
+      <files mask="http_server.c"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include">
+      <files mask="webconfig.h"/>
+      <files mask="cred_flash_storage.h"/>
+      <files mask="http_server.h"/>
+    </source>
+    <source path="." project_relative_path="lwip/src/apps/httpsrv" type="src">
+      <files mask="httpsrv_fs_data.c"/>
+    </source>
+    <source path="." project_relative_path="doc" type="doc" exclude="true">
+      <files mask="readme_modules.txt"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include" config="true">
+      <files mask="FreeRTOSConfig.h"/>
+    </source>
+    <source path="." project_relative_path="board" type="src" config="true">
+      <files mask="sdmmc_config.c"/>
+      <files mask="wifi_bt_config.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include" config="true">
+      <files mask="sdmmc_config.h"/>
+      <files mask="wifi_bt_config.h"/>
+    </source>
+    <source path="webui" project_relative_path="components/edgefast_wifi/example/wifi_webconfig/webui" type="other" exclude="true">
+      <files mask="favicon.ico" hidden="true"/>
+    </source>
+    <source path="webui" project_relative_path="components/edgefast_wifi/example/wifi_webconfig/webui" type="doc" exclude="true">
+      <files mask="index.html" hidden="true"/>
+      <files mask="webconfig.css" hidden="true"/>
+    </source>
+    <source path="webui" project_relative_path="components/edgefast_wifi/example/wifi_webconfig/webui" type="image" exclude="true">
+      <files mask="NXP_logo.png" hidden="true"/>
+    </source>
+    <source path="webui" project_relative_path="components/edgefast_wifi/example/wifi_webconfig/webui" type="script" exclude="true">
+      <files mask="webconfig.js" hidden="true"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include" config="true">
+      <files mask="app_config.h"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include" config="true">
+      <files mask="wifi_config.h"/>
+    </source>
+    <source path="../../../../../core/boards/mcxn5xxevk" project_relative_path="board" type="src">
+      <files mask="board.c"/>
+      <files mask="clock_config.c"/>
+    </source>
+    <source path="../../../../../core/boards/mcxn5xxevk" project_relative_path="board" type="c_include">
+      <files mask="board.h"/>
+      <files mask="clock_config.h"/>
+    </source>
+    <source path="../../.." project_relative_path="board" type="src">
+      <files mask="board.c"/>
+      <files mask="clock_config.c"/>
+    </source>
+    <source path="../../.." project_relative_path="board" type="c_include">
+      <files mask="board.h"/>
+      <files mask="clock_config.h"/>
+    </source>
+    <source path="." project_relative_path="doc" type="doc" toolchain="mcuxpresso armgcc">
+      <files mask="readme.md"/>
+    </source>
+    <source path="gcc" project_relative_path="gcc" type="linker" toolchain="armgcc">
+      <files mask="MCXN547_cm33_core0_flash.ld"/>
+    </source>
+  </example>
+</ksdk:examples>

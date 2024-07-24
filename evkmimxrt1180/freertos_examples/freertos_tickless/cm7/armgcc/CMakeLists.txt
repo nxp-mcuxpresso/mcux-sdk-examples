@@ -55,8 +55,8 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../FreeRTOSConfig.h"
-"${SdkRootDirPath}/examples/evkmimxrt1180/freertos_examples/freertos_tickless/low_power_tickless/cm7/fsl_tickless_gpt.c"
-"${SdkRootDirPath}/examples/evkmimxrt1180/freertos_examples/freertos_tickless/low_power_tickless/cm7/fsl_tickless_gpt.h"
+"${ProjDirPath}/../fsl_tickless_gpt.c"
+"${ProjDirPath}/../fsl_tickless_gpt.h"
 "${SdkRootDirPath}/examples/evkmimxrt1180/board.c"
 "${SdkRootDirPath}/examples/evkmimxrt1180/board.h"
 "${SdkRootDirPath}/examples/evkmimxrt1180/clock_config.c"
@@ -65,7 +65,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
-    ${SdkRootDirPath}/examples/evkmimxrt1180/freertos_examples/freertos_tickless/low_power_tickless/cm7
     ${SdkRootDirPath}/examples/evkmimxrt1180
 )
 

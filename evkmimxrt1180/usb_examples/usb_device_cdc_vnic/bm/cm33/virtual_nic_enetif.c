@@ -5,12 +5,17 @@
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
+#include "board.h"
 #include "fsl_debug_console.h"
 #include "virtual_nic_enetif.h"
 #include "fsl_netc_endpoint.h"
 #include "fsl_netc_switch.h"
 #include "fsl_netc_mdio.h"
+#if defined(BOARD_USE_NETC_PHY_RTL8201)
 #include "fsl_phyrtl8201.h"
+#elif defined(BOARD_USE_NETC_PHY_RTL8211F)
+#include "fsl_phyrtl8211f.h"
+#endif
 #include "fsl_msgintr.h"
 
 #include "fsl_netc.h"
@@ -26,7 +31,6 @@
 #include "usb_device_descriptor.h"
 
 #include "virtual_nic_enet_adapter.h"
-#include "board.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -58,7 +62,9 @@ status_t APP_EP0_MDIOWrite(uint8_t phyAddr, uint8_t regAddr, uint16_t data);
 status_t APP_EP0_MDIORead(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData);
 extern uint8_t g_hwaddr[ENET_MAC_ADDR_SIZE];
 status_t APP_PHY_Init(void);
-status_t APP_PHY_GetLinkModeSpeedDuplex(netc_hw_mii_mode_t *mode, netc_hw_mii_speed_t *speed, netc_hw_mii_duplex_t *duplex);
+status_t APP_PHY_GetLinkModeSpeedDuplex(netc_hw_mii_mode_t *mode,
+                                        netc_hw_mii_speed_t *speed,
+                                        netc_hw_mii_duplex_t *duplex);
 status_t APP_PHY_SetPort(phy_config_t *phyConfig);
 /*******************************************************************************
  * Variables
@@ -71,7 +77,11 @@ AT_NONCACHEABLE_SECTION_ALIGN(netc_rx_bd_t RxBuffDescrip[NETC_RXBD_NUM], NETC_EP
 AT_NONCACHEABLE_SECTION_ALIGN(netc_tx_bd_t TxBuffDescrip[NETC_TXBD_NUM], NETC_EP_BD_ALIGN);
 AT_NONCACHEABLE_SECTION_ALIGN(rx_buffer_t RxDataBuff[NETC_RXBD_NUM], EXAMPLE_EP_BUFF_SIZE_ALIGN);
 uint64_t rxBuffAddr[NETC_RXBD_NUM];
+#if defined(BOARD_USE_NETC_PHY_RTL8201)
 static phy_rtl8201_resource_t s_phy_resource;
+#elif defined(BOARD_USE_NETC_PHY_RTL8211F)
+static phy_rtl8211f_resource_t s_phy_resource;
+#endif
 static phy_handle_t s_phy_handle;
 static uint8_t s_phy_address = NETC_EP0_PHY_ADDR;
 static netc_tx_frame_info_t g_txDirty[NETC_TXBD_NUM];
@@ -200,6 +210,7 @@ status_t APP_EP0_MDIORead(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
     return NETC_MDIORead(&s_mdio_handle, phyAddr, regAddr, pData);
 }
 
+#ifdef BOARD_USE_NETC_PHY_RTL8201
 static status_t APP_Phy8201SetUp(phy_handle_t *handle)
 {
     status_t result;
@@ -227,6 +238,7 @@ static status_t APP_Phy8201SetUp(phy_handle_t *handle)
 
     return result;
 }
+#endif /* BOARD_USE_NETC_PHY_RTL8201 */
 
 void msgintrCallback(MSGINTR_Type *base, uint8_t channel, uint32_t pendingIntr)
 {
@@ -283,9 +295,15 @@ status_t NETC_PHY_GetLinkStatus(uint32_t port, bool *link)
     return PHY_GetLinkStatus(&s_phy_handle, link);
 }
 
-status_t APP_PHY_GetLinkModeSpeedDuplex(netc_hw_mii_mode_t *mode, netc_hw_mii_speed_t *speed, netc_hw_mii_duplex_t *duplex)
+status_t APP_PHY_GetLinkModeSpeedDuplex(netc_hw_mii_mode_t *mode,
+                                        netc_hw_mii_speed_t *speed,
+                                        netc_hw_mii_duplex_t *duplex)
 {
+#if defined(BOARD_USE_NETC_PHY_RTL8201)
     *mode = kNETC_RmiiMode;
+#elif defined(BOARD_USE_NETC_PHY_RTL8211F)
+    *mode = kNETC_RgmiiMode;
+#endif
 
     return PHY_GetLinkSpeedDuplex(&s_phy_handle, (phy_speed_t *)speed, (phy_duplex_t *)duplex);
 }
@@ -308,23 +326,28 @@ status_t APP_PHY_SetPort(phy_config_t *phyConfig)
 
 status_t APP_PHY_Init(void)
 {
-    status_t result            = kStatus_Success;
-    phy_config_t phy8201Config = {
+    status_t result        = kStatus_Success;
+    phy_config_t phyConfig = {
         .autoNeg   = false,
         .speed     = kPHY_Speed100M,
         .duplex    = kPHY_FullDuplex,
         .enableEEE = false,
-        .ops       = &phyrtl8201_ops,
+#if defined(BOARD_USE_NETC_PHY_RTL8201)
+        .ops = &phyrtl8201_ops,
+#elif defined(BOARD_USE_NETC_PHY_RTL8211F)
+        .ops = &phyrtl8211f_ops,
+#endif
     };
 
     /* Initialize PHY for EP. */
-    phy8201Config.resource = &s_phy_resource;
-    phy8201Config.phyAddr  = s_phy_address;
-    result                 = APP_PHY_SetPort(&phy8201Config);
+    phyConfig.resource = &s_phy_resource;
+    phyConfig.phyAddr  = s_phy_address;
+    result             = APP_PHY_SetPort(&phyConfig);
     if (result != kStatus_Success)
     {
         return result;
     }
+#ifdef BOARD_USE_NETC_PHY_RTL8201
     result = APP_Phy8201SetUp(&s_phy_handle);
     if (result != kStatus_Success)
     {
@@ -336,8 +359,8 @@ status_t APP_PHY_Init(void)
     (void)PHY_Read(&s_phy_handle, 20, &phyRegValue);
     (void)PHY_Write(&s_phy_handle, 20, (phyRegValue | 0x900U));
     (void)PHY_Write(&s_phy_handle, 0x1F, 0);
-#endif
-
+#endif /* EXAMPLE_PORT_USE_100M_HALF_DUPLEX_MODE */
+#endif /* BOARD_USE_NETC_PHY_RTL8201 */
     return result;
 }
 
@@ -433,11 +456,9 @@ enet_err_t NETCIF_Init(void)
     g_ep_config.port.ethMac.miiMode   = phyMode;
     g_ep_config.port.ethMac.miiSpeed  = phySpeed;
     g_ep_config.port.ethMac.miiDuplex = phyDuplex;
-#ifdef EXAMPLE_ENABLE_CACHE_MAINTAIN
-    g_ep_config.rxCacheMaintain = true;
-    g_ep_config.txCacheMaintain = true;
-#endif
-    result = EP_Init(&g_handle, &g_hwaddr[0], &g_ep_config, &bdrConfig);
+    g_ep_config.rxCacheMaintain       = true;
+    g_ep_config.txCacheMaintain       = true;
+    result                            = EP_Init(&g_handle, &g_hwaddr[0], &g_ep_config, &bdrConfig);
     if (result != kStatus_Success)
     {
         return result;

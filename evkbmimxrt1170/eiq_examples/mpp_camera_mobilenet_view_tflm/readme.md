@@ -4,7 +4,7 @@ Overview
 This example shows how to use the library to create a use-case for
 image classification using camera as source.
 
-The machine learning frameworks used are TensorFlow Lite Micro, GLOW or DeepViewRT
+The machine learning framework used is TensorFlow Lite Micro
 The image classification model used is quantized Mobilenet
 convolutional neural network model [1] that classifies the input image into
 one of 1000 output classes.
@@ -18,12 +18,12 @@ Toolchains supported
 
 SDK version
 ===========
-- Version: 2.15.100
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  12.2
-- MCUXpresso  11.8.0
+- GCC ARM Embedded  13.2.1
+- MCUXpresso  11.10.0
 
 Hardware requirements
 =====================
@@ -100,5 +100,5 @@ This is done by implementing the function:
 
 tflite::MicroOpResolver &MODEL_GetOpsResolver()
 
-If this example uses TensorFLow Lite Micro (i.e. not Glow, not deepViewRT), it implements its own function MODEL_GetOpsResolver dedicated to Mobilenet.
+If this example uses TensorFLow Lite Micro, it implements its own function MODEL_GetOpsResolver dedicated to Mobilenet.
 User may provide its own implementation of MODEL_GetOpsResolver when using a different model.

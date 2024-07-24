@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:examples xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd manifest.xsd">
+  <externalDefinitions>
+    <definition extID="utility.debug_console_lite.MCXC242"/>
+    <definition extID="platform.utilities.assert_lite.MCXC242"/>
+    <definition extID="platform.drivers.port.MCXC242"/>
+    <definition extID="platform.drivers.dma.MCXC242"/>
+    <definition extID="platform.drivers.dmamux.MCXC242"/>
+    <definition extID="platform.drivers.uart.MCXC242"/>
+    <definition extID="platform.drivers.uart_dma.MCXC242"/>
+    <definition extID="platform.drivers.clock.MCXC242"/>
+    <definition extID="platform.drivers.common.MCXC242"/>
+    <definition extID="device.MCXC242_CMSIS.MCXC242"/>
+    <definition extID="component.lpuart_adapter.MCXC242"/>
+    <definition extID="platform.drivers.lpuart.MCXC242"/>
+    <definition extID="component.lists.MCXC242"/>
+    <definition extID="device.MCXC242_startup.MCXC242"/>
+    <definition extID="platform.drivers.smc.MCXC242"/>
+    <definition extID="platform.drivers.gpio.MCXC242"/>
+    <definition extID="platform.utilities.misc_utilities.MCXC242"/>
+    <definition extID="utility.str.MCXC242"/>
+    <definition extID="CMSIS_Include_core_cm.MCXC242"/>
+    <definition extID="device.MCXC242_system.MCXC242"/>
+    <definition extID="armgcc"/>
+    <definition extID="mcuxpresso"/>
+    <definition extID="com.nxp.mcuxpresso"/>
+  </externalDefinitions>
+  <example id="frdmmcxc242_uart_dma_rb_transfer" name="uart_dma_rb_transfer" dependency="utility.debug_console_lite.MCXC242 platform.utilities.assert_lite.MCXC242 platform.drivers.port.MCXC242 platform.drivers.dma.MCXC242 platform.drivers.dmamux.MCXC242 platform.drivers.uart.MCXC242 platform.drivers.uart_dma.MCXC242 platform.drivers.clock.MCXC242 platform.drivers.common.MCXC242 device.MCXC242_CMSIS.MCXC242 component.lpuart_adapter.MCXC242 platform.drivers.lpuart.MCXC242 component.lists.MCXC242 device.MCXC242_startup.MCXC242 platform.drivers.smc.MCXC242 platform.drivers.gpio.MCXC242 platform.utilities.misc_utilities.MCXC242 utility.str.MCXC242 CMSIS_Include_core_cm.MCXC242 device.MCXC242_system.MCXC242" category="driver_examples/uart">
+    <projects>
+      <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
+    </projects>
+    <toolchainSettings>
+      <toolchainSetting id_refs="com.nxp.mcuxpresso">
+        <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
+          <value>CPU_MCXC242VLH</value>
+          <value>FRDM_MCXC242</value>
+          <value>FREEDOM</value>
+          <value>MCUXPRESSO_SDK</value>
+        </option>
+        <option id="com.crt.advproject.gas.fpu" type="enum">
+          <value>com.crt.advproject.gas.fpu.none</value>
+        </option>
+        <option id="gnu.c.compiler.option.optimization.flags" type="string">
+          <value>-fno-common</value>
+        </option>
+        <option id="com.crt.advproject.c.misc.dialect" type="enum">
+          <value>com.crt.advproject.misc.dialect.gnu99</value>
+        </option>
+        <option id="com.crt.advproject.gcc.fpu" type="enum">
+          <value>com.crt.advproject.gcc.fpu.none</value>
+        </option>
+        <option id="gnu.c.compiler.option.misc.other" type="string">
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.toerrors" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="gnu.c.link.option.nostdlibs" type="boolean">
+          <value>true</value>
+        </option>
+        <option id="gnu.c.link.option.other" type="stringList">
+          <value>-no-warn-rwx-segments</value>
+        </option>
+        <option id="com.crt.advproject.link.fpu" type="enum">
+          <value>com.crt.advproject.link.fpu.none</value>
+        </option>
+      </toolchainSetting>
+    </toolchainSettings>
+    <include_paths>
+      <include_path path="." project_relative_path="board" type="c_include"/>
+      <include_path path="." project_relative_path="frdmmcxc242/driver_examples/uart/dma_rb_transfer" type="c_include"/>
+      <include_path path="../../../../../core/boards/frdmmcxc242" project_relative_path="board" type="c_include"/>
+    </include_paths>
+    <source path="armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">
+      <files mask="build_all.bat"/>
+      <files mask="build_all.sh"/>
+      <files mask="clean.bat"/>
+      <files mask="clean.sh"/>
+      <files mask="CMakeLists.txt"/>
+      <files mask="flags.cmake"/>
+      <files mask="config.cmake"/>
+      <files mask="build_debug.bat"/>
+      <files mask="build_debug.sh"/>
+      <files mask="build_release.bat"/>
+      <files mask="build_release.sh"/>
+    </source>
+    <source path="../../../../../core/devices/MCXC242" project_relative_path="./" type="workspace" toolchain="armgcc">
+      <files mask="all_lib_device.cmake"/>
+    </source>
+    <source path="." project_relative_path="source" type="src">
+      <files mask="uart_dma_rb_transfer.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="pin_mux.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="pin_mux.h"/>
+    </source>
+    <source path="../../../../../core/boards/frdmmcxc242" project_relative_path="board" type="src">
+      <files mask="board.c"/>
+      <files mask="clock_config.c"/>
+    </source>
+    <source path="../../../../../core/boards/frdmmcxc242" project_relative_path="board" type="c_include">
+      <files mask="board.h"/>
+      <files mask="clock_config.h"/>
+    </source>
+    <source path="." project_relative_path="doc" type="doc" toolchain="mcuxpresso armgcc">
+      <files mask="readme.md"/>
+    </source>
+    <source path="armgcc" project_relative_path="MCXC242/gcc" type="linker" toolchain="armgcc">
+      <files mask="MCXC242_flash.ld"/>
+    </source>
+  </example>
+</ksdk:examples>

@@ -254,6 +254,9 @@ uint8_t g_UsbDeviceConfigurationDescriptor[] = {
 #if defined(AUDIO_DATA_SOURCE_DMIC) && (AUDIO_DATA_SOURCE_DMIC > 0U)
     0x02U, /* The number of bytes occupied by one audio subslot. Can be 1, 2, 3 or 4.  */
     0x10U, /* The number of effectively used bits from the available bits in an audio subslot   */
+#elif defined(AUDIO_DATA_SOURCE_PDM) && (AUDIO_DATA_SOURCE_PDM > 0U)
+    0x03U, /* The number of bytes occupied by one audio subslot. Can be 1, 2, 3 or 4.  */
+    0x18U, /* The number of effectively used bits from the available bits in an audio subslot   */
 #else
     0x01U, /* The number of bytes occupied by one audio subslot. Can be 1, 2, 3 or 4.  */
     0x08U, /* The number of effectively used bits from the available bits in an audio subslot   */
@@ -427,7 +430,8 @@ uint8_t g_UsbDeviceConfigurationDescriptor[] = {
     /* FORMAT_TYPE descriptor subtype  */
     USB_AUDIO_FORMAT_TYPE_I, /* FORMAT_TYPE_I  */
     0x01U,                   /* Indicates the number of physical channels in the audio data stream.  */
-#if defined(AUDIO_DATA_SOURCE_DMIC) && (AUDIO_DATA_SOURCE_DMIC > 0U)
+#if (defined(AUDIO_DATA_SOURCE_DMIC) && (AUDIO_DATA_SOURCE_DMIC > 0U)) || \
+    (defined(AUDIO_DATA_SOURCE_PDM) && (AUDIO_DATA_SOURCE_PDM > 0U))
     0x02U,                   /* The number of bytes occupied by one audio subframe. Can be 1, 2, 3 or 4.   */
     0x10,                    /* The number of effectively used bits from the available bits in an audio subframe.*/
     0x01U,                   /* Indicates how the sampling frequency can be programmed:   */

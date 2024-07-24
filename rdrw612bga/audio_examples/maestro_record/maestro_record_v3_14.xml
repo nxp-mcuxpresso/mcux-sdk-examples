@@ -59,12 +59,11 @@
     <definition extID="device.RW612_system.RW612"/>
     <definition extID="component.els_pkc.els_header_only.RW612"/>
     <definition extID="component.els_pkc.els_common.RW612"/>
-    <definition extID="component.els_pkc.standalone_keyManagement.RW612"/>
+    <definition extID="component.els_pkc.memory.RW612"/>
     <definition extID="component.els_pkc.standalone_gdet.RW612"/>
-    <definition extID="component.els_pkc.platform.rw61x_interface_files.RW612"/>
+    <definition extID="component.els_pkc.platform.rw61x_inf_header_only.RW612"/>
     <definition extID="component.els_pkc.buffer.RW612"/>
     <definition extID="component.els_pkc.core.RW612"/>
-    <definition extID="component.els_pkc.memory.RW612"/>
     <definition extID="component.els_pkc.param_integrity.RW612"/>
     <definition extID="component.els_pkc.flow_protection.RW612"/>
     <definition extID="component.els_pkc.secure_counter.RW612"/>
@@ -77,7 +76,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="rdrw612bga_maestro_record" name="maestro_record" device_core="cm33_RW612" dependency="platform.drivers.flexcomm_i2c.RW612 component.flexcomm_i2c_adapter.RW612 component.codec_i2c.RW612 driver.wm8904.RW612 component.wm8904_adapter.RW612 driver.codec.RW612 platform.drivers.flexcomm_i2s_dma.RW612 platform.drivers.dmic.RW612 platform.drivers.dmic_dma.RW612 platform.drivers.lpc_dma.RW612 component.osa_free_rtos.RW612 component.serial_manager_uart.RW612 middleware.fatfs.ram.RW612 middleware.fatfs.RW612 middleware.vit.cm33-rw61x.RW612 CMSIS_DSP_Source.RW612 middleware.voice_seeker.cm33_nodsp.RW612 utility.debug_console.RW612 platform.utilities.assert.RW612 middleware.freertos-kernel.heap_4.RW612 middleware.maestro_framework.RW612 utility.shell.RW612 middleware.freertos-kernel.cm33_non_trustzone.RW612 platform.drivers.flash_config.rdrw612bga.RW612 device.RW612_CMSIS.RW612 device.RW612_startup.RW612 platform.drivers.reset.RW612 platform.drivers.flexspi.RW612 platform.drivers.cache_cache64.RW612 platform.drivers.cns_io_mux.RW612 platform.drivers.lpc_gpio.RW612 platform.drivers.power.RW612 platform.drivers.ocotp.RW612 component.els_pkc.platform.rw61x_standalone_clib_gdet_sensor.RW612 platform.utilities.misc_utilities.RW612 platform.drivers.clock.RW612 platform.drivers.flexcomm.RW612 platform.drivers.common.RW612 platform.drivers.flexcomm_i2s.RW612 platform.drivers.memory.RW612 middleware.freertos-kernel.RW612 component.lists.RW612 component.osa_interface.RW612 middleware.freertos-kernel.template.RW612 middleware.freertos-kernel.extension.RW612 component.usart_adapter.RW612 component.serial_manager.RW612 platform.drivers.flexcomm_usart.RW612 middleware.fatfs.template_ram.RW612 middleware.voice_seeker.rdsp_utilities_public.cm33_noDSP.RW612 utility.str.RW612 middleware.maestro_framework.doc.RW612 middleware.maestro_framework.template.RW612 CMSIS_Include_core_cm.RW612 device.RW612_system.RW612 component.els_pkc.els_header_only.RW612 component.els_pkc.els_common.RW612 component.els_pkc.standalone_keyManagement.RW612 component.els_pkc.standalone_gdet.RW612 component.els_pkc.platform.rw61x_interface_files.RW612 component.els_pkc.buffer.RW612 component.els_pkc.core.RW612 component.els_pkc.memory.RW612 component.els_pkc.param_integrity.RW612 component.els_pkc.flow_protection.RW612 component.els_pkc.secure_counter.RW612 component.els_pkc.pre_processor.RW612 component.els_pkc.toolchain.RW612 component.els_pkc.data_integrity.RW612" category="audio_examples">
+  <example id="rdrw612bga_maestro_record" name="maestro_record" device_core="cm33_RW612" dependency="platform.drivers.flexcomm_i2c.RW612 component.flexcomm_i2c_adapter.RW612 component.codec_i2c.RW612 driver.wm8904.RW612 component.wm8904_adapter.RW612 driver.codec.RW612 platform.drivers.flexcomm_i2s_dma.RW612 platform.drivers.dmic.RW612 platform.drivers.dmic_dma.RW612 platform.drivers.lpc_dma.RW612 component.osa_free_rtos.RW612 component.serial_manager_uart.RW612 middleware.fatfs.ram.RW612 middleware.fatfs.RW612 middleware.vit.cm33-rw61x.RW612 CMSIS_DSP_Source.RW612 middleware.voice_seeker.cm33_nodsp.RW612 utility.debug_console.RW612 platform.utilities.assert.RW612 middleware.freertos-kernel.heap_4.RW612 middleware.maestro_framework.RW612 utility.shell.RW612 middleware.freertos-kernel.cm33_non_trustzone.RW612 platform.drivers.flash_config.rdrw612bga.RW612 device.RW612_CMSIS.RW612 device.RW612_startup.RW612 platform.drivers.reset.RW612 platform.drivers.flexspi.RW612 platform.drivers.cache_cache64.RW612 platform.drivers.cns_io_mux.RW612 platform.drivers.lpc_gpio.RW612 platform.drivers.power.RW612 platform.drivers.ocotp.RW612 component.els_pkc.platform.rw61x_standalone_clib_gdet_sensor.RW612 platform.utilities.misc_utilities.RW612 platform.drivers.clock.RW612 platform.drivers.flexcomm.RW612 platform.drivers.common.RW612 platform.drivers.flexcomm_i2s.RW612 platform.drivers.memory.RW612 middleware.freertos-kernel.RW612 component.lists.RW612 component.osa_interface.RW612 middleware.freertos-kernel.template.RW612 middleware.freertos-kernel.extension.RW612 component.usart_adapter.RW612 component.serial_manager.RW612 platform.drivers.flexcomm_usart.RW612 middleware.fatfs.template_ram.RW612 middleware.voice_seeker.rdsp_utilities_public.cm33_noDSP.RW612 utility.str.RW612 middleware.maestro_framework.doc.RW612 middleware.maestro_framework.template.RW612 CMSIS_Include_core_cm.RW612 device.RW612_system.RW612 component.els_pkc.els_header_only.RW612 component.els_pkc.els_common.RW612 component.els_pkc.memory.RW612 component.els_pkc.standalone_gdet.RW612 component.els_pkc.platform.rw61x_inf_header_only.RW612 component.els_pkc.buffer.RW612 component.els_pkc.core.RW612 component.els_pkc.param_integrity.RW612 component.els_pkc.flow_protection.RW612 component.els_pkc.secure_counter.RW612 component.els_pkc.pre_processor.RW612 component.els_pkc.toolchain.RW612 component.els_pkc.data_integrity.RW612" category="audio_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -99,6 +98,7 @@
           <value>VIT_MODEL_IT</value>
           <value>VIT_MODEL_JA</value>
           <value>VIT_MODEL_KO</value>
+          <value>VIT_MODEL_PT</value>
           <value>VIT_MODEL_TR</value>
           <value>STREAMER_ENABLE_VIT_SINK</value>
           <value>STREAMER_ENABLE_AUDIO_PROC</value>
@@ -160,7 +160,7 @@
           <value>com.crt.advproject.gcc.fpu.fpv5sp.hard</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-mcpu=cortex-m33+nodsp -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-mcpu=cortex-m33+nodsp -c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

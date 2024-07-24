@@ -45,10 +45,6 @@ extern void UART_UserTxCallback(void *callbackParam,
 /*******************************************************************************
  * Variables
  ******************************************************************************/
-/* Allocate the memory for the heap. */
-#if defined(configAPPLICATION_ALLOCATED_HEAP) && (configAPPLICATION_ALLOCATED_HEAP)
-USB_DMA_NONINIT_DATA_ALIGN(USB_DATA_ALIGN_SIZE) uint8_t ucHeap[configTOTAL_HEAP_SIZE];
-#endif
 usb_host_handle g_hostHandle;
 volatile uint8_t g_AttachFlag;
 USB_RAM_ADDRESS_ALIGNMENT(4) static uint8_t s_serialWriteHandleBuffer[SERIAL_MANAGER_WRITE_HANDLE_SIZE];

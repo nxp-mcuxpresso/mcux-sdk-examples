@@ -7,6 +7,7 @@
  */
 
 #include <stdint.h>
+#include <string.h>
 
 #include "fsl_debug_console.h"
 #include "mcuboot_app_support.h"
@@ -86,6 +87,69 @@ const union boot_img_magic_t boot_img_magic = {
 #define BOOT_IMG_ALIGN  (boot_img_magic.align)
 #endif
 
+#if defined(CONFIG_MCUBOOT_ENCRYPTED_XIP_SUPPORT)
+
+#define ENC_MAGIC_SZ    16
+
+union enc_magic_t
+{
+    uint8_t val[ENC_MAGIC_SZ];
+};
+
+const union enc_magic_t enc_magic = {
+    .val = {
+        0xAA, 0xBB, 0xCC, 0xDD,
+        0x60, 0x4D, 0xBA, 0x70,
+        0x34, 0x79, 0x2c, 0x0f,
+        0x2c, 0xb6, 0x0f, 0x35
+    }
+};
+
+static int32_t flash_read(uint32_t addr, uint32_t *buffer, uint32_t len);
+
+#define ENC_MAGIC  (enc_magic.val)
+
+/** Structure holds partial metadata used for active slot
+ */
+typedef struct
+{
+    /* ...platform specific...*/
+    uint32_t active_slot;                       // 0 - primary, 1 - secondary
+    uint8_t pad_0[12];                          // Padding zeroes
+    uint8_t hash[16];                           // Hash of encrypted key blocks including padding zeroes
+    uint8_t pad_1[16];                          // Padding zeroes
+    uint8_t magic[ENC_MAGIC_SZ];                // Magic number
+} enc_metadata_t;
+
+/* Returns what slot the encrypted XIP image belongs to */
+static uint32_t read_enc_metadata(void)
+{
+  enc_metadata_t metadata;
+  uint32_t off = boot_enc_flash_map[0].fa_off + boot_enc_flash_map[0].fa_size 
+                  - sizeof(enc_metadata_t);
+  
+  memset(&metadata, 0, sizeof(enc_metadata_t));
+  if(flash_read(off, (uint32_t *)&metadata, sizeof(enc_metadata_t)) != 0)
+     goto error;
+  if(memcmp(&metadata.magic, ENC_MAGIC, ENC_MAGIC_SZ) == 0)
+  {
+    if(metadata.active_slot == 0){
+      PRINTF("This app is linked to primary slot\n");
+      return PRIMARY_SLOT_ACTIVE;
+    }
+    else{
+      PRINTF("This app is linked to secondary slot\n");
+      return SECONDARY_SLOT_ACTIVE;
+    }
+  }
+error:
+  /* Valid metadata should be always present in production phase */
+  PRINTF("WARNING: invalid metadata of active slot - debug session?\n");
+  PRINTF("WARNING: OTA image will be downloaded to secondary slot\n");
+  return SECONDARY_SLOT_ACTIVE;
+}
+#endif /* CONFIG_MCUBOOT_ENCRYPTED_XIP_SUPPORT */
+
 
 /** Find out what slot is currently booted.
  *
@@ -111,20 +175,23 @@ static uint32_t get_active_image(uint32_t image)
 {
     (void)image;
 
-#ifdef CONFIG_MCUBOOT_FLASH_REMAP_ENABLE
-    uint32_t offset;
+#if defined(CONFIG_MCUBOOT_FLASH_REMAP_ENABLE) && !defined(CONFIG_MCUBOOT_FLASH_REMAP_BY_SWAP)
 
-    offset = *((volatile uint32_t *)FLASH_REMAP_OFFSET_REG);
-    if (offset > 0)
+    /* Using flash remapping by overlay done by FlexSPI IP */
+    if (bl_flash_remap_active())
         return SECONDARY_SLOT_ACTIVE;
     else
         return PRIMARY_SLOT_ACTIVE;
+    
+#elif defined (CONFIG_MCUBOOT_ENCRYPTED_XIP_SUPPORT)
+    return read_enc_metadata();
 #else
 
-    /* In case of non-XIP modes, they always run from PRIMARY slot */
+    /* In other configurations active slot is the PRIMARY one*/
     return PRIMARY_SLOT_ACTIVE;
 #endif
 }
+
 
 /** This wrapper function deals with mflash driver limitations such as unaligned
  *  access to memory, copying data into unaligned destination and data size is
@@ -315,7 +382,7 @@ static status_t boot_swap_test(uint32_t image)
         PRINTF("%s: failed to write trailer2\r\n", __func__);
         return status;
     }
-
+  
     return status;
 }
 
@@ -388,35 +455,12 @@ static status_t boot_swap_ok(int image)
         return status;
     }
 
-#if defined(CONFIG_MCUBOOT_FLASH_REMAP_DOWNGRADE_SUPPORT)
-    /* downgrade support for DIRECT-XIP, erase header of inactive slot */
-    /* because it can contains image with higher version */
-    uint32_t off_header_erase;
-
-    if (get_active_image(image) == PRIMARY_SLOT_ACTIVE)
-    {
-        faid = FLASH_AREA_IMAGE_SECONDARY(image);
-    }
-    else
-    {
-        faid = FLASH_AREA_IMAGE_PRIMARY(image);
-    }
-
-    off_header_erase = boot_flash_map[faid].fa_off;
-
-    PRINTF("Deleting header of inactive image in %s slot (downgrade support for direct-xip)\n",
-           off_header_erase == FLASH_AREA_IMAGE_1_OFFSET ? "primary" : "secondary");
-
-    status = mflash_drv_sector_erase(off_header_erase);
-    if (status != kStatus_Success)
-    {
-        PRINTF("%s: failed to erase header of inactive image\r\n, __func__");
-        return status;
-    }
-#endif
-
     return status;
 }
+
+
+/* Does a sanity check of image based on patterns and sizes.
+   It doesn't verify the code signing! */
 
 int32_t bl_verify_image(uint32_t addrphy, uint32_t size)
 {
@@ -521,7 +565,7 @@ status_t bl_get_update_partition_info(uint32_t image, partition_t *ptn)
         goto error;
     if (state == kSwapType_Testing)
     {
-        PRINTF("Test state detected, OTA update is forbidden\n");
+        PRINTF("Test state detected, cannot determine update parition\n");
         goto error;
     }
 
@@ -661,4 +705,138 @@ status_t bl_get_image_state(uint32_t image, uint32_t *state)
     /* State IV (none of the above) */
     *state = kSwapType_None;
     return kStatus_Success;
+}
+
+
+int bl_flash_remap_active(void)
+{
+#ifdef CONFIG_MCUBOOT_FLASH_REMAP_ENABLE
+    return (*((volatile uint32_t *)FLASH_REMAP_OFFSET_REG) > 0) ? 1 : 0;
+#else
+    return 0;
+#endif
+}
+
+
+static void print_hash(const void *src, size_t size)
+{
+    const unsigned char *src8 = src;
+    for (size_t i = 0; i < size; i++)
+    {
+        PRINTF("%02X", src8[i]);
+    }
+}
+
+void bl_print_image_info(bl_hashfunc_t hashfunc)
+{
+    for (int image = 0; image < MCUBOOT_IMAGE_NUMBER; image++)
+    {
+        status_t ret;
+        uint32_t imgstate = kSwapType_Fail;
+        const char *name = boot_image_names[image];
+        int remap_active = bl_flash_remap_active();
+        uint32_t slot_offset_phys[2];
+        
+        /* to be able to reorder in case of active remap to show physical layout */
+        slot_offset_phys[0] = boot_flash_map[image*2].fa_off;
+        slot_offset_phys[1] = boot_flash_map[image*2+1].fa_off;
+
+        ret = bl_get_image_state(image, &imgstate);
+        if (ret != kStatus_Success)
+        {
+            PRINTF("Failed to get state of image %u (ret %d)", image, ret);
+        }
+        
+        if (remap_active)
+        {
+#ifdef CONFIG_MCUBOOT_FLASH_REMAP_BY_SWAP
+            const char *remap_type = "REMAP_SWAP";
+            uint32_t offset;
+            
+            /* swap slot offsets to reflect the swapping done by HW */
+            offset              = slot_offset_phys[0];
+            slot_offset_phys[0] = slot_offset_phys[1];
+            slot_offset_phys[1] = offset;
+#else
+            const char *remap_type = "REMAP_OVERLAY";
+            /* no need to adjust offset as the read operation is done using
+               directly the FlexSPI IP */
+#endif
+            PRINTF("Flash %s active.\n\n", remap_type);
+        }
+        
+        PRINTF("Image %d; name %s; state %s:\n",
+               image, name, bl_imgstate_to_str(imgstate));
+
+        for (int slot = 0; slot < 2; slot++)
+        {
+            int faid = (image * 2) + slot;
+            struct flash_area *fa = &boot_flash_map[faid];
+            static struct image_header ih;
+            int slotused;
+            
+            PRINTF("\n  Slot %d %s; offset 0x%x; size 0x%x (%u): \n",
+                    faid, fa->fa_name, fa->fa_off, fa->fa_size, fa->fa_size);
+            
+            ret = mflash_drv_read(slot_offset_phys[slot], (uint32_t *)&ih, sizeof(ih));
+            if (ret != kStatus_Success)
+            {
+                PRINTF("    Failed to read!\n");
+                continue;
+            }
+            
+            slotused = (ih.ih_magic == IMAGE_MAGIC);
+
+            if (slotused)
+            {
+                struct image_version *iv = &ih.ih_ver;
+                uint8_t sha256[32];
+                uint32_t img_size = ih.ih_img_size;
+                uint32_t img_off = ih.ih_hdr_size;
+                void *log_addr = mflash_drv_phys2log(fa->fa_off, 0);
+
+                PRINTF("    <IMAGE: size %u; version %u.%u.%u+%u>\n",
+                       ih.ih_img_size,
+                       iv->iv_major, iv->iv_minor, iv->iv_revision, iv->iv_build_num);
+                
+                if (hashfunc)
+                {
+                    hashfunc(slot_offset_phys[slot] + img_off, img_size, sha256);
+                    PRINTF("    SHA256 of image payload: ");
+                    print_hash(sha256, 10);
+                    PRINTF("...\n");
+                }
+                
+                /* print logical address only when remap is active or log_addr != phy_addr */
+                if (remap_active || (uint32_t)log_addr != fa->fa_off)
+                {
+                    PRINTF("    log_addr 0x%x", log_addr);
+                    if (remap_active)
+                    {
+                        void *log_addr_remap;
+#ifdef CONFIG_MCUBOOT_FLASH_REMAP_BY_SWAP
+                        /* REMAP_SWAP: read from one slot translates to the other slot */
+                        log_addr_remap = mflash_drv_phys2log(slot_offset_phys[slot], 0);
+#else
+                        /* REMAP_OVERLAY: read  from primary slot translates to the secondary slot
+                                          read from secondary slot is not affected */
+                        log_addr_remap = mflash_drv_phys2log(boot_flash_map[1].fa_off, 0);
+#endif
+                        PRINTF(" remaps to 0x%x", log_addr_remap);
+                    }
+                    PUTCHAR('\n');
+                }
+                
+                if (boot_flash_map[get_active_image(image)].fa_off == slot_offset_phys[slot])
+                {
+                    PRINTF("    *ACTIVE*\n");
+                }
+            }
+            else
+            {
+                PRINTF("    <No Image Found>\n");
+            }
+        }
+    }
+    PUTCHAR('\n');
 }

@@ -12,7 +12,7 @@
 #include <stdbool.h>
 
 #ifndef AUDIO_I2S_BUFF_COUNT
-#define AUDIO_I2S_BUFF_COUNT 10
+#define AUDIO_I2S_BUFF_COUNT 20
 #endif
 
 #ifndef AUDIO_I2S_BUFF_SIZE

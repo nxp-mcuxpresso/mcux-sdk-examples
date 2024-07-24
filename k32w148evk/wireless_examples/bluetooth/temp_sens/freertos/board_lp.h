@@ -28,29 +28,8 @@
 /* -------------------------------------------------------------------------- */
 /*                                Public macros                               */
 /* -------------------------------------------------------------------------- */
-
-#if ((defined(BOARD_LOCALIZATION_REVISION_SUPPORT)) && BOARD_LOCALIZATION_REVISION_SUPPORT)
-
-/*!
- * \brief Defines the wake up source for the button0
- *        Can be an external pin or an internal module mapped to WUU
- *        Based on supported wake up sources from SDK power manager (see fsl_pm_board.h)
- *        Set by default to GPIOD interrupt as SW2 button is mapped to PTC1 on LOC boards RevC
- *
- */
-#define BOARD_WAKEUP_SOURCE_BUTTON0 (uint32_t) PM_WSID_PTC1_FALLING_EDGE
-
-/*!
- * \brief Defines the wake up source for the button1
- *        Can be an external pin or an internal module mapped to WUU
- *        Based on supported wake up sources from SDK power manager (see fsl_pm_device.h)
- *        Set by default to PTC7 interrupt as SW3 button is mapped to PTC7 on LOC boards
- *
- */
-#define BOARD_WAKEUP_SOURCE_BUTTON1 (uint32_t) PM_WSID_PTC7_FALLING_EDGE
-
-#else
-
+#if ((!defined(BOARD_LOCALIZATION_REVISION_SUPPORT)) || BOARD_LOCALIZATION_REVISION_SUPPORT == 0) && \
+    ((!defined(BOARD_FRDMCXW71_SUPPORT)) || BOARD_FRDMCXW71_SUPPORT == 0)
 /*!
  * \brief Defines the wake up source for the button0
  *        Can be an external pin or an internal module mapped to WUU
@@ -69,6 +48,48 @@
  */
 #define BOARD_WAKEUP_SOURCE_BUTTON1 (uint32_t) PM_WSID_PTC6_FALLING_EDGE
 
+#else
+
+#if ((defined(BOARD_FRDMCXW71_SUPPORT)) && BOARD_FRDMCXW71_SUPPORT)
+/*!
+ * \brief Defines the wake up source for the button1
+ *        Can be an external pin or an internal module mapped to WUU
+ *        Based on supported wake up sources from SDK power manager (see fsl_pm_device.h)
+ *        Set by default to PTC6 interrupt as SW3 button is mapped to PTC6 on EVK boards
+ *
+ */
+#define BOARD_WAKEUP_SOURCE_BUTTON0 (uint32_t) PM_WSID_PTC6_FALLING_EDGE
+
+/*!
+ * \brief Defines the wake up source for the button0
+ *        Can be an external pin or an internal module mapped to WUU
+ *        Based on supported wake up sources from SDK power manager (see fsl_pm_device.h)
+ *        Set by default to GPIOD interrupt as SW2 button is mapped to PTD1 on EVK boards
+ *
+ */
+#define BOARD_WAKEUP_SOURCE_BUTTON1 (uint32_t) PM_WSID_GPIOD_LOW
+
+#endif
+
+#if ((defined(BOARD_LOCALIZATION_REVISION_SUPPORT)) && BOARD_LOCALIZATION_REVISION_SUPPORT)
+/*!
+ * \brief Defines the wake up source for the button0
+ *        Can be an external pin or an internal module mapped to WUU
+ *        Based on supported wake up sources from SDK power manager (see fsl_pm_device.h)
+ *        Set by default to GPIOD interrupt as SW2 button is mapped to PTD1 on EVK boards
+ *
+ */
+#define BOARD_WAKEUP_SOURCE_BUTTON0 (uint32_t) PM_WSID_PTC1_FALLING_EDGE
+
+/*!
+ * \brief Defines the wake up source for the button1
+ *        Can be an external pin or an internal module mapped to WUU
+ *        Based on supported wake up sources from SDK power manager (see fsl_pm_device.h)
+ *        Set by default to PTC6 interrupt as SW3 button is mapped to PTC6 on EVK boards
+ *
+ */
+#define BOARD_WAKEUP_SOURCE_BUTTON1 (uint32_t) PM_WSID_PTC7_FALLING_EDGE
+#endif
 #endif
 /* -------------------------------------------------------------------------- */
 /*                              Public prototypes                             */

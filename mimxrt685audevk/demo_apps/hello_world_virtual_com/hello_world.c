@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2013 - 2015, Freescale Semiconductor, Inc.
- * Copyright 2016-2017 NXP
+ * Copyright 2016-2017, 2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -27,15 +27,14 @@
  * Prototypes
  ******************************************************************************/
 void USB_DeviceClockInit(void);
-extern void USB1_IRQHandler();
+
+/*******************************************************************************
+ * Variables
+ ******************************************************************************/
 
 /*******************************************************************************
  * Code
  ******************************************************************************/
-void USB_IRQHandler(void)
-{
-    USB1_IRQHandler();
-}
 
 void USB_DeviceClockInit(void)
 {

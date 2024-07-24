@@ -6,4 +6,6 @@
 	    _k_mem_slab_list_start = .;
 	    KEEP(*(SORT(._k_mem_slab*)))
 	    _k_mem_slab_list_end = .;
-	    . = ALIGN(4);
+	    . = ALIGN(32);
+        *(m_usb_dma_init_data)
+        . = ALIGN(32);

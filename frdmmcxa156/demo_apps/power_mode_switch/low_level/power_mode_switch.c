@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 NXP
+ * Copyright 2022-2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -119,7 +119,7 @@ void APP_WUU_IRQ_HANDLER(void)
 
 
 
-void main(void)
+int main(void)
 {
     uint32_t freq;
     app_power_mode_t targetPowerMode;
@@ -217,6 +217,9 @@ static void APP_SetSPCConfiguration(void)
     SPC_EnableActiveModeCoreLowVoltageDetect(APP_SPC, false);
     SPC_EnableActiveModeSystemHighVoltageDetect(APP_SPC, false);
     SPC_EnableActiveModeSystemLowVoltageDetect(APP_SPC, false);
+
+    while (SPC_GetBusyStatusFlag(APP_SPC))
+        ;
 
     activeModeRegulatorOption.bandgapMode = kSPC_BandgapEnabledBufferDisabled;
     /* DCDC output voltage is 1.1V in active mode. */

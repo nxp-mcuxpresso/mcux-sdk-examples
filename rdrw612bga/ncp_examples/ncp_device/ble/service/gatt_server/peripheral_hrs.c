@@ -4,6 +4,8 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
+#if CONFIG_NCP_BLE
+
 #include <zephyr/types.h>
 #include <stddef.h>
 #include <string.h>
@@ -140,12 +142,12 @@ static void hrs_adv_start(void)
     int status;
     
     if(bt_le_adv_start(BT_LE_ADV_CONN, hrs_ad, ARRAY_SIZE(hrs_ad), NULL, 0) < 0) {
-        status = NCP_BRIDGE_CMD_RESULT_ERROR;
+        status = NCP_CMD_RESULT_ERROR;
     }else {
-        status = NCP_BRIDGE_CMD_RESULT_OK;
+        status = NCP_CMD_RESULT_OK;
     }
    
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GAP_START_ADV, status, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE_GAP_START_ADV, status, NULL, 0);
 }
 
 void init_hrs_service(void)
@@ -170,3 +172,5 @@ void peripheral_hrs_task(void *pvParameters)
         peripheral_hrs_notify();
     }
 }
+
+#endif

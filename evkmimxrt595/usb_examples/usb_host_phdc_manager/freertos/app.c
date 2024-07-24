@@ -67,10 +67,6 @@ extern void BOARD_InitHardware(void);
 /*******************************************************************************
  * Variables
  ******************************************************************************/
-/* Allocate the memory for the heap. */
-#if defined(configAPPLICATION_ALLOCATED_HEAP) && (configAPPLICATION_ALLOCATED_HEAP)
-USB_DMA_NONINIT_DATA_ALIGN(USB_DATA_ALIGN_SIZE) uint8_t ucHeap[configTOTAL_HEAP_SIZE];
-#endif
 /*! @brief host handle variable */
 usb_host_handle hostHandle;
 

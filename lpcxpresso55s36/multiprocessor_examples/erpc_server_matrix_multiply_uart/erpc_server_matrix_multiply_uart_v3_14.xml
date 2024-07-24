@@ -32,11 +32,12 @@
     <definition extID="platform.drivers.reset.LPC55S36"/>
     <definition extID="CMSIS_Include_core_cm.LPC55S36"/>
     <definition extID="device.LPC55S36_system.LPC55S36"/>
+    <definition extID="utility.str.LPC55S36"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="lpcxpresso55s36_erpc_server_matrix_multiply_uart" name="erpc_server_matrix_multiply_uart" dependency="platform.drivers.flexcomm_usart.LPC55S36 platform.drivers.lpc_dma.LPC55S36 platform.drivers.flexcomm_usart_dma.LPC55S36 platform.drivers.flexcomm_usart_cmsis.LPC55S36 middleware.multicore.erpc.eRPC_server.LPC55S36 middleware.multicore.erpc.eRPC_uart_cmsis_transport.LPC55S36 middleware.multicore.erpc.eRPC_port_stdlib.LPC55S36 middleware.multicore.erpc.doc.LPC55S36 middleware.multicore.erpc_common_multiprocessor.LPC55S36 middleware.multicore.erpc_common_multiprocessor_matrix_multiply_server.LPC55S36 platform.drivers.clock.LPC55S36 platform.drivers.common.LPC55S36 device.LPC55S36_CMSIS.LPC55S36 device.LPC55S36_startup.LPC55S36 platform.drivers.flexcomm.LPC55S36 platform.drivers.lpc_iocon.LPC55S36 platform.drivers.lpc_gpio.LPC55S36 platform.drivers.power.LPC55S36 platform.utilities.assert.LPC55S36 utility.debug_console.LPC55S36 component.usart_adapter.LPC55S36 component.serial_manager_uart.LPC55S36 component.serial_manager.LPC55S36 component.lists.LPC55S36 platform.utilities.misc_utilities.LPC55S36 CMSIS_Driver_Include.USART.LPC55S36 RTE_Device.LPC55S36 middleware.multicore.erpc.common.LPC55S36 platform.drivers.reset.LPC55S36 CMSIS_Include_core_cm.LPC55S36 device.LPC55S36_system.LPC55S36" category="multiprocessor_examples">
+  <example id="lpcxpresso55s36_erpc_server_matrix_multiply_uart" name="erpc_server_matrix_multiply_uart" dependency="platform.drivers.flexcomm_usart.LPC55S36 platform.drivers.lpc_dma.LPC55S36 platform.drivers.flexcomm_usart_dma.LPC55S36 platform.drivers.flexcomm_usart_cmsis.LPC55S36 middleware.multicore.erpc.eRPC_server.LPC55S36 middleware.multicore.erpc.eRPC_uart_cmsis_transport.LPC55S36 middleware.multicore.erpc.eRPC_port_stdlib.LPC55S36 middleware.multicore.erpc.doc.LPC55S36 middleware.multicore.erpc_common_multiprocessor.LPC55S36 middleware.multicore.erpc_common_multiprocessor_matrix_multiply_server.LPC55S36 platform.drivers.clock.LPC55S36 platform.drivers.common.LPC55S36 device.LPC55S36_CMSIS.LPC55S36 device.LPC55S36_startup.LPC55S36 platform.drivers.flexcomm.LPC55S36 platform.drivers.lpc_iocon.LPC55S36 platform.drivers.lpc_gpio.LPC55S36 platform.drivers.power.LPC55S36 platform.utilities.assert.LPC55S36 utility.debug_console.LPC55S36 component.usart_adapter.LPC55S36 component.serial_manager_uart.LPC55S36 component.serial_manager.LPC55S36 component.lists.LPC55S36 platform.utilities.misc_utilities.LPC55S36 CMSIS_Driver_Include.USART.LPC55S36 RTE_Device.LPC55S36 middleware.multicore.erpc.common.LPC55S36 platform.drivers.reset.LPC55S36 CMSIS_Include_core_cm.LPC55S36 device.LPC55S36_system.LPC55S36 utility.str.LPC55S36" category="multiprocessor_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.ccnature"/>
     </projects>
@@ -64,7 +65,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="com.crt.advproject.cpp.fpu" type="enum">
           <value>com.crt.advproject.cpp.fpu.fpv5sp.hard</value>
@@ -76,7 +77,7 @@
           <value>com.crt.advproject.misc.dialect.gnupp11</value>
         </option>
         <option id="gnu.cpp.compiler.option.other.other" type="string">
-          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin -fno-rtti -fno-exceptions</value>
+          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -fno-builtin -fno-rtti -fno-exceptions</value>
         </option>
         <option id="gnu.cpp.compiler.option.warnings.toerrors" type="boolean">
           <value>false</value>

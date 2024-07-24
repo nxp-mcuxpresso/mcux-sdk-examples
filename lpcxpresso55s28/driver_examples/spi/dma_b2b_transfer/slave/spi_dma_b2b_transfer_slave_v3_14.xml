@@ -19,6 +19,7 @@
     <definition extID="component.usart_adapter.LPC55S28"/>
     <definition extID="component.lists.LPC55S28"/>
     <definition extID="platform.utilities.misc_utilities.LPC55S28"/>
+    <definition extID="utility.str.LPC55S28"/>
     <definition extID="platform.drivers.reset.LPC55S28"/>
     <definition extID="platform.drivers.inputmux_connections.LPC55S28"/>
     <definition extID="CMSIS_Include_core_cm.LPC55S28"/>
@@ -27,7 +28,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="lpcxpresso55s28_spi_dma_b2b_transfer_slave" name="spi_dma_b2b_transfer_slave" dependency="utility.debug_console_lite.LPC55S28 platform.utilities.assert_lite.LPC55S28 platform.drivers.lpc_dma.LPC55S28 platform.drivers.flexcomm_spi.LPC55S28 platform.drivers.flexcomm_spi_dma.LPC55S28 platform.drivers.common.LPC55S28 platform.drivers.clock.LPC55S28 platform.drivers.power.LPC55S28 platform.drivers.lpc_iocon.LPC55S28 platform.drivers.lpc_gpio.LPC55S28 platform.drivers.inputmux.LPC55S28 device.LPC55S28_CMSIS.LPC55S28 device.LPC55S28_startup.LPC55S28 platform.drivers.flexcomm_usart.LPC55S28 platform.drivers.flexcomm.LPC55S28 component.usart_adapter.LPC55S28 component.lists.LPC55S28 platform.utilities.misc_utilities.LPC55S28 platform.drivers.reset.LPC55S28 platform.drivers.inputmux_connections.LPC55S28 CMSIS_Include_core_cm.LPC55S28 device.LPC55S28_system.LPC55S28" category="driver_examples/spi">
+  <example id="lpcxpresso55s28_spi_dma_b2b_transfer_slave" name="spi_dma_b2b_transfer_slave" dependency="utility.debug_console_lite.LPC55S28 platform.utilities.assert_lite.LPC55S28 platform.drivers.lpc_dma.LPC55S28 platform.drivers.flexcomm_spi.LPC55S28 platform.drivers.flexcomm_spi_dma.LPC55S28 platform.drivers.common.LPC55S28 platform.drivers.clock.LPC55S28 platform.drivers.power.LPC55S28 platform.drivers.lpc_iocon.LPC55S28 platform.drivers.lpc_gpio.LPC55S28 platform.drivers.inputmux.LPC55S28 device.LPC55S28_CMSIS.LPC55S28 device.LPC55S28_startup.LPC55S28 platform.drivers.flexcomm_usart.LPC55S28 platform.drivers.flexcomm.LPC55S28 component.usart_adapter.LPC55S28 component.lists.LPC55S28 platform.utilities.misc_utilities.LPC55S28 utility.str.LPC55S28 platform.drivers.reset.LPC55S28 platform.drivers.inputmux_connections.LPC55S28 CMSIS_Include_core_cm.LPC55S28 device.LPC55S28_system.LPC55S28" category="driver_examples/spi">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -51,7 +52,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

@@ -72,8 +72,10 @@
 #define configSUPPORT_DYNAMIC_ALLOCATION        1
 #if defined(MCXN547_cm33_core0_SERIES)
 #define configTOTAL_HEAP_SIZE                   ((size_t) (222 * 1024))
-#elif (defined(LPC55S69_cm33_core0_SERIES) || defined(RW612_SERIES))
-#define configTOTAL_HEAP_SIZE                   ((size_t) (218 * 1024))
+#elif defined(LPC55S69_cm33_core0_SERIES)
+#define configTOTAL_HEAP_SIZE                   ((size_t) (216 * 1024))
+#elif defined(MCXN236_SERIES)
+#define configTOTAL_HEAP_SIZE                   ((size_t) (140 * 1024))
 #else
 #define configTOTAL_HEAP_SIZE                   ((size_t) (734 * 1024))
 #endif

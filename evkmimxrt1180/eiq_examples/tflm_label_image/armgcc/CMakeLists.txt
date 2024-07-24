@@ -78,7 +78,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../board.h"
 "${ProjDirPath}/../clock_config.c"
 "${ProjDirPath}/../clock_config.h"
-"${SdkRootDirPath}/middleware/eiq/common/image/image_load.c"
+"${ProjDirPath}/../source/image/image_load.c"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE

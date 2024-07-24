@@ -1,16 +1,22 @@
 /*
- * Copyright 2023 NXP
+ * Copyright 2023-2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-/* @brief This example application shows usage of MultiMedia Pipeline to build a simple graph:
- * 2D camera -> split -> image converter -> draw labeled rectangles -> display
- *                   +-> image converter -> inference engine (model: Ultraface-slim)
- * The camera view finder is displayed on screen
- * The model performs face detection using TF-Lite micro inference engine
- * the model output is displayed on UART console by application */
+/* @brief This example application shows usage of MultiMedia Pipeline to build a simple graph with 2 branches:
+ * 2D camera -> split +-> image converter -> inference engine (model: Ultraface-slim)
+ *                    +-> image converter(*) -> draw labeled rectangles -> display
+ * The camera view finder branch: 
+ * displays captured content on screen;
+ * (*) image conversion may be skipped for cameras supporting same format as display;
+ * the pipeline may deal with stripes of images instead of full-frame to reduce memory footprint;
+ * this stripe mode can only be enabled when camera and display devices support it.
+ * The inference engine branch:
+ * runs a face detection model using TF-Lite micro inference engine;
+ * the pipeline is configured to run inference engine in a background task.
+ * The model output is displayed on UART console and on screen using labeled rectangles. */
 
 /* FreeRTOS kernel includes. */
 #include "FreeRTOS.h"
@@ -40,6 +46,10 @@
 /*******************************************************************************
  * Variables declaration
  ******************************************************************************/
+
+#ifndef APP_STRIPE_MODE
+#define APP_STRIPE_MODE 0
+#endif
 
 /* Model data input */
 #if defined(APP_USE_NEUTRON16_MODEL)
@@ -282,11 +292,20 @@ static void app_task(void *params)
     static user_data_t user_data = {0};
     int ret;
 
+    bool stripe_mode = (APP_STRIPE_MODE > 0)? true : false;
+
     PRINTF("[%s]\r\n", mpp_get_version());
 
     PRINTF("Inference Engine: TensorFlow-Lite Micro \r\n");
 
-    ret = mpp_api_init(NULL);
+    /* init API */
+    mpp_api_params_t api_param = {0};
+#if ((defined APP_RC_CYCLE_INC) && (defined APP_RC_CYCLE_MIN))
+    /* fine-tune RC cycle for stripe mode */
+    api_param.rc_cycle_inc = APP_RC_CYCLE_INC;
+    api_param.rc_cycle_min = APP_RC_CYCLE_MIN;
+#endif
+    ret = mpp_api_init(&api_param);
     if (ret)
         goto err;
 
@@ -302,23 +321,25 @@ static void app_task(void *params)
     if (mp == MPP_INVALID)
         goto err;
 
-    user_data.mp = mp;
-
     mpp_camera_params_t cam_params;
     memset(&cam_params, 0 , sizeof(cam_params));
     cam_params.height = APP_CAMERA_HEIGHT;
     cam_params.width =  APP_CAMERA_WIDTH;
     cam_params.format = APP_CAMERA_FORMAT;
     cam_params.fps    = 30;
+    cam_params.stripe = stripe_mode;
     ret = mpp_camera_add(mp, s_camera_name, &cam_params);
     if (ret) {
     	PRINTF("Failed to add camera %s\n", s_camera_name);
     	goto err;
     }
 
-    /* split the pipeline into 2 branches */
+    /* split the pipeline into 2 branches:
+     * - first for the conversion to model
+     * - second for the label-rect draw & display
+     * this order is needed to avoid running inference on an image containing label-rect */
     mpp_t mp_split;
-    mpp_params.exec_flag = MPP_EXEC_PREEMPT;
+    mpp_params.exec_flag = MPP_EXEC_RC;
 
     ret = mpp_split(mp, 1 , &mpp_params, &mp_split);
     if (ret) {
@@ -326,7 +347,6 @@ static void app_task(void *params)
         goto err;
     }
 
-    /* On the preempt-able branch run the ML Inference (using an ultraface TF-Lite model) */
     /* First do crop + resize + color convert */
     mpp_element_params_t elem_params;
     memset(&elem_params, 0, sizeof(elem_params));
@@ -351,12 +371,26 @@ static void app_task(void *params)
     /* then add a flip */
 #ifndef APP_SKIP_CONVERT_FOR_DISPLAY
     elem_params.convert.flip = FLIP_HORIZONTAL;
-#endif
     elem_params.convert.ops |=  MPP_CONVERT_ROTATE;
+#endif
+    elem_params.convert.stripe_in = stripe_mode;
+    elem_params.convert.stripe_out = false; /* model takes full frames */
 
-    ret = mpp_element_add(mp_split, MPP_ELEMENT_CONVERT, &elem_params, NULL);
+    ret = mpp_element_add(mp, MPP_ELEMENT_CONVERT, &elem_params, NULL);
     if (ret ) {
         PRINTF("Failed to add element CONVERT\n");
+        goto err;
+    }
+
+    /* create a background mpp (preempt-able branch) for the ML Inference
+     * because it may take longer than capture period.
+     * Inference runs an ultraface TF-Lite model */
+    mpp_t mp_bg;
+    mpp_params.exec_flag = MPP_EXEC_PREEMPT;
+
+    ret = mpp_background(mp, &mpp_params, &mp_bg);
+    if (ret) {
+        PRINTF("Failed to split pipeline\n");
         goto err;
     }
 
@@ -373,20 +407,20 @@ static void app_task(void *params)
     ultraface_params.ml_inference.tensor_order = MPP_TENSOR_ORDER_NHWC;
     ultraface_params.ml_inference.type = MPP_INFERENCE_TYPE_TFLITE;
 
-    ret = mpp_element_add(mp_split, MPP_ELEMENT_INFERENCE, &ultraface_params, NULL);
+    ret = mpp_element_add(mp_bg, MPP_ELEMENT_INFERENCE, &ultraface_params, NULL);
     if (ret) {
         PRINTF("Failed to add element MPP_ELEMENT_INFERENCE");
         goto err;
     }
     /* close the pipeline with a null sink */
-    ret = mpp_nullsink_add(mp_split);
+    ret = mpp_nullsink_add(mp_bg);
     if (ret) {
         PRINTF("Failed to add NULL sink\n");
         goto err;
     }
 
 #ifndef APP_SKIP_CONVERT_FOR_DISPLAY
-    /* On the main branch of the pipeline, send the frame to the display */
+    /* On the secondary branch of the pipeline, send the frame to the display */
     /* First do color-convert + flip */
     memset(&elem_params, 0, sizeof(elem_params));
     /* pick default device from the first listed and supported by Hw */
@@ -400,7 +434,7 @@ static void app_task(void *params)
     elem_params.convert.flip = FLIP_HORIZONTAL;
     elem_params.convert.ops = MPP_CONVERT_COLOR | MPP_CONVERT_ROTATE;
 
-    ret = mpp_element_add(mp, MPP_ELEMENT_CONVERT, &elem_params, NULL);
+    ret = mpp_element_add(mp_split, MPP_ELEMENT_CONVERT, &elem_params, NULL);
 
     if (ret) {
         PRINTF("Failed to add element CONVERT\n");
@@ -427,27 +461,29 @@ static void app_task(void *params)
     strcpy((char *)user_data.labels[0].label, "Detection zone");
 
     /* retrieve the element handle while add api */
-    ret = mpp_element_add(mp, MPP_ELEMENT_LABELED_RECTANGLE, &elem_params, &user_data.elem);
+    ret = mpp_element_add(mp_split, MPP_ELEMENT_LABELED_RECTANGLE, &elem_params, &user_data.elem);
     if (ret) {
         PRINTF("Failed to add element LABELED_RECTANGLE (0x%x)\r\n", ret);
         goto err;
     }
+    /* pass the mpp of the element 'label rectangle' to callback */
+    user_data.mp = mp_split;
 
 #ifndef APP_SKIP_CONVERT_FOR_DISPLAY
     /* then rotate if needed */
     if (APP_DISPLAY_LANDSCAPE_ROTATE != ROTATE_0) {
-    	memset(&elem_params, 0, sizeof(elem_params));
-    	/* set output buffer dims */
-    	elem_params.convert.out_buf.width = APP_DISPLAY_WIDTH;
-    	elem_params.convert.out_buf.height = APP_DISPLAY_HEIGHT;
-    	elem_params.convert.angle = APP_DISPLAY_LANDSCAPE_ROTATE;
-    	elem_params.convert.ops = MPP_CONVERT_ROTATE;
-    	ret = mpp_element_add(mp, MPP_ELEMENT_CONVERT, &elem_params, NULL);
+        memset(&elem_params, 0, sizeof(elem_params));
+        /* set output buffer dims */
+        elem_params.convert.out_buf.width = APP_DISPLAY_WIDTH;
+        elem_params.convert.out_buf.height = APP_DISPLAY_HEIGHT;
+        elem_params.convert.angle = APP_DISPLAY_LANDSCAPE_ROTATE;
+        elem_params.convert.ops = MPP_CONVERT_ROTATE;
+        ret = mpp_element_add(mp_split, MPP_ELEMENT_CONVERT, &elem_params, NULL);
 
-    	if (ret) {
-    		PRINTF("Failed to add element CONVERT\r\n");
-    		goto err;
-    	}
+        if (ret) {
+            PRINTF("Failed to add element CONVERT\r\n");
+            goto err;
+        }
     }
 #endif
 
@@ -456,19 +492,26 @@ static void app_task(void *params)
     disp_params.format = APP_DISPLAY_FORMAT;
     disp_params.width  = APP_DISPLAY_WIDTH;
     disp_params.height = APP_DISPLAY_HEIGHT;
+    disp_params.stripe = stripe_mode;
 #ifdef APP_SKIP_CONVERT_FOR_DISPLAY
     disp_params.rotate = APP_DISPLAY_LANDSCAPE_ROTATE;
 #endif
-    ret = mpp_display_add(mp, s_display_name, &disp_params);
+    ret = mpp_display_add(mp_split, s_display_name, &disp_params);
     if (ret) {
         PRINTF("Failed to add display %s\n", s_display_name);
         goto err;
     }
 
     /* start preempt-able pipeline branch */
-    ret = mpp_start(mp_split, 0);
+    ret = mpp_start(mp_bg, 0);
     if (ret) {
         PRINTF("Failed to start preempt-able pipeline branch");
+        goto err;
+    }
+    /* start secondary pipeline branch */
+    ret = mpp_start(mp_split, 0);
+    if (ret) {
+        PRINTF("Failed to start secondary pipeline branch");
         goto err;
     }
     /* start main pipeline branch */

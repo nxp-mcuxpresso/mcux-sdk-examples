@@ -4,7 +4,7 @@
 ********************************************************************************** */
 /*! *********************************************************************************
 * Copyright 2014 Freescale Semiconductor, Inc.
-* Copyright 2016-2023 NXP
+* Copyright 2016-2024 NXP
 *
 *
 * \file
@@ -48,6 +48,7 @@
 /* Connection Manager */
 #include "ble_conn_manager.h"
 #include "app_conn.h"
+#include "app_advertiser.h"
 
 /* Application */
 #include "hid_device.h"

@@ -95,7 +95,6 @@ int main(void)
     status_t st = kStatus_Success;
 
     BOARD_InitPins();
-    BOARD_InitPsRamPins();
     BOARD_BootClockRUN();
     BOARD_InitDebugConsole();
 

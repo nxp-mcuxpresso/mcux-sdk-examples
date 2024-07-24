@@ -38,7 +38,7 @@
  ******************************************************************************/
 AT_NONCACHEABLE_SECTION_ALIGN(pdm_edma_handle_t s_pdmRxHandle, 4);
 AT_NONCACHEABLE_SECTION_ALIGN(edma_handle_t s_pdmDmaHandle, 4);
-AT_NONCACHEABLE_SECTION_ALIGN(static uint8_t s_buffer[BUFFER_SIZE * BUFFER_NUM], 2);
+AT_NONCACHEABLE_SECTION_ALIGN(static uint8_t s_buffer[BUFFER_SIZE * BUFFER_NUM], 4);
 AT_QUICKACCESS_SECTION_DATA_ALIGN(edma_tcd_t s_edmaTcd[2], 32U);
 
 USB_DMA_NONINIT_DATA_ALIGN(USB_DATA_ALIGN_SIZE) uint8_t s_wavBuff[AUDIO_ENDPOINT_MAX_PACKET_SIZE];
@@ -143,7 +143,11 @@ void Board_PDM_EDMA_Init(void)
     PDM_Init(DEMO_PDM, &pdmConfig);
     PDM_TransferCreateHandleEDMA(DEMO_PDM, &s_pdmRxHandle, pdmEdmallback, NULL, &s_pdmDmaHandle);
     PDM_TransferInstallEDMATCDMemory(&s_pdmRxHandle, s_edmaTcd, 2);
+#if defined DEMO_PDM_ENABLE_CHANNEL
+    PDM_TransferSetChannelConfigEDMA(DEMO_PDM, &s_pdmRxHandle, DEMO_PDM_ENABLE_CHANNEL, &channelConfig);
+#else
     PDM_TransferSetChannelConfigEDMA(DEMO_PDM, &s_pdmRxHandle, DEMO_PDM_ENABLE_CHANNEL_LEFT, &channelConfig);
+#endif
     PDM_SetSampleRateConfig(DEMO_PDM, DEMO_PDM_CLK_FREQ, DEMO_AUDIO_SAMPLE_RATE);
     PDM_Reset(DEMO_PDM);
     PDM_TransferReceiveEDMA(DEMO_PDM, &s_pdmRxHandle, pdmXfer);

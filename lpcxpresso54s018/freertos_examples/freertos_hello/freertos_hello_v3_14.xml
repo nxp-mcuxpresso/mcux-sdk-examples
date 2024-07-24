@@ -25,11 +25,12 @@
     <definition extID="CMSIS_Include_core_cm.LPC54S018"/>
     <definition extID="device.LPC54S018_system.LPC54S018"/>
     <definition extID="platform.drivers.reset.LPC54S018"/>
+    <definition extID="utility.str.LPC54S018"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="lpcxpresso54s018_freertos_hello" name="freertos_hello" dependency="middleware.freertos-kernel.heap_4.LPC54S018 component.lists.LPC54S018 component.serial_manager.LPC54S018 component.serial_manager_uart.LPC54S018 component.usart_adapter.LPC54S018 device.LPC54S018_CMSIS.LPC54S018 device.LPC54S018_startup.LPC54S018 platform.drivers.clock.LPC54S018 platform.drivers.common.LPC54S018 platform.drivers.emc.LPC54S018 platform.drivers.flexcomm.LPC54S018 platform.drivers.flexcomm_usart.LPC54S018 platform.drivers.lpc_gpio.LPC54S018 platform.drivers.lpc_iocon.LPC54S018 platform.drivers.power.LPC54S018 platform.utilities.assert.LPC54S018 utility.debug_console.LPC54S018 platform.utilities.misc_utilities.LPC54S018 middleware.freertos-kernel.LPC54S018 middleware.freertos-kernel.template.LPC54S018 middleware.freertos-kernel.extension.LPC54S018 CMSIS_Include_core_cm.LPC54S018 device.LPC54S018_system.LPC54S018 platform.drivers.reset.LPC54S018" category="freertos_examples">
+  <example id="lpcxpresso54s018_freertos_hello" name="freertos_hello" dependency="middleware.freertos-kernel.heap_4.LPC54S018 component.lists.LPC54S018 component.serial_manager.LPC54S018 component.serial_manager_uart.LPC54S018 component.usart_adapter.LPC54S018 device.LPC54S018_CMSIS.LPC54S018 device.LPC54S018_startup.LPC54S018 platform.drivers.clock.LPC54S018 platform.drivers.common.LPC54S018 platform.drivers.emc.LPC54S018 platform.drivers.flexcomm.LPC54S018 platform.drivers.flexcomm_usart.LPC54S018 platform.drivers.lpc_gpio.LPC54S018 platform.drivers.lpc_iocon.LPC54S018 platform.drivers.power.LPC54S018 platform.utilities.assert.LPC54S018 utility.debug_console.LPC54S018 platform.utilities.misc_utilities.LPC54S018 middleware.freertos-kernel.LPC54S018 middleware.freertos-kernel.template.LPC54S018 middleware.freertos-kernel.extension.LPC54S018 CMSIS_Include_core_cm.LPC54S018 device.LPC54S018_system.LPC54S018 platform.drivers.reset.LPC54S018 utility.str.LPC54S018" category="freertos_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -58,7 +59,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

@@ -38,6 +38,7 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -DFREEDOM \
     -DMCUXPRESSO_SDK \
     -DDEBUG_CONSOLE_RX_ENABLE=0 \
+    -DTIMER_PORT_TYPE_TMP=1 \
     -DSERIAL_PORT_TYPE_UART=1 \
     -DSDK_OS_FREE_RTOS \
     -g \
@@ -50,7 +51,6 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
@@ -69,6 +69,7 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DFREEDOM \
     -DMCUXPRESSO_SDK \
     -DDEBUG_CONSOLE_RX_ENABLE=0 \
+    -DTIMER_PORT_TYPE_TMP=1 \
     -DSERIAL_PORT_TYPE_UART=1 \
     -DSDK_OS_FREE_RTOS \
     -Os \
@@ -80,7 +81,6 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
@@ -92,6 +92,7 @@ SET(CMAKE_CXX_FLAGS_DEBUG " \
     -DDEBUG \
     -DCPU_K32L2B31VLH0A \
     -DMCUXPRESSO_SDK \
+    -DTIMER_PORT_TYPE_TMP=1 \
     -DSERIAL_PORT_TYPE_UART=1 \
     -g \
     -O0 \
@@ -103,7 +104,6 @@ SET(CMAKE_CXX_FLAGS_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -fno-rtti \
@@ -116,6 +116,7 @@ SET(CMAKE_CXX_FLAGS_RELEASE " \
     -DNDEBUG \
     -DCPU_K32L2B31VLH0A \
     -DMCUXPRESSO_SDK \
+    -DTIMER_PORT_TYPE_TMP=1 \
     -DSERIAL_PORT_TYPE_UART=1 \
     -Os \
     -mcpu=cortex-m0plus \
@@ -126,7 +127,6 @@ SET(CMAKE_CXX_FLAGS_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -fno-rtti \
@@ -142,7 +142,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -168,7 +167,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \

@@ -11,6 +11,7 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
+#include "pin_mux.h"
 
 #if defined(gAppUseSerialManager_c) && (gAppUseSerialManager_c >= 1)
 #include "fsl_component_serial_manager.h"
@@ -25,6 +26,8 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
+/* Helper macro to switch from PORTx address to corresponding index */
+#define PORT_ADDR2IDX(port) (((uint32_t)(port) - (uint32_t)PORTA_BASE) / 0x1000u)
 
 /*Mapping led pin to the correct device pins*/
 #define BOARD_RED_GPIO_PORT_INSTANCE     2U
@@ -37,24 +40,20 @@
 #define BOARD_YELLOW_GPIO_PIN_DEFAULT_STATE 0U
 
 /*Mapping led pin to the correct device pins*/
-#define BOARD_MONOCHROME_GPIO_PORT_INSTANCE     1U
-#define BOARD_MONOCHROME_GPIO_PIN               0U
-#define BOARD_MONOCHROME_GPIO_PIN_DEFAULT_STATE 0U
+#define BOARD_MONOCHROME_GPIO_PORT_INSTANCE PORT_ADDR2IDX(BOARD_INITPINLED1_LED1_PORT)
+#define BOARD_MONOCHROME_GPIO_PIN           BOARD_INITPINLED1_LED1_PIN
 
 /*Mapping led pin to the correct device pins*/
-#define BOARD_RGB_GREEN_GPIO_PORT_INSTANCE     0U
-#define BOARD_RGB_GREEN_GPIO_PIN               19U
-#define BOARD_RGB_GREEN_GPIO_PIN_DEFAULT_STATE 0U
+#define BOARD_RGB_GREEN_GPIO_PORT_INSTANCE 0U
+#define BOARD_RGB_GREEN_GPIO_PIN           19U
 
 /*Mapping led pin to the correct device pins*/
-#define BOARD_RGB_BLUE_GPIO_PORT_INSTANCE     0U
-#define BOARD_RGB_BLUE_GPIO_PIN               20U
-#define BOARD_RGB_BLUE_GPIO_PIN_DEFAULT_STATE 0U
+#define BOARD_RGB_BLUE_GPIO_PORT_INSTANCE 0U
+#define BOARD_RGB_BLUE_GPIO_PIN           20U
 
 /*Mapping led pin to the correct device pins*/
-#define BOARD_RGB_RED_GPIO_PORT_INSTANCE     0U
-#define BOARD_RGB_RED_GPIO_PIN               21U
-#define BOARD_RGB_RED_GPIO_PIN_DEFAULT_STATE 0U
+#define BOARD_RGB_RED_GPIO_PORT_INSTANCE 0U
+#define BOARD_RGB_RED_GPIO_PIN           21U
 
 /*Mapping button pin to the correct device pins*/
 #if ((defined(BOARD_LOCALIZATION_REVISION_SUPPORT)) && BOARD_LOCALIZATION_REVISION_SUPPORT)
@@ -66,12 +65,12 @@
 #define BOARD_BUTTON1_GPIO_PIN               7U
 #define BOARD_BUTTON1_GPIO_PIN_DEFAULT_STATE 1U
 #else
-#define BOARD_BUTTON0_GPIO_PORT_INSTANCE     3U
-#define BOARD_BUTTON0_GPIO_PIN               1U
+#define BOARD_BUTTON0_GPIO_PORT_INSTANCE     PORT_ADDR2IDX(BOARD_INITPINBUTTON0_PORT)
+#define BOARD_BUTTON0_GPIO_PIN               BOARD_INITPINBUTTON0_PIN
 #define BOARD_BUTTON0_GPIO_PIN_DEFAULT_STATE 1U
 
-#define BOARD_BUTTON1_GPIO_PORT_INSTANCE     2U
-#define BOARD_BUTTON1_GPIO_PIN               6U
+#define BOARD_BUTTON1_GPIO_PORT_INSTANCE     PORT_ADDR2IDX(BOARD_INITPINBUTTON1_PORT)
+#define BOARD_BUTTON1_GPIO_PIN               BOARD_INITPINBUTTON1_PIN
 #define BOARD_BUTTON1_GPIO_PIN_DEFAULT_STATE 1U
 #endif
 

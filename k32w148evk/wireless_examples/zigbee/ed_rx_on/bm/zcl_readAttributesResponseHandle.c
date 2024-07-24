@@ -1,6 +1,6 @@
 /****************************************************************************
  *
- * Copyright 2020 NXP
+ * Copyright 2020, 2024 NXP
  *
  * NXP Confidential. 
  * 
@@ -276,8 +276,12 @@ PUBLIC   void vZCL_HandleAttributesReadResponse(
     }
     else
     {
-        // incoming message is now parsed ok - send the default OK, if required
-        eZCL_SendDefaultResponse(pZPSevent, E_ZCL_CMDS_SUCCESS);
+        /* If default response has not been disabled and a default response is
+         * required by the sender and incoming message was sent unicast, send one */
+        if (!sZCL_HeaderParams.bDisableDefaultResponse)
+        {
+            eZCL_SendDefaultResponse(pZPSevent, E_ZCL_CMDS_SUCCESS);
+        }
     }
 
 }

@@ -56,7 +56,7 @@ static status_t BOARD_LowpowerCb(pm_event_type_t eventType, uint8_t powerState, 
 /* -------------------------------------------------------------------------- */
 
 static pm_notify_element_t boardLpNotifyGroup = {
-    .notifyCallback = BOARD_LowpowerCb,
+    .notifyCallback = &BOARD_LowpowerCb,
     .data           = NULL,
 };
 
@@ -206,7 +206,7 @@ static void BOARD_ExitPowerDownCb(void)
      * The reinit of the S200 will work only if the S200 really went to power down */
     SecLib_ReInit();
     /* Allow the the RNG HW accelerator reinitialization.Required for S200 RNG. */
-    RNG_ReInit();
+    (void)RNG_ReInit();
 
 #if defined(gAppHighSystemClockFrequency_d) && (gAppHighSystemClockFrequency_d > 0)
     /* Set Core frequency to 96Mhz , core voltage to 1.1v */

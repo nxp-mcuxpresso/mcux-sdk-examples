@@ -135,12 +135,11 @@ int set_http_handle(http_session_t handle, int index)
     if (nw_handles[index].type != DEFAULT_HANDLE)
         return -2;
     int status;
-#define SEM_NAME_MAX 20
-    char handle_sem_name[SEM_NAME_MAX];
+
     nw_handles[index].h.http.handle = handle;
     nw_handles[index].type          = HTTPC_HANDLE;
-    snprintf(handle_sem_name, SEM_NAME_MAX, "handle_sem_%d", index);
-    status = os_semaphore_create(&(nw_handles[index].handle_sem), handle_sem_name);
+
+    status = OSA_SemaphoreCreateBinary((osa_semaphore_handle_t)(nw_handles[index].handle_sem));
     return status;
 }
 
@@ -151,13 +150,12 @@ int set_socket_handle(int handle, conn_type_t type, int index)
     if (nw_handles[index].type != DEFAULT_HANDLE)
         return -2;
     int status;
-#define SEM_NAME_MAX 20
-    char handle_sem_name[SEM_NAME_MAX];
+
     nw_handles[index].h.socket.handle = handle;
     nw_handles[index].h.socket.conn   = type;
     nw_handles[index].type            = SOCKET_HANDLE;
-    snprintf(handle_sem_name, SEM_NAME_MAX, "handle_sem_%d", index);
-    status = os_semaphore_create(&(nw_handles[index].handle_sem), handle_sem_name);
+
+    status = OSA_SemaphoreCreateBinary((osa_semaphore_handle_t)(nw_handles[index].handle_sem));
     return status;
 }
 
@@ -167,7 +165,7 @@ int remove_handle(int index)
         return -1;
     if (nw_handles[index].type == DEFAULT_HANDLE)
         return -2;
-    os_semaphore_delete(&(nw_handles[index].handle_sem));
+    OSA_SemaphoreDestroy((osa_semaphore_handle_t)(nw_handles[index].handle_sem));
     memset(&nw_handles[index], 0, sizeof(nw_conn_t));
     return 0;
 }

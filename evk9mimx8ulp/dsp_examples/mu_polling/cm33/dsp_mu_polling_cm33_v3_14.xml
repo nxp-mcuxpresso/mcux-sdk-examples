@@ -22,12 +22,13 @@
     <definition extID="platform.drivers.trdc.MIMX8UD5"/>
     <definition extID="platform.drivers.sentinel.MIMX8UD5"/>
     <definition extID="platform.utilities.misc_utilities.MIMX8UD5"/>
+    <definition extID="utility.str.MIMX8UD5"/>
     <definition extID="CMSIS_Include_core_cm.MIMX8UD5"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="evk9mimx8ulp_dsp_mu_polling_cm33" name="dsp_mu_polling_cm33" device_core="cm33_MIMX8UD5" dependency="platform.drivers.fusion.MIMX8UD5 utility.debug_console_lite.MIMX8UD5 platform.utilities.assert_lite.MIMX8UD5 platform.drivers.mu1.MIMX8UD5 platform.drivers.clock.MIMX8UD5 platform.drivers.common.MIMX8UD5 platform.drivers.reset.MIMX8UD5 platform.devices.MIMX8UD5_CMSIS.MIMX8UD5 component.lpuart_adapter.MIMX8UD5 platform.drivers.flexspi.MIMX8UD5 platform.drivers.lpuart.MIMX8UD5 component.lists.MIMX8UD5 platform.devices.MIMX8UD5_startup.MIMX8UD5 platform.drivers.cache_cache64.MIMX8UD5 platform.drivers.iomuxc.MIMX8UD5 platform.drivers.upower.MIMX8UD5 platform.drivers.rgpio.MIMX8UD5 platform.drivers.trdc.MIMX8UD5 platform.drivers.sentinel.MIMX8UD5 platform.utilities.misc_utilities.MIMX8UD5 CMSIS_Include_core_cm.MIMX8UD5" category="dsp_examples">
+  <example id="evk9mimx8ulp_dsp_mu_polling_cm33" name="dsp_mu_polling_cm33" device_core="cm33_MIMX8UD5" dependency="platform.drivers.fusion.MIMX8UD5 utility.debug_console_lite.MIMX8UD5 platform.utilities.assert_lite.MIMX8UD5 platform.drivers.mu1.MIMX8UD5 platform.drivers.clock.MIMX8UD5 platform.drivers.common.MIMX8UD5 platform.drivers.reset.MIMX8UD5 platform.devices.MIMX8UD5_CMSIS.MIMX8UD5 component.lpuart_adapter.MIMX8UD5 platform.drivers.flexspi.MIMX8UD5 platform.drivers.lpuart.MIMX8UD5 component.lists.MIMX8UD5 platform.devices.MIMX8UD5_startup.MIMX8UD5 platform.drivers.cache_cache64.MIMX8UD5 platform.drivers.iomuxc.MIMX8UD5 platform.drivers.upower.MIMX8UD5 platform.drivers.rgpio.MIMX8UD5 platform.drivers.trdc.MIMX8UD5 platform.drivers.sentinel.MIMX8UD5 platform.utilities.misc_utilities.MIMX8UD5 utility.str.MIMX8UD5 CMSIS_Include_core_cm.MIMX8UD5" category="dsp_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -63,6 +64,9 @@
       <files mask="dsp_reset_release.bin"/>
       <files mask="dsp_text_release.bin"/>
       <files mask="dsp_data_release.bin"/>
+    </source>
+    <source path="." project_relative_path="source" type="asm_include" toolchain="armgcc">
+      <files mask="incbin.S"/>
     </source>
     <source path="../../../../../core/boards/evkmimx8ulp" project_relative_path="board" type="src">
       <files mask="board.c"/>

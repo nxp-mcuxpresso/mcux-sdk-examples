@@ -18,18 +18,18 @@ The basic pipeline structure - the _mpp_ in the API context - has a chain/queue 
 The pipeline continues with multiple **processing elements** having a single input and a single output:
 - Image format conversion
 - Labeled rectangle drawing
-- Machine learning inference with three frameworks:
+- Machine learning inference using the framework:
    - Tensorflow Lite Micro 
-   - GLOW
-   - DeepViewRT
 
 The pipeline can be closed by adding a **sink element**:
 - Display panel
 - Null sink
  
-Also, multiple basic _mpps_ can be **joined** into a new one to which further elements can be added.
-An _mpp_ can also be **split** when the same media stream must follow different processing paths.
-With these join/split operations, more complex pipelines can be constructed.
+An _mpp_ can be **split** when the same media stream must follow different processing paths.
+When a **processing element** has longer execution time than the others (ex: the ML Inference),
+the user may create a branch of the pipeline that will run in **background** its processing elements;
+meaning that this *background* branch will start executing when other branches of pipeline are done,
+and run until pipeline cyclic period (set by user) is elapsed.
 
 Compatibilty of elements and supplied parameters are checked at each step and only compatible elements
 can be added in an unequivocal way.
@@ -50,6 +50,7 @@ Summarizing, the application controls:
 - Creation of the pipeline
 - Instantiation of processing elements
 - Connection of elements to each other
+- Prioritizing processing elements
 - Reception of callbacks based on specific events
 - Updation of specific elements (not all elements can be updated)
 - Stop of the pipeline (includes stop of the hardware peripherals).

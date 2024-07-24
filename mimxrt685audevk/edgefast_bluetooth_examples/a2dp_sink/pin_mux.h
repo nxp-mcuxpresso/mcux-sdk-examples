@@ -32,6 +32,17 @@ extern "C" {
  */
 void BOARD_InitBootPins(void);
 
+#define IOPCTL_PIO_ANAMUX_DI 0x00u        /*!<@brief Analog mux is disabled */
+#define IOPCTL_PIO_FULLDRIVE_DI 0x00u     /*!<@brief Normal drive */
+#define IOPCTL_PIO_FUNC1 0x01u            /*!<@brief Selects pin function 1 */
+#define IOPCTL_PIO_INBUF_DI 0x00u         /*!<@brief Disable input buffer function */
+#define IOPCTL_PIO_INBUF_EN 0x40u         /*!<@brief Enables input buffer function */
+#define IOPCTL_PIO_INV_DI 0x00u           /*!<@brief Input function is not inverted */
+#define IOPCTL_PIO_PSEDRAIN_DI 0x00u      /*!<@brief Pseudo Output Drain is disabled */
+#define IOPCTL_PIO_PULLDOWN_EN 0x00u      /*!<@brief Enable pull-down function */
+#define IOPCTL_PIO_PUPD_EN 0x10u          /*!<@brief Enable pull-up / pull-down function */
+#define IOPCTL_PIO_SLEW_RATE_NORMAL 0x00u /*!<@brief Normal mode */
+
 /*!
  * @brief Configures pin routing and optionally pin electrical features.
  *
@@ -236,6 +247,13 @@ void BOARD_InitM2_SDHCPins(void); /* Function assigned for the Cortex-M33 */
 #define IOPCTL_PIO_PULLDOWN_EN 0x00u      /*!<@brief Enable pull-down function */
 #define IOPCTL_PIO_PUPD_DI 0x00u          /*!<@brief Disable pull-up / pull-down function */
 #define IOPCTL_PIO_SLEW_RATE_NORMAL 0x00u /*!<@brief Normal mode */
+
+/*! @name FLEXSPI0B_DATA0 (coord L2), JP36[2]
+  @{ */
+/* Routed pin properties */
+#define BOARD_INITFLEXSPI0BPINS_QSPI_B_DATA0_PERIPHERAL FLEXSPI       /*!<@brief Peripheral name */
+#define BOARD_INITFLEXSPI0BPINS_QSPI_B_DATA0_SIGNAL FLEXSPI_B_DATA0   /*!<@brief Signal name */
+                                                                      /* @} */
 
 /*! @name FLEXSPI0B_DATA1 (coord M2), JP37[2]
   @{ */

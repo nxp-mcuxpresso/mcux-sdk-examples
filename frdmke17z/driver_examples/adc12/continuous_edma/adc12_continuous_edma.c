@@ -133,11 +133,20 @@ static void EDMA_Configuration(void)
                          (void *)g_adc12SampleDataArray, sizeof(uint32_t), sizeof(uint32_t),
                          sizeof(g_adc12SampleDataArray), kEDMA_PeripheralToMemory);
     /* Setup EDMA TCDs. */
+#if defined FSL_EDMA_DRIVER_EDMA4 && FSL_EDMA_DRIVER_EDMA4
+    EDMA_TcdSetTransferConfigExt(DEMO_DMA_BASEADDR, &g_edmaTcd[0], &g_transferConfig, &g_edmaTcd[1]);
+    EDMA_TcdSetTransferConfigExt(DEMO_DMA_BASEADDR, &g_edmaTcd[1], &g_transferConfig, &g_edmaTcd[0]);
+#else
     EDMA_TcdSetTransferConfig(&g_edmaTcd[0], &g_transferConfig, &g_edmaTcd[1]);
     EDMA_TcdSetTransferConfig(&g_edmaTcd[1], &g_transferConfig, &g_edmaTcd[0]);
+#endif
     EDMA_InstallTCD(DEMO_DMA_BASEADDR, DEMO_DMA_CHANNEL, &g_edmaTcd[0]);
     EDMA_EnableChannelRequest(DEMO_DMA_BASEADDR, DEMO_DMA_CHANNEL);
+#if defined FSL_EDMA_DRIVER_EDMA4 && FSL_EDMA_DRIVER_EDMA4
+    EDMA_TcdEnableInterruptsExt(DEMO_DMA_BASEADDR, &g_edmaTcd[0], kEDMA_MajorInterruptEnable);
+#else
     EDMA_TcdEnableInterrupts(&g_edmaTcd[0], kEDMA_MajorInterruptEnable);
+#endif
 
 #if defined(FSL_FEATURE_EDMA_ASYNCHRO_REQUEST_CHANNEL_COUNT) && FSL_FEATURE_EDMA_ASYNCHRO_REQUEST_CHANNEL_COUNT
     /* Enable async DMA request. */

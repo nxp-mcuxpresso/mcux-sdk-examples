@@ -33,9 +33,8 @@ typedef void handleShellMessageCallback_t(void *arg);
  */
 void shellCmd(void);
 
-void cmdStart();
 void cmdList();
-void cmdTrack(int32_t argc, char **argv);
+void cmdPlay(int32_t argc, char **argv);
 void cmdPause();
 void cmdVolume(int32_t argc, char **argv);
 void cmdSeek(int32_t argc, char **argv);

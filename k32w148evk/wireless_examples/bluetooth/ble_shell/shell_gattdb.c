@@ -4,7 +4,7 @@
  ********************************************************************************** */
 /*! *********************************************************************************
 * Copyright 2015 Freescale Semiconductor, Inc.
-* Copyright 2016-2023 NXP
+* Copyright 2016-2024 NXP
 *
 *
 * \file
@@ -180,7 +180,7 @@ static shell_status_t   ShellGattDb_Read(uint8_t argc, char * argv[])
 {
     uint8_t *pValue = NULL;
     uint8_t result;
-    uint16_t length, handle;
+    uint16_t length = 0U, handle = 0U;
 
     /* Must have as argument the handle of the attribute to be read */
     if (argc != 1U)
@@ -427,8 +427,8 @@ static shell_status_t   ShellGattDb_Erase(uint8_t argc, char * argv[])
  ********************************************************************************** */
 static bleResult_t ShellGattDb_AddServiceInDatabase(serviceInfo_t* pServiceInfo)
 {
-    bleResult_t result;
-    uint16_t    handle;
+    bleResult_t result = gBleSuccess_c;
+    uint16_t    handle = 0U;
 
     /* Add service */
     result = GattDbDynamic_AddPrimaryServiceDeclaration(0, gBleUuidType16_c,

@@ -14,13 +14,14 @@
     <definition extID="platform.drivers.iomuxc.MIMXRT1015"/>
     <definition extID="platform.drivers.igpio.MIMXRT1015"/>
     <definition extID="platform.utilities.misc_utilities.MIMXRT1015"/>
+    <definition extID="utility.str.MIMXRT1015"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT1015"/>
     <definition extID="device.MIMXRT1015_system.MIMXRT1015"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="evkmimxrt1015_bee" name="bee" dependency="utility.debug_console_lite.MIMXRT1015 platform.utilities.assert_lite.MIMXRT1015 platform.drivers.bee.MIMXRT1015 platform.drivers.clock.MIMXRT1015 platform.drivers.common.MIMXRT1015 device.MIMXRT1015_CMSIS.MIMXRT1015 component.lpuart_adapter.MIMXRT1015 platform.drivers.lpuart.MIMXRT1015 component.lists.MIMXRT1015 device.MIMXRT1015_startup.MIMXRT1015 platform.drivers.iomuxc.MIMXRT1015 platform.drivers.igpio.MIMXRT1015 platform.utilities.misc_utilities.MIMXRT1015 CMSIS_Include_core_cm.MIMXRT1015 device.MIMXRT1015_system.MIMXRT1015" category="driver_examples/bee">
+  <example id="evkmimxrt1015_bee" name="bee" dependency="utility.debug_console_lite.MIMXRT1015 platform.utilities.assert_lite.MIMXRT1015 platform.drivers.bee.MIMXRT1015 platform.drivers.clock.MIMXRT1015 platform.drivers.common.MIMXRT1015 device.MIMXRT1015_CMSIS.MIMXRT1015 component.lpuart_adapter.MIMXRT1015 platform.drivers.lpuart.MIMXRT1015 component.lists.MIMXRT1015 device.MIMXRT1015_startup.MIMXRT1015 platform.drivers.iomuxc.MIMXRT1015 platform.drivers.igpio.MIMXRT1015 platform.utilities.misc_utilities.MIMXRT1015 utility.str.MIMXRT1015 CMSIS_Include_core_cm.MIMXRT1015 device.MIMXRT1015_system.MIMXRT1015" category="driver_examples/bee">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -45,7 +46,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

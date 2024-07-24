@@ -10,6 +10,7 @@
 #include "clock_config.h"
 #include "fsl_pmu.h"
 #include "fsl_debug_console.h"
+#include "board.h"
 
 #if (defined(BOARD_USE_EXT_PMIC) && BOARD_USE_EXT_PMIC)
 #include "fsl_pf5020.h"
@@ -116,6 +117,11 @@ void GPC_ConfigROSC(void)
     GPC_GLOBAL->GPC_ROSC_CTRL |= GPC_GLOBAL_GPC_ROSC_CTRL_ROSC_OFF_EN_MASK;
 }
 
+void GPC_ConfigBandgap(void)
+{
+    ANADIG_PMU->PMU_REF_CTRL |= ANADIG_PMU_PMU_REF_CTRL_REF_STBY_EN_MASK | ANADIG_PMU_PMU_REF_CTRL_REF_CONTROL_MODE_MASK;
+}
+
 void GPC_InitConfig()
 {
     GPC_AssignCpuDomain(kGPC_CPU0, CM33_DOMAIN_MASK);
@@ -126,6 +132,7 @@ void GPC_InitConfig()
 #endif
     GPC_ConfigSystemSleepTransitionFlow();
     GPC_ConfigROSC();
+    GPC_ConfigBandgap();
 }
 
 #if !(defined(BOARD_USE_EXT_PMIC) && BOARD_USE_EXT_PMIC)
@@ -133,8 +140,8 @@ void DCDC_InitConfig(void)
 {
     dcdc_config_t config;
 
-    DCDC_SetVDD1P0BuckModeTargetVoltage(DCDC, kDCDC_CORE0, kDCDC_1P0Target1P1V);
-    DCDC_SetVDD1P0BuckModeTargetVoltage(DCDC, kDCDC_CORE1, kDCDC_1P0Target1P1V);
+    DCDC_SetVoltage(kDCDC_CORE0, kDCDC_1P0Target1P1V);
+    DCDC_SetVoltage(kDCDC_CORE1, kDCDC_1P0Target1P1V);
     DCDC_GPC_SetVDD1P0LowPowerModeTargetVoltage(DCDC, kDCDC_CORE0, kDCDC_1P0Target0P8V);
     DCDC_GPC_SetVDD1P0LowPowerModeTargetVoltage(DCDC, kDCDC_CORE1, kDCDC_1P0Target0P8V);
     DCDC_GPC_EnableVDD1P0LowPowerMode(DCDC, kDCDC_CORE0, true);
@@ -480,8 +487,8 @@ void RunModeTransition(run_mode_t targetRunMode)
                 ;
         }
 #else
-        DCDC_SetVDD1P0BuckModeTargetVoltage(DCDC, kDCDC_CORE0, runMode[targetRunMode].targetVoltage);
-        DCDC_SetVDD1P0BuckModeTargetVoltage(DCDC, kDCDC_CORE1, runMode[targetRunMode].targetVoltage);
+        DCDC_SetVoltage(kDCDC_CORE0, runMode[targetRunMode].targetVoltage);
+        DCDC_SetVoltage(kDCDC_CORE1, runMode[targetRunMode].targetVoltage);
 #endif
 
 #ifndef SINGLE_CORE_M33
@@ -580,8 +587,8 @@ void RunModeTransition(run_mode_t targetRunMode)
                 ;
         }
 #else
-        DCDC_SetVDD1P0BuckModeTargetVoltage(DCDC, kDCDC_CORE0, runMode[targetRunMode].targetVoltage);
-        DCDC_SetVDD1P0BuckModeTargetVoltage(DCDC, kDCDC_CORE1, runMode[targetRunMode].targetVoltage);
+        DCDC_SetVoltage(kDCDC_CORE0, runMode[targetRunMode].targetVoltage);
+        DCDC_SetVoltage(kDCDC_CORE1, runMode[targetRunMode].targetVoltage);
 #endif
     }
     else

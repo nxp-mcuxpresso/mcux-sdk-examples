@@ -21,8 +21,6 @@
 #define EXAMPLE_I3C_OD_BAUDRATE         625000
 #define EXAMPLE_I3C_PP_BAUDRATE         1250000
 #define I3C_MASTER_CLOCK_FREQUENCY      CLOCK_GetI3cClkFreq(1U)
-#define I3C_MASTER_SLAVE_ADDR_7BIT      0x1E
-#define I3C_DATA_LENGTH                 33
 #define EXAMPLE_USE_SETDASA_ASSIGN_ADDR 1
 
 #define EXAMPLE_DMA                    DMA0
@@ -33,6 +31,14 @@
 
 #define CCC_RSTDAA  0x06U
 #define CCC_SETDASA 0x87U
+
+#ifndef I3C_MASTER_SLAVE_ADDR_7BIT
+#define I3C_MASTER_SLAVE_ADDR_7BIT 0x1EU
+#endif
+
+#ifndef I3C_DATA_LENGTH
+#define I3C_DATA_LENGTH 33U
+#endif
 
 /*******************************************************************************
  * Prototypes

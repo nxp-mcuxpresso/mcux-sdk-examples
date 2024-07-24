@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2021, 2023 NXP
+ * Copyright 2020-2021, 2023-2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -32,6 +32,8 @@
 #define DEMO_LPIT_CLOCK_FREQ  CLOCK_GetRootClockFreq(kCLOCK_Root_Lpit3)
 
 #define DEMO_CLOCK_FUNCTION_PARAMETER_COUNT 2U
+#define DEMO_LPADC_DO_OFFSET_CALIBRATION    true
+#define DEMO_LPADC_OFFSET_CALIBRATION_MODE  kLPADC_OffsetCalibration12bitMode
 #define DEMO_ADC_FIFO_DEPTH 0xFU
 
 /*******************************************************************************
@@ -236,18 +238,41 @@ static void DEMO_ADCInit(void)
 #endif /* (defined(FSL_FEATURE_LPADC_FIFO_COUNT) && (FSL_FEATURE_LPADC_FIFO_COUNT == 2)) */
     LPADC_Init(DEMO_LPADC_BASE, &adcConfig);
 
+    /* Request LPADC calibration. */
+#if defined(FSL_FEATURE_LPADC_HAS_CTRL_CALOFSMODE) && FSL_FEATURE_LPADC_HAS_CTRL_CALOFSMODE
+    LPADC_SetOffsetCalibrationMode(DEMO_LPADC_BASE, DEMO_LPADC_OFFSET_CALIBRATION_MODE);
+#endif /* FSL_FEATURE_LPADC_HAS_CTRL_CALOFSMODE */
+
 #if defined(FSL_FEATURE_LPADC_HAS_CTRL_CALOFS) && FSL_FEATURE_LPADC_HAS_CTRL_CALOFS
-#if defined(FSL_FEATURE_LPADC_HAS_OFSTRIM) && FSL_FEATURE_LPADC_HAS_OFSTRIM
-    /* Request offset calibration. */
 #if defined(DEMO_LPADC_DO_OFFSET_CALIBRATION) && DEMO_LPADC_DO_OFFSET_CALIBRATION
-    LPADC_DoOffsetCalibration(DEMO_LPADC_BASE);
-#else
+    LPADC_DoOffsetCalibration(DEMO_LPADC_BASE); /* Request offset calibration, automatic update OFSTRIM register. */
+#else                                           /* Update OFSTRIM register manually. */
+
+#if defined(FSL_FEATURE_LPADC_HAS_OFSTRIM) && FSL_FEATURE_LPADC_HAS_OFSTRIM
+#if defined(FSL_FEATURE_LPADC_OFSTRIM_COUNT) && (FSL_FEATURE_LPADC_OFSTRIM_COUNT == 2U)
     LPADC_SetOffsetValue(DEMO_LPADC_BASE, DEMO_LPADC_OFFSET_VALUE_A, DEMO_LPADC_OFFSET_VALUE_B);
-#endif /* DEMO_LPADC_DO_OFFSET_CALIBRATION */
+#elif defined(FSL_FEATURE_LPADC_OFSTRIM_COUNT) && (FSL_FEATURE_LPADC_OFSTRIM_COUNT == 1U)
+    LPADC_SetOffsetValue(DEMO_LPADC_BASE, DEMO_LPADC_OFFSET_VALUE);
+#endif /* FSL_FEATURE_LPADC_OFSTRIM_COUNT */
+
+#else  /* For other OFSTRIM register type. */
+    if (DEMO_LPADC_OFFSET_CALIBRATION_MODE == kLPADC_OffsetCalibration12bitMode)
+    {
+        LPADC_SetOffset12BitValue(DEMO_LPADC_BASE, DEMO_LPADC_OFFSET_VALUE_A, DEMO_LPADC_OFFSET_VALUE_B);
+    }
+    else
+    {
+        LPADC_SetOffset16BitValue(DEMO_LPADC_BASE, DEMO_LPADC_OFFSET_VALUE_A, DEMO_LPADC_OFFSET_VALUE_B);
+    }
 #endif /* FSL_FEATURE_LPADC_HAS_OFSTRIM */
-    /* Request gain calibration. */
-    LPADC_DoAutoCalibration(DEMO_LPADC_BASE);
+
+#endif /* DEMO_LPADC_DO_OFFSET_CALIBRATION */
 #endif /* FSL_FEATURE_LPADC_HAS_CTRL_CALOFS */
+
+#if defined(FSL_FEATURE_LPADC_HAS_CTRL_CAL_REQ) && FSL_FEATURE_LPADC_HAS_CTRL_CAL_REQ
+    /* Request auto calibration (including gain error calibration and linearity error calibration). */
+    LPADC_DoAutoCalibration(DEMO_LPADC_BASE);
+#endif /* FSL_FEATURE_LPADC_HAS_CTRL_CAL_REQ */
 
 #if (defined(FSL_FEATURE_LPADC_HAS_CFG_CALOFS) && FSL_FEATURE_LPADC_HAS_CFG_CALOFS)
     /* Do auto calibration. */

@@ -54,13 +54,12 @@
 
 #include "board.h"
 #include "board_comp.h"
-#include "app_conn.h"
 #include "wireless_uart.h"
 
 #if defined(K32W232H_SERIES) || defined(KW45B41Z82_SERIES) || defined(KW45B41Z83_SERIES) || defined(K32W1480_SERIES) || \
     defined(KW47B42ZB7_cm33_core0_SERIES) || defined(KW47B42ZB6_cm33_core0_SERIES) || defined(KW47B42ZB3_cm33_core0_SERIES) || \
     defined(KW47B42ZB2_cm33_core0_SERIES) || defined(KW47B42Z97_cm33_core0_SERIES) || defined(KW47B42Z96_cm33_core0_SERIES) || \
-    defined(KW47B42Z83_cm33_core0_SERIES)
+    defined(KW47B42Z83_cm33_core0_SERIES) || defined(MCXW716C_SERIES) || defined(MCXW716A_SERIES)
 #include "sensors.h"
 #endif
 
@@ -69,6 +68,8 @@
 #endif
 
 #include "app_conn.h"
+#include "app_scanner.h"
+#include "app_advertiser.h"
 #include "board.h"
 #include "app.h"
 
@@ -1382,8 +1383,12 @@ static void BleApp_ReceivedUartStream
         serial_manager_status_t status = SerialManager_InstallTxCallback((serial_write_handle_t)s_writeHandle, Uart_TxCallBack, pBuffer);
         (void)status;
         assert(kStatus_SerialManager_Success == status);
-
-        (void)SerialManager_WriteNonBlocking((serial_write_handle_t)s_writeHandle, pBuffer, streamLength);
+        if(SerialManager_WriteNonBlocking((serial_write_handle_t)s_writeHandle, pBuffer, streamLength) != kStatus_SerialManager_Success)
+        {
+            (void)MEM_BufferFree(pBuffer);
+        }
+#else
+        (void)MEM_BufferFree(pBuffer);
 #endif /*SERIAL_MANAGER_NON_BLOCKING_MODE > 0U*/
     }
 
@@ -1456,7 +1461,7 @@ static void Uart_TxCallBack
     serial_manager_status_t status
 )
 {
-    (void)MEM_BufferFree(pBuffer);
+    (void)MEM_BufferFree(pMessage->buffer);
 }
 
 

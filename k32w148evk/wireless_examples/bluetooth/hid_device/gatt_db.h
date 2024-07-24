@@ -53,3 +53,10 @@ PRIMARY_SERVICE(service_hid, 0x1812)
         CCCD(cccd_boot_mouse_input_report)
     CHARACTERISTIC(char_hid_control_point, gBleSig_HidCtrlPoint_d, (gGattCharPropWriteWithoutRsp_c) )
         VALUE(value_hid_control_point, gBleSig_HidCtrlPoint_d, (gPermissionFlagWritable_c), 1, 0x00)
+
+/* Placed at end of file due to macro interpretation of line numbers. */
+/*
+ * Copyright 2024 NXP
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */

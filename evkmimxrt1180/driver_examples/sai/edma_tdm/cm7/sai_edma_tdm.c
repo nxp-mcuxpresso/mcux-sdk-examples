@@ -129,7 +129,11 @@ static void DEMO_InitCodec(void);
 /*******************************************************************************
  * Variables
  ******************************************************************************/
+#if defined(DEMO_QUICKACCESS_SECTION_CACHEABLE) && DEMO_QUICKACCESS_SECTION_CACHEABLE
+AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t txHandle);
+#else
 AT_QUICKACCESS_SECTION_DATA(sai_edma_handle_t txHandle);
+#endif
 edma_handle_t dmaTxHandle = {0};
 extern codec_config_t boardCodecConfig;
 AT_NONCACHEABLE_SECTION_ALIGN(static uint8_t s_buffer[BUFFER_NUM][BUFFER_SIZE], 4);

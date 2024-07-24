@@ -17,7 +17,6 @@
 /* Address of memory, from which the secondary core will boot */
 #define CORE1_BOOT_ADDRESS    (void *)0x303C0000
 #define CORE1_KICKOFF_ADDRESS 0x0
-// #define APP_INVALIDATE_CACHE_FOR_SECONDARY_CORE_IMAGE_MEMORY
 
 #if defined(__CC_ARM) || defined(__ARMCC_VERSION)
 extern uint32_t Image$$CORE1_REGION$$Base;
@@ -85,7 +84,7 @@ int main(void)
     /* Init board hardware.*/
     BOARD_ConfigMPU();
     BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
     /* Print the initial banner from Primary core */

@@ -40,7 +40,7 @@
 /* demo audio sample rate */
 #define DEMO_AUDIO_SAMPLE_RATE (kSAI_SampleRate16KHz)
 #define DEMO_MIC_CHANNEL_NUM   1U
-#define DEMO_MIC_FRAME_SIZE    10U
+#define DEMO_MIC_FRAME_SIZE    30U
 /* demo audio master clock */
 #define DEMO_AUDIO_MASTER_CLOCK DEMO_SAI_CLK_FREQ
 /* demo audio data channel */

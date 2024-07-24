@@ -49,8 +49,8 @@ BOARD_InitPins:
 - pin_list:
   - {pin_num: '10', peripheral: TPIU, signal: SWO, pin_signal: ADC0_A10/CMP0_IN0/PTA4/WUU0_P2/RF_XTAL_OUT_ENABLE/RF_GPO_9/TPM0_CLKIN/TRACE_SWO/FLEXIO0_D4/BOOT_CONFIG,
     pull_select: down, pull_enable: enable, slew_rate: fast, open_drain: disable, drive_strength: low}
-  - {pin_num: '44', peripheral: GPIOC, signal: 'GPIO, 6', pin_signal: ADC0_A8/PTC6/WUU0_P11/LPSPI1_PCS1/TPM1_CH5/FLEXIO0_D22, direction: INPUT, pull_select: up, pull_enable: enable,
-    slew_rate: fast, open_drain: disable, drive_strength: low}
+  - {pin_num: '44', peripheral: GPIOC, signal: 'GPIO, 6', pin_signal: ADC0_A8/PTC6/WUU0_P11/LPSPI1_PCS1/TPM1_CH5/FLEXIO0_D22, direction: INPUT, gpio_per_interrupt: kGPIO_InterruptFallingEdge,
+    eft_interrupt: disable, pull_select: up, pull_enable: enable, slew_rate: fast, open_drain: disable, drive_strength: low}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -77,6 +77,9 @@ void BOARD_InitPins(void)
     /* Initialize GPIO functionality on pin PTC6 (pin 44)  */
     GPIO_PinInit(BOARD_INITPINS_SW3_GPIO, BOARD_INITPINS_SW3_PIN, &SW3_config);
 
+    /* Interrupt configuration on GPIOC6 (pin 44): Interrupt on falling edge */
+    GPIO_SetPinInterruptConfig(BOARD_INITPINS_SW3_GPIO, BOARD_INITPINS_SW3_PIN, kGPIO_InterruptFallingEdge);
+
     const port_pin_config_t porta4_pin10_config = {/* Internal pull-down resistor is enabled */
                                                    (uint16_t)kPORT_PullDown,
                                                    /* Low internal pull resistor value is selected. */
@@ -97,6 +100,9 @@ void BOARD_InitPins(void)
                                                    (uint16_t)kPORT_UnlockRegister};
     /* PORTA4 (pin 10) is configured as TRACE_SWO */
     PORT_SetPinConfig(PORTA, 4U, &porta4_pin10_config);
+
+    /* EFT detect interrupts configuration on PORTC */
+    PORT_DisableEFTDetectInterrupts(PORTC, 0x40u);
 
     const port_pin_config_t SW3 = {/* Internal pull-up resistor is enabled */
                                    (uint16_t)kPORT_PullUp,

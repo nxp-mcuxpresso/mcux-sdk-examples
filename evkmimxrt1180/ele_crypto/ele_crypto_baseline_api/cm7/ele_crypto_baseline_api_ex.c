@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 NXP
+ * Copyright 2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -47,14 +47,14 @@ int main(void)
 {
     /*
      * This code example demonstrates EdgeLock usage in following steps:
-     * 0.  Get FW status - Check if FW ELE is loaded
-     * 1.  Start RNG - Needed for attestation
-     * 2.  Get FW version - Check if bit 27 in version is set so we can differentiate between ROM and FW response
-     * 3.  load and authenticate EdgeLock Enclave FW (to be done in secure boot flow in real world app)
-     * 4.  Get FW version - Check if bit 27 in version is set so we can differentiate between ROM and FW response and
+     * 0.  Initialize ELE services
+     * 1.  Get FW status - Check if FW ELE is loaded
+     * 2.  Start RNG - Needed for attestation
+     * 3.  Get FW version - Check if bit 27 in version is set so we can differentiate between ROM and FW response
+     * 4.  load and authenticate EdgeLock Enclave FW (to be done in secure boot flow in real world app)
+     * 5.  Get FW version - Check if bit 27 in version is set so we can differentiate between ROM and FW response and
      *     check if bit 27 in version is set so Base or Alternative FW is running
-     * 5.  Get FW status - Check if FW ELE is loaded
-     * 6.  Initialize ELE services
+     * 6.  Get FW status - Check if FW ELE is loaded
      * 7.  Read a fuse word and show value of a fuse as an example
      * 8.  Ping ELE
      * 9.  Generate IEE key blob
@@ -62,6 +62,7 @@ int main(void)
      * 11. Get info from ELE
      * 12. Change ELE clock rate
      * 13. Get device attestation
+     * 14. Exercise BBSM ELE services and Get Event
      * Note: This example does not close already opened contexts or objects in case of failed command.
      */
 
@@ -76,6 +77,18 @@ int main(void)
     BOARD_InitDebugConsole();
 
         PRINTF("EdgeLock Enclave Sub-System crypto base API example:\r\n\r\n");
+
+        /****************** Initialize EdgeLock services ************/
+        PRINTF("****************** Initialize EdgeLock services ***********\r\n");
+        if (ELE_InitServices(S3MU) != kStatus_Success)
+        {
+            result = kStatus_Fail;
+            break;
+        }
+        else
+        {
+            PRINTF("EdgeLock services initialized successfully.\r\n\r\n");
+        }
 
         /****************** FW status  service ***********************/
         PRINTF("****************** Get FW status ELE **********************\r\n");
@@ -113,7 +126,9 @@ int main(void)
         do
         {
             result = ELE_GetTrngState(S3MU, &trng_state);
-        } while ((trng_state & 0xFF) != kELE_TRNG_ready && result == kStatus_Success);
+        } while (((trng_state & 0xFFu) != kELE_TRNG_ready) &&
+                 ((trng_state & 0xFF00u) != kELE_TRNG_CSAL_success << 8u ) &&
+                   result == kStatus_Success);
 
         PRINTF("EdgeLock RNG ready to use.\r\n\r\n");
 
@@ -147,7 +162,7 @@ int main(void)
         }
         else
         {
-            PRINTF("EndgeLock FW loaded and authenticated successfully.\r\n\r\n");
+            PRINTF("EdgeLock FW loaded and authenticated successfully.\r\n\r\n");
         }
 
         /****************** FW version  service ***********************/
@@ -199,18 +214,6 @@ int main(void)
             {
                 PRINTF("ELE FW is authenticated and operational \r\n\r\n");
             }
-        }
-
-        /****************** Initialize EdgeLock services ************/
-        PRINTF("****************** Initialize EdgeLock services ***********\r\n");
-        if (ELE_InitServices(S3MU) != kStatus_Success)
-        {
-            result = kStatus_Fail;
-            break;
-        }
-        else
-        {
-            PRINTF("EdgeLock services initialized successfully.\r\n\r\n");
         }
 
         /****************** Read Common Fuse ***********************/
@@ -359,6 +362,98 @@ int main(void)
         else
         {
             PRINTF("Device attestation completed successfully.\r\n\r\n");
+        }
+
+        /****************** BBSM (Battery-Backed Security Module) *************/
+        PRINTF("****************** BBSM (Battery-Backed Security Module) **\r\n");
+
+        /* For offset/register information, please refer to SRM */
+        /* Read and write BBSM registers test */
+        if (ELE_WriteBbsm(S3MU, 0x200, 0xCAFECAFE) != kStatus_Success)
+        {
+            result = kStatus_Fail;
+            break;
+        }
+        else
+        {
+            PRINTF("BBSM register write completed successfully.\r\n");
+        }
+
+        uint32_t read_value = 0u;
+
+        if (ELE_ReadBbsm(S3MU, 0x200, &read_value) != kStatus_Success)
+        {
+            result = kStatus_Fail;
+            break;
+        }
+        else
+        {
+            PRINTF("BBSM register read success, value=%0x\r\n", read_value);
+        }
+
+        /* Get ELE events */
+        ele_events_t events = {0u};
+
+        if (ELE_GetEvent(S3MU, &events) != kStatus_Success)
+        {
+            result = kStatus_Fail;
+            break;
+        }
+        else
+        {
+            PRINTF("Get ELE Events successfully\r\n");
+        }
+
+        /* Set ELE Event policy to log event */
+        if (ELE_SetPolicyBbsm(S3MU, kELE_BBSM_Alert1_BBSM_log_event | kELE_BBSM_Alert2_BBSM_log_event |
+                                        kELE_BBSM_Alert3_BBSM_log_event | kELE_BBSM_Alert4_BBSM_log_event) !=
+            kStatus_Success)
+        {
+            result = kStatus_Fail;
+            break;
+        }
+        else
+        {
+            PRINTF("Set ELE Event policy successfully\r\n");
+        }
+
+        /* Important!! Some bit fields may be set/reserved and their override can lead to unexpected behaviour       */
+        /* It is recommended to always read the current value first and modify only the required bits before writing */
+        /* the new value to the register, unless the entire world is being written.                                  */
+        /* For offset/register information, please refer to SRM */
+        if (ELE_ReadBbsm(S3MU, 0x8u, &read_value) != kStatus_Success)
+        {
+            result = kStatus_Fail;
+            break;
+        }
+        if (ELE_WriteBbsm(S3MU, 0x8u, read_value | 0x300) != kStatus_Success)
+        {
+            result = kStatus_Fail;
+            break;
+        }
+        if (ELE_WriteBbsm(S3MU, 0x38u, 0xFFFFFFF0) != kStatus_Success)
+        {
+            result = kStatus_Fail;
+            break;
+        }
+        if (ELE_WriteBbsm(S3MU, 0x30u, 0xFF) != kStatus_Success)
+        {
+            result = kStatus_Fail;
+            break;
+        }
+        if (ELE_GetEvent(S3MU, &events) != kStatus_Success)
+        {
+            result = kStatus_Fail;
+            break;
+        }
+        else
+        {
+            PRINTF("Get ELE Events successfully\r\n");
+
+            if (events.event[0] != 0u)
+            {
+                PRINTF("ELE Event triggered successfully\r\n\r\n");
+            }
         }
 
         /****************** END of Example *************************************/

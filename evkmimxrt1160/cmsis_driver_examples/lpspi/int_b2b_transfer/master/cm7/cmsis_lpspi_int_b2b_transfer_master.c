@@ -23,7 +23,7 @@
 #define EXAMPLE_LPSPI_MASTER_IRQN (LPSPI1_IRQn)
 #define EXAMPLE_LPSPI_DEALY_COUNT 0xfffffU
 
-#define EXAMPLE_LPSPI_CLOCK_FREQ (CLOCK_GetFreqFromObs(CCM_OBS_LPSPI1_CLK_ROOT))
+#define EXAMPLE_LPSPI_CLOCK_FREQ (CLOCK_GetRootClockFreq(kCLOCK_Root_Lpspi1))
 #define TRANSFER_SIZE     64U     /*! Transfer dataSize */
 #define TRANSFER_BAUDRATE 500000U /*! Transfer baudrate - 500k */
 

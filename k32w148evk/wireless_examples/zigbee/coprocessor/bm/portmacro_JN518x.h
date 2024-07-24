@@ -23,7 +23,7 @@
 
 #include "MicroSpecific.h"
 #include "dbg.h"
-#include "aessw_ccm.h"
+#include "zb_platform.h"
 /*-----------------------------------------------------------*/
 
 /*-----------------------------------------------------------*/
@@ -45,16 +45,4 @@ PUBLIC uint8 ZPS_eExitCriticalSection(void* hMutex, uint32* psIntStore);
 PUBLIC uint8 ZPS_u8GrabMutexLock(void* hMutex, uint32* psIntStore);
 PUBLIC uint8 ZPS_u8ReleaseMutexLock(void* hMutex, uint32* psIntStore);
 PUBLIC uint32 u32Reverse(uint32 u32InWord);
-PUBLIC void vACI_OptimisedCcmStar(
-    bool_t         bEncrypt,
-    uint8          u8M,
-    uint8          u8alength,
-    uint8          u8mlength,
-    tuAES_Block   *puNonce,
-    uint8         *pau8authenticationData,
-    uint8         *pau8Data,
-    uint8         *pau8checksumData,
-    bool_t        *pbChecksumVerify);
-PUBLIC bool_t bACI_WriteKey(tsReg128 *psKeyData);
-PUBLIC void vSwipeEndian(AESSW_Block_u *puBlock, tsReg128 *psReg, bool_t bBlockToReg);
 #endif /* PORTMACRO_JN518x_H */

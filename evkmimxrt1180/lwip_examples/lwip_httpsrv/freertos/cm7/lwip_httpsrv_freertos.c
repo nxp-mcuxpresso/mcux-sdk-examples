@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2023 NXP
+ * Copyright 2016-2024 NXP
  * All rights reserved.
  *
  *
@@ -23,9 +23,6 @@
 #include "pin_mux.h"
 #include "clock_config.h"
 #include "board.h"
-#ifndef configMAC_ADDR
-#include "fsl_silicon_id.h"
-#endif
 #include "fsl_phy.h"
 
 #include "lwip/netif.h"
@@ -132,6 +129,10 @@
 #define EXAMPLE_PHY_OPS      &g_app_phy_rtl8201_ops
 #define EXAMPLE_PHY_RESOURCE &g_phy_rtl8201_resource
 #define EXAMPLE_CLOCK_FREQ   EXAMPLE_NETC_FREQ // CLOCK_GetFreq(kCLOCK_IpgClk)
+/* Must be after include of app.h */
+#ifndef configMAC_ADDR
+#include "fsl_silicon_id.h"
+#endif
 #ifndef MDNS_HOSTNAME
 #define MDNS_HOSTNAME "lwip-http"
 #endif

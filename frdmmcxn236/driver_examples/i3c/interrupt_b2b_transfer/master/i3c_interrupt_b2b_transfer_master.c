@@ -1,5 +1,5 @@
 /*
- * Copyright 2021-2023 NXP
+ * Copyright 2021-2024 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -21,9 +21,6 @@
 #define EXAMPLE_I3C_OD_BAUDRATE    312500
 #define EXAMPLE_I3C_PP_BAUDRATE    625000
 #define I3C_MASTER_CLOCK_FREQUENCY CLOCK_GetI3cClkFreq(1U)
-#define I3C_MASTER_SLAVE_ADDR_7BIT 0x1E
-#define WAIT_TIME                  1000
-#define I3C_DATA_LENGTH            33
 #ifndef I3C_MASTER_SLAVE_ADDR_7BIT
 #define I3C_MASTER_SLAVE_ADDR_7BIT 0x1EU
 #endif
@@ -33,9 +30,15 @@
 #ifndef EXAMPLE_I3C_HDR_SUPPORT
 #define EXAMPLE_I3C_HDR_SUPPORT 0
 #endif
+#ifndef WAIT_TIME
+#define WAIT_TIME 1000
+#endif
 
 #define CCC_RSTDAA  0x06U
 #define CCC_SETDASA 0x87U
+
+#define I3C_BROADCAST_ADDR 0x7EU
+#define I3C_VENDOR_ID      0x11BU
 
 /*******************************************************************************
  * Prototypes
@@ -51,14 +54,14 @@ static void i3c_master_callback(I3C_Type *base, i3c_master_handle_t *handle, sta
  ******************************************************************************/
 uint8_t g_master_txBuff[I3C_DATA_LENGTH];
 uint8_t g_master_rxBuff[I3C_DATA_LENGTH];
-uint8_t g_master_ibiBuff[10];
+uint8_t g_master_ibiBuff[8];
 i3c_master_handle_t g_i3c_m_handle;
 const i3c_master_transfer_callback_t masterCallback = {
     .slave2Master = NULL, .ibiCallback = i3c_master_ibi_callback, .transferComplete = i3c_master_callback};
 volatile bool g_masterCompletionFlag = false;
 volatile bool g_ibiWonFlag           = false;
 volatile status_t g_completionStatus = kStatus_Success;
-static uint8_t g_ibiUserBuff[10U];
+static uint8_t g_ibiUserBuff[8];
 
 /*******************************************************************************
  * Code
@@ -89,15 +92,14 @@ static void i3c_master_ibi_callback(I3C_Type *base,
 
 static void i3c_master_callback(I3C_Type *base, i3c_master_handle_t *handle, status_t status, void *userData)
 {
-    /* Signal transfer success when received success status. */
-    if (status == kStatus_Success)
-    {
-        g_masterCompletionFlag = true;
-    }
-
     if (status == kStatus_I3C_IBIWon)
     {
         g_ibiWonFlag = true;
+    }
+    else
+    {
+        /* Signal transfer complete when received complete status. */
+        g_masterCompletionFlag = true;
     }
 
     g_completionStatus = status;
@@ -156,15 +158,12 @@ int main(void)
     I3C_MasterInit(EXAMPLE_MASTER, &masterConfig, I3C_MASTER_CLOCK_FREQUENCY);
     I3C_MasterTransferCreateHandle(EXAMPLE_MASTER, &g_i3c_m_handle, &masterCallback, NULL);
 
+    /* Start + slaveaddress(w) + subAddress + length of data buffer + data buffer + stop. */
     memset(&masterXfer, 0, sizeof(masterXfer));
-
-    /* subAddress = 0x01, data = g_master_txBuff - write to slave.
-      start + slaveaddress(w) + subAddress + length of data buffer + data buffer + stop*/
-    uint8_t deviceAddress     = 0x01U;
     masterXfer.slaveAddress   = I3C_MASTER_SLAVE_ADDR_7BIT;
     masterXfer.direction      = kI3C_Write;
     masterXfer.busType        = kI3C_TypeI2C;
-    masterXfer.subaddress     = (uint32_t)deviceAddress;
+    masterXfer.subaddress     = 0x01;
     masterXfer.subaddressSize = 1;
     masterXfer.data           = g_master_txBuff;
     masterXfer.dataSize       = I3C_DATA_LENGTH;
@@ -177,15 +176,14 @@ int main(void)
     }
 
     /* Wait for transfer completed. */
-    while ((!g_masterCompletionFlag) && (g_completionStatus == kStatus_Success))
+    while (!g_masterCompletionFlag)
     {
         __NOP();
     }
 
-    result = g_completionStatus;
-    if (result != kStatus_Success)
+    if (g_completionStatus != kStatus_Success)
     {
-        PRINTF("\r\nTransfer error.\r\n");
+        PRINTF("\r\nTransfer error %u.\r\n", g_completionStatus);
         return -1;
     }
     g_masterCompletionFlag = false;
@@ -198,12 +196,11 @@ int main(void)
         __NOP();
     }
 
-    /* subAddress = 0x01, data = g_master_rxBuff - read from slave.
-      start + slaveaddress(w) + subAddress + repeated start + slaveaddress(r) + rx data buffer + stop */
+    /* Start + slaveaddress(w) + subAddress + repeated start + slaveaddress(r) + rx data buffer + stop. */
     masterXfer.slaveAddress   = I3C_MASTER_SLAVE_ADDR_7BIT;
     masterXfer.direction      = kI3C_Read;
     masterXfer.busType        = kI3C_TypeI2C;
-    masterXfer.subaddress     = (uint32_t)deviceAddress;
+    masterXfer.subaddress     = 0x01;
     masterXfer.subaddressSize = 1;
     masterXfer.data           = g_master_rxBuff;
     masterXfer.dataSize       = I3C_DATA_LENGTH - 1U;
@@ -216,14 +213,14 @@ int main(void)
     }
 
     /* Wait for transfer completed. */
-    while ((!g_masterCompletionFlag) && (g_completionStatus == kStatus_Success))
+    while (!g_masterCompletionFlag)
     {
         __NOP();
     }
 
-    result = g_completionStatus;
-    if (result != kStatus_Success)
+    if (g_completionStatus != kStatus_Success)
     {
+        PRINTF("\r\nTransfer error %u.\r\n", g_completionStatus);
         return -1;
     }
     g_masterCompletionFlag = false;
@@ -231,7 +228,7 @@ int main(void)
     PRINTF("Receive sent data from slave :");
     for (uint32_t i = 0U; i < I3C_DATA_LENGTH - 1U; i++)
     {
-        if (i % 8 == 0)
+        if (i % 8U == 0U)
         {
             PRINTF("\r\n");
         }
@@ -254,8 +251,8 @@ int main(void)
 
     /* Reset dynamic address before DAA */
     memset(&masterXfer, 0, sizeof(masterXfer));
-    masterXfer.slaveAddress   = 0x7EU; /* Broadcast address */
-    masterXfer.subaddress     = CCC_RSTDAA; /* CCC command RSTDAA */
+    masterXfer.slaveAddress   = I3C_BROADCAST_ADDR;
+    masterXfer.subaddress     = CCC_RSTDAA;
     masterXfer.subaddressSize = 1U;
     masterXfer.direction      = kI3C_Write;
     masterXfer.busType        = kI3C_TypeI3CSdr;
@@ -268,14 +265,14 @@ int main(void)
     }
 
     /* Wait for transfer completed. */
-    while ((!g_masterCompletionFlag) && (g_completionStatus == kStatus_Success))
+    while (!g_masterCompletionFlag)
     {
         __NOP();
     }
 
-    result = g_completionStatus;
-    if (result != kStatus_Success)
+    if (g_completionStatus != kStatus_Success)
     {
+        PRINTF("\r\nTransfer error %u.\r\n", g_completionStatus);
         return -1;
     }
     g_masterCompletionFlag = false;
@@ -283,7 +280,7 @@ int main(void)
 #if defined(EXAMPLE_USE_SETDASA_ASSIGN_ADDR) && (EXAMPLE_USE_SETDASA_ASSIGN_ADDR)
     /* Assign dynmic address. */
     memset(&masterXfer, 0, sizeof(masterXfer));
-    masterXfer.slaveAddress   = 0x7EU;
+    masterXfer.slaveAddress   = I3C_BROADCAST_ADDR;
     masterXfer.subaddress     = CCC_SETDASA;
     masterXfer.subaddressSize = 1U;
     masterXfer.direction      = kI3C_Write;
@@ -298,14 +295,14 @@ int main(void)
     }
 
     /* Wait for transfer completed. */
-    while ((!g_masterCompletionFlag) && (g_completionStatus == kStatus_Success))
+    while (!g_masterCompletionFlag)
     {
         __NOP();
     }
 
-    result = g_completionStatus;
-    if (result != kStatus_Success)
+    if (g_completionStatus != kStatus_Success)
     {
+        PRINTF("\r\nTransfer error %u.\r\n", g_completionStatus);
         return -1;
     }
     g_masterCompletionFlag = false;
@@ -327,14 +324,14 @@ int main(void)
     }
 
     /* Wait for transfer completed. */
-    while ((!g_masterCompletionFlag) && (g_completionStatus == kStatus_Success))
+    while (!g_masterCompletionFlag)
     {
         __NOP();
     }
 
-    result = g_completionStatus;
-    if (result != kStatus_Success)
+    if (g_completionStatus != kStatus_Success)
     {
+        PRINTF("\r\nTransfer error %u.\r\n", g_completionStatus);
         return -1;
     }
     g_masterCompletionFlag = false;
@@ -352,7 +349,7 @@ int main(void)
     devList = I3C_MasterGetDeviceListAfterDAA(EXAMPLE_MASTER, &devCount);
     for (devIndex = 0; devIndex < devCount; devIndex++)
     {
-        if (devList[devIndex].vendorID == 0x123U)
+        if (devList[devIndex].vendorID == I3C_VENDOR_ID)
         {
             slaveAddr = devList[devIndex].dynamicAddr;
             break;
@@ -390,14 +387,14 @@ int main(void)
     }
 
     /* Wait for transfer completed. */
-    while ((!g_masterCompletionFlag) && (g_completionStatus == kStatus_Success))
+    while (!g_masterCompletionFlag)
     {
         __NOP();
     }
 
-    result = g_completionStatus;
-    if (result != kStatus_Success)
+    if (g_completionStatus != kStatus_Success)
     {
+        PRINTF("\r\nTransfer error %u.\r\n", g_completionStatus);
         return -1;
     }
     g_masterCompletionFlag = false;
@@ -432,13 +429,12 @@ int main(void)
     }
 
     /* Wait for transfer completed. */
-    while ((!g_masterCompletionFlag) && (g_completionStatus == kStatus_Success))
+    while (!g_masterCompletionFlag)
     {
         __NOP();
     }
 
-    result = g_completionStatus;
-    if (result != kStatus_Success)
+    if (g_completionStatus != kStatus_Success)
     {
         return -1;
     }
@@ -492,12 +488,12 @@ int main(void)
     }
 
     /* Wait for transfer completed. */
-    while ((!g_masterCompletionFlag) && (g_completionStatus == kStatus_Success))
+    while (!g_masterCompletionFlag)
     {
+        __NOP();
     }
 
-    result = g_completionStatus;
-    if (result != kStatus_Success)
+    if (g_completionStatus != kStatus_Success)
     {
         return -1;
     }
@@ -526,12 +522,12 @@ int main(void)
     }
 
     /* Wait for transfer completed. */
-    while ((!g_masterCompletionFlag) && (g_completionStatus == kStatus_Success))
+    while (!g_masterCompletionFlag)
     {
+        __NOP();
     }
 
-    result = g_completionStatus;
-    if (result != kStatus_Success)
+    if (g_completionStatus != kStatus_Success)
     {
         return -1;
     }

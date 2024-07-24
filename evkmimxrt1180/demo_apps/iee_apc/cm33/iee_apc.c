@@ -125,6 +125,7 @@ int main(void)
     PRINTF("IEE APC Demo started\r\n\r\n");
 
 #if USE_FLASH
+    (void)aes_ctr_iv;
     /* Setup Flash memory */
     status = Flash_Setup();
     if (status != kStatus_Success)
@@ -282,6 +283,9 @@ status_t IEE_APC_Setup(void)
 #if USE_FLASH
     IEE_APC_RegionEnable(IEE_APC, kIEE_APC_Region1);
 #endif /* USE_FLASH */
+
+    /* IEE_APC global enable */
+    IEE_APC_GlobalEnable(IEE_APC);
 
     PRINTF("IEE init\r\n");
     /* Reset IEE to factory defaults */

@@ -33,10 +33,10 @@ STACK_SIZE = DEFINED(__stack_size__) ? __stack_size__ : 0x0800;
 MEMORY
 {
   m_interrupts          (RX)  : ORIGIN = 0x10000000, LENGTH = 0x00000400
-  m_text                (RX)  : ORIGIN = 0x10000400, LENGTH = 0x000FFA00
-  m_veneer_table        (RX)  : ORIGIN = 0x100FFE00, LENGTH = 0x00000200
+  m_text                (RX)  : ORIGIN = 0x10000400, LENGTH = 0x0000FA00
+  m_veneer_table        (RX)  : ORIGIN = 0x1000FE00, LENGTH = 0x00000200
   m_data0               (RW)  : ORIGIN = 0x14000000, LENGTH = 0x00004000
-  m_data1               (RW)  : ORIGIN = 0x30000000, LENGTH = 0x0001C000
+  m_data1               (RW)  : ORIGIN = 0x30000000, LENGTH = 0x00004000
 }
 
 /* Define output sections */

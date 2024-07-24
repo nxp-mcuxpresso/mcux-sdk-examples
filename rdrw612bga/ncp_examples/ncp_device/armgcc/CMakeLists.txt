@@ -126,6 +126,8 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/lpm/lpm.h"
 "${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/lpm/host_sleep.c"
 "${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/lpm/host_sleep.h"
+"${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/lpm/host_sleep_wifi.c"
+"${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/lpm/host_sleep_wifi.h"
 "${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/crc/crc.c"
 "${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/crc/crc.h"
 "${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/ncp_debug/ncp_debug.h"

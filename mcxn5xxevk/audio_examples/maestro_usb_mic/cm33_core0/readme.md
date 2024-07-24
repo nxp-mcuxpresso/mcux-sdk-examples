@@ -6,7 +6,7 @@ utilizing the Maestro Audio Solutions library.
 The application is controlled by commands from a shell interface using serial console.
 
 Type "help" to see the command list. Similar description will be displayed on serial console:
-
+```
     >> help
 
     "help": List all the registered commands
@@ -23,24 +23,27 @@ Type "help" to see the command list. Similar description will be displayed on se
                 run until the board restarts.
         EXAMPLE:   The application will run for 20 seconds: usb_mic 20
     >>
+```
 
 After running the "usb_mic" command, the USB device will be enumerated on your host.
 User will see the volume levels obtained from the USB host as in the example below.
 This is just an example application. To leverage the values, the demo has to be modified.
 
-Notes
-1. When device functionality is changed, please uninstall the previous PC driver to make sure the device with changed functionality can run normally.
-2. If you're having audio problems on Windows 10 for recorder, please disable signal enhancement as the following if it is enabled and have a try again.
+### Notes
+1. When device functionality is changed, please uninstall the previous PC driver to make
+   sure the device with changed functionality can run normally.
+2. If you're having audio problems on Windows 10 for recorder, please disable signal
+   enhancement as the following if it is enabled and have a try again.
 
 
 SDK version
 ===========
-- Version: 2.14.0
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  12.2
-- MCUXpresso  11.9.0
+- GCC ARM Embedded  13.2.1
+- MCUXpresso  11.10.0
 
 Hardware requirements
 =====================
@@ -79,7 +82,7 @@ Note
 Running the demo
 ================
 When the example runs successfully, you should see similar output on the serial terminal as below:
-
+```
     *************************************************
     Maestro audio USB microphone solutions demo start
     *************************************************
@@ -95,3 +98,5 @@ When the example runs successfully, you should see similar output on the serial 
     Starting recording
     [STREAMER] start usb microphone
     Set Cur Volume : 1f00
+```
+

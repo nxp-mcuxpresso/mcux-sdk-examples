@@ -10,12 +10,12 @@ I3C slave and check the data consistency.
 
 SDK version
 ===========
-- Version: 2.15.000
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  12.2
-- MCUXpresso  11.8.0
+- GCC ARM Embedded  13.2.1
+- MCUXpresso  11.10.0
 
 Hardware requirements
 =====================
@@ -56,8 +56,7 @@ Running the demo
 ================
 The following lines are printed to the serial terminal when the demo program is executed.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-I3C board2board Interrupt example -- Slave transfer.
-
+I3C board2board interrupt example -- Slave transfer.
 
 Check I3C master I2C transfer.
 Slave received data :
@@ -66,9 +65,7 @@ Slave received data :
 0x e  0x f  0x10  0x11  0x12  0x13  0x14  0x15  
 0x16  0x17  0x18  0x19  0x1a  0x1b  0x1c  0x1d  
 0x1e  0x1f  
-
-
- I3C master I2C transfer finished .
+I3C master I2C transfer finished.
 
 Check I3C master I3C SDR transfer.
 Slave received data :
@@ -76,8 +73,6 @@ Slave received data :
 0x 8  0x 9  0x a  0x b  0x c  0x d  0x e  0x f  
 0x10  0x11  0x12  0x13  0x14  0x15  0x16  0x17  
 0x18  0x19  0x1a  0x1b  0x1c  0x1d  0x1e  0x1f  
-
-
- I3C master I3C SDR transfer finished .
+I3C master I3C SDR transfer finished.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

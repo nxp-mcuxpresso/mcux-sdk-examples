@@ -129,16 +129,16 @@ codec_config_t boardCodecConfig = {.codecDevType = kCODEC_WM8962, .codecDevConfi
 
 /*
  * AUDIO PLL setting: Frequency = Fref * (DIV_SELECT + NUM / DENOM) / (2^POST)
- *                              = 24 * (30 + 106/1000)  / 2
- *                              = 361.272MHZ
+ *                              = 24 * (30 + 1056/10000)  / 2
+ *                              = 361.2672MHZ
  */
 /*setting for 44.1Khz*/
 const clock_audio_pll_config_t audioPllConfig = {
-    .loopDivider = 30,   /* PLL loop divider. Valid range for DIV_SELECT divider value: 27~54. */
-    .postDivider = 1,    /* Divider after the PLL, 0x0=divided by 1, 0x1=divided by 2, 0x2=divided by 4,
-                            0x3=divided by 8, 0x4=divided by 16, 0x5=divided by 32.*/
-    .numerator   = 106,  /* 30 bit numerator of fractional loop divider. */
-    .denominator = 1000, /* 30 bit denominator of fractional loop divider */
+    .loopDivider = 30,    /* PLL loop divider. Valid range for DIV_SELECT divider value: 27~54. */
+    .postDivider = 1,     /* Divider after the PLL, 0x0=divided by 1, 0x1=divided by 2, 0x2=divided by 4,
+                             0x3=divided by 8, 0x4=divided by 16, 0x5=divided by 32.*/
+    .numerator   = 1056,  /* 30 bit numerator of fractional loop divider. */
+    .denominator = 10000, /* 30 bit denominator of fractional loop divider */
 };
 
 /*

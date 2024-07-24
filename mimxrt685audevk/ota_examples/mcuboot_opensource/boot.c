@@ -6,22 +6,55 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
+#include <stdint.h>
+#include <stdbool.h>
+
 #include "boot.h"
-#include "sbl.h"
 #include "flash_partitioning.h"
+#include "bootutil/bootutil_log.h"
+#include "bootutil/image.h"
+#include "bootutil/bootutil.h"
+#include "sysflash/sysflash.h"
+#include "flash_map.h"
+#include "bootutil_priv.h"
+
 #include "fsl_debug_console.h"
+#include "mflash_drv.h"
+
+#ifdef CONFIG_MCUBOOT_ENCRYPTED_XIP_SUPPORT
+#include "mcuboot_enc_support.h"
+#endif
+
+/*******************************************************************************
+ * Definitions
+ ******************************************************************************/
 
 #ifdef NDEBUG
 #undef assert
 #define assert(x) ((void)(x))
 #endif
 
-iapfun jump2app;
+/*******************************************************************************
+ * Prototypes
+ ******************************************************************************/
+
+#ifdef CONFIG_BOOT_SIGNATURE
+status_t CRYPTO_InitHardware(void);
+#endif
 
 #ifdef CONFIG_MCUBOOT_FLASH_REMAP_ENABLE
 extern void SBL_EnableRemap(uint32_t start_addr, uint32_t end_addr, uint32_t off);
 extern void SBL_DisableRemap(void);
 #endif
+
+#pragma weak cleanup
+void cleanup(void);
+
+extern void SBL_DisablePeripherals(void);
+
+/*******************************************************************************
+ * Types
+ ******************************************************************************/
 
 struct arm_vector_table
 {
@@ -31,10 +64,12 @@ struct arm_vector_table
 
 static struct arm_vector_table *vt;
 
-#pragma weak cleanup
-void cleanup(void);
+/*******************************************************************************
+ * Code
+ ******************************************************************************/
 
-/* The bootloader of MCUboot */
+/* Starts selected application */
+
 void do_boot(struct boot_rsp *rsp)
 {
     uintptr_t flash_base;
@@ -73,11 +108,7 @@ void do_boot(struct boot_rsp *rsp)
     }
 #endif
 
-    vt = (struct arm_vector_table *)(flash_base + rsp->br_image_off +
-#ifdef MCUBOOT_SIGN_ROM
-                                     HAB_IVT_OFFSET +
-#endif
-                                     rsp->br_hdr->ih_hdr_size);
+    vt = (struct arm_vector_table *)(flash_base + rsp->br_image_off + rsp->br_hdr->ih_hdr_size);
 
     cleanup();
 
@@ -86,3 +117,59 @@ void do_boot(struct boot_rsp *rsp)
     __ISB();
     ((void (*)(void))vt->reset)();
 }
+
+
+/* Calls MCUBoot and executes image selected by the bootloader */
+
+int sbl_boot_main(void)
+{
+    int rc = -1;
+    struct boot_rsp rsp;
+
+#ifdef CONFIG_BOOT_SIGNATURE
+    CRYPTO_InitHardware();
+#endif
+
+    mflash_drv_init();
+
+    BOOT_LOG_INF("Bootloader Version %s", BOOTLOADER_VERSION);
+
+    rc = boot_go(&rsp);
+    if (rc != 0)
+    {
+        BOOT_LOG_ERR("Unable to find bootable image");
+        for (;;)
+            ;
+    }
+
+#ifdef CONFIG_MCUBOOT_ENCRYPTED_XIP_SUPPORT
+    BOOT_LOG_INF("\nStarting post-bootloader process of encrypted image...");
+    if(mcuboot_process_encryption(&rsp) != kStatus_Success){
+      BOOT_LOG_ERR("Fatal error: failed to process encrypted image");
+      while(1)
+        ;
+    }
+    BOOT_LOG_INF("Post-bootloader process of encrypted image successful\n");
+#endif
+    BOOT_LOG_INF("Bootloader chainload address offset: 0x%x", rsp.br_image_off);
+    BOOT_LOG_INF("Reset_Handler address offset: 0x%x", rsp.br_image_off + rsp.br_hdr->ih_hdr_size);
+    BOOT_LOG_INF("Jumping to the image\r\n\r\n");
+    do_boot(&rsp);
+
+    BOOT_LOG_ERR("Never should get here");
+    for (;;)
+        ;
+}
+
+void cleanup(void)
+{
+    SBL_DisablePeripherals();
+}
+
+#if !defined(MCUBOOT_DIRECT_XIP) && !defined(MCUBOOT_SWAP_USING_MOVE) && !defined(MCUBOOT_OVERWRITE_ONLY)
+#warning "Make sure scratch area is defined in 'boot_flash_map' array if required by defined swap mechanism"
+#endif
+
+#if defined(MCUBOOT_DIRECT_XIP) && CONFIG_UPDATEABLE_IMAGE_NUMBER > 1
+#error "DIRECT_XIP (using remapping) and multiple images is not currently supported"
+#endif

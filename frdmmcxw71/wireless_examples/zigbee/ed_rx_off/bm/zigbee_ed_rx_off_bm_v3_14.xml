@@ -1,0 +1,801 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:examples xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd manifest.xsd">
+  <externalDefinitions>
+    <definition extID="middleware.wireless.zigbee.k32w1.MCXW716C"/>
+    <definition extID="middleware.wireless.zigbee_core_ZED_libs.MCXW716C"/>
+    <definition extID="middleware.wireless.zigbee.platform.k32w1.MCXW716C"/>
+    <definition extID="middleware.wireless.zb_examples_common.MCXW716C"/>
+    <definition extID="middleware.wireless.zb_examples_common.ota_client.MCXW716C"/>
+    <definition extID="middleware.wireless.zigbee_core_ZCL_Clusters_OTA_Client.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.board_lp.kw45_k32w1.MCXW716C"/>
+    <definition extID="middleware.wireless.ieee.802.15.4_lib_split.MCXW716C"/>
+    <definition extID="component.osa_bm.MCXW716C"/>
+    <definition extID="component.reset_adapter.MCXW716C"/>
+    <definition extID="component.common_task.MCXW716C"/>
+    <definition extID="component.mem_manager_light.MCXW716C"/>
+    <definition extID="component.messaging.MCXW716C"/>
+    <definition extID="component.panic.MCXW716C"/>
+    <definition extID="component.lptmr_adapter.MCXW716C"/>
+    <definition extID="component.timer_manager.MCXW716C"/>
+    <definition extID="component.lptmr_time_stamp_adapter.MCXW716C"/>
+    <definition extID="middleware.wireless.HWParameter.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.common.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.module_info.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.function_lib.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.fwk_debug.MCXW716C"/>
+    <definition extID="component.gpio_adapter.MCXW716C"/>
+    <definition extID="component.button.MCXW716C"/>
+    <definition extID="component.led.MCXW716C"/>
+    <definition extID="platform.drivers.clock.MCXW716C"/>
+    <definition extID="platform.drivers.common.MCXW716C"/>
+    <definition extID="device.MCXW716C_CMSIS.MCXW716C"/>
+    <definition extID="platform.devices.MCXW716C.MCXW716C"/>
+    <definition extID="device.MCXW716C_startup_wireless.MCXW716C"/>
+    <definition extID="platform.drivers.lpuart.MCXW716C"/>
+    <definition extID="platform.drivers.lpuart_edma.MCXW716C"/>
+    <definition extID="platform.drivers.lptmr.MCXW716C"/>
+    <definition extID="platform.drivers.port.MCXW716C"/>
+    <definition extID="platform.drivers.lpspi.MCXW716C"/>
+    <definition extID="platform.drivers.gpio.MCXW716C"/>
+    <definition extID="platform.drivers.flash_k4.MCXW716C"/>
+    <definition extID="component.k4_flash_adapter.MCXW716C"/>
+    <definition extID="component.lpuart_adapter.MCXW716C"/>
+    <definition extID="platform.drivers.tpm.MCXW716C"/>
+    <definition extID="platform.utilities.assert_lite.MCXW716C"/>
+    <definition extID="utility.debug_console_lite.MCXW716C"/>
+    <definition extID="utility.format.MCXW716C"/>
+    <definition extID="component.serial_manager_uart.MCXW716C"/>
+    <definition extID="component.serial_manager.MCXW716C"/>
+    <definition extID="platform.drivers.imu.MCXW716C"/>
+    <definition extID="component.lists.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.rpmsg_config.MCXW716C"/>
+    <definition extID="component.rpmsg_adapter.MCXW716C"/>
+    <definition extID="component.serial_manager_rpmsg.MCXW716C"/>
+    <definition extID="platform.drivers.ltc.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.Sensors.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.platform.connected_mcu.MCXW716C"/>
+    <definition extID="device.MCXW716C_utility.frdmmcxw71.MCXW716C"/>
+    <definition extID="middleware.multicore.mcmgr.mcxw716.MCXW716C"/>
+    <definition extID="middleware.multicore.rpmsg_lite.frdmmcxw71_bm.MCXW716C"/>
+    <definition extID="middleware.baremetal.MCXW716C"/>
+    <definition extID="middleware.multicore.rpmsg_lite.bm.MCXW716C"/>
+    <definition extID="middleware.multicore.rpmsg_lite.MCXW716C"/>
+    <definition extID="component.log.MCXW716C"/>
+    <definition extID="platform.drivers.wuu.MCXW716C"/>
+    <definition extID="platform.drivers.cmc.MCXW716C"/>
+    <definition extID="platform.drivers.spc.MCXW716C"/>
+    <definition extID="platform.drivers.ccm32k.MCXW716C"/>
+    <definition extID="platform.drivers.sfa.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.platform_lowpower.connected_mcu.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.platform_lowpower_timer.connected_mcu.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.platform_ics.connected_mcu.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.platform_ot.connected_mcu.MCXW716C"/>
+    <definition extID="platform.drivers.elemu.MCXW716C"/>
+    <definition extID="middleware.secure-subsystem.elemu.MCXW716C"/>
+    <definition extID="middleware.secure-subsystem.port_kw45_k4w1.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.sec_lib_sss.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.rng.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.PDUM.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.PDM.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.nvm.MCXW716C"/>
+    <definition extID="component.power_manager_frdmmcxw71.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.ota.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.lpm_MCXW716C.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.lpm_MCXW716C_systicks.MCXW716C"/>
+    <definition extID="middleware.wireless.ieee.802.15.4_header.MCXW716C"/>
+    <definition extID="platform.drivers.wdog32.MCXW716C"/>
+    <definition extID="driver.nor_flash-controller-lpspi.MCXW716C"/>
+    <definition extID="platform.utilities.misc_utilities.MCXW716C"/>
+    <definition extID="component.osa_interface.MCXW716C"/>
+    <definition extID="component.osa.MCXW716C"/>
+    <definition extID="middleware.wireless.framework_swo_dbg.MCXW716C"/>
+    <definition extID="CMSIS_Include_core_cm.MCXW716C"/>
+    <definition extID="device.MCXW716C_system.MCXW716C"/>
+    <definition extID="platform.drivers.dma3.MCXW716C"/>
+    <definition extID="utility.str.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.platform_sensors.connected_mcu.MCXW716C"/>
+    <definition extID="platform.drivers.lpadc.MCXW716C"/>
+    <definition extID="platform.drivers.vref_1.MCXW716C"/>
+    <definition extID="middleware.multicore.mcmgr.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.SFC.MCXW716C"/>
+    <definition extID="middleware.secure-subsystem.mu.MCXW716C"/>
+    <definition extID="middleware.secure-subsystem.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.platform_rng.connected_mcu.MCXW716C"/>
+    <definition extID="component.power_manager_core.MCXW716C"/>
+    <definition extID="platform.drivers.crc.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.platform_ota.connected_mcu.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.platform_extflash.connected_mcu.MCXW716C"/>
+    <definition extID="middleware.wireless.framework.ota.internal.MCXW716C"/>
+    <definition extID="driver.nor_flash-common.MCXW716C"/>
+    <definition extID="mcuxpresso"/>
+    <definition extID="com.nxp.mcuxpresso"/>
+    <definition extID="com.crt.advproject.config.exe.debug"/>
+    <definition extID="com.crt.advproject.config.exe.release"/>
+  </externalDefinitions>
+  <example id="frdmmcxw71_zigbee_ed_rx_off_bm" name="zigbee_ed_rx_off_bm" dependency="middleware.wireless.zigbee.k32w1.MCXW716C middleware.wireless.zigbee_core_ZED_libs.MCXW716C middleware.wireless.zigbee.platform.k32w1.MCXW716C middleware.wireless.zb_examples_common.MCXW716C middleware.wireless.zb_examples_common.ota_client.MCXW716C middleware.wireless.zigbee_core_ZCL_Clusters_OTA_Client.MCXW716C middleware.wireless.framework.board_lp.kw45_k32w1.MCXW716C middleware.wireless.ieee.802.15.4_lib_split.MCXW716C component.osa_bm.MCXW716C component.reset_adapter.MCXW716C component.common_task.MCXW716C component.mem_manager_light.MCXW716C component.messaging.MCXW716C component.panic.MCXW716C component.lptmr_adapter.MCXW716C component.timer_manager.MCXW716C component.lptmr_time_stamp_adapter.MCXW716C middleware.wireless.HWParameter.MCXW716C middleware.wireless.framework.common.MCXW716C middleware.wireless.framework.module_info.MCXW716C middleware.wireless.framework.function_lib.MCXW716C middleware.wireless.framework.fwk_debug.MCXW716C component.gpio_adapter.MCXW716C component.button.MCXW716C component.led.MCXW716C platform.drivers.clock.MCXW716C platform.drivers.common.MCXW716C device.MCXW716C_CMSIS.MCXW716C platform.devices.MCXW716C.MCXW716C device.MCXW716C_startup_wireless.MCXW716C platform.drivers.lpuart.MCXW716C platform.drivers.lpuart_edma.MCXW716C platform.drivers.lptmr.MCXW716C platform.drivers.port.MCXW716C platform.drivers.lpspi.MCXW716C platform.drivers.gpio.MCXW716C platform.drivers.flash_k4.MCXW716C component.k4_flash_adapter.MCXW716C component.lpuart_adapter.MCXW716C platform.drivers.tpm.MCXW716C platform.utilities.assert_lite.MCXW716C utility.debug_console_lite.MCXW716C utility.format.MCXW716C component.serial_manager_uart.MCXW716C component.serial_manager.MCXW716C platform.drivers.imu.MCXW716C component.lists.MCXW716C middleware.wireless.framework.rpmsg_config.MCXW716C component.rpmsg_adapter.MCXW716C component.serial_manager_rpmsg.MCXW716C platform.drivers.ltc.MCXW716C middleware.wireless.framework.Sensors.MCXW716C middleware.wireless.framework.platform.connected_mcu.MCXW716C device.MCXW716C_utility.frdmmcxw71.MCXW716C middleware.multicore.mcmgr.mcxw716.MCXW716C middleware.multicore.rpmsg_lite.frdmmcxw71_bm.MCXW716C middleware.baremetal.MCXW716C middleware.multicore.rpmsg_lite.bm.MCXW716C middleware.multicore.rpmsg_lite.MCXW716C component.log.MCXW716C platform.drivers.wuu.MCXW716C platform.drivers.cmc.MCXW716C platform.drivers.spc.MCXW716C platform.drivers.ccm32k.MCXW716C platform.drivers.sfa.MCXW716C middleware.wireless.framework.platform_lowpower.connected_mcu.MCXW716C middleware.wireless.framework.platform_lowpower_timer.connected_mcu.MCXW716C middleware.wireless.framework.platform_ics.connected_mcu.MCXW716C middleware.wireless.framework.platform_ot.connected_mcu.MCXW716C platform.drivers.elemu.MCXW716C middleware.secure-subsystem.elemu.MCXW716C middleware.secure-subsystem.port_kw45_k4w1.MCXW716C middleware.wireless.framework.sec_lib_sss.MCXW716C middleware.wireless.framework.rng.MCXW716C middleware.wireless.framework.PDUM.MCXW716C middleware.wireless.framework.PDM.MCXW716C middleware.wireless.framework.nvm.MCXW716C component.power_manager_frdmmcxw71.MCXW716C middleware.wireless.framework.ota.MCXW716C middleware.wireless.framework.lpm_MCXW716C.MCXW716C middleware.wireless.framework.lpm_MCXW716C_systicks.MCXW716C middleware.wireless.ieee.802.15.4_header.MCXW716C platform.drivers.wdog32.MCXW716C driver.nor_flash-controller-lpspi.MCXW716C platform.utilities.misc_utilities.MCXW716C component.osa_interface.MCXW716C component.osa.MCXW716C middleware.wireless.framework_swo_dbg.MCXW716C CMSIS_Include_core_cm.MCXW716C device.MCXW716C_system.MCXW716C platform.drivers.dma3.MCXW716C utility.str.MCXW716C middleware.wireless.framework.platform_sensors.connected_mcu.MCXW716C platform.drivers.lpadc.MCXW716C platform.drivers.vref_1.MCXW716C middleware.multicore.mcmgr.MCXW716C middleware.wireless.framework.SFC.MCXW716C middleware.secure-subsystem.mu.MCXW716C middleware.secure-subsystem.MCXW716C middleware.wireless.framework.platform_rng.connected_mcu.MCXW716C component.power_manager_core.MCXW716C platform.drivers.crc.MCXW716C middleware.wireless.framework.platform_ota.connected_mcu.MCXW716C middleware.wireless.framework.platform_extflash.connected_mcu.MCXW716C middleware.wireless.framework.ota.internal.MCXW716C driver.nor_flash-common.MCXW716C" category="wireless_examples/zigbee/ed_rx_off/bm">
+    <projects>
+      <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
+    </projects>
+    <memory>
+      <memoryBlock id="PROGRAM_FLASH_" name="PROGRAM_FLASH" addr="00000000" size="00100000" type="Flash" access="RO"/>
+      <memoryBlock id="TCM_SYS_" name="TCM_SYS" addr="20000000" size="0001c000" type="RAM" access="RW"/>
+      <memoryBlock id="TCM_CODE_" name="TCM_CODE" addr="04000000" size="00004000" type="RAM" access="RW"/>
+    </memory>
+    <toolchainSettings>
+      <toolchainSetting id_refs="com.nxp.mcuxpresso">
+        <buildSteps>
+          <preBuildStep>dos2unix "${workspace_loc:/${ProjName}/tools/ZPSConfig/Source/ZPSConfig}" &amp;&amp; dos2unix "${workspace_loc:/${ProjName}/tools/PDUMConfig/Source/PDUMConfig}" &amp;&amp; sh "${workspace_loc:/${ProjName}/tools/ZPSConfig/Source/ZPSConfig}" -n enddevice_rxoff -f "${workspace_loc:/${ProjName}/source/enddevice_rxoff.zpscfg}" -y &amp;&amp; dirname "${workspace_loc:/${ProjName}/source/enddevice_rxoff.zpscfg}" | xargs -I? sh "${workspace_loc:/${ProjName}/tools/PDUMConfig/Source/PDUMConfig}" -z enddevice_rxoff -e LITTLE_ENDIAN_PROCESSOR -f "${workspace_loc:/${ProjName}/source/enddevice_rxoff.zpscfg}" -o "?" &amp;&amp; dirname "${workspace_loc:/${ProjName}/source/enddevice_rxoff.zpscfg}" | xargs -I? sh "${workspace_loc:/${ProjName}/tools/ZPSConfig/Source/ZPSConfig}" -n enddevice_rxoff -t JN518x -l "${workspace_loc:/${ProjName}/libs/zigbee/libZPSNWK_ZED.a}" -a "${workspace_loc:/${ProjName}/libs/zigbee/libZPSAPL.a}"  -e LITTLE_ENDIAN_PROCESSOR  -f "${workspace_loc:/${ProjName}/source/enddevice_rxoff.zpscfg}" -o "?"</preBuildStep>
+          <postBuildStep>echo "${OsType}" | grep -q win* &amp;&amp; py -3 "${workspace_loc:/${ProjName}/tools/OTA/nxpzbota.py}" -log INFO --embed -i "${BuildArtifactFileName}" -o "${BuildArtifactFileBaseName}_v1.axf" -d "K32W1" -OtaMan "0x1037" -OtaImgTyp "0x0003" -OtaVersionStr "K148EVK-----K32W148--ENCRYPTED00" -OtaFileVersion 1 ||  python3 "${workspace_loc:/${ProjName}/tools/OTA/nxpzbota.py}" -log INFO --embed -i "${BuildArtifactFileName}" -o "${BuildArtifactFileBaseName}_v1.axf" -d "K32W1" -OtaMan "0x1037" -OtaImgTyp "0x0003" -OtaVersionStr "K148EVK-----K32W148--ENCRYPTED00" -OtaFileVersion 1; echo "${OsType}" | grep -q win* &amp;&amp; py -3 "${workspace_loc:/${ProjName}/tools/OTA/nxpzbota.py}" -log INFO -i "${BuildArtifactFileName}" -o "${BuildArtifactFileBaseName}_v2.ota" -d "K32W1" -e -k "1234567890ABCDEFA1B2C3D4E5F6F1B4" -OtaMan "0x1037" -OtaImgTyp "0x0003" -OtaVersionStr "K148EVK-----K32W148--ENCRYPTED00" -OtaFileVersion 2 ||  python3 "${workspace_loc:/${ProjName}/tools/OTA/nxpzbota.py}" -log INFO -i "${BuildArtifactFileName}" -o "${BuildArtifactFileBaseName}_v2.ota" -d "K32W1" -e -k "1234567890ABCDEFA1B2C3D4E5F6F1B4" -OtaMan "0x1037" -OtaImgTyp "0x0003" -OtaVersionStr "K148EVK-----K32W148--ENCRYPTED00" -OtaFileVersion 2; echo "${OsType}" | grep -q win* &amp;&amp; py -3 "${workspace_loc:/${ProjName}/tools/OTA/nxpzbota.py}" -log INFO -i "${BuildArtifactFileName}" -o "${BuildArtifactFileBaseName}_v3.ota" -d "K32W1" -e -k "1234567890ABCDEFA1B2C3D4E5F6F1B4" -OtaMan "0x1037" -OtaImgTyp "0x0003" -OtaVersionStr "K148EVK-----K32W148--ENCRYPTED00" -OtaFileVersion 3 ||  python3 "${workspace_loc:/${ProjName}/tools/OTA/nxpzbota.py}" -log INFO -i "${BuildArtifactFileName}" -o "${BuildArtifactFileBaseName}_v3.ota" -d "K32W1" -e -k "1234567890ABCDEFA1B2C3D4E5F6F1B4" -OtaMan "0x1037" -OtaImgTyp "0x0003" -OtaVersionStr "K148EVK-----K32W148--ENCRYPTED00" -OtaFileVersion 3</postBuildStep>
+        </buildSteps>
+        <option id="com.crt.advproject.gcc.exe.debug.option.optimization.level" type="enum">
+          <value>gnu.c.optimization.level.general</value>
+        </option>
+        <option id="com.crt.advproject.gcc.fpu" type="enum">
+          <value>com.crt.advproject.gcc.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="gnu.c.compiler.option.optimization.flags" type="string">
+          <value>-fno-common</value>
+        </option>
+        <option id="com.crt.advproject.c.misc.dialect" type="enum">
+          <value>com.crt.advproject.misc.dialect.gnu99</value>
+        </option>
+        <option id="gnu.c.compiler.option.misc.other" type="string">
+          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -fno-builtin</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.toerrors" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
+          <value>CPU_MCXW716CMFTA</value>
+          <value>FSL_OSA_MAIN_FUNC_ENABLE=1</value>
+          <value>GENERIC_LIST_LIGHT=0</value>
+          <value>USE_SMU2_AS_SYSTEM_MEMORY=1</value>
+          <value>TM_ENABLE_TIME_STAMP=1</value>
+          <value>HAL_RPMSG_SELECT_ROLE=0</value>
+          <value>USE_NBU=1</value>
+          <value>gRngUseSecureSubSystem_d=1</value>
+          <value>SSS_CONFIG_FILE='"fsl_sss_config_elemu.h"'</value>
+          <value>SSCP_CONFIG_FILE='"fsl_sscp_config_elemu.h"'</value>
+          <value>gMemManagerLightGuardsCheckEnable=1</value>
+          <value>gMemManagerLightExtendHeapAreaUsage=1</value>
+          <value>gNvStorageIncluded_d=1</value>
+          <value>gAppButtonCnt_c=1</value>
+          <value>FWK_RNG_DEPRECATED_API</value>
+          <value>gHwParamsProdDataPlacement_c=gHwParamsProdDataPlacementLegacyMode_c</value>
+          <value>USE_PB_RAM_AS_SYSTEM_MEMORY=1</value>
+          <value>gDebugConsoleEnable_d=1</value>
+          <value>DebugConsole_c=1</value>
+          <value>FSL_OSA_TASK_ENABLE=1</value>
+          <value>CPU_MCXW716CMFTA_cm33</value>
+          <value>SDK_OS_BAREMETAL</value>
+          <value>SERIAL_PORT_TYPE_UART=1</value>
+          <value>SDK_DEBUGCONSOLE=1</value>
+          <value>CR_INTEGER_PRINTF</value>
+          <value>PRINTF_FLOAT_ENABLE=0</value>
+          <value>EndDevice</value>
+          <value>PRINTF_ADVANCED_ENABLE=1</value>
+          <value>ZBPRO_DEVICE_TYPE=ZED</value>
+          <value>cPWR_FullPowerDownMode=1</value>
+          <value>CLD_OTA_KEY='"1234567890ABCDEFA1B2C3D4E5F6F1B4"'</value>
+          <value>CLD_OTA_MANF_ID_VALUE=4151</value>
+          <value>OTA_INTERNAL_STORAGE</value>
+          <value>INTERNAL_ENCRYPTED</value>
+          <value>OTA_ENCRYPTED</value>
+          <value>BUILD_OTA</value>
+          <value>HEAP_SIZE=4000</value>
+          <value>LITTLE_ENDIAN_PROCESSOR</value>
+          <value>NDEBUG</value>
+          <value>vector_table_size=512</value>
+          <value>__ram_vector_table__=1</value>
+          <value>osNumberOfSemaphores=0</value>
+          <value>osNumberOfMutexes=0</value>
+          <value>osNumberOfMessageQs=0</value>
+          <value>osNumberOfMessages=0</value>
+          <value>osNumberOfEvents=0</value>
+          <value>gMainThreadStackSize_c=0</value>
+          <value>gMainThreadPriority_c=7</value>
+          <value>gTaskMultipleInstancesManagement_c=0</value>
+          <value>FSL_OSA_BM_TIMER_CONFIG=FSL_OSA_BM_TIMER_SYSTICK</value>
+          <value>ENABLE_RAM_VECTOR_TABLE</value>
+          <value>gFlashEraseDuringWrite=0</value>
+          <value>gInvalidateHeaderLength=336</value>
+          <value>gEepromType_d=gEepromDevice_InternalFlash_c</value>
+          <value>gOtaVerifyWrite_d=0</value>
+          <value>gEePromParams_BufferSize_c=512</value>
+          <value>gEepromParams_bufferedWrite_c=1</value>
+          <value>gEepromParams_CurrentOffset=0</value>
+          <value>SINGLE_CHANNEL=12</value>
+          <value>TRACE_APP=true</value>
+          <value>TRACE_ZCL=true</value>
+          <value>OM15081</value>
+          <value>ZIGBEE_USE_FRAMEWORK=1</value>
+          <value>gSupportBle=0</value>
+          <value>JN518x=5180</value>
+          <value>JENNIC_CHIP_FAMILY_NAME=_JN518x</value>
+          <value>JENNIC_CHIP_FAMILY=JN518x</value>
+          <value>JENNIC_CHIP_FAMILY_JN518x</value>
+          <value>__JN518X__</value>
+          <value>PDM_NO_RTOS</value>
+          <value>CPU_JN518X</value>
+          <value>__NEWLIB__</value>
+          <value>BOARD_FRDMCXW71_SUPPORT=1</value>
+          <value>MCUXPRESSO_SDK</value>
+          <value>TIMER_PORT_TYPE_LPTMR=1</value>
+          <value>SERIAL_PORT_TYPE_RPMSG=1</value>
+          <value>HAL_UART_ADAPTER_LOWPOWER=1</value>
+          <value>MULTICORE_APP=1</value>
+          <value>DEBUG</value>
+        </option>
+        <option id="com.crt.advproject.link.fpu" type="enum">
+          <value>com.crt.advproject.link.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="com.crt.advproject.gas.hdrlib" type="enum">
+          <value>com.crt.advproject.gas.hdrlib.newlib</value>
+        </option>
+        <option id="com.crt.advproject.gas.specs" type="enum">
+          <value>com.crt.advproject.gas.specs.newlib</value>
+        </option>
+        <option id="com.crt.advproject.gcc.hdrlib" type="enum">
+          <value>com.crt.advproject.gcc.hdrlib.newlib</value>
+        </option>
+        <option id="com.crt.advproject.gcc.specs" type="enum">
+          <value>com.crt.advproject.gcc.specs.newlib</value>
+        </option>
+        <option id="com.crt.advproject.link.gcc.hdrlib" type="enum">
+          <value>com.crt.advproject.gcc.link.hdrlib.newlib.nohost</value>
+        </option>
+        <option id="gnu.c.link.option.other" type="stringList">
+          <value>--sort-section=alignment</value>
+          <value>--gc-sections</value>
+          <value>-print-memory-usage</value>
+          <value>-Map="${BuildArtifactFileBaseName}.map"</value>
+          <value>"--defsym=gUseInternalStorageLink_d=1"</value>
+          <value>"--defsym=__stack_size__=0x2000"</value>
+          <value>"--defsym=__heap_size__=0x8000"</value>
+          <value>"--defsym=gUseNVMLink_d=1"</value>
+          <value>--defsym=m_lowpower_flag_start=0x489C007C</value>
+          <value>--no-warn-rwx-segments</value>
+          <value>-no-warn-rwx-segments</value>
+          <value>"--defsym=lp_ram_lower_limit=0x04000000"</value>
+          <value>"--defsym=lp_ram_upper_limit=0x2001C000"</value>
+        </option>
+        <option id="gnu.c.link.option.nostdlibs" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="com.crt.advproject.gas.fpu" type="enum">
+          <value>com.crt.advproject.gas.fpu.fpv5sp.hard</value>
+        </option>
+      </toolchainSetting>
+    </toolchainSettings>
+    <debug_configurations>
+      <debug_configuration id_refs="com.crt.advproject.config.exe.debug com.crt.advproject.config.exe.release">
+        <drivers>
+          <driver id_refs="PROGRAM_FLASH_">
+            <driverBinary path="../../../../../../devices/MCXW716C/mcuxpresso" project_relative_path="binary" type="binary">
+              <files mask="MCXW71X.cfx"/>
+            </driverBinary>
+          </driver>
+        </drivers>
+      </debug_configuration>
+    </debug_configurations>
+    <include_paths>
+      <include_path path="." project_relative_path="board" type="c_include"/>
+      <include_path path="." project_relative_path="source" type="c_include"/>
+      <include_path path="." project_relative_path="ZigbeeCommon/Include" type="c_include"/>
+      <include_path path="." project_relative_path="platform/framework/Common" type="c_include"/>
+      <include_path path="." project_relative_path="platform/framework/PWRM/Include" type="c_include"/>
+      <include_path path="." project_relative_path="platform/framework/RNG/Interface" type="c_include"/>
+      <include_path path="." project_relative_path="platform/framework/SecLib" type="c_include"/>
+      <include_path path="." project_relative_path="platform" type="c_include"/>
+      <include_path path="." project_relative_path="platform/zb_common" type="c_include"/>
+      <include_path path="." project_relative_path="Dependencies/ZCL/Clusters" type="c_include"/>
+      <include_path path="." project_relative_path="Dependencies/ZCIF/Source" type="c_include"/>
+      <include_path path="." project_relative_path="Dependencies/ZCIF/Include" type="c_include"/>
+      <include_path path="." project_relative_path="Dependencies/ZPSAPL/Include" type="c_include"/>
+      <include_path path="." project_relative_path="Dependencies/ZPSMAC/Include" type="c_include"/>
+      <include_path path="." project_relative_path="Dependencies/ZPSNWK/Include" type="c_include"/>
+      <include_path path="." project_relative_path="Dependencies/ZPSTSV/Include" type="c_include"/>
+      <include_path path="." project_relative_path="Dependencies/BDB/Include" type="c_include"/>
+      <include_path path="." project_relative_path="Dependencies/BDB/Source/Common" type="c_include"/>
+      <include_path path="." project_relative_path="Dependencies/BDB/Source/FindAndBind" type="c_include"/>
+      <include_path path="." project_relative_path="Dependencies/BDB/Source/NwkFormation" type="c_include"/>
+      <include_path path="." project_relative_path="Dependencies/BDB/Source/NwkSteering" type="c_include"/>
+      <include_path path="." project_relative_path="Dependencies/BDB/Source/OutOfBand" type="c_include"/>
+      <include_path path="." project_relative_path="Dependencies/BDB/Source/TouchLink" type="c_include"/>
+      <include_path path="." project_relative_path="Dependencies/ZCL/Devices/ZHA" type="c_include"/>
+      <include_path path="." project_relative_path="Dependencies/ZCL/Devices/ZGP/Include" type="c_include"/>
+      <include_path path="." project_relative_path="Dependencies/ZCL/Clusters/ApplianceManagement/Include" type="c_include"/>
+      <include_path path="." project_relative_path="Dependencies/ZCL/Clusters/Closures/Include" type="c_include"/>
+      <include_path path="." project_relative_path="Dependencies/ZCL/Clusters/Commissioning/Include" type="c_include"/>
+      <include_path path="." project_relative_path="Dependencies/ZCL/Clusters/General/Include" type="c_include"/>
+      <include_path path="." project_relative_path="Dependencies/ZCL/Clusters/General/Source" type="c_include"/>
+      <include_path path="." project_relative_path="Dependencies/ZCL/Clusters/GreenPower/Include" type="c_include"/>
+      <include_path path="." project_relative_path="Dependencies/ZCL/Clusters/HVAC/Include" type="c_include"/>
+      <include_path path="." project_relative_path="Dependencies/ZCL/Clusters/Lighting/Include" type="c_include"/>
+      <include_path path="." project_relative_path="Dependencies/ZCL/Clusters/MeasurementAndSensing/Include" type="c_include"/>
+      <include_path path="." project_relative_path="Dependencies/ZCL/Clusters/SecurityAndSafety/Include" type="c_include"/>
+      <include_path path="../../../../../../middleware/wireless/zigbee/ZCL/Clusters/SmartEnergy/Include" project_relative_path="Dependencies/ZCL/Clusters/SmartEnergy/Include" type="c_include"/>
+      <include_path path="." project_relative_path="common" type="c_include"/>
+    </include_paths>
+    <source path="../../../../../../middleware/wireless/zigbee/ZigbeeCommon/Source" project_relative_path="ZigbeeCommon/Source" type="src" exclude="true">
+      <files mask="port_JN516x.c"/>
+      <files mask="port_JN517x.c"/>
+      <files mask="port_linux.c"/>
+      <files mask="usart_dma_rxbuffer.c"/>
+    </source>
+    <source path="tools/ZPSConfig/Source" project_relative_path="tools/ZPSConfig/Source" type="other">
+      <files mask="ZPSConfig"/>
+    </source>
+    <source path="tools/PDUMConfig/Source" project_relative_path="tools/PDUMConfig/Source" type="other">
+      <files mask="PDUMConfig"/>
+    </source>
+    <source path="tools/OTA" project_relative_path="tools/OTA" type="script">
+      <files mask="nxpzbota.py"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include">
+      <files mask="app.h"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="hardware_init.c"/>
+      <files mask="app_services_init.c"/>
+      <files mask="board.c"/>
+      <files mask="board_comp.c"/>
+      <files mask="board_dcdc.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="clock_config.c"/>
+      <files mask="pin_mux.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="clock_config.h"/>
+      <files mask="pin_mux.h"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include">
+      <files mask="RNG_Interface.h"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="fsl_adapter_rpmsg.h"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="fwk_platform.h"/>
+      <files mask="platform_genfsk.h"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="platform_genfsk.c"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/BDB/Include" type="c_include">
+      <files mask="bdb_DeviceCommissioning.h"/>
+    </source>
+    <source path="../../../../../../core/devices/MCXW716C/mcuxpresso" project_relative_path="startup" type="src" exclude="true">
+      <files mask="startup_mcxw716.c"/>
+    </source>
+    <source path="." project_relative_path="platform/framework/Common" type="c_include">
+      <files mask="Heap.h"/>
+      <files mask="MicroSpecific.h"/>
+      <files mask="MicroSpecific_JN518x.h"/>
+      <files mask="MicroSpecific_arm_sdk2.h"/>
+      <files mask="dbg.h"/>
+      <files mask="glue.h"/>
+      <files mask="jendefs.h"/>
+    </source>
+    <source path="." project_relative_path="platform/framework/PWRM/Include" type="c_include">
+      <files mask="pwrm.h"/>
+    </source>
+    <source path="." project_relative_path="platform/framework/SecLib" type="c_include">
+      <files mask="aessw_ccm.h"/>
+    </source>
+    <source path="." project_relative_path="platform" type="c_include">
+      <files mask="zb_platform.h"/>
+    </source>
+    <source path="." project_relative_path="platform/zb_common" type="c_include">
+      <files mask="MDI_Programmer.h"/>
+      <files mask="MDI_ReadFirmVer.h"/>
+      <files mask="PDM_IDs.h"/>
+      <files mask="app_buttons.h"/>
+      <files mask="app_common.h"/>
+      <files mask="app_common_ncp.h"/>
+      <files mask="app_console.h"/>
+      <files mask="app_crypto.h"/>
+      <files mask="app_leds.h"/>
+      <files mask="app_ota_client.h"/>
+      <files mask="app_ota_server.h"/>
+      <files mask="app_uart.h"/>
+      <files mask="peripheral.h"/>
+      <files mask="serial_link_cmds_ctrl.h"/>
+      <files mask="serial_link_cmds_wkr.h"/>
+      <files mask="serial_link_ctrl.h"/>
+      <files mask="serial_link_wkr.h"/>
+    </source>
+    <source path="." project_relative_path="ZigbeeCommon/Include" type="c_include">
+      <files mask="ZQueue.h"/>
+      <files mask="ZTimer.h"/>
+      <files mask="appZdpExtraction.h"/>
+      <files mask="appZpsBeaconHandler.h"/>
+      <files mask="portmacro.h"/>
+      <files mask="portmacro_JN516x.h"/>
+      <files mask="portmacro_JN517x.h"/>
+      <files mask="portmacro_JN518x.h"/>
+      <files mask="portmacro_linux.h"/>
+      <files mask="tlv.h"/>
+      <files mask="usart_dma_rxbuffer.h"/>
+    </source>
+    <source path="." project_relative_path="ZigbeeCommon/Source" type="src">
+      <files mask="ZQueue.c"/>
+      <files mask="ZTimer.c"/>
+      <files mask="appZdpExtraction.c"/>
+      <files mask="appZpsBeaconHandler.c"/>
+      <files mask="appZpsExtendedDebug.c"/>
+      <files mask="app_zps_link_keys.c"/>
+      <files mask="port_JN516x.c"/>
+      <files mask="port_JN517x.c"/>
+      <files mask="port_JN518x.c"/>
+      <files mask="port_linux.c"/>
+      <files mask="tlv.c"/>
+      <files mask="usart_dma_rxbuffer.c"/>
+    </source>
+    <source path="tools/OTA/keys_and_certs" project_relative_path="tools/OTA/keys_and_certs" type="other">
+      <files mask="ec_pk_secp384r1_cert0.pem"/>
+      <files mask="ec_pk_secp384r1_sign_cert.pem"/>
+      <files mask="ec_secp384r1_cert0.pem"/>
+      <files mask="ec_secp384r1_cert1.pem"/>
+      <files mask="ec_secp384r1_cert2.pem"/>
+      <files mask="ec_secp384r1_cert3.pem"/>
+      <files mask="ec_secp384r1_sign_cert.pem"/>
+      <files mask="sb3kdk.key"/>
+    </source>
+    <source path="tools/OTA/SB3" project_relative_path="tools/OTA/SB3" type="other">
+      <files mask="sb3_json_example_without_nbu.json"/>
+      <files mask="sign_mcu_file_json_example.json"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/ZCIF/Source" type="src">
+      <files mask="dlist.c"/>
+      <files mask="zcl.c"/>
+      <files mask="zcl_CustomCommandReceive.c"/>
+      <files mask="zcl_CustomCommandSend.c"/>
+      <files mask="zcl_PDUbufferReadWrite.c"/>
+      <files mask="zcl_PDUbufferReadWriteString.c"/>
+      <files mask="zcl_WriteAttributesRequestHandle.c"/>
+      <files mask="zcl_WriteAttributesRequestSend.c"/>
+      <files mask="zcl_WriteAttributesResponseHandle.c"/>
+      <files mask="zcl_attribute.c"/>
+      <files mask="zcl_buffer.c"/>
+      <files mask="zcl_clusterCommand.c"/>
+      <files mask="zcl_command.c"/>
+      <files mask="zcl_common.c"/>
+      <files mask="zcl_configureReportingCommandHandle.c"/>
+      <files mask="zcl_configureReportingCommandSend.c"/>
+      <files mask="zcl_configureReportingResponseHandle.c"/>
+      <files mask="zcl_defaultResponse.c"/>
+      <files mask="zcl_discoverAttributesExtendedRequestHandle.c"/>
+      <files mask="zcl_discoverAttributesExtendedRequestSend.c"/>
+      <files mask="zcl_discoverAttributesExtendedResponseHandle.c"/>
+      <files mask="zcl_discoverAttributesRequestHandle.c"/>
+      <files mask="zcl_discoverAttributesRequestSend.c"/>
+      <files mask="zcl_discoverAttributesResponseHandle.c"/>
+      <files mask="zcl_discoverCommandsRequestHandle.c"/>
+      <files mask="zcl_discoverCommandsRequestSend.c"/>
+      <files mask="zcl_discoverCommandsResponseHandle.c"/>
+      <files mask="zcl_event.c"/>
+      <files mask="zcl_heap.c"/>
+      <files mask="zcl_library_options.c"/>
+      <files mask="zcl_readAttributesRequestHandle.c"/>
+      <files mask="zcl_readAttributesRequestSend.c"/>
+      <files mask="zcl_readAttributesResponseHandle.c"/>
+      <files mask="zcl_readReportingConfigurationCommandHandle.c"/>
+      <files mask="zcl_readReportingConfigurationCommandSend.c"/>
+      <files mask="zcl_readReportingConfigurationResponseHandle.c"/>
+      <files mask="zcl_reportManager.c"/>
+      <files mask="zcl_reportMaths.c"/>
+      <files mask="zcl_reportScheduler.c"/>
+      <files mask="zcl_reportStringHandling.c"/>
+      <files mask="zcl_reportStructure.c"/>
+      <files mask="zcl_search.c"/>
+      <files mask="zcl_timer.c"/>
+      <files mask="zcl_transmit.c"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/ZCIF/Source" type="other">
+      <files mask="version.template"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/ZCIF/Source" type="c_include">
+      <files mask="zcl_common.h"/>
+      <files mask="zcl_internal.h"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/ZCIF/Include" type="c_include">
+      <files mask="dlist.h"/>
+      <files mask="zcl.h"/>
+      <files mask="zcl_customcommand.h"/>
+      <files mask="zcl_heap.h"/>
+      <files mask="zcl_internal_library_options.h"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/ZCL/Clusters/ApplianceManagement/Include" type="c_include">
+      <files mask="ApplianceControl.h"/>
+      <files mask="ApplianceEventsAndAlerts.h"/>
+      <files mask="ApplianceIdentification.h"/>
+      <files mask="ApplianceStatistics.h"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/ZCL/Clusters/Closures/Include" type="c_include">
+      <files mask="DoorLock.h"/>
+      <files mask="WindowCovering.h"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/ZCL/Clusters/Commissioning/Include" type="c_include">
+      <files mask="Commissioning.h"/>
+      <files mask="zll_commission.h"/>
+      <files mask="zll_utility.h"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/ZCL/Clusters/Commissioning/Source" type="src">
+      <files mask="Commissioning.c"/>
+      <files mask="CommissioningClientCommands.c"/>
+      <files mask="CommissioningCmdHandler.c"/>
+      <files mask="CommissioningServerCommands.c"/>
+      <files mask="zll_CommissionCmdHandler.c"/>
+      <files mask="zll_UtilityCmdHandler.c"/>
+      <files mask="zll_commission.c"/>
+      <files mask="zll_utility.c"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/ZCL/Clusters/Commissioning/Source" type="c_include">
+      <files mask="Commissioning_internal.h"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/ZCL/Clusters/General/Include" type="c_include">
+      <files mask="Alarms.h"/>
+      <files mask="AnalogInputBasic.h"/>
+      <files mask="AnalogOutputBasic.h"/>
+      <files mask="Basic.h"/>
+      <files mask="BinaryInputBasic.h"/>
+      <files mask="BinaryOutputBasic.h"/>
+      <files mask="DeviceTemperatureConfiguration.h"/>
+      <files mask="Diagnostics.h"/>
+      <files mask="Groups.h"/>
+      <files mask="Identify.h"/>
+      <files mask="LevelControl.h"/>
+      <files mask="MultistateInputBasic.h"/>
+      <files mask="MultistateOutputBasic.h"/>
+      <files mask="OOSC.h"/>
+      <files mask="OnOff.h"/>
+      <files mask="PollControl.h"/>
+      <files mask="PowerConfiguration.h"/>
+      <files mask="PowerProfile.h"/>
+      <files mask="Scenes.h"/>
+      <files mask="TC.h"/>
+      <files mask="WWAH.h"/>
+      <files mask="ZclTime.h"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/ZCL/Clusters/General/Source" type="src">
+      <files mask="Alarms.c"/>
+      <files mask="AlarmsClientCommands.c"/>
+      <files mask="AlarmsCommandHandler.c"/>
+      <files mask="AlarmsServerCommands.c"/>
+      <files mask="AlarmsTableManager.c"/>
+      <files mask="AnalogInputBasic.c"/>
+      <files mask="AnalogOutputBasic.c"/>
+      <files mask="Basic.c"/>
+      <files mask="BasicClientCommands.c"/>
+      <files mask="BasicCommandHandler.c"/>
+      <files mask="BinaryInputBasic.c"/>
+      <files mask="BinaryOutputBasic.c"/>
+      <files mask="DeviceTemperatureConfiguration.c"/>
+      <files mask="Diagnostics.c"/>
+      <files mask="Groups.c"/>
+      <files mask="GroupsClientCommands.c"/>
+      <files mask="GroupsCommandHandler.c"/>
+      <files mask="GroupsServerCommands.c"/>
+      <files mask="GroupsTableManager.c"/>
+      <files mask="Identify.c"/>
+      <files mask="IdentifyClientCommands.c"/>
+      <files mask="IdentifyCommandHandler.c"/>
+      <files mask="IdentifyServerCommands.c"/>
+      <files mask="LevelControl.c"/>
+      <files mask="LevelControlClientCommands.c"/>
+      <files mask="LevelControlCommandHandler.c"/>
+      <files mask="MultistateInputBasic.c"/>
+      <files mask="MultistateOutputBasic.c"/>
+      <files mask="OOSC.c"/>
+      <files mask="OnOff.c"/>
+      <files mask="OnOffCommandHandler.c"/>
+      <files mask="OnOffCommands.c"/>
+      <files mask="PollControl.c"/>
+      <files mask="PollControlClientCommands.c"/>
+      <files mask="PollControlCommandHandler.c"/>
+      <files mask="PollControlServerCommands.c"/>
+      <files mask="PowerConfiguration.c"/>
+      <files mask="PowerProfile.c"/>
+      <files mask="PowerProfileClientCommands.c"/>
+      <files mask="PowerProfileCommandHandler.c"/>
+      <files mask="PowerProfileServerCommands.c"/>
+      <files mask="Scenes.c"/>
+      <files mask="ScenesClientCommands.c"/>
+      <files mask="ScenesClusterManagement.c"/>
+      <files mask="ScenesCommandHandler.c"/>
+      <files mask="ScenesServerCommands.c"/>
+      <files mask="ScenesTableManager.c"/>
+      <files mask="TC.c"/>
+      <files mask="Time.c"/>
+      <files mask="WWAH.c"/>
+      <files mask="WWAHClientCommands.c"/>
+      <files mask="WWAHCommandHandler.c"/>
+      <files mask="WWAHServerCommands.c"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/ZCL/Clusters/General/Source" type="c_include">
+      <files mask="Alarms_internal.h"/>
+      <files mask="AnalogInputBasic_internal.h"/>
+      <files mask="AnalogOutputBasic_internal.h"/>
+      <files mask="Basic_internal.h"/>
+      <files mask="BinaryInputBasic_internal.h"/>
+      <files mask="BinaryOutputBasic_internal.h"/>
+      <files mask="Groups_internal.h"/>
+      <files mask="Identify_internal.h"/>
+      <files mask="LevelControl_internal.h"/>
+      <files mask="MultistateInputBasic_internal.h"/>
+      <files mask="MultistateOutputBasic_internal.h"/>
+      <files mask="OnOff_internal.h"/>
+      <files mask="PollControl_internal.h"/>
+      <files mask="PowerProfile_internal.h"/>
+      <files mask="Scenes_internal.h"/>
+      <files mask="WWAH_internal.h"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/ZCL/Clusters/GreenPower/Include" type="c_include">
+      <files mask="GreenPower.h"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/ZCL/Clusters/HVAC/Include" type="c_include">
+      <files mask="FanControl.h"/>
+      <files mask="Thermostat.h"/>
+      <files mask="ThermostatUIConfig.h"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/ZCL/Clusters/Lighting/Include" type="c_include">
+      <files mask="BallastConfiguration.h"/>
+      <files mask="ColourControl.h"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/ZCL/Clusters/MeasurementAndSensing/Include" type="c_include">
+      <files mask="ConcentrationMeasurement.h"/>
+      <files mask="ElectricalMeasurement.h"/>
+      <files mask="FlowMeasurement.h"/>
+      <files mask="IlluminanceLevelSensing.h"/>
+      <files mask="IlluminanceMeasurement.h"/>
+      <files mask="OccupancySensing.h"/>
+      <files mask="PressureMeasurement.h"/>
+      <files mask="RelativeHumidityMeasurement.h"/>
+      <files mask="TemperatureMeasurement.h"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/ZCL/Clusters/SecurityAndSafety/Include" type="c_include">
+      <files mask="IASACE.h"/>
+      <files mask="IASWD.h"/>
+      <files mask="IASZone.h"/>
+    </source>
+    <source path="../../../../../../middleware/wireless/zigbee/ZCL/Clusters/SmartEnergy/Include" project_relative_path="Dependencies/ZCL/Clusters/SmartEnergy/Include" type="c_include">
+      <files mask="DRLC.h"/>
+      <files mask="Price.h"/>
+      <files mask="SimpleMetering.h"/>
+      <files mask="SimpleMeteringAttributeCount.h"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/ZCL/Devices/ZGP" type="c_include">
+      <files mask="gp.h"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/ZCL/Devices/ZGP" type="src">
+      <files mask="gp.c"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/ZCL/Devices/ZHA" type="c_include">
+      <files mask="base_device.h"/>
+      <files mask="mains_power_outlet.h"/>
+      <files mask="on_off_output.h"/>
+      <files mask="plug_control.h"/>
+      <files mask="remote_control.h"/>
+      <files mask="simple_sensor.h"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/ZCL/Devices/ZHA" type="src">
+      <files mask="base_device.c"/>
+      <files mask="mains_power_outlet.c"/>
+      <files mask="on_off_output.c"/>
+      <files mask="plug_control.c"/>
+      <files mask="remote_control.c"/>
+      <files mask="simple_sensor.c"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/BDB/Include" type="c_include">
+      <files mask="bdb_api.h"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/BDB/Source/Common" type="src">
+      <files mask="bdb_fr.c"/>
+      <files mask="bdb_start.c"/>
+      <files mask="bdb_state_machine.c"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/BDB/Source/Common" type="c_include">
+      <files mask="bdb_fr.h"/>
+      <files mask="bdb_start.h"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/BDB/Source/FindAndBind" type="c_include">
+      <files mask="bdb_fb_api.h"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/BDB/Source/FindAndBind" type="src">
+      <files mask="bdb_fb_common.c"/>
+      <files mask="bdb_fb_initiator.c"/>
+      <files mask="bdb_fb_target.c"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/BDB/Source/NwkFormation" type="src">
+      <files mask="bdb_nf.c"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/BDB/Source/NwkFormation" type="c_include">
+      <files mask="bdb_nf.h"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/BDB/Source/NwkSteering" type="src">
+      <files mask="bdb_ns.c"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/BDB/Source/NwkSteering" type="c_include">
+      <files mask="bdb_ns.h"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/BDB/Source/OutOfBand" type="src">
+      <files mask="bdb_DeviceCommissioning.c"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/BDB/Source/OutOfBand" type="c_include">
+      <files mask="bdb_DeviceCommissioning.h"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/BDB/Source/TouchLink" type="c_include">
+      <files mask="bdb_tl.h"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/ZPSAPL/Include" type="c_include">
+      <files mask="zps_apl.h"/>
+      <files mask="zps_apl_af.h"/>
+      <files mask="zps_apl_aib.h"/>
+      <files mask="zps_apl_aps.h"/>
+      <files mask="zps_apl_zdo.h"/>
+      <files mask="zps_apl_zdp.h"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/ZPSMAC/Include" type="c_include">
+      <files mask="mac_vs_sap.h"/>
+      <files mask="zps_mac.h"/>
+      <files mask="zps_mac_if_table.h"/>
+      <files mask="zps_mac_prv.h"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/ZPSNWK/Include" type="c_include">
+      <files mask="zps_nwk_config.h"/>
+      <files mask="zps_nwk_mac_sap.h"/>
+      <files mask="zps_nwk_nib.h"/>
+      <files mask="zps_nwk_pub.h"/>
+      <files mask="zps_nwk_sap.h"/>
+      <files mask="zps_nwk_sec.h"/>
+      <files mask="zps_nwk_slist.h"/>
+    </source>
+    <source path="." project_relative_path="Dependencies/ZPSTSV/Include" type="c_include">
+      <files mask="zps_tsv.h"/>
+    </source>
+    <source path="." project_relative_path="source" type="src">
+      <files mask="app_end_device_node.c"/>
+      <files mask="app_main.c"/>
+      <files mask="app_reporting.c"/>
+      <files mask="app_start.c"/>
+      <files mask="app_zcl_task.c"/>
+      <files mask="pdum_gen.c"/>
+      <files mask="zps_gen.c"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include">
+      <files mask="app_end_device_node.h"/>
+      <files mask="app_main.h"/>
+      <files mask="app_reporting.h"/>
+      <files mask="app_zcl_task.h"/>
+      <files mask="bdb_options.h"/>
+      <files mask="pdum_gen.h"/>
+      <files mask="zcl_options.h"/>
+      <files mask="zigbee_config.h"/>
+      <files mask="zps_gen.h"/>
+    </source>
+    <source path="." project_relative_path="source" type="other">
+      <files mask="enddevice_rxoff.zpscfg"/>
+    </source>
+    <source path="." project_relative_path="source" type="asm_include">
+      <files mask="pdum_apdu.S"/>
+    </source>
+    <source path="../../../../../../middleware/wireless/zigbee/examples/zigbee_ed_rx_off/src" project_relative_path="doc" type="doc">
+      <files mask="readme.txt"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="board.h"/>
+      <files mask="board_extflash.h"/>
+      <files mask="board_platform.h"/>
+      <files mask="board_comp.h"/>
+      <files mask="board_dcdc.h"/>
+    </source>
+    <source path="." project_relative_path="scripts" type="linker" toolchain="mcuxpresso">
+      <files mask="connectivity.ld"/>
+    </source>
+  </example>
+</ksdk:examples>

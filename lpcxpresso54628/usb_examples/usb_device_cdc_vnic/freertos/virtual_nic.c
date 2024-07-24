@@ -32,6 +32,7 @@
 #endif /* FSL_FEATURE_SOC_SYSMPU_COUNT */
 
 #include "fsl_power.h"
+#include "fsl_mrt.h"
 #include "fsl_phylan8720a.h"
 #include "fsl_phy.h"
 /*******************************************************************************
@@ -39,6 +40,9 @@
  ******************************************************************************/
 /* Base unit for ENIT layer is 1Mbps while for RNDIS its 100bps*/
 #define ENET_CONVERT_FACTOR (10000)
+#define VNIC_EVENT_DEVICE_TX (0x1U)
+#define VNIC_EVENT_DEVICE_RX (0x2U)
+#define VNIC_EVENT_MASK      (0xFFU)
 
 /*******************************************************************************
  * Prototypes
@@ -50,6 +54,12 @@ void USB_DeviceIsrEnable(void);
 void USB_DeviceTaskFn(void *deviceHandle);
 #endif
 
+#if (defined(USB_DEVICE_CONFIG_LPCIP3511HS) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U))
+#if !((defined FSL_FEATURE_SOC_USBPHY_COUNT) && (FSL_FEATURE_SOC_USBPHY_COUNT > 0U))
+void USB_DeviceHsPhyChirpIssueWorkaround(void);
+void USB_DeviceDisconnected(void);
+#endif
+#endif
 void VNIC_EnetRxBufFree(pbuf_t *pbuf);
 void VNIC_EnetTxBufFree(pbuf_t *pbuf);
 bool VNIC_EnetGetLinkStatus(void);
@@ -64,6 +74,10 @@ usb_status_t VNIC_EnetTxDone(void);
  ******************************************************************************/
 phy_lan8720a_resource_t g_phy_resource;
 extern usb_cdc_vnic_t g_cdcVnic;
+volatile uint32_t hwTick;
+uint32_t timerInterval;
+uint32_t isConnectedToFsHost = 0U;
+uint32_t isConnectedToHsHost = 0U;
 extern usb_device_endpoint_struct_t g_cdcVnicDicEp[];
 extern usb_device_class_struct_t g_cdcVnicClass;
 extern queue_t g_enetRxServiceQueue;
@@ -143,6 +157,124 @@ static status_t MDIO_Read(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
     return ENET_MDIORead(ENET, phyAddr, regAddr, pData);
 }
 
+void USB_TimerInit(uint8_t instance, uint32_t interval)
+{
+    MRT_Type *instanceList[] = MRT_BASE_PTRS;
+    IRQn_Type instanceIrq[]  = MRT_IRQS;
+    /* Structure of initialize MRT */
+    mrt_config_t mrtConfig;
+    /* mrtConfig.enableMultiTask = false; */
+    MRT_GetDefaultConfig(&mrtConfig);
+    /* Init mrt module */
+    MRT_Init(instanceList[instance], &mrtConfig);
+    /* Setup Channel 0 to be repeated */
+    MRT_SetupChannelMode(instanceList[instance], kMRT_Channel_0, kMRT_RepeatMode);
+    /* Enable timer interrupts for channel 0 */
+    MRT_EnableInterrupts(instanceList[instance], kMRT_Channel_0, kMRT_TimerInterruptEnable);
+    timerInterval = interval;
+    /* Enable at the NVIC */
+    EnableIRQ(instanceIrq[instance]);
+}
+void USB_TimerInt(uint8_t instance, uint8_t enable)
+{
+    MRT_Type *instanceList[] = MRT_BASE_PTRS;
+    uint32_t mrt_clock;
+    mrt_clock = CLOCK_GetFreq(kCLOCK_BusClk);
+    if (enable)
+    {
+        /* Start channel 0 */
+        MRT_StartTimer(instanceList[instance], kMRT_Channel_0, USEC_TO_COUNT(timerInterval, mrt_clock));
+    }
+    else
+    {
+        /* Stop channel 0 */
+        MRT_StopTimer(instanceList[instance], kMRT_Channel_0);
+        /* Clear interrupt flag.*/
+        MRT_ClearStatusFlags(instanceList[instance], kMRT_Channel_0, kMRT_TimerInterruptFlag);
+    }
+}
+void MRT0_IRQHandler(void)
+{
+    /* Clear interrupt flag.*/
+    MRT_ClearStatusFlags(MRT0, kMRT_Channel_0, kMRT_TimerInterruptFlag);
+    if (hwTick)
+    {
+        hwTick--;
+        if (!hwTick)
+        {
+            USB_TimerInt(0, 0);
+        }
+    }
+    else
+    {
+        USB_TimerInt(0, 0);
+    }
+}
+void USB_DeviceDisconnected(void)
+{
+    isConnectedToFsHost = 0U;
+}
+/*
+ * This is a work-around to fix the HS device Chirping issue.
+ * The device (IP3511HS controller) will not work sometimes when the cable
+ * is attached at the first time after a Power-on Reset.
+ */
+void USB_DeviceHsPhyChirpIssueWorkaround(void)
+{
+    uint32_t startFrame = USBHSD->INFO & USBHSD_INFO_FRAME_NR_MASK;
+    uint32_t currentFrame;
+    uint32_t isConnectedToFsHostFlag = 0U;
+    if ((!isConnectedToHsHost) && (!isConnectedToFsHost))
+    {
+        if (((USBHSD->DEVCMDSTAT & USBHSD_DEVCMDSTAT_Speed_MASK) >> USBHSD_DEVCMDSTAT_Speed_SHIFT) == 0x01U)
+        {
+            USBHSD->DEVCMDSTAT = (USBHSD->DEVCMDSTAT & (~(0x0F000000U | USBHSD_DEVCMDSTAT_PHY_TEST_MODE_MASK))) |
+                                 USBHSD_DEVCMDSTAT_PHY_TEST_MODE(0x05U);
+            hwTick = 100;
+            USB_TimerInt(0, 1);
+            usb_echo("The USB device PHY chirp work-around is working\r\n");
+            while (hwTick)
+            {
+            }
+            currentFrame = USBHSD->INFO & USBHSD_INFO_FRAME_NR_MASK;
+            if (currentFrame != startFrame)
+            {
+                isConnectedToHsHost = 1U;
+            }
+            else
+            {
+                hwTick = 1;
+                USB_TimerInt(0, 1);
+                while (hwTick)
+                {
+                }
+                currentFrame = USBHSD->INFO & USBHSD_INFO_FRAME_NR_MASK;
+                if (currentFrame != startFrame)
+                {
+                    isConnectedToHsHost = 1U;
+                }
+                else
+                {
+                    isConnectedToFsHostFlag = 1U;
+                }
+            }
+            USBHSD->DEVCMDSTAT = (USBHSD->DEVCMDSTAT & (~(0x0F000000U | USBHSD_DEVCMDSTAT_PHY_TEST_MODE_MASK)));
+            USBHSD->DEVCMDSTAT = (USBHSD->DEVCMDSTAT & (~(0x0F000000U | USBHSD_DEVCMDSTAT_DCON_MASK)));
+            hwTick             = 510;
+            USB_TimerInt(0, 1);
+            while (hwTick)
+            {
+            }
+            USBHSD->DEVCMDSTAT = (USBHSD->DEVCMDSTAT & (~(0x0F000000U))) | USB_DEVCMDSTAT_DCON_C_MASK;
+            USBHSD->DEVCMDSTAT =
+                (USBHSD->DEVCMDSTAT & (~(0x0F000000U))) | USBHSD_DEVCMDSTAT_DCON_MASK | USB_DEVCMDSTAT_DRES_C_MASK;
+            if (isConnectedToFsHostFlag)
+            {
+                isConnectedToFsHost = 1U;
+            }
+        }
+    }
+}
 #if (defined(USB_DEVICE_CONFIG_LPCIP3511FS) && (USB_DEVICE_CONFIG_LPCIP3511FS > 0U))
 void USB0_IRQHandler(void)
 {
@@ -207,6 +339,32 @@ void USB_DeviceTaskFn(void *deviceHandle)
 #endif
 
 /*!
+ * @brief Set events for data transmission.
+ *
+ * @param events to set.
+ * @return None.
+ */     
+static inline void USB_DeviceVnicEventSet(EventBits_t event)
+{
+    if (0U != __get_IPSR())
+    {
+        portBASE_TYPE taskToWake = (portBASE_TYPE)pdFALSE;
+
+        (void)xEventGroupSetBitsFromISR(g_cdcVnic.eventHandle, event, &taskToWake);
+        portYIELD_FROM_ISR(((bool)(taskToWake)));
+    }
+    else
+    {
+        (void)xEventGroupSetBits(g_cdcVnic.eventHandle, event);
+    }
+}
+
+void USB_DeviceVnicTxEventSet(void)
+{
+    USB_DeviceVnicEventSet(VNIC_EVENT_DEVICE_TX);
+}
+
+/*!
  * @brief Set the state of the usb transmit direction
  *
  * @param state The state of the usb transmit direction.
@@ -218,6 +376,7 @@ static inline usb_status_t USB_DeviceVnicTransmitSetState(usb_cdc_vnic_tx_state_
     USB_DEVICE_VNIC_ENTER_CRITICAL();
     g_cdcVnic.nicTrafficInfo.usbTxState = state;
     USB_DEVICE_VNIC_EXIT_CRITICAL();
+    USB_DeviceVnicEventSet(VNIC_EVENT_DEVICE_TX);
     return kStatus_USB_Success;
 }
 
@@ -233,6 +392,7 @@ static inline usb_status_t USB_DeviceVnicReceiveSetState(usb_cdc_vnic_rx_state_t
     USB_DEVICE_VNIC_ENTER_CRITICAL();
     g_cdcVnic.nicTrafficInfo.usbRxState = state;
     USB_DEVICE_VNIC_EXIT_CRITICAL();
+    USB_DeviceVnicEventSet(VNIC_EVENT_DEVICE_RX);
     return kStatus_USB_Success;
 }
 
@@ -709,6 +869,16 @@ usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event, void *
             g_cdcVnic.attach               = 0;
             g_cdcVnic.currentConfiguration = 0U;
             error                          = kStatus_USB_Success;
+
+#if (defined(USB_DEVICE_CONFIG_LPCIP3511HS) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U))
+#if !((defined FSL_FEATURE_SOC_USBPHY_COUNT) && (FSL_FEATURE_SOC_USBPHY_COUNT > 0U))
+            /* The work-around is used to fix the HS device Chirping issue.
+             * Please refer to the implementation for the detail information.
+             */
+            USB_DeviceHsPhyChirpIssueWorkaround();
+#endif
+#endif
+
 #if (defined(USB_DEVICE_CONFIG_EHCI) && (USB_DEVICE_CONFIG_EHCI > 0U)) || \
     (defined(USB_DEVICE_CONFIG_LPCIP3511HS) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U))
             /* Get USB speed to configure the device, including max packet size and interval of the endpoints. */
@@ -728,6 +898,18 @@ usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event, void *
             USB_DeviceVnicReceiveSetState(RX_PART_ONE_PROCESS);
         }
         break;
+#if (defined(USB_DEVICE_CONFIG_DETACH_ENABLE) && (USB_DEVICE_CONFIG_DETACH_ENABLE > 0U))
+        case kUSB_DeviceEventDetach:
+        {
+#if (defined(USB_DEVICE_CONFIG_LPCIP3511HS) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U))
+#if !((defined FSL_FEATURE_SOC_USBPHY_COUNT) && (FSL_FEATURE_SOC_USBPHY_COUNT > 0U))
+            USB_DeviceDisconnected();
+#endif
+#endif
+            error = kStatus_USB_Success;
+        }
+        break;
+#endif
         case kUSB_DeviceEventSetConfiguration:
             if (0U == (*temp8))
             {
@@ -855,6 +1037,12 @@ void USB_DeviceApplicationInit(void)
     g_cdcVnic.cdcAcmHandle = (class_handle_t)NULL;
     g_cdcVnic.deviceHandle = NULL;
 
+    g_cdcVnic.eventHandle = xEventGroupCreate();
+    if (NULL == g_cdcVnic.eventHandle)
+    {
+        usb_echo("Event create failed\r\n");
+    }
+
     USB_DeviceVnicReceiveSetState(RX_PART_ONE_PROCESS);
 
     if (kStatus_USB_Success != USB_DeviceClassInit(CONTROLLER_ID, &s_cdcAcmConfigList, &g_cdcVnic.deviceHandle))
@@ -930,9 +1118,18 @@ void APPTask(void *handle)
     {
         if ((1 == g_cdcVnic.attach))
         {
+            EventBits_t eventValue;
+
             /* User Code */
-            USB_DeviceVnicTransmit();
-            USB_DeviceVnicReceive();
+            eventValue = xEventGroupWaitBits(g_cdcVnic.eventHandle, VNIC_EVENT_MASK, pdTRUE, pdFALSE, portMAX_DELAY);
+            if ((eventValue & VNIC_EVENT_DEVICE_TX) != 0U)
+            {
+                USB_DeviceVnicTransmit();
+            }
+            if ((eventValue & VNIC_EVENT_DEVICE_RX) != 0U)
+            {
+                USB_DeviceVnicReceive();
+            }
         }
     }
 }
@@ -956,6 +1153,7 @@ void main(void)
     *((uint32_t *)(USBHSH_BASE + 0x50)) |= USBHSH_PORTMODE_DEV_ENABLE_MASK;
     /* enable usb1 host clock */
     CLOCK_DisableClock(kCLOCK_Usbh1);
+    USB_TimerInit(0, 1000U);
 #endif
 #if (defined USB_DEVICE_CONFIG_LPCIP3511FS) && (USB_DEVICE_CONFIG_LPCIP3511FS)
     POWER_DisablePD(kPDRUNCFG_PD_USB0_PHY); /*< Turn on USB Phy */

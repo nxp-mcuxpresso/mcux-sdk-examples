@@ -17,13 +17,14 @@
     <definition extID="component.usart_adapter.LPC55S06"/>
     <definition extID="component.lists.LPC55S06"/>
     <definition extID="platform.utilities.misc_utilities.LPC55S06"/>
+    <definition extID="utility.str.LPC55S06"/>
     <definition extID="CMSIS_Include_core_cm.LPC55S06"/>
     <definition extID="device.LPC55S06_system.LPC55S06"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="lpcxpresso55s06_secure_gpio_ns" name="secure_gpio_ns" dependency="utility.debug_console_lite.LPC55S06 platform.utilities.assert_lite.LPC55S06 platform.drivers.lpc_iocon.LPC55S06 platform.drivers.common.LPC55S06 platform.drivers.clock.LPC55S06 platform.drivers.power.LPC55S06 platform.drivers.reset.LPC55S06 device.LPC55S06_CMSIS.LPC55S06 device.LPC55S06_startup.LPC55S06 platform.drivers.flexcomm_usart.LPC55S06 platform.drivers.flexcomm.LPC55S06 platform.drivers.lpc_gpio.LPC55S06 component.usart_adapter.LPC55S06 component.lists.LPC55S06 platform.utilities.misc_utilities.LPC55S06 CMSIS_Include_core_cm.LPC55S06 device.LPC55S06_system.LPC55S06" linked_projects="lpcxpresso55s06_secure_gpio_s" category="trustzone_examples">
+  <example id="lpcxpresso55s06_secure_gpio_ns" name="secure_gpio_ns" dependency="utility.debug_console_lite.LPC55S06 platform.utilities.assert_lite.LPC55S06 platform.drivers.lpc_iocon.LPC55S06 platform.drivers.common.LPC55S06 platform.drivers.clock.LPC55S06 platform.drivers.power.LPC55S06 platform.drivers.reset.LPC55S06 device.LPC55S06_CMSIS.LPC55S06 device.LPC55S06_startup.LPC55S06 platform.drivers.flexcomm_usart.LPC55S06 platform.drivers.flexcomm.LPC55S06 platform.drivers.lpc_gpio.LPC55S06 component.usart_adapter.LPC55S06 component.lists.LPC55S06 platform.utilities.misc_utilities.LPC55S06 utility.str.LPC55S06 CMSIS_Include_core_cm.LPC55S06 device.LPC55S06_system.LPC55S06" linked_projects="lpcxpresso55s06_secure_gpio_s" category="trustzone_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -50,7 +51,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

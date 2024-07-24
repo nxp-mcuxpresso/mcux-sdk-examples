@@ -38,7 +38,7 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(erpc_two_way_rpc_rpmsg_rtos_cm33_core1)
 
-set(MCUX_BUILD_TYPES debug release)
+set(MCUX_BUILD_TYPES release)
 
 set(MCUX_SDK_PROJECT_NAME erpc_two_way_rpc_rpmsg_rtos_cm33_core1.elf)
 

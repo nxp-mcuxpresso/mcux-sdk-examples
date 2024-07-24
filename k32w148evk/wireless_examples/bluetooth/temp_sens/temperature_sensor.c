@@ -4,7 +4,7 @@
 ********************************************************************************** */
 /*! *********************************************************************************
 * Copyright 2015 Freescale Semiconductor, Inc.
-* Copyright 2016-2023 NXP
+* Copyright 2016-2024 NXP
 *
 *
 * \file
@@ -30,7 +30,8 @@
 #include "fsl_component_serial_manager.h"
 #include "FunctionLib.h"
 #if defined(K32W232H_SERIES) || defined(KW45B41Z82_SERIES) || \
-    defined(KW45B41Z83_SERIES) || defined(K32W1480_SERIES) || defined(MCXW345_SERIES)
+    defined(KW45B41Z83_SERIES) || defined(K32W1480_SERIES) || defined(MCXW345_SERIES) || \
+    defined(MCXW716C_SERIES) || defined(MCXW716A_SERIES)
 #include "sensors.h"
 #endif
 
@@ -52,6 +53,7 @@
 #include "board.h"
 #include "app.h"
 #include "app_conn.h"
+#include "app_advertiser.h"
 #include "temperature_sensor.h"
 
 /************************************************************************************

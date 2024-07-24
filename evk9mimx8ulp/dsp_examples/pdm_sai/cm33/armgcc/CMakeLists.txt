@@ -54,6 +54,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/examples/evk9mimx8ulp/dsp_examples/pdm_sai/dsp/binary/dsp_reset_release.bin"
 "${SdkRootDirPath}/examples/evk9mimx8ulp/dsp_examples/pdm_sai/dsp/binary/dsp_text_release.bin"
 "${SdkRootDirPath}/examples/evk9mimx8ulp/dsp_examples/pdm_sai/dsp/binary/dsp_data_release.bin"
+"${ProjDirPath}/../incbin.S"
 "${SdkRootDirPath}/core/boards/evkmimx8ulp/board.c"
 "${SdkRootDirPath}/core/boards/evkmimx8ulp/board.h"
 "${SdkRootDirPath}/core/boards/evkmimx8ulp/clock_config.c"
@@ -63,7 +64,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../dsp_config.h"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
-"${ProjDirPath}/../incbin.S"
 "${ProjDirPath}/../dsp_support.c"
 "${ProjDirPath}/../dsp_support.h"
 )

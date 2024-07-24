@@ -41,10 +41,7 @@ extern "C" {
 /**** INCLUDE FILES ****/
 /***********************/
 #include "jendefs.h"
-#if (defined JENNIC_CHIP_FAMILY_JN516x) || (defined JENNIC_CHIP_FAMILY_JN517x)
-#include "AHI_AES.h"
-#endif
-#include "aessw_ccm.h"
+#include "zb_platform.h"
 #include "pdum_nwk.h"
 
 /************************/
@@ -107,7 +104,7 @@ PUBLIC bool_t ZPS_bSecEncrypt(void *pvNwk,
                               uint8 *pu8CurrHdr,
                               uint32 u32OutgoingFrameCounter,
                               bool_t bExtNonce,
-                              AESSW_Block_u *puKey,
+                              CRYPTO_tsAesBlock *puKey,
                               uint8 u8KeyId,
                               uint8 u8KeySeqNum,
                               PDUM_thNPdu hNPdu,
@@ -115,7 +112,7 @@ PUBLIC bool_t ZPS_bSecEncrypt(void *pvNwk,
 PUBLIC bool_t ZPS_bSecDecrypt(void *pvNwk,
                               ZPS_tsSecAuxHdr *psAuxSecHdr,
                               uint8 *pu8AuxSecHdr,
-                              AESSW_Block_u *puKey,
+                              CRYPTO_tsAesBlock *puKey,
                               PDUM_thNPdu hNPdu);
 
 PUBLIC void ZPS_vNwkResetOutgoingFrameCounter(void *pvNwk);

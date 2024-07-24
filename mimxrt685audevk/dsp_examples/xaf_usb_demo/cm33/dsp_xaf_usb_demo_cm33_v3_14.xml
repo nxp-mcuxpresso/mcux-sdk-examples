@@ -101,7 +101,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-mno-unaligned-access -mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-mno-unaligned-access -mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>
@@ -204,9 +204,6 @@
       <files mask="usb_device_config.h"/>
       <files mask="FreeRTOSConfig.h"/>
     </source>
-    <source path="." project_relative_path="source" type="asm_include" toolchain="armgcc mcuxpresso">
-      <files mask="incbin.S"/>
-    </source>
     <source path="../dsp/binary" project_relative_path="dsp_binary" type="binary">
       <files mask="dsp_data_debug.bin"/>
       <files mask="dsp_data_release.bin"/>
@@ -216,6 +213,9 @@
       <files mask="dsp_ncache_release.bin"/>
       <files mask="dsp_text_debug.bin"/>
       <files mask="dsp_text_release.bin"/>
+    </source>
+    <source path="." project_relative_path="source" type="asm_include" toolchain="armgcc mcuxpresso">
+      <files mask="incbin.S"/>
     </source>
     <source path="." project_relative_path="board" type="src">
       <files mask="dsp_support.c"/>

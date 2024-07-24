@@ -81,10 +81,12 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -DDEBUG \
     -DCPU_MIMXRT1189CVM8B_cm7 \
     -DFSL_ETH_ENABLE_CACHE_CONTROL \
+    -DETH_MAX_RX_PKTS_AT_ONCE=8 \
+    -DNETC_RXBD_NUM=8 \
+    -DNETC_RXBUFF_NUM=16 \
+    -DTCP_WND=5840 \
     -DPRINTF_ADVANCED_ENABLE=1 \
     -DDEBUG_CONSOLE_TRANSFER_NON_BLOCKING \
-    -DENET_RXBUFF_NUM=14 \
-    -DENET_RXBD_NUM=9 \
     -DMCUXPRESSO_SDK \
     -DLWIP_DISABLE_PBUF_POOL_SIZE_SANITY_CHECKS=1 \
     -DCHECKSUM_GEN_IP=1 \
@@ -108,7 +110,6 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
@@ -120,10 +121,12 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -DNDEBUG \
     -DCPU_MIMXRT1189CVM8B_cm7 \
     -DFSL_ETH_ENABLE_CACHE_CONTROL \
+    -DETH_MAX_RX_PKTS_AT_ONCE=8 \
+    -DNETC_RXBD_NUM=8 \
+    -DNETC_RXBUFF_NUM=16 \
+    -DTCP_WND=5840 \
     -DPRINTF_ADVANCED_ENABLE=1 \
     -DDEBUG_CONSOLE_TRANSFER_NON_BLOCKING \
-    -DENET_RXBUFF_NUM=14 \
-    -DENET_RXBD_NUM=9 \
     -DMCUXPRESSO_SDK \
     -DLWIP_DISABLE_PBUF_POOL_SIZE_SANITY_CHECKS=1 \
     -DCHECKSUM_GEN_IP=1 \
@@ -146,7 +149,6 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
@@ -159,10 +161,12 @@ SET(CMAKE_C_FLAGS_HYPERRAM_DEBUG " \
     -DDEBUG \
     -DCPU_MIMXRT1189CVM8B_cm7 \
     -DFSL_ETH_ENABLE_CACHE_CONTROL \
+    -DETH_MAX_RX_PKTS_AT_ONCE=8 \
+    -DNETC_RXBD_NUM=8 \
+    -DNETC_RXBUFF_NUM=16 \
+    -DTCP_WND=5840 \
     -DPRINTF_ADVANCED_ENABLE=1 \
     -DDEBUG_CONSOLE_TRANSFER_NON_BLOCKING \
-    -DENET_RXBUFF_NUM=14 \
-    -DENET_RXBD_NUM=9 \
     -DMCUXPRESSO_SDK \
     -DLWIP_DISABLE_PBUF_POOL_SIZE_SANITY_CHECKS=1 \
     -DCHECKSUM_GEN_IP=1 \
@@ -186,7 +190,6 @@ SET(CMAKE_C_FLAGS_HYPERRAM_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
@@ -199,10 +202,12 @@ SET(CMAKE_C_FLAGS_HYPERRAM_RELEASE " \
     -DNDEBUG \
     -DCPU_MIMXRT1189CVM8B_cm7 \
     -DFSL_ETH_ENABLE_CACHE_CONTROL \
+    -DETH_MAX_RX_PKTS_AT_ONCE=8 \
+    -DNETC_RXBD_NUM=8 \
+    -DNETC_RXBUFF_NUM=16 \
+    -DTCP_WND=5840 \
     -DPRINTF_ADVANCED_ENABLE=1 \
     -DDEBUG_CONSOLE_TRANSFER_NON_BLOCKING \
-    -DENET_RXBUFF_NUM=14 \
-    -DENET_RXBD_NUM=9 \
     -DMCUXPRESSO_SDK \
     -DLWIP_DISABLE_PBUF_POOL_SIZE_SANITY_CHECKS=1 \
     -DCHECKSUM_GEN_IP=1 \
@@ -225,7 +230,6 @@ SET(CMAKE_C_FLAGS_HYPERRAM_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
@@ -239,10 +243,12 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG " \
     -DDEBUG \
     -DCPU_MIMXRT1189CVM8B_cm7 \
     -DFSL_ETH_ENABLE_CACHE_CONTROL \
+    -DETH_MAX_RX_PKTS_AT_ONCE=8 \
+    -DNETC_RXBD_NUM=8 \
+    -DNETC_RXBUFF_NUM=16 \
+    -DTCP_WND=5840 \
     -DPRINTF_ADVANCED_ENABLE=1 \
     -DDEBUG_CONSOLE_TRANSFER_NON_BLOCKING \
-    -DENET_RXBUFF_NUM=14 \
-    -DENET_RXBD_NUM=9 \
     -DMCUXPRESSO_SDK \
     -DLWIP_DISABLE_PBUF_POOL_SIZE_SANITY_CHECKS=1 \
     -DCHECKSUM_GEN_IP=1 \
@@ -266,7 +272,6 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
@@ -280,10 +285,12 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_RELEASE " \
     -DNDEBUG \
     -DCPU_MIMXRT1189CVM8B_cm7 \
     -DFSL_ETH_ENABLE_CACHE_CONTROL \
+    -DETH_MAX_RX_PKTS_AT_ONCE=8 \
+    -DNETC_RXBD_NUM=8 \
+    -DNETC_RXBUFF_NUM=16 \
+    -DTCP_WND=5840 \
     -DPRINTF_ADVANCED_ENABLE=1 \
     -DDEBUG_CONSOLE_TRANSFER_NON_BLOCKING \
-    -DENET_RXBUFF_NUM=14 \
-    -DENET_RXBD_NUM=9 \
     -DMCUXPRESSO_SDK \
     -DLWIP_DISABLE_PBUF_POOL_SIZE_SANITY_CHECKS=1 \
     -DCHECKSUM_GEN_IP=1 \
@@ -306,7 +313,6 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
@@ -329,7 +335,6 @@ SET(CMAKE_CXX_FLAGS_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -fno-rtti \
@@ -352,7 +357,6 @@ SET(CMAKE_CXX_FLAGS_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -fno-rtti \
@@ -376,7 +380,6 @@ SET(CMAKE_CXX_FLAGS_HYPERRAM_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -fno-rtti \
@@ -399,7 +402,6 @@ SET(CMAKE_CXX_FLAGS_HYPERRAM_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -fno-rtti \
@@ -423,7 +425,6 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -fno-rtti \
@@ -446,7 +447,6 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -fno-rtti \
@@ -462,7 +462,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -492,7 +491,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -523,7 +521,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_HYPERRAM_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -553,7 +550,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_HYPERRAM_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -584,7 +580,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -614,7 +609,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \

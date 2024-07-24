@@ -61,16 +61,18 @@ SET(CMAKE_C_FLAGS_FLASH_DEBUG " \
     -DNVM_NO_COMPONNET=1 \
     -DMCUXPRESSO_SDK \
     -DSERIAL_PORT_TYPE_UART=1 \
+    -DTIMER_PORT_TYPE_MRT=1 \
     -DLOG_ENABLE_ASYNC_MODE=1 \
     -DLOG_MAX_ARGUMENT_COUNT=10 \
     -DLOG_ENABLE_OVERWRITE=0 \
     -DCONFIG_ARM=1 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
     -DMFLASH_FILE_BASEADDR=7340032 \
+    -DOSA_USED \
     -DLWIP_DNS=1 \
     -DLWIP_NETIF_HOSTNAME=1 \
-    -DLWIP_NETIF_STATUS_CALLBACK=1 \
     -DLWIP_IGMP=1 \
+    -D_XOPEN_SOURCE=500 \
     -g \
     -O0 \
     -mcpu=cortex-m33 \
@@ -81,7 +83,6 @@ SET(CMAKE_C_FLAGS_FLASH_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
@@ -125,16 +126,18 @@ SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
     -DNVM_NO_COMPONNET=1 \
     -DMCUXPRESSO_SDK \
     -DSERIAL_PORT_TYPE_UART=1 \
+    -DTIMER_PORT_TYPE_MRT=1 \
     -DLOG_ENABLE_ASYNC_MODE=1 \
     -DLOG_MAX_ARGUMENT_COUNT=10 \
     -DLOG_ENABLE_OVERWRITE=0 \
     -DCONFIG_ARM=1 \
     -DSDK_I2C_BASED_COMPONENT_USED=1 \
     -DMFLASH_FILE_BASEADDR=7340032 \
+    -DOSA_USED \
     -DLWIP_DNS=1 \
     -DLWIP_NETIF_HOSTNAME=1 \
-    -DLWIP_NETIF_STATUS_CALLBACK=1 \
     -DLWIP_IGMP=1 \
+    -D_XOPEN_SOURCE=500 \
     -Os \
     -mcpu=cortex-m33 \
     -Wall \
@@ -144,7 +147,6 @@ SET(CMAKE_C_FLAGS_FLASH_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
@@ -158,6 +160,7 @@ SET(CMAKE_CXX_FLAGS_FLASH_DEBUG " \
     -DDEBUG \
     -DMCUXPRESSO_SDK \
     -DSERIAL_PORT_TYPE_UART=1 \
+    -DTIMER_PORT_TYPE_MRT=1 \
     -g \
     -O0 \
     -mcpu=cortex-m33 \
@@ -168,7 +171,6 @@ SET(CMAKE_CXX_FLAGS_FLASH_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -fno-rtti \
@@ -181,6 +183,7 @@ SET(CMAKE_CXX_FLAGS_FLASH_RELEASE " \
     -DNDEBUG \
     -DMCUXPRESSO_SDK \
     -DSERIAL_PORT_TYPE_UART=1 \
+    -DTIMER_PORT_TYPE_MRT=1 \
     -Os \
     -mcpu=cortex-m33 \
     -Wall \
@@ -190,7 +193,6 @@ SET(CMAKE_CXX_FLAGS_FLASH_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -fno-rtti \
@@ -206,7 +208,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -232,7 +233,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \

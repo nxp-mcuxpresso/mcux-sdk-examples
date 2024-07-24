@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:examples xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd manifest.xsd">
+  <externalDefinitions>
+    <definition extID="middleware.wireless.freertos_heap.KW45B41Z83"/>
+    <definition extID="component.osa_free_rtos.KW45B41Z83"/>
+    <definition extID="component.gpio_adapter.KW45B41Z83"/>
+    <definition extID="component.button.KW45B41Z83"/>
+    <definition extID="component.led.KW45B41Z83"/>
+    <definition extID="component.reset_adapter.KW45B41Z83"/>
+    <definition extID="component.common_task.KW45B41Z83"/>
+    <definition extID="component.mem_manager_light.KW45B41Z83"/>
+    <definition extID="component.messaging.KW45B41Z83"/>
+    <definition extID="component.panic.KW45B41Z83"/>
+    <definition extID="component.lptmr_adapter.KW45B41Z83"/>
+    <definition extID="component.timer_manager.KW45B41Z83"/>
+    <definition extID="component.software_rng_adapter.KW45B41Z83"/>
+    <definition extID="component.lptmr_time_stamp_adapter.KW45B41Z83"/>
+    <definition extID="middleware.wireless.HWParameter.KW45B41Z83"/>
+    <definition extID="middleware.wireless.framework.common.KW45B41Z83"/>
+    <definition extID="middleware.wireless.framework.nvm.KW45B41Z83"/>
+    <definition extID="middleware.wireless.framework.nv_fsci.KW45B41Z83"/>
+    <definition extID="middleware.wireless.framework.coexistence.KW45B41Z83"/>
+    <definition extID="middleware.wireless.framework.coexistence.intercore.KW45B41Z83"/>
+    <definition extID="middleware.wireless.framework.module_info.KW45B41Z83"/>
+    <definition extID="middleware.wireless.framework.function_lib.KW45B41Z83"/>
+    <definition extID="middleware.wireless.framework.fwk_debug.KW45B41Z83"/>
+    <definition extID="middleware.wireless.framework.lpm_KW45B41Z83_systicks.KW45B41Z83"/>
+    <definition extID="middleware.wireless.ble_host.KW45B41Z83"/>
+    <definition extID="middleware.wireless.ble_host_AE_central_component_lib_iar.KW45B41Z83"/>
+    <definition extID="middleware.wireless.ble_host_AE_central_component_lib_mcux.KW45B41Z83"/>
+    <definition extID="middleware.wireless.ble_gatt_db.KW45B41Z83"/>
+    <definition extID="middleware.wireless.ble_gatt_service_discovery.KW45B41Z83"/>
+    <definition extID="middleware.wireless.ble_profiles.digital_key.KW45B41Z83"/>
+    <definition extID="utility.shell.KW45B41Z83"/>
+    <definition extID="platform.drivers.clock.KW45B41Z83"/>
+    <definition extID="platform.drivers.common.KW45B41Z83"/>
+    <definition extID="device.KW45B41Z83_CMSIS.KW45B41Z83"/>
+    <definition extID="platform.devices.KW45B41Z83.KW45B41Z83"/>
+    <definition extID="platform.drivers.lpuart.KW45B41Z83"/>
+    <definition extID="platform.drivers.lptmr.KW45B41Z83"/>
+    <definition extID="platform.drivers.port.KW45B41Z83"/>
+    <definition extID="platform.drivers.lpspi.KW45B41Z83"/>
+    <definition extID="platform.drivers.gpio.KW45B41Z83"/>
+    <definition extID="platform.drivers.flash_k4.KW45B41Z83"/>
+    <definition extID="component.k4_flash_adapter.KW45B41Z83"/>
+    <definition extID="component.lpuart_adapter.KW45B41Z83"/>
+    <definition extID="platform.drivers.tpm.KW45B41Z83"/>
+    <definition extID="platform.utilities.assert_lite.KW45B41Z83"/>
+    <definition extID="utility.debug_console_lite.KW45B41Z83"/>
+    <definition extID="utility.format.KW45B41Z83"/>
+    <definition extID="component.serial_manager_uart.KW45B41Z83"/>
+    <definition extID="component.serial_manager.KW45B41Z83"/>
+    <definition extID="component.lists.KW45B41Z83"/>
+    <definition extID="middleware.wireless.framework.rpmsg_config.KW45B41Z83"/>
+    <definition extID="component.rpmsg_adapter.KW45B41Z83"/>
+    <definition extID="component.serial_manager_rpmsg.KW45B41Z83"/>
+    <definition extID="platform.drivers.ltc.KW45B41Z83"/>
+    <definition extID="middleware.wireless.framework.Sensors.KW45B41Z83"/>
+    <definition extID="middleware.wireless.framework.platform.connected_mcu.KW45B41Z83"/>
+    <definition extID="device.KW45B41Z83_utility.kw45b41zevk.KW45B41Z83"/>
+    <definition extID="middleware.freertos-kernel.cm33_non_trustzone.KW45B41Z83"/>
+    <definition extID="middleware.multicore.mcmgr.kw45b41.KW45B41Z83"/>
+    <definition extID="middleware.wireless.ble_hci_transport_rpmsg.KW45B41Z83"/>
+    <definition extID="middleware.multicore.rpmsg_lite.kw45b41zevk_freertos.KW45B41Z83"/>
+    <definition extID="middleware.multicore.rpmsg_lite.freertos.KW45B41Z83"/>
+    <definition extID="middleware.multicore.rpmsg_lite.KW45B41Z83"/>
+    <definition extID="middleware.freertos-kernel.KW45B41Z83"/>
+    <definition extID="component.log.KW45B41Z83"/>
+    <definition extID="platform.drivers.wuu.KW45B41Z83"/>
+    <definition extID="platform.drivers.cmc.KW45B41Z83"/>
+    <definition extID="platform.drivers.spc.KW45B41Z83"/>
+    <definition extID="platform.drivers.ccm32k.KW45B41Z83"/>
+    <definition extID="platform.drivers.sfa.KW45B41Z83"/>
+    <definition extID="middleware.wireless.framework.platform_lowpower.connected_mcu.KW45B41Z83"/>
+    <definition extID="platform.drivers.elemu.KW45B41Z83"/>
+    <definition extID="middleware.secure-subsystem.elemu.KW45B41Z83"/>
+    <definition extID="middleware.secure-subsystem.port_kw45_k4w1.KW45B41Z83"/>
+    <definition extID="middleware.wireless.framework.sec_lib_sss.KW45B41Z83"/>
+    <definition extID="middleware.wireless.framework.rng.KW45B41Z83"/>
+    <definition extID="middleware.wireless.framework.platform_ble.connected_mcu.KW45B41Z83"/>
+    <definition extID="middleware.wireless.framework.platform_ics.connected_mcu.KW45B41Z83"/>
+    <definition extID="middleware.wireless.framework.linkscripts_kw45.KW45B41Z83"/>
+    <definition extID="middleware.wireless.framework_freertos_utils.KW45B41Z83"/>
+    <definition extID="component.power_manager_evkkw45b41z.KW45B41Z83"/>
+    <definition extID="middleware.wireless.controller_api.KW45B41Z83"/>
+    <definition extID="platform.utilities.misc_utilities.KW45B41Z83"/>
+    <definition extID="component.osa_interface.KW45B41Z83"/>
+    <definition extID="component.osa.KW45B41Z83"/>
+    <definition extID="middleware.wireless.framework.platform_mws.connected_mcu.KW45B41Z83"/>
+    <definition extID="middleware.wireless.framework_swo_dbg.KW45B41Z83"/>
+    <definition extID="middleware.wireless.framework.platform_lowpower_timer.connected_mcu.KW45B41Z83"/>
+    <definition extID="utility.str.KW45B41Z83"/>
+    <definition extID="CMSIS_Include_core_cm.KW45B41Z83"/>
+    <definition extID="device.KW45B41Z83_system.KW45B41Z83"/>
+    <definition extID="middleware.wireless.framework.platform_sensors.connected_mcu.KW45B41Z83"/>
+    <definition extID="platform.drivers.lpadc.KW45B41Z83"/>
+    <definition extID="platform.drivers.vref_1.KW45B41Z83"/>
+    <definition extID="middleware.multicore.mcmgr.KW45B41Z83"/>
+    <definition extID="platform.drivers.imu.KW45B41Z83"/>
+    <definition extID="middleware.freertos-kernel.template.KW45B41Z83"/>
+    <definition extID="middleware.freertos-kernel.extension.KW45B41Z83"/>
+    <definition extID="middleware.secure-subsystem.mu.KW45B41Z83"/>
+    <definition extID="middleware.secure-subsystem.KW45B41Z83"/>
+    <definition extID="middleware.wireless.framework.platform_rng.connected_mcu.KW45B41Z83"/>
+    <definition extID="middleware.wireless.framework.platform_coex.connected_mcu.KW45B41Z83"/>
+    <definition extID="middleware.wireless.framework.SFC.KW45B41Z83"/>
+    <definition extID="component.power_manager_core.KW45B41Z83"/>
+    <definition extID="platform.drivers.crc.KW45B41Z83"/>
+    <definition extID="mcuxpresso"/>
+    <definition extID="com.nxp.mcuxpresso"/>
+    <definition extID="com.crt.advproject.config.exe.debug"/>
+    <definition extID="com.crt.advproject.config.exe.release"/>
+  </externalDefinitions>
+  <example id="kw45b41zevk_digital_key_device_freertos" name="digital_key_device_freertos" dependency="middleware.wireless.freertos_heap.KW45B41Z83 component.osa_free_rtos.KW45B41Z83 component.gpio_adapter.KW45B41Z83 component.button.KW45B41Z83 component.led.KW45B41Z83 component.reset_adapter.KW45B41Z83 component.common_task.KW45B41Z83 component.mem_manager_light.KW45B41Z83 component.messaging.KW45B41Z83 component.panic.KW45B41Z83 component.lptmr_adapter.KW45B41Z83 component.timer_manager.KW45B41Z83 component.software_rng_adapter.KW45B41Z83 component.lptmr_time_stamp_adapter.KW45B41Z83 middleware.wireless.HWParameter.KW45B41Z83 middleware.wireless.framework.common.KW45B41Z83 middleware.wireless.framework.nvm.KW45B41Z83 middleware.wireless.framework.nv_fsci.KW45B41Z83 middleware.wireless.framework.coexistence.KW45B41Z83 middleware.wireless.framework.coexistence.intercore.KW45B41Z83 middleware.wireless.framework.module_info.KW45B41Z83 middleware.wireless.framework.function_lib.KW45B41Z83 middleware.wireless.framework.fwk_debug.KW45B41Z83 middleware.wireless.framework.lpm_KW45B41Z83_systicks.KW45B41Z83 middleware.wireless.ble_host.KW45B41Z83 middleware.wireless.ble_host_AE_central_component_lib_iar.KW45B41Z83 middleware.wireless.ble_host_AE_central_component_lib_mcux.KW45B41Z83 middleware.wireless.ble_gatt_db.KW45B41Z83 middleware.wireless.ble_gatt_service_discovery.KW45B41Z83 middleware.wireless.ble_profiles.digital_key.KW45B41Z83 utility.shell.KW45B41Z83 platform.drivers.clock.KW45B41Z83 platform.drivers.common.KW45B41Z83 device.KW45B41Z83_CMSIS.KW45B41Z83 platform.devices.KW45B41Z83.KW45B41Z83 platform.drivers.lpuart.KW45B41Z83 platform.drivers.lptmr.KW45B41Z83 platform.drivers.port.KW45B41Z83 platform.drivers.lpspi.KW45B41Z83 platform.drivers.gpio.KW45B41Z83 platform.drivers.flash_k4.KW45B41Z83 component.k4_flash_adapter.KW45B41Z83 component.lpuart_adapter.KW45B41Z83 platform.drivers.tpm.KW45B41Z83 platform.utilities.assert_lite.KW45B41Z83 utility.debug_console_lite.KW45B41Z83 utility.format.KW45B41Z83 component.serial_manager_uart.KW45B41Z83 component.serial_manager.KW45B41Z83 component.lists.KW45B41Z83 middleware.wireless.framework.rpmsg_config.KW45B41Z83 component.rpmsg_adapter.KW45B41Z83 component.serial_manager_rpmsg.KW45B41Z83 platform.drivers.ltc.KW45B41Z83 middleware.wireless.framework.Sensors.KW45B41Z83 middleware.wireless.framework.platform.connected_mcu.KW45B41Z83 device.KW45B41Z83_utility.kw45b41zevk.KW45B41Z83 middleware.freertos-kernel.cm33_non_trustzone.KW45B41Z83 middleware.multicore.mcmgr.kw45b41.KW45B41Z83 middleware.wireless.ble_hci_transport_rpmsg.KW45B41Z83 middleware.multicore.rpmsg_lite.kw45b41zevk_freertos.KW45B41Z83 middleware.multicore.rpmsg_lite.freertos.KW45B41Z83 middleware.multicore.rpmsg_lite.KW45B41Z83 middleware.freertos-kernel.KW45B41Z83 component.log.KW45B41Z83 platform.drivers.wuu.KW45B41Z83 platform.drivers.cmc.KW45B41Z83 platform.drivers.spc.KW45B41Z83 platform.drivers.ccm32k.KW45B41Z83 platform.drivers.sfa.KW45B41Z83 middleware.wireless.framework.platform_lowpower.connected_mcu.KW45B41Z83 platform.drivers.elemu.KW45B41Z83 middleware.secure-subsystem.elemu.KW45B41Z83 middleware.secure-subsystem.port_kw45_k4w1.KW45B41Z83 middleware.wireless.framework.sec_lib_sss.KW45B41Z83 middleware.wireless.framework.rng.KW45B41Z83 middleware.wireless.framework.platform_ble.connected_mcu.KW45B41Z83 middleware.wireless.framework.platform_ics.connected_mcu.KW45B41Z83 middleware.wireless.framework.linkscripts_kw45.KW45B41Z83 middleware.wireless.framework_freertos_utils.KW45B41Z83 component.power_manager_evkkw45b41z.KW45B41Z83 middleware.wireless.controller_api.KW45B41Z83 platform.utilities.misc_utilities.KW45B41Z83 component.osa_interface.KW45B41Z83 component.osa.KW45B41Z83 middleware.wireless.framework.platform_mws.connected_mcu.KW45B41Z83 middleware.wireless.framework_swo_dbg.KW45B41Z83 middleware.wireless.framework.platform_lowpower_timer.connected_mcu.KW45B41Z83 utility.str.KW45B41Z83 CMSIS_Include_core_cm.KW45B41Z83 device.KW45B41Z83_system.KW45B41Z83 middleware.wireless.framework.platform_sensors.connected_mcu.KW45B41Z83 platform.drivers.lpadc.KW45B41Z83 platform.drivers.vref_1.KW45B41Z83 middleware.multicore.mcmgr.KW45B41Z83 platform.drivers.imu.KW45B41Z83 middleware.freertos-kernel.template.KW45B41Z83 middleware.freertos-kernel.extension.KW45B41Z83 middleware.secure-subsystem.mu.KW45B41Z83 middleware.secure-subsystem.KW45B41Z83 middleware.wireless.framework.platform_rng.connected_mcu.KW45B41Z83 middleware.wireless.framework.platform_coex.connected_mcu.KW45B41Z83 middleware.wireless.framework.SFC.KW45B41Z83 component.power_manager_core.KW45B41Z83 platform.drivers.crc.KW45B41Z83" category="wireless_examples/bluetooth/digital_key_device/freertos">
+    <projects>
+      <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
+    </projects>
+    <memory>
+      <memoryBlock id="PROGRAM_FLASH_" name="PROGRAM_FLASH" addr="00000000" size="000f6000" type="Flash" access="RO"/>
+      <memoryBlock id="NVM_region_" name="NVM_region" addr="000f6000" size="00008000" type="Flash" access="RO"/>
+      <memoryBlock id="PROD_DATA_" name="PROD_DATA" addr="000fe000" size="00002000" type="Flash" access="RO"/>
+      <memoryBlock id="SRAM_" name="SRAM" addr="20000400" size="0001bc00" type="RAM" access="RW"/>
+      <memoryBlock id="RAM_VECTOR_TABLE_" name="RAM_VECTOR_TABLE" addr="20000000" size="00000400" type="RAM" access="RW"/>
+      <memoryBlock id="rpmsg_sh_mem_" name="rpmsg_sh_mem" addr="489c8800" size="1800" type="RAM" access="RW"/>
+    </memory>
+    <toolchainSettings>
+      <toolchainSetting id_refs="com.nxp.mcuxpresso">
+        <option id="com.crt.advproject.gcc.exe.debug.option.optimization.level" type="enum">
+          <value>gnu.c.optimization.level.general</value>
+        </option>
+        <option id="com.crt.advproject.gcc.fpu" type="enum">
+          <value>com.crt.advproject.gcc.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="gnu.c.compiler.option.optimization.flags" type="string">
+          <value>-fno-common</value>
+        </option>
+        <option id="com.crt.advproject.c.misc.dialect" type="enum">
+          <value>com.crt.advproject.misc.dialect.gnu99</value>
+        </option>
+        <option id="gnu.c.compiler.option.misc.other" type="string">
+          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -fno-builtin</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.toerrors" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
+          <value>CPU_KW45B41Z83AFTA</value>
+          <value>SERIAL_MANAGER_NON_BLOCKING_MODE=1</value>
+          <value>SERIAL_USE_CONFIGURE_STRUCTURE=1</value>
+          <value>gButtonSupported_d=1</value>
+          <value>SDK_DEBUGCONSOLE=2</value>
+          <value>OSA_USED</value>
+          <value>SDK_DEBUGCONSOLE_UART</value>
+          <value>SDK_COMPONENT_INTEGRATION=1</value>
+          <value>FSL_OSA_TASK_ENABLE=1</value>
+          <value>CR_INTEGER_PRINTF</value>
+          <value>KW45B41Z83</value>
+          <value>CFG_BLE_PRJ=1</value>
+          <value>ENABLE_RAM_VECTOR_TABLE=1</value>
+          <value>NXP_SSSAPI</value>
+          <value>NXP_ELE200</value>
+          <value>HAL_RPMSG_SELECT_ROLE=0</value>
+          <value>SERIAL_PORT_TYPE_RPMSG=1</value>
+          <value>RPMSG_ADAPTER_NON_BLOCKING_MODE=1</value>
+          <value>HAL_FLASH_ROMAPI_DRIVER=1</value>
+          <value>gUseHciTransportDownward_d=1</value>
+          <value>TM_ENABLE_TIME_STAMP=1</value>
+          <value>MCUXPRESSO_SDK</value>
+          <value>TIMER_PORT_TYPE_LPTMR=1</value>
+          <value>HAL_UART_ADAPTER_LOWPOWER=1</value>
+          <value>DEBUG_CONSOLE_RX_ENABLE=0</value>
+          <value>SERIAL_PORT_TYPE_UART=1</value>
+          <value>SDK_OS_FREE_RTOS</value>
+          <value>SSS_CONFIG_FILE='"fsl_sss_config_elemu.h"'</value>
+          <value>SSCP_CONFIG_FILE='"fsl_sscp_config_elemu.h"'</value>
+          <value>MULTICORE_APP=1</value>
+          <value>GENERIC_LIST_LIGHT=1</value>
+        </option>
+        <option id="com.crt.advproject.link.fpu" type="enum">
+          <value>com.crt.advproject.link.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="com.crt.advproject.gas.hdrlib" type="enum">
+          <value>com.crt.advproject.gas.hdrlib.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.gas.specs" type="enum">
+          <value>com.crt.advproject.gas.specs.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.gcc.hdrlib" type="enum">
+          <value>com.crt.advproject.gcc.hdrlib.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.gcc.specs" type="enum">
+          <value>com.crt.advproject.gcc.specs.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.link.gcc.hdrlib" type="enum">
+          <value>com.crt.advproject.gcc.link.hdrlib.newlibnano.semihost</value>
+        </option>
+        <option id="gnu.c.link.option.nostdlibs" type="boolean">
+          <value>true</value>
+        </option>
+        <option id="com.crt.advproject.link.memory.heapAndStack" type="string">
+          <value>&amp;Heap:Default;Default;0x0&amp;Stack:Default;Default;0x400</value>
+        </option>
+        <option id="gnu.c.link.option.other" type="stringList">
+          <value>--defsym=gLowpowerPowerDownEnable_d=1</value>
+          <value>--sort-section=alignment</value>
+          <value>--defsym=__ram_vector_table__=1</value>
+          <value>--defsym=gUseNVMLink_d=1</value>
+          <value>--gc-sections</value>
+          <value>-print-memory-usage</value>
+          <value>-Map="${BuildArtifactFileBaseName}.map"</value>
+          <value>--defsym=gUseStackEnd_d=1</value>
+          <value>--defsym=m_lowpower_flag_start=0x489C007C</value>
+          <value>--no-warn-rwx-segments</value>
+          <value>-no-warn-rwx-segments</value>
+        </option>
+        <option id="gnu.c.link.option.libs" type="stringList">
+          <value>m</value>
+          <value>gcc</value>
+          <value>nosys</value>
+        </option>
+        <option id="com.crt.advproject.gas.fpu" type="enum">
+          <value>com.crt.advproject.gas.fpu.fpv5sp.hard</value>
+        </option>
+      </toolchainSetting>
+    </toolchainSettings>
+    <debug_configurations>
+      <debug_configuration id_refs="com.crt.advproject.config.exe.debug com.crt.advproject.config.exe.release">
+        <drivers>
+          <driver id_refs="PROGRAM_FLASH_">
+            <driverBinary path="../../../../../../devices/KW45B41Z83/mcuxpresso" project_relative_path="binary" type="binary">
+              <files mask="KW45B41.cfx"/>
+            </driverBinary>
+          </driver>
+          <driver id_refs="NVM_region_">
+            <driverBinary path="../../../../../../devices/KW45B41Z83/mcuxpresso" project_relative_path="binary" type="binary">
+              <files mask="KW45B41.cfx"/>
+            </driverBinary>
+          </driver>
+          <driver id_refs="PROD_DATA_">
+            <driverBinary path="../../../../../../devices/KW45B41Z83/mcuxpresso" project_relative_path="binary" type="binary">
+              <files mask="KW45B41.cfx"/>
+            </driverBinary>
+          </driver>
+        </drivers>
+      </debug_configuration>
+    </debug_configurations>
+    <include_paths>
+      <include_path path="." project_relative_path="board" type="c_include"/>
+      <include_path path="." project_relative_path="source" type="c_include"/>
+      <include_path path=".." project_relative_path="source" type="c_include"/>
+      <include_path path="." project_relative_path="source" type="asm_include"/>
+    </include_paths>
+    <source path="." project_relative_path="source" type="src">
+      <files mask="app_services_init.c"/>
+      <files mask="app_ble_init.c"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include">
+      <files mask="app.h"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="hardware_init.c"/>
+      <files mask="board.c"/>
+      <files mask="board_comp.c"/>
+      <files mask="board_dcdc.c"/>
+      <files mask="board_lp.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="clock_config.c"/>
+      <files mask="pin_mux.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="clock_config.h"/>
+      <files mask="pin_mux.h"/>
+    </source>
+    <source path="." project_relative_path="source/common" type="src">
+      <files mask="main.c"/>
+    </source>
+    <source path="." project_relative_path="source/common" type="src">
+      <files mask="app_conn.c"/>
+      <files mask="ble_init.c"/>
+      <files mask="app_nvm.c"/>
+      <files mask="app_scanner.c"/>
+      <files mask="app_connection.c"/>
+      <files mask="app_low_power.c"/>
+    </source>
+    <source path="." project_relative_path="source/common" type="c_include">
+      <files mask="app_conn.h"/>
+      <files mask="ble_init.h"/>
+      <files mask="app_scanner.h"/>
+    </source>
+    <source path=".." project_relative_path="source" type="src">
+      <files mask="app_config.c"/>
+      <files mask="digital_key_device.c"/>
+      <files mask="app_digital_key_device.c"/>
+      <files mask="shell_digital_key_device.c"/>
+    </source>
+    <source path=".." project_relative_path="source" type="c_include">
+      <files mask="gatt_db.h"/>
+      <files mask="gatt_uuid128.h"/>
+      <files mask="digital_key_device.h"/>
+      <files mask="app_digital_key_device.h"/>
+      <files mask="shell_digital_key_device.h"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include" config="true">
+      <files mask="FreeRTOSConfig.h"/>
+    </source>
+    <source path=".." project_relative_path="doc" type="doc">
+      <files mask="readme.txt"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_preinclude">
+      <files mask="app_preinclude.h"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="board.h"/>
+      <files mask="board_platform.h"/>
+      <files mask="board_comp.h"/>
+      <files mask="board_dcdc.h"/>
+      <files mask="board_lp.h"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include">
+      <files mask="app_preinclude_common.h"/>
+    </source>
+    <source path="../../../../../../middleware/wireless/ble_controller/bin" project_relative_path="source" type="other">
+      <files mask="kw45b41_nbu_ble_1_9_14_0.xip"/>
+      <files mask="kw45b41_nbu_ble_1_9_14_0.sb3"/>
+    </source>
+  </example>
+</ksdk:examples>

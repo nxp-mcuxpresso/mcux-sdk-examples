@@ -4,4 +4,7 @@
 	    *(EXCLUDE_FILE(
 	        *bt_db_gen.o*
 	    ).bss*)
-	    . = ALIGN(4);
+        . = ALIGN(32);
+        *(m_usb_dma_noninit_data)
+        . = ALIGN(32);
+        *(.bss*)

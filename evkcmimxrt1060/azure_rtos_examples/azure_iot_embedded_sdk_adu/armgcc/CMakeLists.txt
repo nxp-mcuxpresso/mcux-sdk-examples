@@ -92,7 +92,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../mcuboot/mcuboot_app_support.c"
 "${ProjDirPath}/../mcuboot/mcuboot_app_support.h"
 "${ProjDirPath}/../mcuboot/flash_map.h"
-"${ProjDirPath}/../mcuboot/sbldef.h"
 "${ProjDirPath}/../mcuboot/mcuboot_config.h"
 "${ProjDirPath}/../mcuboot/sysflash/sysflash.h"
 "${ProjDirPath}/../mcuboot/sblconfig.h"

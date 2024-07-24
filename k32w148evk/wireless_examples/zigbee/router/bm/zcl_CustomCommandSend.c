@@ -163,8 +163,11 @@ PUBLIC teZCL_Status eZCL_CustomCommandSend(
         return(E_ZCL_ERR_ZBUFFER_FAIL);
     }
 
-    /* If we are a client, get a new TSN, otherwise use the TSN passed in*/
-    if (!bDirection)
+    /* 
+     *  If we are a client, get a new TSN, otherwise use the TSN passed in
+     *   Let the Green Power to assign the TSN
+     */
+    if (!bDirection && u8DestinationEndPointId != ZCL_GP_PROXY_ENDPOINT_ID)
     {
         *pu8TransactionSequenceNumber = u8GetTransactionSequenceNumber();
     }

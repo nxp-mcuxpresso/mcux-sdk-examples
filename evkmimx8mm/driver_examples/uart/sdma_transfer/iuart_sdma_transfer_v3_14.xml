@@ -13,6 +13,7 @@
     <definition extID="component.lists.MIMX8MM6"/>
     <definition extID="device.MIMX8MM6_startup.MIMX8MM6"/>
     <definition extID="platform.utilities.misc_utilities.MIMX8MM6"/>
+    <definition extID="utility.str.MIMX8MM6"/>
     <definition extID="platform.drivers.sdma.MIMX8MM6"/>
     <definition extID="platform.drivers.memory.MIMX8MM6"/>
     <definition extID="CMSIS_Include_core_cm.MIMX8MM6"/>
@@ -21,7 +22,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="evkmimx8mm_iuart_sdma_transfer" name="iuart_sdma_transfer" dependency="utility.debug_console_lite.MIMX8MM6 platform.utilities.assert_lite.MIMX8MM6 platform.drivers.iuart_sdma.MIMX8MM6 platform.drivers.clock.MIMX8MM6 platform.drivers.common.MIMX8MM6 platform.drivers.rdc.MIMX8MM6 device.MIMX8MM6_CMSIS.MIMX8MM6 component.iuart_adapter.MIMX8MM6 platform.drivers.iuart.MIMX8MM6 component.lists.MIMX8MM6 device.MIMX8MM6_startup.MIMX8MM6 platform.utilities.misc_utilities.MIMX8MM6 platform.drivers.sdma.MIMX8MM6 platform.drivers.memory.MIMX8MM6 CMSIS_Include_core_cm.MIMX8MM6 device.MIMX8MM6_system.MIMX8MM6" category="driver_examples/uart">
+  <example id="evkmimx8mm_iuart_sdma_transfer" name="iuart_sdma_transfer" dependency="utility.debug_console_lite.MIMX8MM6 platform.utilities.assert_lite.MIMX8MM6 platform.drivers.iuart_sdma.MIMX8MM6 platform.drivers.clock.MIMX8MM6 platform.drivers.common.MIMX8MM6 platform.drivers.rdc.MIMX8MM6 device.MIMX8MM6_CMSIS.MIMX8MM6 component.iuart_adapter.MIMX8MM6 platform.drivers.iuart.MIMX8MM6 component.lists.MIMX8MM6 device.MIMX8MM6_startup.MIMX8MM6 platform.utilities.misc_utilities.MIMX8MM6 utility.str.MIMX8MM6 platform.drivers.sdma.MIMX8MM6 platform.drivers.memory.MIMX8MM6 CMSIS_Include_core_cm.MIMX8MM6 device.MIMX8MM6_system.MIMX8MM6" category="driver_examples/uart">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -45,7 +46,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

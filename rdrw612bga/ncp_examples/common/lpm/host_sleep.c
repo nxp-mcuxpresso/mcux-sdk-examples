@@ -8,16 +8,20 @@
  *  SPDX-License-Identifier: BSD-3-Clause
  */
 
-#ifdef CONFIG_HOST_SLEEP
+#if CONFIG_HOST_SLEEP
 /*******************************************************************************
  * Includes
  ******************************************************************************/
 #include "board.h"
 #include "host_sleep.h"
 #include "lpm.h"
-#include "cli.h"
+#if CONFIG_NCP_WIFI
+#include "host_sleep_wifi.h"
 #include "wlan.h"
-#include "wifi.h"
+#include "ncp_cmd_wifi.h"
+#endif
+#include "ncp_cmd_common.h"
+#include "cli.h"
 #include "fsl_power.h"
 #include "fsl_pm_core.h"
 #include "fsl_pm_device.h"
@@ -25,12 +29,11 @@
 #include "fsl_usart.h"
 #include "fsl_gpio.h"
 #include "fsl_io_mux.h"
-#include "ncp_cmd_wifi.h"
 #include "app_notify.h"
-#ifdef CONFIG_CRC32_HW_ACCELERATE
+#if CONFIG_CRC32_HW_ACCELERATE
 #include "fsl_crc.h"
 #endif
-#ifdef CONFIG_NCP_USB
+#if CONFIG_NCP_USB
 #include "usb_device_config.h"
 #include "usb.h"
 #include "usb_device.h"
@@ -59,32 +62,52 @@ typedef struct
 /*******************************************************************************
  * Variables
  ******************************************************************************/
-static struct cli_command host_sleep_commands[] = {
-    {"wlan-suspend", "<power mode>", test_wlan_suspend},
-};
-os_thread_t wlan_suspend_thread;
-static os_thread_stack_define(wlan_suspend_stack, CONFIG_WLAN_SUSPEND_STACK_SIZE);
+static void ncp_suspend_task(void *argv);
+OSA_TASK_HANDLE_DEFINE(ncp_suspend_thread);
+OSA_TASK_DEFINE(ncp_suspend_task, PRIORITY_RTOS_TO_OSA(1), 1, CONFIG_NCP_SUSPEND_STACK_SIZE, 0);
+OSA_EVENT_HANDLE_DEFINE(ncp_suspend_event);
 int suspend_mode = 0;
-extern bool wlan_is_manual;
-extern int wakeup_by;
-extern power_cfg_t global_power_config;
+power_cfg_t global_power_config;
+int wakeup_reason = 0;
 extern uint8_t suspend_notify_flag;
-#ifdef CONFIG_POWER_MANAGER
+#if CONFIG_POWER_MANAGER
 extern pm_handle_t pm_handle;
-extern pm_wakeup_source_t wlanWakeupSource;
-extern pm_wakeup_source_t rtcWakeupSource;
-extern int wlan_host_sleep_state;
-#ifdef CONFIG_UART_INTERRUPT
+#if CONFIG_UART_INTERRUPT
 extern bool usart_suspend_flag;
 #endif
 #endif
 uint64_t rtc_timeout = 0;
 static uart_clock_context_t s_uartClockCtx;
+#if CONFIG_NCP_WIFI
 extern int is_hs_handshake_done;
+#endif
+OSA_SEMAPHORE_HANDLE_DEFINE(hs_cfm);
 
 /*******************************************************************************
  * Code
  ******************************************************************************/
+static void ncp_hs_delay(uint32_t loop)
+{
+    if (loop > 0U)
+    {
+        __ASM volatile(
+            "1:                             \n"
+            "    SUBS   %0, %0, #1          \n"
+            "    CMP    %0, #0              \n"
+            "    BNE    1b                  \n"
+            :
+            : "r"(loop));
+    }
+}
+
+static void ncp_hs_delay_us(uint32_t us)
+{
+    uint32_t instNum;
+
+    instNum = ((SystemCoreClock + 999999UL) / 1000000UL) * us;
+    ncp_hs_delay((instNum + 2U) / 3U);
+}
+
 void RTC_IRQHandler()
 {
     if (RTC_GetStatusFlags(RTC) & kRTC_AlarmFlag)
@@ -93,7 +116,7 @@ void RTC_IRQHandler()
         DisableIRQ(RTC_IRQn);
         POWER_ClearWakeupStatus(RTC_IRQn);
         POWER_DisableWakeup(RTC_IRQn);
-        wakeup_by = WAKEUP_BY_RTC;
+        wakeup_reason = WAKEUP_BY_RTC;
     }
 }
 
@@ -104,12 +127,13 @@ void PIN1_INT_IRQHandler()
     DisableIRQ(PIN1_INT_IRQn);
     POWER_ClearWakeupStatus(PIN1_INT_IRQn);
     POWER_DisableWakeup(PIN1_INT_IRQn);
-    wakeup_by = WAKEUP_BY_PIN1;
+    wakeup_reason = WAKEUP_BY_PIN;
 }
 
-void wlan_gpio_wakeup_host()
+void ncp_gpio_wakeup_host()
 {
     GPIO_PortToggle(GPIO, 1, 0x40000);
+    ncp_hs_delay_us(1);
     GPIO_PortToggle(GPIO, 1, 0x40000);
 }
 
@@ -122,7 +146,7 @@ AT_QUICKACCESS_SECTION_CODE(void host_sleep_pre_hook(void))
        Use register access directly to avoid possible flash access in function call */
     s_uartClockCtx.selA   = CLKCTL0->MAINCLKSELA;
     s_uartClockCtx.selB   = CLKCTL0->MAINCLKSELB;
-#ifdef CONFIG_NCP_UART
+#if CONFIG_NCP_UART
     s_uartClockCtx.frgSel = CLKCTL1->FLEXCOMM[0].FRGCLKSEL;
     s_uartClockCtx.frgctl = CLKCTL1->FLEXCOMM[0].FRGCTL;
     s_uartClockCtx.osr    = USART0->OSR;
@@ -131,7 +155,7 @@ AT_QUICKACCESS_SECTION_CODE(void host_sleep_pre_hook(void))
     /* Switch main_clk to LPOSC */
     CLKCTL0->MAINCLKSELA = 2;
     CLKCTL0->MAINCLKSELB = 0;
-#ifdef CONFIG_NCP_UART
+#if CONFIG_NCP_UART
     /* Change UART0 clock source to main_clk */
     CLKCTL1->FLEXCOMM[0].FRGCLKSEL = 0;
     /* bit[0:7] div, bit[8:15] mult.
@@ -152,7 +176,7 @@ AT_QUICKACCESS_SECTION_CODE(void host_sleep_post_hook(uint32_t mode, void *param
 {
     /* Recover main_clk clock source after wakeup.
      Use register access directly to avoid possible flash access in function call. */
-#ifdef CONFIG_NCP_UART
+#if CONFIG_NCP_UART
     USART0->OSR                    = s_uartClockCtx.osr;
     USART0->BRG                    = s_uartClockCtx.brg;
     CLKCTL1->FLEXCOMM[0].FRGCLKSEL = s_uartClockCtx.frgSel;
@@ -160,7 +184,7 @@ AT_QUICKACCESS_SECTION_CODE(void host_sleep_post_hook(uint32_t mode, void *param
 #endif
     CLKCTL0->MAINCLKSELA           = s_uartClockCtx.selA;
     CLKCTL0->MAINCLKSELB           = s_uartClockCtx.selB;
-#ifndef CONFIG_NCP_SDIO
+#if !(CONFIG_NCP_SDIO)
     SystemCoreClockUpdate();
 #endif
 }
@@ -170,16 +194,17 @@ void host_sleep_cli_notify(void)
     return;
 }
 
-status_t host_sleep_pre_cfg(int mode)
+int host_sleep_pre_cfg(int mode)
 {
     POWER_ConfigWakeupPin(kPOWER_WakeupPin1, kPOWER_WakeupEdgeLow);
     NVIC_ClearPendingIRQ(PIN1_INT_IRQn);
     EnableIRQ(PIN1_INT_IRQn);
     POWER_ClearWakeupStatus(PIN1_INT_IRQn);
     POWER_EnableWakeup(PIN1_INT_IRQn);
-    POWER_ClearWakeupStatus(WL_MCI_WAKEUP0_IRQn);
-    POWER_EnableWakeup(WL_MCI_WAKEUP0_IRQn);
-#ifdef CONFIG_NCP_USB
+#if CONFIG_NCP_WIFI
+    ncp_enable_wlan_wakeup(true);
+#endif
+#if CONFIG_NCP_USB
     /* For usb PM2 trigger by remote wake up.
      * Maybe some unknow error if any data transfer on usb interface after remote wakeup.
      */
@@ -187,42 +212,49 @@ status_t host_sleep_pre_cfg(int mode)
     {
 #endif
     /* Notify host about entering sleep mode */
-    /* Wait until receiving NCP_BRIDGE_CMD_WLAN_POWERMGMT_MCU_SLEEP_CFM from host */
+    /* Wait until receiving NCP_CMD_WLAN_POWERMGMT_MCU_SLEEP_CFM from host */
     if (suspend_notify_flag == 0)
     {
         suspend_notify_flag |= APP_NOTIFY_SUSPEND_EVT;
+#if CONFIG_NCP_WIFI
         if (global_power_config.is_manual == true)
         {
             app_notify_event(APP_EVT_MCU_SLEEP_ENTER, APP_EVT_REASON_SUCCESS, NULL, 0);
             while (suspend_notify_flag & APP_NOTIFY_SUSPEND_EVT)
-            os_thread_sleep(os_msec_to_ticks(1));
+                OSA_TimeDelay(1);
         }
         else
         {
-            /* For PM mode, get wakelock to wait for NCP_BRIDGE_CMD_WLAN_POWERMGMT_MCU_SLEEP_CFM from host */
-            wakelock_get();
             is_hs_handshake_done = WLAN_HOSTSLEEP_IN_PROCESS;
+#endif
+            /* For PM mode, get wakelock to wait for NCP_CMD_WLAN_POWERMGMT_MCU_SLEEP_CFM from host */
+            if(OSA_SemaphoreWait((osa_semaphore_handle_t)hs_cfm, osaWaitNone_c) != 0)
+            {
+                ncp_d("Failed to get hs_cfm semaphor\r\n");
+                return kStatus_PMPowerStateNotAllowed;
+            }
             app_notify_event(APP_EVT_MCU_SLEEP_ENTER, APP_EVT_REASON_SUCCESS, NULL, 0);
             return kStatus_PMPowerStateNotAllowed;
+#if CONFIG_NCP_WIFI
         }
+#endif
     }
-#ifdef CONFIG_NCP_USB
+#if CONFIG_NCP_USB
     }
 #endif
     (void)PRINTF("Enter low power mode PM%d\r\n", mode);
     /* PM2, enable UART3 as wakeup source */
     if (mode == 2U)
     {
-#ifdef CONFIG_NCP_USB
+#if CONFIG_NCP_USB
         POWER_ClearWakeupStatus(USB_IRQn);
         POWER_EnableWakeup(USB_IRQn);
-        CLOCK_AttachClk(kLPOSC_to_MAIN_CLK);
-#elif defined(CONFIG_NCP_UART)
+#elif CONFIG_NCP_UART
         /* Enable RX interrupt. */
         USART_EnableInterrupts(USART0, kUSART_RxLevelInterruptEnable | kUSART_RxErrorInterruptEnable);
         POWER_ClearWakeupStatus(FLEXCOMM0_IRQn);
         POWER_EnableWakeup(FLEXCOMM0_IRQn);
-#elif defined(CONFIG_NCP_SPI)
+#elif CONFIG_NCP_SPI
         SYSCTL0->HWWAKE = 0x10;
         NVIC_ClearPendingIRQ(WKDEEPSLEEP_IRQn);
         POWER_ClearWakeupStatus(WKDEEPSLEEP_IRQn);
@@ -230,7 +262,7 @@ status_t host_sleep_pre_cfg(int mode)
 #endif
         /* Delay UART clock switch after resume from PM2 to avoid UART FIFO read error*/
         POWER_SetPowerSwitchCallback((power_switch_callback_t)host_sleep_pre_hook, NULL,
-#ifdef CONFIG_NCP_SDIO
+#if CONFIG_NCP_SDIO
                                      (power_switch_callback_t)host_sleep_post_hook,
 #else
                                      NULL,
@@ -252,70 +284,78 @@ void host_sleep_post_cfg(int mode)
     POWER_ClearWakeupStatus(PIN1_INT_IRQn);
     POWER_DisableWakeup(PIN1_INT_IRQn);
     EnableGlobalIRQ(irq_mask);
-    POWER_ClearWakeupStatus(WL_MCI_WAKEUP0_IRQn);
+#if CONFIG_NCP_WIFI
+    ncp_enable_wlan_wakeup(false);
+    ncp_check_wlan_wakeup();
+#endif
 
     if (mode == 2U)
     {
-#ifdef CONFIG_NCP_USB
-        CLOCK_AttachClk(kMAIN_PLL_to_MAIN_CLK);
+#if CONFIG_NCP_USB
         POWER_ClearWakeupStatus(USB_IRQn);
         POWER_DisableWakeup(USB_IRQn);
-#elif defined(CONFIG_NCP_UART)
+#elif CONFIG_NCP_UART
         if (POWER_GetWakeupStatus(FLEXCOMM0_IRQn))
-            wakeup_by = WAKEUP_BY_USART0;
+            wakeup_reason = WAKEUP_BY_USART0;
         POWER_ClearWakeupStatus(FLEXCOMM0_IRQn);
         POWER_DisableWakeup(FLEXCOMM0_IRQn);
-#elif defined(CONFIG_NCP_SPI)
+#elif CONFIG_NCP_SPI
         if (POWER_GetWakeupStatus(WKDEEPSLEEP_IRQn))
-            wakeup_by = WKDEEPSLEEP_IRQn;
+            wakeup_reason = WKDEEPSLEEP_IRQn;
         POWER_ClearWakeupStatus(WKDEEPSLEEP_IRQn);
         POWER_DisableWakeup(WKDEEPSLEEP_IRQn);
         SYSCTL0->HWWAKE = 0x0;
 #endif
         POWER_SetPowerSwitchCallback(NULL, NULL, NULL, NULL);
-#ifndef CONFIG_NCP_SDIO
+#if !(CONFIG_NCP_SDIO)
         host_sleep_post_hook(2, NULL);
 #endif
     }
-    if(global_power_config.wakeup_host && wakeup_by == 0x1)
+    if(global_power_config.wakeup_host && wakeup_reason == 0x1)
     {
-        wlan_gpio_wakeup_host();
+        ncp_gpio_wakeup_host();
 	/* Only wakeup host for 1 time */
         global_power_config.wakeup_host = 0;
     }
-    suspend_notify_flag = 0;
-#ifdef CONFIG_NCP_USB
+#if CONFIG_NCP_USB
     /* For usb PM2 trigger by remote wake up.
      * Maybe some unknow error if any data transfer on usb interface after remote wakeup.
      */
     if(global_power_config.subscribe_evt && 2 != mode)        
         app_notify_event(APP_EVT_MCU_SLEEP_EXIT, APP_EVT_REASON_SUCCESS, NULL, 0);
 #else
-    app_notify_event(APP_EVT_MCU_SLEEP_EXIT, APP_EVT_REASON_SUCCESS, NULL, 0);
+    if(suspend_notify_flag)
+    {
+        PRINTF("send sleep exit evt to app notify\r\n");
+        app_notify_event(APP_EVT_MCU_SLEEP_EXIT, APP_EVT_REASON_SUCCESS, NULL, 0);
+    }
 #endif
+    suspend_notify_flag = 0;
     PRINTF("Exit low power mode\r\n");
 }
 
 void host_sleep_dump_wakeup_source()
 {
-    if (wakeup_by == WAKEUP_BY_WLAN)
-        wifi_print_wakeup_reason(0);
-    else if (wakeup_by == WAKEUP_BY_RTC)
+    if (wakeup_reason == WAKEUP_BY_RTC)
         PRINTF("Woken up by RTC\r\n");
-    else if (wakeup_by == WAKEUP_BY_PIN1)
+#if CONFIG_NCP_WIFI
+    else if (wakeup_reason == 0x1)
+        ncp_print_wlan_wakeup();
+#endif
+    else if (wakeup_reason == WAKEUP_BY_PIN)
         PRINTF("Woken up by PIN1\r\n");
-#ifdef CONFIG_NCP_UART
-    else if (wakeup_by == WAKEUP_BY_USART0)
+#if CONFIG_NCP_UART
+    else if (wakeup_reason == WAKEUP_BY_USART0)
         PRINTF("Woken up by USART\r\n");
 #endif
-#ifdef CONFIG_NCP_SDIO
+#if CONFIG_NCP_SDIO
     else if (POWER_GetWakeupStatus(SDU_IRQn))
     {
         PRINTF("Woken up by SDIO\r\n");
         POWER_ClearWakeupStatus(SDU_IRQn);
     }
 #endif
-#ifdef CONFIG_NCP_SPI
+#if CONFIG_NCP_SPI
     else if (POWER_GetWakeupStatus(WKDEEPSLEEP_IRQn))
     {
         PRINTF("Woken up by SPI DMA DEEPSLEEP\r\n");
@@ -324,30 +364,29 @@ void host_sleep_dump_wakeup_source()
 #endif
 }
 
-static void wlan_GetSleepConfig(power_sleep_config_t *config)
+static void ncp_GetSleepConfig(power_sleep_config_t *config)
 {
-    config->pm2MemPuCfg = WLAN_PM2_MEM_PU_CFG;
-    config->pm2AnaPuCfg = WLAN_PM2_ANA_PU_CFG;
-    config->clkGate     = WLAN_SOURCE_CLK_GATE;
-    config->memPdCfg    = WLAN_MEM_PD_CFG;
-    config->pm3BuckCfg  = WLAN_PM3_BUCK_CFG;
+    config->pm2MemPuCfg = NCP_PM2_MEM_PU_CFG;
+    config->pm2AnaPuCfg = NCP_PM2_ANA_PU_CFG;
+    config->clkGate     = NCP_SOURCE_CLK_GATE;
+    config->memPdCfg    = NCP_MEM_PD_CFG;
+    config->pm3BuckCfg  = NCP_PM3_BUCK_CFG;
 }
 
-static void wlan_suspend_task(void *argv)
+static void ncp_suspend_task(void *argv)
 {
     power_sleep_config_t config;
     ncp_pm_status_t ret = NCP_PM_STATUS_SUCCESS;
 
     for (;;)
     {
-        wlan_suspend_thread = os_get_current_task_handle();
         /* Wait for wlan-suspend command */
-        (void)os_event_notify_get(OS_WAIT_FOREVER);
+        (void)OSA_EventWait((osa_event_handle_t)ncp_suspend_event, SUSPEND_EVENT_TRIGGERS, 0, osaWaitForever_c, NULL);
         memset(&config, 0x0, sizeof(power_sleep_config_t));
         if (suspend_mode >= 2)
-            wlan_GetSleepConfig(&config);
+            ncp_GetSleepConfig(&config);
         host_sleep_pre_cfg(suspend_mode);
-#ifdef CONFIG_NCP_UART
+#if CONFIG_NCP_UART
         if(suspend_mode == 3)
         {
             usart_suspend_flag = true;
@@ -357,20 +396,20 @@ static void wlan_suspend_task(void *argv)
         while(ret == NCP_PM_STATUS_NOT_READY)
         {
             /* Some interface needs some time to do deinit. */
-            os_thread_sleep(os_msec_to_ticks(1));
+            OSA_TimeDelay(1);
             ret = (ncp_pm_status_t)ncp_intf_pm_enter(suspend_mode);
         }
         if(suspend_mode == 3)
         {
-#ifdef CONFIG_NCP_BRIDGE_DEBUG
-#ifdef CONFIG_UART_INTERRUPT
+#if CONFIG_NCP_DEBUG
+#if CONFIG_UART_INTERRUPT
             cli_uart_notify();
-            os_thread_sleep(os_msec_to_ticks(1));
+            OSA_TimeDelay(1);
             cli_uart_deinit();
 #endif
 #endif
             DbgConsole_Deinit();
-#ifdef CONFIG_CRC32_HW_ACCELERATE
+#if CONFIG_CRC32_HW_ACCELERATE
             CRC_Reset(CRC);
 #endif
         }
@@ -380,11 +419,10 @@ static void wlan_suspend_task(void *argv)
             lpm_pm3_exit_hw_reinit();
         else if (suspend_mode == 2)
             ncp_intf_pm_exit(suspend_mode);
-        if (wlan_is_started())
-        {
-            if(wlan_hs_send_event(HOST_SLEEP_EXIT, NULL) != 0)
-                break;
-        }
+#if CONFIG_NCP_WIFI
+        if (ncp_cancel_wlan_wakeup() != 0)
+            break;
+#endif
         host_sleep_post_cfg(suspend_mode);
         if (suspend_mode == 1)
         {
@@ -393,91 +431,44 @@ static void wlan_suspend_task(void *argv)
         }
         else
             host_sleep_dump_wakeup_source();
-        wakeup_by = 0;
-        wifi_clear_wakeup_reason();
-        wlan_is_manual = MFALSE;
+#if CONFIG_NCP_WIFI
+        ncp_clear_wlan_wakeup();
+#endif
+        wakeup_reason = 0;
+        global_power_config.is_manual = false;
         suspend_mode = 0;
     }
-    os_thread_self_complete(NULL);
+    vTaskSuspend(NULL);
+    assert(0);
 }
 
-int wlan_config_suspend_mode(int mode)
+int ncp_config_suspend_mode(int mode)
 {
     suspend_mode = mode;
-    
-    if (!wlan_is_manual)
+	
+    if (!global_power_config.is_manual)
         return -WM_FAIL;
-    
-    (void)os_event_notify_put(wlan_suspend_thread);
+    (void)OSA_EventSet((osa_event_handle_t)ncp_suspend_event, SUSPEND_EVENT_TRIGGERS);
+
     return WM_SUCCESS;
 }
 
-void test_wlan_suspend(int argc, char **argv)
-{
-    int mode = 0;
-
-    if (argc < 2)
-    {
-        (void)PRINTF("Error: invalid number of arguments\r\n");
-        (void)PRINTF("Usage:\r\n");
-        (void)PRINTF("    wlan-suspend <power mode>\r\n");
-        (void)PRINTF("    1:PM1 2:PM2 3:PM3 4:PM4\r\n");
-        (void)PRINTF("Example:\r\n");
-        (void)PRINTF("    wlan-suspend 3\r\n");
-        return;
-    }
-    if (!wlan_is_manual)
-    {
-        PRINTF("Error: Maunal mode is not selected!\r\n");
-        return;
-    }
-    mode = atoi(argv[1]);
-    if (mode < 1 || mode > 4)
-    {
-        (void)PRINTF("Invalid low power mode\r\n");
-        (void)PRINTF("Only PM1/PM2/PM3/PM4 supported here\r\n");
-        return;
-    }
-    if (mode == 4)
-    {
-        (void)PRINTF(
-            "MCU can't resume from PM4 for SRAM are forced power off, because this is HW design and PM4 modes is used "
-            "for power."
-            "consumption validation test\r\n");
-    }
-    suspend_mode = mode;
-    (void)os_event_notify_put(wlan_suspend_thread);
-}
-
-#ifdef CONFIG_POWER_MANAGER
+#if CONFIG_POWER_MANAGER
 void powerManager_EnterLowPower()
 {
-    /* Check is_wakeup_cond_set first, as wakelcok will be deleted in wlan-reset 0 */
-    if (wlan_host_sleep_state && pm_handle.enable && !wakelock_isheld())
+    if (global_power_config.is_periodic && pm_handle.enable
+         && OSA_MsgQAvailableMsgs((osa_msgq_handle_t)hs_cfm))
     {
         /* duration unit is us here */
         PM_EnterLowPower(rtc_timeout);
         host_sleep_dump_wakeup_source();
-        wakeup_by = 0;
-        wifi_clear_wakeup_reason();
+        wakeup_reason = 0;
+#if CONFIG_NCP_WIFI
+        ncp_clear_wlan_wakeup();
+#endif
     }
 }
 #endif
-
-int host_sleep_cli_init(void)
-{
-    unsigned int i;
-
-    for (i = 0; i < sizeof(host_sleep_commands) / sizeof(struct cli_command); i++)
-    {
-        if (cli_register_command(&host_sleep_commands[i]) != 0)
-        {
-            return -1;
-        }
-    }
-
-    return 0;
-}
 
 void ncp_gpio_init()
 {
@@ -491,12 +482,10 @@ void ncp_gpio_init()
         0,
     };
 
-#if defined(CONFIG_NCP_UART) || defined(CONFIG_NCP_USB)
+#if CONFIG_NCP_UART || CONFIG_NCP_USB
     GPIO_PortInit(GPIO, 0);
 #endif
-#ifndef CONFIG_NCP_SPI
     GPIO_PortInit(GPIO, 1);
-#endif
     GPIO_PinInit(GPIO, BOARD_SW4_GPIO_PORT, BOARD_SW4_GPIO_PIN, &gpio_in_config);
     /* Init output GPIO50 */
     GPIO_PinInit(GPIO, 1, 18, &gpio_out_config);
@@ -504,22 +493,37 @@ void ncp_gpio_init()
 
 int hostsleep_init(void)
 {
-    int ret = 0;
+    osa_status_t status = KOSA_StatusSuccess;
 
     if (kStatus_PMSuccess != LPM_Init())
     {
         PRINTF("LPM Init Failed!\r\n");
         return -1;
     }
-    /* Create task to handle wlan-suspend command */
-    ret = os_thread_create(&wlan_suspend_thread, "wlan_suspend_thread",
-                           wlan_suspend_task, NULL,
-                           &wlan_suspend_stack, OS_PRIO_3);
-    if (ret != WM_SUCCESS)
+
+    status = OSA_EventCreate((osa_event_handle_t)ncp_suspend_event, 1U);
+    if (status != KOSA_StatusSuccess)
     {
-        PRINTF("Create wlan suspend thread failed");
+        PRINTF("Create ncp suspend event failed");
         return -1;
     }
+
+    /* Create task to handle wlan-suspend command */
+    status = OSA_TaskCreate((osa_task_handle_t)ncp_suspend_thread, OSA_TASK(ncp_suspend_task), NULL);
+    if (status != KOSA_StatusSuccess)
+    {
+        PRINTF("Create ncp suspend thread failed");
+        return -1;
+    }
+
+    status = OSA_SemaphoreCreateBinary((osa_semaphore_handle_t)hs_cfm);
+    if (status != KOSA_StatusSuccess)
+    {
+        PRINTF("Create hs cfm semaphor failed");
+        return -1;
+    }
+    OSA_SemaphorePost((osa_semaphore_handle_t)hs_cfm);
+
     ncp_gpio_init();
     return 1;
 }

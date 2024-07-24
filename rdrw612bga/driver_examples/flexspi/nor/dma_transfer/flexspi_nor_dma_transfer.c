@@ -178,18 +178,6 @@ int main(void)
     CLOCK_EnableClock(kCLOCK_Flexspi);
     RESET_ClearPeripheralReset(kFLEXSPI_RST_SHIFT_RSTn);
 
-    /* Configure DMAMUX. */
-    RESET_PeripheralReset(kINPUTMUX_RST_SHIFT_RSTn);
-
-    INPUTMUX_Init(INPUTMUX);
-    INPUTMUX_AttachSignal(INPUTMUX, EXAMPLE_TX_CHANNEL, kINPUTMUX_FlexspiTxToDma0);
-    INPUTMUX_AttachSignal(INPUTMUX, EXAMPLE_RX_CHANNEL, kINPUTMUX_FlexspiRxToDma0);
-    /* Enable trigger. */
-    INPUTMUX_EnableSignal(INPUTMUX, kINPUTMUX_Dmac0InputTriggerFlexspiRxEna, true);
-    INPUTMUX_EnableSignal(INPUTMUX, kINPUTMUX_Dmac0InputTriggerFlexspiTxEna, true);
-    /* Turnoff clock to inputmux to save power. Clock is only needed to make changes */
-    INPUTMUX_Deinit(INPUTMUX);
-
     /* DMA init */
     DMA_Init(EXAMPLE_DMA);
 

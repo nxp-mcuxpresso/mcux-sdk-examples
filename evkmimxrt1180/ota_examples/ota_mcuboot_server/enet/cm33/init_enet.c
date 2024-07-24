@@ -30,7 +30,7 @@
 /* @TEST_ANCHOR */
 
 #ifndef EXAMPLE_BANNER
-#define EXAMPLE_BANNER "mbedTLS HTTP Server example"
+#define EXAMPLE_BANNER "HTTP Server example"
 #endif
 /*${macro:end}*/
 

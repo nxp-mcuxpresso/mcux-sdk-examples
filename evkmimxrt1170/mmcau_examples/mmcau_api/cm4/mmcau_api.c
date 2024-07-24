@@ -22,7 +22,7 @@
  * Definitions
  ******************************************************************************/
 
-#define CORE_CLK_FREQ CLOCK_GetFreqFromObs(CCM_OBS_M4_CLK_ROOT)
+#define CORE_CLK_FREQ CLOCK_GetRootClockFreq(kCLOCK_Root_M4)
 /* Number of cycles for througput measurement. One data buffer of certain size if processed this times. */
 #define CYCLES_FOR_THROUGHPUT 128
 #define CYCLES_FOR_PASSRATE   1024

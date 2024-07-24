@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:examples xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd manifest.xsd">
+  <externalDefinitions>
+    <definition extID="cm33_RW612"/>
+    <definition extID="middleware.wifi.imu.RW612"/>
+    <definition extID="middleware.wifi.wifidriver.RW612"/>
+    <definition extID="platform.drivers.flexcomm_usart_freertos.RW612"/>
+    <definition extID="component.osa_free_rtos.RW612"/>
+    <definition extID="driver.conn_fwloader.RW612"/>
+    <definition extID="component.mflash.frdmrw612.RW612"/>
+    <definition extID="component.mflash_file.RW612"/>
+    <definition extID="component.wireless_imu_adapter.RW612"/>
+    <definition extID="utility.debug_console.RW612"/>
+    <definition extID="platform.utilities.assert.RW612"/>
+    <definition extID="middleware.lwip.apps.httpsrv.RW612"/>
+    <definition extID="platform.drivers.clock.RW612"/>
+    <definition extID="middleware.freertos-kernel.heap_3.RW612"/>
+    <definition extID="middleware.wifi.RW612"/>
+    <definition extID="middleware.lwip.RW612"/>
+    <definition extID="middleware.edgefast_wifi_nxp.RW612"/>
+    <definition extID="middleware.freertos-kernel.cm33_non_trustzone.RW612"/>
+    <definition extID="platform.drivers.flash_config.frdmrw612.RW612"/>
+    <definition extID="device.RW612_CMSIS.RW612"/>
+    <definition extID="device.RW612_startup.RW612"/>
+    <definition extID="platform.drivers.reset.RW612"/>
+    <definition extID="platform.drivers.flexspi.RW612"/>
+    <definition extID="platform.drivers.cache_cache64.RW612"/>
+    <definition extID="platform.drivers.cns_io_mux.RW612"/>
+    <definition extID="platform.drivers.lpc_gpio.RW612"/>
+    <definition extID="platform.drivers.power.RW612"/>
+    <definition extID="platform.drivers.ocotp.RW612"/>
+    <definition extID="component.els_pkc.platform.rw61x_standalone_clib_gdet_sensor.RW612"/>
+    <definition extID="platform.utilities.misc_utilities.RW612"/>
+    <definition extID="middleware.wifi.common_files.RW612"/>
+    <definition extID="platform.drivers.imu.RW612"/>
+    <definition extID="middleware.wifi.osa.RW612"/>
+    <definition extID="middleware.wifi.osa_free_rtos.RW612"/>
+    <definition extID="platform.drivers.common.RW612"/>
+    <definition extID="middleware.wifi.template.RW612"/>
+    <definition extID="middleware.wifi.net.RW612"/>
+    <definition extID="component.wifi_bt_module.tx_pwr_limits.RW612"/>
+    <definition extID="middleware.wifi.net_free_rtos.RW612"/>
+    <definition extID="middleware.lwip.apps.lwiperf.RW612"/>
+    <definition extID="middleware.freertos-kernel.RW612"/>
+    <definition extID="middleware.freertos-kernel.template.RW612"/>
+    <definition extID="middleware.freertos-kernel.extension.RW612"/>
+    <definition extID="platform.drivers.flexcomm.RW612"/>
+    <definition extID="platform.drivers.flexcomm_usart.RW612"/>
+    <definition extID="component.lists.RW612"/>
+    <definition extID="component.osa_interface.RW612"/>
+    <definition extID="component.mflash.common.RW612"/>
+    <definition extID="platform.drivers.gdma.RW612"/>
+    <definition extID="component.serial_manager.RW612"/>
+    <definition extID="utility.str.RW612"/>
+    <definition extID="component.serial_manager_uart.RW612"/>
+    <definition extID="component.usart_adapter.RW612"/>
+    <definition extID="middleware.lwip.template.RW612"/>
+    <definition extID="CMSIS_Include_core_cm.RW612"/>
+    <definition extID="device.RW612_system.RW612"/>
+    <definition extID="component.els_pkc.els_header_only.RW612"/>
+    <definition extID="component.els_pkc.els_common.RW612"/>
+    <definition extID="component.els_pkc.memory.RW612"/>
+    <definition extID="component.els_pkc.standalone_gdet.RW612"/>
+    <definition extID="component.els_pkc.platform.rw61x_inf_header_only.RW612"/>
+    <definition extID="component.els_pkc.buffer.RW612"/>
+    <definition extID="component.els_pkc.core.RW612"/>
+    <definition extID="component.els_pkc.param_integrity.RW612"/>
+    <definition extID="component.els_pkc.flow_protection.RW612"/>
+    <definition extID="component.els_pkc.secure_counter.RW612"/>
+    <definition extID="component.els_pkc.pre_processor.RW612"/>
+    <definition extID="component.els_pkc.toolchain.RW612"/>
+    <definition extID="component.els_pkc.data_integrity.RW612"/>
+    <definition extID="armgcc"/>
+    <definition extID="mcuxpresso"/>
+    <definition extID="com.nxp.mcuxpresso"/>
+    <definition extID="com.crt.advproject.config.exe.debug"/>
+    <definition extID="com.crt.advproject.config.exe.release"/>
+  </externalDefinitions>
+  <example id="frdmrw612_wifi_webconfig" name="wifi_webconfig" device_core="cm33_RW612" dependency="middleware.wifi.imu.RW612 middleware.wifi.wifidriver.RW612 platform.drivers.flexcomm_usart_freertos.RW612 component.osa_free_rtos.RW612 driver.conn_fwloader.RW612 component.mflash.frdmrw612.RW612 component.mflash_file.RW612 component.wireless_imu_adapter.RW612 utility.debug_console.RW612 platform.utilities.assert.RW612 middleware.lwip.apps.httpsrv.RW612 platform.drivers.clock.RW612 middleware.freertos-kernel.heap_3.RW612 middleware.wifi.RW612 middleware.lwip.RW612 middleware.edgefast_wifi_nxp.RW612 middleware.freertos-kernel.cm33_non_trustzone.RW612 platform.drivers.flash_config.frdmrw612.RW612 device.RW612_CMSIS.RW612 device.RW612_startup.RW612 platform.drivers.reset.RW612 platform.drivers.flexspi.RW612 platform.drivers.cache_cache64.RW612 platform.drivers.cns_io_mux.RW612 platform.drivers.lpc_gpio.RW612 platform.drivers.power.RW612 platform.drivers.ocotp.RW612 component.els_pkc.platform.rw61x_standalone_clib_gdet_sensor.RW612 platform.utilities.misc_utilities.RW612 middleware.wifi.common_files.RW612 platform.drivers.imu.RW612 middleware.wifi.osa.RW612 middleware.wifi.osa_free_rtos.RW612 platform.drivers.common.RW612 middleware.wifi.template.RW612 middleware.wifi.net.RW612 component.wifi_bt_module.tx_pwr_limits.RW612 middleware.wifi.net_free_rtos.RW612 middleware.lwip.apps.lwiperf.RW612 middleware.freertos-kernel.RW612 middleware.freertos-kernel.template.RW612 middleware.freertos-kernel.extension.RW612 platform.drivers.flexcomm.RW612 platform.drivers.flexcomm_usart.RW612 component.lists.RW612 component.osa_interface.RW612 component.mflash.common.RW612 platform.drivers.gdma.RW612 component.serial_manager.RW612 utility.str.RW612 component.serial_manager_uart.RW612 component.usart_adapter.RW612 middleware.lwip.template.RW612 CMSIS_Include_core_cm.RW612 device.RW612_system.RW612 component.els_pkc.els_header_only.RW612 component.els_pkc.els_common.RW612 component.els_pkc.memory.RW612 component.els_pkc.standalone_gdet.RW612 component.els_pkc.platform.rw61x_inf_header_only.RW612 component.els_pkc.buffer.RW612 component.els_pkc.core.RW612 component.els_pkc.param_integrity.RW612 component.els_pkc.flow_protection.RW612 component.els_pkc.secure_counter.RW612 component.els_pkc.pre_processor.RW612 component.els_pkc.toolchain.RW612 component.els_pkc.data_integrity.RW612" category="wifi_examples">
+    <projects>
+      <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
+    </projects>
+    <memory>
+      <memoryBlock id="QSPI_FLASH_RW612" name="QSPI_FLASH" addr="08000000" size="00800000" type="ExtFlash" access="RO"/>
+      <memoryBlock id="SRAM_RW612" name="SRAM" addr="20000000" size="00130000" type="RAM" access="RW"/>
+      <memoryBlock id="MBOX1_RW612" name="MBOX1" addr="41380000" size="00000488" type="RAM" access="RW"/>
+      <memoryBlock id="TXQ1_RW612" name="TXQ1" addr="41380488" size="00001000" type="RAM" access="RW"/>
+      <memoryBlock id="MBOX2_RW612" name="MBOX2" addr="443C0000" size="00000488" type="RAM" access="RW"/>
+      <memoryBlock id="TXQ23_RW612" name="TXQ23" addr="443C0488" size="00001080" type="RAM" access="RW"/>
+      <memoryBlock id="TXQ32_RW612" name="TXQ32" addr="443C1508" size="00001080" type="RAM" access="RW"/>
+    </memory>
+    <toolchainSettings>
+      <toolchainSetting id_refs="com.nxp.mcuxpresso">
+        <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
+          <value>LWIP_TIMEVAL_PRIVATE=0</value>
+          <value>FSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1</value>
+          <value>USE_RTOS=1</value>
+          <value>PRINTF_ADVANCED_ENABLE=1</value>
+          <value>LWIP_NETIF_API=1</value>
+          <value>HTTPSRV_CFG_WEBSOCKET_ENABLED=1</value>
+          <value>HTTPSRV_CFG_DEFAULT_SES_CNT=8</value>
+          <value>SDK_DEBUGCONSOLE_UART</value>
+          <value>CPU_RW612ETA2I</value>
+          <value>MCUXPRESSO_SDK</value>
+          <value>BOOT_HEADER_ENABLE=1</value>
+          <value>MFLASH_FILE_BASEADDR=7340032</value>
+          <value>FSL_OSA_TASK_ENABLE=1</value>
+          <value>OSA_USED</value>
+          <value>LWIP_DNS=1</value>
+          <value>LWIP_NETIF_HOSTNAME=1</value>
+          <value>LWIP_IGMP=1</value>
+          <value>_XOPEN_SOURCE=500</value>
+          <value>SO_REUSE=1</value>
+          <value>SDK_OS_FREE_RTOS</value>
+          <value>SERIAL_PORT_TYPE_UART=1</value>
+        </option>
+        <option id="com.crt.advproject.gas.hdrlib" type="enum">
+          <value>com.crt.advproject.gas.hdrlib.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.gas.specs" type="enum">
+          <value>com.crt.advproject.gas.specs.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.gcc.hdrlib" type="enum">
+          <value>com.crt.advproject.gcc.hdrlib.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.gcc.specs" type="enum">
+          <value>com.crt.advproject.gcc.specs.newlibnano</value>
+        </option>
+        <option id="com.crt.advproject.link.gcc.hdrlib" type="enum">
+          <value>com.crt.advproject.gcc.link.hdrlib.newlibnano.nohost</value>
+        </option>
+        <option id="gnu.c.link.option.nostdlibs" type="boolean">
+          <value>true</value>
+        </option>
+        <option id="com.crt.advproject.link.fpu" type="enum">
+          <value>com.crt.advproject.link.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="com.crt.advproject.link.memory.heapAndStack" type="string">
+          <value>&amp;Heap:Default;Default;0x15f90&amp;Stack:Default;Default;0x800</value>
+        </option>
+        <option id="gnu.c.link.option.other" type="stringList">
+          <value>-no-warn-rwx-segments</value>
+        </option>
+        <option id="com.crt.advproject.gas.fpu" type="enum">
+          <value>com.crt.advproject.gas.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="gnu.c.compiler.option.optimization.flags" type="string">
+          <value>-fno-common</value>
+        </option>
+        <option id="com.crt.advproject.c.misc.dialect" type="enum">
+          <value>com.crt.advproject.misc.dialect.gnu99</value>
+        </option>
+        <option id="com.crt.advproject.gcc.fpu" type="enum">
+          <value>com.crt.advproject.gcc.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="gnu.c.compiler.option.misc.other" type="string">
+          <value>-mcpu=cortex-m33+nodsp -c -ffunction-sections -fdata-sections -fno-builtin</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.toerrors" type="boolean">
+          <value>false</value>
+        </option>
+      </toolchainSetting>
+    </toolchainSettings>
+    <debug_configurations>
+      <debug_configuration id_refs="com.crt.advproject.config.exe.debug com.crt.advproject.config.exe.release">
+        <drivers>
+          <driver id_refs="QSPI_FLASH_RW612">
+            <driverBinary path="../../../../devices/RW612/mcuxpresso" project_relative_path="binary" type="binary">
+              <files mask="RW61X_FlexSPI_A_SFDP_QSPI.cfx"/>
+            </driverBinary>
+          </driver>
+        </drivers>
+      </debug_configuration>
+    </debug_configurations>
+    <include_paths>
+      <include_path path="." project_relative_path="board" type="c_include"/>
+      <include_path path="." project_relative_path="source" type="c_include"/>
+      <include_path path="../common" project_relative_path="board" type="c_include"/>
+      <include_path path="../../../../core/boards/frdmrw612" project_relative_path="board" type="c_include"/>
+      <include_path path="../../../../core/boards/frdmrw612" project_relative_path="." type="c_include"/>
+      <include_path path="." project_relative_path="source" type="asm_include"/>
+      <include_path path="../../../../core/boards/frdmrw612" project_relative_path="board" type="asm_include"/>
+    </include_paths>
+    <source path="armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">
+      <files mask="build_all.bat"/>
+      <files mask="build_all.sh"/>
+      <files mask="clean.bat"/>
+      <files mask="clean.sh"/>
+      <files mask="CMakeLists.txt"/>
+      <files mask="flags.cmake"/>
+      <files mask="config.cmake"/>
+      <files mask="build_flash_debug.bat"/>
+      <files mask="build_flash_debug.sh"/>
+      <files mask="build_flash_release.bat"/>
+      <files mask="build_flash_release.sh"/>
+    </source>
+    <source path="../../../../core/devices/RW612" project_relative_path="./" type="workspace" toolchain="armgcc">
+      <files mask="all_lib_device.cmake"/>
+    </source>
+    <source path="linkscripts" project_relative_path="linkscripts" type="src" toolchain="mcuxpresso">
+      <files mask="noinit_noload_section.ldt"/>
+    </source>
+    <source path="linkscripts" project_relative_path="linkscripts" type="src" toolchain="mcuxpresso">
+      <files mask="main_data.ldt"/>
+      <files mask="main_rodata.ldt"/>
+      <files mask="main_text.ldt"/>
+    </source>
+    <source path="armgcc/linker" project_relative_path="frdmrw612/wifi_examples/wifi_webconfig/linker" type="linker" toolchain="armgcc">
+      <files mask="RW610_flash.ld"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="pin_mux.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="pin_mux.h"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include" config="true">
+      <files mask="lwipopts.h"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include">
+      <files mask="lwippools.h"/>
+    </source>
+    <source path="." project_relative_path="source" type="src">
+      <files mask="webconfig.c"/>
+      <files mask="cred_flash_storage.c"/>
+      <files mask="http_server.c"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include">
+      <files mask="webconfig.h"/>
+      <files mask="cred_flash_storage.h"/>
+      <files mask="http_server.h"/>
+    </source>
+    <source path="." project_relative_path="lwip/src/apps/httpsrv" type="src">
+      <files mask="httpsrv_fs_data.c"/>
+    </source>
+    <source path="." project_relative_path="doc" type="doc" exclude="true">
+      <files mask="readme_modules.txt"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include" config="true">
+      <files mask="FreeRTOSConfig.h"/>
+    </source>
+    <source path="webui" project_relative_path="components/edgefast_wifi/example/wifi_webconfig/webui" type="other" exclude="true">
+      <files mask="favicon.ico" hidden="true"/>
+    </source>
+    <source path="webui" project_relative_path="components/edgefast_wifi/example/wifi_webconfig/webui" type="doc" exclude="true">
+      <files mask="index.html" hidden="true"/>
+      <files mask="webconfig.css" hidden="true"/>
+    </source>
+    <source path="webui" project_relative_path="components/edgefast_wifi/example/wifi_webconfig/webui" type="image" exclude="true">
+      <files mask="NXP_logo.png" hidden="true"/>
+    </source>
+    <source path="webui" project_relative_path="components/edgefast_wifi/example/wifi_webconfig/webui" type="script" exclude="true">
+      <files mask="webconfig.js" hidden="true"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include" config="true">
+      <files mask="app_config.h"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include" config="true">
+      <files mask="wifi_config.h"/>
+    </source>
+    <source path="../../../../core/boards/frdmrw612" project_relative_path="board" type="src">
+      <files mask="board.c"/>
+      <files mask="clock_config.c"/>
+    </source>
+    <source path="../../../../core/boards/frdmrw612" project_relative_path="board" type="c_include">
+      <files mask="board.h"/>
+      <files mask="clock_config.h"/>
+    </source>
+    <source path="." project_relative_path="doc" type="doc" toolchain="mcuxpresso armgcc">
+      <files mask="readme.md"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="board.c"/>
+      <files mask="clock_config.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="board.h"/>
+      <files mask="clock_config.h"/>
+    </source>
+  </example>
+</ksdk:examples>

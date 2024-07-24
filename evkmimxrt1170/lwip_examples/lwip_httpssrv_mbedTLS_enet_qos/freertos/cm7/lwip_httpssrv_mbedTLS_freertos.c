@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2023 NXP
+ * Copyright 2016-2024 NXP
  * All rights reserved.
  *
  *
@@ -22,9 +22,6 @@
 #include "ethernetif.h"
 #include "pin_mux.h"
 #include "board.h"
-#ifndef configMAC_ADDR
-#include "fsl_silicon_id.h"
-#endif
 #include "fsl_phy.h"
 
 #include "lwip/netif.h"
@@ -110,6 +107,10 @@ extern phy_rtl8211f_resource_t g_phy_resource;
 #define ENET_PRIORITY (6U)
 #endif
 
+/* Must be after include of app.h */
+#ifndef configMAC_ADDR
+#include "fsl_silicon_id.h"
+#endif
 
 #ifndef EXAMPLE_NETIF_INIT_FN
 /*! @brief Network interface initialization function. */
@@ -596,6 +597,7 @@ static void netif_ipv6_callback(struct netif *cb_netif)
  */
 static void stack_init(void)
 {
+    status_t status;
 #if LWIP_IPV4
     ip4_addr_t netif_ipaddr, netif_netmask, netif_gw;
 #endif /* LWIP_IPV4 */
@@ -609,7 +611,8 @@ static void stack_init(void)
 #endif
     };
 
-    CRYPTO_InitHardware();
+    status = CRYPTO_InitHardware();
+    LWIP_ASSERT("CRYPTO_InitHardware() has failed\r\n", status == kStatus_Success);
 
     tcpip_init(NULL, NULL);
 
@@ -653,21 +656,21 @@ static void stack_init(void)
      * in case IPv6 address would become valid early.
      */
     LOCK_TCPIP_CORE();
-    LWIP_PLATFORM_DIAG(("\r\n***********************************************************"));
-    LWIP_PLATFORM_DIAG(("mbedTLS HTTPS Server example"));
-    LWIP_PLATFORM_DIAG(("***********************************************************"));
+    LWIP_PLATFORM_DIAG(("\r\n***********************************************************\r\n"));
+    LWIP_PLATFORM_DIAG(("mbedTLS HTTPS Server example\r\n"));
+    LWIP_PLATFORM_DIAG(("***********************************************************\r\n"));
 #if LWIP_IPV4
-    LWIP_PLATFORM_DIAG((" IPv4 Address     : %u.%u.%u.%u", ((u8_t *)&netif_ipaddr)[0], ((u8_t *)&netif_ipaddr)[1],
+    LWIP_PLATFORM_DIAG((" IPv4 Address     : %u.%u.%u.%u\r\n", ((u8_t *)&netif_ipaddr)[0], ((u8_t *)&netif_ipaddr)[1],
                         ((u8_t *)&netif_ipaddr)[2], ((u8_t *)&netif_ipaddr)[3]));
-    LWIP_PLATFORM_DIAG((" IPv4 Subnet mask : %u.%u.%u.%u", ((u8_t *)&netif_netmask)[0], ((u8_t *)&netif_netmask)[1],
+    LWIP_PLATFORM_DIAG((" IPv4 Subnet mask : %u.%u.%u.%u\r\n", ((u8_t *)&netif_netmask)[0], ((u8_t *)&netif_netmask)[1],
                         ((u8_t *)&netif_netmask)[2], ((u8_t *)&netif_netmask)[3]));
-    LWIP_PLATFORM_DIAG((" IPv4 Gateway     : %u.%u.%u.%u", ((u8_t *)&netif_gw)[0], ((u8_t *)&netif_gw)[1],
+    LWIP_PLATFORM_DIAG((" IPv4 Gateway     : %u.%u.%u.%u\r\n", ((u8_t *)&netif_gw)[0], ((u8_t *)&netif_gw)[1],
                         ((u8_t *)&netif_gw)[2], ((u8_t *)&netif_gw)[3]));
 #endif /* LWIP_IPV4 */
 #if LWIP_IPV6
     print_ipv6_addresses(&netif);
 #endif /* LWIP_IPV6 */
-    LWIP_PLATFORM_DIAG(("***********************************************************"));
+    LWIP_PLATFORM_DIAG(("***********************************************************\r\n"));
     UNLOCK_TCPIP_CORE();
 }
 
@@ -702,10 +705,7 @@ static void http_server_socket_init(void)
 #endif
     /* Init HTTP Server.*/
     httpsrv_handle = HTTPSRV_init(&params);
-    if (httpsrv_handle == 0)
-    {
-        LWIP_PLATFORM_DIAG(("HTTPSRV_init() is Failed"));
-    }
+    LWIP_ASSERT("HTTPSRV_init() has failed\r\n", httpsrv_handle != 0);
 }
 
 /*!

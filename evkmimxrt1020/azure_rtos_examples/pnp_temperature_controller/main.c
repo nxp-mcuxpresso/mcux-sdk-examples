@@ -198,7 +198,7 @@ uint32_t BOARD_GetMDIOClock(void)
 
 
 /* Define main entry point.  */
-void main(void)
+int main(void)
 {
     /* Init board hardware. */
     gpio_pin_config_t gpio_config = {kGPIO_DigitalOutput, 0, kGPIO_NoIntmode};
@@ -223,6 +223,8 @@ void main(void)
 
     /* Enter the ThreadX kernel.  */
     tx_kernel_enter();
+
+    return 0;
 }
 
 /* Define what the initial system looks like.  */

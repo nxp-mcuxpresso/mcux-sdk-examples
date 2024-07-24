@@ -5,12 +5,12 @@ This `ota_mcuboot_basic` example demonstrates a basic application that uses MCUB
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- MCUXpresso  11.9.0
-- GCC ARM Embedded  12.3
+- MCUXpresso  11.10.0
+- GCC ARM Embedded  13.2.1
 
 Hardware requirements
 =====================
@@ -42,10 +42,10 @@ There are multiple ways how to transfer image updates to the flash memory:
 
 - This examples implements a simple XMODEM-CRC protocol, that can be used to transfer data to the board at slow speed (~10kB/s).
   This provides a convenient method for images that have relatively small size (under lower 100's of kB).
-  In the application shell the XMODEM receiving is initiated by `xmodem` command. Terminal emulators like Tera Term can be used
-  as a transmitting side. Both 128B and 1024B packet sizes are supported.
+  In the application shell the XMODEM receiving is initiated by `xmodem` command. Terminal emulators like Tera Term or ExtraPutty
+  can be used as a transmitting side. Both 128B and 1024B packet sizes are supported.
 
-- An alternative way, more suitable for larger images, is to use the *blhost* utility (part of NXP's SPSDK and SEC tool).
+- An alternative way, more suitable for larger images, is to use the *blhost* utility (part of NXP's SPSDK and MCUXpresso Secure Provisioning Tool).
   Blhost communicates with chip's ROM and supports all basic flash operations. When used via onboard's USB the transfer
   speed is more appropriate for larger files. See board's user manual for details on ISP mode.
 
@@ -65,21 +65,19 @@ The latter method is used in the following step-by-step description:
 1.  Open the demo project and build it.
     Known issue: MDK linker issues warning about unused `boot_hdr` sections. This does not affect the functionality of the example.
     
-2.  Prepare signed image of the application from raw binary as described in the `mcuboot_opensource` readme.
-     - In case of MCUXpress raw binary may not be generated automatically. Use binary tools after right clicking Binaries/.axf file in the project tree to generate it manually.
+2.  Prepare signed image of the application from raw binary as described in the readme of `mcuboot_opensource` SDK example.
+     - In case of MCUXpresso raw binary may not be generated automatically. Use binary tools after right clicking Binaries/.axf file in the project tree to generate it manually.
 
 3.  Launch the debugger in your IDE to jump-start the application.
      - In case of MCUXpresso IDE the execution stalls in an endless loop in the bootloader. Pause the debugging and use debugger console and issue command `jump ResetISR`.
 
-4.  When the demo starts successfully, the terminal will display shell promt as in the following example:
+4.  When the demo starts successfully, the terminal will display shell prompt as in the following example:
 
         *************************************
         * Basic MCUBoot application example *
         *************************************
 
         Built Feb 22 2024 13:09:14
-
-        Copyright  2022  NXP
 
         $
 
@@ -129,7 +127,7 @@ The latter method is used in the following step-by-step description:
 
           Slot 1 APP_SECONDARY; address 0x50000; size 0x30000 (196608):
             <IMAGE: size 30352; version 2.2.0+0>
-            SHA256: 918A708203EE4AD7C616...
+            SHA256 of image payload: 918A708203EE4AD7C616...
 
 11. To let the bootloader install the new image it must be marked as `ReadyForTest`. This is done using `image test`
     command. After running this command the result can be checked by runnig the `image` command again.
@@ -147,7 +145,7 @@ The latter method is used in the following step-by-step description:
 
           Slot 0 APP_PRIMARY; address 0x20000; size 0x30000 (196608):
             <IMAGE: size 30352; version 2.2.0+0>
-            SHA256: 918A708203EE4AD7C616...
+            SHA256 of image payload: 918A708203EE4AD7C616...
 
           Slot 1 APP_SECONDARY; address 0x50000; size 0x30000 (196608):
             <No Image Found>

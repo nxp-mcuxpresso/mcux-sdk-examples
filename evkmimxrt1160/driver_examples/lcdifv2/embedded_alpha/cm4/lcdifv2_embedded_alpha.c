@@ -65,6 +65,9 @@ static void BOARD_ResetDisplayMix(void)
      * is not right.
      */
     SRC_AssertSliceSoftwareReset(SRC, kSRC_DisplaySlice);
+    while (kSRC_SliceResetInProcess == SRC_GetSliceResetState(SRC, kSRC_DisplaySlice))
+    {
+    }
 }
 
 

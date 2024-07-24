@@ -122,6 +122,7 @@ int main(void)
         PRINTF("*Success* GLIKEY Continue enable Step 3 pass\r\n\r\n");
     }
 
+#if FSL_FEATURE_GLIKEY_HAS_EIGHT_STEPS && (FSL_FEATURE_GLIKEY_HAS_EIGHT_STEPS > 0)
     status = GLIKEY_ContinueEnable(app_glikey_base, GLIKEY_CODEWORD_STEP4);
     if (kStatus_Success != status)
     {
@@ -165,6 +166,7 @@ int main(void)
     {
         PRINTF("*Success* GLIKEY Continue enable  Step 7 pass \r\n\r\n");
     }
+#endif /* FSL_FEATURE_GLIKEY_HAS_EIGHT_STEPS */
 
     status = GLIKEY_ContinueEnable(app_glikey_base, GLIKEY_CODEWORD_STEP_EN);
     if (kStatus_Success != status)

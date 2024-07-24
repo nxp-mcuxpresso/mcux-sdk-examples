@@ -10,16 +10,6 @@ IF(NOT DEFINED DEBUG_CONSOLE_CONFIG)
     SET(DEBUG_CONSOLE_CONFIG "-DSDK_DEBUGCONSOLE=1")  
 ENDIF()  
 
-SET(CMAKE_ASM_FLAGS_DEBUG " \
-    ${CMAKE_ASM_FLAGS_DEBUG} \
-    -DDEBUG \
-    -DSLAVEBOOT \
-    -D__STARTUP_CLEAR_BSS \
-    -DNO_CRP \
-    -mcpu=cortex-m33+nodsp \
-    -mthumb \
-    ${FPU} \
-")
 SET(CMAKE_ASM_FLAGS_RELEASE " \
     ${CMAKE_ASM_FLAGS_RELEASE} \
     -DNDEBUG \
@@ -29,31 +19,6 @@ SET(CMAKE_ASM_FLAGS_RELEASE " \
     -mcpu=cortex-m33+nodsp \
     -mthumb \
     ${FPU} \
-")
-SET(CMAKE_C_FLAGS_DEBUG " \
-    ${CMAKE_C_FLAGS_DEBUG} \
-    -DDEBUG \
-    -DCPU_LPC55S69JBD100_cm33_core1 \
-    -DMCUXPRESSO_SDK \
-    -DMULTICORE_APP=1 \
-    -DSERIAL_PORT_TYPE_UART=1 \
-    -DSDK_OS_FREE_RTOS \
-    -g \
-    -O0 \
-    -mcpu=cortex-m33+nodsp \
-    -Wall \
-    -mthumb \
-    -MMD \
-    -MP \
-    -fno-common \
-    -ffunction-sections \
-    -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
-    -mapcs \
-    -std=gnu99 \
-    ${FPU} \
-    ${DEBUG_CONSOLE_CONFIG} \
 ")
 SET(CMAKE_C_FLAGS_RELEASE " \
     ${CMAKE_C_FLAGS_RELEASE} \
@@ -72,34 +37,9 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
-    ${FPU} \
-    ${DEBUG_CONSOLE_CONFIG} \
-")
-SET(CMAKE_CXX_FLAGS_DEBUG " \
-    ${CMAKE_CXX_FLAGS_DEBUG} \
-    -DDEBUG \
-    -DCPU_LPC55S69JBD100_cm33_core1 \
-    -DMCUXPRESSO_SDK \
-    -DSERIAL_PORT_TYPE_UART=1 \
-    -g \
-    -O0 \
-    -mcpu=cortex-m33+nodsp \
-    -Wall \
-    -mthumb \
-    -MMD \
-    -MP \
-    -fno-common \
-    -ffunction-sections \
-    -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
-    -mapcs \
-    -fno-rtti \
-    -fno-exceptions \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
@@ -118,44 +58,12 @@ SET(CMAKE_CXX_FLAGS_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -fno-rtti \
     -fno-exceptions \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
-")
-SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
-    ${CMAKE_EXE_LINKER_FLAGS_DEBUG} \
-    -g \
-    -mcpu=cortex-m33+nodsp \
-    -Wall \
-    -fno-common \
-    -ffunction-sections \
-    -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
-    -mthumb \
-    -mapcs \
-    -Xlinker \
-    --gc-sections \
-    -Xlinker \
-    -static \
-    -Xlinker \
-    -z \
-    -Xlinker \
-    muldefs \
-    -Xlinker \
-    -Map=output.map \
-    -Wl,--print-memory-usage \
-    -Xlinker \
-    --defsym=__stack_size__=0x400 \
-    -Xlinker \
-    --defsym=__use_shmem__=1 \
-    ${FPU} \
-    ${SPECS} \
-    -T\"${ProjDirPath}/LPC55S69_cm33_core1_ram.ld\" -static \
 ")
 SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     ${CMAKE_EXE_LINKER_FLAGS_RELEASE} \
@@ -164,7 +72,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \

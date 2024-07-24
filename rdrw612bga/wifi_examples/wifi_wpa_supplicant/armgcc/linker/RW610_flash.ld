@@ -76,7 +76,9 @@ SECTIONS
   {
     . = ALIGN(4);
     *(.rcs.*)
-    *(.text)                 /* .text sections (code) */
+    *(EXCLUDE_FILE(
+        *fsl_memcpy.S.obj
+    ) .text)                 /* .text sections (code) */
     *(EXCLUDE_FILE(
         *port.c.obj
         *portasm.c.obj
@@ -96,6 +98,10 @@ SECTIONS
         *fsl_adapter_rfimu.c.obj
         *fsl_cache.c.obj
         *fsl_os_abstraction_free_rtos.c.obj
+        *fsl_memcpy.S.obj
+        *etharp.c.obj
+        *ethernet.c.obj
+        *wifi_netif.c.obj
       ) .text*)              /* .text* sections (code) */
     *(.rodata)               /* .rodata sections (constants, strings, etc.) */
     *(.rodata*)              /* .rodata* sections (constants, strings, etc.) */
@@ -221,6 +227,10 @@ SECTIONS
     *fsl_adapter_rfimu.c.obj(.text*)
     *fsl_cache.c.obj(.text*)
     *fsl_os_abstraction_free_rtos.c.obj(.text*)
+    *fsl_memcpy.S.obj(.text*)
+    *etharp.c.obj(.text*)
+    *ethernet.c.obj(.text*)
+    *wifi_netif.c.obj(.text*)
     KEEP(*(.jcr*))
     . = ALIGN(4);
     __data_end__ = .;        /* define a global symbol at data end */

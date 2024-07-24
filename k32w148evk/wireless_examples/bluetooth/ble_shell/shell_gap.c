@@ -44,6 +44,8 @@
 #include "ble_conn_manager.h"
 
 #include "app_conn.h"
+#include "app_scanner.h"
+#include "app_advertiser.h"
 #include "app.h"
 
 #include <string.h>
@@ -53,7 +55,10 @@
 * Private macros
 *************************************************************************************
 ************************************************************************************/
-#if defined(BLE_SHELL_AE_SUPPORT) && (BLE_SHELL_AE_SUPPORT)
+#if defined(BLE_SHELL_AE_SUPPORT) && (BLE_SHELL_AE_SUPPORT) && \
+    defined(BLE_SHELL_DBAF_SUPPORT) && (BLE_SHELL_DBAF_SUPPORT)
+#define mShellGapCmdsCount_c                37U
+#elif defined(BLE_SHELL_AE_SUPPORT) && (BLE_SHELL_AE_SUPPORT)
 #define mShellGapCmdsCount_c                33U
 #else
 #define mShellGapCmdsCount_c                22U
@@ -162,6 +167,13 @@ static shell_status_t ShellGap_StartPeriodicAdv(uint8_t argc, char * argv[]);
 static void ShellGap_SetDefaultExtData(gapAdvertisingData_t* pExtAdvData);
 #endif /* BLE_SHELL_AE_SUPPORT */
 
+#if defined(BLE_SHELL_DBAF_SUPPORT) && (BLE_SHELL_DBAF_SUPPORT)
+static shell_status_t ShellGap_SetDecisionInstructions(uint8_t argc, char * argv[]);
+static shell_status_t ShellGap_AddDecisionInstruction(uint8_t argc, char * argv[]);
+static shell_status_t ShellGap_DeleteDecisionInstructions(uint8_t argc, char * argv[]);
+static shell_status_t ShellGap_SetExtAdvDecisionData(uint8_t argc, char * argv[]);
+#endif /* BLE_SHELL_DBAF_SUPPORT */
+
 static void ShellGap_HandleConnectedEvt(deviceId_t peerDeviceId, gapConnectedEvent_t *pEvent);
 static void ShellGap_SendSmpKeys(deviceId_t peerDeviceId, gapSmpKeyFlags_t *pRequestedKeys);
 static void ShellGap_HandleLongTermKeyRequestEvt(deviceId_t peerDeviceId, gapLongTermKeyRequestEvent_t *pEvent);
@@ -225,6 +237,13 @@ static const gapCmds_t mGapShellCmds[mShellGapCmdsCount_c] =
     {"periodicsync",  ShellGap_PeriodicSyncCreate},
     {"periodicsyncstop",  ShellGap_PeriodicSyncStop},
 #endif /* BLE_SHELL_AE_SUPPORT */
+
+#if defined(BLE_SHELL_DBAF_SUPPORT) && (BLE_SHELL_DBAF_SUPPORT)
+    {"setdecinstr",     ShellGap_SetDecisionInstructions},
+    {"adddecinstr",     ShellGap_AddDecisionInstruction},
+    {"deldecinstr",     ShellGap_DeleteDecisionInstructions},
+    {"extadvdecdata",   ShellGap_SetExtAdvDecisionData},
+#endif /* BLE_SHELL_DBAF_SUPPORT */
 };
 
 static bool_t mIsBonded = FALSE;
@@ -299,6 +318,9 @@ static appExtAdvertisingParams_t mAppExtAdvParams = {
     &gExtAdvParams,
     &gAppExtAdvertisingData,
     &gAppExtScanRspData,
+#if (defined(BLE_SHELL_DBAF_SUPPORT) && BLE_SHELL_DBAF_SUPPORT)
+    &gAppExtAdvDecisionData,
+#endif
     mShellGapDefaultAdvHandle_c,
     gBleExtAdvNoDuration_c,
     gBleExtAdvNoMaxEvents_c
@@ -352,7 +374,7 @@ static bool_t mAdvertisingCbSet = FALSE;
  * \param[in]    argc           Number of arguments
  * \param[in]    argv           Array of argument's values
  *
- * \return       int8_t         Command status
+ * \return       shell_status_t Command status
  ********************************************************************************** */
 shell_status_t ShellGap_Command(shell_handle_t shellHandle, int32_t argc, char **argv)
 {
@@ -395,7 +417,7 @@ shell_status_t ShellGap_Command(shell_handle_t shellHandle, int32_t argc, char *
  * \param[in]    argc           Number of arguments
  * \param[in]    argv           Array of argument's values
  *
- * \return       int8_t         Command status
+ * \return       shell_status_t Command status
  ********************************************************************************** */
 static shell_status_t ShellGap_DeviceAddress(uint8_t argc, char **argv)
 {
@@ -455,7 +477,7 @@ static shell_status_t ShellGap_DeviceAddress(uint8_t argc, char **argv)
  * \param[in]    argc           Number of arguments
  * \param[in]    argv           Array of argument's values
  *
- * \return       int8_t         Command status
+ * \return       shell_status_t Command status
  ********************************************************************************** */
 static shell_status_t ShellGap_DeviceName(uint8_t argc, char * argv[])
 {
@@ -535,7 +557,7 @@ static shell_status_t ShellGap_DeviceName(uint8_t argc, char * argv[])
  * \param[in]    argc           Number of arguments
  * \param[in]    argv           Array of argument's values
  *
- * \return       int8_t         Command status
+ * \return       shell_status_t Command status
  ********************************************************************************** */
 static shell_status_t ShellGap_StartAdvertising(uint8_t argc, char * argv[])
 {
@@ -564,7 +586,7 @@ static shell_status_t ShellGap_StartAdvertising(uint8_t argc, char * argv[])
  * \param[in]    argc           Number of arguments
  * \param[in]    argv           Array of argument's values
  *
- * \return       int8_t         Command status
+ * \return       shell_status_t Command status
  ********************************************************************************** */
 static shell_status_t ShellGap_StopAdvertising(uint8_t argc, char * argv[])
 {
@@ -595,7 +617,7 @@ static shell_status_t ShellGap_StopAdvertising(uint8_t argc, char * argv[])
  * \param[in]    argc           Number of arguments
  * \param[in]    argv           Array of argument's values
  *
- * \return       int8_t         Command status
+ * \return       shell_status_t Command status
  ********************************************************************************** */
 static shell_status_t ShellGap_SetAdvertisingParameters(uint8_t argc, char * argv[])
 {
@@ -839,7 +861,7 @@ static bool_t ShellGap_AppendAdvData
  * \param[in]    argc           Number of arguments
  * \param[in]    argv           Array of argument's values
  *
- * \return       int8_t         Command status
+ * \return       shell_status_t Command status
  ********************************************************************************** */
 static shell_status_t ShellGap_ChangeAdvertisingData(uint8_t argc, char * argv[])
 {
@@ -899,7 +921,7 @@ static shell_status_t ShellGap_ChangeAdvertisingData(uint8_t argc, char * argv[]
  * \param[in]    argc           Number of arguments
  * \param[in]    argv           Array of argument's values
  *
- * \return       int8_t         Command status
+ * \return       shell_status_t Command status
  ********************************************************************************** */
 static shell_status_t ShellGap_StartScanning(uint8_t argc, char * argv[])
 {
@@ -931,7 +953,7 @@ static shell_status_t ShellGap_StartScanning(uint8_t argc, char * argv[])
  * \param[in]    argc           Number of arguments
  * \param[in]    argv           Array of argument's values
  *
- * \return       int8_t         Command status
+ * \return       shell_status_t Command status
  ********************************************************************************** */
 static shell_status_t ShellGap_StopScanning(uint8_t argc, char * argv[])
 {
@@ -964,7 +986,7 @@ static shell_status_t ShellGap_StopScanning(uint8_t argc, char * argv[])
  * \param[in]    argc           Number of arguments
  * \param[in]    argv           Array of argument's values
  *
- * \return       int8_t         Command status
+ * \return       shell_status_t Command status
  ********************************************************************************** */
 static shell_status_t ShellGap_SetScanParameters(uint8_t argc, char * argv[])
 {
@@ -993,6 +1015,10 @@ static shell_status_t ShellGap_SetScanParameters(uint8_t argc, char * argv[])
         shell_write("\r\n    -->  Scan Period: ");
         shell_writeDec((uint32_t)mScanPeriod);
         shell_write(" ms");
+#if defined(BLE_SHELL_DBAF_SUPPORT) && (BLE_SHELL_DBAF_SUPPORT)
+        shell_write("\r\n    -->  Scan Filter Policy: ");
+        shell_writeDec((uint8_t)gAppScanParams.filterPolicy);
+#endif /* BLE_SHELL_DBAF_SUPPORT */
         SHELL_NEWLINE();
     }
     else
@@ -1044,6 +1070,14 @@ static shell_status_t ShellGap_SetScanParameters(uint8_t argc, char * argv[])
                 mScanPeriod = (uint16_t)BleApp_atoi(argv[i+1U]);
                 bValidCmd = TRUE;
             }
+
+#if defined(BLE_SHELL_DBAF_SUPPORT) && (BLE_SHELL_DBAF_SUPPORT)
+            if(0 == strcmp((char*)argv[i], "-filter") && ((i+1U) < argc))
+            {
+                gAppScanParams.filterPolicy = (bleScanningFilterPolicy_t)BleApp_atoi(argv[i+1U]);
+                bValidCmd = TRUE;
+            }
+#endif /* BLE_SHELL_DBAF_SUPPORT */
         }
 
         /* A valid command should set at least one scanning parameter */
@@ -1062,7 +1096,7 @@ static shell_status_t ShellGap_SetScanParameters(uint8_t argc, char * argv[])
  * \param[in]    argc           Number of arguments
  * \param[in]    argv           Array of argument's values
  *
- * \return       int8_t         Command status
+ * \return       shell_status_t Command status
  ********************************************************************************** */
 static shell_status_t ShellGap_ChangeScanData(uint8_t argc, char * argv[])
 {
@@ -1121,7 +1155,7 @@ static shell_status_t ShellGap_ChangeScanData(uint8_t argc, char * argv[])
  * \param[in]    argc           Number of arguments
  * \param[in]    argv           Array of argument's values
  *
- * \return       int8_t         Command status
+ * \return       shell_status_t Command status
  ********************************************************************************** */
 static shell_status_t ShellGap_Connect(uint8_t argc, char * argv[])
 {
@@ -1180,7 +1214,7 @@ static shell_status_t ShellGap_Connect(uint8_t argc, char * argv[])
  * \param[in]    argc           Number of arguments
  * \param[in]    argv           Array of argument's values
  *
- * \return       int8_t         Command status
+ * \return       shell_status_t Command status
  ********************************************************************************** */
 static shell_status_t ShellGap_SetConnectionParameters(uint8_t argc, char * argv[])
 {
@@ -1226,6 +1260,14 @@ static shell_status_t ShellGap_SetConnectionParameters(uint8_t argc, char * argv
             gConnReqParams.initiatingPHYs = connectingPhy;
             bValidCmd = TRUE;
         }
+#if defined(BLE_SHELL_DBAF_SUPPORT) && (BLE_SHELL_DBAF_SUPPORT)
+        if(0 == strcmp((char*)argv[i], "-filter") && ((i+1U) < argc))
+        {
+            uint8_t filterPolicy = (uint8_t)BleApp_atoi(argv[i+1U]);
+            gConnReqParams.filterPolicy = filterPolicy;
+            bValidCmd = TRUE;
+        }
+#endif /* BLE_SHELL_DBAF_SUPPORT */
     }
 
     /* Print the connection parameters */
@@ -1248,6 +1290,11 @@ static shell_status_t ShellGap_SetConnectionParameters(uint8_t argc, char * argv
         shell_write("\r\n    -->  Connecting PHYs: ");
         ShellGap_PrintPhy(gConnReqParams.initiatingPHYs);
 
+#if defined(BLE_SHELL_DBAF_SUPPORT) && (BLE_SHELL_DBAF_SUPPORT)
+        shell_write("\r\n    -->  Connection Filter Policy: ");
+        shell_writeDec((uint8_t)gConnReqParams.filterPolicy);
+#endif /* BLE_SHELL_DBAF_SUPPORT */
+
         SHELL_NEWLINE();
         result = kStatus_SHELL_Success;
     }
@@ -1261,7 +1308,7 @@ static shell_status_t ShellGap_SetConnectionParameters(uint8_t argc, char * argv
  * \param[in]    argc           Number of arguments
  * \param[in]    argv           Array of argument's values
  *
- * \return       int8_t         Command status
+ * \return       shell_status_t Command status
  ********************************************************************************** */
 static shell_status_t ShellGap_Disconnect(uint8_t argc, char * argv[])
 {
@@ -1297,7 +1344,7 @@ static shell_status_t ShellGap_Disconnect(uint8_t argc, char * argv[])
  * \param[in]    argc           Number of arguments
  * \param[in]    argv           Array of argument's values
  *
- * \return       int8_t         Command status
+ * \return       shell_status_t Command status
  ********************************************************************************** */
 static shell_status_t ShellGap_UpdateConnection(uint8_t argc, char * argv[])
 {
@@ -1339,7 +1386,7 @@ static shell_status_t ShellGap_UpdateConnection(uint8_t argc, char * argv[])
  * \param[in]    argc           Number of arguments
  * \param[in]    argv           Array of argument's values
  *
- * \return       int8_t         Command status
+ * \return       shell_status_t Command status
  ********************************************************************************** */
 static shell_status_t ShellGap_Pair(uint8_t argc, char * argv[])
 {
@@ -1386,7 +1433,7 @@ static shell_status_t ShellGap_Pair(uint8_t argc, char * argv[])
  * \param[in]    argc           Number of arguments
  * \param[in]    argv           Array of argument's values
  *
- * \return       int8_t         Command status
+ * \return       shell_status_t Command status
  ********************************************************************************** */
 static shell_status_t ShellGap_PairCfg(uint8_t argc, char * argv[])
 {
@@ -1461,7 +1508,7 @@ static shell_status_t ShellGap_PairCfg(uint8_t argc, char * argv[])
  * \param[in]    argc           Number of arguments
  * \param[in]    argv           Array of argument's values
  *
- * \return       int8_t         Command status
+ * \return       shell_status_t Command status
  ********************************************************************************** */
 static shell_status_t ShellGap_EnterPasskey(uint8_t argc, char * argv[])
 {
@@ -1492,7 +1539,7 @@ static shell_status_t ShellGap_EnterPasskey(uint8_t argc, char * argv[])
  * \param[in]    argc           Number of arguments
  * \param[in]    argv           Array of argument's values
  *
- * \return       int8_t         Command status
+ * \return       shell_status_t Command status
  ********************************************************************************** */
 static shell_status_t ShellGap_Bonds(uint8_t argc, char * argv[])
 {
@@ -1694,7 +1741,7 @@ static void ShellGap_ParseScannedDevice(gapScannedDevice_t* pData)
  * \param[in]    argc           Number of arguments
  * \param[in]    argv           Array of argument's values
  *
- * \return       int8_t         Command status
+ * \return       shell_status_t Command status
  ********************************************************************************** */
 static shell_status_t ShellGap_ChangeExtScanData(uint8_t argc, char * argv[])
 {
@@ -1834,7 +1881,7 @@ static void ShellGap_ParseExtScannedDevice(gapExtScannedDevice_t* pData)
  * \param[in]    argc           Number of arguments
  * \param[in]    argv           Array of argument's values
  *
- * \return       int8_t         Command status
+ * \return       shell_status_t Command status
  ********************************************************************************** */
 static shell_status_t ShellGap_StartExtAdvertising(uint8_t argc, char * argv[])
 {
@@ -1862,7 +1909,7 @@ static shell_status_t ShellGap_StartExtAdvertising(uint8_t argc, char * argv[])
  * \param[in]    argc           Number of arguments
  * \param[in]    argv           Array of argument's values
  *
- * \return       int8_t         Command status
+ * \return       shell_status_t Command status
  ********************************************************************************** */
 static shell_status_t ShellGap_StopExtAdvertising(uint8_t argc, char * argv[])
 {
@@ -1884,7 +1931,7 @@ static shell_status_t ShellGap_StopExtAdvertising(uint8_t argc, char * argv[])
  * \param[in]    argc           Number of arguments
  * \param[in]    argv           Array of argument's values
  *
- * \return       int8_t         Command status
+ * \return       shell_status_t Command status
  ********************************************************************************** */
 static shell_status_t ShellGap_ChangeExtAdvertisingData(uint8_t argc, char * argv[])
 {
@@ -1962,7 +2009,7 @@ static shell_status_t ShellGap_ChangeExtAdvertisingData(uint8_t argc, char * arg
  * \param[in]    argc           Number of arguments
  * \param[in]    argv           Array of argument's values
  *
- * \return       int8_t         Command status
+ * \return       shell_status_t Command status
  ********************************************************************************** */
 static shell_status_t ShellGap_SetExtAdvertisingParameters(uint8_t argc, char * argv[])
 {
@@ -2028,7 +2075,7 @@ static shell_status_t ShellGap_SetExtAdvertisingParameters(uint8_t argc, char * 
  * \param[in]    argc           Number of arguments
  * \param[in]    argv           Array of argument's values
  *
- * \return       int8_t         Command status
+ * \return       shell_status_t Command status
  ********************************************************************************** */
 static shell_status_t ShellGap_ChangePeriodicAdvData(uint8_t argc, char * argv[])
 {
@@ -2075,7 +2122,7 @@ static shell_status_t ShellGap_ChangePeriodicAdvData(uint8_t argc, char * argv[]
  * \param[in]    argc           Number of arguments
  * \param[in]    argv           Array of argument's values
  *
- * \return       int8_t         Command status
+ * \return       shell_status_t Command status
  ********************************************************************************** */
 static shell_status_t ShellGap_PeriodicSyncCreate(uint8_t argc, char * argv[])
 {
@@ -2123,7 +2170,7 @@ static shell_status_t ShellGap_PeriodicSyncCreate(uint8_t argc, char * argv[])
  * \param[in]    argc           Number of arguments
  * \param[in]    argv           Array of argument's values
  *
- * \return       int8_t         Command status
+ * \return       shell_status_t Command status
  ********************************************************************************** */
 static shell_status_t ShellGap_PeriodicSyncStop(uint8_t argc, char * argv[])
 {
@@ -2142,7 +2189,7 @@ static shell_status_t ShellGap_PeriodicSyncStop(uint8_t argc, char * argv[])
  * \param[in]    argc           Number of arguments
  * \param[in]    argv           Array of argument's values
  *
- * \return       int8_t         Command status
+ * \return       shell_status_t Command status
  ********************************************************************************** */
 static shell_status_t ShellGap_SetPeriodicAdvParameters(uint8_t argc, char * argv[])
 {
@@ -2213,7 +2260,7 @@ static shell_status_t ShellGap_SetPeriodicAdvParameters(uint8_t argc, char * arg
  * \param[in]    argc           Number of arguments
  * \param[in]    argv           Array of argument's values
  *
- * \return       int8_t         Command status
+ * \return       shell_status_t Command status
  ********************************************************************************** */
 static shell_status_t ShellGap_StopPeriodicAdv(uint8_t argc, char * argv[])
 {
@@ -2237,7 +2284,7 @@ static shell_status_t ShellGap_StopPeriodicAdv(uint8_t argc, char * argv[])
  * \param[in]    argc           Number of arguments
  * \param[in]    argv           Array of argument's values
  *
- * \return       int8_t         Command status
+ * \return       shell_status_t Command status
  ********************************************************************************** */
 static shell_status_t ShellGap_StartPeriodicAdv(uint8_t argc, char * argv[])
 {
@@ -2266,13 +2313,348 @@ static shell_status_t ShellGap_StartPeriodicAdv(uint8_t argc, char * argv[])
 }
 #endif /* BLE_SHELL_AE_SUPPORT */
 
+#if defined(BLE_SHELL_DBAF_SUPPORT) && (BLE_SHELL_DBAF_SUPPORT)
+/*! *********************************************************************************
+ * \brief        Handles "gap setdecinstr" shell command.
+ *
+ * \param[in]    argc           Number of arguments
+ * \param[in]    argv           Array of argument's values
+ *
+ * \return       shell_status_t Command status
+ ********************************************************************************** */
+static shell_status_t ShellGap_SetDecisionInstructions(uint8_t argc, char * argv[])
+{
+    shell_status_t result = kStatus_SHELL_Success;
+
+    /* Do not accept command if other arguments were passed */
+    if (argc != 0U)
+    {
+        shell_write("\r\nIncorrect command parameter(s).  Enter \"help\" to view a list of available commands.\r\n\r\n");
+        result = kStatus_SHELL_Error;
+    }
+    else
+    {
+        /* Set the current decision instructions */
+        if (gBleSuccess_c != Gap_SetDecisionInstructions(gNumDecisionInstructions, gaDecisionInstructions))
+        {
+            shell_write(mShellErrorStatus);
+        }
+    }
+
+    return result;
+}
+
+/*! *********************************************************************************
+ * \brief        Handles "gap adddecinstr" shell command.
+ *
+ * \param[in]    argc           Number of arguments
+ * \param[in]    argv           Array of argument's values
+ *
+ * \return       shell_status_t Command status
+ ********************************************************************************** */
+static shell_status_t ShellGap_AddDecisionInstruction(uint8_t argc, char * argv[])
+{
+    shell_status_t result = kStatus_SHELL_Success;
+    bool_t bValidCmd = FALSE;
+
+    /* Do not accept command if no arguments were passed */
+    if (argc == 0U)
+    {
+        shell_write("\r\nIncorrect command parameter(s).  Enter \"help\" to view a list of available commands.\r\n\r\n");
+        result = kStatus_SHELL_Error;
+    }
+    else if (gNumDecisionInstructions == gMaxNumDecisionInstructions_c)
+    {
+        shell_write("\r\nDecision Instructions limit reached.\r\n\r\n");
+        result = kStatus_SHELL_Error;
+    }
+    else
+    {
+        /* Search for keywords */
+        for (uint32_t i = 0U; i < argc; i += 2U)
+        {
+            if(0 == strcmp((char*)argv[i], "-group") && ((i+1U) < argc))
+            {
+                gaDecisionInstructions[gNumDecisionInstructions].testGroup = (gapDecisionInstructionsTestGroup_t)BleApp_atoi(argv[i+1U]);
+                bValidCmd = TRUE;
+            }
+
+            if(0 == strcmp((char*)argv[i], "-criteria") && ((i+1U) < argc))
+            {
+                gaDecisionInstructions[gNumDecisionInstructions].passCriteria = (gapDecisionInstructionsTestPassCriteria_t)BleApp_atoi(argv[i+1U]);
+                bValidCmd = TRUE;
+            }
+
+            if(0 == strcmp((char*)argv[i], "-field") && ((i+1U) < argc))
+            {
+                gaDecisionInstructions[gNumDecisionInstructions].relevantField = (gapDecisionInstructionsRelevantField_t)BleApp_atoi(argv[i+1U]);
+                bValidCmd = TRUE;
+            }
+
+            /* testParameters */
+            if(0 == strcmp((char*)argv[i], "-restagkey") && ((i+1U) < argc))
+            {
+                uint8_t paramSize = BleApp_ParseHexValue(argv[i+1U]);
+                paramSize = paramSize > gcDecisionDataKeySize_c ? gcDecisionDataKeySize_c : paramSize;
+
+                FLib_MemCpy(&gaDecisionInstructions[gNumDecisionInstructions].testParameters.resolvableTagKey,
+                            argv[i+1U],
+                            (sizeof(uint8_t) * paramSize));
+                bValidCmd = TRUE;
+            }
+
+            if(0 == strcmp((char*)argv[i], "-arbmask") && ((i+1U) < argc))
+            {
+                uint8_t paramSize = BleApp_ParseHexValue(argv[i+1U]);
+                paramSize = paramSize > gcDecisionInstructionsArbitraryDataMaskSize_c ? gcDecisionInstructionsArbitraryDataMaskSize_c : paramSize;
+
+                FLib_MemCpy(&gaDecisionInstructions[gNumDecisionInstructions].testParameters.arbitraryData.mask,
+                            argv[i+1U],
+                            (sizeof(uint8_t) * paramSize));
+                bValidCmd = TRUE;
+            }
+
+            if(0 == strcmp((char*)argv[i], "-arbtarget") && ((i+1U) < argc))
+            {
+                uint8_t paramSize = BleApp_ParseHexValue(argv[i+1U]);
+                paramSize = paramSize > gcDecisionInstructionsArbitraryDataTargetSize_c ? gcDecisionInstructionsArbitraryDataTargetSize_c : paramSize;
+
+                FLib_MemCpy(&gaDecisionInstructions[gNumDecisionInstructions].testParameters.arbitraryData.target,
+                            argv[i+1U],
+                            (sizeof(uint8_t) * paramSize));
+                bValidCmd = TRUE;
+            }
+
+            if(0 == strcmp((char*)argv[i], "-rssimin") && ((i+1U) < argc))
+            {
+                gaDecisionInstructions[gNumDecisionInstructions].testParameters.rssi.min = (int8_t)BleApp_atoi(argv[i+1U]);
+                bValidCmd = TRUE;
+            }
+
+            if(0 == strcmp((char*)argv[i], "-rssimax") && ((i+1U) < argc))
+            {
+                gaDecisionInstructions[gNumDecisionInstructions].testParameters.rssi.max = (int8_t)BleApp_atoi(argv[i+1U]);
+                bValidCmd = TRUE;
+            }
+
+            if(0 == strcmp((char*)argv[i], "-lossmin") && ((i+1U) < argc))
+            {
+                gaDecisionInstructions[gNumDecisionInstructions].testParameters.pathLoss.min = (uint8_t)BleApp_atoi(argv[i+1U]);
+                bValidCmd = TRUE;
+            }
+
+            if(0 == strcmp((char*)argv[i], "-lossmax") && ((i+1U) < argc))
+            {
+                gaDecisionInstructions[gNumDecisionInstructions].testParameters.pathLoss.max = (uint8_t)BleApp_atoi(argv[i+1U]);
+                bValidCmd = TRUE;
+            }
+
+            if(0 == strcmp((char*)argv[i], "-advacheck") && ((i+1U) < argc))
+            {
+                gaDecisionInstructions[gNumDecisionInstructions].testParameters.advA.check = (gapDecisionInstructionsAdvAChecks_t)BleApp_atoi(argv[i+1U]);
+                bValidCmd = TRUE;
+            }
+
+            if(0 == strcmp((char*)argv[i], "-add1type") && ((i+1U) < argc))
+            {
+                gaDecisionInstructions[gNumDecisionInstructions].testParameters.advA.address1Type = (bleAddressType_t)BleApp_atoi(argv[i+1U]);
+                bValidCmd = TRUE;
+            }
+
+            if(0 == strcmp((char*)argv[i], "-add1") && ((i+1U) < argc))
+            {
+                uint8_t paramSize = BleApp_ParseHexValue(argv[i+1U]);
+                paramSize = paramSize > gcBleDeviceAddressSize_c ? gcBleDeviceAddressSize_c : paramSize;
+
+                FLib_MemCpy(&gaDecisionInstructions[gNumDecisionInstructions].testParameters.advA.address1,
+                            argv[i+1U],
+                            (sizeof(uint8_t) * paramSize));
+                bValidCmd = TRUE;
+            }
+
+            if(0 == strcmp((char*)argv[i], "-add2type") && ((i+1U) < argc))
+            {
+                gaDecisionInstructions[gNumDecisionInstructions].testParameters.advA.address2Type = (bleAddressType_t)BleApp_atoi(argv[i+1U]);
+                bValidCmd = TRUE;
+            }
+
+            if(0 == strcmp((char*)argv[i], "-add2") && ((i+1U) < argc))
+            {
+                uint8_t paramSize = BleApp_ParseHexValue(argv[i+1U]);
+                paramSize = paramSize > gcBleDeviceAddressSize_c ? gcBleDeviceAddressSize_c : paramSize;
+
+                FLib_MemCpy(&gaDecisionInstructions[gNumDecisionInstructions].testParameters.advA.address2,
+                            argv[i+1U],
+                            (sizeof(uint8_t) * paramSize));
+                bValidCmd = TRUE;
+            }
+
+            if(0 == strcmp((char*)argv[i], "-advmode") && ((i+1U) < argc))
+            {
+                gaDecisionInstructions[gNumDecisionInstructions].testParameters.advMode = (gapDecisionInstructionsAdvMode_t)BleApp_atoi(argv[i+1U]);
+                bValidCmd = TRUE;
+            }
+        }
+        /* A valid command should set at least one scanning parameter */
+        if (!bValidCmd)
+        {
+            shell_write("\r\nNot a valid command.  Enter \"help\" to view a list of available commands.\r\n\r\n");
+            result = kStatus_SHELL_Error;
+        }
+        else
+        {
+            /* Increment the number of existing decision instructions */
+            gNumDecisionInstructions++;
+        }
+    }
+
+    return result;
+}
+
+/*! *********************************************************************************
+ * \brief        Handles "gap deldecinstr" shell command.
+ *
+ * \param[in]    argc           Number of arguments
+ * \param[in]    argv           Array of argument's values
+ *
+ * \return       shell_status_t Command status
+ ********************************************************************************** */
+static shell_status_t ShellGap_DeleteDecisionInstructions(uint8_t argc, char * argv[])
+{
+    shell_status_t result = kStatus_SHELL_Success;
+
+    /* Do not accept command if other arguments were passed */
+    if (argc != 0U)
+    {
+        shell_write("\r\nIncorrect command parameter(s).  Enter \"help\" to view a list of available commands.\r\n\r\n");
+        result = kStatus_SHELL_Error;
+    }
+    else
+    {
+        FLib_MemSet(&gaDecisionInstructions, 0U, gNumDecisionInstructions * sizeof(gapDecisionInstructionsData_t));
+        gNumDecisionInstructions = 0U;
+    }
+
+    return result;
+}
+
+/*! *********************************************************************************
+ * \brief        Handles "gap extadvdecdata" shell command.
+ *
+ * \param[in]    argc           Number of arguments
+ * \param[in]    argv           Array of argument's values
+ *
+ * \return       shell_status_t Command status
+ ********************************************************************************** */
+static shell_status_t ShellGap_SetExtAdvDecisionData(uint8_t argc, char * argv[])
+{
+    shell_status_t result = kStatus_SHELL_Success;
+    bool_t bValidCmd = FALSE;
+
+    /* Do not accept command if no arguments were passed */
+    if (argc == 0U)
+    {
+        shell_write("\r\nIncorrect command parameter(s).  Enter \"help\" to view a list of available commands.\r\n\r\n");
+        result = kStatus_SHELL_Error;
+    }
+
+    /* Search for keywords */
+    for (uint32_t i = 0U; i < argc; i += 2U)
+    {
+        if(0 == strcmp((char*)argv[i], "-key") && ((i+1U) < argc))
+        {
+            uint8_t paramSize = BleApp_ParseHexValue(argv[i+1U]);
+
+            if (paramSize == 1U && BleApp_atoi(argv[i+1U]) == 0U)
+            {
+                /* Set key parameter to NULL */
+                mAppExtAdvParams.pGapDecisionData->pKey = NULL;
+            }
+            else
+            {
+                paramSize = paramSize > gcDecisionDataKeySize_c ? gcDecisionDataKeySize_c : paramSize;
+
+                /* Set key parameter to gaDecisionKey */
+                mAppExtAdvParams.pGapDecisionData->pKey = gaDecisionKey;
+                FLib_MemCpy(&gaDecisionKey, argv[i+1U], (sizeof(uint8_t) * paramSize));
+            }
+
+            bValidCmd = TRUE;
+        }
+
+        if(0 == strcmp((char*)argv[i], "-prand") && ((i+1U) < argc))
+        {
+            uint8_t paramSize = BleApp_ParseHexValue(argv[i+1U]);
+
+            if (paramSize == 1U && BleApp_atoi(argv[i+1U]) == 0U)
+            {
+                /* Set prand parameter to NULL */
+                mAppExtAdvParams.pGapDecisionData->pPrand = NULL;
+            }
+            else
+            {
+                paramSize = paramSize > gcDecisionDataPrandSize_c ? gcDecisionDataPrandSize_c : paramSize;
+
+                /* Set prand parameter to gaPrand */
+                mAppExtAdvParams.pGapDecisionData->pPrand = gaPrand;
+                FLib_MemCpy(&gaPrand, argv[i+1U], (sizeof(uint8_t) * paramSize));
+            }
+
+            bValidCmd = TRUE;
+        }
+
+        if(0 == strcmp((char*)argv[i], "-decdata") && ((i+1U) < argc))
+        {
+            uint8_t paramSize = BleApp_ParseHexValue(argv[i+1U]);
+
+            if (paramSize == 1U && BleApp_atoi(argv[i+1U]) == 0U)
+            {
+                /* Set decisionData parameter to NULL */
+                mAppExtAdvParams.pGapDecisionData->pDecisionData = NULL;
+            }
+            else
+            {
+                paramSize = paramSize > gcDecisionDataMaxSize_c ? gcDecisionDataMaxSize_c : paramSize;
+
+                /* Set decisionData parameter to gaDecisionData */
+                mAppExtAdvParams.pGapDecisionData->pDecisionData = gaDecisionData;
+                FLib_MemCpy(&gaDecisionData, argv[i+1U], (sizeof(uint8_t) * paramSize));
+            }
+
+            bValidCmd = TRUE;
+        }
+
+        if(0 == strcmp((char*)argv[i], "-datalen") && ((i+1U) < argc))
+        {
+            mAppExtAdvParams.pGapDecisionData->dataLength = (uint8_t)BleApp_atoi(argv[i+1U]);
+            bValidCmd = TRUE;
+        }
+
+        if(0 == strcmp((char*)argv[i], "-restag") && ((i+1U) < argc))
+        {
+            mAppExtAdvParams.pGapDecisionData->resolvableTagPresent = (bool_t)BleApp_atoi(argv[i+1U]);
+            bValidCmd = TRUE;
+        }
+    }
+
+    /* A valid command should set at least one scanning parameter */
+    if (!bValidCmd)
+    {
+        shell_write("\r\nNot a valid command.  Enter \"help\" to view a list of available commands.\r\n\r\n");
+        result = kStatus_SHELL_Error;
+    }
+
+    return result;
+}
+#endif /* BLE_SHELL_DBAF_SUPPORT */
+
 /*! *********************************************************************************
  * \brief        Handles "gap phy" shell command.
  *
  * \param[in]    argc           Number of arguments
  * \param[in]    argv           Array of argument's values
  *
- * \return       int8_t         Command status
+ * \return       shell_status_t Command status
  ********************************************************************************** */
 static shell_status_t ShellGap_SetPhy(uint8_t argc, char * argv[])
 {
@@ -2353,7 +2735,7 @@ static shell_status_t ShellGap_SetPhy(uint8_t argc, char * argv[])
  * \param[in]    argc           Number of arguments
  * \param[in]    argv           Array of argument's values
  *
- * \return       int8_t         Command status
+ * \return       shell_status_t Command status
  ********************************************************************************** */
 static shell_status_t ShellGap_SetTxPower(uint8_t argc, char * argv[])
 {
@@ -2413,7 +2795,7 @@ static shell_status_t ShellGap_SetTxPower(uint8_t argc, char * argv[])
  * \param[in]    argc           Number of arguments
  * \param[in]    argv           Array of argument's values
  *
- * \return       int8_t         Command status
+ * \return       shell_status_t Command status
  ********************************************************************************** */
 static shell_status_t ShellGap_RSSIMonitor(uint8_t argc, char * argv[])
 {
@@ -2511,7 +2893,7 @@ static void ShellGap_ReadRssi (void *param)
  * \param[in]    argc           Number of arguments
  * \param[in]    argv           Array of argument's values
  *
- * \return       int8_t         Command status
+ * \return       shell_status_t Command status
  ********************************************************************************** */
 static shell_status_t ShellGap_RSSIMonitorStop(uint8_t argc, char * argv[])
 {
@@ -2640,6 +3022,24 @@ void ShellGap_GenericCallback (gapGenericEvent_t* pGenericEvent)
             shell_write("Periodic Advertising list updated.");
             break;
         }
+
+#if defined(BLE_SHELL_DBAF_SUPPORT) && (BLE_SHELL_DBAF_SUPPORT)
+        case gDecisionInstructionsSetupComplete_c:
+        {
+            /* Confirm for shell command: "gap setdecinstr" */
+            shell_write(mGapEventHeader);
+            shell_write("Decision Instructions Setup Complete.");
+            break;
+        }
+
+        case gExtAdvertisingDecisionDataSetupComplete_c:
+        {
+            /* Confirm for shell command: "gap extadvdecdata" */
+            shell_write(mGapEventHeader);
+            shell_write("Extended Advertising Decision Data Setup Complete.");
+            break;
+        }
+#endif /* BLE_SHELL_DBAF_SUPPORT */
 
         case gLePhyEvent_c:
         {

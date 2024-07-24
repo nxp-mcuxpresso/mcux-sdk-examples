@@ -26,7 +26,13 @@ extern "C" {
  * User definitions
  **********************************************************************************************************************/
 //#define LITTLEFS_START_ADDR 0x900000
-#define LITTLEFS_START_ADDR 0xC00000
+/*
+WIFI LITTLE FS is close to m_text_end in the linker
+LITTLEFS_REGION_SIZE = 0x200000 + 0x10000 + 0x1000;
+m_text_start         = 0x08001280;
+m_text_size          = 0x03FFED80 - LITTLEFS_REGION_SIZE;
+ */
+#define LITTLEFS_START_ADDR   0x03DEF000
 
 /***********************************************************************************************************************
  * Definitions

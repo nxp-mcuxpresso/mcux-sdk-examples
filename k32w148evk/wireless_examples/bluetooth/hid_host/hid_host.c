@@ -4,7 +4,7 @@
 ********************************************************************************** */
 /*! *********************************************************************************
 * Copyright 2014 Freescale Semiconductor, Inc.
-* Copyright 2016-2023 NXP
+* Copyright 2016-2024 NXP
 *
 *
 * \file
@@ -44,6 +44,7 @@
 #include "ble_conn_manager.h"
 #include "ble_service_discovery.h"
 #include "app_conn.h"
+#include "app_scanner.h"
 #include "hid_host.h"
 #include "board.h"
 #include "app.h"

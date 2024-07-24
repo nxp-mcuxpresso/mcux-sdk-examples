@@ -1,5 +1,5 @@
 /*
- * Copyright 2021-2023 NXP
+ * Copyright 2021-2024 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -32,8 +32,6 @@
 
 /* This example uses TFlite inference engine */
 #define HAL_ENABLE_INFERENCE_TFLITE           1
-#define HAL_ENABLE_INFERENCE_GLOW             0
-#define HAL_ENABLE_INFERENCE_DVRT             0
 
 
 /* The size of Tensor Arena buffer for TensorFlowLite-Micro */

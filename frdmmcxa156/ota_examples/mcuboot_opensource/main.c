@@ -42,6 +42,7 @@ struct mbc_conf {
 
 void mbc_setup(const struct mbc_conf conf[], size_t cnt);
 void glikey_write_enable(uint32_t index);
+void mbc_print(void);
 
 /*******************************************************************************
  * Variables
@@ -104,21 +105,16 @@ int main(void)
        so running app is able to validate itself by modifying its trailer.
     */
 
+#if 0
+    /* for debugging MBC when needed */
+    mbc_print();
+#endif
+    
     glikey_write_enable(MBC_GLIKEY_IDX);
     mbc_setup(mbc_config_sbl, ARRAY_SIZE(mbc_config_sbl));
     
 #if 0
-    /* For debugging MBC when needed */
-    for (int i=0; i < 8; i++)
-    {
-        PRINTF("MBC0_MEMN_GLBAC%u %x\n", i, MBC0->MBC_INDEX[0].MBC_MEMN_GLBAC[i]);
-    }
-    
-    for (int i=0; i < 8; i++)
-    {
-        PRINTF("MBC0_DOM_MEM0_BLK_CFG_W0 %x\n", MBC0->MBC_INDEX[0].MBC_DOM0_MEM0_BLK_CFG_W[i]);
-    }
-
+    mbc_print();
 #endif
 
     (void)sbl_boot_main();
@@ -143,13 +139,17 @@ void mbc_setup(const struct mbc_conf conf[], size_t cnt)
             uint32_t bid = block % 8;
             uint8_t glbac = conf[c].glbac;
             __IO uint32_t *cfg_w = &MBC0->MBC_INDEX[0].MBC_DOM0_MEM0_BLK_CFG_W[wid];
-            uint8_t val;
+            uint32_t val;
 
             assert(wid < MBC_BLOCK_CNT);
             
+            /* prepare */
+            val = *cfg_w;
+            val &= ~(0x7 << (bid*4));
+            val |= (glbac & 0x7) << (bid*4);
+
             /* set */
-            *cfg_w &= ~(0x7 << (bid*4));
-            *cfg_w |= (glbac & 0x7) << (bid*4);
+            *cfg_w = val;
 
             /* read back */
             val = (*cfg_w >> (bid*4)) & 0x7;
@@ -182,6 +182,19 @@ void glikey_write_enable(uint32_t index)
     GLIKEY_ContinueEnable(GLIKEY0, GLIKEY_CODEWORD_STEP6);
     GLIKEY_ContinueEnable(GLIKEY0, GLIKEY_CODEWORD_STEP7);
     GLIKEY_ContinueEnable(GLIKEY0, GLIKEY_CODEWORD_STEP_EN);
+}
+
+void mbc_print(void)
+{
+    for (int i=0; i < 8; i++)
+    {
+        PRINTF("MBC0_MEMN_GLBAC%u %x\n", i, MBC0->MBC_INDEX[0].MBC_MEMN_GLBAC[i]);
+    }
+    
+    for (int i=0; i < 8; i++)
+    {
+        PRINTF("MBC0_DOM_MEM0_BLK_CFG_W0 %x\n", MBC0->MBC_INDEX[0].MBC_DOM0_MEM0_BLK_CFG_W[i]);
+    }
 }
 
 void SBL_DisablePeripherals(void)

@@ -483,11 +483,40 @@
 
 #define LWIP_COMPAT_MUTEX_ALLOWED 1
 
+/**
+ * LWIP_CHECKSUM_ON_COPY==1: Calculate checksum when copying data from
+ * application buffers to pbufs.
+ */
+#define LWIP_CHECKSUM_ON_COPY 1
+
+/**
+ * LWIP_CHKSUM_ALGORITHM==3: Use the optimised checksum algorithm.
+ */
+#define LWIP_CHKSUM_ALGORITHM 3
+
 #if (LWIP_DNS || LWIP_IGMP || LWIP_IPV6) && !defined(LWIP_RAND)
 /* When using IGMP or IPv6, LWIP_RAND() needs to be defined to a random-function returning an u32_t random value*/
 #include "lwip/arch.h"
 u32_t lwip_rand(void);
 #define LWIP_RAND() lwip_rand()
 #endif
+
+#define LWIP_NETIF_TX_SINGLE_PBUF   1
+
+#if (LWIP_NETIF_TX_SINGLE_PBUF)
+#define PBUF_LINK_ENCAPSULATION_HLEN 26
+#endif
+
+/* ---------- Core locking ---------- */
+
+#define LWIP_TCPIP_CORE_LOCKING 1
+
+#ifndef LWIP_HOOK_FILENAME
+#define LWIP_HOOK_FILENAME                               "lwiphooks.h"
+#endif
+
+#define LWIP_HOOK_TCP_OUT_ADD_TCPOPTS(p, hdr, pcb, opts) lwip_hook_tcp_out_add_tcpopts(p, hdr, pcb, opts)
+
+#define LWIP_HOOK_IP4_ROUTE_SRC(src, dest) lwip_hook_ip4_route_src(src, dest)
 
 #endif /* __LWIPOPTS_H__ */

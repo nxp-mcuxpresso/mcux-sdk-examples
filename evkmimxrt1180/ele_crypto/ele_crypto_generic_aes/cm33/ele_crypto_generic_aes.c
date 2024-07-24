@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 NXP
+ * Copyright 2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -228,7 +228,7 @@ int main(void)
         }
         else
         {
-            PRINTF("EndgeLock FW loaded and authenticated successfully.\r\n\r\n");
+            PRINTF("EdgeLock FW loaded and authenticated successfully.\r\n\r\n");
         }
 
         /****************** Generic Crypto AES-CBC **************************/

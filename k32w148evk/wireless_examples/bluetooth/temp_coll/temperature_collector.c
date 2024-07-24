@@ -4,7 +4,7 @@
 ********************************************************************************** */
 /*! *********************************************************************************
 * Copyright 2015 Freescale Semiconductor, Inc.
-* Copyright 2016-2023 NXP
+* Copyright 2016-2024 NXP
 *
 *
 * \file
@@ -46,6 +46,7 @@
 #include "ble_service_discovery.h"
 
 #include "app_conn.h"
+#include "app_scanner.h"
 #include "board.h"
 #include "app.h"
 #include "temperature_collector.h"

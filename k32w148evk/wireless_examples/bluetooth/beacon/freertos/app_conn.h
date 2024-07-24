@@ -66,34 +66,6 @@ typedef enum {
     gAppSecLibMultiplyMsg_c,
 } appHostMsgType_t;
 
-typedef struct appScanningParams_tag
-{
-    gapScanningParameters_t *pHostScanParams;         /*!< Pointer to host scan structure */
-    gapFilterDuplicates_t enableDuplicateFiltering;   /*!< Duplicate filtering mode */
-    uint16_t duration;                                /*!< scan duration  */
-    uint16_t period;                                  /*!< scan period  */
-} appScanningParams_t;
-
-typedef struct appAdvertisingParams_tag
-{
-    gapAdvertisingParameters_t *pGapAdvParams;        /*!< Pointer to the GAP advertising parameters */
-    const gapAdvertisingData_t *pGapAdvData;          /*!< Pointer to the GAP advertising data  */
-    const gapScanResponseData_t *pScanResponseData;   /*!< Pointer to the scan response data */
-} appAdvertisingParams_t;
-
-typedef struct appExtAdvertisingParams_tag
-{
-    gapExtAdvertisingParameters_t *pGapExtAdvParams;  /*!< Pointer to the GAP extended advertising parameters */
-    gapAdvertisingData_t *pGapAdvData;                /*!< Pointer to the GAP advertising data  */
-    gapScanResponseData_t *pScanResponseData;         /*!< Pointer to the scan response data */
-#if defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE)
-    gapAdvertisingDecisionData_t* pGapDecisionData;
-#endif /* gBLE60_DecisionBasedAdvertisingFilteringSupport_d */
-    uint8_t                     handle;
-    uint16_t                    duration;
-    uint8_t                     maxExtAdvEvents;
-} appExtAdvertisingParams_t;
-
 /* Host to Application GATT Server Message */
 typedef struct gattServerMsg_tag
 {
@@ -189,9 +161,6 @@ typedef void (*appBluetoothLEInitCompleteCallback_t)(void);
 *************************************************************************************
 ********************************************************************************** */
 extern gapConnectionCallback_t  pfConnCallback;
-extern gapScanningCallback_t pfScanCallback;
-extern gapAdvertisingCallback_t pfAdvCallback;
-extern appAdvertiserHandler_t pfAdvertiserHandler;
 extern OSA_EVENT_HANDLE_DEFINE(mAppEvent);
 extern messaging_t mHostAppInputQueue;
 
@@ -304,98 +273,6 @@ bleResult_t BluetoothLEHost_Connect
 (
     gapConnectionRequestParameters_t*   pParameters,
     gapConnectionCallback_t             connCallback
-);
-
-/*! *********************************************************************************
-*\fn           bleResult_t BluetoothLEHost_StartAdvertising(
-*                  appAdvertisingParams_t   *pAdvParams,
-*                  gapAdvertisingCallback_t pfAdvertisingCallback,
-*                  gapConnectionCallback_t  pfConnectionCallback
-*              )
-*\brief        Set advertising data, set advertising parameters and start advertising.
-*
-*\param  [in]  pAdvParams               Pointer to the structure containing the
-*                                       advertising parameters.
-*\param  [in]  pfAdvertisingCallback    Callback used by the application to receive
-*                                       advertising events. Can be NULL.
-*\param  [in]  pfConnectionCallback     Callback used by the application to receive
-*                                       connection events. Can be NULL.
-*
-*\return       bleResult_t              Result of the operation.
-********************************************************************************** */
-bleResult_t BluetoothLEHost_StartAdvertising
-(
-    appAdvertisingParams_t   *pAdvParams,
-    gapAdvertisingCallback_t pfAdvertisingCallback,
-    gapConnectionCallback_t  pfConnectionCallback
-);
-
-/*! *********************************************************************************
-*\fn           bleResult_t BluetoothLEHost_StartExtAdvertising(
-*                   appExtAdvertisingParams_t *pExtAdvParams,
-*                   gapAdvertisingCallback_t  pfAdvertisingCallback,
-*                   gapConnectionCallback_t   pfConnectionCallback
-*               )
-*\brief        Set advertising data, set advertising parameters and start extended
-*              advertising.
-*
-*\param  [in]  pAdvParams               Pointer to the structure containing the
-*                                       advertising.
-*\param  [in]  pfAdvertisingCallback    Callback used by the application to receive
-*                                       advertising events. Can be NULL.
-*\param  [in]  pfConnectionCallback     Callback used by the application to receive
-*                                       connection events. Can be NULL.
-*
-*\return       bleResult_t              Result of the operation.
-********************************************************************************** */
-bleResult_t BluetoothLEHost_StartExtAdvertising
-(
-    appExtAdvertisingParams_t *pExtAdvParams,
-    gapAdvertisingCallback_t  pfAdvertisingCallback,
-    gapConnectionCallback_t   pfConnectionCallback
-);
-
-/*! *********************************************************************************
-*\fn           bleResult_t BluetoothLEHost_StartScanning(
-*                  appScanningParams_t   *pAppScanParams,
-*                  gapScanningCallback_t pfCallback
-*              )
-*\brief        Start the Bluetooth LE scanning using the parameters specified.
-*
-*\param  [in]  pScanningParameters    Pointer to the structure containing the scanning
-*                                     parameters.
-*\param  [in]  pfCallback             The scanning callback.
-
-*\return       bleResult_t            Result of the oeration.
-********************************************************************************** */
-bleResult_t BluetoothLEHost_StartScanning
-(
-    appScanningParams_t   *pAppScanParams,
-    gapScanningCallback_t pfCallback
-);
-
-/*! *********************************************************************************
-*\fn           bool_t BluetoothLEHost_MatchDataInAdvElementList(
-*                  gapAdStructure_t *pElement,
-*                  void             *pData,
-*                  uint8_t          iDataLen
-*              )
-*\brief        Search if the contents from pData can be found in an advertising
-*              element.
-*
-*\param  [in]  pElement    Pointer to the structure containing the ad
-*                          structure element.
-*\param  [in]  pData       Pointer to the data to be searched for.
-*\param  [in]  iDataLen    The length of the data.
-
-*\retval       TRUE        Data was found in this element.
-*\retval       FALSE       Data was not found in this element.
-********************************************************************************** */
-bool_t BluetoothLEHost_MatchDataInAdvElementList
-(
-    gapAdStructure_t *pElement,
-    void             *pData,
-    uint8_t          iDataLen
 );
 
 /*! *********************************************************************************
@@ -689,6 +566,7 @@ void BluetoothLEHost_ProcessIdleTask(void);
 ********************************************************************************** */
 bool_t BluetoothLEHost_IsConnectivityTaskToProcess(void);
 
+#if defined(SDK_OS_FREE_RTOS)
 /*! *********************************************************************************
 *\fn           void vApplicationIdleHook(void)
 *\brief        Idle hook function which places the microcontroller into a power
@@ -700,4 +578,6 @@ bool_t BluetoothLEHost_IsConnectivityTaskToProcess(void);
 ********************************************************************************** */
 void vApplicationIdleHook(void);
 
-#endif /* APPL_MAIN_H */
+#endif /* defined(SDK_OS_FREE_RTOS) */
+
+#endif /* APP_CONN_H */

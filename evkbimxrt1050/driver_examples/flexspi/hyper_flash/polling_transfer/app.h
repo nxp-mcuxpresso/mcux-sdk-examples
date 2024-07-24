@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2022 NXP
+ * Copyright 2016-2022, 2024 NXP
  * All rights reserved.
  *
  *
@@ -64,7 +64,7 @@ void BOARD_InitHardware(void);
 static inline void flexspi_clock_init(void)
 {
     // Set flexspi root clock to 166MHZ.
-    const clock_usb_pll_config_t g_ccmConfigUsbPll = {.loopDivider = 0U};
+    clock_usb_pll_config_t g_ccmConfigUsbPll = {.loopDivider = 0U};
 
     CLOCK_InitUsb1Pll(&g_ccmConfigUsbPll);
     CLOCK_InitUsb1Pfd(kCLOCK_Pfd0, 26);   /* Set PLL3 PFD0 clock 332MHZ. */

@@ -51,18 +51,23 @@ include(${ProjDirPath}/flags.cmake)
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
+"${ProjDirPath}/../mbedtls_user_config.h"
+"${ProjDirPath}/../tinycrypt/ecc_platform_specific.h"
 "${ProjDirPath}/../flash/flash_api_mcxn10.c"
+"${SdkRootDirPath}/core/boards/mcxn9xxevk/board.c"
+"${SdkRootDirPath}/core/boards/mcxn9xxevk/board.h"
+"${SdkRootDirPath}/core/boards/mcxn9xxevk/clock_config.c"
+"${SdkRootDirPath}/core/boards/mcxn9xxevk/clock_config.h"
+"${SdkRootDirPath}/examples/mcxn9xxevk/board.c"
+"${SdkRootDirPath}/examples/mcxn9xxevk/board.h"
+"${SdkRootDirPath}/examples/mcxn9xxevk/clock_config.c"
+"${SdkRootDirPath}/examples/mcxn9xxevk/clock_config.h"
 "${ProjDirPath}/../boot.c"
 "${ProjDirPath}/../boot.h"
-"${ProjDirPath}/../bootutil_hooks.c"
 "${ProjDirPath}/../keys.c"
-"${ProjDirPath}/../os.c"
-"${ProjDirPath}/../sbl_boot.c"
 "${ProjDirPath}/../include/mbedtls_config.h"
 "${ProjDirPath}/../include/mcuboot_config/mcuboot_config.h"
 "${ProjDirPath}/../include/mcuboot_config/mcuboot_logging.h"
-"${ProjDirPath}/../include/sbl.h"
-"${ProjDirPath}/../include/sbldef.h"
 "${ProjDirPath}/../include/flash_map.h"
 "${ProjDirPath}/../include/flash_map_backend/flash_map_backend.h"
 "${ProjDirPath}/../include/os/os_malloc.h"
@@ -73,33 +78,26 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../flash_partitioning.h"
 "${ProjDirPath}/../flash_partitioning.c"
-"${SdkRootDirPath}/core/boards/mcxn9xxevk/board.c"
-"${SdkRootDirPath}/core/boards/mcxn9xxevk/board.h"
-"${SdkRootDirPath}/core/boards/mcxn9xxevk/clock_config.c"
-"${SdkRootDirPath}/core/boards/mcxn9xxevk/clock_config.h"
-"${SdkRootDirPath}/examples/mcxn9xxevk/board.c"
-"${SdkRootDirPath}/examples/mcxn9xxevk/board.h"
-"${SdkRootDirPath}/examples/mcxn9xxevk/clock_config.c"
-"${SdkRootDirPath}/examples/mcxn9xxevk/clock_config.h"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
+    ${SdkRootDirPath}/core/boards/mcxn9xxevk
+    ${SdkRootDirPath}/examples/mcxn9xxevk
     ${ProjDirPath}/..
     ${ProjDirPath}/../include
     ${ProjDirPath}/../include/mcuboot_config
     ${ProjDirPath}/../include/sysflash
     ${ProjDirPath}/../keys
-    ${SdkRootDirPath}/core/boards/mcxn9xxevk
-    ${SdkRootDirPath}/examples/mcxn9xxevk
+    ${ProjDirPath}/../flash
 )
 
 
 if(CMAKE_BUILD_TYPE STREQUAL debug)
-     target_compile_definitions(${MCUX_SDK_PROJECT_NAME}  PRIVATE MBEDTLS_CONFIG_FILE="els_pkc_mbedtls_config.h")
+     target_compile_definitions(${MCUX_SDK_PROJECT_NAME}  PRIVATE MBEDTLS_USER_CONFIG_FILE="mbedtls_user_config.h" MBEDTLS_CONFIG_FILE="mbedtls_config.h")
 endif(CMAKE_BUILD_TYPE STREQUAL debug)
 
 if(CMAKE_BUILD_TYPE STREQUAL release)
-     target_compile_definitions(${MCUX_SDK_PROJECT_NAME}  PRIVATE MBEDTLS_CONFIG_FILE="els_pkc_mbedtls_config.h")
+     target_compile_definitions(${MCUX_SDK_PROJECT_NAME}  PRIVATE MBEDTLS_USER_CONFIG_FILE="mbedtls_user_config.h" MBEDTLS_CONFIG_FILE="mbedtls_config.h")
 endif(CMAKE_BUILD_TYPE STREQUAL release)
 
 include(${SdkRootDirPath}/core/devices/MCXN947/all_lib_device.cmake)

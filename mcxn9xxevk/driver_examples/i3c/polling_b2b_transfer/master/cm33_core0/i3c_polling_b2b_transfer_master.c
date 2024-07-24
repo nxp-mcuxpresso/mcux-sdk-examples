@@ -1,5 +1,5 @@
 /*
- * Copyright 2019, 2022-2023 NXP
+ * Copyright 2019, 2022-2024 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -33,9 +33,15 @@
 #ifndef EXAMPLE_I3C_HDR_SUPPORT
 #define EXAMPLE_I3C_HDR_SUPPORT 0
 #endif
+#ifndef WAIT_TIME
+#define WAIT_TIME 1000
+#endif
 
 #define CCC_RSTDAA  0x06U
 #define CCC_SETDASA 0x87U
+
+#define I3C_BROADCAST_ADDR 0x7EU
+#define I3C_VENDOR_ID      0x11BU
 
 /*******************************************************************************
  * Prototypes
@@ -170,7 +176,7 @@ int main(void)
     PRINTF("\r\nI3C master do dynamic address assignment to the I3C slaves on bus.");
     /* Reset dynamic address before DAA */
     memset(&masterXfer, 0, sizeof(masterXfer));
-    masterXfer.slaveAddress   = 0x7EU; /* Broadcast address */
+    masterXfer.slaveAddress   = I3C_BROADCAST_ADDR;
     masterXfer.subaddress     = CCC_RSTDAA;
     masterXfer.subaddressSize = 1U;
     masterXfer.direction      = kI3C_Write;
@@ -187,7 +193,7 @@ int main(void)
 #if defined(EXAMPLE_USE_SETDASA_ASSIGN_ADDR) && (EXAMPLE_USE_SETDASA_ASSIGN_ADDR)
     /* Assign dynamic address. */
     memset(&masterXfer, 0, sizeof(masterXfer));
-    masterXfer.slaveAddress   = 0x7EU;
+    masterXfer.slaveAddress   = I3C_BROADCAST_ADDR;
     masterXfer.subaddress     = CCC_SETDASA;
     masterXfer.subaddressSize = 1U;
     masterXfer.direction      = kI3C_Write;
@@ -230,7 +236,7 @@ int main(void)
     devList = I3C_MasterGetDeviceListAfterDAA(EXAMPLE_MASTER, &devCount);
     for (devIndex = 0; devIndex < devCount; devIndex++)
     {
-        if (devList[devIndex].vendorID == 0x123U)
+        if (devList[devIndex].vendorID == I3C_VENDOR_ID)
         {
             slaveAddr = devList[devIndex].dynamicAddr;
             break;

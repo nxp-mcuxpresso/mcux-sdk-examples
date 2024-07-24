@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, NXP
+ * Copyright (c) 2019,2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -22,12 +22,11 @@
 #define DEMO_IMG_BYTES_PER_LINE (DEMO_PANEL_WIDTH * DEMO_BYTE_PER_PIXEL)
 
 #define DEMO_MAKE_COLOR(red, green, blue) \
-    ((((uint16_t)(red)&0xF1U) << 8U) | (((uint16_t)(green)&0xF3U) << 3U) | (((uint16_t)(blue)&0xF1U) >> 3U))
+    ((((uint16_t)(red)&0xF8U) << 8U) | (((uint16_t)(green)&0xFCU) << 3U) | (((uint16_t)(blue)&0xF8U) >> 3U))
 
 #define DEMO_COLOR_BLUE  DEMO_MAKE_COLOR(0, 0, 255)
 #define DEMO_COLOR_RED   DEMO_MAKE_COLOR(255, 0, 0)
 #define DEMO_COLOR_GREEN DEMO_MAKE_COLOR(0, 255, 0)
-
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -106,6 +105,12 @@ void DEMO_LCDIF_Init(void)
 
     LCDIF_SetFrameBufferAddr(DEMO_LCDIF, 0, (uint32_t)s_frameBufferAddr);
 
+#if defined(FSL_FEATURE_LCDIF_VERSION_DC8000) & FSL_FEATURE_LCDIF_VERSION_DC8000
+    lcdif_panel_config_t config;
+    LCDIF_PanelGetDefaultConfig(&config);
+    LCDIF_SetPanelConfig(DEMO_LCDIF, 0, &config);
+#endif
+
     if (kStatus_Success != BOARD_InitDisplayInterface())
     {
         PRINTF("Display interface initialize failed\r\n");
@@ -146,9 +151,22 @@ void DEMO_LCDIF_Enable(void)
      */
     LCDIF_FrameBufferGetDefaultConfig(&fbConfig);
 
+#if defined(FSL_FEATURE_LCDIF_VERSION_DC8000) & FSL_FEATURE_LCDIF_VERSION_DC8000
+    fbConfig.enable          = true;
+    fbConfig.inOrder         = kLCDIF_PixelInputOrderARGB;
+    fbConfig.rotateFlipMode  = kLCDIF_Rotate0;
+    fbConfig.format          = kLCDIF_PixelFormatRGB565;
+    fbConfig.alpha.enable    = false;
+    fbConfig.colorkey.enable = false;
+    fbConfig.topLeftX        = 0U;
+    fbConfig.topLeftY        = 0U;
+    fbConfig.width           = DEMO_IMG_WIDTH;
+    fbConfig.height          = DEMO_IMG_HEIGHT;
+#else
     fbConfig.enable      = true;
     fbConfig.enableGamma = false;
     fbConfig.format      = kLCDIF_PixelFormatRGB565;
+#endif
 
     LCDIF_SetFrameBufferConfig(DEMO_LCDIF, 0, &fbConfig);
 }
@@ -181,10 +199,13 @@ void DEMO_LCDIF_Cursor(void)
 
     DEMO_LCDIF_Enable();
 
+#if defined(FSL_FEATURE_LCDIF_VERSION_DC8000) & FSL_FEATURE_LCDIF_VERSION_DC8000
+    LCDIF_Start(DEMO_LCDIF);
+#endif
+
     while (1)
     {
         /* Wait for previous frame complete. */
-        s_frameDone = false;
         while (!s_frameDone)
         {
         }
@@ -196,9 +217,13 @@ void DEMO_LCDIF_Cursor(void)
         x     = (x >= DEMO_IMG_WIDTH) ? 0 : x;
         y     = (y >= DEMO_IMG_HEIGHT) ? 0 : y;
         alpha = (alpha >= 256) ? 0 : alpha;
-
         DEMO_FillCursorBuffer(alpha);
+        s_frameDone = false;
         LCDIF_SetCursorHotspotPosition(DEMO_LCDIF, x, y);
+
+#if defined(FSL_FEATURE_LCDIF_VERSION_DC8000) & FSL_FEATURE_LCDIF_VERSION_DC8000
+        LCDIF_SetUpdateReady(DEMO_LCDIF);
+#endif
     }
 }
 

@@ -18,13 +18,6 @@ SET(CMAKE_ASM_FLAGS_RELEASE " \
     -mthumb \
     ${FPU} \
 ")
-SET(CMAKE_ASM_FLAGS_HYPERRAM_RELEASE " \
-    ${CMAKE_ASM_FLAGS_HYPERRAM_RELEASE} \
-    -D__STARTUP_CLEAR_BSS \
-    -mcpu=cortex-m33 \
-    -mthumb \
-    ${FPU} \
-")
 SET(CMAKE_ASM_FLAGS_DEBUG " \
     ${CMAKE_ASM_FLAGS_DEBUG} \
     -DDEBUG \
@@ -52,31 +45,6 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
-    -mapcs \
-    -std=gnu99 \
-    ${FPU} \
-    ${DEBUG_CONSOLE_CONFIG} \
-")
-SET(CMAKE_C_FLAGS_HYPERRAM_RELEASE " \
-    ${CMAKE_C_FLAGS_HYPERRAM_RELEASE} \
-    -DLFS_NO_ASSERT \
-    -DCPU_K32W1480VFTA \
-    -DLFS_NO_INTRINSICS=1 \
-    -DMCUXPRESSO_SDK \
-    -DMFLASH_FILE_BASEADDR=7340032 \
-    -DDEBUG_CONSOLE_RX_ENABLE=0 \
-    -DSERIAL_PORT_TYPE_UART=1 \
-    -mcpu=cortex-m33 \
-    -Wall \
-    -mthumb \
-    -MMD \
-    -MP \
-    -fno-common \
-    -ffunction-sections \
-    -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
@@ -102,7 +70,6 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
@@ -123,27 +90,6 @@ SET(CMAKE_CXX_FLAGS_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
-    -mapcs \
-    -fno-rtti \
-    -fno-exceptions \
-    ${FPU} \
-    ${DEBUG_CONSOLE_CONFIG} \
-")
-SET(CMAKE_CXX_FLAGS_HYPERRAM_RELEASE " \
-    ${CMAKE_CXX_FLAGS_HYPERRAM_RELEASE} \
-    -DMCUXPRESSO_SDK \
-    -DSERIAL_PORT_TYPE_UART=1 \
-    -mcpu=cortex-m33 \
-    -Wall \
-    -mthumb \
-    -MMD \
-    -MP \
-    -fno-common \
-    -ffunction-sections \
-    -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -fno-rtti \
@@ -166,7 +112,6 @@ SET(CMAKE_CXX_FLAGS_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -fno-rtti \
@@ -182,7 +127,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -204,35 +148,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     ${SPECS} \
     -T\"${ProjDirPath}/k32w148_flash.ld\" -static \
 ")
-SET(CMAKE_EXE_LINKER_FLAGS_HYPERRAM_RELEASE " \
-    ${CMAKE_EXE_LINKER_FLAGS_HYPERRAM_RELEASE} \
-    -mcpu=cortex-m33 \
-    -Wall \
-    -Wl,--print-memory-usage \
-    -fno-common \
-    -ffunction-sections \
-    -fdata-sections \
-    -ffreestanding \
-    -fno-builtin \
-    -mthumb \
-    -mapcs \
-    -Xlinker \
-    --gc-sections \
-    -Xlinker \
-    -static \
-    -Xlinker \
-    -z \
-    -Xlinker \
-    muldefs \
-    -Xlinker \
-    -Map=output.map \
-    -Xlinker \
-    --defsym=__stack_size__=0x1000 \
-    -Xlinker \
-    --defsym=__heap_size__=0x1000 \
-    ${FPU} \
-    ${SPECS} \
-")
 SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     ${CMAKE_EXE_LINKER_FLAGS_DEBUG} \
     -g \
@@ -242,7 +157,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \

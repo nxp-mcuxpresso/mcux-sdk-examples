@@ -5,12 +5,12 @@ Application demonstrating the BLE Peripheral role, except that this application 
 
 SDK version
 ===========
-- Version: 2.15.001
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- MCUXpresso  11.9.0
-- GCC ARM Embedded  12.3.1
+- MCUXpresso  11.10.0
+- GCC ARM Embedded  13.2.1
 
 Hardware requirements
 =====================

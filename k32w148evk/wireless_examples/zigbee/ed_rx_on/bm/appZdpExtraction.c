@@ -3203,6 +3203,7 @@ PUBLIC bool zps_bAplZdpUnpackResponse (ZPS_tsAfEvent *psZdoServerEvent ,ZPS_tsAf
             break;
         case ZPS_ZDP_SECURITY_CHALLENGE_RSP_CLUSTER_ID:
             bZdp = zps_bAplZdpUnpackSecurityChallengeResponse(psZdoServerEvent, psReturnStruct);
+            break;
 #endif
         case ZPS_ZDP_MGMT_LQI_RSP_CLUSTER_ID:
              bZdp = zps_bAplZdpUnpackMgmtLqiResponse( psZdoServerEvent , psReturnStruct );

@@ -56,24 +56,12 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../httpsrv_multipart.h"
 "${ProjDirPath}/../network_cfg.h"
 "${ProjDirPath}/../init_wifi.c"
-"${ProjDirPath}/../wpl.h"
-"${ProjDirPath}/../wpl_nxp.c"
 "${ProjDirPath}/../lwipopts.h"
 "${ProjDirPath}/../httpsrv_fs_data.c"
 "${ProjDirPath}/../FreeRTOSConfig.h"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../wifi_config.h"
-"${ProjDirPath}/../mcuboot_app_support.c"
-"${ProjDirPath}/../mcuboot_app_support.h"
-"${ProjDirPath}/../bootutil_port/board_specific/flash_partitioning.h"
-"${ProjDirPath}/../bootutil_port/board_specific/flash_partitioning.c"
-"${ProjDirPath}/../bootutil_port/board_specific/sblconfig.h"
-"${ProjDirPath}/../bootutil_port/mcuboot_config/mcuboot_config.h"
-"${ProjDirPath}/../bootutil_port/mcuboot_config/mcuboot_logging.h"
-"${ProjDirPath}/../bootutil_port/flash_map.h"
-"${ProjDirPath}/../bootutil_port/sysflash/sysflash.h"
-"${ProjDirPath}/../bootutil_port/sbldef.h"
 "${ProjDirPath}/../sdmmc_config.c"
 "${ProjDirPath}/../sdmmc_config.h"
 "${ProjDirPath}/../wifi_bt_config.c"
@@ -85,16 +73,25 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/core/boards/evkmimxrt1064/clock_config.h"
 "${SdkRootDirPath}/core/boards/evkmimxrt1064/dcd.c"
 "${SdkRootDirPath}/core/boards/evkmimxrt1064/dcd.h"
+"${ProjDirPath}/../mcuboot_app_support.c"
+"${ProjDirPath}/../mcuboot_app_support.h"
+"${ProjDirPath}/../bootutil_port/board_specific/flash_partitioning.h"
+"${ProjDirPath}/../bootutil_port/board_specific/flash_partitioning.c"
+"${ProjDirPath}/../bootutil_port/board_specific/sblconfig.h"
+"${ProjDirPath}/../bootutil_port/mcuboot_config/mcuboot_config.h"
+"${ProjDirPath}/../bootutil_port/mcuboot_config/mcuboot_logging.h"
+"${ProjDirPath}/../bootutil_port/flash_map.h"
+"${ProjDirPath}/../bootutil_port/sysflash/sysflash.h"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
+    ${SdkRootDirPath}/examples/evkmimxrt1064
+    ${SdkRootDirPath}/core/boards/evkmimxrt1064
     ${ProjDirPath}/../bootutil_port
     ${ProjDirPath}/../bootutil_port/mcuboot_config
     ${ProjDirPath}/../bootutil_port/sysflash
     ${ProjDirPath}/../bootutil_port/board_specific
-    ${SdkRootDirPath}/examples/evkmimxrt1064
-    ${SdkRootDirPath}/core/boards/evkmimxrt1064
 )
 
 set_source_files_properties("${ProjDirPath}/../lwipopts.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_lwip_template")
@@ -102,17 +99,9 @@ set_source_files_properties("${ProjDirPath}/../FreeRTOSConfig.h" PROPERTIES COMP
 set_source_files_properties("${ProjDirPath}/../wifi_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_wifi_template")
 set_source_files_properties("${ProjDirPath}/../sdmmc_config.c" PROPERTIES COMPONENT_CONFIG_FILE "middleware_sdmmc_usdhc_template")
 set_source_files_properties("${ProjDirPath}/../sdmmc_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_sdmmc_usdhc_template")
-set_source_files_properties("${ProjDirPath}/../wifi_bt_config.c" PROPERTIES COMPONENT_CONFIG_FILE "middleware_wifi_template")
-set_source_files_properties("${ProjDirPath}/../wifi_bt_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_wifi_template")
+set_source_files_properties("${ProjDirPath}/../wifi_bt_config.c" PROPERTIES COMPONENT_CONFIG_FILE "middleware_wifi_wifi_bt_config_template")
+set_source_files_properties("${ProjDirPath}/../wifi_bt_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_wifi_wifi_bt_config_template")
 set_source_files_properties("${ProjDirPath}/../app_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_wifi_template")
-
-if(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_debug)
-     target_compile_definitions(${MCUX_SDK_PROJECT_NAME}  PRIVATE MBEDTLS_CONFIG_FILE="mbedtls_config.h")
-endif(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_debug)
-
-if(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_release)
-     target_compile_definitions(${MCUX_SDK_PROJECT_NAME}  PRIVATE MBEDTLS_CONFIG_FILE="mbedtls_config.h")
-endif(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_release)
 
 include(${SdkRootDirPath}/core/devices/MIMXRT1064/all_lib_device.cmake)
 

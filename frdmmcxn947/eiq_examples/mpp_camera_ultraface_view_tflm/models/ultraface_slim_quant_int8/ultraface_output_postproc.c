@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 NXP
+ * Copyright 2022-2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -89,9 +89,6 @@ int32_t ULTRAFACE_ProcessOutput(const mpp_inference_cb_param_t *inf_out, box_dat
             PRINTF("ERROR: ULTRAFACE_ProcessOutput: preds_int NULL pointer" EOL);
             return -1;
         }
-    } else if (inf_out->inference_type == MPP_INFERENCE_TYPE_GLOW || inf_out->inference_type == MPP_INFERENCE_TYPE_DEEPVIEWRT) {
-        PRINTF("ERROR: ULTRAFACE_ProcessOutput: Ultraface example is only provided with Tensorflow Lite micro" EOL);
-        return -1;
     } else {
         PRINTF("ERROR: ULTRAFACE_ProcessOutput: Undefined Inference Engine" EOL);
         return -1;

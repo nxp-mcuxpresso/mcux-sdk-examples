@@ -14,12 +14,13 @@
     <definition extID="platform.drivers.reset.MIMX8UD5"/>
     <definition extID="device.MIMX8UD5_DSP.MIMX8UD5"/>
     <definition extID="platform.utilities.misc_utilities.MIMX8UD5"/>
+    <definition extID="utility.str.MIMX8UD5"/>
     <definition extID="platform.devices.MIMX8UD5_CMSIS.MIMX8UD5"/>
     <definition extID="CMSIS_Include_core_cm.MIMX8UD5"/>
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="evk9mimx8ulp_dsp_mu_polling_fusionf1" name="dsp_mu_polling_fusionf1" device_core="fusionf1_MIMX8UD5" dependency="component.lpuart_adapter.MIMX8UD5 platform.drivers.lpuart.MIMX8UD5 utility.debug_console_lite.MIMX8UD5 platform.utilities.assert_lite.MIMX8UD5 platform.drivers.mu1.MIMX8UD5 platform.drivers.rgpio.MIMX8UD5 component.lists.MIMX8UD5 platform.drivers.common.MIMX8UD5 platform.drivers.clock.MIMX8UD5 platform.drivers.reset.MIMX8UD5 device.MIMX8UD5_DSP.MIMX8UD5 platform.utilities.misc_utilities.MIMX8UD5 platform.devices.MIMX8UD5_CMSIS.MIMX8UD5 CMSIS_Include_core_cm.MIMX8UD5" category="dsp_examples">
+  <example id="evk9mimx8ulp_dsp_mu_polling_fusionf1" name="dsp_mu_polling_fusionf1" device_core="fusionf1_MIMX8UD5" dependency="component.lpuart_adapter.MIMX8UD5 platform.drivers.lpuart.MIMX8UD5 utility.debug_console_lite.MIMX8UD5 platform.utilities.assert_lite.MIMX8UD5 platform.drivers.mu1.MIMX8UD5 platform.drivers.rgpio.MIMX8UD5 component.lists.MIMX8UD5 platform.drivers.common.MIMX8UD5 platform.drivers.clock.MIMX8UD5 platform.drivers.reset.MIMX8UD5 device.MIMX8UD5_DSP.MIMX8UD5 platform.utilities.misc_utilities.MIMX8UD5 utility.str.MIMX8UD5 platform.devices.MIMX8UD5_CMSIS.MIMX8UD5 CMSIS_Include_core_cm.MIMX8UD5" category="dsp_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>

@@ -49,6 +49,7 @@
 
 #include "board.h"
 #include "app_conn.h"
+#include "app_advertiser.h"
 #include "app.h"
 #include "adv_ext_peripheral.h"
 

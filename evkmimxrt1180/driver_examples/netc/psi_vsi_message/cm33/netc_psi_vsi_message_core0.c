@@ -18,7 +18,7 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-#define PHY_PAGE_SELECT_REG 0x1FU /*!< The PHY page select register. */
+#define EXAMPLE_SWT_PORT1_PHY_RESET_PIN RGPIO6, 13
 /* Address of memory, from which the secondary core will boot */
 #define CORE1_BOOT_ADDRESS    (void *)0x303C0000
 #define CORE1_KICKOFF_ADDRESS 0x0
@@ -157,9 +157,9 @@ status_t APP_PHY_Init(void)
     rgpio_pin_config_t pinConfig = {.pinDirection = kRGPIO_DigitalOutput, .outputLogic = 0};
 
     /* Reset PHY8211 for ETH1(Switch port1). Reset 10ms, wait 72ms. */
-    RGPIO_PinInit(RGPIO6, 13, &pinConfig);
+    RGPIO_PinInit(EXAMPLE_SWT_PORT1_PHY_RESET_PIN, &pinConfig);
     SDK_DelayAtLeastUs(10000, SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY);
-    RGPIO_PinWrite(RGPIO6, 13, 1);
+    RGPIO_PinWrite(EXAMPLE_SWT_PORT1_PHY_RESET_PIN, 1);
     SDK_DelayAtLeastUs(150000, SDK_DEVICE_MAXIMUM_CPU_CLOCK_FREQUENCY);
 
     /* Initialize PHY for switch port1. */
@@ -169,8 +169,12 @@ status_t APP_PHY_Init(void)
     phy8211Config.phyAddr  = EXAMPLE_SWT_PORT1_PHY_ADDR;
 
     result = PHY_Init(&s_phy_handle, &phy8211Config);
+    if (result != kStatus_Success)
+    {
+        return result;
+    }
 
-    return result;
+    return PHY_EnableLoopback(&s_phy_handle, kPHY_LocalLoop, kPHY_Speed100M, true);
 }
 
 status_t APP_PHY_GetLinkStatus(bool *link)

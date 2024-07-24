@@ -76,7 +76,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>
@@ -112,8 +112,6 @@
       <files mask="config.cmake"/>
       <files mask="build_release.bat"/>
       <files mask="build_release.sh"/>
-      <files mask="build_hyperram_release.bat"/>
-      <files mask="build_hyperram_release.sh"/>
       <files mask="build_debug.bat"/>
       <files mask="build_debug.sh"/>
     </source>

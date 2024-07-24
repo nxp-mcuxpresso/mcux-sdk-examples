@@ -7,7 +7,7 @@ buffer and output to the CODEC, where the audio data will be heard from lineout.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.16.000
 
 Toolchain supported
 ===================

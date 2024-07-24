@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 NXP
+ * Copyright 2022-2024 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -28,6 +28,13 @@
 #define EXAMPLE_I3C_TX_DMA_CHANNEL_MUX (kDma0RequestMuxI3c1Tx)
 #define EXAMPLE_I3C_RX_DMA_CHANNEL_MUX (kDma0RequestMuxI3c1Rx)
 
+#ifndef I3C_MASTER_SLAVE_ADDR_7BIT
+#define I3C_MASTER_SLAVE_ADDR_7BIT 0x1EU
+#endif
+
+#ifndef I3C_DATA_LENGTH
+#define I3C_DATA_LENGTH 33U
+#endif
 
 /*******************************************************************************
  * Prototypes
@@ -39,7 +46,7 @@
 i3c_slave_edma_handle_t g_i3c_s_handle;
 edma_handle_t g_tx_dma_handle;
 edma_handle_t g_rx_dma_handle;
-AT_NONCACHEABLE_SECTION(uint8_t g_slave_rxBuff[I3C_DATA_LENGTH + 1]);
+AT_NONCACHEABLE_SECTION(uint8_t g_slave_rxBuff[I3C_DATA_LENGTH]);
 volatile bool g_slaveCompletionFlag  = false;
 volatile bool g_slaveRequestSentFlag = false;
 

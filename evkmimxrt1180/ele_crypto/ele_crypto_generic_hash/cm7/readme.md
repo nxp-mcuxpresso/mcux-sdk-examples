@@ -7,12 +7,12 @@ its services with direct use of Messaging Unit driver.
 
 SDK version
 ===========
-- Version: 2.15.001
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  12.3.1
-- MCUXpresso  11.9.0
+- GCC ARM Embedded  13.2.1
+- MCUXpresso  11.10.0
 
 Hardware requirements
 =====================
@@ -43,7 +43,7 @@ Example output on terminal:
 EdgeLock Enclave Sub-System crypto example:
 
 ****************** Load EdgeLock FW ***********************
-EndgeLock FW loaded and authenticated successfully.
+EdgeLock FW loaded and authenticated successfully.
 
 ****************** Compute Hash (SHA256) of massage *******
 *SUCCESS* Computed HASH matches the expected value.
@@ -54,9 +54,30 @@ EndgeLock FW loaded and authenticated successfully.
 
 *SUCCESS* Computed HASH (Finish) matches the expected value.
 
-****************** Compute HMAC (SHA256) of massage *******
+****************** Compute HMAC (SHA256) of message *******
 *SUCCESS* Computed HMAC (#1) matches the expected value.
 
 *SUCCESS* Computed HMAC (#2) matches the expected value.
+
+****************** Compute ONESHOT Fast HMAC **************
+*SUCCESS* Fast HMAC Start done.
+
+*SUCCESS* Computed OneShot Fast HMAC matches the expected value.
+
+*SUCCESS* Internally verified OneShot Fast HMAC matches expected value.
+
+****************** Compute PRELOADED Fast HMAC ************
+
+*SUCCESS* Buffer 0 preload completed.
+
+*SUCCESS* Buffer 0 HMAC matches expected value AND buffer 1 preload completed.
+
+*SUCCESS* Buffer 1 HMAC matches expected value.
+
+*SUCCESS* Buffer 1 preload for internal verification completed.
+
+*SUCCESS* Buffer 1 internally verified HMAC matches expected value.
+
+*SUCCESS* Fast HMAC End done.
 
 End of Example with SUCCESS!!

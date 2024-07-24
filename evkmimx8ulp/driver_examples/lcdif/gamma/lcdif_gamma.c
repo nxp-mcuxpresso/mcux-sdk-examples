@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, NXP
+ * Copyright (c) 2019,2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -28,8 +28,8 @@
  * Variables
  ******************************************************************************/
 
-static uint32_t gammaTable[LCDIF_GAMMA_INDEX_MAX];
-static volatile bool s_frameDone = false;
+AT_NONCACHEABLE_SECTION_INIT(static uint32_t gammaTable[LCDIF_GAMMA_INDEX_MAX]) = {0};
+AT_NONCACHEABLE_SECTION_INIT(static volatile bool s_frameDone)                  = false;
 
 /*******************************************************************************
  * Code
@@ -114,13 +114,34 @@ void DEMO_LCDIF_Gamma(void)
     /* Enable the LCDIF to show. */
     LCDIF_FrameBufferGetDefaultConfig(&fbConfig);
 
+#if FSL_FEATURE_LCDIF_VERSION_DC8000
+    lcdif_panel_config_t config;
+    LCDIF_PanelGetDefaultConfig(&config);
+    LCDIF_SetPanelConfig(DEMO_LCDIF, 0, &config);
+
+    fbConfig.enable          = true;
+    fbConfig.inOrder         = kLCDIF_PixelInputOrderARGB;
+    fbConfig.rotateFlipMode  = kLCDIF_Rotate0;
+    fbConfig.format          = kLCDIF_PixelFormatARGB8888;
+    fbConfig.alpha.enable    = false;
+    fbConfig.colorkey.enable = false;
+    fbConfig.topLeftX        = 0U;
+    fbConfig.topLeftY        = 0U;
+    fbConfig.width           = DEMO_IMG_WIDTH;
+    fbConfig.height          = DEMO_IMG_HEIGHT;
+#else
     fbConfig.enable      = true;
     fbConfig.enableGamma = false;
     fbConfig.format      = kLCDIF_PixelFormatXRGB8888;
+#endif
 
     LCDIF_SetFrameBufferAddr(DEMO_LCDIF, 0, DEMO_FB0_ADDR);
 
     LCDIF_SetFrameBufferConfig(DEMO_LCDIF, 0, &fbConfig);
+
+#if defined(FSL_FEATURE_LCDIF_VERSION_DC8000) & FSL_FEATURE_LCDIF_VERSION_DC8000
+    LCDIF_Start(DEMO_LCDIF);
+#endif
 
     while (1)
     {
@@ -133,9 +154,15 @@ void DEMO_LCDIF_Gamma(void)
             }
         }
 
-        fbConfig.enableGamma = !fbConfig.enableGamma;
+#if FSL_FEATURE_LCDIF_VERSION_DC8000
+        config.enableGamma = !config.enableGamma;
+        LCDIF_SetPanelConfig(DEMO_LCDIF, 0, &config);
 
+        LCDIF_SetUpdateReady(DEMO_LCDIF);
+#else
+        fbConfig.enableGamma = !fbConfig.enableGamma;
         LCDIF_SetFrameBufferConfig(DEMO_LCDIF, 0, &fbConfig);
+#endif
     }
 }
 

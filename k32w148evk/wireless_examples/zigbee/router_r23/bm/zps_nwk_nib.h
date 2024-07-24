@@ -1,6 +1,6 @@
 /****************************************************************************
  *
- * Copyright 2020-2023 NXP
+ * Copyright 2020-2024 NXP
  *
  * NXP Confidential. 
  * 
@@ -320,6 +320,9 @@ typedef enum
 #ifdef R23_UPDATES
 #define ZPS_NWK_DISC_ONLY_PERMIT (1 << 0)
 #define ZPS_NWK_DISC_ONLY_EDCAP  (1 << 1)
+
+/* This is an APS constant but the spec requires NWK layer to use it: poor structure */
+#define apscJoinerTlvsUnfragmentedMaxSize 79
 #endif
 
 /**************************/

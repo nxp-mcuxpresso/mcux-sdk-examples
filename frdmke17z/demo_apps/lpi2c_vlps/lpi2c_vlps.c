@@ -321,9 +321,15 @@ static void APP_ACCEL_ReadData(void)
     }
     else
     {
+#if defined FSL_EDMA_DRIVER_EDMA4 && FSL_EDMA_DRIVER_EDMA4
+        /* Create a software TCD, which will be chained after send data */
+        EDMA_TcdResetExt(DMA0, tcd);
+        EDMA_TcdSetTransferConfigExt(DMA0, tcd, &transferConfig, NULL);
+#else
         /* Create a software TCD, which will be chained after send data */
         EDMA_TcdReset(tcd);
         EDMA_TcdSetTransferConfig(tcd, &transferConfig, NULL);
+#endif
         linkTcd = tcd;
     }
 

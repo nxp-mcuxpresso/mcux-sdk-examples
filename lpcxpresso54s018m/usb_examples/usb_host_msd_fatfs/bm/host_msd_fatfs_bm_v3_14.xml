@@ -29,6 +29,7 @@
     <definition extID="component.osa.LPC54S018M"/>
     <definition extID="middleware.usb.common_header.LPC54S018M"/>
     <definition extID="middleware.usb.host.ohci_config_header.LPC54S018M"/>
+    <definition extID="utility.str.LPC54S018M"/>
     <definition extID="middleware.fatfs.template_usb.LPC54S018M"/>
     <definition extID="CMSIS_Include_core_cm.LPC54S018M"/>
     <definition extID="device.LPC54S018M_system.LPC54S018M"/>
@@ -36,7 +37,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="lpcxpresso54s018m_host_msd_fatfs_bm" name="host_msd_fatfs_bm" dependency="middleware.usb.host_controller_ip3516hs.LPC54S018M middleware.usb.host_controller_ohci.LPC54S018M platform.utilities.assert_lite.LPC54S018M utility.debug_console_lite.LPC54S018M middleware.baremetal.LPC54S018M middleware.fatfs.usb.LPC54S018M middleware.fatfs.LPC54S018M middleware.usb.host_msd.LPC54S018M component.lists.LPC54S018M platform.drivers.flexcomm_usart.LPC54S018M component.usart_adapter.LPC54S018M device.LPC54S018M_CMSIS.LPC54S018M device.LPC54S018M_startup.LPC54S018M platform.drivers.clock.LPC54S018M platform.drivers.common.LPC54S018M platform.drivers.emc.LPC54S018M platform.drivers.flexcomm.LPC54S018M platform.drivers.lpc_gpio.LPC54S018M platform.drivers.lpc_iocon.LPC54S018M platform.drivers.power.LPC54S018M platform.drivers.reset.LPC54S018M middleware.usb.host.stack.LPC54S018M platform.utilities.misc_utilities.LPC54S018M middleware.usb.host.ip3516hs_config_header.LPC54S018M middleware.usb.host.common_header.LPC54S018M component.osa.LPC54S018M middleware.usb.common_header.LPC54S018M middleware.usb.host.ohci_config_header.LPC54S018M middleware.fatfs.template_usb.LPC54S018M CMSIS_Include_core_cm.LPC54S018M device.LPC54S018M_system.LPC54S018M" category="usb_examples">
+  <example id="lpcxpresso54s018m_host_msd_fatfs_bm" name="host_msd_fatfs_bm" dependency="middleware.usb.host_controller_ip3516hs.LPC54S018M middleware.usb.host_controller_ohci.LPC54S018M platform.utilities.assert_lite.LPC54S018M utility.debug_console_lite.LPC54S018M middleware.baremetal.LPC54S018M middleware.fatfs.usb.LPC54S018M middleware.fatfs.LPC54S018M middleware.usb.host_msd.LPC54S018M component.lists.LPC54S018M platform.drivers.flexcomm_usart.LPC54S018M component.usart_adapter.LPC54S018M device.LPC54S018M_CMSIS.LPC54S018M device.LPC54S018M_startup.LPC54S018M platform.drivers.clock.LPC54S018M platform.drivers.common.LPC54S018M platform.drivers.emc.LPC54S018M platform.drivers.flexcomm.LPC54S018M platform.drivers.lpc_gpio.LPC54S018M platform.drivers.lpc_iocon.LPC54S018M platform.drivers.power.LPC54S018M platform.drivers.reset.LPC54S018M middleware.usb.host.stack.LPC54S018M platform.utilities.misc_utilities.LPC54S018M middleware.usb.host.ip3516hs_config_header.LPC54S018M middleware.usb.host.common_header.LPC54S018M component.osa.LPC54S018M middleware.usb.common_header.LPC54S018M middleware.usb.host.ohci_config_header.LPC54S018M utility.str.LPC54S018M middleware.fatfs.template_usb.LPC54S018M CMSIS_Include_core_cm.LPC54S018M device.LPC54S018M_system.LPC54S018M" category="usb_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -70,7 +71,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

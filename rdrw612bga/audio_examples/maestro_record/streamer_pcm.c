@@ -128,6 +128,8 @@ void streamer_pcm_init(void)
     DMA_SetChannelPriority(DEMO_DMA, DEMO_DMIC_RX_CHANNEL_1, kDMA_ChannelPriority2);
     DMA_CreateHandle(&pcmHandle.dmicRxDmaHandleCh1, DEMO_DMA, DEMO_DMIC_RX_CHANNEL_1);
 
+    NVIC_SetPriority(DMA0_IRQn, 2U);
+
     memset(&dmic_channel_cfg, 0U, sizeof(dmic_channel_config_t));
 
     dmic_channel_cfg.divhfclk            = kDMIC_PdmDiv1;

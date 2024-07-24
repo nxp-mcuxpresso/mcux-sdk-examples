@@ -66,10 +66,6 @@ void BOARD_InitHardware(void);
 /*******************************************************************************
  * Variables
  ******************************************************************************/
-/* Allocate the memory for the heap. */
-#if defined(configAPPLICATION_ALLOCATED_HEAP) && (configAPPLICATION_ALLOCATED_HEAP)
-USB_DMA_NONINIT_DATA_ALIGN(USB_DATA_ALIGN_SIZE) uint8_t ucHeap[configTOTAL_HEAP_SIZE];
-#endif
 /*! @brief USB host msd fatfs instance global variable */
 extern usb_host_msd_fatfs_instance_t g_MsdFatfsInstance;
 usb_host_handle g_HostHandle;

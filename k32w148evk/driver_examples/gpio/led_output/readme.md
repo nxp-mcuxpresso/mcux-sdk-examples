@@ -8,12 +8,12 @@ example take turns to shine the LED.
 
 SDK version
 ===========
-- Version: 2.15.000
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  12.2
-- MCUXpresso  11.8.0
+- GCC ARM Embedded  13.2.1
+- MCUXpresso  11.10.0
 
 Hardware requirements
 =====================
@@ -40,8 +40,9 @@ Running the demo
 ================
 These instructions are displayed/shown on the terminal window:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-GPIO Driver example
-The LED is blinking.
+ GPIO Driver example
+
+ The LED is blinking.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 And you will detect voltage toggle on J4.P31 of MB board.
 If the EVK board is used then the green led will blink.

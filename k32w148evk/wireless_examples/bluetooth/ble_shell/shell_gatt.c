@@ -4,7 +4,7 @@
  ********************************************************************************** */
 /*! *********************************************************************************
 * Copyright 2015 Freescale Semiconductor, Inc.
-* Copyright 2016-2023 NXP
+* Copyright 2016-2024 NXP
 *
 *
 * \file
@@ -983,8 +983,8 @@ static shell_status_t ShellGatt_WriteRsp(uint8_t argc, char * argv[])
 static shell_status_t ShellGatt_Notify(uint8_t argc, char * argv[])
 {
     shell_status_t result = kStatus_SHELL_Success;
-    uint16_t  handle, hCccd;
-    bool_t isNotificationActive;
+    uint16_t  handle = 0U, hCccd = 0U;
+    bool_t isNotificationActive = FALSE;
     deviceId_t peerId;
 
     peerId = (deviceId_t)BleApp_atoi(argv[0]);
@@ -1045,8 +1045,8 @@ static shell_status_t ShellGatt_Notify(uint8_t argc, char * argv[])
 static shell_status_t ShellGatt_Indicate(uint8_t argc, char * argv[])
 {
     shell_status_t result = kStatus_SHELL_Success;
-    uint16_t  handle, hCccd;
-    bool_t isIndicationActive;
+    uint16_t  handle = 0U, hCccd = 0U;
+    bool_t isIndicationActive = FALSE;
     deviceId_t peerId;
 
     peerId = (deviceId_t)BleApp_atoi(argv[0]);

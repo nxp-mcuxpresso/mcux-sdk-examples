@@ -257,7 +257,7 @@ void WUU0_IRQHandler(void)
 }
 
 
-void main(void)
+int main(void)
 {
     uint32_t freq;
     cmc_low_power_mode_t curmode;
@@ -1013,14 +1013,14 @@ static void APP_WakeupFunction(void)
      */
     while (ramAddress < 0x4004000UL)
     {
-        memset((void *)(uint32_t *)ramAddress, 0UL, sizeof(uint32_t));
+        *(uint32_t *)ramAddress = 0UL;
         ramAddress = ramAddress + 4UL;
     }
 
     ramAddress = 0x20004000UL;
     while (ramAddress < 0x20010000UL)
     {
-        memset((void *)(uint32_t *)ramAddress, 0UL, sizeof(uint32_t));
+        *(uint32_t *)ramAddress = 0UL;
         ramAddress = ramAddress + 4UL;
     }
 
@@ -1038,6 +1038,7 @@ static void APP_WakeupFunction(void)
 #endif                                                    /* ((__FPU_PRESENT == 1) && (__FPU_USED == 1)) */
 
     /* Restore the CONTROL register. */
-    __set_CONTROL(g_cpuControl);
+    __ASM volatile ("MSR control, %0" : : "r" (g_cpuControl) : "memory");
+    __ISB();
     longjmp(g_coreContext, true);
 }

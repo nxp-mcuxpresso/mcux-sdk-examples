@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2021 NXP
+ * Copyright 2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -33,10 +33,10 @@ extern "C" {
 void BOARD_InitBootPins(void);
 
 /*!
- * @brief Configures pin routing and optionally pin electrical features.
+ * @brief 
  *
  */
-void BOARD_InitPins(void);                    /* Function assigned for the Cortex-M7F */
+void BOARD_InitPins(void); /* Function assigned for the Cortex-M33 */
 
 #if defined(__cplusplus)
 }

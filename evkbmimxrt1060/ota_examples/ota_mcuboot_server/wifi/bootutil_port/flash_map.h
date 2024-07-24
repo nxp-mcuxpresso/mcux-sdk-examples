@@ -42,7 +42,8 @@ extern "C" {
  * and match the target offset specified in download script.
  */
 #include <stdint.h>
-
+#include "sblconfig.h"
+  
 /**
  * @brief Structure describing an area on a flash device.
  *
@@ -156,8 +157,21 @@ int flash_area_get_sector(const struct flash_area *fa, uint32_t off, struct flas
 
 int flash_area_id_from_image_slot(int slot);
 
+/*
+ * Converts the specified flash area ID and image index (in multi-image setup)
+ * to an image slot index.
+ *
+ * Returns image slot index (0 or 1), or -1 if ID doesn't correspond to an image
+ * slot.
+ */
+int flash_area_id_to_multi_image_slot(int image_index, int area_id);
+
 extern const char *boot_image_names[];
 extern struct flash_area boot_flash_map[];
+#ifdef CONFIG_MCUBOOT_ENCRYPTED_XIP_SUPPORT
+extern struct flash_area boot_enc_flash_map[];
+extern struct flash_area boot_dumpx_flash_map[];
+#endif
 
 #ifdef __cplusplus
 }

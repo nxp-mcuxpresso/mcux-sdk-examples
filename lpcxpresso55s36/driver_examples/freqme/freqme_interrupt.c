@@ -181,7 +181,11 @@ static void DEMO_DoFreqMeasurement(void)
     }
     else
     {
+#if defined(DEMO_REF_CLK_FREQ)
+        targetFreq = FREQME_CalculateTargetClkFreq(DEMO_FREQME, DEMO_REF_CLK_FREQ);
+#else
         targetFreq = FREQME_CalculateTargetClkFreq(DEMO_FREQME, CLOCK_GetFreq(kCLOCK_FroHf));
+#endif
         PRINTF("Target clock frequency is %d Hz.\r\n", targetFreq);
     }
 }

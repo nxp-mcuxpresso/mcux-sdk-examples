@@ -321,7 +321,7 @@
  * designed to accomodate single full size TCP frame in one pbuf, including
  * TCP_MSS, IP header, and link header.
  */
-#ifdef CONFIG_TX_RX_ZERO_COPY
+#if CONFIG_TX_RX_ZERO_COPY
 /**
  * Original PBUF_POOL_BUFSIZE + interface header + rxpd->rx_pkt_offset
  * + sizeof(mlan_buffer)

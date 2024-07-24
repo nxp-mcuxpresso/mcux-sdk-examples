@@ -241,7 +241,10 @@ int main(void)
         {
             PRINTF("\r\nP3T1755 read temperature failed.\r\n");
         }
-        PRINTF("\r\nTemperature:%f \r\n", temperature);
+        else
+        {
+            PRINTF("\r\nTemperature:%f \r\n", temperature);
+        }
         SDK_DelayAtLeastUs(1000000, CLOCK_GetCoreSysClkFreq());
     }
 }

@@ -24,7 +24,6 @@
 #define DEMO_INTB_GPIO GPIO11
 #define DEMO_INTB_PIN  (1U)
 #define DEMO_INTB_IRQ_HANDLER
-#define SKIP_DCDC_CONFIGURATION (1U)
 #define DEMO_REGULATOR_NAME_ARRAY     \
     {                                 \
         "SW1", "SW2", "SWND1", "LDO1" \

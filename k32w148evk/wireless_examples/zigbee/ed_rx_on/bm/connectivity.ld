@@ -46,10 +46,10 @@ m_flash_config_start                = 0x00000400;
 m_flash_config_size                 = 0x00000010;
 m_flash_config_end                  = m_flash_config_start + m_flash_config_size - 1;
 
-/* This section is not enabled by default but you need it if gHwParamsProdDataPlacement_c is defined to 
- * gHwParamsProdDataPlacementLegacyMode_c or gHwParamsProdDataPlacementLegacy2IfrMode_c in your project */
+/* This section is not enabled by default but you need it if gHwParamsProdDataPlacement_c is defined to
+ * gHwParamsProdDataMainFlashMode_c or gHwParamsProdDataMainFlash2IfrMode_c in your project */
 /*
- * m_fsl_prodInfo_size                 = DEFINED(gUseProdInfoLegacyMode_d) ? m_sector_size : 0;
+ * m_fsl_prodInfo_size                 = DEFINED(gUseProdInfoMainFlashMode_d) ? m_sector_size : 0;
  */
 m_fsl_prodInfo_size                 = m_sector_size;
 m_fsl_prodInfo_end                  = m_flash_end;

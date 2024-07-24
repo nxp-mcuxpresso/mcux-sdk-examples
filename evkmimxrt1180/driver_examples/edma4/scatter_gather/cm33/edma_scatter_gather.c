@@ -35,7 +35,11 @@ volatile bool g_Transfer_Done = false;
 AT_NONCACHEABLE_SECTION_INIT(uint32_t srcAddr[BUFF_LENGTH])  = {0x01U, 0x02U, 0x03U, 0x04U, 0x05U, 0x06U, 0x07U, 0x08U};
 AT_NONCACHEABLE_SECTION_INIT(uint32_t destAddr[BUFF_LENGTH]) = {0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U};
 /* Allocate TCD memory poll */
+#if defined(DEMO_QUICKACCESS_SECTION_CACHEABLE) && DEMO_QUICKACCESS_SECTION_CACHEABLE
+AT_NONCACHEABLE_SECTION_ALIGN(edma_tcd_t tcdMemoryPoolPtr[TCD_QUEUE_SIZE], sizeof(edma_tcd_t));
+#else
 AT_QUICKACCESS_SECTION_DATA_ALIGN(edma_tcd_t tcdMemoryPoolPtr[TCD_QUEUE_SIZE], sizeof(edma_tcd_t));
+#endif
 
 /*******************************************************************************
  * Code
@@ -96,14 +100,14 @@ int main(void)
                          kEDMA_MemoryToMemory);
     EDMA_SubmitTransfer(&g_EDMA_Handle, &transferConfig);
     /* Trigger transfer start */
-    EDMA_StartTransfer(&g_EDMA_Handle);
+    EDMA_TriggerChannelStart(EXAMPLE_DMA_BASEADDR, EXAMPLE_DMA_CHANNEL);
     /* Wait for the first TCD finished */
     while (g_Transfer_Done != true)
     {
     }
     g_Transfer_Done = false;
     /* Trigger the second tcd */
-    EDMA_StartTransfer(&g_EDMA_Handle);
+    EDMA_TriggerChannelStart(EXAMPLE_DMA_BASEADDR, EXAMPLE_DMA_CHANNEL);
     /* Wait for the second TCD finished */
     while (g_Transfer_Done != true)
     {

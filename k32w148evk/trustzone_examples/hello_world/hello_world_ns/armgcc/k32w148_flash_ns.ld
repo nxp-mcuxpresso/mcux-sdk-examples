@@ -32,10 +32,9 @@ STACK_SIZE = DEFINED(__stack_size__) ? __stack_size__ : 0x0800;
 /* Specify the memory areas */
 MEMORY
 {
-  m_interrupts          (RX)  : ORIGIN = 0x00020000, LENGTH = 0x00000400
-  m_text                (RX)  : ORIGIN = 0x00020400, LENGTH = 0x000FFC00
-  m_data0               (RW)  : ORIGIN = 0x04000000, LENGTH = 0x00004000
-  m_data1               (RW)  : ORIGIN = 0x20000000, LENGTH = 0x0001C000
+  m_interrupts          (RX)  : ORIGIN = 0x00010000, LENGTH = 0x00000400
+  m_text                (RX)  : ORIGIN = 0x00010400, LENGTH = 0x00071C00
+  m_data1               (RW)  : ORIGIN = 0x20008000, LENGTH = 0x00010000
 }
 
 /* Define output sections */
@@ -149,7 +148,7 @@ SECTIONS
     KEEP(*(.jcr*))
     . = ALIGN(4);
     __data_end__ = .;        /* define a global symbol at data end */
-  } > m_data0
+  } > m_data1
 
   __DATA_END = __DATA_ROM + (__data_end__ - __data_start__);
   text_end = ORIGIN(m_text) + LENGTH(m_text);

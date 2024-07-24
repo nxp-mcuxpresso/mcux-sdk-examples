@@ -9,6 +9,7 @@
 #include "ncp_tlv_adapter.h"
 
 extern ncp_tlv_adapter_t ncp_tlv_adapter;
+uint8_t mcu_device_status = 1;
 
 int ncp_intf_pm_enter(int32_t pm_state)
 {

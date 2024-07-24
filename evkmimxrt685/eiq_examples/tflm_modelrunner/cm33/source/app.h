@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2015, Freescale Semiconductor, Inc.
- * Copyright 2016 NXP
+ * Copyright 2016,2024 NXP
  * All rights reserved.
  *
  *
@@ -21,6 +21,17 @@
  ******************************************************************************/
 /*${prototype:start}*/
 void BOARD_InitHardware(void);
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+int64_t getTime();
+int gethostname(char* name);
+
+#ifdef __cplusplus
+}
+#endif
 /*${prototype:end}*/
 
 #endif /* _APP_H_ */

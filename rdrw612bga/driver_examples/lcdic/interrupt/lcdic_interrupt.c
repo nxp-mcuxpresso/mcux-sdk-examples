@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 NXP
+ * Copyright 2022, 2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -124,12 +124,17 @@ static void APP_InitLcdic(void)
 
     LCDIC_GetDefaultConfig(&config);
     config.mode = APP_LCDIC_MODE;
-#if (APP_LCDI_ENDIAN == APP_LCD_BIG_ENDIAN)
+#if (APP_LCDIC_ENDIAN == APP_LCD_BIG_ENDIAN)
     config.endian = kLCDIC_BigEndian;
 #else
     config.endian = kLCDIC_LittleEndian;
 #endif
+#if defined(APP_LCDIC_SPI_FLAG)
     config.spiCtrlFlags = APP_LCDIC_SPI_FLAG;
+#endif
+#if defined(APP_LCDIC_I8080_FLAG)
+    config.i8080CtrlFlags = APP_LCDIC_I8080_FLAG;
+#endif
 
     config.cmdShortTimeout_Timer0 = 0U; /* disable */
     config.cmdLongTimeout_Timer1  = 0U; /* disable */

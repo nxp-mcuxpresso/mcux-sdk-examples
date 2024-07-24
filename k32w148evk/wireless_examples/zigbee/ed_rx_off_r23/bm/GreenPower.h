@@ -1,6 +1,6 @@
 /****************************************************************************
  *
- * Copyright 2020, 2023 NXP
+ * Copyright 2020, 2023-2024 NXP
  *
  * NXP Confidential. 
  * 
@@ -42,7 +42,7 @@ extern "C" {
 #include "zcl.h"
 #include "zcl_options.h"
 #include "zcl_customcommand.h"
-#include "aessw_ccm.h"
+#include "zb_platform.h"
 /****************************************************************************/
 /***        Macro Definitions that may be overridden in zcl_options.h     ***/
 /****************************************************************************/
@@ -494,6 +494,9 @@ typedef struct
     /* Client Attributes */
     uint8                   u8ZgppMaxProxyTableEntries;
     tsZCL_LongOctetString   sProxyTable;
+    zbmap24                 b24ZgppFunctionality;
+    zbmap24                 b24ZgppActiveFunctionality;
+
 #ifdef GP_PROXY_BASIC_DEVICE
 #ifdef  CLD_GP_ATTR_ZGPP_NOTIFICATION_RETRY_NUMBER
     uint8                   u8ZgppNotificationRetryNumber;
@@ -510,9 +513,6 @@ typedef struct
 #ifdef  CLD_GP_ATTR_ZGPP_BLOCKED_GPD_ID
     tsZCL_LongOctetString   sZgppBlockedGpdID;
 #endif
-
-    zbmap24                 b24ZgppFunctionality;
-    zbmap24                 b24ZgppActiveFunctionality;
 #endif
 
     /* Shared Attributes b/w server and client */

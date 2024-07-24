@@ -26,6 +26,7 @@
     <definition extID="platform.drivers.flexcomm.LPC54S018M"/>
     <definition extID="platform.drivers.emc.LPC54S018M"/>
     <definition extID="platform.utilities.misc_utilities.LPC54S018M"/>
+    <definition extID="utility.str.LPC54S018M"/>
     <definition extID="platform.drivers.reset.LPC54S018M"/>
     <definition extID="platform.drivers.inputmux_connections.LPC54S018M"/>
     <definition extID="CMSIS_Include_core_cm.LPC54S018M"/>
@@ -34,7 +35,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="lpcxpresso54s018m_i2s_dma_record_playback" name="i2s_dma_record_playback" dependency="component.flexcomm_i2c_adapter.LPC54S018M component.codec_i2c.LPC54S018M utility.debug_console_lite.LPC54S018M platform.utilities.assert_lite.LPC54S018M platform.drivers.lpc_iocon.LPC54S018M platform.drivers.flexcomm_i2c.LPC54S018M platform.drivers.flexcomm_i2s.LPC54S018M platform.drivers.flexcomm_i2s_dma.LPC54S018M platform.drivers.lpc_dma.LPC54S018M platform.drivers.flexcomm_usart.LPC54S018M driver.wm8904.LPC54S018M component.wm8904_adapter.LPC54S018M driver.codec.LPC54S018M platform.drivers.common.LPC54S018M platform.drivers.clock.LPC54S018M platform.drivers.power.LPC54S018M platform.drivers.lpc_gpio.LPC54S018M platform.drivers.inputmux.LPC54S018M device.LPC54S018M_CMSIS.LPC54S018M component.usart_adapter.LPC54S018M component.lists.LPC54S018M device.LPC54S018M_startup.LPC54S018M platform.drivers.flexcomm.LPC54S018M platform.drivers.emc.LPC54S018M platform.utilities.misc_utilities.LPC54S018M platform.drivers.reset.LPC54S018M platform.drivers.inputmux_connections.LPC54S018M CMSIS_Include_core_cm.LPC54S018M device.LPC54S018M_system.LPC54S018M" category="driver_examples/i2s">
+  <example id="lpcxpresso54s018m_i2s_dma_record_playback" name="i2s_dma_record_playback" dependency="component.flexcomm_i2c_adapter.LPC54S018M component.codec_i2c.LPC54S018M utility.debug_console_lite.LPC54S018M platform.utilities.assert_lite.LPC54S018M platform.drivers.lpc_iocon.LPC54S018M platform.drivers.flexcomm_i2c.LPC54S018M platform.drivers.flexcomm_i2s.LPC54S018M platform.drivers.flexcomm_i2s_dma.LPC54S018M platform.drivers.lpc_dma.LPC54S018M platform.drivers.flexcomm_usart.LPC54S018M driver.wm8904.LPC54S018M component.wm8904_adapter.LPC54S018M driver.codec.LPC54S018M platform.drivers.common.LPC54S018M platform.drivers.clock.LPC54S018M platform.drivers.power.LPC54S018M platform.drivers.lpc_gpio.LPC54S018M platform.drivers.inputmux.LPC54S018M device.LPC54S018M_CMSIS.LPC54S018M component.usart_adapter.LPC54S018M component.lists.LPC54S018M device.LPC54S018M_startup.LPC54S018M platform.drivers.flexcomm.LPC54S018M platform.drivers.emc.LPC54S018M platform.utilities.misc_utilities.LPC54S018M utility.str.LPC54S018M platform.drivers.reset.LPC54S018M platform.drivers.inputmux_connections.LPC54S018M CMSIS_Include_core_cm.LPC54S018M device.LPC54S018M_system.LPC54S018M" category="driver_examples/i2s">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -62,7 +63,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

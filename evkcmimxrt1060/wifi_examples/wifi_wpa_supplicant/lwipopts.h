@@ -58,7 +58,7 @@
 #define TCPIP_THREAD_STACKSIZE 1024
 #define TCPIP_THREAD_PRIO      2
 #ifdef CONFIG_NETWORK_HIGH_PERF
-#define TCPIP_MBOX_SIZE 64
+#define TCPIP_MBOX_SIZE 96
 #else
 #define TCPIP_MBOX_SIZE 32
 #endif
@@ -307,7 +307,7 @@
  * MEMP_NUM_REASSDATA: the number of IP packets simultaneously queued for
  * reassembly (whole packets, not fragments!)
  */
-#define MEMP_NUM_REASSDATA 2
+#define MEMP_NUM_REASSDATA 8
 
 /**
  * IP_REASS_MAXAGE: Maximum time (in multiples of IP_TMR_INTERVAL - so seconds, normally)
@@ -324,7 +324,7 @@
  * When IPv4 *and* IPv6 are enabled, this even changes to
  * (PBUF_POOL_SIZE > 2 * IP_REASS_MAX_PBUFS)!
  */
-#define IP_REASS_MAX_PBUFS 4
+#define IP_REASS_MAX_PBUFS 16
 
 /**
  * TCP_MSS: TCP Maximum segment size. (default is 536, a conservative default,
@@ -525,11 +525,10 @@ u32_t lwip_rand(void);
 
 #define LWIP_TCPIP_CORE_LOCKING 1
 
-#ifdef CONFIG_CLOUD_KEEP_ALIVE
+
 #ifndef LWIP_HOOK_FILENAME
 #define LWIP_HOOK_FILENAME                               "lwiphooks.h"
 #define LWIP_HOOK_TCP_OUT_ADD_TCPOPTS(p, hdr, pcb, opts) lwip_hook_tcp_out_add_tcpopts(p, hdr, pcb, opts)
-#endif
 #endif
 
 #endif /* __LWIPOPTS_H__ */

@@ -1247,8 +1247,14 @@ void BluetoothLEHost_ProcessIdleTask(void)
 #endif /* gAppUseNvm_d */
     {
 #if defined (gAppOtaASyncFlashTransactions_c) && (gAppOtaASyncFlashTransactions_c > 0)
-        (void)OTA_TransactionResume();
+        if (OTA_TransactionResume() == 0)
 #endif
+        {
+            if (RNG_IsReseedneeded())
+            {
+                RNG_SetSeed();
+            }
+        }
     }
 }
 

@@ -131,8 +131,14 @@ static void EXAMPLE_StartRingBufferEDMA(void)
     /* Submit transfer. */
     g_uartRxEdmaHandle.tcdUsed = 1U;
     g_uartRxEdmaHandle.tail    = 0U;
+#if defined FSL_EDMA_DRIVER_EDMA4 && FSL_EDMA_DRIVER_EDMA4
+    EDMA_TcdResetExt(g_uartRxEdmaHandle.base, &g_uartRxEdmaHandle.tcdPool[0U]);
+    EDMA_TcdSetTransferConfigExt(&g_uartRxEdmaHandle.base, &g_uartRxEdmaHandle.tcdPool[0U], &xferConfig,
+                                 tcdMemoryPoolPtr);
+#else
     EDMA_TcdReset(&g_uartRxEdmaHandle.tcdPool[0U]);
     EDMA_TcdSetTransferConfig(&g_uartRxEdmaHandle.tcdPool[0U], &xferConfig, tcdMemoryPoolPtr);
+#endif
 
     /* Enable major interrupt for calculating the received bytes. */
     g_uartRxEdmaHandle.tcdPool[0U].CSR |= DMA_CSR_INTMAJOR_MASK;

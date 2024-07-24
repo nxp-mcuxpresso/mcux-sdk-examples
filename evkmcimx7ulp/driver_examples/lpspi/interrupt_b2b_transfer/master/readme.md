@@ -2,19 +2,20 @@ Overview
 ========
 The lpspi_interrupt_b2b_transfer example shows how to use LPSPI driver in interrupt way:
 
-In this example , we need two boards, one board used as LPSPI master and another board used as LPSPI slave.
+In this example, we need two boards, one board used as LPSPI master and another board used as LPSPI slave.
 The file 'lpspi_interrupt_b2b_transfer_master.c' includes the LPSPI master code.
 This example uses the transactional API in LPSPI driver.
+LPSPI master send/received data to/from LPSPI slave in interrupt. (LPSPI Slave using interrupt to receive/send the data)
 
-1. LPSPI master send/received data to/from LPSPI slave in interrupt . (LPSPI Slave using interrupt to receive/send the data)
+
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  12.2
+- GCC ARM Embedded  13.2.1
 
 Hardware requirements
 =====================
@@ -28,7 +29,7 @@ Board settings
 ==============
 Populate R188, R189, R190, R191 on both base boards.
 
-SPI one board:
+SPI two boards:
 Transfer data from one board instance to another board's instance.
 SPI1 pins are connected with SPI1 pins of another board
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -63,37 +64,36 @@ Prepare the Demo
 4.  Download the program to the target board.
 5.  Either cold boot your board or launch the debugger in your IDE to begin running the example.
 
+
 Running the demo
 ================
-When the demo runs successfully, the log would be seen on the terminal like:
-
+When the demo runs successfully, the log would be seen in terminal window:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-LPSPI board to board interrupt example.
+LPSPI interrupt board to board (b2b) transfer master example.
 This example use one board as master and another as slave.
-Master and slave uses interrupt way. Slave should start first. 
-Please make sure you make the correct line connection. Basically, the connection is: 
-LPSPI_master -- LPSPI_slave   
-   CLK       --    CLK  
-   PCS       --    PCS 
-   SOUT      --    SIN  
-   SIN       --    SOUT 
-   GND       --    GND 
+Master and slave uses interrupt way. Slave should start first.
+Please make sure you make the correct line connection. Basically, the connection is:
+LPSPI_master -- LPSPI_slave
+    CLK      --    CLK
+    PCS      --    PCS
+    SOUT     --    SIN
+    SIN      --    SOUT
+    GND      --    GND
 
  Master transmit:
-
   1  2  3  4  5  6  7  8  9  A  B  C  D  E  F 10
  11 12 13 14 15 16 17 18 19 1A 1B 1C 1D 1E 1F 20
  21 22 23 24 25 26 27 28 29 2A 2B 2C 2D 2E 2F 30
  31 32 33 34 35 36 37 38 39 3A 3B 3C 3D 3E 3F 40
- 
-LPSPI transfer all data matched! 
+
+LPSPI transfer all data matched!
 
  Master received:
-
   1  2  3  4  5  6  7  8  9  A  B  C  D  E  F 10
  11 12 13 14 15 16 17 18 19 1A 1B 1C 1D 1E 1F 20
  21 22 23 24 25 26 27 28 29 2A 2B 2C 2D 2E 2F 30
  31 32 33 34 35 36 37 38 39 3A 3B 3C 3D 3E 3F 40
 
- Press any key to run again
+Press any key to run again
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+

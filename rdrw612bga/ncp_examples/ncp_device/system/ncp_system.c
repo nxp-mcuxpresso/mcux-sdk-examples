@@ -11,6 +11,8 @@
 #include "fsl_os_abstraction.h"
 #include "ncp_cmd_system.h"
 #include "ncp_config.h"
+#include "app_notify.h"
+#include "ncp_glue_system.h"
 
 /*******************************************************************************
  * Definitions
@@ -26,8 +28,8 @@ typedef struct ncp_cmd_t system_ncp_command_t;
  * Variables
  ******************************************************************************/
 extern uint16_t g_cmd_seqno;
-extern uint8_t cmd_buf[NCP_BRIDGE_INBUF_SIZE];
-extern uint8_t res_buf[NCP_BRIDGE_INBUF_SIZE];
+extern uint8_t cmd_buf[NCP_INBUF_SIZE];
+extern uint8_t sys_res_buf[NCP_SYS_INBUF_SIZE];
 
 #define SYSTEM_TASK_PRIO        3
 #define SYSTEM_NCP_STACK_SIZE   2048
@@ -38,6 +40,7 @@ static void system_ncp_task(void *pvParameters);
 OSA_TASK_DEFINE(system_ncp_task, SYSTEM_TASK_PRIO, 1, SYSTEM_NCP_STACK_SIZE, 0);
 
 OSA_SEMAPHORE_HANDLE_DEFINE(system_ncp_lock);
+OSA_SEMAPHORE_HANDLE_DEFINE(ncp_sys_resp_buf_lock);
 
 #define SYSTEM_NCP_COMMAND_QUEUE_NUM 8
 static osa_msgq_handle_t system_ncp_command_queue; /* ncp adapter TX msgq */
@@ -52,22 +55,22 @@ OSA_MSGQ_HANDLE_DEFINE(system_ncp_command_queue_buff, SYSTEM_NCP_COMMAND_QUEUE_N
  * This involves
  * 1) sending cmd response out to interface
  * 2) computation of the crc of the cmd resp
- * 3) reset cmd_buf & res_buf
- * 4) release bridge lock
+ * 3) reset cmd_buf & sys_res_buf
+ * 4) release lock
  */
 int system_ncp_send_response(uint8_t *pbuf)
 {
     int ret                = NCP_SUCCESS;
     uint16_t transfer_len = 0;
-    NCP_BRIDGE_COMMAND *res = (NCP_BRIDGE_COMMAND *)pbuf;
+    NCP_COMMAND *res = (NCP_COMMAND *)pbuf;
 
     /* set cmd seqno */
     res->seqnum = g_cmd_seqno;
     transfer_len        = res->size;
-    if (transfer_len >= NCP_BRIDGE_CMD_HEADER_LEN)
+    if (transfer_len >= NCP_CMD_HEADER_LEN)
     {
         /* write response to host */
-        ncp_tlv_send(pbuf, transfer_len);
+        ret = ncp_tlv_send(pbuf, transfer_len);
         if (ret != NCP_SUCCESS)
         {
             ncp_e("failed to write response");
@@ -80,22 +83,24 @@ int system_ncp_send_response(uint8_t *pbuf)
         ret = -NCP_FAIL;
     }
 
-    if (res->msg_type != NCP_BRIDGE_MSG_TYPE_EVENT)
+    if (GET_MSG_TYPE(res->cmd) != NCP_MSG_TYPE_EVENT)
     {
         /* Reset cmd_buf */
         memset(cmd_buf, 0, sizeof(cmd_buf));
-        /* Reset res_buf */
-        memset(res_buf, 0, sizeof(res_buf));
+        /* Reset sys_res_buf */
+        memset(sys_res_buf, 0, sizeof(sys_res_buf));
         OSA_SemaphorePost(system_ncp_lock);
-        ncp_d("put bridge lock");
+        ncp_put_sys_resp_buf_lock();
+        ncp_d("put lock");
     }
+
 
     return ret;
 }
 
 static int system_ncp_command_handle_input(uint8_t *cmd)
 {
-    NCP_BRIDGE_COMMAND *input_cmd = (NCP_BRIDGE_COMMAND *)cmd;
+    NCP_COMMAND *input_cmd = (NCP_COMMAND *)cmd;
     struct cmd_t *command         = NULL;
     int ret                       = NCP_SUCCESS;
 
@@ -115,14 +120,15 @@ static int system_ncp_command_handle_input(uint8_t *cmd)
 
     if (command->async == CMD_SYNC)
     {
-         system_ncp_send_response(res_buf);
+         system_ncp_send_response(sys_res_buf);
     }
     else
     {
         /* Wait for cmd to execute, then
          * 1) send cmd response
-         * 2) reset cmd_buf & res_buf
+         * 2) reset cmd_buf & sys_res_buf
          * 3) release system_ncp_lock */
+        ncp_put_sys_resp_buf_lock();
     }
 
     return ret;
@@ -144,7 +150,8 @@ static void system_ncp_task(void *pvParameters)
         else
         {
             cmd_buf = cmd_item.cmd_buff;
-            OSA_SemaphoreWait(system_ncp_lock, osaWaitForever_c);
+            if(((NCP_COMMAND *)cmd_buf)->cmd != NCP_CMD_SYSTEM_POWERMGMT_MCU_SLEEP_CFM)
+                OSA_SemaphoreWait(system_ncp_lock, osaWaitForever_c);
             system_ncp_command_handle_input(cmd_buf);
             OSA_MemoryFree(cmd_buf);
             cmd_buf = NULL;
@@ -207,7 +214,19 @@ int system_ncp_init(void)
     {
         OSA_SemaphorePost(system_ncp_lock);
     }
-    ncp_tlv_install_handler(GET_CMD_CLASS(NCP_BRIDGE_CMD_SYSTEM), (void *)system_ncp_callback);
+
+    ret = OSA_SemaphoreCreateBinary(ncp_sys_resp_buf_lock);
+    if (ret != kStatus_Success)
+    {
+        ncp_e("failed to create system_ncp_lock: %d", ret);
+        return ret;
+    }
+    else
+    {
+        OSA_SemaphorePost(ncp_sys_resp_buf_lock);
+    }
+
+    ncp_tlv_install_handler(GET_CMD_CLASS(NCP_CMD_SYSTEM), (void *)system_ncp_callback);
     ret = OSA_TaskCreate((osa_task_handle_t) system_ncp_handle, OSA_TASK(system_ncp_task), NULL);
     if (ret != KOSA_StatusSuccess)
     {
@@ -215,5 +234,22 @@ int system_ncp_init(void)
         return -NCP_FAIL;
     }
 
+    ret = app_notify_init();
+    if (ret != WM_SUCCESS)
+    {
+        ncp_e("app notify failed to initialize: %d", ret);
+        return -WM_FAIL;
+    }
+
     return NCP_SUCCESS;
+}
+
+void ncp_get_sys_resp_buf_lock()
+{
+    OSA_SemaphoreWait(ncp_sys_resp_buf_lock, osaWaitForever_c);
+}
+
+void ncp_put_sys_resp_buf_lock()
+{
+    OSA_SemaphorePost(ncp_sys_resp_buf_lock);
 }

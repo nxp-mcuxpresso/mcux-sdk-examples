@@ -58,12 +58,12 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../main.c"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
-"${ProjDirPath}/../app_config.h"
+"${ProjDirPath}/../wifi_config.h"
 "${ProjDirPath}/../lwippools.h"
 "${ProjDirPath}/../lwiphooks.h"
 "${ProjDirPath}/../FreeRTOSConfig.h"
 "${ProjDirPath}/../lwipopts.h"
-"${ProjDirPath}/../wifi_config.h"
+"${ProjDirPath}/../app_config.h"
 "${SdkRootDirPath}/core/boards/rdrw612bga/board.c"
 "${SdkRootDirPath}/core/boards/rdrw612bga/board.h"
 "${SdkRootDirPath}/core/boards/rdrw612bga/clock_config.c"
@@ -81,10 +81,10 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${SdkRootDirPath}/examples/rdrw612bga/wifi_examples/common
 )
 
-set_source_files_properties("${ProjDirPath}/../app_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_wifi_template")
+set_source_files_properties("${ProjDirPath}/../wifi_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_wifi_template")
 set_source_files_properties("${ProjDirPath}/../FreeRTOSConfig.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_freertos-kernel_template")
 set_source_files_properties("${ProjDirPath}/../lwipopts.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_lwip_template")
-set_source_files_properties("${ProjDirPath}/../wifi_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_wifi_template")
+set_source_files_properties("${ProjDirPath}/../app_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_wifi_template")
 
 include(${SdkRootDirPath}/core/devices/RW612/all_lib_device.cmake)
 

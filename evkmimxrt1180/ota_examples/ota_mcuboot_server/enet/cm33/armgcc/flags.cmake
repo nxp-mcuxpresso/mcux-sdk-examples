@@ -46,7 +46,6 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG " \
     -DPRINTF_ADVANCED_ENABLE=1 \
     -DHTTPSRV_CFG_WEBSOCKET_ENABLED=0 \
     -DMCUXPRESSO_SDK \
-    -DHTTPSRV_CFG_DEFAULT_SES_CNT=4 \
     -DLWIP_DISABLE_PBUF_POOL_SIZE_SANITY_CHECKS=1 \
     -DCHECKSUM_GEN_IP=1 \
     -DCHECKSUM_GEN_UDP=1 \
@@ -56,12 +55,8 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG " \
     -DCHECKSUM_CHECK_ICMP=1 \
     -DCHECKSUM_CHECK_ICMP6=1 \
     -DLWIP_TIMEVAL_PRIVATE=0 \
-    -DMBEDTLS_MCUX_ELE_S400_API \
     -DMFLASH_FILE_BASEADDR=14221312 \
-    -DMBEDTLS_THREADING_C \
-    -DMBEDTLS_THREADING_ALT \
     -DSERIAL_PORT_TYPE_UART=1 \
-    -DCACHE_MODE_WRITE_THROUGH=1 \
     -DSDK_OS_FREE_RTOS \
     -Og \
     -g \
@@ -73,12 +68,9 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
-    -fomit-frame-pointer \
-    -Wno-unused-function \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
@@ -95,7 +87,6 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_RELEASE " \
     -DPRINTF_ADVANCED_ENABLE=1 \
     -DHTTPSRV_CFG_WEBSOCKET_ENABLED=0 \
     -DMCUXPRESSO_SDK \
-    -DHTTPSRV_CFG_DEFAULT_SES_CNT=4 \
     -DLWIP_DISABLE_PBUF_POOL_SIZE_SANITY_CHECKS=1 \
     -DCHECKSUM_GEN_IP=1 \
     -DCHECKSUM_GEN_UDP=1 \
@@ -105,12 +96,8 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_RELEASE " \
     -DCHECKSUM_CHECK_ICMP=1 \
     -DCHECKSUM_CHECK_ICMP6=1 \
     -DLWIP_TIMEVAL_PRIVATE=0 \
-    -DMBEDTLS_MCUX_ELE_S400_API \
     -DMFLASH_FILE_BASEADDR=14221312 \
-    -DMBEDTLS_THREADING_C \
-    -DMBEDTLS_THREADING_ALT \
     -DSERIAL_PORT_TYPE_UART=1 \
-    -DCACHE_MODE_WRITE_THROUGH=1 \
     -DSDK_OS_FREE_RTOS \
     -Os \
     -mcpu=cortex-m33 \
@@ -121,12 +108,9 @@ SET(CMAKE_C_FLAGS_FLEXSPI_NOR_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
-    -fomit-frame-pointer \
-    -Wno-unused-function \
     ${FPU} \
     ${DEBUG_CONSOLE_CONFIG} \
 ")
@@ -146,7 +130,6 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -fno-rtti \
@@ -169,7 +152,6 @@ SET(CMAKE_CXX_FLAGS_FLEXSPI_NOR_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -fno-rtti \
@@ -185,7 +167,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -203,7 +184,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_DEBUG " \
     -Xlinker \
     --defsym=__stack_size__=1000 \
     -Xlinker \
-    --defsym=__heap_size__=100000 \
+    --defsym=__heap_size__=60000 \
     ${FPU} \
     ${SPECS} \
     -T\"${ProjDirPath}/MIMXRT1189xxxxx_cm33_flexspi_nor_mcuboot.ld\" -static \
@@ -215,7 +196,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -233,7 +213,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLEXSPI_NOR_RELEASE " \
     -Xlinker \
     --defsym=__stack_size__=1000 \
     -Xlinker \
-    --defsym=__heap_size__=100000 \
+    --defsym=__heap_size__=60000 \
     ${FPU} \
     ${SPECS} \
     -T\"${ProjDirPath}/MIMXRT1189xxxxx_cm33_flexspi_nor_mcuboot.ld\" -static \

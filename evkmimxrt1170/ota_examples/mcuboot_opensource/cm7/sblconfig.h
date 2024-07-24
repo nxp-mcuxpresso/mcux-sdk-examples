@@ -22,12 +22,7 @@
  */
 #define CONFIG_MCUBOOT_FLASH_REMAP_ENABLE
 
-/*
- * Downgrade is not supported in MCUBoot using direct-xip mode because the active
- * image with highest version is always chosen. This define enables code in
- * bootloader and OTA application to support downgrade.
- */
-#define CONFIG_MCUBOOT_FLASH_REMAP_DOWNGRADE_SUPPORT
+#endif
 
 #endif
 

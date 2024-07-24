@@ -21,7 +21,7 @@
 #include "wlan.h"
 #include "wifi.h"
 #include "wm_net.h"
-#include <wm_os.h>
+#include <osa.h>
 #include "dhcp-server.h"
 #include "cli.h"
 #include "wifi_ping.h"
@@ -31,13 +31,13 @@
 #else
 #include "fsl_rtc.h"
 #endif
-#ifdef CONFIG_WIFI_USB_FILE_ACCESS
+#if CONFIG_WIFI_USB_FILE_ACCESS
 #include "usb_host_config.h"
 #include "usb_host.h"
 #include "usb_api.h"
 #endif /* CONFIG_WIFI_USB_FILE_ACCESS */
 #include "cli_utils.h"
-#ifdef CONFIG_HOST_SLEEP
+#if CONFIG_HOST_SLEEP
 #include "host_sleep.h"
 #endif
 #include "wpa_cli.h"
@@ -58,7 +58,7 @@
 #elif defined(MBEDTLS_MCUX_ELE_S400_API)
 #include "ele_mbedtls.h"
 #else
-#ifdef CONFIG_KSDK_MBEDTLS
+#if CONFIG_KSDK_MBEDTLS
 #include "ksdk_mbedtls.h"
 #endif
 #endif
@@ -78,7 +78,7 @@ int wlan_driver_init(void);
 int wlan_driver_deinit(void);
 int wlan_driver_reset(void);
 int wlan_reset_cli_init(void);
-#ifdef CONFIG_WIFI_USB_FILE_ACCESS
+#if CONFIG_WIFI_USB_FILE_ACCESS
 extern usb_host_handle g_HostHandle;
 #endif /* CONFIG_WIFI_USB_FILE_ACCESS */
 
@@ -91,7 +91,7 @@ extern int wpa_cli_init(void);
  * Code
  ******************************************************************************/
 
-#ifdef CONFIG_WIFI_USB_FILE_ACCESS
+#if CONFIG_WIFI_USB_FILE_ACCESS
 void USBHS_IRQHandler(void)
 {
     USB_HostEhciIsrFunction(g_HostHandle);
@@ -126,23 +126,22 @@ void USB_HostTaskFn(void *param)
 }
 #endif
 
-const int TASK_MAIN_PRIO = OS_PRIO_3;
-#ifdef CONFIG_WPS2
-const int TASK_MAIN_STACK_SIZE = 1500;
+#if CONFIG_WPS2
+#define MAIN_TASK_STACK_SIZE 6000
 #else
-const int TASK_MAIN_STACK_SIZE = 800;
+#define MAIN_TASK_STACK_SIZE 4096
 #endif
 
-portSTACK_TYPE *task_main_stack = NULL;
-TaskHandle_t task_main_task_handler;
+static void main_task(osa_task_param_t arg);
+
+static OSA_TASK_DEFINE(main_task, PRIORITY_RTOS_TO_OSA(1), 1, MAIN_TASK_STACK_SIZE, 0);
+
+OSA_TASK_HANDLE_DEFINE(main_task_Handle);
 
 static void printSeparator(void)
 {
     PRINTF("========================================\r\n");
 }
-
-static struct wlan_network sta_network;
-static struct wlan_network uap_network;
 
 /* Callback Function passed to WLAN Connection Manager. The callback function
  * gets called when there are WLAN Events that need to be handled by the
@@ -152,6 +151,7 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
 {
     int ret;
     struct wlan_ip_config addr;
+    char ssid[IEEEtypes_SSID_SIZE + 1] = {0};
     char ip[16];
     static int auth_fail                      = 0;
     wlan_uap_client_disassoc_t *disassoc_resp = data;
@@ -187,7 +187,7 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
             PRINTF("ENHANCED WLAN CLIs are initialized\r\n");
             printSeparator();
 #ifdef RW610
-#ifdef CONFIG_HOST_SLEEP
+#if CONFIG_HOST_SLEEP
             ret = host_sleep_cli_init();
             if (ret != WM_SUCCESS)
             {
@@ -225,7 +225,7 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
                 PRINTF("Failed to initialize WPA SUPP CLI\r\n");
                 return 0;
             }
-			ret = wlan_prov_cli_init();
+            ret = wlan_prov_cli_init();
             if (ret != WM_SUCCESS)
             {
                 PRINTF("Failed to initialize PROV CLI\r\n");
@@ -254,7 +254,7 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
 
             net_inet_ntoa(addr.ipv4.address, ip);
 
-            ret = wlan_get_current_network(&sta_network);
+            ret = wlan_get_current_network_ssid(ssid);
             if (ret != WM_SUCCESS)
             {
                 PRINTF("Failed to get External AP network\r\n");
@@ -262,12 +262,12 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
             }
 
             PRINTF("Connected to following BSS:\r\n");
-            PRINTF("SSID = [%s]\r\n", sta_network.ssid);
+            PRINTF("SSID = [%s]\r\n", ssid);
             if (addr.ipv4.address != 0U)
             {
                 PRINTF("IPv4 Address: [%s]\r\n", ip);
             }
-#ifdef CONFIG_IPV6
+#if CONFIG_IPV6
             int i;
             for (i = 0; i < CONFIG_MAX_IPV6_ADDRESSES; i++)
             {
@@ -316,7 +316,7 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
             break;
         case WLAN_REASON_UAP_SUCCESS:
             PRINTF("app_cb: WLAN: UAP Started\r\n");
-            ret = wlan_get_current_uap_network(&uap_network);
+            ret = wlan_get_current_uap_network_ssid(ssid);
 
             if (ret != WM_SUCCESS)
             {
@@ -325,7 +325,7 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
             }
 
             printSeparator();
-            PRINTF("Soft AP \"%s\" started successfully\r\n", uap_network.ssid);
+            PRINTF("Soft AP \"%s\" started successfully\r\n", ssid);
             printSeparator();
             if (dhcp_server_start(net_get_uap_handle()))
                 PRINTF("Error in starting dhcp server\r\n");
@@ -361,7 +361,7 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
         case WLAN_REASON_UAP_STOPPED:
             PRINTF("app_cb: WLAN: UAP Stopped\r\n");
             printSeparator();
-            PRINTF("Soft AP \"%s\" stopped successfully\r\n", uap_network.ssid);
+            PRINTF("Soft AP stopped successfully\r\n");
             printSeparator();
 
             dhcp_server_stop();
@@ -373,7 +373,7 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
             break;
         case WLAN_REASON_PS_EXIT:
             break;
-#ifdef CONFIG_SUBSCRIBE_EVENT_SUPPORT
+#if CONFIG_SUBSCRIBE_EVENT_SUPPORT
         case WLAN_REASON_RSSI_HIGH:
         case WLAN_REASON_SNR_LOW:
         case WLAN_REASON_SNR_HIGH:
@@ -387,7 +387,7 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
         case WLAN_REASON_PRE_BEACON_LOST:
             break;
 #endif
-#ifdef CONFIG_WIFI_IND_DNLD
+#if CONFIG_WIFI_IND_DNLD
         case WLAN_REASON_FW_HANG:
         case WLAN_REASON_FW_RESET:
             break;
@@ -429,7 +429,7 @@ int wlan_driver_deinit(void)
 static void wlan_hw_reset(void)
 {
     BOARD_WIFI_BT_Enable(false);
-    os_thread_sleep(1);
+    OSA_TimeDelay(10);
     BOARD_WIFI_BT_Enable(true);
 }
 
@@ -453,7 +453,7 @@ static void test_wlan_reset(int argc, char **argv)
     (void)wlan_driver_reset();
 }
 
-#ifdef CONFIG_HOST_SLEEP
+#if CONFIG_HOST_SLEEP
 static void test_mcu_suspend(int argc, char **argv)
 {
     (void)mcu_suspend();
@@ -462,7 +462,7 @@ static void test_mcu_suspend(int argc, char **argv)
 
 static struct cli_command reset_commands[] = {
     {"wlan-reset", NULL, test_wlan_reset},
-#ifdef CONFIG_HOST_SLEEP
+#if CONFIG_HOST_SLEEP
     {"mcu-suspend", NULL, test_mcu_suspend},
 #endif
 };
@@ -497,7 +497,7 @@ int wlan_reset_cli_deinit(void)
     return 0;
 }
 #endif
-#ifdef CONFIG_WIFI_USB_FILE_ACCESS
+#if CONFIG_WIFI_USB_FILE_ACCESS
 static void dump_read_usb_file_usage(void)
 {
     (void)PRINTF("Usage: wlan-read-usb-file <type:ca-cert/client-cert/client-key> <file name>\r\n");
@@ -529,7 +529,7 @@ static void test_wlan_read_usb_file(int argc, char **argv)
         usb_f_type = FILE_TYPE_ENTP_CLIENT_CERT2;
     else if (string_equal("client-key2", argv[1]))
         usb_f_type = FILE_TYPE_ENTP_CLIENT_KEY2;
-#ifdef CONFIG_HOSTAPD
+#if CONFIG_HOSTAPD
     else if (string_equal("server-cert", argv[1]))
         usb_f_type = FILE_TYPE_ENTP_SERVER_CERT;
     else if (string_equal("server-key", argv[1]))
@@ -560,7 +560,7 @@ static void test_wlan_read_usb_file(int argc, char **argv)
         PRINTF("File size failed\r\n");
         goto file_err;
     }
-    file_buf = os_mem_alloc(data_len);
+    file_buf = OSA_MemoryAllocate(data_len);
     if (!file_buf)
     {
         PRINTF("File size allocate memory failed\r\n");
@@ -575,7 +575,7 @@ static void test_wlan_read_usb_file(int argc, char **argv)
     (void)wlan_set_entp_cert_files(usb_f_type, file_buf, data_len);
 
 file_err:
-    os_mem_free(file_buf);
+    OSA_MemoryFree(file_buf);
     usb_file_close();
 }
 
@@ -596,7 +596,7 @@ static void test_wlan_dump_usb_file(int argc, char **argv)
         usb_f_type = FILE_TYPE_ENTP_CLIENT_CERT2;
     else if (string_equal("client-key2", argv[1]))
         usb_f_type = FILE_TYPE_ENTP_CLIENT_KEY2;
-#ifdef CONFIG_HOSTAPD
+#if CONFIG_HOSTAPD
     else if (string_equal("server-cert", argv[1]))
         usb_f_type = FILE_TYPE_ENTP_SERVER_CERT;
     else if (string_equal("server-key", argv[1]))
@@ -677,7 +677,7 @@ static struct cli_command wlan_prov_commands[] = {
     {"wlan-set-rtc-time", "<year> <month> <day> <hour> <minute> <second>", test_wlan_set_rtc_time},
     {"wlan-get-rtc-time", NULL, test_wlan_get_rtc_time},
 #endif
-#ifdef CONFIG_WIFI_USB_FILE_ACCESS
+#if CONFIG_WIFI_USB_FILE_ACCESS
     {"wlan-read-usb-file", "<type:ca-cert/client-cert/client-key> <file name>", test_wlan_read_usb_file},
     {"wlan-dump-usb-file", "<type:ca-cert/client-cert/client-key>", test_wlan_dump_usb_file},
 #endif
@@ -698,7 +698,7 @@ static int wlan_prov_cli_init(void)
     return 0;
 }
 
-void task_main(void *param)
+static void main_task(osa_task_param_t arg)
 {
     int32_t result = 0;
     (void)result;
@@ -716,7 +716,7 @@ void task_main(void *param)
     assert(WM_SUCCESS == result);
 #endif
 
-#ifdef CONFIG_HOST_SLEEP
+#if CONFIG_HOST_SLEEP
 #ifndef RW610
     hostsleep_init(wlan_hs_pre_cfg, wlan_hs_post_cfg);
 #else
@@ -732,21 +732,25 @@ void task_main(void *param)
 
     assert(WM_SUCCESS == result);
 
+#ifndef RW610
+    result = wlan_reset_cli_init();
+
+    assert(WM_SUCCESS == result);
+#endif
+
     while (1)
     {
         /* wait for interface up */
-        os_thread_sleep(os_msec_to_ticks(5000));
+        OSA_TimeDelay(5000);
     }
 }
 
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
-
 int main(void)
 {
-    BaseType_t result = 0;
-    (void)result;
+    OSA_Init();
 
     BOARD_InitBootPins();
     if (BOARD_IS_XIP())
@@ -776,19 +780,13 @@ int main(void)
     RTC_Init(RTC);
 #endif
 
-#ifdef CONFIG_WIFI_USB_FILE_ACCESS
+#if CONFIG_WIFI_USB_FILE_ACCESS
     usb_init();
 #endif
 
-    sys_thread_new("main", task_main, NULL, TASK_MAIN_STACK_SIZE, TASK_MAIN_PRIO);
+    (void)OSA_TaskCreate((osa_task_handle_t)main_task_Handle, OSA_TASK(main_task), NULL);
 
-#if 0
-    result =
-        xTaskCreate(task_main, "main", TASK_MAIN_STACK_SIZE, task_main_stack, TASK_MAIN_PRIO, &task_main_task_handler);
-    assert(pdPASS == result);
-#endif
+    OSA_Start();
 
-    vTaskStartScheduler();
-    for (;;)
-        ;
+    return 0;
 }

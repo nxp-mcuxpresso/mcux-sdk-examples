@@ -12,7 +12,7 @@ Depending on target platform there are different features of the demo enabled.
 The application is controlled by commands from a shell interface using serial console.
 
 Type "help" to see the command list. Similar description will be displayed on serial console:
-
+```
     >> help
 
     "help": List all the registered commands
@@ -39,23 +39,26 @@ Type "help" to see the command list. Similar description will be displayed on se
 
     "opus_encode": Initializes the streamer with the Opus memory-to-memory pipeline and
     encodes a hardcoded buffer.
+```
 
-For custom VIT model generation (defining own wake words and voice commands) please use https://vit.nxp.com/
+For custom VIT model generation (defining own wake words and voice commands) please
+use https://vit.nxp.com/
 
-Notes:
-    - VIT and VoiceSeeker libraries are only supported in the MCUXpresso IDE.
-    - If more than one channel is used and VIT is enabled, please enable VoiceSeeker.
-        - The VoiceSeeker that combines multiple channels into one must be used, as VIT can only work with one channel.
+### Notes
+1.  VIT and VoiceSeeker libraries are only supported in the MCUXpresso IDE.
+2.  If more than one channel is used and VIT is enabled, please enable VoiceSeeker.
+    - The VoiceSeeker that combines multiple channels into one must be used, as VIT can
+    only work with one channel.
 
 
 SDK version
 ===========
-- Version: 2.14.0
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- MCUXpresso  11.9.0
-- GCC ARM Embedded  12.2
+- MCUXpresso  11.10.0
+- GCC ARM Embedded  13.2.1
 
 Hardware requirements
 =====================
@@ -84,10 +87,14 @@ Note: MCUXpresso IDE project default debug console is semihost
 4.  Download the program to the target board.
 5.  Either press the reset button on your board or launch the debugger in your IDE to begin running the demo.
 
+# Note
+Some VIT models can't fit into memory. In order to free some space it is necessary to disable SD card handling.
+ - remove SD_ENABLED and STREAMER_ENABLE_FILE_SINK symbols from project settings
+
 Running the demo
 ================
 When the example runs successfully, you should see similar output on the serial terminal as below:
-
+```
     *******************************
     Maestro audio record demo start
     *******************************
@@ -97,3 +104,5 @@ When the example runs successfully, you should see similar output on the serial 
     [APP_Shell_Task] start
 
     >> [APP_SDCARD_Task] SD card drive mounted
+```
+

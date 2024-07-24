@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_kw45b41zloc_examples_manifest_v3_14" name="SDK_2.x_kw45b41zloc_examples_manifest_v3_14" format_version="3.14" api_version="2.0.0" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.14.xsd">
+
+  <externalDefinitions>
+    <definition extID="KW45B41Z83AFPA"/>
+  </externalDefinitions>
+  <ksdk id="MCUXpressoSDK216000_kw45b41zloc_examples_manifest_v3_14" name="MCUXpressoSDK216000_kw45b41zloc_examples_manifest_v3_14" version="2.16.000" revision="2.16.000"/>
+  <boards>
+    <board id="kw45b41zloc" name="KW45B41Z-LOC" version="1.0.0" package="KW45B41Z83AFPA">
+      <examples>
+        <example id="kw45b41zloc_wireless_uart_bm" name="wireless_uart_bm" brief="The BLE wireless uart application is a simple demonstration program based on the MCUXpresso SDK.The application implements a custom GATT based Wireless UART Profile that emulates UART over BLE.To use the pplication Test Tool 12 or any other application which supports the FSCI protocol is required." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/w_uart/bm" path="examples/kw45b41zloc/wireless_examples/bluetooth/w_uart/bm">
+          <external path="wireless_examples/bluetooth/w_uart/bm" type="xml">
+            <files mask="wireless_uart_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="kw45b41zloc_wireless_uart_freertos" name="wireless_uart_freertos" brief="The BLE wireless uart application is a simple demonstration program based on the MCUXpresso SDK.The application implements a custom GATT based Wireless UART Profile that emulates UART over BLE.To use the pplication Test Tool 12 or any other application which supports the FSCI protocol is required." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/w_uart/freertos" path="examples/kw45b41zloc/wireless_examples/bluetooth/w_uart/freertos">
+          <external path="wireless_examples/bluetooth/w_uart/freertos" type="xml">
+            <files mask="wireless_uart_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="kw45b41zloc_hci_bb_bm" name="hci_bb_bm" brief="The hci black box test example" toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/ble_controller/hci_bb/bm" path="examples/kw45b41zloc/wireless_examples/ble_controller/hci_bb">
+          <external path="wireless_examples/ble_controller/hci_bb" type="xml">
+            <files mask="hci_bb_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="kw45b41zloc_hello_world" name="hello_world" brief="The HelloWorld demo prints the &quot;Hello World&quot; string to the terminal using the SDK UART drivers and repeat what user input. The purpose of this demo is to show how to use the UART, and to provide a simple project for debugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/kw45b41zloc/demo_apps/hello_world">
+          <external path="demo_apps/hello_world" type="xml">
+            <files mask="hello_world_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="kw45b41zloc_led_blinky" name="led_blinky" brief="The LED Blinky demo application provides a sanity check for the new SDK build environments and board bring up. The LED Blinky demo uses the systick interrupt to realize the function of timing delay. The example takes turns to shine the LED. The purpose of this demo is to provide a simple project for debugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/kw45b41zloc/demo_apps/led_blinky">
+          <external path="demo_apps/led_blinky" type="xml">
+            <files mask="led_blinky_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="kw45b41zloc_shell" name="shell" brief="The Shell Demo application demonstrates to control Leds by commands." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/kw45b41zloc/demo_apps/shell">
+          <external path="demo_apps/shell" type="xml">
+            <files mask="shell_v3_14.xml"/>
+          </external>
+        </example>
+      </examples>
+    </board>
+  </boards>
+</ksdk:manifest>

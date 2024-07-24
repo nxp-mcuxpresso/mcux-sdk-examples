@@ -1,6 +1,5 @@
 /*
  * Copyright 2023 NXP
- * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -48,12 +47,12 @@ BOARD_InitPins:
     invert_input: normal}
   - {pin_num: B1, peripheral: LP_FLEXCOMM4, signal: LPFLEXCOMM_P1, pin_signal: PIO1_9/TRACE_DATA1/FC4_P1/FC5_P5/CT_INP9/FLEXIO0_D17/I3C1_SCL/ADC1_A9, slew_rate: fast,
     open_drain: disable, drive_strength: low, pull_select: down, pull_enable: disable, passive_filter: disable, input_buffer: enable, invert_input: normal}
-  - {pin_num: F4, peripheral: I3C1, signal: SCL, pin_signal: PIO1_17/FC5_P1/FC3_P5/CT_INP13/FLEXIO0_D25/I3C1_SCL/ADC1_A17, slew_rate: fast, open_drain: disable, drive_strength: low,
+  - {pin_num: F4, peripheral: I3C1, signal: SCL, pin_signal: PIO1_17/FC5_P1/FC3_P5/CT_INP13/FLEXIO0_D25/I3C1_SCL/ADC1_A17, slew_rate: fast, open_drain: disable, drive_strength: high,
     pull_select: up, pull_enable: enable, passive_filter: disable, input_buffer: enable, invert_input: normal}
   - {pin_num: F6, peripheral: I3C1, signal: SDA, pin_signal: PIO1_16/WUU0_IN14/FC5_P0/FC3_P4/CT_INP12/FLEXIO0_D24/I3C1_SDA/ADC1_A16, slew_rate: fast, open_drain: disable,
-    drive_strength: low, pull_select: up, pull_enable: enable, passive_filter: disable, pull_value: low, input_buffer: enable, invert_input: normal}
+    drive_strength: high, pull_select: up, pull_enable: enable, passive_filter: disable, pull_value: high, input_buffer: enable, invert_input: normal}
   - {pin_num: D3, peripheral: I3C1, signal: PUR, pin_signal: PIO1_11/WUU0_IN11/TRACE_DATA3/FC4_P3/CT2_MAT1/FLEXIO0_D19/I3C1_PUR/CAN0_RXD/ADC1_A11, slew_rate: fast,
-    open_drain: disable, drive_strength: low, pull_select: down, pull_enable: disable, input_buffer: enable, invert_input: normal}
+    open_drain: disable, drive_strength: high, pull_select: up, pull_enable: enable, input_buffer: enable, invert_input: normal}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -69,8 +68,8 @@ void BOARD_InitPins(void)
     /* Enables the clock for PORT1: Enables clock */
     CLOCK_EnableClock(kCLOCK_Port1);
 
-    const port_pin_config_t port1_11_pinD3_config = {/* Internal pull-up/down resistor is disabled */
-                                                     kPORT_PullDisable,
+    const port_pin_config_t port1_11_pinD3_config = {/* Internal pull-up resistor is enabled */
+                                                     kPORT_PullUp,
                                                      /* Low internal pull resistor value is selected. */
                                                      kPORT_LowPullResistor,
                                                      /* Fast slew rate is configured */
@@ -79,8 +78,8 @@ void BOARD_InitPins(void)
                                                      kPORT_PassiveFilterDisable,
                                                      /* Open drain output is disabled */
                                                      kPORT_OpenDrainDisable,
-                                                     /* Low drive strength is configured */
-                                                     kPORT_LowDriveStrength,
+                                                     /* High drive strength is configured */
+                                                     kPORT_HighDriveStrength,
                                                      /* Pin is configured as I3C1_PUR */
                                                      kPORT_MuxAlt10,
                                                      /* Digital input enabled */
@@ -94,16 +93,16 @@ void BOARD_InitPins(void)
 
     const port_pin_config_t port1_16_pinF6_config = {/* Internal pull-up resistor is enabled */
                                                      kPORT_PullUp,
-                                                     /* Low internal pull resistor value is selected. */
-                                                     kPORT_LowPullResistor,
+                                                     /* High internal pull resistor value is selected. */
+                                                     kPORT_HighPullResistor,
                                                      /* Fast slew rate is configured */
                                                      kPORT_FastSlewRate,
                                                      /* Passive input filter is disabled */
                                                      kPORT_PassiveFilterDisable,
                                                      /* Open drain output is disabled */
                                                      kPORT_OpenDrainDisable,
-                                                     /* Low drive strength is configured */
-                                                     kPORT_LowDriveStrength,
+                                                     /* High drive strength is configured */
+                                                     kPORT_HighDriveStrength,
                                                      /* Pin is configured as I3C1_SDA */
                                                      kPORT_MuxAlt10,
                                                      /* Digital input enabled */
@@ -125,8 +124,8 @@ void BOARD_InitPins(void)
                                                      kPORT_PassiveFilterDisable,
                                                      /* Open drain output is disabled */
                                                      kPORT_OpenDrainDisable,
-                                                     /* Low drive strength is configured */
-                                                     kPORT_LowDriveStrength,
+                                                     /* High drive strength is configured */
+                                                     kPORT_HighDriveStrength,
                                                      /* Pin is configured as I3C1_SCL */
                                                      kPORT_MuxAlt10,
                                                      /* Digital input enabled */

@@ -13,7 +13,7 @@
 #include "ncp_tlv_adapter.h"
 #include "ncp_adapter.h"
    
-#ifdef CONFIG_NCP_USB
+#if CONFIG_NCP_USB
 extern usb_cdc_vcom_struct_t s_cdcVcom;
 OSA_SEMAPHORE_HANDLE_DEFINE(usb_device_tx_sem);
 static uint8_t ncp_intf_usb_rxbuf[TLV_CMD_BUF_SIZE];
@@ -151,7 +151,6 @@ static int ncp_usb_device_pm_enter(int32_t pm_state)
 static int ncp_usb_device_pm_exit(int32_t pm_state)
 {
     int ret = 0;
-    int retry_cnt = 20;
     
     if(pm_state == NCP_PM_STATE_PM3)
     {
@@ -160,14 +159,7 @@ static int ncp_usb_device_pm_exit(int32_t pm_state)
         {
             ncp_adap_e("Failed to init USB interface");
             return NCP_STATUS_ERROR;
-        }
-        
-        /* Wait for USB re-init done */
-        while(retry_cnt > 0 && 1 != s_cdcVcom.attach)
-        {
-            OSA_TimeDelay(50);
-            retry_cnt--;
-        }        
+        }       
     }
     return NCP_STATUS_SUCCESS;
 }

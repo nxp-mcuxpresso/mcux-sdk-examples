@@ -4,7 +4,7 @@
   <externalDefinitions>
     <definition extID="MIMXRT1015DAF5A"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK2150_evkmimxrt1015_examples_manifest_v3_14" name="MCUXpressoSDK2150_evkmimxrt1015_examples_manifest_v3_14" version="2.15.0" revision="2.15.0"/>
+  <ksdk id="MCUXpressoSDK216000_evkmimxrt1015_examples_manifest_v3_14" name="MCUXpressoSDK216000_evkmimxrt1015_examples_manifest_v3_14" version="2.16.000" revision="2.16.000"/>
   <boards>
     <board id="evkmimxrt1015" name="EVK-MIMXRT1015" href="https://www.nxp.com/pip/MIMXRT1015-EVK" version="1.0.0" package="MIMXRT1015DAF5A">
       <examples>
@@ -933,7 +933,7 @@
             <files mask="ccm_clockout_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkmimxrt1015_freertos_hello" name="freertos_hello" brief="The Hello World project is a simple demonstration program that uses the SDK UART drivere incombination with FreeRTOS. The purpose of this demo is to show how to use the debug console and toprovide a simple project for debugging and further development.The example application creates one task called hello_task. This task print &quot;Hello world.&quot; messagevia debug console utility and suspend itself." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="freertos_examples" path="examples/evkmimxrt1015/freertos_examples/freertos_hello">
+        <example id="evkmimxrt1015_freertos_hello" name="freertos_hello" brief="The Hello World project is a simple demonstration program that uses the SDK UART driver in combination with FreeRTOS. The purpose of this demo is to show how to use the debug console and toprovide a simple project for debugging and further development.The example application creates one task called hello_task. This task print &quot;Hello world.&quot; messagevia debug console utility and suspend itself." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="freertos_examples" path="examples/evkmimxrt1015/freertos_examples/freertos_hello">
           <external path="freertos_examples/freertos_hello" type="xml">
             <files mask="freertos_hello_v3_14.xml"/>
           </external>

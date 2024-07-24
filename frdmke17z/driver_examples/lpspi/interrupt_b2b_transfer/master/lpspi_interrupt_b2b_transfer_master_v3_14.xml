@@ -15,13 +15,14 @@
     <definition extID="platform.drivers.smc.MKE17Z7"/>
     <definition extID="platform.drivers.gpio.MKE17Z7"/>
     <definition extID="platform.utilities.misc_utilities.MKE17Z7"/>
+    <definition extID="utility.str.MKE17Z7"/>
     <definition extID="CMSIS_Include_core_cm.MKE17Z7"/>
     <definition extID="device.MKE17Z7_system.MKE17Z7"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="frdmke17z_lpspi_interrupt_b2b_transfer_master" name="lpspi_interrupt_b2b_transfer_master" dependency="utility.debug_console_lite.MKE17Z7 platform.utilities.assert_lite.MKE17Z7 platform.drivers.port.MKE17Z7 platform.drivers.lpspi.MKE17Z7 platform.drivers.clock.MKE17Z7 platform.drivers.common.MKE17Z7 device.MKE17Z7_CMSIS.MKE17Z7 component.lpuart_adapter.MKE17Z7 platform.drivers.lpuart.MKE17Z7 component.lists.MKE17Z7 device.MKE17Z7_startup.MKE17Z7 platform.drivers.smc.MKE17Z7 platform.drivers.gpio.MKE17Z7 platform.utilities.misc_utilities.MKE17Z7 CMSIS_Include_core_cm.MKE17Z7 device.MKE17Z7_system.MKE17Z7" category="driver_examples/lpspi">
+  <example id="frdmke17z_lpspi_interrupt_b2b_transfer_master" name="lpspi_interrupt_b2b_transfer_master" dependency="utility.debug_console_lite.MKE17Z7 platform.utilities.assert_lite.MKE17Z7 platform.drivers.port.MKE17Z7 platform.drivers.lpspi.MKE17Z7 platform.drivers.clock.MKE17Z7 platform.drivers.common.MKE17Z7 device.MKE17Z7_CMSIS.MKE17Z7 component.lpuart_adapter.MKE17Z7 platform.drivers.lpuart.MKE17Z7 component.lists.MKE17Z7 device.MKE17Z7_startup.MKE17Z7 platform.drivers.smc.MKE17Z7 platform.drivers.gpio.MKE17Z7 platform.utilities.misc_utilities.MKE17Z7 utility.str.MKE17Z7 CMSIS_Include_core_cm.MKE17Z7 device.MKE17Z7_system.MKE17Z7" category="driver_examples/lpspi">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -46,7 +47,7 @@
           <value>com.crt.advproject.gcc.fpu.none</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

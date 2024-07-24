@@ -21,7 +21,7 @@
 #include "wlan.h"
 #include "wifi.h"
 #include "wm_net.h"
-#include <wm_os.h>
+#include <osa.h>
 #include "dhcp-server.h"
 #include "cli.h"
 #include "wifi_ping.h"
@@ -29,11 +29,11 @@
 
 
 #include "fsl_common.h"
-#ifdef CONFIG_WIFI_SMOKE_TESTS
+#if CONFIG_WIFI_SMOKE_TESTS
 #include "fsl_iomuxc.h"
 #include "fsl_enet.h"
 #endif
-#ifdef CONFIG_WIFI_SMOKE_TESTS
+#if CONFIG_WIFI_SMOKE_TESTS
 #include "fsl_phyksz8081.h"
 #endif
 /*******************************************************************************
@@ -43,7 +43,7 @@
 /* @TEST_ANCHOR */
 
 /* Ethernet configuration. */
-#ifdef CONFIG_WIFI_SMOKE_TESTS
+#if CONFIG_WIFI_SMOKE_TESTS
 extern phy_ksz8081_resource_t g_phy_resource;
 #define EXAMPLE_ENET         ENET
 #define EXAMPLE_PHY_ADDRESS  BOARD_ENET0_PHY_ADDRESS
@@ -59,7 +59,7 @@ extern phy_ksz8081_resource_t g_phy_resource;
 /*******************************************************************************
  * Code
  ******************************************************************************/
-#ifdef CONFIG_WIFI_SMOKE_TESTS
+#if CONFIG_WIFI_SMOKE_TESTS
 phy_ksz8081_resource_t g_phy_resource;
 
 void BOARD_InitModuleClock(void)
@@ -86,11 +86,13 @@ static status_t MDIO_Read(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
 #endif
 
 
-const int TASK_MAIN_PRIO       = OS_PRIO_3;
-const int TASK_MAIN_STACK_SIZE = 800;
+#define MAIN_TASK_STACK_SIZE 4096
 
-portSTACK_TYPE *task_main_stack = NULL;
-TaskHandle_t task_main_task_handler;
+static void main_task(osa_task_param_t arg);
+
+static OSA_TASK_DEFINE(main_task, OSA_PRIORITY_BELOW_NORMAL, 1, MAIN_TASK_STACK_SIZE, 0);
+
+OSA_TASK_HANDLE_DEFINE(main_task_Handle);
 
 static void printSeparator(void)
 {
@@ -202,13 +204,14 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
             {
                 PRINTF("IPv4 Address: [%s]\r\n", ip);
             }
-#ifdef CONFIG_IPV6
+#if CONFIG_IPV6
             int i;
             for (i = 0; i < CONFIG_MAX_IPV6_ADDRESSES; i++)
             {
                 if (ip6_addr_isvalid(addr.ipv6[i].addr_state))
                 {
-                    (void)PRINTF("IPv6 Address: %-13s:\t%s (%s)\r\n", ipv6_addr_type_to_desc((struct net_ipv6_config *)&addr.ipv6[i]),
+                    (void)PRINTF("IPv6 Address: %-13s:\t%s (%s)\r\n",
+                                 ipv6_addr_type_to_desc((struct net_ipv6_config *)&addr.ipv6[i]),
                                  inet6_ntoa(addr.ipv6[i].address), ipv6_addr_state_to_desc(addr.ipv6[i].addr_state));
                 }
             }
@@ -307,7 +310,7 @@ int wlan_event_callback(enum wlan_event_reason reason, void *data)
     return 0;
 }
 
-void task_main(void *param)
+static void main_task(osa_task_param_t arg)
 {
     int32_t result = 0;
     (void)result;
@@ -334,7 +337,7 @@ void task_main(void *param)
     while (1)
     {
         /* wait for interface up */
-        os_thread_sleep(os_msec_to_ticks(5000));
+        OSA_TimeDelay(5000);
     }
 }
 
@@ -344,15 +347,14 @@ void task_main(void *param)
 
 int main(void)
 {
-    BaseType_t result = 0;
-    (void)result;
+    OSA_Init();
 
     BOARD_ConfigMPU();
     BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
-#ifdef CONFIG_WIFI_SMOKE_TESTS
+#if CONFIG_WIFI_SMOKE_TESTS
     BOARD_InitModuleClock();
 
     IOMUXC_EnableMode(IOMUXC_GPR, kIOMUXC_GPR_ENET1TxClkOutputDir, true);
@@ -376,11 +378,9 @@ int main(void)
     PRINTF("wifi cert demo\r\n");
     printSeparator();
 
-    result =
-        xTaskCreate(task_main, "main", TASK_MAIN_STACK_SIZE, task_main_stack, TASK_MAIN_PRIO, &task_main_task_handler);
-    assert(pdPASS == result);
+    (void)OSA_TaskCreate((osa_task_handle_t)main_task_Handle, OSA_TASK(main_task), NULL);
 
-    vTaskStartScheduler();
-    for (;;)
-        ;
+    OSA_Start();
+
+    return 0;
 }

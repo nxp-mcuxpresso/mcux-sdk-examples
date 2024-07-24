@@ -28,6 +28,7 @@
     <definition extID="component.silicon_id_rt1180.MIMXRT1189"/>
     <definition extID="component.silicon_id.MIMXRT1189"/>
     <definition extID="platform.utilities.misc_utilities.MIMXRT1189"/>
+    <definition extID="utility.str.MIMXRT1189"/>
     <definition extID="platform.drivers.s3mu.MIMXRT1189"/>
     <definition extID="platform.drivers.edma4.MIMXRT1189"/>
     <definition extID="platform.drivers.edma_soc.MIMXRT1189"/>
@@ -40,7 +41,7 @@
     <definition extID="com.nxp.mcuxpresso.core.debug.support.segger.debug"/>
     <definition extID="com.nxp.mcuxpresso.core.debug.support.segger.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt1180_flexio_spi_edma_lpspi_transfer_master_cm7" name="flexio_spi_edma_lpspi_transfer_master_cm7" device_core="cm7_MIMXRT1189xxxxx" dependency="utility.debug_console_lite.MIMXRT1189 platform.utilities.assert_lite.MIMXRT1189 platform.drivers.trdc.MIMXRT1189 platform.drivers.ele_base_api.MIMXRT1189 platform.drivers.clock.MIMXRT1189 platform.drivers.flexio.MIMXRT1189 platform.drivers.flexio_spi.MIMXRT1189 platform.drivers.flexio_spi_edma.MIMXRT1189 platform.drivers.lpspi.MIMXRT1189 platform.drivers.common.MIMXRT1189 platform.devices.MIMXRT1189_CMSIS.MIMXRT1189 component.lpuart_adapter.MIMXRT1189 platform.drivers.lpuart.MIMXRT1189 component.lists.MIMXRT1189 platform.devices.MIMXRT1189_startup.MIMXRT1189 platform.drivers.iomuxc.MIMXRT1189 platform.drivers.misc.MIMXRT1189 platform.drivers.rgpio.MIMXRT1189 platform.drivers.xip_device.MIMXRT1189 platform.drivers.xip_board.evkmimxrt1180.MIMXRT1189 platform.drivers.pmu_1.MIMXRT1189 platform.drivers.dcdc_soc.MIMXRT1189 platform.drivers.cache_armv7_m7.MIMXRT1189 component.silicon_id_rt1180.MIMXRT1189 component.silicon_id.MIMXRT1189 platform.utilities.misc_utilities.MIMXRT1189 platform.drivers.s3mu.MIMXRT1189 platform.drivers.edma4.MIMXRT1189 platform.drivers.edma_soc.MIMXRT1189 platform.drivers.memory.MIMXRT1189 CMSIS_Include_core_cm.MIMXRT1189 platform.devices.MIMXRT1189_system.MIMXRT1189" category="driver_examples/flexio">
+  <example id="evkmimxrt1180_flexio_spi_edma_lpspi_transfer_master_cm7" name="flexio_spi_edma_lpspi_transfer_master_cm7" device_core="cm7_MIMXRT1189xxxxx" dependency="utility.debug_console_lite.MIMXRT1189 platform.utilities.assert_lite.MIMXRT1189 platform.drivers.trdc.MIMXRT1189 platform.drivers.ele_base_api.MIMXRT1189 platform.drivers.clock.MIMXRT1189 platform.drivers.flexio.MIMXRT1189 platform.drivers.flexio_spi.MIMXRT1189 platform.drivers.flexio_spi_edma.MIMXRT1189 platform.drivers.lpspi.MIMXRT1189 platform.drivers.common.MIMXRT1189 platform.devices.MIMXRT1189_CMSIS.MIMXRT1189 component.lpuart_adapter.MIMXRT1189 platform.drivers.lpuart.MIMXRT1189 component.lists.MIMXRT1189 platform.devices.MIMXRT1189_startup.MIMXRT1189 platform.drivers.iomuxc.MIMXRT1189 platform.drivers.misc.MIMXRT1189 platform.drivers.rgpio.MIMXRT1189 platform.drivers.xip_device.MIMXRT1189 platform.drivers.xip_board.evkmimxrt1180.MIMXRT1189 platform.drivers.pmu_1.MIMXRT1189 platform.drivers.dcdc_soc.MIMXRT1189 platform.drivers.cache_armv7_m7.MIMXRT1189 component.silicon_id_rt1180.MIMXRT1189 component.silicon_id.MIMXRT1189 platform.utilities.misc_utilities.MIMXRT1189 utility.str.MIMXRT1189 platform.drivers.s3mu.MIMXRT1189 platform.drivers.edma4.MIMXRT1189 platform.drivers.edma_soc.MIMXRT1189 platform.drivers.memory.MIMXRT1189 CMSIS_Include_core_cm.MIMXRT1189 platform.devices.MIMXRT1189_system.MIMXRT1189" category="driver_examples/flexio">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -74,7 +75,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

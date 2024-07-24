@@ -119,10 +119,6 @@ static shell_status_t shellEcho(shell_handle_t shellHandle, int32_t argc, char *
 {
     PRINTF(" Maestro version: %s\r\n", STREAMER_VERSION);
 
-#ifdef VIT_PROC
-    PRINTF(" VIT version: 4.9.0\r\n");
-#endif
-
     return kStatus_SHELL_Success;
 }
 
@@ -169,11 +165,11 @@ static shell_status_t shellRecMIC(shell_handle_t shellHandle, int32_t argc, char
     {
         if (strcmp(argv[2], "\0") != 0)
         {
-            duration = abs(atoi(argv[2]));
+            duration = atoi(argv[2]);
         }
     }
 #ifdef VIT_PROC
-    if ((argc > 3))
+    if ((argc > 3) && out_sink == ELEMENT_VIT_INDEX)
     {
 #ifdef VIT_MODEL_EN
         if (strcmp(argv[3], "en") == 0)
@@ -231,6 +227,13 @@ static shell_status_t shellRecMIC(shell_handle_t shellHandle, int32_t argc, char
         }
         else
 #endif
+#ifdef VIT_MODEL_PT
+            if (strcmp(argv[3], "pt") == 0)
+        {
+            Vit_Language = PT;
+        }
+        else
+#endif
 #ifdef VIT_MODEL_TR
             if (strcmp(argv[3], "tr") == 0)
         {
@@ -243,7 +246,7 @@ static shell_status_t shellRecMIC(shell_handle_t shellHandle, int32_t argc, char
             return kStatus_SHELL_Success;
         }
     }
-    else if (out_sink == ELEMENT_VIT_INDEX)
+    else if (out_sink == ELEMENT_VIT_INDEX && argc < 4)
     {
         PRINTF("Language is not selected. Please select one of the language.\r\n");
         return kStatus_SHELL_Success;

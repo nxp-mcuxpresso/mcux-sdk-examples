@@ -48,8 +48,8 @@ BOARD_InitPins:
     invert_input: normal}
   - {pin_num: B1, peripheral: LP_FLEXCOMM4, signal: LPFLEXCOMM_P1, pin_signal: PIO1_9/TRACE_DATA1/FC4_P1/FC5_P5/CT_INP9/FLEXIO0_D17/I3C1_SCL/ADC1_A9, slew_rate: fast,
     open_drain: disable, drive_strength: low, pull_select: down, pull_enable: disable, passive_filter: disable, input_buffer: enable, invert_input: normal}
-  - {pin_num: B6, peripheral: CTIMER0, signal: 'MATCH, 0', pin_signal: PIO0_24/FC1_P0/CT0_MAT0/ADC0_B16, slew_rate: fast, open_drain: disable, drive_strength: low,
-    pull_select: down, pull_enable: disable, input_buffer: enable, invert_input: normal}
+  - {pin_num: R10, peripheral: CTIMER3, signal: 'MATCH, 3', pin_signal: PIO4_19/TRIG_OUT5/CT3_MAT3/FLEXIO0_D27/ADC0_B1/CMP1_IN4P, slew_rate: fast, open_drain: disable,
+    drive_strength: low, pull_select: down, pull_enable: disable, input_buffer: enable, invert_input: normal}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -62,33 +62,10 @@ BOARD_InitPins:
  * END ****************************************************************************************************************/
 void BOARD_InitPins(void)
 {
-    /* Enables the clock for PORT0 controller: Enables clock */
-    CLOCK_EnableClock(kCLOCK_Port0);
     /* Enables the clock for PORT1: Enables clock */
     CLOCK_EnableClock(kCLOCK_Port1);
-
-    const port_pin_config_t port0_24_pinB6_config = {/* Internal pull-up/down resistor is disabled */
-                                                     kPORT_PullDisable,
-                                                     /* Low internal pull resistor value is selected. */
-                                                     kPORT_LowPullResistor,
-                                                     /* Fast slew rate is configured */
-                                                     kPORT_FastSlewRate,
-                                                     /* Passive input filter is disabled */
-                                                     kPORT_PassiveFilterDisable,
-                                                     /* Open drain output is disabled */
-                                                     kPORT_OpenDrainDisable,
-                                                     /* Low drive strength is configured */
-                                                     kPORT_LowDriveStrength,
-                                                     /* Pin is configured as CT0_MAT0 */
-                                                     kPORT_MuxAlt4,
-                                                     /* Digital input enabled */
-                                                     kPORT_InputBufferEnable,
-                                                     /* Digital input is not inverted */
-                                                     kPORT_InputNormal,
-                                                     /* Pin Control Register fields [15:0] are not locked */
-                                                     kPORT_UnlockRegister};
-    /* PORT0_24 (pin B6) is configured as CT0_MAT0 */
-    PORT_SetPinConfig(PORT0, 24U, &port0_24_pinB6_config);
+    /* Enables the clock for PORT4: Enables clock */
+    CLOCK_EnableClock(kCLOCK_Port4);
 
     const port_pin_config_t port1_8_pinA1_config = {/* Internal pull-up/down resistor is disabled */
                                                     kPORT_PullDisable,
@@ -135,6 +112,29 @@ void BOARD_InitPins(void)
                                                     kPORT_UnlockRegister};
     /* PORT1_9 (pin B1) is configured as FC4_P1 */
     PORT_SetPinConfig(PORT1, 9U, &port1_9_pinB1_config);
+
+    const port_pin_config_t port4_19_pinR10_config = {/* Internal pull-up/down resistor is disabled */
+                                                      kPORT_PullDisable,
+                                                      /* Low internal pull resistor value is selected. */
+                                                      kPORT_LowPullResistor,
+                                                      /* Fast slew rate is configured */
+                                                      kPORT_FastSlewRate,
+                                                      /* Passive input filter is disabled */
+                                                      kPORT_PassiveFilterDisable,
+                                                      /* Open drain output is disabled */
+                                                      kPORT_OpenDrainDisable,
+                                                      /* Low drive strength is configured */
+                                                      kPORT_LowDriveStrength,
+                                                      /* Pin is configured as CT3_MAT3 */
+                                                      kPORT_MuxAlt4,
+                                                      /* Digital input enabled */
+                                                      kPORT_InputBufferEnable,
+                                                      /* Digital input is not inverted */
+                                                      kPORT_InputNormal,
+                                                      /* Pin Control Register fields [15:0] are not locked */
+                                                      kPORT_UnlockRegister};
+    /* PORT4_19 (pin R10) is configured as CT3_MAT3 */
+    PORT_SetPinConfig(PORT4, 19U, &port4_19_pinR10_config);
 }
 /***********************************************************************************************************************
  * EOF

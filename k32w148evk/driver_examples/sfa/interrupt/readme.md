@@ -6,12 +6,12 @@ clock in interrupt mode.
 
 SDK version
 ===========
-- Version: 2.15.000
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  12.2
-- MCUXpresso  11.8.0
+- GCC ARM Embedded  13.2.1
+- MCUXpresso  11.10.0
 
 Hardware requirements
 =====================
@@ -43,10 +43,9 @@ The log below shows the output of the SFA interrupt demo in the terminal window(
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 SFA Example -- Measure the frequency of clock under test in interrupt mode.
 Start to measure Fast Clock.
-The actual frequency of Fast Clock is 96963392 Hz.
+The actual frequency of Fast Clock is 95987792 Hz.
 Start to measure Slow clock.
-The actual frequency of the Slow Clock is 33059 Hz.
-
+The actual frequency of the Slow Clock is 32773 Hz.
 
 SFA Measurement Finished.
 

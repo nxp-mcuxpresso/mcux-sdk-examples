@@ -10,6 +10,7 @@
 #include "fsl_debug_console.h"
 #include "fsl_shell.h"
 #include "pin_mux.h"
+#include "clock_config.h"
 #include "board.h"
 
 #include "mcuboot_app_support.h"
@@ -17,7 +18,6 @@
 #include "xmodem.h"
 #include "platform_bindings.h"
 
-#include <stdio.h>
 #include <ctype.h>
 
 #include "fsl_clock.h"
@@ -36,6 +36,8 @@ static shell_status_t shellCmd_xmodem(shell_handle_t shellHandle, int32_t argc, 
 static shell_status_t shellCmd_mem(shell_handle_t shellHandle, int32_t argc, char **argv);
 static shell_status_t shellCmd_reboot(shell_handle_t shellHandle, int32_t argc, char **argv);
 
+static int flash_sha256(uint32_t offset, size_t size, uint8_t sha256[32]);
+
 
 /*******************************************************************************
  * Variables
@@ -44,9 +46,9 @@ static shell_status_t shellCmd_reboot(shell_handle_t shellHandle, int32_t argc, 
 
 static SHELL_COMMAND_DEFINE(image,
                             "\n\"image [info]\"          : Print image information"
-                            "\n\"image test [imgNum]\"   : Mark secondary slot of given image number as ready for test"
-                            "\n\"image accept [imgNum]\" : Mark primary slot of given image number as accepted"
-                            "\n\"image erase [imgNum]\"  : Erase secondary slot of given image number"
+                            "\n\"image test [imgNum]\"   : Mark candidate slot of given image number as ready for test"
+                            "\n\"image accept [imgNum]\" : Mark active slot of given image number as accepted"
+                            "\n\"image erase [imgNum]\"  : Erase candidate slot of given image number"
                             "\n",
                             shellCmd_image,
                             SHELL_IGNORE_PARAMETER_COUNT);
@@ -58,7 +60,7 @@ static SHELL_COMMAND_DEFINE(mem,
                             shellCmd_mem,
                             SHELL_IGNORE_PARAMETER_COUNT);
 
-static SHELL_COMMAND_DEFINE(xmodem, "\n\"xmodem\": Start receiving with XMODEM-CRC\n", shellCmd_xmodem, 0);
+static SHELL_COMMAND_DEFINE(xmodem, "\n\"xmodem [imgNum]\": Start receiving with XMODEM-CRC\n", shellCmd_xmodem, SHELL_IGNORE_PARAMETER_COUNT);
 
 static SHELL_COMMAND_DEFINE(reboot, "\n\"reboot\": Triggers software reset\n", shellCmd_reboot, 0);
 
@@ -71,7 +73,7 @@ static shell_handle_t s_shellHandle;
  **/
 static uint32_t progbuf[1024/sizeof(uint32_t)];
 
-static hashctx_t sha256ctx;
+static hashctx_t sha256_xmodem_ctx;
 
 /*******************************************************************************
  * Code
@@ -111,73 +113,6 @@ static void print_hash(const void *src, size_t size)
     }
 }
 
-static void print_image_info(void)
-{
-    for (int image = 0; image < MCUBOOT_IMAGE_NUMBER; image++)
-    {
-        status_t ret;
-        uint32_t imgstate = kSwapType_Fail;
-        const char *name = boot_image_names[image];
-
-        ret = bl_get_image_state(image, &imgstate);
-        if (ret != kStatus_Success)
-        {
-            PRINTF("Failed to get state of image %u (ret %d)", image, ret);
-        }
-
-        PRINTF("Image %d; name %s; state %s:\n", image, name, bl_imgstate_to_str(imgstate));
-
-        for (int slot = 0; slot < 2; slot++)
-        {
-            int faid              = image * 2 + slot;
-            struct flash_area *fa = &boot_flash_map[faid];
-            uint32_t slotaddr     = fa->fa_off + BOOT_FLASH_BASE;
-            uint32_t slotsize     = fa->fa_size;
-            static struct image_header ih;
-            int slotused;
-            
-            PRINTF("\n  Slot %d %s; address 0x%x; size 0x%x (%u): \n",
-                    faid, fa->fa_name, slotaddr, slotsize, slotsize);
-            
-            ret = mflash_drv_read(fa->fa_off, (uint32_t *)&ih, sizeof(ih));
-            if (ret != kStatus_Success)
-            {
-                PRINTF("    Failed to read!\n");
-                continue;
-            }
-            
-            slotused = (ih.ih_magic == IMAGE_MAGIC);
-
-            if (slotused)
-            {
-                struct image_version *iv = &ih.ih_ver;
-                uint8_t sha256[32];
-
-                PRINTF("    <IMAGE: size %u; version %u.%u.%u+%lu>\n",
-                       ih.ih_img_size,
-                       iv->iv_major, iv->iv_minor, iv->iv_revision, iv->iv_build_num);
-                
-                sha256_init(&sha256ctx);
-                sha256_update(&sha256ctx, (void *)slotaddr, ih.ih_img_size);
-                ret = sha256_finish(&sha256ctx, sha256);
-                if (ret)
-                {
-                    PRINTF("    Failed to hash!\n");
-                    continue;
-                }
-                PRINTF("    SHA256: ");
-                print_hash(sha256, 10);
-                PRINTF("...\n");
-                
-            }
-            else
-            {
-                PRINTF("    <No Image Found>\n");
-            }
-        }
-    }
-    PUTCHAR('\n');
-}
 
 static shell_status_t shellCmd_image(shell_handle_t shellHandle, int32_t argc, char **argv)
 {
@@ -196,7 +131,7 @@ static shell_status_t shellCmd_image(shell_handle_t shellHandle, int32_t argc, c
 
     if (argc == 1 || (argc == 2 && !strcmp(argv[1], "info")))
     {
-        print_image_info();
+        bl_print_image_info(flash_sha256);
         return kStatus_SHELL_Success;
     }
 
@@ -259,22 +194,31 @@ static shell_status_t shellCmd_image(shell_handle_t shellHandle, int32_t argc, c
     
     else if (!strcmp(argv[1], "erase"))
     {
-        int faid              = image*2 + 1;
-        struct flash_area *fa = &boot_flash_map[faid];
-        uint32_t slotaddr     = fa->fa_off + BOOT_FLASH_BASE;
-        uint32_t slotsize     = fa->fa_size;
+        partition_t ptn;
+
+        ret = bl_get_update_partition_info(image, &ptn);
+        if (ret != kStatus_Success)
+        {
+            PRINTF("Failed to determine update partition\n");
+            return kStatus_SHELL_Error;
+        }
+
+        uint32_t slotaddr     = ptn.start;
+        uint32_t slotsize     = ptn.size;
         uint32_t slotcnt      = (slotsize-1 + MFLASH_SECTOR_SIZE) / MFLASH_SECTOR_SIZE;
-        
+
+        PRINTF("Erasing inactive slot...");
         for (int i=0; i < slotcnt; i++)
         {
             ret = mflash_drv_sector_erase(slotaddr);
             if (ret)
             {
-                PRINTF("Failed to erase sector at 0x%x (ret=%d)\n", slotaddr, ret);
+                PRINTF("\nFailed to erase sector at 0x%x (ret=%d)\n", slotaddr, ret);
                 return kStatus_SHELL_Error;
             }
             slotaddr += MFLASH_SECTOR_SIZE;
         }
+        PRINTF("done\n");
     }
     
     else
@@ -351,22 +295,18 @@ static shell_status_t shellCmd_mem(shell_handle_t shellHandle, int32_t argc, cha
     return kStatus_SHELL_Success;
 }
 
-static int process_received_data(uint32_t offset, uint32_t size)
+static int process_received_data(uint32_t dst_addr, uint32_t offset, uint32_t size)
 {
     int ret;
     uint32_t *data = progbuf;
-    
-    /* Use the secondary slot of the first image */
-    
-    struct flash_area *fa = &boot_flash_map[FLASH_AREA_IMAGE_SECONDARY(0)];
-    uint32_t addr         = fa->fa_off + offset;
+    uint32_t addr = dst_addr + offset;
     
     /* 1kB programming buffer should be ok with all page size alignments */
       
     while (size)
     {
         size_t chunk = (size < MFLASH_PAGE_SIZE) ? size : MFLASH_PAGE_SIZE;
-        
+               
         /* mlfash takes entire page, in case of last data of smaller size it will
            program more data, which shouln't be a problem as the space allocated
            for the image slot is page aligned */
@@ -378,7 +318,7 @@ static int process_received_data(uint32_t offset, uint32_t size)
             return -1;
         }
         
-        sha256_update(&sha256ctx, data, chunk);
+        sha256_update(&sha256_xmodem_ctx, data, chunk);
         addr += chunk;
         data += chunk/sizeof(uint32_t);
         size -= chunk;
@@ -389,45 +329,75 @@ static int process_received_data(uint32_t offset, uint32_t size)
 
 static shell_status_t shellCmd_xmodem(shell_handle_t shellHandle, int32_t argc, char **argv)
 {
+    int image = 0;
     long recvsize;    
-    uint8_t sha256[32];
-    struct flash_area *fa = &boot_flash_map[FLASH_AREA_IMAGE_SECONDARY(0)];
-    uint32_t addr_log     = fa->fa_off + BOOT_FLASH_BASE;
+    uint8_t sha256_recv[32], sha256_flash[32];
+    partition_t prt_ota;
+    
+    if (argc > 3)
+    {
+        PRINTF("Too many arguments.\n");
+        return kStatus_SHELL_Error;
+    }
+    
+    if (argc == 3)
+    {
+        char *parse_end;
+        image = strtol(argv[2], &parse_end, 10);
+        
+        if (image < 0 || image >= MCUBOOT_IMAGE_NUMBER || *parse_end != '\0')
+        {
+            PRINTF("Wrong image number.\n");
+            return kStatus_SHELL_Error;
+        }
+    }
+       
+    if (bl_get_update_partition_info(image, &prt_ota) != kStatus_Success)
+    {
+        PRINTF("FAILED to determine address for download\n");
+        return kStatus_SHELL_Error;
+    }
+    
+    PRINTF("Started xmodem download into flash at 0x%X\n", prt_ota.start);
     
     struct xmodem_cfg cfg = {
         .putc = xmodem_putc,
         .getc = xmodem_getc,
         .canread = xmodem_canread,
         .canread_retries = xmodem_canread_retries,
-        .maxsize = fa->fa_size,
+        .dst_addr = prt_ota.start,
+        .maxsize = prt_ota.size,
         .buffer = (uint8_t*)progbuf,
         .buffer_size = sizeof(progbuf),
         .buffer_full_callback = process_received_data
     };
     
-    sha256_init(&sha256ctx);
+    sha256_init(&sha256_xmodem_ctx);
     
     PRINTF("Initiated XMODEM-CRC transfer. Receiving... (Press 'x' to cancel)\n");
     
     recvsize = xmodem_receive(&cfg);
+    
+    /* With some terminals it takes a while before they recover receiving to the console */
+    SDK_DelayAtLeastUs(100000, SystemCoreClock);
+    
     if (recvsize < 0)
     {
         PRINTF("\nTransfer failed (%d)\n", recvsize);
         return kStatus_SHELL_Error;
     }
-
+       
     PRINTF("\nReceived %u bytes\n", recvsize);    
-    sha256_finish(&sha256ctx, sha256);    
-
+    
+    sha256_finish(&sha256_xmodem_ctx, sha256_recv);
+    flash_sha256(prt_ota.start, recvsize, sha256_flash);    
+    
     PRINTF("SHA256 of received data: ");
-    print_hash(sha256, 10);
+    print_hash(sha256_recv, 10);
     PRINTF("...\n");
-   
-    sha256_init(&sha256ctx);
-    sha256_update(&sha256ctx, (void *)addr_log, recvsize);
-    sha256_finish(&sha256ctx, sha256);
+    
     PRINTF("SHA256 of flashed data:  ");
-    print_hash(sha256, 10);
+    print_hash(sha256_flash, 10);
     PRINTF("...\n");
 
     return kStatus_SHELL_Success;
@@ -442,7 +412,36 @@ static shell_status_t shellCmd_reboot(shell_handle_t shellHandle, int32_t argc, 
     /* return kStatus_SHELL_Success; */
 }
 
+static int flash_sha256(uint32_t offset, size_t size, uint8_t sha256[32])
+{
+    uint32_t buf[128 / sizeof(uint32_t)];
+    status_t status;
+    hashctx_t sha256ctx;
 
+    sha256_init(&sha256ctx);
+
+    while (size > 0)
+    {
+        size_t chunk = (size > sizeof(buf)) ? sizeof(buf) : size;
+        /* mflash demands size to be in multiples of 4 */
+        size_t chunkAlign4 = (chunk + 3) & (~3);
+
+        status = mflash_drv_read(offset, buf, chunkAlign4);
+        if (status != kStatus_Success)
+        {
+            return status;
+        }
+
+        sha256_update(&sha256ctx, (unsigned char *)buf, chunk);
+
+        size -= chunk;
+        offset += chunk;
+    }
+
+    sha256_finish(&sha256ctx, sha256);
+
+    return kStatus_Success;
+}
 
 /*!
  * @brief Main function

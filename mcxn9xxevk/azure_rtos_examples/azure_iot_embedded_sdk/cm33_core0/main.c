@@ -1,13 +1,12 @@
-/**************************************************************************/
-/*                                                                        */
-/*       Copyright (c) Microsoft Corporation. All rights reserved.        */
-/*                                                                        */
-/*       This software is licensed under the Microsoft Software License   */
-/*       Terms for Microsoft Azure RTOS. Full text of the license can be  */
-/*       found in the LICENSE file at https://aka.ms/AzureRTOS_EULA       */
-/*       and in the root directory of this software.                      */
-/*                                                                        */
-/**************************************************************************/
+/***************************************************************************
+ * Copyright (c) 2024 Microsoft Corporation 
+ * 
+ * This program and the accompanying materials are made available under the
+ * terms of the MIT License which is available at
+ * https://opensource.org/licenses/MIT.
+ * 
+ * SPDX-License-Identifier: MIT
+ **************************************************************************/
 
 #include <time.h>
 #include <stdlib.h>
@@ -174,7 +173,7 @@ extern uint32_t get_seed(void);
  ******************************************************************************/
 
 /* Define main entry point.  */
-void main(void)
+int main(void)
 {
     /* Init board hardware. */
     CLOCK_EnableClock(kCLOCK_InputMux);
@@ -195,6 +194,8 @@ void main(void)
 
     /* Enter the ThreadX kernel.  */
     tx_kernel_enter();
+
+    return 0;
 }
 
 /* Define what the initial system looks like.  */

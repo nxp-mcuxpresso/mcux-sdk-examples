@@ -31,6 +31,7 @@
     <definition extID="platform.utilities.misc_utilities.MIMXRT1166"/>
     <definition extID="platform.drivers.soc_mipi_dsi.MIMXRT1166"/>
     <definition extID="platform.drivers.soc_mipi_csi2rx.MIMXRT1166"/>
+    <definition extID="utility.str.MIMXRT1166"/>
     <definition extID="platform.drivers.memory.MIMXRT1166"/>
     <definition extID="platform.drivers.anatop_ai.MIMXRT1166"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT1166"/>
@@ -41,7 +42,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt1160_lcdifv2_lut_cm7" name="lcdifv2_lut_cm7" device_core="cm7_MIMXRT1166xxxxx" dependency="driver.video-common.MIMXRT1166 driver.display-common.MIMXRT1166 driver.display-rm68191.MIMXRT1166 platform.drivers.mipi_dsi_split.MIMXRT1166 driver.display-mipi-dsi-cmd.MIMXRT1166 driver.display-rm68200.MIMXRT1166 platform.drivers.soc_src.MIMXRT1166 utility.debug_console_lite.MIMXRT1166 platform.utilities.assert_lite.MIMXRT1166 driver.display-hx8394.MIMXRT1166 platform.drivers.igpio.MIMXRT1166 platform.drivers.lcdifv2.MIMXRT1166 platform.drivers.clock.MIMXRT1166 platform.drivers.common.MIMXRT1166 platform.devices.MIMXRT1166_CMSIS.MIMXRT1166 component.lpuart_adapter.MIMXRT1166 platform.drivers.lpuart.MIMXRT1166 component.lists.MIMXRT1166 platform.devices.MIMXRT1166_startup.MIMXRT1166 platform.drivers.iomuxc.MIMXRT1166 platform.drivers.xip_device.MIMXRT1166 platform.drivers.xip_board.evkmimxrt1160.MIMXRT1166 platform.drivers.pmu_1.MIMXRT1166 platform.drivers.dcdc_soc.MIMXRT1166 platform.drivers.cache_armv7_m7.MIMXRT1166 platform.drivers.xmcd.evkmimxrt1160.MIMXRT1166 platform.utilities.misc_utilities.MIMXRT1166 platform.drivers.soc_mipi_dsi.MIMXRT1166 platform.drivers.soc_mipi_csi2rx.MIMXRT1166 platform.drivers.memory.MIMXRT1166 platform.drivers.anatop_ai.MIMXRT1166 CMSIS_Include_core_cm.MIMXRT1166 platform.devices.MIMXRT1166_system.MIMXRT1166" category="driver_examples/lcdifv2">
+  <example id="evkmimxrt1160_lcdifv2_lut_cm7" name="lcdifv2_lut_cm7" device_core="cm7_MIMXRT1166xxxxx" dependency="driver.video-common.MIMXRT1166 driver.display-common.MIMXRT1166 driver.display-rm68191.MIMXRT1166 platform.drivers.mipi_dsi_split.MIMXRT1166 driver.display-mipi-dsi-cmd.MIMXRT1166 driver.display-rm68200.MIMXRT1166 platform.drivers.soc_src.MIMXRT1166 utility.debug_console_lite.MIMXRT1166 platform.utilities.assert_lite.MIMXRT1166 driver.display-hx8394.MIMXRT1166 platform.drivers.igpio.MIMXRT1166 platform.drivers.lcdifv2.MIMXRT1166 platform.drivers.clock.MIMXRT1166 platform.drivers.common.MIMXRT1166 platform.devices.MIMXRT1166_CMSIS.MIMXRT1166 component.lpuart_adapter.MIMXRT1166 platform.drivers.lpuart.MIMXRT1166 component.lists.MIMXRT1166 platform.devices.MIMXRT1166_startup.MIMXRT1166 platform.drivers.iomuxc.MIMXRT1166 platform.drivers.xip_device.MIMXRT1166 platform.drivers.xip_board.evkmimxrt1160.MIMXRT1166 platform.drivers.pmu_1.MIMXRT1166 platform.drivers.dcdc_soc.MIMXRT1166 platform.drivers.cache_armv7_m7.MIMXRT1166 platform.drivers.xmcd.evkmimxrt1160.MIMXRT1166 platform.utilities.misc_utilities.MIMXRT1166 platform.drivers.soc_mipi_dsi.MIMXRT1166 platform.drivers.soc_mipi_csi2rx.MIMXRT1166 utility.str.MIMXRT1166 platform.drivers.memory.MIMXRT1166 platform.drivers.anatop_ai.MIMXRT1166 CMSIS_Include_core_cm.MIMXRT1166 platform.devices.MIMXRT1166_system.MIMXRT1166" category="driver_examples/lcdifv2">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -94,7 +95,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>
@@ -118,8 +119,9 @@
     <include_paths>
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="../.." project_relative_path="board" type="c_include"/>
-      <include_path path="." project_relative_path="evkmimxrt1160/driver_examples/lcdifv2/lut/cm7" type="c_include"/>
       <include_path path="../../../../../../core/boards/evkmimxrt1160" project_relative_path="board" type="c_include"/>
+      <include_path path="../../../../../../examples/evkmimxrt1160/driver_examples/lcdifv2" project_relative_path="board" type="c_include"/>
+      <include_path path="../../../../../../examples/evkmimxrt1160/driver_examples/lcdifv2/cm7" project_relative_path="source" type="c_include"/>
     </include_paths>
     <source path="armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">
       <files mask="build_all.bat"/>
@@ -144,14 +146,6 @@
     <source path="." project_relative_path="source" type="src">
       <files mask="lcdifv2_lut.c"/>
     </source>
-    <source path="." project_relative_path="board" type="src">
-      <files mask="pin_mux.c"/>
-      <files mask="lcdifv2_support.c"/>
-    </source>
-    <source path="." project_relative_path="board" type="c_include">
-      <files mask="pin_mux.h"/>
-      <files mask="lcdifv2_support.h"/>
-    </source>
     <source path="../../../../../../core/boards/evkmimxrt1160" project_relative_path="board" type="src">
       <files mask="board.c"/>
       <files mask="clock_config.c"/>
@@ -164,6 +158,14 @@
     </source>
     <source path="." project_relative_path="doc" type="doc" toolchain="mcuxpresso armgcc">
       <files mask="readme.md"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="pin_mux.c"/>
+      <files mask="lcdifv2_support.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="pin_mux.h"/>
+      <files mask="lcdifv2_support.h"/>
     </source>
     <source path="armgcc" project_relative_path="MIMXRT1166/gcc" type="linker" toolchain="armgcc">
       <files mask="MIMXRT1166xxxxx_cm7_sdram.ld"/>

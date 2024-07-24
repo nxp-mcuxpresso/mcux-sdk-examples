@@ -24,7 +24,7 @@
 #include <stdio.h>
 #include <cli.h>
 #include <wmerrno.h>
-#include <wm_os.h>
+#include <osa.h>
 #include <wm_net.h>
 
 #include "FreeRTOS.h"
@@ -74,11 +74,16 @@ const HTTPSRV_CGI_LINK_STRUCT cgi_lnk_tbl[] = {
 /*******************************************************************************
  * Variables
  ******************************************************************************/
+static void uap_prov_main(void *data);
+OSA_TASK_DEFINE(uap_prov_main, OSA_PRIORITY_NORMAL, 1, 4096, 0);
+
 uap_prov_vars uap_prov;
 uap_prov_uap_config uap_prov_uapcfg;
 uap_prov_queues uap_prov_q;
 
 post_ap_info g_post_ap_info;
+
+extern wifi_bss_config wifi_lfs_bss_config[5];
 
 static char uap_prov_sm_state_str[][32] = {
     "IDLE",
@@ -100,9 +105,6 @@ static char uap_prov_status_str[][32] = {
     "STATUS_IDLE", "STATUS_INIT_DONE", "STATUS_DEACTIVATING", "STATUS_DEACTIVATED", "STATUS_INVALID",
 };
 
-static os_queue_pool_define(g_uap_prov_queue_data, sizeof(struct q_message) * MAX_EVENTS);
-static os_thread_stack_define(g_uap_prov_stack, 4096);
-
 /*******************************************************************************
  * Code
  ******************************************************************************/
@@ -114,6 +116,7 @@ static int CGI_HandleGet(HTTPSRV_CGI_REQ_STRUCT *param)
 {
     int ret = WM_SUCCESS;
     struct q_message msg;
+    osa_status_t status;
     /* Buffer for hodling response JSON data */
     char buffer[32]                     = {0};
     HTTPSRV_CGI_RES_STRUCT response     = {0};
@@ -152,10 +155,10 @@ static int CGI_HandleGet(HTTPSRV_CGI_REQ_STRUCT *param)
         goto send_rsp;
     }
 
-    ret = os_queue_recv(&uap_prov_q.httpsrv_ses_queue, &msg, os_msec_to_ticks(OS_WAIT_FOREVER));
-    if (ret != WM_SUCCESS)
+    status = OSA_MsgQGet((osa_msgq_handle_t)uap_prov_q.httpsrv_ses_queue, &msg, osaWaitForever_c);
+    if (status != KOSA_StatusSuccess)
     {
-        uap_prov_e("CGI_HandleGet: Failed to recv on httpsrv_ses_queue: %d", ret);
+        uap_prov_e("CGI_HandleGet: Failed to recv on httpsrv_ses_queue: %d", status);
         strcpy(buffer, "{\"networks\":\"error\"}");
         goto send_rsp;
     }
@@ -187,7 +190,7 @@ static int CGI_HandleGet(HTTPSRV_CGI_REQ_STRUCT *param)
     /* Add length of "{"networks":[]}" */
     ssids_json_len = 15;
     ssids_json_len += count * MAX_JSON_NETWORK_RECORD_LENGTH;
-    ssids_json = pvPortMalloc(ssids_json_len);
+    ssids_json = (char *)OSA_MemoryAllocate(ssids_json_len);
     if (ssids_json == NULL)
     {
         uap_prov_e("CGI_HandleGet: ssids_json allocation failed len=%u", ssids_json_len);
@@ -263,7 +266,7 @@ send_rsp:
 
     if (ssids_json != NULL)
     {
-        vPortFree(ssids_json);
+        OSA_MemoryFree(ssids_json);
         ssids_json = NULL;
     }
 
@@ -281,6 +284,7 @@ static int CGI_HandlePost(HTTPSRV_CGI_REQ_STRUCT *param)
     char posted_ssid[IEEEtypes_SSID_SIZE + 1];
     char posted_passphrase[WLAN_PSK_MAX_LENGTH];
     struct q_message msg = {0};
+    osa_status_t status;
 
     if (uap_prov.status != STATUS_INIT_DONE)
     {
@@ -324,10 +328,10 @@ static int CGI_HandlePost(HTTPSRV_CGI_REQ_STRUCT *param)
         goto send_rsp;
     }
 
-    ret = os_queue_recv(&uap_prov_q.httpsrv_ses_queue, &msg, os_msec_to_ticks(OS_WAIT_FOREVER));
-    if (ret != WM_SUCCESS)
+    status = OSA_MsgQGet((osa_msgq_handle_t)uap_prov_q.httpsrv_ses_queue, &msg, osaWaitForever_c);
+    if (status != KOSA_StatusSuccess)
     {
-        uap_prov_e("CGI_HandlePost: Failed to recv on uap_prov_q.httpsrv_ses_queue: %d", ret);
+        uap_prov_e("CGI_HandlePost: Failed to recv on uap_prov_q.httpsrv_ses_queue: %d", status);
         goto send_rsp;
     }
 
@@ -448,13 +452,13 @@ static int config_set_sta_network()
         goto done;
     }
 
-    sta_nw = os_mem_alloc(sizeof(struct wlan_network));
+    sta_nw = (struct wlan_network *)OSA_MemoryAllocate(sizeof(struct wlan_network));
     if (!sta_nw)
     {
         uap_prov_d("config_set_sta_network: sta_nw malloc fail.");
         goto done;
     }
-    memset(sta_nw, 0x00, sizeof(struct wlan_network));
+
     ret = wlan_get_current_network(sta_nw);
     if (ret != WM_SUCCESS)
     {
@@ -468,7 +472,7 @@ static int config_set_sta_network()
 done:
     if (sta_nw)
     {
-        os_mem_free(sta_nw);
+        OSA_MemoryFree(sta_nw);
         sta_nw = NULL;
     }
     return ret;
@@ -485,13 +489,13 @@ static int config_reset_sta_network()
         goto done;
     }
 
-    sta_nw = os_mem_alloc(sizeof(struct wlan_network));
+    sta_nw = (struct wlan_network *)OSA_MemoryAllocate(sizeof(struct wlan_network));
     if (!sta_nw)
     {
         uap_prov_d("config_reset_sta_network: sta_nw malloc fail.");
         goto done;
     }
-    memset(sta_nw, 0x00, sizeof(struct wlan_network));
+
     sta_nw->role = WLAN_BSS_ROLE_STA;
 
     ret = wifi_set_network(sta_nw);
@@ -499,7 +503,7 @@ static int config_reset_sta_network()
 done:
     if (sta_nw)
     {
-        os_mem_free(sta_nw);
+        OSA_MemoryFree(sta_nw);
         sta_nw = NULL;
     }
     return ret;
@@ -519,9 +523,9 @@ static int config_get_uapcfg()
         ret = -WM_FAIL;
         return ret;
     }
-    ret = ncp_bridge_get_conf("prov", "ssid", uapSsid, sizeof(uapSsid));
-    ret += ncp_bridge_get_conf("prov", "passphrase", uapPass, sizeof(uapPass));
-    ret += ncp_bridge_get_conf("prov", "security", security_str, sizeof(security_str));
+    ret = ncp_get_conf("prov", "ssid", uapSsid, sizeof(uapSsid));
+    ret += ncp_get_conf("prov", "passphrase", uapPass, sizeof(uapPass));
+    ret += ncp_get_conf("prov", "security", security_str, sizeof(security_str));
     if (ret != 0)
     {
         uap_prov_e("config_get_uapcfg: get uapcfg from /etc/prov_config fail: %d\n", ret);
@@ -554,8 +558,8 @@ static int config_set_uapcfg(char *ssid, uint32_t sec, char *pass)
         uap_prov_d("config_get_uapcfg: nvm disabled.");
         return ret;
     }
-    ret = ncp_bridge_set_conf("prov", "ssid", uap_prov_uapcfg.uapSsid);
-    ret += ncp_bridge_set_conf("prov", "passphrase", uap_prov_uapcfg.uapPass);
+    ret = ncp_set_conf("prov", "ssid", uap_prov_uapcfg.uapSsid);
+    ret += ncp_set_conf("prov", "passphrase", uap_prov_uapcfg.uapPass);
     security = uap_prov_uapcfg.uapSec;
     if (security >= 10)
     {
@@ -563,7 +567,7 @@ static int config_set_uapcfg(char *ssid, uint32_t sec, char *pass)
         i++;
     }
     security_str[i] = '0' + (uap_prov_uapcfg.uapSec % 10);
-    ret += ncp_bridge_set_conf("prov", "security", security_str);
+    ret += ncp_set_conf("prov", "security", security_str);
     if (ret != 0)
     {
         uap_prov_e("config_set_uapcfg: set uapcfg to /etc/prov_config fail: %d\n", ret);
@@ -657,7 +661,7 @@ static int uap_prov_sm(struct q_message *msg)
         msg_handled = 1;
         uap_prov_set_status(STATUS_DEACTIVATING);
         wlan_stop_all_networks();
-        os_thread_sleep(os_msec_to_ticks(1000));
+        OSA_TimeDelay(1000);
 
         send_msg_to_httpsrv_ses(MSG_TYPE_CMD, CMD_REASON_UAP_PROV_RESET, 0);
 
@@ -672,7 +676,7 @@ static int uap_prov_sm(struct q_message *msg)
             {
                 msg_handled = 1;
                 wlan_stop_all_networks();
-                os_thread_sleep(os_msec_to_ticks(1000));
+                OSA_TimeDelay(1000);
                 /* When the App starts up, it will first read the mflash to check if any
                  * credentials have been saved from previous runs.
                  * If the mflash is empty, the board starts and AP allowing the user to configure
@@ -896,17 +900,18 @@ done:
     return ret;
 }
 
-static void uap_prov_main(os_thread_arg_t data)
+static void uap_prov_main(void *data)
 {
     int ret              = WM_SUCCESS;
     struct q_message msg = {0};
+    osa_status_t status;
 
     while (true)
     {
-        ret = os_queue_recv(&uap_prov_q.queue, &msg, os_msec_to_ticks(OS_WAIT_FOREVER));
-        if (ret != WM_SUCCESS)
+        status = OSA_MsgQGet((osa_msgq_handle_t)uap_prov_q.queue, &msg, osaWaitForever_c);
+        if (status != KOSA_StatusSuccess)
         {
-            uap_prov_e("Error: Failed to recv on uap_prov_q.queue: %d", ret);
+            uap_prov_e("Error: Failed to recv on uap_prov_q.queue: %d", status);
             continue;
         }
 
@@ -925,52 +930,43 @@ static void uap_prov_main(os_thread_arg_t data)
 int uap_prov_init(void)
 {
     int ret = WM_SUCCESS;
+    osa_status_t status;
 
     wlan_register_uap_prov_deinit_cb(uap_prov_deinit);
     wlan_register_uap_prov_cleanup_cb(uap_prov_cleanup);
 
     if (uap_prov.status != STATUS_IDLE)
     {
-        (void)uap_prov_e("uap_prov_init: uap prov may already inited.");
-        return ret;
+        (void)uap_prov_w("uap_prov_init: uap prov may already inited.");
+        return WM_SUCCESS;
     }
 
     memset(&uap_prov, 0x00, sizeof(uap_prov));
 
     /* Create uap_prov related queue and thread */
-    if (!uap_prov_q.queue)
+    status = OSA_MsgQCreate((osa_msgq_handle_t)uap_prov_q.queue, MAX_EVENTS, sizeof(struct q_message));
+    if (status != KOSA_StatusSuccess)
     {
-        uap_prov_q.queue_data = g_uap_prov_queue_data;
-        ret = os_queue_create(&uap_prov_q.queue, "uap_prov_queue", sizeof(struct q_message), &uap_prov_q.queue_data);
-        if (ret != WM_SUCCESS)
-        {
-            uap_prov_e("Error: Failed to create uap_prov_queue: %d", ret);
-            goto done;
-        }
+        uap_prov_e("Error: Failed to create uap_prov_queue: %d", status);
+        ret = -WM_FAIL;
+        goto done;
     }
 
-    if (!uap_prov.thread)
+    status = OSA_TaskCreate((osa_task_handle_t)uap_prov.thread, OSA_TASK(uap_prov_main), NULL);
+    if (status != KOSA_StatusSuccess)
     {
-        uap_prov.stack = g_uap_prov_stack;
-        ret = os_thread_create(&uap_prov.thread, "uap_prov_thread", uap_prov_main, 0, &uap_prov.stack, OS_PRIO_3);
-        if (ret != WM_SUCCESS)
-        {
-            uap_prov_e("Error: Failed to create uap_prov_thread: %d", ret);
-            goto done;
-        }
+        uap_prov_e("Error: Failed to create uap_prov_thread: %d", status);
+        ret = -WM_FAIL;
+        goto done;
     }
 
-    if (!uap_prov_q.httpsrv_ses_queue)
+    /* Create httpsrv related queue and thread */
+    status = OSA_MsgQCreate((osa_msgq_handle_t)uap_prov_q.httpsrv_ses_queue, MAX_EVENTS, sizeof(struct q_message));
+    if (status != KOSA_StatusSuccess)
     {
-        /* Create httpsrv related queue and thread */
-        uap_prov_q.httpsrv_ses_queue_data = g_uap_prov_queue_data;
-        ret = os_queue_create(&uap_prov_q.httpsrv_ses_queue, "httpsrv_ses_queue", sizeof(struct q_message),
-                              &uap_prov_q.httpsrv_ses_queue_data);
-        if (ret != WM_SUCCESS)
-        {
-            uap_prov_e("Error: Failed to create httpsrv_ses_queue: %d", ret);
-            goto done;
-        }
+        uap_prov_e("Error: Failed to create httpsrv_ses_queue: %d", status);
+        ret = -WM_FAIL;
+        goto done;
     }
 
     ret = http_srv_init();
@@ -978,12 +974,9 @@ int uap_prov_init(void)
 done:
     if (ret != WM_SUCCESS)
     {
-        if (uap_prov_q.queue)
-            os_queue_delete(&uap_prov_q.queue);
-        if (uap_prov.thread)
-            os_thread_delete(&uap_prov.thread);
-        if (uap_prov_q.httpsrv_ses_queue)
-            os_queue_delete(&uap_prov_q.httpsrv_ses_queue);
+        OSA_MsgQDestroy(uap_prov_q.queue);
+        OSA_TaskDestroy(uap_prov.thread);
+        OSA_MsgQDestroy(uap_prov_q.httpsrv_ses_queue);
     }
     else
     {
@@ -1012,7 +1005,7 @@ int uap_prov_deinit(void)
 
     while (uap_prov.status != STATUS_DEACTIVATED) /* Wait for task completition.*/
     {
-        vTaskDelay(1);
+        OSA_TimeDelay(1);
     }
 
     http_srv_deinit();
@@ -1028,31 +1021,23 @@ void uap_prov_drain_queue(void)
 {
     struct q_message msg = {0};
 
-    if (uap_prov_q.httpsrv_ses_queue)
+    while (OSA_MsgQWaiting((osa_msgq_handle_t)uap_prov_q.httpsrv_ses_queue))
     {
-        while (os_queue_get_msgs_waiting(&uap_prov_q.httpsrv_ses_queue))
-        {
-            memset(&msg, 0, sizeof(msg));
-            os_queue_recv(&uap_prov_q.httpsrv_ses_queue, &msg, os_msec_to_ticks(0));
-        }
+        memset(&msg, 0, sizeof(msg));
+        OSA_MsgQGet((osa_msgq_handle_t)uap_prov_q.httpsrv_ses_queue, &msg, osaWaitNone_c);
     }
 
-    if (uap_prov_q.queue)
+    while (OSA_MsgQWaiting((osa_msgq_handle_t)uap_prov_q.queue))
     {
-        while (os_queue_get_msgs_waiting(&uap_prov_q.queue))
-        {
-            memset(&msg, 0, sizeof(msg));
-            os_queue_recv(&uap_prov_q.queue, &msg, os_msec_to_ticks(0));
-        }
+        memset(&msg, 0, sizeof(msg));
+        OSA_MsgQGet((osa_msgq_handle_t)uap_prov_q.queue, &msg, osaWaitNone_c);
     }
 }
 
 void uap_prov_cleanup(void)
 {
-    if (uap_prov_q.queue)
-        os_queue_delete(&uap_prov_q.queue);
-    if (uap_prov_q.httpsrv_ses_queue)
-        os_queue_delete(&uap_prov_q.httpsrv_ses_queue);
+    OSA_MsgQDestroy((osa_msgq_handle_t)uap_prov_q.queue);
+    OSA_MsgQDestroy((osa_msgq_handle_t)uap_prov_q.httpsrv_ses_queue);
 }
 
 static int do_get_ip(char *ip, int client)
@@ -1097,7 +1082,7 @@ static int do_sta_add_network(network_from nw_from, char *ssid, char *pass, char
         return ret;
     }
     
-    sta_network = (struct wlan_network *)os_mem_alloc(sizeof(struct wlan_network));
+    sta_network = (struct wlan_network *)OSA_MemoryAllocate(sizeof(struct wlan_network));
     if (sta_network == NULL)
     {
         wlcm_e("wlan_pscan: fail to malloc memory! \r\n");
@@ -1150,7 +1135,7 @@ static int do_sta_add_network(network_from nw_from, char *ssid, char *pass, char
             goto done;
         }
         memset(sta_network->ssid, '\0', sizeof(sta_network->ssid));
- 
+
         memcpy(sta_network->ssid, (const char *)ssid, strlen(ssid));
         sta_network->ip.ipv4.addr_type = ADDR_TYPE_DHCP;
         sta_network->ssid_specific     = 1;
@@ -1191,10 +1176,8 @@ static int do_sta_add_network(network_from nw_from, char *ssid, char *pass, char
             {
                 sta_network->security.password_len = strlen(pass);
                 strncpy(sta_network->security.password, pass, strlen(pass));
-                sta_network->security.mfpc = 1;
-                sta_network->security.mfpr = 1;
             }
-#ifdef CONFIG_WPA_SUPP
+#if CONFIG_WPA_SUPP
             if (sta_network->security.type == WLAN_SECURITY_WILDCARD)
             {
                 /* Wildcard: If wildcard security is specified, copy the highest
@@ -1216,7 +1199,7 @@ static int do_sta_add_network(network_from nw_from, char *ssid, char *pass, char
                     t = WLAN_SECURITY_WPA_WPA2_MIXED;
                 else if (res->WPA_WPA2_WEP.wepStatic != 0U)
                     t = WLAN_SECURITY_WEP_OPEN;
-#ifdef CONFIG_OWE
+#if CONFIG_DRIVER_OWE
                 else if (res->WPA_WPA2_WEP.wpa2 && res->WPA_WPA2_WEP.owe)
                     t = WLAN_SECURITY_OWE_ONLY;
 #endif
@@ -1244,6 +1227,18 @@ static int do_sta_add_network(network_from nw_from, char *ssid, char *pass, char
 
     strcpy(sta_network->name, label);
     wlan_remove_network(label);
+
+    ret = wlan_remove_network(wifi_lfs_bss_config[1].network_name);
+    if(is_nvm_enabled())
+    {
+        ret = wifi_overwrite_network(wifi_lfs_bss_config[1].network_name);
+        if (ret != WM_SUCCESS)
+        {
+            uap_prov_e("do_sta_add_network: remove %s network fail %d.",wifi_lfs_bss_config[1].config_path, ret);
+            goto done;
+        }
+    }
+
     ret = wlan_add_network(sta_network);
     if (ret != WM_SUCCESS)
     {
@@ -1252,11 +1247,21 @@ static int do_sta_add_network(network_from nw_from, char *ssid, char *pass, char
         goto done;
     }
     
+    if(is_nvm_enabled())
+    {
+        ret = wifi_set_network(sta_network);
+        if (ret != WM_SUCCESS)
+        {
+            uap_prov_e("do_sta_add_network: add %s network fail %d.",wifi_lfs_bss_config[1].config_path, ret);
+            goto done;
+        }
+    }
+    
 done:
     if (sta_network)
-	{   
-	    os_mem_free((void *)sta_network);
-	}
+    {   
+        OSA_MemoryFree((void *)sta_network);
+    }
 
     return ret;
 }
@@ -1325,7 +1330,7 @@ static int do_uap_add_network(uap_prov_uap_config *uapcfg, char *label, uint32_t
         ret = -WM_E_INVAL;
         return ret;
     }
-    uap_network = (struct wlan_network *)os_mem_alloc(sizeof(struct wlan_network));
+    uap_network = (struct wlan_network *)OSA_MemoryAllocate(sizeof(struct wlan_network));
     if (uap_network == NULL)
     {
         wlcm_e("do_uap_add_network: fail to malloc memory! \r\n");
@@ -1363,15 +1368,36 @@ static int do_uap_add_network(uap_prov_uap_config *uapcfg, char *label, uint32_t
     ret = wlan_add_network(uap_network);
     if (ret != WM_SUCCESS)
     {
-        uap_prov_e("do_uap_add_network: add network fail %d.", ret);
-        wlan_remove_network(uap_network->name);
-        goto done;
+        if(ret != -WM_E_NOMEM)
+        {
+            uap_prov_e("do_uap_add_network: add network fail %d.", ret);
+            goto done;
+        }
+        else
+        {
+            ret = wlan_remove_network(wifi_lfs_bss_config[0].network_name);
+            if(ret != WM_SUCCESS && ret != WM_E_INVAL)
+            {
+                uap_prov_e("do_uap_add_network: remove network fail %d.", ret);
+                goto done;
+            }
+
+            ret = wlan_add_network(uap_network);
+            if (ret != WM_SUCCESS)
+            {
+                if(ret != -WM_E_NOMEM)
+                {
+                    uap_prov_e("do_uap_add_network: add network fail %d.", ret);
+                    goto done;
+                }
+            }
+        }
     }
     
 done:
     if (uap_network)
     {
-        os_mem_free((void *)uap_network);
+        OSA_MemoryFree((void *)uap_network);
     }
      return ret;
 }
@@ -1466,7 +1492,7 @@ int send_msg_to_uap_prov(uint16_t type, uint16_t reason, int data)
     msg.reason = reason;
     msg.data   = (void *)data;
 
-    if (!uap_prov_q.queue || (os_queue_send(&uap_prov_q.queue, &msg, OS_NO_WAIT) != WM_SUCCESS))
+    if ((OSA_MsgQPut((osa_msgq_handle_t)uap_prov_q.queue, &msg) != KOSA_StatusSuccess))
     {
         uap_prov_e("send_msg_to_uap_prov: send msg(%u %u %d) to %p fail", msg.type, msg.reason, msg.data,
                    uap_prov_q.queue);
@@ -1485,7 +1511,7 @@ static int send_msg_to_httpsrv_ses(uint16_t type, uint16_t reason, int data)
     msg.reason = reason;
     msg.data   = (void *)data;
 
-    if (!uap_prov_q.httpsrv_ses_queue || (os_queue_send(&uap_prov_q.httpsrv_ses_queue, &msg, OS_NO_WAIT) != WM_SUCCESS))
+    if ((OSA_MsgQPut((osa_msgq_handle_t)uap_prov_q.httpsrv_ses_queue, &msg) != KOSA_StatusSuccess))
     {
         uap_prov_e("send_msg_to_httpsrv_ses: send msg(%u %u %d) to %p fail", msg.type, msg.reason, msg.data,
                    uap_prov_q.httpsrv_ses_queue);
@@ -1520,8 +1546,6 @@ int uap_prov_start()
 int uap_prov_reset()
 {
     int ret = WM_SUCCESS;
-
-    config_reset_sta_network();
     // We don't reset uapcfg for flash has default value and user might also configured
     // config_reset_uapcfg();
 
@@ -1529,6 +1553,16 @@ int uap_prov_reset()
     if (ret != WM_SUCCESS)
     {
         (void)uap_prov_e("uap_prov_reset: uap_prov_deinit fail.");
+    }
+
+    if(ncp_network_is_added(DEF_STA_NETWORK_LABEL))
+    {
+        wlan_remove_network(DEF_STA_NETWORK_LABEL);
+        ret = wifi_overwrite_network(DEF_STA_NETWORK_LABEL);
+        if (ret != WM_SUCCESS)
+        {
+            (void)uap_prov_e("uap_prov_reset: fail to overwrite lfs %s network.",DEF_STA_NETWORK_LABEL);
+        }
     }
 
     return ret;

@@ -118,9 +118,17 @@ static shell_command_t mGapCmd =
                     "  gap advdata [-erase] [type payload]\r\n"
                     "  gap scanstart [filter]\r\n"
                     "  gap scanstop\r\n"
+#if defined(BLE_SHELL_DBAF_SUPPORT) && (BLE_SHELL_DBAF_SUPPORT)
+                    "  gap scancfg [-type type] [-interval intervalInMs] [-window windowInMs] [-phy scanningPhy] [-duration durationInMs] [-period periodInMs] [-filter filterPolicy]\r\n"
+#else
                     "  gap scancfg [-type type] [-interval intervalInMs] [-window windowInMs] [-phy scanningPhy] [-duration durationInMs] [-period periodInMs]\r\n"
+#endif /* BLE_SHELL_DBAF_SUPPORT */
                     "  gap scandata [-erase] [type payload]\r\n"
+#if defined(BLE_SHELL_DBAF_SUPPORT) && (BLE_SHELL_DBAF_SUPPORT)
+                    "  gap connectcfg [-interval intervalInMs] [-latency latency] [-timeout timeout] [-filter filterPolicy]\r\n"
+#else
                     "  gap connectcfg [-interval intervalInMs] [-latency latency] [-timeout timeout]\r\n"
+#endif /* BLE_SHELL_DBAF_SUPPORT */
                     "  gap connect scannedDeviceId\r\n"
                     "  gap disconnect <peerID>\r\n"
                     "  gap connupdate <peerID> mininterval maxinterval latency timeout\r\n"
@@ -145,6 +153,18 @@ static shell_command_t mGapCmd =
                     "  gap periodicsync [-peer peerAddr] [-type peerAddrType]\r\n"
                     "  gap periodicsyncstop\r\n"
 #endif /* BLE_SHELL_AE_SUPPORT */
+#if BLE_SHELL_DBAF_SUPPORT
+                    "  gap setdecinstr\r\n"
+                    "  gap adddecinstr [-group testGroup] [-criteria passCriteria] [-field relevantField] "
+                                      "[-restagkey resolvableTagKey] "
+                                      "[-arbmask arbitraryDataMask] [-arbtarget arbitraryDataTarget] "
+                                      "[-rssimin rssiMin] [-rssimax rssiMax] "
+                                      "[-lossmin pathLossMin] [-lossmax pathLossMax] "
+                                      "[-advacheck advACheck] [-add1type advAAddress1Type] [-add1 advAAdress1] [-add2type advAAddress2Type] [-add2 advAAdress2] "
+                                      "[-advmode advMode]\r\n"
+                    "  gap deldecinstr\r\n"
+                    "  gap extadvdecdata [-key key] [-prand rand] [-decdata decisionData] [-datalen dataLength] [-restag resolvableTagPresent]\r\n"
+#endif /* BLE_SHELL_DBAF_SUPPORT */
                     ,
     .pFuncCallBack = ShellGap_Command,
     .cExpectedNumberOfParameters = 0xFF,
@@ -262,6 +282,10 @@ static uint8_t gXtalTrimValue = 0U;
 static int8_t  gRssiValue = 0;
 #endif /* gRFCalibration_d */
 #endif /* (defined(CPU_MKW37A512VFT4) || defined(CPU_MKW38A512VFT4)) */
+
+#if defined(BLE_SHELL_DBAF_SUPPORT) && (BLE_SHELL_DBAF_SUPPORT)
+extern uint8_t gHostInitExpmFeatures;
+#endif /* BLE_SHELL_DBAF_SUPPORT */
 
 /************************************************************************************
  *************************************************************************************
@@ -557,6 +581,11 @@ void BluetoothLEHost_AppInit(void)
 {
     /* Set generic callback */
     BluetoothLEHost_SetGenericCallback(BleApp_GenericCallback);
+
+    /* Enable experimental features */
+#if defined(BLE_SHELL_DBAF_SUPPORT) && (BLE_SHELL_DBAF_SUPPORT)
+    gHostInitExpmFeatures |= gExpmDecisionBasedAdvertisingFilteringBit_d;
+#endif /* BLE_SHELL_DBAF_SUPPORT */
 
     /* Initialize Bluetooth Host Stack */
     BluetoothLEHost_Init(BluetoothLEHost_Initialized);

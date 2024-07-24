@@ -13,6 +13,8 @@
     <definition extID="platform.drivers.sentinel.MIMX8UD5"/>
     <definition extID="middleware.multicore.rpmsg_lite.freertos.MIMX8UD5"/>
     <definition extID="middleware.multicore.rpmsg_lite.MIMX8UD5"/>
+    <definition extID="platform.drivers.pdm_edma.MIMX8UD5"/>
+    <definition extID="platform.drivers.pdm.MIMX8UD5"/>
     <definition extID="platform.drivers.lptmr.MIMX8UD5"/>
     <definition extID="platform.drivers.clock.MIMX8UD5"/>
     <definition extID="platform.drivers.common.MIMX8UD5"/>
@@ -48,6 +50,7 @@
     <definition extID="middleware.freertos-kernel.template.MIMX8UD5"/>
     <definition extID="middleware.freertos-kernel.extension.MIMX8UD5"/>
     <definition extID="CMSIS_Include_core_cm.MIMX8UD5"/>
+    <definition extID="utility.str.MIMX8UD5"/>
     <definition extID="platform.drivers.sai.MIMX8UD5"/>
     <definition extID="driver.srtm.MIMX8UD5"/>
     <definition extID="platform.drivers.tpm.MIMX8UD5"/>
@@ -56,7 +59,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="evk9mimx8ulp_power_mode_switch" name="power_mode_switch" device_core="cm33_MIMX8UD5" dependency="component.lpi2c_adapter.MIMX8UD5 component.codec_i2c.MIMX8UD5 component.wm8960_adapter.MIMX8UD5 driver.codec.MIMX8UD5 middleware.freertos-kernel.cm33_non_trustzone.MIMX8UD5 middleware.freertos-kernel.heap_4.MIMX8UD5 platform.drivers.mu1.MIMX8UD5 platform.drivers.rtd_cmc.MIMX8UD5 platform.drivers.sentinel.MIMX8UD5 middleware.multicore.rpmsg_lite.freertos.MIMX8UD5 middleware.multicore.rpmsg_lite.MIMX8UD5 platform.drivers.lptmr.MIMX8UD5 platform.drivers.clock.MIMX8UD5 platform.drivers.common.MIMX8UD5 platform.devices.MIMX8UD5_CMSIS.MIMX8UD5 utility.debug_console.MIMX8UD5 platform.utilities.assert.MIMX8UD5 component.lpuart_adapter.MIMX8UD5 platform.drivers.flexspi.MIMX8UD5 component.serial_manager_uart.MIMX8UD5 component.serial_manager.MIMX8UD5 platform.drivers.lpuart.MIMX8UD5 component.lists.MIMX8UD5 platform.devices.MIMX8UD5_startup.MIMX8UD5 platform.drivers.cache_cache64.MIMX8UD5 platform.drivers.iomuxc.MIMX8UD5 platform.drivers.reset.MIMX8UD5 platform.drivers.upower.MIMX8UD5 platform.drivers.rgpio.MIMX8UD5 platform.drivers.fusion.MIMX8UD5 platform.drivers.trdc.MIMX8UD5 platform.drivers.dma3.MIMX8UD5 platform.drivers.lpi2c.MIMX8UD5 platform.drivers.sai_edma.MIMX8UD5 platform.drivers.wuu.MIMX8UD5 driver.pca6416a.MIMX8UD5 driver.srtm.freertos.MIMX8UD5 middleware.multicore.rpmsg_lite.imx8ulp_m33_freertos.MIMX8UD5 component.pwm_tpm_adapter.MIMX8UD5 component.rtc_bbnsm_adapter.MIMX8UD5 platform.utilities.misc_utilities.MIMX8UD5 driver.wm8960.MIMX8UD5 middleware.freertos-kernel.MIMX8UD5 middleware.freertos-kernel.template.MIMX8UD5 middleware.freertos-kernel.extension.MIMX8UD5 CMSIS_Include_core_cm.MIMX8UD5 platform.drivers.sai.MIMX8UD5 driver.srtm.MIMX8UD5 platform.drivers.tpm.MIMX8UD5 platform.drivers.bbnsm.MIMX8UD5" category="demo_apps">
+  <example id="evk9mimx8ulp_power_mode_switch" name="power_mode_switch" device_core="cm33_MIMX8UD5" dependency="component.lpi2c_adapter.MIMX8UD5 component.codec_i2c.MIMX8UD5 component.wm8960_adapter.MIMX8UD5 driver.codec.MIMX8UD5 middleware.freertos-kernel.cm33_non_trustzone.MIMX8UD5 middleware.freertos-kernel.heap_4.MIMX8UD5 platform.drivers.mu1.MIMX8UD5 platform.drivers.rtd_cmc.MIMX8UD5 platform.drivers.sentinel.MIMX8UD5 middleware.multicore.rpmsg_lite.freertos.MIMX8UD5 middleware.multicore.rpmsg_lite.MIMX8UD5 platform.drivers.pdm_edma.MIMX8UD5 platform.drivers.pdm.MIMX8UD5 platform.drivers.lptmr.MIMX8UD5 platform.drivers.clock.MIMX8UD5 platform.drivers.common.MIMX8UD5 platform.devices.MIMX8UD5_CMSIS.MIMX8UD5 utility.debug_console.MIMX8UD5 platform.utilities.assert.MIMX8UD5 component.lpuart_adapter.MIMX8UD5 platform.drivers.flexspi.MIMX8UD5 component.serial_manager_uart.MIMX8UD5 component.serial_manager.MIMX8UD5 platform.drivers.lpuart.MIMX8UD5 component.lists.MIMX8UD5 platform.devices.MIMX8UD5_startup.MIMX8UD5 platform.drivers.cache_cache64.MIMX8UD5 platform.drivers.iomuxc.MIMX8UD5 platform.drivers.reset.MIMX8UD5 platform.drivers.upower.MIMX8UD5 platform.drivers.rgpio.MIMX8UD5 platform.drivers.fusion.MIMX8UD5 platform.drivers.trdc.MIMX8UD5 platform.drivers.dma3.MIMX8UD5 platform.drivers.lpi2c.MIMX8UD5 platform.drivers.sai_edma.MIMX8UD5 platform.drivers.wuu.MIMX8UD5 driver.pca6416a.MIMX8UD5 driver.srtm.freertos.MIMX8UD5 middleware.multicore.rpmsg_lite.imx8ulp_m33_freertos.MIMX8UD5 component.pwm_tpm_adapter.MIMX8UD5 component.rtc_bbnsm_adapter.MIMX8UD5 platform.utilities.misc_utilities.MIMX8UD5 driver.wm8960.MIMX8UD5 middleware.freertos-kernel.MIMX8UD5 middleware.freertos-kernel.template.MIMX8UD5 middleware.freertos-kernel.extension.MIMX8UD5 CMSIS_Include_core_cm.MIMX8UD5 utility.str.MIMX8UD5 platform.drivers.sai.MIMX8UD5 driver.srtm.MIMX8UD5 platform.drivers.tpm.MIMX8UD5 platform.drivers.bbnsm.MIMX8UD5" category="demo_apps">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -84,7 +87,7 @@
           <value>com.crt.advproject.gcc.fpu.none</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>
@@ -213,6 +216,7 @@
       <files mask="srtm_rtc_service.h"/>
       <files mask="srtm_rtc_adapter.h"/>
       <files mask="srtm_lfcl_service.h"/>
+      <files mask="srtm_pdm_edma_adapter.h"/>
     </source>
     <source path="srtm/services" project_relative_path="srtm/services" type="src">
       <files mask="srtm_audio_service.c"/>
@@ -226,6 +230,7 @@
       <files mask="srtm_rtc_service.c"/>
       <files mask="srtm_rtc_adapter.c"/>
       <files mask="srtm_lfcl_service.c"/>
+      <files mask="srtm_pdm_edma_adapter.c"/>
     </source>
     <source path="lsm6dso" project_relative_path="lsm6dso" type="c_include">
       <files mask="fsl_lsm.h"/>

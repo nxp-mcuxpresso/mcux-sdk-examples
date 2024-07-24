@@ -1,5 +1,5 @@
 /*
- * Copyright 2017,2020,2022 NXP
+ * Copyright 2017,2020,2022,2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -23,9 +23,9 @@
 #define EXAMPLE_LPSPI_MASTER_PCS_FOR_INIT     (kLPSPI_Pcs0)
 #define EXAMPLE_LPSPI_MASTER_PCS_FOR_TRANSFER (kLPSPI_MasterPcs0)
 
-#define LPSPI_MASTER_CLK_FREQ (CLOCK_GetFreqFromObs(CCM_OBS_LPSPI1_CLK_ROOT))
+#define LPSPI_MASTER_CLK_FREQ (CLOCK_GetRootClockFreq(kCLOCK_Root_Lpspi1))
 #define TRANSFER_SIZE     64U     /*! Transfer dataSize */
-#define TRANSFER_BAUDRATE 500000U /*! Transfer baudrate - 500k */
+#define TRANSFER_BAUDRATE 200000U /*! Transfer baudrate - 200k */
 
 /*******************************************************************************
  * Prototypes
@@ -103,7 +103,7 @@ void EXAMPLE_LPSPI_MASTER_IRQHandler(void)
         }
     }
 
-    /* Check if we're done with this transfer.*/
+    /* Check if we're done with this transfer. */
     if ((masterTxCount == TRANSFER_SIZE) && (masterRxCount == TRANSFER_SIZE))
     {
         /* Complete the transfer. */
@@ -127,16 +127,17 @@ int main(void)
     BOARD_BootClockRUN();
     BOARD_InitDebugConsole();
 
-    PRINTF("lpspi_functional_interrupt_board_2_board_master start.\r\n");
-    PRINTF("This example use one board as master and the other as slave.\r\n");
-    PRINTF("Master and slave use interrupt way. Slave should start first. \r\n");
-    PRINTF("Please make sure you make the correct line connection. Basically, the connection is: \r\n");
-    PRINTF("LPSPI_master -- LPSPI_slave   \r\n");
-    PRINTF("   CLK      --    CLK  \r\n");
-    PRINTF("   PCS      --    PCS \r\n");
-    PRINTF("   SOUT     --    SIN  \r\n");
-    PRINTF("   SIN      --    SOUT \r\n");
-    PRINTF("   GND      --    GND \r\n");
+    PRINTF("LPSPI interrupt board to board (b2b) master example.\r\n");
+    PRINTF("This example use one board as master and another as slave.\r\n");
+    PRINTF("Please make sure you make the correct line connection. Basically, the connection is:\r\n");
+    PRINTF("LPSPI_master -- LPSPI_slave\r\n");
+    PRINTF("    CLK      --    CLK\r\n");
+    PRINTF("    PCS      --    PCS\r\n");
+    PRINTF("    SOUT     --    SIN\r\n");
+    PRINTF("    SIN      --    SOUT\r\n");
+    PRINTF("    GND      --    GND\r\n");
+    PRINTF("Please running slave here, then type any key to continue\r\n");
+    GETCHAR();
 
     uint32_t srcClock_Hz;
     uint32_t errorCount;
@@ -190,7 +191,7 @@ int main(void)
     EXAMPLE_LPSPI_MASTER_BASEADDR->CFGR1 &= (~LPSPI_CFGR1_NOSTALL_MASK);
     LPSPI_Enable(EXAMPLE_LPSPI_MASTER_BASEADDR, true);
 
-    /* Flush FIFO , clear status , disable all the inerrupts. */
+    /* Flush FIFO, clear status, disable all the inerrupts. */
     LPSPI_FlushFifo(EXAMPLE_LPSPI_MASTER_BASEADDR, true, true);
     LPSPI_ClearStatusFlags(EXAMPLE_LPSPI_MASTER_BASEADDR, kLPSPI_AllStatusFlag);
     LPSPI_DisableInterrupts(EXAMPLE_LPSPI_MASTER_BASEADDR, kLPSPI_AllInterruptEnable);
@@ -198,7 +199,7 @@ int main(void)
     LPSPI_SelectTransferPCS(EXAMPLE_LPSPI_MASTER_BASEADDR, whichPcs);
     LPSPI_SetPCSContinous(EXAMPLE_LPSPI_MASTER_BASEADDR, true);
 
-    /* Enable the NVIC for LPSPI peripheral. Note that below code is useless if the LPSPI interrupt is in INTMUX ,
+    /* Enable the NVIC for LPSPI peripheral. Note that below code is useless if the LPSPI interrupt is in INTMUX,
      * and you should also enable the INTMUX interupt in your application.
      */
     EnableIRQ(EXAMPLE_LPSPI_MASTER_IRQN);
@@ -211,7 +212,7 @@ int main(void)
     while ((LPSPI_GetTxFifoCount(EXAMPLE_LPSPI_MASTER_BASEADDR) < g_masterFifoSize) &&
            (masterTxCount - masterRxCount < g_masterFifoSize))
     {
-        /*Write the word to TX register*/
+        /* Write the word to TX register */
         LPSPI_WriteData(EXAMPLE_LPSPI_MASTER_BASEADDR, masterTxData[masterTxCount]);
         ++masterTxCount;
 
@@ -243,14 +244,15 @@ int main(void)
     }
     if (errorCount == 0)
     {
-        PRINTF("\r\nLPSPI transfer all data matched! \r\n");
+        PRINTF("\r\nLPSPI transfer all data matched!\r\n");
     }
     else
     {
-        PRINTF("\r\nError occurred in LPSPI transfer ! \r\n");
+        PRINTF("\r\nError occurred in LPSPI transfer!\r\n");
     }
+
     /* Print out receive buffer */
-    PRINTF("\r\n Master received:\r\n");
+    PRINTF("\r\n Master received:");
     for (i = 0U; i < TRANSFER_SIZE; i++)
     {
         /* Print 16 numbers in a line */
@@ -264,7 +266,7 @@ int main(void)
 
     LPSPI_Deinit(EXAMPLE_LPSPI_MASTER_BASEADDR);
 
-    PRINTF("End of master example! \r\n");
+    PRINTF("\r\nEnd of master example!\r\n");
 
     while (1)
     {

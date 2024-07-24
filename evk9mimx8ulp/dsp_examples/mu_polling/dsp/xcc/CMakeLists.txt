@@ -113,8 +113,6 @@ include_directories(${ProjDirPath}/../../../../../../core/components/uart)
 
 include_directories(${ProjDirPath}/../../../../../../core/drivers/lpuart)
 
-include_directories(${ProjDirPath}/../../../../../../core/utilities/str)
-
 include_directories(${ProjDirPath}/../../../../../../core/utilities/debug_console_lite)
 
 include_directories(${ProjDirPath}/../../../../../../core/utilities/assert)
@@ -131,6 +129,8 @@ include_directories(${ProjDirPath}/../../../../../../core/devices/MIMX8UD5/drive
 
 include_directories(${ProjDirPath}/../../../../../../core/devices/MIMX8UD5)
 
+include_directories(${ProjDirPath}/../../../../../../core/utilities/str)
+
 include_directories(${ProjDirPath}/../../../../../../core/CMSIS/Core/Include)
 
 include_directories(${ProjDirPath}/..)
@@ -140,8 +140,6 @@ add_executable(dsp_mu_polling_fusionf1.elf
 "${ProjDirPath}/../../../../../../core/components/uart/fsl_adapter_lpuart.c"
 "${ProjDirPath}/../../../../../../core/drivers/lpuart/fsl_lpuart.h"
 "${ProjDirPath}/../../../../../../core/drivers/lpuart/fsl_lpuart.c"
-"${ProjDirPath}/../../../../../../core/utilities/str/fsl_str.c"
-"${ProjDirPath}/../../../../../../core/utilities/str/fsl_str.h"
 "${ProjDirPath}/../../../../../../core/utilities/debug_console_lite/fsl_debug_console.c"
 "${ProjDirPath}/../../../../../../core/utilities/debug_console_lite/fsl_debug_console.h"
 "${ProjDirPath}/../../../../../../core/utilities/assert/fsl_assert.c"
@@ -164,6 +162,8 @@ add_executable(dsp_mu_polling_fusionf1.elf
 "${ProjDirPath}/../../../../../../core/devices/MIMX8UD5/MIMX8UD5_dsp0_features.h"
 "${ProjDirPath}/../../../../../../core/devices/MIMX8UD5/system_MIMX8UD5_dsp0.c"
 "${ProjDirPath}/../../../../../../core/devices/MIMX8UD5/system_MIMX8UD5_dsp0.h"
+"${ProjDirPath}/../../../../../../core/utilities/str/fsl_str.c"
+"${ProjDirPath}/../../../../../../core/utilities/str/fsl_str.h"
 "${ProjDirPath}/../main_dsp.c"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"

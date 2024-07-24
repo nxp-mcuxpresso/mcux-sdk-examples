@@ -9,28 +9,31 @@
 #define SBL_CONFIG_H__
 
 
+/* MCUBoot Flash Config */
 
-/* Flash device parameters */
-#if !(defined MONOLITHIC_APP && (MONOLITHIC_APP != 0))
-#define CONFIG_MCUBOOT_MAX_IMG_SECTORS 800
-#else
-#include "flash_partitioning.h"
-#endif
+#define CONFIG_MCUBOOT_MAX_IMG_SECTORS 1088u
 
-#if !(defined MONOLITHIC_APP && (MONOLITHIC_APP != 0))
-/* Number of image pairs (CPU3 A/B + CPU1 A/B)
- * Translates to MCUBOOT_IMAGE_NUMBER
- */
-#define CONFIG_UPDATEABLE_IMAGE_NUMBER 2
-#else
 /*
  * Number of image pairs is 1 in the case of the monolithic application.
  * This is mandated by the MATTER specification.
  */
 #define CONFIG_UPDATEABLE_IMAGE_NUMBER 1
-#endif
 
-/* Crypto */
+/*
+ * MCUBoot upgrade mode
+ *
+ * The default MCUBoot configuration is to use swap mechanism. In case the flash
+ * remapping functionality is supported by processor the alternative mechanism
+ * using direct-xip mode can be used and evaluated by user.
+ */
+#define CONFIG_MCUBOOT_FLASH_REMAP_ENABLE
+
+/* Board specific register for flash remap functionality */
+#define FLASH_REMAP_START_REG           0x40134420      /* RW61x flash remap start address register */
+#define FLASH_REMAP_END_REG             0x40134424      /* RW61x flash remap end address register */
+#define FLASH_REMAP_OFFSET_REG          0x40134428      /* RW61x flash remap offset register */
+
+/* Crypto Config */
 // #define CONFIG_BOOT_OTA_TEST
 /* uncomment to generate MCU boot for testing without image signature verification */
 

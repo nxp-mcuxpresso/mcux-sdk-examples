@@ -4,6 +4,8 @@
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
+#if CONFIG_NCP_BLE
+
 #include "ncp_ble.h"
 #include "ncp_glue_ble.h"
 #include <sys/atomic.h>
@@ -23,11 +25,41 @@
 #define CONTROLLER_INDEX 0
 #define CONTROLLER_NAME "ncp_ble"
 #endif
-   
+
 #define BT_LE_AD_DISCOV_MASK (BT_LE_AD_LIMITED | BT_LE_AD_GENERAL)
 /*consider ext_adv case*/
 #define ADV_BUF_LEN (sizeof(struct gap_device_found_ev) + 2 * 229)
 
+#if (defined(CONFIG_BLE_ADV_REPORT_BUFFER_LIMIT) && (CONFIG_BLE_ADV_REPORT_BUFFER_LIMIT > 0U))
+/* Global to configure the Peer ADV List size */
+#define APPL_BLE_PEER_ADV_MAX_REPORT_COUNT   30U
+/* BLE Adv Report */
+typedef struct
+{
+    /* BLE ADV Report Event Type */
+    uint8_t       event_type;
+    /* Device Address */
+    bt_addr_le_t  dev_addr;
+} APPL_BLE_PEER_ADV_REPORT;
+/* BLE Adv list pool*/
+static APPL_BLE_PEER_ADV_REPORT appl_hci_le_peer_adv_report[APPL_BLE_PEER_ADV_MAX_REPORT_COUNT];
+/* BLE Adv list full flag*/
+static uint8_t appl_hci_le_peer_adv_report_list_full;
+/* ADV List DS access macros */
+#define APPL_HCI_LE_GET_PEER_ADV_ADDR(i)    appl_hci_le_peer_adv_report[(i)].dev_addr
+#define APPL_HCI_LE_GET_PEER_ADV_TYPE(i)    appl_hci_le_peer_adv_report[(i)].event_type
+/* ADV List DS compare macros */
+#define BT_COMPARE_BD_ADDR_AND_TYPE(addr_a,addr_b)\
+        ((BT_COMPARE_TYPE((addr_a)->type,(addr_b)->type)) &&\
+         (BT_COMPARE_ADDR((addr_a)->a.val,(addr_b)->a.val)))
+#define BT_COMPARE_TYPE(type_a,type_b)\
+        (((type_a) == (type_b))?true:false)
+#define BT_COMPARE_ADDR(addr_a,addr_b)\
+        ((0 == memcmp((addr_a), (addr_b), 6))?true:false)
+#define BT_BD_ADDR_IS_NON_ZERO(addr)\
+        ((0x00U == ((addr)[0U] | (addr)[1U] | (addr)[2U] | (addr)[3U] | (addr)[4U] | (addr)[5U]))?\
+        false:true)
+#endif //#if (defined(CONFIG_BLE_ADV_REPORT_BUFFER_LIMIT) && (CONFIG_BLE_ADV_REPORT_BUFFER_LIMIT > 0U))
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -132,6 +164,12 @@ static uint8_t read_car_cb
 );
 #endif
 
+#if (defined(CONFIG_BLE_ADV_REPORT_BUFFER_LIMIT) && (CONFIG_BLE_ADV_REPORT_BUFFER_LIMIT > 0U))
+uint16_t appl_hci_le_is_dev_in_adv_list(bt_addr_le_t  *bd_addr, uint8_t *dev_index);
+uint16_t appl_hci_le_find_free_adv_list_inst(uint8_t * free_index);
+uint16_t appl_hci_le_init_adv_list(void);
+#endif //#if (defined(CONFIG_BLE_ADV_REPORT_BUFFER_LIMIT) && (CONFIG_BLE_ADV_REPORT_BUFFER_LIMIT > 0U))
+
 extern bool bt_addr_le_is_bonded(uint8_t id, const bt_addr_le_t *addr);
 /*******************************************************************************
  * Variables
@@ -225,7 +263,6 @@ static struct bt_conn_auth_cb auth_cb = {
 #endif
 };
 
-
 /*******************************************************************************
  * Code
  ******************************************************************************/
@@ -240,17 +277,17 @@ uint8_t bt_init(void)
     if (err < 0)
     {
         ncp_e("Unable to enable Bluetooth: %d", err);
-        return NCP_BRIDGE_CMD_RESULT_ERROR;
+        return NCP_CMD_RESULT_ERROR;
     }
 
-    return NCP_BRIDGE_CMD_RESULT_OK;
+    return NCP_CMD_RESULT_OK;
 }
 
 static void ncp_ble_init_cb(int err)
 {
     if (err)
     {
-        ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_CORE_SUPPORT_CMD, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
+        ble_prepare_status(NCP_RSP_BLE_CORE_SUPPORT_CMD, NCP_CMD_RESULT_ERROR, NULL, 0);
         return;
     }
 
@@ -276,7 +313,7 @@ static void ncp_ble_init_cb(int err)
 
 uint8_t ncp_ble_unregister_gap(void)
 {
-    return NCP_BRIDGE_CMD_RESULT_OK;
+    return NCP_CMD_RESULT_OK;
 }
 
 #if 0
@@ -324,7 +361,7 @@ static void supported_commands(uint8_t *data, uint16_t len)
 
     ncp_ble_set_bit(cmds, GAP_SET_FILTER_LIST);
 
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_GAP) << 16) | GAP_READ_SUPPORTED_COMMANDS, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *) rp, sizeof(cmds));
+    ble_prepare_status(NCP_RSP_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_GAP) << 16) | GAP_READ_SUPPORTED_COMMANDS, NCP_CMD_RESULT_OK, (uint8_t *) rp, sizeof(cmds));
 }
 
 /*
@@ -340,7 +377,7 @@ static void controller_index_list(uint8_t *data,  uint16_t len)
     rp->num = 1U;
     rp->index = CONTROLLER_INDEX;
 
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_GAP) << 16) | GAP_READ_CONTROLLER_INDEX_LIST, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *) rp, sizeof(buf));
+    ble_prepare_status(NCP_RSP_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_GAP) << 16) | GAP_READ_CONTROLLER_INDEX_LIST, NCP_CMD_RESULT_OK, (uint8_t *) rp, sizeof(buf));
 }
 
 /*
@@ -387,7 +424,7 @@ static void controller_info(uint8_t *data, uint16_t len)
 
     memcpy(rp.name, CONTROLLER_NAME, sizeof(CONTROLLER_NAME));
 
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_GAP) << 16) | GAP_READ_CONTROLLER_INFO, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *) &rp, sizeof(rp));
+    ble_prepare_status(NCP_RSP_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_GAP) << 16) | GAP_READ_CONTROLLER_INFO, NCP_CMD_RESULT_OK, (uint8_t *) &rp, sizeof(rp));
 }
 
 /*
@@ -408,7 +445,7 @@ static void set_connectable(uint8_t *data, uint16_t len)
 
     rp.current_settings = sys_cpu_to_le32(current_settings[0]);
 
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_GAP) << 16) | GAP_SET_CONNECTABLE, NCP_BRIDGE_CMD_RESULT_OK,
+    ble_prepare_status(NCP_RSP_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_GAP) << 16) | GAP_SET_CONNECTABLE, NCP_CMD_RESULT_OK,
             (uint8_t *) &rp, sizeof(rp));
 }
 
@@ -441,13 +478,13 @@ static void set_discoverable(uint8_t *data, uint16_t len)
         break;
 
         default:
-            ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_GAP) << 16) | GAP_SET_DISCOVERABLE, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
+            ble_prepare_status(NCP_RSP_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_GAP) << 16) | GAP_SET_DISCOVERABLE, NCP_CMD_RESULT_ERROR, NULL, 0);
         break;
     }
 
     rp.current_settings = sys_cpu_to_le32(current_settings[0]);
 
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_GAP) << 16) | GAP_SET_DISCOVERABLE, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *) &rp, sizeof(rp));
+    ble_prepare_status(NCP_RSP_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_GAP) << 16) | GAP_SET_DISCOVERABLE, NCP_CMD_RESULT_OK, (uint8_t *) &rp, sizeof(rp));
 }
 
 /*
@@ -472,7 +509,7 @@ static void set_bondable(uint8_t *data, uint16_t len)
 
     rp.current_settings = sys_cpu_to_le32(current_settings[0]);
 
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_GAP) << 16) | GAP_SET_BONDABLE, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *) &rp, sizeof(rp));
+    ble_prepare_status(NCP_RSP_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_GAP) << 16) | GAP_SET_BONDABLE, NCP_CMD_RESULT_OK, (uint8_t *) &rp, sizeof(rp));
 }
 #endif
 
@@ -494,7 +531,7 @@ void start_advertising(void)
                     ad, adv_data_num, ad, adv_data_num) < 0)
         {
             early_return = true;
-            ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GAP_START_ADV, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
+            ble_prepare_status(NCP_RSP_BLE_GAP_START_ADV, NCP_CMD_RESULT_ERROR, NULL, 0);
         }
 
         if (early_return == false)
@@ -502,7 +539,7 @@ void start_advertising(void)
             atomic_set_bit(current_settings, GAP_SETTINGS_ADVERTISING);
             rp.current_settings = sys_cpu_to_le32(current_settings[0]);
 
-            ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GAP_START_ADV, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *) &rp, sizeof(rp));
+            ble_prepare_status(NCP_RSP_BLE_GAP_START_ADV, NCP_CMD_RESULT_OK, (uint8_t *) &rp, sizeof(rp));
         }
     }
 }
@@ -532,12 +569,12 @@ void set_adv_data(const uint8_t *data, uint16_t len)
     if (i == cmd->adv_data_len)
     {
       adv_data_num = adv_len;
-      ncp_d("adv_data_set_flag %d\r\n", adv_data_set_flag);
-      ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GAP_SET_ADV_DATA, NCP_BRIDGE_CMD_RESULT_OK, NULL, 0);
+      //ncp_d("adv_data_set_flag %d\r\n", adv_data_set_flag);
+      ble_prepare_status(NCP_RSP_BLE_GAP_SET_ADV_DATA, NCP_CMD_RESULT_OK, NULL, 0);
     }
     else
     {
-      ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GAP_SET_ADV_DATA, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
+      ble_prepare_status(NCP_RSP_BLE_GAP_SET_ADV_DATA, NCP_CMD_RESULT_ERROR, NULL, 0);
     }
 }
 
@@ -552,7 +589,7 @@ void stop_advertising(const uint8_t *data, uint16_t len)
 
     err = bt_le_adv_stop();
     if (err < 0) {
-        ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GAP_STOP_ADV, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
+        ble_prepare_status(NCP_RSP_BLE_GAP_STOP_ADV, NCP_CMD_RESULT_ERROR, NULL, 0);
         ncp_e("Failed to stop advertising: %d", err);
         early_return = true;
     }
@@ -562,7 +599,7 @@ void stop_advertising(const uint8_t *data, uint16_t len)
         atomic_clear_bit(current_settings, GAP_SETTINGS_ADVERTISING);
         rp.current_settings = sys_cpu_to_le32(current_settings[0]);
 
-        ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GAP_STOP_ADV, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *) &rp, sizeof(rp));
+        ble_prepare_status(NCP_RSP_BLE_GAP_STOP_ADV, NCP_CMD_RESULT_OK, (uint8_t *) &rp, sizeof(rp));
     }
 }
 
@@ -577,7 +614,7 @@ void set_scan_parameter(const uint8_t *data, uint16_t len)
     scan_parameter.interval = cmd->interval;
     scan_parameter.window = cmd->window;
     ncp_d("scan_parameter.options %d\r\n", scan_parameter.options);
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GAP_SET_SCAN_PARAM, NCP_BRIDGE_CMD_RESULT_OK, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE_GAP_SET_SCAN_PARAM, NCP_CMD_RESULT_OK, NULL, 0);
 }
 
 /*
@@ -591,28 +628,31 @@ void start_discovery(const uint8_t *data, uint16_t len)
     /* only LE scan is supported */
     if (cmd->flags & GAP_DISCOVERY_FLAG_BREDR)
     {
-        status = NCP_BRIDGE_CMD_RESULT_ERROR;
+        status = NCP_CMD_RESULT_ERROR;
 
-        ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GAP_START_SCAN, status, NULL, 0);
+        ble_prepare_status(NCP_RSP_BLE_GAP_START_SCAN, status, NULL, 0);
     }
     else
     {
+#if (defined(CONFIG_BLE_ADV_REPORT_BUFFER_LIMIT) && (CONFIG_BLE_ADV_REPORT_BUFFER_LIMIT > 0U))
+        appl_hci_le_init_adv_list();
+#endif //#if (defined(CONFIG_BLE_ADV_REPORT_BUFFER_LIMIT) && (CONFIG_BLE_ADV_REPORT_BUFFER_LIMIT > 0U))
         scan_parameter.type = cmd->flags & GAP_DISCOVERY_FLAG_LE_ACTIVE_SCAN ?
                      BT_LE_SCAN_TYPE_ACTIVE : BT_LE_SCAN_TYPE_PASSIVE;
         ncp_d("scan_parameter.options %d\r\n", scan_parameter.options);
         if (bt_le_scan_start(&scan_parameter,
                      device_found) < 0)
         {
-            status = NCP_BRIDGE_CMD_RESULT_ERROR;
+            status = NCP_CMD_RESULT_ERROR;
             ncp_e("Failed to start scanning");
-            ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GAP_START_SCAN, status, NULL, 0);
+            ble_prepare_status(NCP_RSP_BLE_GAP_START_SCAN, status, NULL, 0);
         }
         else
         {
             net_buf_simple_init(adv_buf, 0);
             discovery_flags = cmd->flags;
-            status = NCP_BRIDGE_CMD_RESULT_OK;
-            ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GAP_START_SCAN, status, NULL, 0);
+            status = NCP_CMD_RESULT_OK;
+            ble_prepare_status(NCP_RSP_BLE_GAP_START_SCAN, status, NULL, 0);
         }
     }
 }
@@ -663,10 +703,10 @@ static void start_directed_advertising(const uint8_t *data, uint16_t len)
     atomic_set_bit(current_settings, GAP_SETTINGS_ADVERTISING);
     rp.current_settings = sys_cpu_to_le32(current_settings[0]);
 
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_GAP) << 16) | GAP_START_DIRECTED_ADV, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *)&rp, sizeof(rp));
+    ble_prepare_status(NCP_RSP_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_GAP) << 16) | GAP_START_DIRECTED_ADV, NCP_CMD_RESULT_OK, (uint8_t *)&rp, sizeof(rp));
     return;
 fail:
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_GAP) << 16) | GAP_START_DIRECTED_ADV, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_GAP) << 16) | GAP_START_DIRECTED_ADV, NCP_CMD_RESULT_ERROR, NULL, 0);
 }
 #endif
 
@@ -676,17 +716,17 @@ fail:
  */
 void stop_discovery(const uint8_t *data, uint16_t len)
 {
-    uint8_t status = NCP_BRIDGE_CMD_RESULT_OK;
+    uint8_t status = NCP_CMD_RESULT_OK;
     int err;
 
     err = bt_le_scan_stop();
     if (err < 0)
     {
         ncp_e("Failed to stop scanning: %d", err);
-        status = NCP_BRIDGE_CMD_RESULT_ERROR;
+        status = NCP_CMD_RESULT_ERROR;
     }
 
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GAP_STOP_SCAN, status, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE_GAP_STOP_SCAN, status, NULL, 0);
 }
 
 /*
@@ -696,7 +736,7 @@ void stop_discovery(const uint8_t *data, uint16_t len)
 void ble_connect(const uint8_t *data, uint16_t len)
 {
     const bt_addr_le_t *addr = (const bt_addr_le_t *)data;
-    uint8_t status = NCP_BRIDGE_CMD_RESULT_OK;
+    uint8_t status = NCP_CMD_RESULT_OK;
     int err;
 
     if (bt_addr_le_cmp(addr, BT_ADDR_LE_ANY) != 0) {
@@ -706,7 +746,7 @@ void ble_connect(const uint8_t *data, uint16_t len)
                     BT_LE_CONN_PARAM_DEFAULT, &conn);
         if (err) {
             ncp_e("Failed to create connection (%d)", err);
-            status = NCP_BRIDGE_CMD_RESULT_ERROR;
+            status = NCP_CMD_RESULT_ERROR;
         }
         else
         {
@@ -717,11 +757,11 @@ void ble_connect(const uint8_t *data, uint16_t len)
                          BT_LE_CONN_PARAM_DEFAULT);
         if (err) {
             ncp_e("Failed to create auto connection (%d)", err);
-            status = NCP_BRIDGE_CMD_RESULT_ERROR;
+            status = NCP_CMD_RESULT_ERROR;
         }
     }
 
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GAP_CONNECT, status, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE_GAP_CONNECT, status, NULL, 0);
 }
 
 /*
@@ -736,7 +776,7 @@ void disconnect(const uint8_t *data, uint16_t len)
     conn = bt_conn_lookup_addr_le(BT_ID_DEFAULT, (bt_addr_le_t *)data);
     if (!conn)
     {
-        status = NCP_BRIDGE_CMD_RESULT_ERROR;
+        status = NCP_CMD_RESULT_ERROR;
         ncp_e("Unknown connection");
     }
     else
@@ -744,16 +784,16 @@ void disconnect(const uint8_t *data, uint16_t len)
         if (bt_conn_disconnect(conn, BT_HCI_ERR_REMOTE_USER_TERM_CONN))
         {
             ncp_e("Failed to disconnect");
-            status = NCP_BRIDGE_CMD_RESULT_ERROR;
+            status = NCP_CMD_RESULT_ERROR;
         }
         else
         {
-            status = NCP_BRIDGE_CMD_RESULT_OK;
+            status = NCP_CMD_RESULT_OK;
             bt_conn_unref(conn);
         }
     }
 
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GAP_DISCONNECT, status, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE_GAP_DISCONNECT, status, NULL, 0);
 }
 
 #if (defined(CONFIG_BT_USER_DATA_LEN_UPDATE) && (CONFIG_BT_USER_DATA_LEN_UPDATE > 0))
@@ -773,7 +813,7 @@ static uint16_t tx_time_calc(uint8_t phy, uint16_t max_len)
 		/* S8: Preamble + CI + TERM1 + 64 us per byte + TERM2 */
 		return 80 + 16 + 24 + 64 * (total_len) + 24;
 	default:
-		return NCP_BRIDGE_CMD_RESULT_OK;
+		return NCP_CMD_RESULT_OK;
 	}
 }
 
@@ -785,7 +825,7 @@ void set_data_len(const uint8_t *data, uint16_t len)
     const struct gap_set_data_len_cmd *cmd = (void *) data;
     struct bt_conn *conn;
     struct bt_conn_le_data_len_param param;
-    uint8_t status = NCP_BRIDGE_CMD_RESULT_ERROR;
+    uint8_t status = NCP_CMD_RESULT_ERROR;
     int err;
 
     param.tx_max_len = cmd->tx_max_len;
@@ -815,9 +855,9 @@ void set_data_len(const uint8_t *data, uint16_t len)
 	}
         err = bt_conn_le_data_len_update(conn, &param);
         bt_conn_unref(conn);
-        status = err < 0 ? NCP_BRIDGE_CMD_RESULT_ERROR : NCP_BRIDGE_CMD_RESULT_OK;
+        status = err < 0 ? NCP_CMD_RESULT_ERROR : NCP_CMD_RESULT_OK;
     }
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GAP_SET_DATA_LEN, status, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE_GAP_SET_DATA_LEN, status, NULL, 0);
 }
 #endif
 
@@ -830,7 +870,7 @@ void set_phy(const uint8_t *data, uint16_t len)
     const struct gap_set_phy_cmd *cmd = (void *) data;
     struct bt_conn *conn;
     struct bt_conn_le_phy_param param;
-    uint8_t status = NCP_BRIDGE_CMD_RESULT_ERROR;
+    uint8_t status = NCP_CMD_RESULT_ERROR;
     int err;
 
     param.pref_tx_phy = cmd->pref_tx_phy;
@@ -841,9 +881,9 @@ void set_phy(const uint8_t *data, uint16_t len)
     {
         err = bt_conn_le_phy_update(conn, &param);
         bt_conn_unref(conn);
-        status = err < 0 ? NCP_BRIDGE_CMD_RESULT_ERROR : NCP_BRIDGE_CMD_RESULT_OK;
+        status = err < 0 ? NCP_CMD_RESULT_ERROR : NCP_CMD_RESULT_OK;
     }
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GAP_SET_PHY, status, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE_GAP_SET_PHY, status, NULL, 0);
 }
 #endif
 #if 0
@@ -853,7 +893,7 @@ void set_phy(const uint8_t *data, uint16_t len)
 static void set_io_cap(const uint8_t *data, uint16_t len)
 {
     const struct gap_set_io_cap_cmd *cmd = (void *) data;
-    uint8_t status = NCP_BRIDGE_CMD_RESULT_OK;
+    uint8_t status = NCP_CMD_RESULT_OK;
 
     /* Reset io cap requirements */
     (void)memset(&cb, 0, sizeof(cb));
@@ -890,11 +930,11 @@ static void set_io_cap(const uint8_t *data, uint16_t len)
         break;
 
         default:
-            status = NCP_BRIDGE_CMD_RESULT_ERROR;
+            status = NCP_CMD_RESULT_ERROR;
         break;
     }
 
-    if (status != NCP_BRIDGE_CMD_RESULT_ERROR)
+    if (status != NCP_CMD_RESULT_ERROR)
     {
 #if (defined(CONFIG_BT_SMP) && (CONFIG_BT_SMP > 0U))
 #if (defined(CONFIG_BT_SMP_APP_PAIRING_ACCEPT) && (CONFIG_BT_SMP_APP_PAIRING_ACCEPT > 0U))
@@ -902,12 +942,12 @@ static void set_io_cap(const uint8_t *data, uint16_t len)
 #endif
         if (bt_conn_auth_cb_register(&cb))
         {
-            status = NCP_BRIDGE_CMD_RESULT_ERROR;
+            status = NCP_CMD_RESULT_ERROR;
         }
 #endif
     }
 
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_GAP) << 16) | GAP_SET_IO_CAP, status, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_GAP) << 16) | GAP_SET_IO_CAP, status, NULL, 0);
 }
 #endif
 
@@ -926,7 +966,7 @@ void pair(const uint8_t *data, uint16_t len)
     conn = bt_conn_lookup_addr_le(BT_ID_DEFAULT, (bt_addr_le_t *)data);
     if (!conn)
     {
-        status = NCP_BRIDGE_CMD_RESULT_ERROR;
+        status = NCP_CMD_RESULT_ERROR;
     }
     else
     {
@@ -934,18 +974,18 @@ void pair(const uint8_t *data, uint16_t len)
         err = bt_conn_set_security(conn, BT_SECURITY_L2);
         if (err < 0)
         {
-            status = NCP_BRIDGE_CMD_RESULT_ERROR;
+            status = NCP_CMD_RESULT_ERROR;
             bt_conn_unref(conn);
         }
         else
         {
             bt_conn_unref(conn);
-            status = NCP_BRIDGE_CMD_RESULT_OK;
+            status = NCP_CMD_RESULT_OK;
         }
 #endif
     }
 
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GAP_PAIR, status, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE_GAP_PAIR, status, NULL, 0);
 }
 
 #if 0
@@ -967,7 +1007,7 @@ static void unpair(const uint8_t *data, uint16_t len)
     if (!conn)
     {
         err = bt_unpair(BT_ID_DEFAULT, &addr);
-        status = err < 0 ? NCP_BRIDGE_CMD_RESULT_ERROR : NCP_BRIDGE_CMD_RESULT_OK;
+        status = err < 0 ? NCP_CMD_RESULT_ERROR : NCP_CMD_RESULT_OK;
     }
     else
     {
@@ -976,16 +1016,16 @@ static void unpair(const uint8_t *data, uint16_t len)
 
         if (err < 0)
         {
-            status = NCP_BRIDGE_CMD_RESULT_ERROR;
+            status = NCP_CMD_RESULT_ERROR;
         }
         else
         {
             err = bt_unpair(BT_ID_DEFAULT, &addr);
-            status = err < 0 ? NCP_BRIDGE_CMD_RESULT_ERROR : NCP_BRIDGE_CMD_RESULT_OK;
+            status = err < 0 ? NCP_CMD_RESULT_ERROR : NCP_CMD_RESULT_OK;
         }
     }
 
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_GAP) << 16) | GAP_UNPAIR, status, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_GAP) << 16) | GAP_UNPAIR, status, NULL, 0);
 }
 
 /*
@@ -1002,18 +1042,18 @@ static void passkey_entry(const uint8_t *data, uint16_t len)
     conn = bt_conn_lookup_addr_le(BT_ID_DEFAULT, (bt_addr_le_t *)data);
     if (!conn)
     {
-        status = NCP_BRIDGE_CMD_RESULT_ERROR;
+        status = NCP_CMD_RESULT_ERROR;
     }
     else
     {
 #if (defined(CONFIG_BT_SMP) && (CONFIG_BT_SMP > 0U))
         err = bt_conn_auth_passkey_entry(conn, sys_le32_to_cpu(cmd->passkey));
         bt_conn_unref(conn);
-        status = err < 0 ? NCP_BRIDGE_CMD_RESULT_ERROR : NCP_BRIDGE_CMD_RESULT_OK;
+        status = err < 0 ? NCP_CMD_RESULT_ERROR : NCP_CMD_RESULT_OK;
 #endif
     }
 
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_GAP) << 16) | GAP_PASSKEY_ENTRY, status, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_GAP) << 16) | GAP_PASSKEY_ENTRY, status, NULL, 0);
 }
 
 
@@ -1031,7 +1071,7 @@ static void passkey_confirm(const uint8_t *data, uint16_t len)
     conn = bt_conn_lookup_addr_le(BT_ID_DEFAULT, (bt_addr_le_t *)data);
     if (!conn)
     {
-        status = NCP_BRIDGE_CMD_RESULT_ERROR;
+        status = NCP_CMD_RESULT_ERROR;
     }
     else
     {
@@ -1046,10 +1086,10 @@ static void passkey_confirm(const uint8_t *data, uint16_t len)
         }
 #endif
         bt_conn_unref(conn);
-        status = err < 0 ? NCP_BRIDGE_CMD_RESULT_ERROR : NCP_BRIDGE_CMD_RESULT_OK;
+        status = err < 0 ? NCP_CMD_RESULT_ERROR : NCP_CMD_RESULT_OK;
     }
 
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_GAP) << 16) | GAP_PASSKEY_CONFIRM, status, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_GAP) << 16) | GAP_PASSKEY_CONFIRM, status, NULL, 0);
 }
 #endif
 
@@ -1067,7 +1107,7 @@ void conn_param_update(const uint8_t *data, uint16_t len)
         .timeout = sys_le16_to_cpu(cmd->timeout),
     };
     struct bt_conn *conn;
-    uint8_t status = NCP_BRIDGE_CMD_RESULT_ERROR;
+    uint8_t status = NCP_CMD_RESULT_ERROR;
     int err;
 
     conn = bt_conn_lookup_addr_le(BT_ID_DEFAULT, (bt_addr_le_t *)data);
@@ -1075,10 +1115,10 @@ void conn_param_update(const uint8_t *data, uint16_t len)
     {
         err = bt_conn_le_param_update(conn, &param);
         bt_conn_unref(conn);
-        status = err < 0 ? NCP_BRIDGE_CMD_RESULT_ERROR : NCP_BRIDGE_CMD_RESULT_OK;
+        status = err < 0 ? NCP_CMD_RESULT_ERROR : NCP_CMD_RESULT_OK;
     }
 
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GAP_CONN_PARAM_UPDATE, status, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE_GAP_CONN_PARAM_UPDATE, status, NULL, 0);
 }
 
 #if 0
@@ -1087,7 +1127,7 @@ void conn_param_update(const uint8_t *data, uint16_t len)
  */
 static void set_mitm(const uint8_t *data, uint16_t len)
 {
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_GAP) << 16) | GAP_SET_MITM, NCP_BRIDGE_CMD_RESULT_OK, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_GAP) << 16) | GAP_SET_MITM, NCP_CMD_RESULT_OK, NULL, 0);
 }
 
 /*
@@ -1103,7 +1143,7 @@ static void set_oob_legacy_data(const uint8_t *data, uint16_t len)
 #endif
     cb.oob_data_request = oob_data_request;
 
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_GAP) << 16) | GAP_OOB_LEGACY_SET_DATA, NCP_BRIDGE_CMD_RESULT_OK, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_GAP) << 16) | GAP_OOB_LEGACY_SET_DATA, NCP_CMD_RESULT_OK, NULL, 0);
 }
 #endif
 
@@ -1117,7 +1157,7 @@ static void set_oob_legacy_data(const uint8_t *data, uint16_t len)
 static void le_connected(struct bt_conn *conn, uint8_t err)
 {
     struct gap_device_connected_ev ev = {0};
-    struct bt_conn_info info = {0};
+    struct bt_conn_info info;
 
     if (err)
     {
@@ -1138,7 +1178,7 @@ static void le_connected(struct bt_conn *conn, uint8_t err)
         le_service_connect(conn, err);
         is_create_conn_cmd = true;
         
-        ble_bridge_prepare_status(NCP_BRIDGE_EVENT_DEVICE_CONNECTED, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *) &ev, sizeof(ev));
+        ble_prepare_status(NCP_EVENT_DEVICE_CONNECTED, NCP_CMD_RESULT_OK, (uint8_t *) &ev, sizeof(ev));
     }
 }
 
@@ -1159,7 +1199,7 @@ static void le_disconnected(struct bt_conn *conn, uint8_t reason)
     // for profile service disconnect callback
     le_service_disconnect(conn, reason);
 
-    ble_bridge_prepare_status(NCP_BRIDGE_EVENT_DEVICE_DISCONNECT, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *) &ev, sizeof(ev));
+    ble_prepare_status(NCP_EVENT_DEVICE_DISCONNECT, NCP_CMD_RESULT_OK, (uint8_t *) &ev, sizeof(ev));
 }
 
 /*
@@ -1178,7 +1218,7 @@ static void le_identity_resolved(struct bt_conn *conn, const bt_addr_le_t *rpa,
     memcpy(ev.identity_address, identity->a.val,
            sizeof(ev.identity_address));
 
-    ble_bridge_prepare_status(NCP_BRIDGE_EVENT_IDENITY_RESOLVED, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *) &ev, sizeof(ev));
+    ble_prepare_status(NCP_EVENT_IDENITY_RESOLVED, NCP_CMD_RESULT_OK, (uint8_t *) &ev, sizeof(ev));
 }
 
 /*
@@ -1200,7 +1240,7 @@ static void le_param_updated(struct bt_conn *conn, uint16_t interval,
     ev.timeout = sys_cpu_to_le16(timeout);
 
     if(!is_create_conn_cmd) {
-        ble_bridge_prepare_status(NCP_BRIDGE_EVENT_CONN_PARAM_UPDATE, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *) &ev, sizeof(ev));
+        ble_prepare_status(NCP_EVENT_CONN_PARAM_UPDATE, NCP_CMD_RESULT_OK, (uint8_t *) &ev, sizeof(ev));
     }
 }
 
@@ -1225,7 +1265,7 @@ static void le_data_len_updated(struct bt_conn *conn,
     ev.rx_max_time = info->rx_max_time;
 
     if(!is_create_conn_cmd) {
-        ble_bridge_prepare_status(NCP_BRIDGE_EVENT_DATA_LEN_UPDATED, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *) &ev, sizeof(ev));
+        ble_prepare_status(NCP_EVENT_DATA_LEN_UPDATED, NCP_CMD_RESULT_OK, (uint8_t *) &ev, sizeof(ev));
     }
 }
 #endif
@@ -1246,7 +1286,7 @@ static void le_phy_updated(struct bt_conn *conn,
     ev.rx_phy = info->rx_phy;
 
     if(!is_create_conn_cmd) {
-        ble_bridge_prepare_status(NCP_BRIDGE_EVENT_PHY_UPDATED, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *) &ev, sizeof(ev));
+        ble_prepare_status(NCP_EVENT_PHY_UPDATED, NCP_CMD_RESULT_OK, (uint8_t *) &ev, sizeof(ev));
     }
 }
 #endif
@@ -1260,7 +1300,7 @@ static void le_security_changed(struct bt_conn *conn, bt_security_t level,
     const bt_addr_le_t *addr = bt_conn_get_dst(conn);
     struct gap_sec_level_changed_ev sec_ev = {0};
     struct gap_bond_lost_ev bond_ev = {0};
-    struct bt_conn_info info = {0};
+    struct bt_conn_info info;
     int res;
 
     switch (err)
@@ -1298,7 +1338,7 @@ static void le_security_changed(struct bt_conn *conn, bt_security_t level,
 
             if (!is_create_conn_cmd)
             {
-                ble_bridge_prepare_status(NCP_BRIDGE_EVENT_SEC_LEVEL_CHANGED, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *) &sec_ev, sizeof(sec_ev));
+                ble_prepare_status(NCP_EVENT_SEC_LEVEL_CHANGED, NCP_CMD_RESULT_OK, (uint8_t *) &sec_ev, sizeof(sec_ev));
             }
         break;
 
@@ -1319,7 +1359,7 @@ static void le_security_changed(struct bt_conn *conn, bt_security_t level,
 
                 if (!is_create_conn_cmd)
                 {
-                    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_EVENT | GAP_EV_BOND_LOST, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *)&bond_ev, sizeof(bond_ev));
+                    ble_prepare_status(NCP_EVENT_BOND_LOST, NCP_CMD_RESULT_OK, (uint8_t *)&bond_ev, sizeof(bond_ev));
                 }
 #if (defined(CONFIG_BT_SMP) && (CONFIG_BT_SMP > 0U))
                 (void)bt_conn_set_security(conn, (bt_security_t)(BT_SECURITY_L2 | BT_SECURITY_FORCE_PAIR));
@@ -1342,6 +1382,9 @@ static void le_security_changed(struct bt_conn *conn, bt_security_t level,
 void device_found(const bt_addr_le_t *addr, int8_t rssi, uint8_t evtype,
              struct net_buf_simple *ad)
 {
+#if (defined(CONFIG_BLE_ADV_REPORT_BUFFER_LIMIT) && (CONFIG_BLE_ADV_REPORT_BUFFER_LIMIT > 0U))
+    uint8_t index = 0U;
+#endif //#if (defined(CONFIG_BLE_ADV_REPORT_BUFFER_LIMIT) && (CONFIG_BLE_ADV_REPORT_BUFFER_LIMIT > 0U))
     /* if General/Limited Discovery - parse Advertising data to get flags */
     if (!(discovery_flags & GAP_DISCOVERY_FLAG_LE_OBSERVE) &&
         (evtype != BT_GAP_ADV_TYPE_SCAN_RSP))
@@ -1394,13 +1437,56 @@ void device_found(const bt_addr_le_t *addr, int8_t rssi, uint8_t evtype,
         goto done;
     }
 
+#if (defined(CONFIG_BLE_ADV_REPORT_BUFFER_LIMIT) && (CONFIG_BLE_ADV_REPORT_BUFFER_LIMIT > 0U))
+    /**
+     * Validate is this device already exists in the list.
+     *  If device is present in the list already, fetch the index at which
+     *  the Adv packet is saved in the list.
+     */
+    if (NCP_CMD_RESULT_OK != appl_hci_le_is_dev_in_adv_list((bt_addr_le_t *)addr, &index))
+    {
+         /**
+          * Device is not present in the list,
+          * add the device to the list.
+          */
+         if (NCP_CMD_RESULT_OK == appl_hci_le_find_free_adv_list_inst(&index))
+         {
+             /* Save the Event type */
+             APPL_HCI_LE_GET_PEER_ADV_TYPE(index) = evtype;
+             /* Save the Device address and Type */
+             APPL_HCI_LE_GET_PEER_ADV_ADDR(index).type = addr->type;
+             memcpy(&(APPL_HCI_LE_GET_PEER_ADV_ADDR(index).a.val), addr->a.val, 6);
+             ncp_d("\n%d. BLE ADV Report\n", (index + 1U));
+             ncp_d("===================\n");
+             ncp_d("Event Type    : 0x%02X\n", APPL_HCI_LE_GET_PEER_ADV_TYPE(index));
+             ncp_d("Device Address: ADDR: %02X %02X %02X %02X %02X %02X, TYPE: %02X \n",
+                      APPL_HCI_LE_GET_PEER_ADV_ADDR(index).a.val[0U],\
+                      APPL_HCI_LE_GET_PEER_ADV_ADDR(index).a.val[1U],\
+                      APPL_HCI_LE_GET_PEER_ADV_ADDR(index).a.val[2U],\
+                      APPL_HCI_LE_GET_PEER_ADV_ADDR(index).a.val[3U],\
+                      APPL_HCI_LE_GET_PEER_ADV_ADDR(index).a.val[4U],\
+                      APPL_HCI_LE_GET_PEER_ADV_ADDR(index).a.val[5U],\
+                      APPL_HCI_LE_GET_PEER_ADV_ADDR(index).type);
+         }
+         else
+         {   
+             /*adv device list full*/
+             return;
+         }
+    }
+    else
+    {
+         /* duplicate adv device*/
+         return;
+    }
+#endif //#if (defined(CONFIG_BLE_ADV_REPORT_BUFFER_LIMIT) && (CONFIG_BLE_ADV_REPORT_BUFFER_LIMIT > 0U))
     /*
      * if there is another pending advertisement, send it and store the
      * current one
      */
     if (adv_buf->len)
     {
-        ble_bridge_prepare_status(NCP_BRIDGE_EVENT_ADV_REPORT, NCP_BRIDGE_CMD_RESULT_OK, adv_buf->data, adv_buf->len);
+        ble_prepare_status(NCP_EVENT_ADV_REPORT, NCP_CMD_RESULT_OK, adv_buf->data, adv_buf->len);
         net_buf_simple_reset(adv_buf);
     }
 
@@ -1415,7 +1501,7 @@ void device_found(const bt_addr_le_t *addr, int8_t rssi, uint8_t evtype,
     }
 
 done:
-    ble_bridge_prepare_status(NCP_BRIDGE_EVENT_ADV_REPORT, NCP_BRIDGE_CMD_RESULT_OK, adv_buf->data, adv_buf->len);
+    ble_prepare_status(NCP_EVENT_ADV_REPORT, NCP_CMD_RESULT_OK, adv_buf->data, adv_buf->len);
     net_buf_simple_reset(adv_buf);
 }
 #if (defined(CONFIG_BT_SMP) && (CONFIG_BT_SMP > 0U))
@@ -1443,7 +1529,7 @@ enum bt_security_err auth_pairing_accept(struct bt_conn *conn,
         ev.address_type = addr->type;
     }
 
-    ble_bridge_prepare_status(NCP_BRIDGE_EVENT_BOND_LOST, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *)&ev, sizeof(ev));
+    ble_prepare_status(NCP_EVENT_BOND_LOST, NCP_CMD_RESULT_OK, (uint8_t *)&ev, sizeof(ev));
 
     return BT_SECURITY_ERR_SUCCESS;
 }
@@ -1459,7 +1545,7 @@ static uint8_t read_car_cb
     uint16_t length
 )
 {
-    struct bt_conn_info info = {0};
+    struct bt_conn_info info;
     bool supported = false;
 
     if (!err && data && length == 1) {
@@ -1496,7 +1582,7 @@ void auth_pairing_failed(struct bt_conn *conn, enum bt_security_err reason)
     }
     ev.reason = reason;
     if(!is_create_conn_cmd) {
-        ble_bridge_prepare_status(NCP_BRIDGE_EVENT_PAIRING_FAILED, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *)&ev, sizeof(ev));
+        ble_prepare_status(NCP_EVENT_PAIRING_FAILED, NCP_CMD_RESULT_OK, (uint8_t *)&ev, sizeof(ev));
     }
 }
 
@@ -1566,7 +1652,7 @@ static void auth_passkey_display(struct bt_conn *conn, unsigned int passkey)
     // for profile service auth passkey callback
     le_service_auth_passkey(conn, passkey);
 
-    ble_bridge_prepare_status(NCP_BRIDGE_EVENT_PASSKEY_DISPLAY, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *) &ev, sizeof(ev));
+    ble_prepare_status(NCP_EVENT_PASSKEY_DISPLAY, NCP_CMD_RESULT_OK, (uint8_t *) &ev, sizeof(ev));
 }
 
 #if 0
@@ -1581,7 +1667,7 @@ static void auth_passkey_entry(struct bt_conn *conn)
         ev.address_type = addr->type;
     }
 
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_EVENT | GAP_EV_PASSKEY_ENTRY_REQ, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *) &ev, sizeof(ev));
+    ble_prepare_status(NCP_RSP_BLE | NCP_CMD_BLE_EVENT | GAP_EV_PASSKEY_ENTRY_REQ, NCP_CMD_RESULT_OK, (uint8_t *) &ev, sizeof(ev));
 }
 
 static void auth_passkey_confirm(struct bt_conn *conn, unsigned int passkey)
@@ -1596,7 +1682,7 @@ static void auth_passkey_confirm(struct bt_conn *conn, unsigned int passkey)
     }
     ev.passkey = sys_cpu_to_le32(passkey);
 
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | NCP_BRIDGE_CMD_BLE_EVENT | GAP_EV_PASSKEY_CONFIRM_REQ, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *) &ev, sizeof(ev));
+    ble_prepare_status(NCP_RSP_BLE | NCP_CMD_BLE_EVENT | GAP_EV_PASSKEY_CONFIRM_REQ, NCP_CMD_RESULT_OK, (uint8_t *) &ev, sizeof(ev));
 }
 #endif
 
@@ -1696,7 +1782,7 @@ static void get_oob_sc_local_data(void)
 
     memcpy(&rp.conf[0], &oob_sc_local.le_sc_data.c[0], sizeof(rp.conf));
     memcpy(&rp.rand[0], &oob_sc_local.le_sc_data.r[0], sizeof(rp.rand));
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_GAP) << 16) | GAP_OOB_SC_GET_LOCAL_DATA, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *)&rp, sizeof(rp));
+    ble_prepare_status(NCP_RSP_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_GAP) << 16) | GAP_OOB_SC_GET_LOCAL_DATA, NCP_CMD_RESULT_OK, (uint8_t *)&rp, sizeof(rp));
 }
 
 static void set_oob_sc_remote_data(const uint8_t *data, uint16_t len)
@@ -1714,7 +1800,7 @@ static void set_oob_sc_remote_data(const uint8_t *data, uint16_t len)
     memcpy(&oob_sc_remote.le_sc_data.c[0], &cmd->conf[0],
            sizeof(oob_sc_remote.le_sc_data.c));
 
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_GAP) << 16) | GAP_OOB_SC_SET_REMOTE_DATA, NCP_BRIDGE_CMD_RESULT_OK, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_GAP) << 16) | GAP_OOB_SC_SET_REMOTE_DATA, NCP_CMD_RESULT_OK, NULL, 0);
 }
 #endif /* ((!defined(CONFIG_BT_SMP_OOB_LEGACY_PAIR_ONLY)) || \
            (defined(CONFIG_BT_SMP_OOB_LEGACY_PAIR_ONLY) && (CONFIG_BT_SMP_OOB_LEGACY_PAIR_ONLY == 0U))) */
@@ -1723,12 +1809,12 @@ static void set_oob_sc_remote_data(const uint8_t *data, uint16_t len)
 void set_filter_list(const uint8_t *data, uint16_t len)
 {
     const struct gap_set_filter_list *cmd = (const void *) data;
-    uint8_t status = NCP_BRIDGE_CMD_RESULT_OK;
+    uint8_t status = NCP_CMD_RESULT_OK;
     int err;
 #if 0
     if (len < sizeof(*cmd) ||
         len != (sizeof(*cmd) + (cmd->cnt * sizeof(cmd->addr[0])))) {
-        status = NCP_BRIDGE_CMD_RESULT_ERROR;
+        status = NCP_CMD_RESULT_ERROR;
     }
     else
     {
@@ -1737,7 +1823,7 @@ void set_filter_list(const uint8_t *data, uint16_t len)
         for (int i = 0; i < cmd->cnt; i++) {
             err = bt_le_filter_accept_list_add(&cmd->addr[i]);
             if (err < 0) {
-                status = NCP_BRIDGE_CMD_RESULT_ERROR;
+                status = NCP_CMD_RESULT_ERROR;
             }
         }
     }
@@ -1749,9 +1835,98 @@ void set_filter_list(const uint8_t *data, uint16_t len)
         bt_addr_le_t *le_addr = (bt_addr_le_t *) &cmd->addr;
         err = bt_le_filter_accept_list_add(&le_addr[i]);
         if (err < 0) {
-            status = NCP_BRIDGE_CMD_RESULT_ERROR;
+            status = NCP_CMD_RESULT_ERROR;
         }
     }
 
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_GAP_SET_FILTER_LIST, status, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE_GAP_SET_FILTER_LIST, status, NULL, 0);
 }
+
+#if (defined(CONFIG_BLE_ADV_REPORT_BUFFER_LIMIT) && (CONFIG_BLE_ADV_REPORT_BUFFER_LIMIT > 0U))
+uint16_t appl_hci_le_is_dev_in_adv_list(bt_addr_le_t *bd_addr, uint8_t *dev_index)
+{
+    uint32_t  index = 0U;
+    uint16_t  retval;
+
+    /* NULL Check? */
+
+    retval = NCP_CMD_RESULT_ERROR;
+
+    /* Validate is device is already present in the Adv list */
+    for (index = 0U; index < APPL_BLE_PEER_ADV_MAX_REPORT_COUNT; index++)
+    {
+        if( true ==
+           BT_COMPARE_BD_ADDR_AND_TYPE
+           (
+                bd_addr,
+                &APPL_HCI_LE_GET_PEER_ADV_ADDR(index)
+           ))
+        {
+             retval = NCP_CMD_RESULT_OK;
+             break;
+        }
+    }
+    /**
+     * If Device was found, the Index value would be valid.
+     * Else the the index will be APPL_BLE_PEER_ADV_MAX_REPORT_COUNT.
+     */
+    *(dev_index) = (uint8_t)index;
+    return retval;
+}
+
+uint16_t appl_hci_le_find_free_adv_list_inst(uint8_t *free_index)
+{
+    uint32_t       index = 0U;
+    uint16_t       retval;
+    bt_addr_le_t * t_addr;
+
+    retval = NCP_CMD_RESULT_ERROR;
+
+    if (true != appl_hci_le_peer_adv_report_list_full)
+    {
+        /* return retval; */
+        for (index = 0U; index < APPL_BLE_PEER_ADV_MAX_REPORT_COUNT; index++)
+        {
+            /* Fetch the Address */
+            t_addr = &APPL_HCI_LE_GET_PEER_ADV_ADDR(index);
+
+            /* Check if the BD Address is Non Zero */
+            if (true != BT_BD_ADDR_IS_NON_ZERO(t_addr->a.val))
+            {
+                retval = NCP_CMD_RESULT_OK;
+                break;
+            }
+        }
+
+        /* Store the index */
+        *(free_index) = (uint8_t)index;
+
+        if (NCP_CMD_RESULT_OK != retval)
+        {
+            if (APPL_BLE_PEER_ADV_MAX_REPORT_COUNT == *(free_index))
+            {
+                /* Device list is fully occupied, needs a reset of the list */
+                ncp_e("ADV Report Device list is full!\n");
+                ncp_e("Consider Disabling Scanning!\n");
+
+                appl_hci_le_peer_adv_report_list_full = true;
+            }
+        }
+    }
+    return retval;
+}
+
+uint16_t appl_hci_le_init_adv_list(void)
+{
+    /* Initialize the fields with default values */
+    memset
+    (
+        appl_hci_le_peer_adv_report,
+        0x0,
+        sizeof(appl_hci_le_peer_adv_report)
+    );
+    appl_hci_le_peer_adv_report_list_full = false;
+    return NCP_CMD_RESULT_OK;
+}
+#endif //#if (defined(CONFIG_BLE_ADV_REPORT_BUFFER_LIMIT) && (CONFIG_BLE_ADV_REPORT_BUFFER_LIMIT > 0U))
+#endif

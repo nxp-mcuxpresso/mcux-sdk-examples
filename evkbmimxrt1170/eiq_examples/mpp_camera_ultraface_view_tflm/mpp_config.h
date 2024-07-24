@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 NXP
+ * Copyright 2023-2024 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -22,7 +22,7 @@
 #define HAL_ENABLE_CAMERA
 #define HAL_ENABLE_CAMERA_DEV_MipiOv5640      1
 #define HAL_ENABLE_DISPLAY
-#define HAL_ENABLE_DISPLAY_DEV_Lcdifv2Rk055ah 1
+#define HAL_ENABLE_DISPLAY_DEV_Lcdifv2Rk055   1
 #define HAL_ENABLE_2D_IMGPROC
 #define HAL_ENABLE_GFX_DEV_Pxp                1
 
@@ -32,9 +32,6 @@
 
 /* This example uses TFlite inference engine */
 #define HAL_ENABLE_INFERENCE_TFLITE           1
-#define HAL_ENABLE_INFERENCE_GLOW             0
-#define HAL_ENABLE_INFERENCE_DVRT             0
-
 
 /* The size of Tensor Arena buffer for TensorFlowLite-Micro */
 /* minimum required arena size for Ultraface is 1536 */
@@ -83,10 +80,10 @@
 #define APP_CAMERA_HEIGHT  720
 #define APP_CAMERA_FORMAT  MPP_PIXEL_YUV1P444
 /* camera parameters (other supported values) */
-#define APP_CAMERA_FORMAT1 MPP_PIXEL_ARGB
+#define APP_CAMERA_FORMAT1 MPP_PIXEL_BGRA
 
 /* display parameters */
-#define APP_DISPLAY_NAME   "Lcdifv2Rk055ah"
+#define APP_DISPLAY_NAME   "Lcdifv2Rk055"
 #define APP_DISPLAY_WIDTH  720
 #define APP_DISPLAY_HEIGHT 1280
 #define APP_DISPLAY_FORMAT MPP_PIXEL_RGB565

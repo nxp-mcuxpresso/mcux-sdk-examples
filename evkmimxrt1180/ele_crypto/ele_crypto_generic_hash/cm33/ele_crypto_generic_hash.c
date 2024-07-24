@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 NXP
+ * Copyright 2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -74,11 +74,11 @@ int main(void)
         }
         else
         {
-            PRINTF("EndgeLock FW loaded and authenticated successfully.\r\n\r\n");
+            PRINTF("EdgeLock FW loaded and authenticated successfully.\r\n\r\n");
         }
 
         /****************** Hash SHA256  ***************************************/
-        PRINTF("****************** Compute Hash (SHA256) of massage *******\r\n");
+        PRINTF("****************** Compute Hash (SHA256) of message *******\r\n");
         /* Message to be hashed */
 
         /* Output for HASH */
@@ -223,6 +223,170 @@ int main(void)
                 result = kStatus_Fail;
                 break;
             }
+        }
+        else
+        {
+            result = kStatus_Fail;
+            break;
+        }
+
+        /****************** ONESHOT Fast HMAC **********************************/
+        PRINTF("****************** Compute ONESHOT Fast HMAC **************\r\n");
+        SDK_ALIGN(uint8_t fastMACkeys[64], 8u) = {0u};
+        uint16_t flags                         = 0u;
+        uint32_t verificationStatus            = 0u;
+
+        /* FastMAC always loads 64 Bytes of key data - in this example both
+         * keys are used, so prepare 2 keys' worth of key data.
+         */
+        memcpy(fastMACkeys, MACkey0, 32u);
+        memcpy(fastMACkeys + 32u, MACkey1, 32u);
+
+        /* Start FastMAC */
+        if (ELE_FastMacStart(S3MU, fastMACkeys) == kStatus_Success)
+        {
+            PRINTF("*SUCCESS* Fast HMAC Start done.\r\n\r\n");
+        }
+        else
+        {
+            result = kStatus_Fail;
+            break;
+        }
+
+        /* First showing a oneshot operation with key 0 and no truncation.
+         */
+        flags = FAST_MAC_ONE_SHOT | FAST_MAC_USE_KEY_0;
+        if (ELE_FastMacProceed(S3MU, (const uint8_t *)MACmessage0, output, sizeof(MACmessage0), flags, NULL) ==
+            kStatus_Success)
+        {
+            /* Check output HMAC data */
+            if (memcmp(output, hmac256_0, outLength) == 0)
+            {
+                PRINTF("*SUCCESS* Computed OneShot Fast HMAC matches the expected value.\r\n\r\n");
+            }
+            else
+            {
+                result = kStatus_Fail;
+                break;
+            }
+        }
+        else
+        {
+            result = kStatus_Fail;
+            break;
+        }
+
+        /* A oneshot operation with key 0, no truncation,
+         * and with internal verification.
+         */
+        flags = FAST_MAC_ONE_SHOT | FAST_MAC_USE_KEY_0 | FAST_MAC_VERIFY_INTERNALLY;
+        if (ELE_FastMacProceed(S3MU, (const uint8_t *)MACmessage0, (uint8_t *)hmac256_0, sizeof(MACmessage0), flags,
+                               &verificationStatus) == kStatus_Success)
+        {
+            if (FAST_MAC_CHECK_VERIFICATION_SUCCESS_ONESHOT(verificationStatus) == 1)
+            {
+                PRINTF("*SUCCESS* Internally verified OneShot Fast HMAC matches expected value.\r\n\r\n");
+            }
+        }
+        else
+        {
+            result = kStatus_Fail;
+            break;
+        }
+
+        /****************** PRELOADED Fast HMAC ********************************/
+        PRINTF("****************** Compute PRELOADED Fast HMAC ************\r\n");
+        /* Next to show preloading.
+         * To utilize the preload feature, start with preloading a buffer and
+         * setting the key to be used. Using buffer 0 and key 0.
+         */
+        flags = FAST_MAC_PRELOAD_BUFF_0 | FAST_MAC_USE_KEY_0;
+        if (ELE_FastMacProceed(S3MU, (const uint8_t *)MACmessage0, output, sizeof(MACmessage0), flags, NULL) !=
+            kStatus_Success)
+        {
+            result = kStatus_Fail;
+            break;
+        }
+        PRINTF("*SUCCESS* Buffer 0 preload completed.\r\n\r\n");
+
+        /* Now another buffer can preloaded and a different key can be used.
+         * At the same time, the previously preloaded buffer can be processed.
+         * Preloading buffer 1 with different input and setting key 1.
+         * Proceed with HMAC generation from buffer 0.
+         */
+        flags = FAST_MAC_PRELOAD_BUFF_1 | FAST_MAC_USE_KEY_1 | FAST_MAC_PROCEED_BUFF_0;
+        if (ELE_FastMacProceed(S3MU, (const uint8_t *)MACmessage1, output, sizeof(MACmessage1), flags, NULL) !=
+            kStatus_Success)
+        {
+            result = kStatus_Fail;
+            break;
+        }
+        if (memcmp(hmac256_0, output, sizeof(hmac256_0)) == 0)
+        {
+            PRINTF("*SUCCESS* Buffer 0 HMAC matches expected value AND buffer 1 preload completed.\r\n\r\n");
+        }
+
+        /* Proceed with HMAC generation from buffer 1. The input, output and
+         * length parameters are no longer needed, as they were set
+         * during preloading.
+         */
+        flags = FAST_MAC_PROCEED_BUFF_1;
+        if (ELE_FastMacProceed(S3MU, NULL, NULL, 0u, flags, NULL) != kStatus_Success)
+        {
+            result = kStatus_Fail;
+            break;
+        }
+        if (memcmp(hmac256_1, output, sizeof(hmac256_1)) == 0)
+        {
+            PRINTF("*SUCCESS* Buffer 1 HMAC matches expected value.\r\n\r\n");
+        }
+
+        /* Next, showing preloading with internal MAC verification and with
+         * truncation to 8 Bytes.
+         * For the internal verification process, when utilizing preloading,
+         * the input needs to be set up by the caller - concatenate expected
+         * (if needed, truncated) MAC to original message.
+         */
+        const size_t truncatedMACLength               = 8u;
+        SDK_ALIGN(uint8_t MACmessage1WithMAC[58], 8u) = {0u};
+
+        memcpy(MACmessage1WithMAC, MACmessage1, sizeof(MACmessage1));
+        memcpy(MACmessage1WithMAC + sizeof(MACmessage1), hmac256_1, truncatedMACLength);
+
+        flags = FAST_MAC_PRELOAD_BUFF_1 | FAST_MAC_USE_KEY_1 | FAST_MAC_TRUNCATE_08B | FAST_MAC_VERIFY_INTERNALLY;
+        if (ELE_FastMacProceed(S3MU, (const uint8_t *)MACmessage1WithMAC, NULL, sizeof(MACmessage1WithMAC), flags,
+                               NULL) != kStatus_Success)
+        {
+            result = kStatus_Fail;
+            break;
+        }
+        PRINTF("*SUCCESS* Buffer 1 preload for internal verification completed.\r\n\r\n");
+
+        /* Proceed to compute and verify HMAC and check verification status.
+         */
+        flags = FAST_MAC_PROCEED_BUFF_1;
+        if (ELE_FastMacProceed(S3MU, NULL, NULL, 0u, flags, &verificationStatus) != kStatus_Success)
+        {
+            result = kStatus_Fail;
+            break;
+        }
+        else
+        {
+            if (FAST_MAC_CHECK_VERIFICATION_SUCCESS_BUF_1(verificationStatus) == 1)
+            {
+                PRINTF("*SUCCESS* Buffer 1 internally verified HMAC matches expected value.\r\n\r\n");
+            }
+            else
+            {
+                result = kStatus_Fail;
+                break;
+            }
+        }
+
+        /* Exit FastMAC mode */
+        if (ELE_FastMacEnd(S3MU) == kStatus_Success)
+        {
+            PRINTF("*SUCCESS* Fast HMAC End done.\r\n\r\n");
         }
         else
         {

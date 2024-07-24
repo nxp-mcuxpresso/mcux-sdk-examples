@@ -8,7 +8,7 @@
  *  SPDX-License-Identifier: BSD-3-Clause
  */
 
-#ifdef CONFIG_HOST_SLEEP
+#if CONFIG_HOST_SLEEP
 /*******************************************************************************
  * Includes
  ******************************************************************************/
@@ -22,14 +22,14 @@
 #include "fsl_pm_device.h"
 #include "fsl_rtc.h"
 #include "fsl_usart.h"
-#ifdef CONFIG_NCP_BRIDGE
+#if CONFIG_NCP_BRIDGE
 #include "fsl_gpio.h"
 #include "ncp_bridge_cmd.h"
 #include "app_notify.h"
-#ifdef CONFIG_CRC32_HW_ACCELERATE
+#if CONFIG_CRC32_HW_ACCELERATE
 #include "fsl_crc.h"
 #endif
-#ifdef CONFIG_USB_BRIDGE
+#if CONFIG_USB_BRIDGE
 #include "usb_device_config.h"
 #include "usb.h"
 #include "usb_device.h"
@@ -63,28 +63,28 @@ static struct cli_command host_sleep_commands[] = {
 };
 extern bool wlan_is_manual;
 extern int wakeup_by;
-#ifdef CONFIG_NCP_BRIDGE
+#if CONFIG_NCP_BRIDGE
 extern power_cfg_t global_power_config;
 extern uint8_t suspend_notify_flag;
 #endif
-#ifdef CONFIG_POWER_MANAGER
+#if CONFIG_POWER_MANAGER
 extern pm_handle_t pm_handle;
 extern pm_wakeup_source_t wlanWakeupSource;
 extern pm_wakeup_source_t rtcWakeupSource;
 extern int wlan_host_sleep_state;
-#ifdef CONFIG_UART_INTERRUPT
+#if CONFIG_UART_INTERRUPT
 extern bool usart_suspend_flag;
 #endif
 #endif
 uint64_t rtc_timeout = 0;
 static uart_clock_context_t s_uartClockCtx;
-#ifdef CONFIG_NCP_BRIDGE
-#ifdef CONFIG_UART_BRIDGE
+#if CONFIG_NCP_BRIDGE
+#if CONFIG_UART_BRIDGE
 extern int bridge_uart_reinit();
 extern int bridge_uart_deinit();
 extern void bridge_uart_notify();
 #endif
-#ifdef CONFIG_CRC32_HW_ACCELERATE
+#if CONFIG_CRC32_HW_ACCELERATE
 extern void hw_crc32_init();
 #endif
 #endif
@@ -114,7 +114,7 @@ void PIN1_INT_IRQHandler()
     wakeup_by = WAKEUP_BY_PIN1;
 }
 
-#ifdef CONFIG_NCP_BRIDGE
+#if CONFIG_NCP_BRIDGE
 void wlan_gpio_wakeup_host()
 {
     gpio_pin_config_t gpio_out_config = {
@@ -138,7 +138,7 @@ AT_QUICKACCESS_SECTION_CODE(void host_sleep_pre_hook(void))
        Use register access directly to avoid possible flash access in function call */
     s_uartClockCtx.selA   = CLKCTL0->MAINCLKSELA;
     s_uartClockCtx.selB   = CLKCTL0->MAINCLKSELB;
-#ifdef CONFIG_NCP_BRIDGE
+#if CONFIG_NCP_BRIDGE
     s_uartClockCtx.frgSel = CLKCTL1->FLEXCOMM[0].FRGCLKSEL;
     s_uartClockCtx.frgctl = CLKCTL1->FLEXCOMM[0].FRGCTL;
     s_uartClockCtx.osr    = USART0->OSR;
@@ -152,7 +152,7 @@ AT_QUICKACCESS_SECTION_CODE(void host_sleep_pre_hook(void))
     /* Switch main_clk to LPOSC */
     CLKCTL0->MAINCLKSELA = 2;
     CLKCTL0->MAINCLKSELB = 0;
-#ifdef CONFIG_NCP_BRIDGE
+#if CONFIG_NCP_BRIDGE
     /* Change UART0 clock source to main_clk */
     CLKCTL1->FLEXCOMM[0].FRGCLKSEL = 0;
     CLKCTL1->FLEXCOMM[0].FRGCTL    = 0x11C7;
@@ -179,7 +179,7 @@ void host_sleep_post_hook(uint32_t mode, void *param)
 {
     /* Recover main_clk and UART clock source after wakeup.
      Use register access directly to avoid possible flash access in function call. */
-#ifdef CONFIG_NCP_BRIDGE
+#if CONFIG_NCP_BRIDGE
     USART0->OSR                    = s_uartClockCtx.osr;
     USART0->BRG                    = s_uartClockCtx.brg;
     CLKCTL1->FLEXCOMM[0].FRGCLKSEL = s_uartClockCtx.frgSel;
@@ -197,13 +197,13 @@ void host_sleep_post_hook(uint32_t mode, void *param)
 
 void host_sleep_cli_notify(void)
 {
-#ifdef CONFIG_UART_INTERRUPT
-#ifdef CONFIG_POWER_MANAGER
+#if CONFIG_UART_INTERRUPT
+#if CONFIG_POWER_MANAGER
     if (pm_handle.targetState == PM_LP_STATE_PM3)
     {
         usart_suspend_flag = true;
-#ifdef CONFIG_NCP_BRIDGE
-#ifdef CONFIG_UART_BRIDGE
+#if CONFIG_NCP_BRIDGE
+#if CONFIG_UART_BRIDGE
         bridge_uart_notify();
 #endif
 #endif
@@ -222,7 +222,7 @@ int host_sleep_pre_cfg(int mode)
     POWER_EnableWakeup(PIN1_INT_IRQn);
     POWER_ClearWakeupStatus(WL_MCI_WAKEUP0_IRQn);
     POWER_EnableWakeup(WL_MCI_WAKEUP0_IRQn);
-#ifdef CONFIG_NCP_BRIDGE
+#if CONFIG_NCP_BRIDGE
     if(global_power_config.subscribe_evt)
     {
         suspend_notify_flag |= APP_NOTIFY_SUSPEND_EVT;
@@ -235,8 +235,8 @@ int host_sleep_pre_cfg(int mode)
     /* PM2, enable UART3 as wakeup source */
     if (mode == 2U)
     {
-#ifdef CONFIG_NCP_BRIDGE
-#ifdef CONFIG_USB_BRIDGE
+#if CONFIG_NCP_BRIDGE
+#if CONFIG_USB_BRIDGE
         POWER_ClearWakeupStatus(USB_IRQn);
         POWER_EnableWakeup(USB_IRQn);
         CLOCK_AttachClk(kLPOSC_to_MAIN_CLK);
@@ -274,8 +274,8 @@ void host_sleep_post_cfg(int mode)
 
     if (mode == 2U)
     {
-#ifdef CONFIG_NCP_BRIDGE
-#ifdef CONFIG_USB_BRIDGE
+#if CONFIG_NCP_BRIDGE
+#if CONFIG_USB_BRIDGE
         CLOCK_AttachClk(kMAIN_PLL_to_MAIN_CLK);
         POWER_ClearWakeupStatus(USB_IRQn);
         POWER_DisableWakeup(USB_IRQn);
@@ -296,7 +296,7 @@ void host_sleep_post_cfg(int mode)
         host_sleep_post_hook(2, NULL);
 #endif
     }
-#ifdef CONFIG_NCP_BRIDGE
+#if CONFIG_NCP_BRIDGE
     if(global_power_config.wakeup_host && wakeup_by == 0x1)
         wlan_gpio_wakeup_host();
     if(global_power_config.subscribe_evt)        
@@ -313,7 +313,7 @@ void host_sleep_dump_wakeup_source()
         PRINTF("Woken up by RTC\r\n");
     else if (wakeup_by == WAKEUP_BY_PIN1)
         PRINTF("Woken up by PIN1\r\n");
-#ifdef CONFIG_NCP_BRIDGE
+#if CONFIG_NCP_BRIDGE
     else if (wakeup_by == WAKEUP_BY_USART0)
 #else
     else if (wakeup_by == WAKEUP_BY_USART3)
@@ -336,7 +336,7 @@ int wlan_config_suspend_mode(int mode)
 
     if (!wlan_is_manual)
     {
-#ifdef CONFIG_NCP_BRIDGE
+#if CONFIG_NCP_BRIDGE
         app_notify_event(APP_EVT_SUSPEND, APP_EVT_REASON_FAILURE, NULL, 0);
 #endif
         PRINTF("Error: Maunal mode is not selected!\r\n");
@@ -345,7 +345,7 @@ int wlan_config_suspend_mode(int mode)
     memset(&config, 0x0, sizeof(power_sleep_config_t));
     if (mode >= 2)
         wlan_GetSleepConfig(&config);
-#ifdef CONFIG_NCP_BRIDGE
+#if CONFIG_NCP_BRIDGE
     suspend_notify_flag |=  APP_NOTIFY_SUSPEND_CMDRESP;
     app_notify_event(APP_EVT_SUSPEND, APP_EVT_REASON_SUCCESS, NULL, 0);
     while(suspend_notify_flag & APP_NOTIFY_SUSPEND_CMDRESP)
@@ -354,25 +354,25 @@ int wlan_config_suspend_mode(int mode)
     host_sleep_pre_cfg(mode);
     if(mode == 3)
     {
-#ifdef CONFIG_NCP_BRIDGE
-#ifdef CONFIG_UART_BRIDGE
+#if CONFIG_NCP_BRIDGE
+#if CONFIG_UART_BRIDGE
         usart_suspend_flag = true;
         bridge_uart_deinit();
 #endif
 #endif
-#ifdef CONFIG_UART_INTERRUPT
-#ifdef CONFIG_NCP_BRIDGE
+#if CONFIG_UART_INTERRUPT
+#if CONFIG_NCP_BRIDGE
         cli_uart_notify();
         os_thread_sleep(os_msec_to_ticks(1));
 #endif
         cli_uart_deinit();
 #endif
         DbgConsole_Deinit();
-#ifdef CONFIG_NCP_BRIDGE
-#ifdef CONFIG_CRC32_HW_ACCELERATE
+#if CONFIG_NCP_BRIDGE
+#if CONFIG_CRC32_HW_ACCELERATE
         CRC_Reset(CRC);
 #endif
-#ifdef CONFIG_USB_BRIDGE
+#if CONFIG_USB_BRIDGE
         usb_device_app_deinit();
 #endif
 #endif
@@ -433,7 +433,7 @@ void test_wlan_suspend(int argc, char **argv)
     wlan_config_suspend_mode(mode);
 }
 
-#ifdef CONFIG_POWER_MANAGER
+#if CONFIG_POWER_MANAGER
 #define SOCCTRL_CHIP_INFO_REV_NUM_MASK (0xFU)
 uint8_t get_chip_info(void)
 {

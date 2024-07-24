@@ -144,7 +144,6 @@ int main(void)
     status_t result;
 
     BOARD_InitPins();
-    BOARD_InitPsRamPins();
     BOARD_BootClockRUN();
     BOARD_InitDebugConsole();
 
@@ -153,18 +152,6 @@ int main(void)
     {
         assert(false);
     }
-
-    /* Configure DMAMUX. */
-    RESET_PeripheralReset(kINPUTMUX_RST_SHIFT_RSTn);
-
-    INPUTMUX_Init(INPUTMUX);
-    INPUTMUX_AttachSignal(INPUTMUX, EXAMPLE_TX_CHANNEL, kINPUTMUX_FlexspiTxToDma0);
-    INPUTMUX_AttachSignal(INPUTMUX, EXAMPLE_RX_CHANNEL, kINPUTMUX_FlexspiRxToDma0);
-    /* Enable trigger. */
-    INPUTMUX_EnableSignal(INPUTMUX, kINPUTMUX_Dmac0InputTriggerFlexspiTxEna, true);
-    INPUTMUX_EnableSignal(INPUTMUX, kINPUTMUX_Dmac0InputTriggerFlexspiRxEna, true);
-    /* Turnoff clock to inputmux to save power. Clock is only needed to make changes */
-    INPUTMUX_Deinit(INPUTMUX);
 
     /* DMA init */
     DMA_Init(EXAMPLE_DMA);

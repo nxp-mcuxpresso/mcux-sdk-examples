@@ -57,3 +57,10 @@ PRIMARY_SERVICE(service_B, 0xB00B)
         VALUE(value_B3, 0xB003, (gPermissionFlagWritable_c), 2, 0x00, 0x01)
     CHARACTERISTIC(char_B1_control_point, 0xB001, (gGattCharPropWrite_c) )
         VALUE(value_B1_control_point, 0xB001, (gPermissionFlagWritable_c), 1, 0x00)
+
+/* Placed at end of file due to macro interpretation of line numbers. */
+/*
+ * Copyright 2024 NXP
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */

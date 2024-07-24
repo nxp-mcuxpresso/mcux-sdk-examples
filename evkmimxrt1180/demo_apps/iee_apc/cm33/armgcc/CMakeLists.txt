@@ -51,7 +51,7 @@ include(${ProjDirPath}/flags.cmake)
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
-"${SdkRootDirPath}/examples/evkmimxrt1180/demo_apps/iee_apc/ele_fw_baseline.h"
+"${ProjDirPath}/../ele_fw_baseline.h"
 "${ProjDirPath}/../iee_apc.c"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
@@ -63,7 +63,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
-    ${SdkRootDirPath}/examples/evkmimxrt1180/demo_apps/iee_apc
     ${ProjDirPath}/..
     ${SdkRootDirPath}/core/boards/evkmimxrt1180
 )

@@ -100,7 +100,7 @@ void LPI2C_MASTER_IRQHandler(void)
                     return;
                 }
                 /* Disable master Rx interrupt otherwise the Rx interrupt will always works */
-                LPI2C_MasterDisableInterrupts(EXAMPLE_LPI2C_MASTER_BASEADDR, kLPI2C_MasterTxReadyFlag);
+                LPI2C_MasterDisableInterrupts(EXAMPLE_LPI2C_MASTER_BASEADDR, kLPI2C_MasterRxReadyFlag);
             }
         }
     }

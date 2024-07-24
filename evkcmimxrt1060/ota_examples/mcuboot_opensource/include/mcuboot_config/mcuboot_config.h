@@ -7,8 +7,8 @@
 #ifndef __MCUBOOT_CONFIG_H__
 #define __MCUBOOT_CONFIG_H__
 
-#include <sblconfig.h>
-#include <sbldef.h>
+#include "sblconfig.h"
+
 /*
  * Template configuration file for MCUboot.
  *
@@ -70,30 +70,31 @@
  * existing image with the update image, is also available.
  *
  * In case of supported flash remap funcionality in the used processor the
- * direct-xip mode is configured with user support for downgrade.
+ * direct-xip mode is configured.
  */
 
 /* Uncomment to enable the overwrite-only code path. */
 /* #define MCUBOOT_OVERWRITE_ONLY */
 
 #ifndef MCUBOOT_OVERWRITE_ONLY
-
+   
+#if defined(CONFIG_MCUBOOT_ENCRYPTED_XIP_SUPPORT) && defined(CONFIG_MCUBOOT_FLASH_REMAP_ENABLE)
+#error "Flash remap support cannot be combined with encrypted xip support"
+#endif
+   
 #ifdef CONFIG_MCUBOOT_FLASH_REMAP_ENABLE
-
+/* Upgrade mode: DIRECT-XIP + FLASH REMAP */ 
 #define MCUBOOT_DIRECT_XIP
 #define MCUBOOT_DIRECT_XIP_REVERT
-
-#ifdef CONFIG_MCUBOOT_FLASH_REMAP_DOWNGRADE_SUPPORT
-/* Enable hook funcionality to support downgrade functionality in direct-xip
- * mode, see hooks implementation in bootutil_hooks.c */
-#define MCUBOOT_IMAGE_ACCESS_HOOKS
-#endif /* CONFIG_MCUBOOT_FLASH_REMAP_DOWNGRADE_SUPPORT */
-
+#elif defined(CONFIG_MCUBOOT_ENCRYPTED_XIP_SUPPORT)
+/* Upgrade mode: DIRECT-XIP + ENCRYPTED XIP */ 
+#define MCUBOOT_DIRECT_XIP
+#define MCUBOOT_DIRECT_XIP_REVERT
+#define CONFIG_BOOT_ENCRYPT_RSA
 #else
-
+/* Upgrade mode: SWAP MODE (default) */ 
 #define CONFIG_BOOT_SWAP_USING_MOVE
 #define MCUBOOT_SWAP_USING_MOVE 1
-
 #endif /* CONFIG_MCUBOOT_FLASH_REMAP_ENABLE */
 
 #endif /* MCUBOOT_OVERWRITE_ONLY */

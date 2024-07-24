@@ -1,6 +1,6 @@
 /****************************************************************************
  *
- * Copyright 2020 NXP
+ * Copyright 2020, 2023-2024 NXP
  *
  * NXP Confidential. 
  * 
@@ -82,6 +82,7 @@ typedef enum {
     ZPS_APS_PARTNER_LINK_KEY = 0x04,
     ZPS_APS_NEG_LINK_KEY     = 0x05,
     ZPS_APS_NO_KEY_PRESENT   = 0x06,
+    ZPS_APS_TCLK_DLK_KEY     = 0x07, /* TCLK negotiated using DLK in progress */
     ZPS_APS_LINK_KEY_FIXED   = 0x0F
 }ZPS_teApsLinkKeyType;
 
@@ -110,7 +111,11 @@ PUBLIC ZPS_teZdoDeviceType zps_eAplZdoGetDeviceType(void *);
 PUBLIC uint8 zps_eAplZdoGetMacCapability(void *);
 PUBLIC ZPS_tsNwkNib *zps_psAplZdoGetNib(void *);
 PUBLIC void *zps_pvAplZdoGetNwkHandle(void *);
-PUBLIC ZPS_teStatus zps_vAplSecSetInitialSecurityState( void *, ZPS_teZdoNwkKeyState, uint8 *, uint8, ZPS_teApsLinkKeyType );
+PUBLIC ZPS_teStatus zps_vAplSecSetInitialSecurityState( void *, ZPS_teZdoNwkKeyState, uint8 *, uint8, ZPS_teApsLinkKeyType
+#ifdef R23_UPDATES
+                , uint8, uint8 *, uint8
+#endif
+);
 PUBLIC ZPS_teStatus zps_eAplZdoTransportNwkKey (
     void *pvApl,
     uint8 u8DstAddrMode,
@@ -327,10 +332,22 @@ ZPS_APL_INLINE void *ZPS_pvAplZdoGetNwkHandle(void)
 }
 
 
-ZPS_APL_INLINE ZPS_teStatus ZPS_vAplSecSetInitialSecurityState(ZPS_teZdoNwkKeyState eState, uint8 *pu8Key, uint8 u8KeyLength, ZPS_teApsLinkKeyType eKeyType ) ZPS_ZDO_ALWAYS_INLINE;
-ZPS_APL_INLINE ZPS_teStatus ZPS_vAplSecSetInitialSecurityState(ZPS_teZdoNwkKeyState eState, uint8 *pu8Key, uint8 u8KeyLength, ZPS_teApsLinkKeyType eKeyType)
+ZPS_APL_INLINE ZPS_teStatus ZPS_vAplSecSetInitialSecurityState(ZPS_teZdoNwkKeyState eState, uint8 *pu8Key, uint8 u8KeyLength, ZPS_teApsLinkKeyType eKeyType
+#ifdef R23_UPDATES
+                , uint8 u8PresharedSecretType, uint8 *pu8Passphrase, uint8 u8PassphraseLen
+#endif
+) ZPS_ZDO_ALWAYS_INLINE;
+ZPS_APL_INLINE ZPS_teStatus ZPS_vAplSecSetInitialSecurityState(ZPS_teZdoNwkKeyState eState, uint8 *pu8Key, uint8 u8KeyLength, ZPS_teApsLinkKeyType eKeyType
+#ifdef R23_UPDATES
+                , uint8 u8PresharedSecretType, uint8 *pu8Passphrase, uint8 u8PassphraseLen
+#endif
+)
 {
-    return zps_vAplSecSetInitialSecurityState(ZPS_pvAplZdoGetAplHandle(), eState, pu8Key, u8KeyLength, eKeyType);
+    return zps_vAplSecSetInitialSecurityState(ZPS_pvAplZdoGetAplHandle(), eState, pu8Key, u8KeyLength, eKeyType
+#ifdef R23_UPDATES
+                , u8PresharedSecretType, pu8Passphrase, u8PassphraseLen
+#endif
+    );
 }
 
 ZPS_APL_INLINE ZPS_teStatus ZPS_eAplZdoTransportNwkKey (

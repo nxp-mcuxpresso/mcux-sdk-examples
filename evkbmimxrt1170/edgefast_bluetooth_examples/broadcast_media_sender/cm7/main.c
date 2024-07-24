@@ -25,6 +25,7 @@
 #if (((defined(CONFIG_BT_SMP)) && (CONFIG_BT_SMP)))
 #include "ksdk_mbedtls.h"
 #endif /* CONFIG_BT_SMP */
+#include "fsl_adapter_gpio.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -52,10 +53,63 @@ extern void BOARD_InitHardware(void);
 
 extern void app_audio_streamer_task_signal(void);
 
+GPIO_HANDLE_DEFINE(sync_signal_pin_handle);
+static volatile uint32_t SyncSignal_Index = 0;
+
 
 /*******************************************************************************
  * Code
  ******************************************************************************/
+
+static void sync_signal_pin_callback(void *param)
+{
+    SyncSignal_Index += 1;
+}
+
+static void BOARD_SyncSignal_Init(void)
+{
+    BOARD_InitSyncSignalPins();
+
+    hal_gpio_pin_config_t config;
+    config.direction = kHAL_GpioDirectionIn;
+#if defined(WIFI_IW612_BOARD_MURATA_2EL_M2)
+    config.port      = 3;
+    config.pin       = 0;
+    config.level     = 1;
+#elif defined(WIFI_IW612_BOARD_RD_USD)
+    config.port      = 3;
+    config.pin       = 7;
+    config.level     = 1;
+#endif
+    HAL_GpioInit((hal_gpio_handle_t)sync_signal_pin_handle, &config);
+
+    HAL_GpioInstallCallback((hal_gpio_handle_t)sync_signal_pin_handle, sync_signal_pin_callback, NULL);
+}
+
+void BOARD_SyncSignal_Start(uint32_t init_offset)
+{
+    SyncSignal_Index = 0;
+
+#if defined(WIFI_IW612_BOARD_MURATA_2EL_M2)
+    GPIO_ClearPinsInterruptFlags(GPIO3,
+                                 1U); /* A walk-around for fsl_adapter_gpio will triger once after trigger enabled. */
+#elif defined(WIFI_IW612_BOARD_RD_USD)
+    GPIO_ClearPinsInterruptFlags(GPIO3,
+                                 7U); /* A walk-around for fsl_adapter_gpio will triger once after trigger enabled. */
+#endif
+    HAL_GpioSetTriggerMode((hal_gpio_handle_t)sync_signal_pin_handle, kHAL_GpioInterruptRisingEdge);
+}
+
+void BOARD_SyncSignal_Stop(void)
+{
+    HAL_GpioSetTriggerMode((hal_gpio_handle_t)sync_signal_pin_handle, kHAL_GpioInterruptDisable);
+}
+
+uint32_t BOARD_SyncSignal_Count(void)
+{
+    return SyncSignal_Index;
+}
+
 
 #if defined(BT_THIRD_PARTY_TRANSCEIVER)
 int controller_hci_uart_get_configuration(controller_hci_uart_config_t *config)
@@ -185,6 +239,8 @@ int main(void)
 #endif
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
+
+    BOARD_SyncSignal_Init();
 
 #if (defined(HAL_UART_DMA_ENABLE) && (HAL_UART_DMA_ENABLE > 0U))
     DMAMUX_Type *dmaMuxBases[] = DMAMUX_BASE_PTRS;

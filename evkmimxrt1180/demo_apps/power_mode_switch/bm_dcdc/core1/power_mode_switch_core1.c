@@ -63,7 +63,7 @@ void APP_WAKEUP_BUTTON_IRQ_HANDLER(void)
 {
     /* Clear GPIO stop request. */
     GPIO_ClearStopRequest();
-
+	
     if ((1U << APP_WAKEUP_BUTTON_GPIO_PIN) &
         RGPIO_GetPinsInterruptFlags(APP_WAKEUP_BUTTON_GPIO, kRGPIO_InterruptOutput0))
     {

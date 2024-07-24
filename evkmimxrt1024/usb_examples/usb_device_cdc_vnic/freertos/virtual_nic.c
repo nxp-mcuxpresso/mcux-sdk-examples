@@ -40,6 +40,9 @@
  ******************************************************************************/
 /* Base unit for ENIT layer is 1Mbps while for RNDIS its 100bps*/
 #define ENET_CONVERT_FACTOR (10000)
+#define VNIC_EVENT_DEVICE_TX (0x1U)
+#define VNIC_EVENT_DEVICE_RX (0x2U)
+#define VNIC_EVENT_MASK      (0xFFU)
 
 /*******************************************************************************
  * Prototypes
@@ -51,6 +54,12 @@ void USB_DeviceIsrEnable(void);
 void USB_DeviceTaskFn(void *deviceHandle);
 #endif
 
+#if (defined(USB_DEVICE_CONFIG_LPCIP3511HS) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U))
+#if !((defined FSL_FEATURE_SOC_USBPHY_COUNT) && (FSL_FEATURE_SOC_USBPHY_COUNT > 0U))
+void USB_DeviceHsPhyChirpIssueWorkaround(void);
+void USB_DeviceDisconnected(void);
+#endif
+#endif
 void VNIC_EnetRxBufFree(pbuf_t *pbuf);
 void VNIC_EnetTxBufFree(pbuf_t *pbuf);
 bool VNIC_EnetGetLinkStatus(void);
@@ -198,6 +207,32 @@ void USB_DeviceTaskFn(void *deviceHandle)
 #endif
 
 /*!
+ * @brief Set events for data transmission.
+ *
+ * @param events to set.
+ * @return None.
+ */     
+static inline void USB_DeviceVnicEventSet(EventBits_t event)
+{
+    if (0U != __get_IPSR())
+    {
+        portBASE_TYPE taskToWake = (portBASE_TYPE)pdFALSE;
+
+        (void)xEventGroupSetBitsFromISR(g_cdcVnic.eventHandle, event, &taskToWake);
+        portYIELD_FROM_ISR(((bool)(taskToWake)));
+    }
+    else
+    {
+        (void)xEventGroupSetBits(g_cdcVnic.eventHandle, event);
+    }
+}
+
+void USB_DeviceVnicTxEventSet(void)
+{
+    USB_DeviceVnicEventSet(VNIC_EVENT_DEVICE_TX);
+}
+
+/*!
  * @brief Set the state of the usb transmit direction
  *
  * @param state The state of the usb transmit direction.
@@ -209,6 +244,7 @@ static inline usb_status_t USB_DeviceVnicTransmitSetState(usb_cdc_vnic_tx_state_
     USB_DEVICE_VNIC_ENTER_CRITICAL();
     g_cdcVnic.nicTrafficInfo.usbTxState = state;
     USB_DEVICE_VNIC_EXIT_CRITICAL();
+    USB_DeviceVnicEventSet(VNIC_EVENT_DEVICE_TX);
     return kStatus_USB_Success;
 }
 
@@ -224,6 +260,7 @@ static inline usb_status_t USB_DeviceVnicReceiveSetState(usb_cdc_vnic_rx_state_t
     USB_DEVICE_VNIC_ENTER_CRITICAL();
     g_cdcVnic.nicTrafficInfo.usbRxState = state;
     USB_DEVICE_VNIC_EXIT_CRITICAL();
+    USB_DeviceVnicEventSet(VNIC_EVENT_DEVICE_RX);
     return kStatus_USB_Success;
 }
 
@@ -700,6 +737,16 @@ usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event, void *
             g_cdcVnic.attach               = 0;
             g_cdcVnic.currentConfiguration = 0U;
             error                          = kStatus_USB_Success;
+
+#if (defined(USB_DEVICE_CONFIG_LPCIP3511HS) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U))
+#if !((defined FSL_FEATURE_SOC_USBPHY_COUNT) && (FSL_FEATURE_SOC_USBPHY_COUNT > 0U))
+            /* The work-around is used to fix the HS device Chirping issue.
+             * Please refer to the implementation for the detail information.
+             */
+            USB_DeviceHsPhyChirpIssueWorkaround();
+#endif
+#endif
+
 #if (defined(USB_DEVICE_CONFIG_EHCI) && (USB_DEVICE_CONFIG_EHCI > 0U)) || \
     (defined(USB_DEVICE_CONFIG_LPCIP3511HS) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U))
             /* Get USB speed to configure the device, including max packet size and interval of the endpoints. */
@@ -719,6 +766,18 @@ usb_status_t USB_DeviceCallback(usb_device_handle handle, uint32_t event, void *
             USB_DeviceVnicReceiveSetState(RX_PART_ONE_PROCESS);
         }
         break;
+#if (defined(USB_DEVICE_CONFIG_DETACH_ENABLE) && (USB_DEVICE_CONFIG_DETACH_ENABLE > 0U))
+        case kUSB_DeviceEventDetach:
+        {
+#if (defined(USB_DEVICE_CONFIG_LPCIP3511HS) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U))
+#if !((defined FSL_FEATURE_SOC_USBPHY_COUNT) && (FSL_FEATURE_SOC_USBPHY_COUNT > 0U))
+            USB_DeviceDisconnected();
+#endif
+#endif
+            error = kStatus_USB_Success;
+        }
+        break;
+#endif
         case kUSB_DeviceEventSetConfiguration:
             if (0U == (*temp8))
             {
@@ -846,6 +905,12 @@ void USB_DeviceApplicationInit(void)
     g_cdcVnic.cdcAcmHandle = (class_handle_t)NULL;
     g_cdcVnic.deviceHandle = NULL;
 
+    g_cdcVnic.eventHandle = xEventGroupCreate();
+    if (NULL == g_cdcVnic.eventHandle)
+    {
+        usb_echo("Event create failed\r\n");
+    }
+
     USB_DeviceVnicReceiveSetState(RX_PART_ONE_PROCESS);
 
     if (kStatus_USB_Success != USB_DeviceClassInit(CONTROLLER_ID, &s_cdcAcmConfigList, &g_cdcVnic.deviceHandle))
@@ -921,9 +986,18 @@ void APPTask(void *handle)
     {
         if ((1 == g_cdcVnic.attach))
         {
+            EventBits_t eventValue;
+
             /* User Code */
-            USB_DeviceVnicTransmit();
-            USB_DeviceVnicReceive();
+            eventValue = xEventGroupWaitBits(g_cdcVnic.eventHandle, VNIC_EVENT_MASK, pdTRUE, pdFALSE, portMAX_DELAY);
+            if ((eventValue & VNIC_EVENT_DEVICE_TX) != 0U)
+            {
+                USB_DeviceVnicTransmit();
+            }
+            if ((eventValue & VNIC_EVENT_DEVICE_RX) != 0U)
+            {
+                USB_DeviceVnicReceive();
+            }
         }
     }
 }

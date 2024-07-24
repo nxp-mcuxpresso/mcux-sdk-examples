@@ -4,7 +4,7 @@
   <externalDefinitions>
     <definition extID="MIMXRT685SFVKB"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK2150_mimxrt685audevk_examples_manifest_v3_14" name="MCUXpressoSDK2150_mimxrt685audevk_examples_manifest_v3_14" version="2.15.0" revision="2.15.0"/>
+  <ksdk id="MCUXpressoSDK216000_mimxrt685audevk_examples_manifest_v3_14" name="MCUXpressoSDK216000_mimxrt685audevk_examples_manifest_v3_14" version="2.16.000" revision="2.16.000"/>
   <boards>
     <board id="mimxrt685audevk" name="MIMXRT685-AUD-EVK" version="1.0.0" package="MIMXRT685SFVKB">
       <examples>
@@ -403,6 +403,11 @@
             <files mask="host_audio_speaker_bm_v3_14.xml"/>
           </external>
         </example>
+        <example id="mimxrt685audevk_host_audio_unified_bm" name="host_audio_unified_bm" brief="The Host Audio example supports the audio unified device. @n The application prints the audio unified information when the USB unified device is attached." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_host_audio_unified/bm">
+          <external path="usb_examples/usb_host_audio_unified/bm" type="xml">
+            <files mask="host_audio_unified_bm_v3_14.xml"/>
+          </external>
+        </example>
         <example id="mimxrt685audevk_host_cdc_bm" name="host_cdc_bm" brief="The host CDC project is a simple demonstration program based on the MCUXpresso SDK. It enumerates a COM port and echoes back the data from the UART." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_host_cdc/bm">
           <external path="usb_examples/usb_host_cdc/bm" type="xml">
             <files mask="host_cdc_bm_v3_14.xml"/>
@@ -461,6 +466,11 @@
         <example id="mimxrt685audevk_host_audio_speaker_freertos" name="host_audio_speaker_freertos" brief="The Host Audio example supports the audio speaker device. @n The application prints the audio speaker information when the USB speaker device is attached." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_host_audio_speaker/freertos">
           <external path="usb_examples/usb_host_audio_speaker/freertos" type="xml">
             <files mask="host_audio_speaker_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_host_audio_unified_freertos" name="host_audio_unified_freertos" brief="The Host Audio example supports the audio unified device. @n The application prints the audio unified information when the USB unified device is attached." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_host_audio_unified/freertos">
+          <external path="usb_examples/usb_host_audio_unified/freertos" type="xml">
+            <files mask="host_audio_unified_freertos_v3_14.xml"/>
           </external>
         </example>
         <example id="mimxrt685audevk_host_cdc_freertos" name="host_cdc_freertos" brief="The host CDC project is a simple demonstration program based on the MCUXpresso SDK. It enumerates a COM port and echoes back the data from the UART ." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/mimxrt685audevk/usb_examples/usb_host_cdc/freertos">
@@ -1193,11 +1203,6 @@
             <files mask="dsp_mu_interrupt_cm33_v3_14.xml"/>
           </external>
         </example>
-        <example id="mimxrt685audevk_dsp_rtp_demo_cm33" name="dsp_rtp_demo_cm33" brief="The dsp_rtp_demo demo application demonstrates starting DSP core with DSP image." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="dsp_examples" path="examples/mimxrt685audevk/dsp_examples/rtp_demo/cm33">
-          <external path="dsp_examples/rtp_demo/cm33" type="xml">
-            <files mask="dsp_rtp_demo_cm33_v3_14.xml"/>
-          </external>
-        </example>
         <example id="mimxrt685audevk_dsp_xaf_playback_cm33" name="dsp_xaf_playback_cm33" brief="The dsp_xaf_playback demo application demonstrates starting DSP core with DSP image." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="dsp_examples" path="examples/mimxrt685audevk/dsp_examples/xaf_playback/cm33">
           <external path="dsp_examples/xaf_playback/cm33" type="xml">
             <files mask="dsp_xaf_playback_cm33_v3_14.xml"/>
@@ -1221,11 +1226,6 @@
         <example id="mimxrt685audevk_dsp_nn_demo_cm33" name="dsp_nn_demo_cm33" brief="The dsp_nn_demo demo application demonstrates starting DSP core with DSP image." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/mimxrt685audevk/eiq_examples/nn_demo/cm33">
           <external path="eiq_examples/nn_demo/cm33" type="xml">
             <files mask="dsp_nn_demo_cm33_v3_14.xml"/>
-          </external>
-        </example>
-        <example id="mimxrt685audevk_glow_cifar10_cm33" name="glow_cifar10_cm33" brief="The glow_cifar10 demo application demonstrates starting DSP core with DSP image." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/mimxrt685audevk/eiq_examples/glow_cifar10/cm33">
-          <external path="eiq_examples/glow_cifar10/cm33" type="xml">
-            <files mask="glow_cifar10_cm33_v3_14.xml"/>
           </external>
         </example>
         <example id="mimxrt685audevk_sdcard_fatfs" name="sdcard_fatfs" brief="The SDCARD FATFS project is a demonstration program that uses the SDK software. Tt mounts a file system based on a SD card then does &quot;creat directory/read directory/create file/write file/read file&quot;operation. The file sdhc_config.h has default SDHC configuration which can be adjusted to let carddriver has different performance. The purpose of this example is to show how to use SDCARD driver based FATFS disk in SDK software." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="sdmmc_examples/sdcard_fatfs" path="examples/mimxrt685audevk/sdmmc_examples/sdcard_fatfs">
@@ -1278,7 +1278,12 @@
             <files mask="wifi_test_mode_v3_14.xml"/>
           </external>
         </example>
-        <example id="mimxrt685audevk_ota_mcuboot_server_wifi" name="ota_mcuboot_server_wifi" brief="This ota_mcuboot_server application demonstrates OTA using an HTTP server based on lwIP TCP/IP and the MbedTLS stack with FreeRTOS. The user uses an Internet browser to upload new update package to reprogram application running on the board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="ota_examples" path="examples/mimxrt685audevk/ota_examples/ota_mcuboot_server/wifi">
+        <example id="mimxrt685audevk_ota_mcuboot_basic" name="ota_mcuboot_basic" brief="This projects gives an example of a basic application bootable by MCUBoot" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="ota_examples" path="examples/mimxrt685audevk/ota_examples/ota_mcuboot_basic">
+          <external path="ota_examples/ota_mcuboot_basic" type="xml">
+            <files mask="ota_mcuboot_basic_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_ota_mcuboot_server_wifi" name="ota_mcuboot_server_wifi" brief="This ota_mcuboot_server application demonstrates OTA using an HTTP server based on lwIP TCP/IP stack with FreeRTOS. The user uses an Internet browser to upload new update package to reprogram application running on the board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="ota_examples" path="examples/mimxrt685audevk/ota_examples/ota_mcuboot_server/wifi">
           <external path="ota_examples/ota_mcuboot_server/wifi" type="xml">
             <files mask="ota_mcuboot_server_wifi_v3_14.xml"/>
           </external>
@@ -1318,7 +1323,7 @@
             <files mask="mcuboot_opensource_v3_14.xml"/>
           </external>
         </example>
-        <example id="mimxrt685audevk_freertos_hello" name="freertos_hello" brief="The Hello World project is a simple demonstration program that uses the SDK UART drivere incombination with FreeRTOS. The purpose of this demo is to show how to use the debug console and toprovide a simple project for debugging and further development.The example application creates one task called hello_task. This task print &quot;Hello world.&quot; messagevia debug console utility and suspend itself." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="freertos_examples" path="examples/mimxrt685audevk/freertos_examples/freertos_hello">
+        <example id="mimxrt685audevk_freertos_hello" name="freertos_hello" brief="The Hello World project is a simple demonstration program that uses the SDK UART driver in combination with FreeRTOS. The purpose of this demo is to show how to use the debug console and toprovide a simple project for debugging and further development.The example application creates one task called hello_task. This task print &quot;Hello world.&quot; messagevia debug console utility and suspend itself." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="freertos_examples" path="examples/mimxrt685audevk/freertos_examples/freertos_hello">
           <external path="freertos_examples/freertos_hello" type="xml">
             <files mask="freertos_hello_v3_14.xml"/>
           </external>
@@ -1386,6 +1391,11 @@
         <example id="mimxrt685audevk_tflm_xaf_hifi4_cm33" name="tflm_xaf_hifi4_cm33" brief="Xtensa Audio Framework example with TensorFlow Lite Micro word detection" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/mimxrt685audevk/eiq_examples/tflm_xaf_hifi4/cm33">
           <external path="eiq_examples/tflm_xaf_hifi4/cm33" type="xml">
             <files mask="tflm_xaf_hifi4_cm33_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="mimxrt685audevk_tflm_lib" name="tflm_lib" brief="Library build of TensorFlow Lite Micro" toolchain="mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/mimxrt685audevk/eiq_examples/tflm_lib">
+          <external path="eiq_examples/tflm_lib" type="xml">
+            <files mask="tflm_lib_v3_14.xml"/>
           </external>
         </example>
         <example id="mimxrt685audevk_tflm_cifar10_cm33" name="tflm_cifar10_cm33" brief="CIFAR-10 example for TensorFlow Lite Micro" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/mimxrt685audevk/eiq_examples/tflm_cifar10_cm33">

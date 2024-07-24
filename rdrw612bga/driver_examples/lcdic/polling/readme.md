@@ -19,34 +19,26 @@ If the project succeed, the panel will show like this
 
 SDK version
 ===========
-- Version: 2.15.000
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  12.2
-- MCUXpresso  11.8.0
+- GCC ARM Embedded  13.2.1
+- MCUXpresso  11.10.0
 
 Hardware requirements
 =====================
 - Micro USB cable
 - RD-RW61X-BGA board
 - Personal Computer
-- Adafruit TFT LCD shield w/Cap Touch
+- LCD-PAR-S035 panel
 
 Board settings
 ==============
-There are different versions of Adafruit 2.8" TFT LCD shields. The shields marked
-v2.0 works directly with this project. For the other shields, please solder
-the center pin of IOREF pads to the 3.3V pad, and solder the pads 11, 12, and 13.
-See the link for details:
-https://community.nxp.com/t5/MCUXpresso-Community-Articles/Modifying-the-latest-Adafruit-2-8-quot-LCD-for-SDK-graphics/ba-p/1131104
-
-- Attach the LCD shield to the board Arduino header.
-- Connect jumper JP50.
-- Mount 0R on R242/R239/R236/R233
-- Mount 0R on R125/R123/R12/R124 and Remove R9/R11/R13/R20/R21
-- Short J5 1-2.
-- Remove jumper on JP30.
+- Short JP3, JP44, JP50
+- Wire R624, R625, R626, R627, R629, R630, R631, R616, R662, R663, R664, R665
+- Connect LCD-PAR-S035 to header J23, J23-1 match LCD J1-1
+- Set the switch SW1 on LCD-PAR-S035 to 011 (IM[2:0), note the left one is IM[0], right one is IM[2].
 
 Prepare the Demo
 ================

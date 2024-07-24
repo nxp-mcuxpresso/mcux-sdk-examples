@@ -1938,7 +1938,8 @@ ZPS_vNwkRegisterNldeDcfmIndCallbacks(void *pvNwk,
 
 PUBLIC uint8
 ZPS_u8NwkCalcNldeReqOverhead(void *pvNwk,
-                             uint16 u16NwkDstAddr);
+                             uint16 u16NwkDstAddr,
+                             bool_t bNwkSecured);
 
 PUBLIC void zps_vNwkSetZgpAlias(void* pvNwk,uint16 u16AliasShortAddress, uint8 u8AliasSeq, uint8 u8ApsFrameCounter);
 PUBLIC void zps_vZgpDeviceActive(void *pvNwk,uint16 u16Address);

@@ -151,8 +151,13 @@ const clock_audio_pll_config_t audioPllConfig = {
     .numerator   = 768,  /* 30 bit numerator of fractional loop divider. */
     .denominator = 1000, /* 30 bit denominator of fractional loop divider */
 };
+#if defined(DEMO_QUICKACCESS_SECTION_CACHEABLE) && DEMO_QUICKACCESS_SECTION_CACHEABLE
+AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t txHandle);
+AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t rxHandle);
+#else
 AT_QUICKACCESS_SECTION_DATA(sai_edma_handle_t txHandle);
 AT_QUICKACCESS_SECTION_DATA(sai_edma_handle_t rxHandle);
+#endif
 static edma_handle_t s_dmaTxHandle = {0};
 static edma_handle_t s_dmaRxHandle = {0};
 extern codec_config_t boardCodecConfig;
@@ -289,9 +294,16 @@ int main(void)
      * dmaConfig.enableDebugMode = false;
      */
     EDMA_GetDefaultConfig(&dmaConfig);
+#if defined(BOARD_GetEDMAConfig)
+    BOARD_GetEDMAConfig(dmaConfig);
+#endif
     EDMA_Init(DEMO_DMA, &dmaConfig);
     EDMA_CreateHandle(&s_dmaTxHandle, DEMO_DMA, DEMO_TX_EDMA_CHANNEL);
     EDMA_CreateHandle(&s_dmaRxHandle, DEMO_DMA, DEMO_RX_EDMA_CHANNEL);
+#if defined(FSL_FEATURE_EDMA_HAS_CHANNEL_MUX) && FSL_FEATURE_EDMA_HAS_CHANNEL_MUX
+    EDMA_SetChannelMux(DEMO_DMA, DEMO_TX_EDMA_CHANNEL, DEMO_SAI_TX_EDMA_CHANNEL);
+    EDMA_SetChannelMux(DEMO_DMA, DEMO_RX_EDMA_CHANNEL, DEMO_SAI_RX_EDMA_CHANNEL);
+#endif
 
     /* SAI init */
     SAI_Init(DEMO_SAI);

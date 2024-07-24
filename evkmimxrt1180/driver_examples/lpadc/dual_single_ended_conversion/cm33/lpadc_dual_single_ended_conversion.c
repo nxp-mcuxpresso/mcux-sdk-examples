@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 NXP
+ * Copyright 2022, 2024 NXP
  * All rights reserved.
  *
  *
@@ -15,14 +15,15 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-#define DEMO_LPADC_BASE                    ADC1
-#define DEMO_LPADC_USER_CHANNELA           7U
-#define DEMO_LPADC_USER_CHANNELB           6U
-#define DEMO_LPADC_USER_CMDID              1U /* CMD1 */
+#define DEMO_LPADC_BASE          ADC1
+#define DEMO_LPADC_USER_CHANNELA 7U
+#define DEMO_LPADC_USER_CHANNELB 6U
+#define DEMO_LPADC_USER_CMDID    1U /* CMD1 */
 /* ERRATA051385: ADC INL/DNL degrade under high ADC clock frequency when VREFH selected as reference. */
 #define DEMO_LPADC_VREF_SOURCE             kLPADC_ReferenceVoltageAlt2
 #define DEMO_LPADC_USE_HIGH_RESOLUTION     true
 #define DEMO_LPADC_OFFSET_CALIBRATION_MODE kLPADC_OffsetCalibration16bitMode
+#define DEMO_LPADC_DO_OFFSET_CALIBRATION   true
 
 /*******************************************************************************
  * Prototypes
@@ -77,12 +78,46 @@ int main(void)
     mLpadcConfigStruct.conversionAverageMode = kLPADC_ConversionAverage128;
     LPADC_Init(DEMO_LPADC_BASE, &mLpadcConfigStruct);
 
-    /* Set offset calibration mode*/
+    /* Request LPADC calibration. */
+#if defined(FSL_FEATURE_LPADC_HAS_CTRL_CALOFSMODE) && FSL_FEATURE_LPADC_HAS_CTRL_CALOFSMODE
     LPADC_SetOffsetCalibrationMode(DEMO_LPADC_BASE, DEMO_LPADC_OFFSET_CALIBRATION_MODE);
-    /* Request offset calibration. */
-    LPADC_DoOffsetCalibration(DEMO_LPADC_BASE);
-    /* Request gain calibration. */
+#endif /* FSL_FEATURE_LPADC_HAS_CTRL_CALOFSMODE */
+
+#if defined(FSL_FEATURE_LPADC_HAS_CTRL_CALOFS) && FSL_FEATURE_LPADC_HAS_CTRL_CALOFS
+#if defined(DEMO_LPADC_DO_OFFSET_CALIBRATION) && DEMO_LPADC_DO_OFFSET_CALIBRATION
+    LPADC_DoOffsetCalibration(DEMO_LPADC_BASE); /* Request offset calibration, automatic update OFSTRIM register. */
+#else                                           /* Update OFSTRIM register manually. */
+
+#if defined(FSL_FEATURE_LPADC_HAS_OFSTRIM) && FSL_FEATURE_LPADC_HAS_OFSTRIM
+#if defined(FSL_FEATURE_LPADC_OFSTRIM_COUNT) && (FSL_FEATURE_LPADC_OFSTRIM_COUNT == 2U)
+    LPADC_SetOffsetValue(DEMO_LPADC_BASE, DEMO_LPADC_OFFSET_VALUE_A, DEMO_LPADC_OFFSET_VALUE_B);
+#elif defined(FSL_FEATURE_LPADC_OFSTRIM_COUNT) && (FSL_FEATURE_LPADC_OFSTRIM_COUNT == 1U)
+    LPADC_SetOffsetValue(DEMO_LPADC_BASE, DEMO_LPADC_OFFSET_VALUE);
+#endif /* FSL_FEATURE_LPADC_OFSTRIM_COUNT */
+
+#else  /* For other OFSTRIM register type. */
+    if (DEMO_LPADC_OFFSET_CALIBRATION_MODE == kLPADC_OffsetCalibration12bitMode)
+    {
+        LPADC_SetOffset12BitValue(DEMO_LPADC_BASE, DEMO_LPADC_OFFSET_VALUE_A, DEMO_LPADC_OFFSET_VALUE_B);
+    }
+    else
+    {
+        LPADC_SetOffset16BitValue(DEMO_LPADC_BASE, DEMO_LPADC_OFFSET_VALUE_A, DEMO_LPADC_OFFSET_VALUE_B);
+    }
+#endif /* FSL_FEATURE_LPADC_HAS_OFSTRIM */
+
+#endif /* DEMO_LPADC_DO_OFFSET_CALIBRATION */
+#endif /* FSL_FEATURE_LPADC_HAS_CTRL_CALOFS */
+
+#if defined(FSL_FEATURE_LPADC_HAS_CTRL_CAL_REQ) && FSL_FEATURE_LPADC_HAS_CTRL_CAL_REQ
+    /* Request auto calibration (including gain error calibration and linearity error calibration). */
     LPADC_DoAutoCalibration(DEMO_LPADC_BASE);
+#endif /* FSL_FEATURE_LPADC_HAS_CTRL_CAL_REQ */
+
+#if (defined(FSL_FEATURE_LPADC_HAS_CFG_CALOFS) && FSL_FEATURE_LPADC_HAS_CFG_CALOFS)
+    /* Do auto calibration. */
+    LPADC_DoAutoCalibration(DEMO_LPADC_BASE);
+#endif /* FSL_FEATURE_LPADC_HAS_CFG_CALOFS */
 
     /* Set conversion CMD configuration. */
     LPADC_GetDefaultConvCommandConfig(&mLpadcCommandConfigStruct);

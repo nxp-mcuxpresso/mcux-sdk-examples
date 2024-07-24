@@ -86,8 +86,7 @@ typedef struct _uap_prov_vars
     char staSsid[IEEEtypes_SSID_SIZE + 1];
     char staPass[WLAN_PSK_MAX_LENGTH];
     /* uap prov thread */
-    os_thread_t thread;
-    os_thread_stack_t stack;
+    OSA_TASK_HANDLE_DEFINE(thread);
 } uap_prov_vars;
 
 typedef struct _uap_prov_uap_config
@@ -100,11 +99,9 @@ typedef struct _uap_prov_uap_config
 typedef struct _uap_prov_queues
 {
     /* uap prov queue */
-    os_queue_t queue;
-    os_queue_pool_t queue_data;
+    OSA_MSGQ_HANDLE_DEFINE(queue, MAX_EVENTS, sizeof(struct q_message));
     /* http server session queue */
-    os_queue_t httpsrv_ses_queue;
-    os_queue_pool_t httpsrv_ses_queue_data;
+    OSA_MSGQ_HANDLE_DEFINE(httpsrv_ses_queue, MAX_EVENTS, sizeof(struct q_message));
 } uap_prov_queues;
 
 #define MSG_TYPE_CMD 0

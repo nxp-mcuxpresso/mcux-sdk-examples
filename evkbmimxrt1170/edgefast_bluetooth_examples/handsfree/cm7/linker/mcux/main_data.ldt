@@ -6,7 +6,9 @@
 	    _k_mem_slab_list_start = .;
 	    KEEP(*(SORT(._k_mem_slab*)))
 	    _k_mem_slab_list_end = .;
-	    . = ALIGN(4);
+	    . = ALIGN(32);
+        *(m_usb_dma_init_data)
+        . = ALIGN(32);
         <#if memory.name=="SRAM_OC1">
         *fsl_adapter_flexspi_nor_flash.o(.text .text* .rodata .rodata*)
         *fsl_flexspi.o(.text .text* .rodata .rodata*)

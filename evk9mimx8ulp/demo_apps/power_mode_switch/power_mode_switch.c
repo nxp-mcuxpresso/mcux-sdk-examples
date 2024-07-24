@@ -29,6 +29,7 @@
 #include "fsl_iomuxc.h"
 #include "fsl_lpuart.h"
 #include "fsl_reset.h"
+#include "fsl_fusion.h"
 /*******************************************************************************
  * Struct Definitions
  ******************************************************************************/
@@ -188,6 +189,7 @@ static void APP_Suspend(void)
     uint32_t setting;
     uint32_t backupIndex;
     lpm_rtd_power_mode_e targetPowerMode = LPM_GetPowerMode();
+    SIM_SEC_Type *base = SIM_SEC;
 
     backupIndex = 0;
 
@@ -319,12 +321,17 @@ static void APP_Suspend(void)
 
     /* Save SRTM context */
     APP_SRTM_Suspend();
+
+    /* M33 will gate all clk in DSL/PD, disable FUSION platform clk before M33 enter DSL/PD mode to fix PD+DSL combination corner case in EVK9. */
+    base->SYSCTRL0 &= ~(SIM_SEC_SYSCTRL0_FUSION_CLK_EN_MASK | SIM_SEC_SYSCTRL0_FUSION_PLAT_HCLK_EN_MASK);
+    base->SYSCTRL0 &= ~(SIM_SEC_SYSCTRL0_FUSION_BCLK_EN_MASK | SIM_SEC_SYSCTRL0_FUSION_PBCLK_EN_MASK);
 }
 
 static void APP_Resume(bool resume)
 {
     uint32_t i;
     uint32_t backupIndex;
+    SIM_SEC_Type *base = SIM_SEC;
 
     backupIndex = 0;
 
@@ -353,6 +360,10 @@ static void APP_Resume(bool resume)
     }
 
     EnableIRQ(WUU0_IRQn);
+
+    /* Enable FUSION platform clk. */
+    base->SYSCTRL0 |= SIM_SEC_SYSCTRL0_FUSION_CLK_EN_MASK | SIM_SEC_SYSCTRL0_FUSION_PLAT_HCLK_EN_MASK;
+    base->SYSCTRL0 |= SIM_SEC_SYSCTRL0_FUSION_BCLK_EN_MASK | SIM_SEC_SYSCTRL0_FUSION_PBCLK_EN_MASK;
 
     APP_SRTM_Resume(resume);
 }
@@ -1147,6 +1158,7 @@ int main(void)
     /* Use Pll1Pfd2Div clock source 12.288MHz. */
     CLOCK_SetIpSrc(kCLOCK_Sai0, kCLOCK_Cm33SaiClkSrcPll1Pfd2Div);
 
+    CLOCK_EnableClock(kCLOCK_Dma0Ch0);
     CLOCK_EnableClock(kCLOCK_Dma0Ch16);
     CLOCK_EnableClock(kCLOCK_Dma0Ch17);
     CLOCK_EnableClock(kCLOCK_RgpioA);
@@ -1158,6 +1170,9 @@ int main(void)
     RESET_PeripheralReset(kRESET_Lpi2c0);
     RESET_PeripheralReset(kRESET_Lpi2c1);
     RESET_PeripheralReset(kRESET_Tpm0);
+
+    /* In order to enable the PDM record service located in FUSION_AO, FUSION needs to be initial. */
+    Fusion_Init();
 
     APP_SRTM_Init();
 

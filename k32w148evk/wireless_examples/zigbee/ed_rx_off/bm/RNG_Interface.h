@@ -22,7 +22,10 @@
 #define gRngSuccess_d       (0x00)
 #define gRngInternalError_d (0x01)
 #define gRngNullPointer_d   (0x80)
-#define gRngMaxRequests_d   (100000)
+
+#ifndef gRngMaxRequests_d
+#define gRngMaxRequests_d (100000)
+#endif
 
 #ifndef gRngIsrPrio_c
 #define gRngIsrPrio_c (0x80)
@@ -194,6 +197,36 @@ fpRngPrng_t RNG_GetPrngFunc(void);
  *
  ********************************************************************************** */
 void *RNG_GetPrngContext(void);
+
+/*! *********************************************************************************
+ * \brief  Initialize seed for the PRNG algorithm with the TRNG disponible on the platform.
+ *         If this function is called again, the PRNG will be reseeded.
+ *
+ ********************************************************************************** */
+void RNG_SetSeed(void);
+
+/*! *********************************************************************************
+ * \brief  Initialize seed for the PRNG algorithm with an external seed.
+ *         If this function is called again, the PRNG will be reseeded.
+ *
+ ********************************************************************************** */
+void RNG_SetExternalSeed(uint8_t *external_seed);
+
+/*! *********************************************************************************
+ * \brief  Warn the module that a reseed is needed for the PRNG. PRNG will still
+ *         work but quality of the number generated will decrease RNG_SetSeed()
+ *         or RNG_SetExternalSeed() will need to be called in another task.
+ *
+ ********************************************************************************** */
+void RNG_TriggerReseed(void);
+
+/*! *********************************************************************************
+ * \brief  Tell if the PRNG needs to be reseeded.
+ *
+ * \return  PRNG needs to be reseeded : TRUE or FALSE
+ *
+ ********************************************************************************** */
+bool_t RNG_IsReseedneeded(void);
 
 #ifdef __cplusplus
 }

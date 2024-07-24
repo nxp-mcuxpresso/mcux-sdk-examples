@@ -190,6 +190,7 @@ static void APP_CSI_RGB565(void)
         {
         }
 
+        s_newFrameShown = false;
         g_dc.ops->setFrameBuffer(&g_dc, 0, (void *)cameraReceivedFrameAddr);
     }
 }

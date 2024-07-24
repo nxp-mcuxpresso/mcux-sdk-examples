@@ -118,6 +118,12 @@ void BOARD_InitPinsM2(void);
  */
 void BOARD_InitM2UARTPins(void);
 
+/*!
+ * @brief Configures pin routing and optionally pin electrical features.
+ *
+ */
+void BOARD_InitSyncSignalPins(void);
+
 #if defined(__cplusplus)
 }
 #endif

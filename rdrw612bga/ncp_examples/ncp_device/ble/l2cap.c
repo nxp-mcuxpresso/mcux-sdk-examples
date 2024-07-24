@@ -4,6 +4,7 @@
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
+#if CONFIG_NCP_BLE
 
 #include <porting.h>
 #include <bluetooth/l2cap.h>
@@ -14,6 +15,7 @@
 #include "fsl_component_log_config.h"
 #define LOG_MODULE_NAME bt_l2cap
 #include "fsl_component_log.h"
+
 LOG_MODULE_DEFINE(LOG_MODULE_NAME, kLOG_LevelTrace);
 
 /*******************************************************************************
@@ -152,54 +154,13 @@ static struct bt_l2cap_server server = {
 
 uint8_t ncp_ble_init_l2cap(void)
 {
-    return NCP_BRIDGE_CMD_RESULT_OK;
+    return NCP_CMD_RESULT_OK;
 }
 
 uint8_t ncp_ble_unregister_l2cap(void)
 {
-    return NCP_BRIDGE_CMD_RESULT_OK;
+    return NCP_CMD_RESULT_OK;
 }
-
-#ifdef RAW_BT_TESTER
-void ncp_ble_handle_l2cap(uint8_t opcode, uint8_t index, uint8_t *data,
-             uint16_t len)
-{
-    switch (opcode) {
-    case L2CAP_READ_SUPPORTED_COMMANDS:
-        supported_commands(data, len);
-        break;
-    case L2CAP_CONNECT:
-        ble_l2cap_connect(data, len);
-        break;
-    case L2CAP_DISCONNECT:
-        disconnect(data, len);
-        break;
-    case L2CAP_SEND_DATA:
-        send_data(data, len);
-        break;
-    case L2CAP_LISTEN:
-        ble_l2cap_listen(data, len);
-        break;
-#if (defined(CONFIG_BT_L2CAP_ECRED) && (CONFIG_BT_L2CAP_ECRED == 1))
-    case L2CAP_RECONFIGURE:
-        reconfigure(data, len);
-        break;
-#endif /* CONFIG_BT_L2CAP_ECRED */
-    case L2CAP_CREDITS:
-        credits(data, len);
-        break;
-#if (defined(CONFIG_BT_EATT) && (CONFIG_BT_EATT == 1))
-    case L2CAP_DISCONNECT_EATT_CHANS:
-        disconnect_eatt_chans(data, len);
-        break;
-#endif /* CONFIG_BT_EATT */
-    default:
-        ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_L2CAP) << 16) | opcode, index,
-                   NCP_BLE_STATUS_UNKNOWN_CMD);
-        break;
-    }
-}
-#endif
 
 /*
  * @brief   Commands
@@ -233,7 +194,7 @@ static void supported_commands(uint8_t *data, uint16_t len)
     ncp_ble_set_bit(cmds, L2CAP_DISCONNECT_EATT_CHANS);
 #endif /* CONFIG_BT_EATT */
 
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_L2CAP) << 16) | L2CAP_READ_SUPPORTED_COMMANDS, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *) rp, sizeof(cmds));
+    ble_prepare_status(NCP_RSP_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_L2CAP) << 16) | L2CAP_READ_SUPPORTED_COMMANDS, NCP_CMD_RESULT_OK, (uint8_t *) rp, sizeof(cmds));
 }
 #endif
 
@@ -266,7 +227,7 @@ static int l2cap_recv_metrics(struct bt_l2cap_chan *chan, struct net_buf *buf)
 		l2cap_rate = ((uint64_t)len << 3) * 1000000000U / delta;
 	}
         l2cap_rate = l2cap_rate/1000;
-	return NCP_BRIDGE_CMD_RESULT_OK;
+	return NCP_CMD_RESULT_OK;
 }
 
 static void l2cap_recv_cb(struct k_work *work)
@@ -323,7 +284,7 @@ static int l2cap_recv(struct bt_l2cap_chan *chan, struct net_buf *buf)
     memcpy((uint8_t *)ev.data, buf->data, buf->len);
     ev.len = buf->len;
     ncp_d("sizeof(ev) len %d\n", sizeof(ev));
-    ble_bridge_prepare_status(NCP_BRIDGE_EVENT_L2CAP_RECEIVE, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *) &ev,10 + ev.len);
+    ble_prepare_status(NCP_EVENT_L2CAP_RECEIVE, NCP_CMD_RESULT_OK, (uint8_t *) &ev,10 + ev.len);
 
     if (l2cap_recv_delay_ms > 0) {
 	/* Submit work only if queue is empty */
@@ -337,7 +298,7 @@ static int l2cap_recv(struct bt_l2cap_chan *chan, struct net_buf *buf)
 	return -EINPROGRESS;
     }
 
-    return NCP_BRIDGE_CMD_RESULT_OK;
+    return NCP_CMD_RESULT_OK;
 }
 
 static void l2cap_sent(struct bt_l2cap_chan *chan)
@@ -365,7 +326,7 @@ static void l2cap_connected(struct bt_l2cap_chan *chan)
     }
     ev.psm = c->ch.psm;
 
-    ble_bridge_prepare_status(NCP_BRIDGE_EVENT_L2CAP_CONNECT, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *) &ev, sizeof(ev));
+    ble_prepare_status(NCP_EVENT_L2CAP_CONNECT, NCP_CMD_RESULT_OK, (uint8_t *) &ev, sizeof(ev));
 
 }
 
@@ -382,7 +343,7 @@ static void l2cap_disconnected(struct bt_l2cap_chan *chan)
     }
     ev.psm = l2ch->ch.psm;
 
-    ble_bridge_prepare_status(NCP_BRIDGE_EVENT_L2CAP_DISCONNECT, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *) &ev, sizeof(ev));
+    ble_prepare_status(NCP_EVENT_L2CAP_DISCONNECT, NCP_CMD_RESULT_OK, (uint8_t *) &ev, sizeof(ev));
 
     ncp_d("Channel %p disconnected\n", chan);
     l2cap_channel_free(l2ch);
@@ -506,7 +467,7 @@ void ble_l2cap_set_recv(uint8_t *data, uint16_t len)
 
     l2cap_recv_delay_ms = cmd->l2cap_recv_delay_ms;
     ncp_d("l2cap receive delay: %u ms\n",l2cap_recv_delay_ms);
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_L2CAP_RECEIVE, NCP_BRIDGE_CMD_RESULT_OK, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE_L2CAP_RECEIVE, NCP_CMD_RESULT_OK, NULL, 0);
 }
 
 /*
@@ -515,24 +476,24 @@ void ble_l2cap_set_recv(uint8_t *data, uint16_t len)
 void ble_l2cap_metrics(uint8_t *data, uint16_t len)
 {
     const struct l2cap_metrics_cmd_tag *cmd = (void *) data;
-    uint8_t status = NCP_BRIDGE_CMD_RESULT_ERROR;
+    uint8_t status = NCP_CMD_RESULT_ERROR;
 
     ncp_d("l2cap rate: %u bps.", l2cap_rate * 1000);
     if (cmd->metrics_flag == true)
     {
         metrics = true;
-        status = NCP_BRIDGE_CMD_RESULT_OK;
+        status = NCP_CMD_RESULT_OK;
     }
     else if (cmd->metrics_flag == false)
     {
         metrics = false;
-        status = NCP_BRIDGE_CMD_RESULT_OK;
+        status = NCP_CMD_RESULT_OK;
     }
     else
     {
-        status = NCP_BRIDGE_CMD_RESULT_ERROR;
+        status = NCP_CMD_RESULT_ERROR;
     }
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_L2CAP_METRICS, status, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE_L2CAP_METRICS, status, NULL, 0);
 }
 
 /*
@@ -541,7 +502,7 @@ void ble_l2cap_metrics(uint8_t *data, uint16_t len)
 void bt_l2cap_register(uint8_t *data, uint16_t len)
 {
     const struct l2cap_register_psm_cmd_tag *cmd = (void *) data;
-    uint8_t status = NCP_BRIDGE_CMD_RESULT_ERROR;
+    uint8_t status = NCP_CMD_RESULT_ERROR;
     // int err;
     // const char *policy;
 
@@ -578,12 +539,12 @@ void bt_l2cap_register(uint8_t *data, uint16_t len)
     else
     {
 	bt_conn_cb_register(&l2cap_conn_callbacks);
-        status = NCP_BRIDGE_CMD_RESULT_OK;
+        status = NCP_CMD_RESULT_OK;
 	ncp_d("L2CAP psm %u sec_level %u registered\n",
 			    server.psm, server.sec_level);
     }
 sta:
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_L2CAP_REGISTER, status, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE_L2CAP_REGISTER, status, NULL, 0);
 }
 
 /*
@@ -593,7 +554,7 @@ void ble_l2cap_connect(uint8_t *data, uint16_t len)
 {
     const struct l2cap_connect_cmd_tag *cmd = (void *) data;
     struct bt_conn *conn;
-    uint8_t status = NCP_BRIDGE_CMD_RESULT_ERROR;
+    uint8_t status = NCP_CMD_RESULT_ERROR;
     int err;
     struct l2ch *l2cap_channel;
 
@@ -612,10 +573,10 @@ void ble_l2cap_connect(uint8_t *data, uint16_t len)
 #endif
 	}
 	err = bt_l2cap_chan_connect(conn, &l2cap_channel->ch.chan, cmd->psm);
-        status = err < 0 ? NCP_BRIDGE_CMD_RESULT_ERROR : NCP_BRIDGE_CMD_RESULT_OK;
+        status = err < 0 ? NCP_CMD_RESULT_ERROR : NCP_CMD_RESULT_OK;
     }
 sta:
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_L2CAP_CONNECT, status, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE_L2CAP_CONNECT, status, NULL, 0);
 }
 
 /*
@@ -624,7 +585,7 @@ sta:
 void ble_l2cap_disconnect(uint8_t *data, uint16_t len)
 {
     struct bt_conn *conn;
-    uint8_t status = NCP_BRIDGE_CMD_RESULT_ERROR;
+    uint8_t status = NCP_CMD_RESULT_ERROR;
     int err;
     struct l2ch *l2cap_channel;
 
@@ -641,10 +602,10 @@ void ble_l2cap_disconnect(uint8_t *data, uint16_t len)
 	if (err) {
 		ncp_e("Unable to disconnect: %u\n", -err);
 	}
-        status = err < 0 ? NCP_BRIDGE_CMD_RESULT_ERROR : NCP_BRIDGE_CMD_RESULT_OK;
+        status = err < 0 ? NCP_CMD_RESULT_ERROR : NCP_CMD_RESULT_OK;
     }
 sta:
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_L2CAP_DISCONNECT, status, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE_L2CAP_DISCONNECT, status, NULL, 0);
 }
 
 /*
@@ -654,7 +615,7 @@ void ble_l2cap_send_data(uint8_t *data, uint16_t len)
 {
     const struct l2cap_send_data_cmd_tag *cmd = (void *) data;
     struct bt_conn *conn;
-    uint8_t status = NCP_BRIDGE_CMD_RESULT_ERROR;
+    uint8_t status = NCP_CMD_RESULT_ERROR;
     struct l2ch *l2cap_channel;
     static uint8_t buf_data[DATA_MTU] = { [0 ... (DATA_MTU - 1)] = 0xff };
     int ret, length, count = 1;
@@ -693,11 +654,11 @@ void ble_l2cap_send_data(uint8_t *data, uint16_t len)
 			ncp_e("Unable to send: %d\n", -ret);
 			net_buf_unref(buf);
 		}
-                status = ret < 0 ? NCP_BRIDGE_CMD_RESULT_ERROR : NCP_BRIDGE_CMD_RESULT_OK; 
+                status = ret < 0 ? NCP_CMD_RESULT_ERROR : NCP_CMD_RESULT_OK; 
 	}
     }
 sta:
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE_L2CAP_SEND, status, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE_L2CAP_SEND, status, NULL, 0);
 }
 
 #if 0
@@ -748,11 +709,11 @@ static void ble_l2cap_listen(uint8_t *data, uint16_t len)
         goto fail;
     }
 
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_L2CAP) << 16) | L2CAP_LISTEN, NCP_BRIDGE_CMD_RESULT_OK, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_L2CAP) << 16) | L2CAP_LISTEN, NCP_CMD_RESULT_OK, NULL, 0);
     return;
 
 fail:
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_L2CAP) << 16) | L2CAP_LISTEN, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_L2CAP) << 16) | L2CAP_LISTEN, NCP_CMD_RESULT_ERROR, NULL, 0);
 }
 
 #if (defined(CONFIG_BT_L2CAP_ECRED) && (CONFIG_BT_L2CAP_ECRED == 1))
@@ -774,19 +735,19 @@ static void reconfigure(uint8_t *data, uint16_t len)
     if (!conn)
     {
         LOG_ERR("Unknown connection");
-        status = NCP_BRIDGE_CMD_RESULT_ERROR;
+        status = NCP_CMD_RESULT_ERROR;
         goto rsp;
     }
 
     if (cmd->num > CHANNELS)
     {
-        status = NCP_BRIDGE_CMD_RESULT_ERROR;
+        status = NCP_CMD_RESULT_ERROR;
         goto rsp;
     }
 
     if (mtu > DATA_MTU)
     {
-        status = NCP_BRIDGE_CMD_RESULT_ERROR;
+        status = NCP_CMD_RESULT_ERROR;
         goto rsp;
     }
 
@@ -794,7 +755,7 @@ static void reconfigure(uint8_t *data, uint16_t len)
     {
         if (cmd->chan_id[i] > CHANNELS)
         {
-            status = NCP_BRIDGE_CMD_RESULT_ERROR;
+            status = NCP_CMD_RESULT_ERROR;
             goto rsp;
         }
 
@@ -805,14 +766,14 @@ static void reconfigure(uint8_t *data, uint16_t len)
 
     if (err)
     {
-            status = NCP_BRIDGE_CMD_RESULT_ERROR;
+            status = NCP_CMD_RESULT_ERROR;
             goto rsp;
     }
 
-    status = NCP_BRIDGE_CMD_RESULT_OK;
+    status = NCP_CMD_RESULT_OK;
 
 rsp:
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_L2CAP) << 16) | L2CAP_RECONFIGURE, status, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_L2CAP) << 16) | L2CAP_RECONFIGURE, status, NULL, 0);
 }
 #endif /* CONFIG_BT_L2CAP_ECRED */
 
@@ -840,11 +801,11 @@ static void credits(uint8_t *data, uint16_t len)
         chan->pending_credit = NULL;
     }
 
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_L2CAP) << 16) | L2CAP_CREDITS, NCP_BRIDGE_CMD_RESULT_OK, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_L2CAP) << 16) | L2CAP_CREDITS, NCP_CMD_RESULT_OK, NULL, 0);
     return;
 
 fail:
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_L2CAP) << 16) | L2CAP_CREDITS, NCP_BRIDGE_CMD_RESULT_ERROR, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_L2CAP) << 16) | L2CAP_CREDITS, NCP_CMD_RESULT_ERROR, NULL, 0);
 }
 
 #if (defined(CONFIG_BT_EATT) && (CONFIG_BT_EATT == 1))
@@ -862,7 +823,7 @@ void disconnect_eatt_chans(uint8_t *data, uint16_t len)
     if (!conn)
     {
         LOG_ERR("Unknown connection");
-        status = NCP_BRIDGE_CMD_RESULT_ERROR;
+        status = NCP_CMD_RESULT_ERROR;
         goto failed;
     }
 
@@ -871,17 +832,17 @@ void disconnect_eatt_chans(uint8_t *data, uint16_t len)
         err = bt_eatt_disconnect_one(conn);
         if (err)
         {
-            status = NCP_BRIDGE_CMD_RESULT_ERROR;
+            status = NCP_CMD_RESULT_ERROR;
             goto unref;
         }
     }
 
-    status = NCP_BRIDGE_CMD_RESULT_OK;
+    status = NCP_CMD_RESULT_OK;
 
 unref:
     bt_conn_unref(conn);
 failed:
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_L2CAP) << 16) | L2CAP_DISCONNECT_EATT_CHANS, status, NULL, 0);
+    ble_prepare_status(NCP_RSP_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_L2CAP) << 16) | L2CAP_DISCONNECT_EATT_CHANS, status, NULL, 0);
 }
 #endif /* CONFIG_BT_EATT */
 
@@ -938,7 +899,7 @@ static void connected_cb(struct bt_l2cap_chan *l2cap_chan)
         }
     }
 
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_L2CAP) << 16) | L2CAP_EV_CONNECTED, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *) &ev, sizeof(ev));
+    ble_prepare_status(NCP_RSP_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_L2CAP) << 16) | L2CAP_EV_CONNECTED, NCP_CMD_RESULT_OK, (uint8_t *) &ev, sizeof(ev));
 }
 
 /*
@@ -986,7 +947,7 @@ static void disconnected_cb(struct bt_l2cap_chan *l2cap_chan)
 
     chan->in_use = false;
 
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_L2CAP) << 16) | L2CAP_EV_DISCONNECTED, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *) &ev, sizeof(ev));
+    ble_prepare_status(NCP_RSP_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_L2CAP) << 16) | L2CAP_EV_DISCONNECTED, NCP_CMD_RESULT_OK, (uint8_t *) &ev, sizeof(ev));
 }
 
 /*
@@ -1003,7 +964,7 @@ static int recv_cb(struct bt_l2cap_chan *l2cap_chan, struct net_buf *buf)
     ev->data_length = sys_cpu_to_le16(buf->len);
     memcpy(ev->data, buf->data, buf->len);
 
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_L2CAP) << 16) | L2CAP_EV_DATA_RECEIVED, NCP_BRIDGE_CMD_RESULT_OK, recv_cb_buf, sizeof(*ev) + buf->len);
+    ble_prepare_status(NCP_RSP_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_L2CAP) << 16) | L2CAP_EV_DATA_RECEIVED, NCP_CMD_RESULT_OK, recv_cb_buf, sizeof(*ev) + buf->len);
 
     if (chan->hold_credit && !chan->pending_credit)
     {
@@ -1034,7 +995,7 @@ static void reconfigured_cb(struct bt_l2cap_chan *l2cap_chan)
     ev.mtu_local = sys_cpu_to_le16(chan->le.rx.mtu);
     ev.mps_local = sys_cpu_to_le16(chan->le.rx.mps);
 
-    ble_bridge_prepare_status(NCP_BRIDGE_CMD_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_L2CAP) << 16) | L2CAP_EV_RECONFIGURED, NCP_BRIDGE_CMD_RESULT_OK, (uint8_t *)&ev, sizeof(ev));
+    ble_prepare_status(NCP_RSP_BLE | ((uint32_t)(NCP_BLE_SERVICE_ID_L2CAP) << 16) | L2CAP_EV_RECONFIGURED, NCP_CMD_RESULT_OK, (uint8_t *)&ev, sizeof(ev));
 }
 #endif /* CONFIG_BT_L2CAP_ECRED */
 
@@ -1154,3 +1115,5 @@ int ble_ncp_L2capInit(void)
     }
     return (int)ret;
 }
+
+#endif /* CONFIG_NCP_BLE */

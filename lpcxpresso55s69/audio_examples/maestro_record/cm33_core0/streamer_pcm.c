@@ -46,6 +46,8 @@ void streamer_pcm_init(void)
     DMA_SetChannelPriority(DEMO_DMA, DEMO_I2S_RX_CHANNEL, kDMA_ChannelPriority2);
     DMA_CreateHandle(&(pcmHandle.i2sRxDmaHandle), DEMO_DMA, DEMO_I2S_RX_CHANNEL);
 
+    NVIC_SetPriority(DMA0_IRQn, 2U);
+
     pcmHandle.isFirstRx = 0;
     pcmHandle.isFirstTx = 0;
     rx_data_valid       = 0;

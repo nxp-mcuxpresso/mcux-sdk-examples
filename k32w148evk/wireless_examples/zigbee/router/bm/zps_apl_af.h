@@ -39,7 +39,7 @@
 #include <zps_apl_zdo.h>
 #include <zps_apl_zdp.h>
 #include <zps_apl_aib.h>
-#include "aessw_ccm.h"
+#include "zb_platform.h"
 
 /****************************************************************************/
 /***        Macro Definitions                                             ***/
@@ -584,7 +584,7 @@ typedef struct
 /* Security table structure */
 typedef struct
 {
-    AESSW_Block_u uSecurityKey;
+    CRYPTO_tsAesBlock uSecurityKey;
     ZPS_tuAfZgpGreenPowerId uGpId;
     uint32        u32Counter;
     uint8         u8SecurityLevel;
@@ -731,7 +731,7 @@ typedef void (*pfCallbackHashNotification)(uint64 u64DeviceAddress);
 PUBLIC void zps_taskZPS(void);
 PUBLIC void zps_pvAesGetKeyFromInstallCode(uint8 *pu8installCode,
                     uint16 u16installCodeLength,
-                    AESSW_Block_u *puresult);
+                    CRYPTO_tsAesBlock *puresult);
 PUBLIC uint32 zps_u32GetAplVersion(void);
 PUBLIC ZPS_teStatus zps_eAplAfInit (void* pvApl, bool_t bColdInit );
 PUBLIC ZPS_teStatus zps_eAplAfSetEndpointState(void *pvApl, uint8 u8Endpoint, bool bEnabled);
@@ -760,6 +760,9 @@ PUBLIC ZPS_teStatus zps_eAplAfBoundAckDataReq(void *pvApl, PDUM_thAPduInstance h
 PUBLIC ZPS_teStatus zps_eAplAfInterPanDataReq(void *pvApl,PDUM_thAPduInstance hAPduInst,uint32 u32ClId_ProfId,ZPS_tsInterPanAddress *psDstAddr,
                                               uint8 u8Handle);
 PUBLIC ZPS_teStatus zps_eAplAfApsdeDataReq(void *pvApl, PDUM_thAPduInstance hAPduInst, ZPS_tsAfProfileDataReq* psProfileDataReq, uint8 *pu8SeqNum, uint8 eTxOptions);
+#ifdef R23_UPDATES
+PUBLIC void zps_vAplAfSetAdditionalTlvs(void *pvApl, uint8 *au8Tlvs, uint8 u8TlvsSize);
+#endif
 PUBLIC void zps_vAfInterPanInit(void *pvApl);
 PUBLIC void ZPS_vZgpInitGpTxQueue(void);
 PUBLIC void ZPS_vZgpInitGpSecurityTable(void);
@@ -769,8 +772,8 @@ PUBLIC ZPS_teStatus zps_ePurgeBindTable(void *pvApl);
 PUBLIC void zps_vPurgeAddressMap(void* pvApl);
 PUBLIC bool_t ZPS_sZgpAddDeviceSecurity(uint32 u32ApplicationId, ZPS_tsAfZgpGpstEntry *psEntry);
 PUBLIC void ZPS_vRegisterSecRequestResponseCallback(void* pFn);
-PUBLIC void ZPS_vZgpTransformKey(ZPS_teAfZgpKeyType eKeyType, uint8 u8Applicationid, uint32 u32Srcid, uint64 u64MacAddress, AESSW_Block_u *puInKey,
-                             AESSW_Block_u *puOutKey);
+PUBLIC void ZPS_vZgpTransformKey(ZPS_teAfZgpKeyType eKeyType, uint8 u8Applicationid, uint32 u32Srcid, uint64 u64MacAddress, CRYPTO_tsAesBlock *puInKey,
+                             CRYPTO_tsAesBlock *puOutKey);
 PUBLIC ZPS_teStatus zps_vDStub_DataReq(ZPS_tsAfZgpGreenPowerReq *psDataReq,PDUM_thAPduInstance hAPduInst,bool_t bActions,uint8 u8CommandId);
 PUBLIC ZPS_tsAfZgpGpstEntry* ZPS_psZgpFindGpstEntry(uint32 u32ApplicationId,ZPS_tuAfZgpGreenPowerId uGreenPowerId, uint8* pu8Index);
 
@@ -784,7 +787,7 @@ PUBLIC uint8 u8ZgpCCMStarEncrypt(uint8 *pu8Payload,
         uint8 u8Endpoint);
 
 PUBLIC uint8 u8ZgpCCMStarDecrypt(
-        AESSW_Block_u *puSecurityKey,
+        CRYPTO_tsAesBlock *puSecurityKey,
         uint8 *pu8Payload,
         uint8 u8PayloadLen,
         uint8 u8NwkHdr,
@@ -794,7 +797,7 @@ PUBLIC uint8 u8ZgpCCMStarDecrypt(
         ZPS_tsAfZgpSecReq* pZgpReq);
 
 PUBLIC void zps_vSaveAllZpsRecords(void *pvApl);
-PUBLIC bool_t ZPS_bIsLinkKeyPresent(uint64 u64IeeeAddress);
+PUBLIC bool_t ZPS_bIsLinkKeyPresent(uint64 u64IeeeAddress, ZPS_tsAplApsKeyDescriptorEntry ** psKey);
 PUBLIC ZPS_teStatus zps_eAplAfSendKeepAlive(void* pvApl );
 PUBLIC bool zps_bAplAfSetEndDeviceTimeout(void* pvApl, uint8 u8Timeout );
 
@@ -1195,6 +1198,14 @@ ZPS_APL_INLINE void ZPS_vSetLocalScanDuration(uint8 u8ScanDuration)
 {
     zps_vSetLocalScanDuration(ZPS_pvAplZdoGetAplHandle(),u8ScanDuration);
 }
+
+#ifdef R23_UPDATES
+ZPS_APL_INLINE void ZPS_vAplAfSetAdditionalTlvs(uint8 *au8Tlvs, uint8 u8TlvsSize) ZPS_APL_ALWAYS_INLINE;
+ZPS_APL_INLINE void ZPS_vAplAfSetAdditionalTlvs(uint8 *au8Tlvs, uint8 u8TlvsSize)
+{
+    zps_vAplAfSetAdditionalTlvs(ZPS_pvAplZdoGetAplHandle(), au8Tlvs, u8TlvsSize);
+}
+#endif
 
 #ifdef ZCP
 PUBLIC void ZPS_vRegisterCommandCallbackAPS(void* pvFnCallback);

@@ -7,15 +7,19 @@
  *  SPDX-License-Identifier: BSD-3-Clause
  */
 
-#include <wm_os.h>
+#include <osa.h>
+#include "app_notify.h"
 #include "wlan.h"
 #include "wifi.h"
-
-#include "app_notify.h"
 #include "ncp_glue_wifi.h"
+#include "ncp_glue_system.h"
 #include "ncp_config.h"
 #include "mdns_service.h"
 #include "fsl_os_abstraction.h"
+#if CONFIG_NCP_USB
+#include "ncp_intf_usb_device_cdc.h"
+#endif
+#include "ncp_system.h"
 
 /*******************************************************************************
  * Definitions
@@ -29,19 +33,25 @@
 
 extern int wifi_ncp_send_response(uint8_t *pbuf);
 uint8_t suspend_notify_flag = 0;
+extern uint8_t wifi_res_buf[NCP_INBUF_SIZE];
 
 /*******************************************************************************
  * Variables
  ******************************************************************************/
 
-static os_queue_pool_define(app_notify_event_queue_data, APP_NOTIFY_MAX_EVENTS * sizeof(app_notify_msg_t));
-static os_queue_t app_notify_event_queue; /* app notify event queue */
+static OSA_MSGQ_HANDLE_DEFINE(app_notify_event_queue, APP_NOTIFY_MAX_EVENTS, sizeof(app_notify_msg_t)); /* app notify event queue */
 
-static os_thread_t app_notify_event_thread;                  /* app notify event processing task */
-static os_thread_stack_define(app_notify_event_stack, 2048); /* app notify event processing task stack*/
+static void app_notify_event_handler(void *argv);
+static OSA_TASK_HANDLE_DEFINE(app_notify_event_thread);                                  /* app notify event processing task */
+static OSA_TASK_DEFINE(app_notify_event_handler, PRIORITY_RTOS_TO_OSA(2), 1, 2048, 0); /* app notify event processing task stack*/
 
 extern uint32_t current_cmd;
 extern OSA_SEMAPHORE_HANDLE_DEFINE(wifi_ncp_lock);
+
+#if CONFIG_NCP_USB
+extern usb_cdc_vcom_struct_t s_cdcVcom;
+#endif
+
 /*******************************************************************************
  * Code
  ******************************************************************************/
@@ -52,13 +62,7 @@ extern OSA_SEMAPHORE_HANDLE_DEFINE(wifi_ncp_lock);
  */
 int app_notify_event(uint16_t event, int result, void *data, int len)
 {
-    int ret;
     app_notify_msg_t msg;
-    if (!app_notify_event_queue)
-    {
-        app_e("app_notify_event_queue has no create, event %d", event);
-        return -WM_FAIL;
-    }
 
     memset(&msg, 0, sizeof(msg));
     msg.event    = event;
@@ -66,16 +70,16 @@ int app_notify_event(uint16_t event, int result, void *data, int len)
     msg.data_len = len;
     msg.data     = data;
 
-    ret = os_queue_send(&app_notify_event_queue, &msg, OS_NO_WAIT);
-    if (ret != WM_SUCCESS)
+    if (OSA_MsgQPut((osa_msgq_handle_t)app_notify_event_queue, &msg) != KOSA_StatusSuccess)
     {
         app_e("failed to send event(%d) on queue", event);
-        /* Release bridge lock */
+        /* Release lock */
         OSA_SemaphorePost(wifi_ncp_lock);
-        app_d("put bridge lock");
+        app_d("put lock");
+        return -WM_FAIL;
     }
 
-    return ret;
+    return WM_SUCCESS;
 }
 
 /**
@@ -85,16 +89,20 @@ int app_notify_event(uint16_t event, int result, void *data, int len)
 static void app_notify_event_handler(void *argv)
 {
     int ret = WM_SUCCESS;
+    osa_status_t status;
     app_notify_msg_t msg;
     uint8_t *event_buf = NULL;
+#if CONFIG_NCP_USB
+    int lpm_usb_retry_cnt = 20;
+#endif
 
     while (1)
     {
         /* Receive message on queue */
-        ret = os_queue_recv(&app_notify_event_queue, &msg, OS_WAIT_FOREVER);
-        if (ret != WM_SUCCESS)
+        status = OSA_MsgQGet((osa_msgq_handle_t)app_notify_event_queue, &msg, osaWaitForever_c);
+        if (status != KOSA_StatusSuccess)
         {
-            app_e("failed to get message from queue [%d]", ret);
+            app_e("failed to get message from queue [%d]", status);
             continue;
         }
 
@@ -106,57 +114,91 @@ static void app_notify_event_handler(void *argv)
                 if (msg.reason == APP_EVT_REASON_SUCCESS && msg.data != NULL)
                 {
                     app_d("got scan result");
-                    wlan_bridge_prepare_scan_result(msg.data);
-                    os_mem_free(msg.data);
+                    wlan_ncp_prepare_scan_result(msg.data);
+                    OSA_MemoryFree(msg.data);
                 }
                 else
                 {
-                    wlan_bridge_prepare_status(NCP_BRIDGE_CMD_WLAN_STA_SCAN, msg.reason);
+                    wlan_ncp_prepare_status(NCP_RSP_WLAN_STA_SCAN, msg.reason);
                 }
                 break;
             case APP_EVT_USER_DISCONNECT:
-                if(current_cmd == NCP_BRIDGE_CMD_WLAN_STA_CONNECT)
+                if(current_cmd == NCP_CMD_WLAN_STA_CONNECT)
                 {
                     app_d("current network connect fail");
-                    wlan_bridge_prepare_status(NCP_BRIDGE_CMD_WLAN_STA_CONNECT, APP_EVT_REASON_FAILURE);
+                    wlan_ncp_prepare_status(NCP_RSP_WLAN_STA_CONNECT, APP_EVT_REASON_FAILURE);
+                }
+                else if(current_cmd == NCP_CMD_WLAN_STA_DISCONNECT)
+                {
+                    app_d("disconnect from the current network");
+                    wlan_ncp_prepare_status(NCP_RSP_WLAN_STA_DISCONNECT, msg.reason);
                 }
                 else
                 {
                     app_d("disconnect from the current network");
-                    wlan_bridge_prepare_status(NCP_BRIDGE_CMD_WLAN_STA_DISCONNECT, msg.reason);
+                    event_buf = wlan_ncp_evt_status(NCP_EVENT_WLAN_STA_DISCONNECT, &msg);
+                    if (!event_buf)
+                        ret = -WM_FAIL;
                 }
                 break;
             case APP_EVT_UAP_PROV_START:
                 app_d("got uap_prov_start result");
-                wlan_bridge_prepare_status(NCP_BRIDGE_CMD_WLAN_BASIC_WLAN_UAP_PROV_START, msg.reason);
+                wlan_ncp_prepare_status(NCP_RSP_WLAN_BASIC_WLAN_UAP_PROV_START, msg.reason);
                 break;
             case APP_EVT_USER_CONNECT:
-                if (msg.reason == APP_EVT_REASON_SUCCESS && msg.data != NULL)
+                if(current_cmd == NCP_CMD_WLAN_STA_CONNECT)
                 {
-                    app_d("connected to network");
-                    wlan_bridge_prepare_connect_result(msg.data);
-                    os_mem_free(msg.data);
+                    if (msg.reason == APP_EVT_REASON_SUCCESS && msg.data != NULL)
+                    {
+                        app_d("connected to network");
+                        wlan_ncp_prepare_connect_result(msg.data);
+                        OSA_MemoryFree(msg.data);
+                    }
+                    else
+                    {
+                        wlan_ncp_prepare_status(NCP_RSP_WLAN_STA_CONNECT, msg.reason);
+                    }
+
                 }
                 else
                 {
-                    wlan_bridge_prepare_status(NCP_BRIDGE_CMD_WLAN_STA_CONNECT, msg.reason);
+                    app_d("connect with the current network");
+                    event_buf = wlan_ncp_evt_status(NCP_EVENT_WLAN_STA_CONNECT, &msg);
+                    if (!event_buf)
+                        ret = -WM_FAIL;
                 }
                 break;
             case APP_EVT_USER_START_NETWORK:
-                if (msg.reason == APP_EVT_REASON_SUCCESS && msg.data != NULL)
+                if(current_cmd == NCP_CMD_WLAN_NETWORK_START)
                 {
-                    app_d("network started");
-                    wlan_bridge_prepare_start_network_result(msg.data);
-                    os_mem_free(msg.data);
+                    if (msg.reason == APP_EVT_REASON_SUCCESS && msg.data != NULL)
+                    {
+                        app_d("network started");
+                        wlan_ncp_prepare_start_network_result(msg.data);
+                        OSA_MemoryFree(msg.data);
+                    }
+                    else
+                    {
+                        wlan_ncp_prepare_status(NCP_RSP_WLAN_NETWORK_START, msg.reason);
+                    }
                 }
                 else
                 {
-                    wlan_bridge_prepare_status(NCP_BRIDGE_CMD_WLAN_NETWORK_START, msg.reason);
+                    app_d("the current network started");
                 }
                 break;
             case APP_EVT_USER_STOP_NETWORK:
                 app_d("got stop network result");
-                wlan_bridge_prepare_status(NCP_BRIDGE_CMD_WLAN_NETWORK_STOP, msg.reason);
+                if(current_cmd == NCP_CMD_WLAN_NETWORK_STOP)
+                {
+                    wlan_ncp_prepare_status(NCP_RSP_WLAN_NETWORK_STOP, msg.reason);
+                }
+                else
+                {
+                    event_buf = wlan_ncp_evt_status(NCP_EVENT_WLAN_STOP_NETWORK, &msg);
+                    if (!event_buf)
+                        ret = -WM_FAIL;
+                }
                 break;
             case APP_EVT_WPS_DONE:
                 app_d("got network of WPS session");
@@ -165,25 +207,39 @@ static void app_notify_event_handler(void *argv)
                 break;
             case APP_EVT_HS_CONFIG:
                 app_d("got MCU sleep config result");
-                wlan_bridge_prepare_status(NCP_BRIDGE_CMD_WLAN_POWERMGMT_MCU_SLEEP, msg.reason);
+                wlan_ncp_prepare_status(NCP_RSP_SYSTEM_POWERMGMT_MCU_SLEEP, msg.reason);
                 break;
             case APP_EVT_SUSPEND:
                 app_d("got suspend command result");
-                wlan_bridge_prepare_status(NCP_BRIDGE_CMD_WLAN_POWERMGMT_SUSPEND, msg.reason);
+                wlan_ncp_prepare_status(NCP_RSP_WLAN_POWERMGMT_SUSPEND, msg.reason);
                 break;
             case APP_EVT_MCU_SLEEP_ENTER:
                 app_d("got MCU sleep enter report");
-                event_buf = wlan_bridge_evt_status(NCP_BRIDGE_EVENT_MCU_SLEEP_ENTER, &msg);
+                event_buf = ncp_sys_evt_status(NCP_EVENT_MCU_SLEEP_ENTER, &msg);
                 if (!event_buf)
                     ret = -WM_FAIL;
                 break;
             case APP_EVT_MCU_SLEEP_EXIT:
-#ifdef CONFIG_NCP_SDIO
+#if CONFIG_NCP_USB
+                /* Wait for USB re-init done */
+                lpm_usb_retry_cnt = 20;
+                while(lpm_usb_retry_cnt > 0 && 1 != s_cdcVcom.attach)
+                {
+                    OSA_TimeDelay(50);
+                    lpm_usb_retry_cnt--;
+                }
+
+                if(0 == lpm_usb_retry_cnt)
+                {
+                    app_e("usb enum failed from LPM");
+                }
+#endif
+#if CONFIG_NCP_SDIO
                 /* Wait for SDIO re-init done */
                 OSA_TimeDelay(800);
 #endif
                 app_d("got MCU sleep exit report");
-                event_buf = wlan_bridge_evt_status(NCP_BRIDGE_EVENT_MCU_SLEEP_EXIT, &msg);
+                event_buf = ncp_sys_evt_status(NCP_EVENT_MCU_SLEEP_EXIT, &msg);
                 if (!event_buf)
                     ret = -WM_FAIL;
                 break;
@@ -191,12 +247,12 @@ static void app_notify_event_handler(void *argv)
                 app_d("got mdns search result");
                 if (msg.reason == APP_EVT_REASON_SUCCESS && msg.data != NULL)
                 {
-                    wlan_bridge_prepare_mdns_result(msg.data);
+                    wlan_ncp_prepare_mdns_result(msg.data);
                     continue;
                 }
                 else
                 {
-                    event_buf = wlan_bridge_evt_status(NCP_BRIDGE_EVENT_MDNS_QUERY_RESULT, &msg);
+                    event_buf = wlan_ncp_evt_status(NCP_EVENT_MDNS_QUERY_RESULT, &msg);
                     if (!event_buf)
                         ret = -WM_FAIL;
                 }
@@ -205,22 +261,22 @@ static void app_notify_event_handler(void *argv)
                 app_d("got the resolved server address");
                 if (msg.reason == APP_EVT_REASON_SUCCESS && msg.data != NULL)
                 {
-                    event_buf = wlan_bridge_prepare_mdns_resolve_result(msg.data);
+                    event_buf = wlan_ncp_prepare_mdns_resolve_result(msg.data);
                 }
                 else
                 {
-                    event_buf = wlan_bridge_evt_status(NCP_BRIDGE_EVENT_MDNS_RESOLVE_DOMAIN, &msg);
+                    event_buf = wlan_ncp_evt_status(NCP_EVENT_MDNS_RESOLVE_DOMAIN, &msg);
                 }
                 if (!event_buf)
                     ret = -WM_FAIL;
                 break;
             case APP_EVT_INVALID_CMD:
                 app_d("got invalid command");
-                wlan_bridge_prepare_status(NCP_BRIDGE_CMD_INVALID_CMD, msg.reason);
+                wlan_ncp_prepare_status(NCP_RSP_INVALID_CMD, msg.reason);
                 break;
             case APP_EVT_CSI_DATA:
                 app_d("got csi data report");
-                event_buf = wlan_bridge_evt_status(NCP_BRIDGE_EVENT_CSI_DATA, &msg);
+                event_buf = wlan_ncp_evt_status(NCP_EVENT_CSI_DATA, &msg);
                 if (!event_buf)
                     ret = -WM_FAIL;
                 break;
@@ -233,14 +289,21 @@ static void app_notify_event_handler(void *argv)
         if (ret == WM_SUCCESS)
         {
             if (event_buf)
-                wifi_ncp_send_response(event_buf);
+            {
+                if(msg.event == APP_EVT_MCU_SLEEP_ENTER || msg.event == APP_EVT_MCU_SLEEP_EXIT)
+                {
+                    system_ncp_send_response(event_buf);
+                }
+                else
+                    wifi_ncp_send_response(event_buf);
+            }
             else
-                wifi_ncp_send_response((uint8_t *)ncp_bridge_get_response_buffer());
+                wifi_ncp_send_response((uint8_t *)wifi_res_buf);
         }
 
         if (event_buf)
         {
-            os_mem_free(event_buf);
+            OSA_MemoryFree(event_buf);
             event_buf = NULL;
         }
     }
@@ -248,21 +311,19 @@ static void app_notify_event_handler(void *argv)
 
 int app_notify_init(void)
 {
-    int ret;
+    osa_status_t status;
 
-    ret = os_queue_create(&app_notify_event_queue, "app_notify_event_queue", sizeof(app_notify_msg_t),
-                          &app_notify_event_queue_data);
-    if (ret != WM_SUCCESS)
+    status = OSA_MsgQCreate((osa_msgq_handle_t)app_notify_event_queue, APP_NOTIFY_MAX_EVENTS, sizeof(app_notify_msg_t));
+    if (status != KOSA_StatusSuccess)
     {
-        app_e("failed to create app notify event queue: %d", ret);
+        app_e("failed to create app notify event queue: %d", status);
         return -WM_FAIL;
     }
 
-    ret = os_thread_create(&app_notify_event_thread, "app_notify_event_task", app_notify_event_handler, 0,
-                           &app_notify_event_stack, OS_PRIO_2);
-    if (ret != WM_SUCCESS)
+    status = OSA_TaskCreate((osa_task_handle_t)app_notify_event_thread, OSA_TASK(app_notify_event_handler), NULL);
+    if (status != KOSA_StatusSuccess)
     {
-        app_e("failed to create app notify event thread: %d", ret);
+        app_e("failed to create app notify event thread: %d", status);
         return -WM_FAIL;
     }
 

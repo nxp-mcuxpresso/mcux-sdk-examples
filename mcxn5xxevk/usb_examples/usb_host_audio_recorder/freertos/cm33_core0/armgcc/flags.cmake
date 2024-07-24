@@ -21,7 +21,6 @@ SET(CMAKE_ASM_FLAGS_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
@@ -37,7 +36,6 @@ SET(CMAKE_ASM_FLAGS_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
@@ -49,6 +47,8 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -D_DEBUG=1 \
     -DCPU_MCXN547VDF_cm33_core0 \
     -DDEBUG_CONSOLE_TRANSFER_NON_BLOCKING \
+    -DUSB_AUDIO_RECORDER_SDCARD_BUFFER_LENGTH=3072 \
+    -DUSB_AUDIO_RECORDER_SDCARD_WRITE_LENGTH=1024 \
     -DUSB_STACK_FREERTOS \
     -DUSB_STACK_FREERTOS_HEAP_SIZE=32768 \
     -DFSL_OSA_BM_TASK_ENABLE=0 \
@@ -67,7 +67,6 @@ SET(CMAKE_C_FLAGS_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
@@ -80,6 +79,8 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -D_DEBUG=0 \
     -DCPU_MCXN547VDF_cm33_core0 \
     -DDEBUG_CONSOLE_TRANSFER_NON_BLOCKING \
+    -DUSB_AUDIO_RECORDER_SDCARD_BUFFER_LENGTH=3072 \
+    -DUSB_AUDIO_RECORDER_SDCARD_WRITE_LENGTH=1024 \
     -DUSB_STACK_FREERTOS \
     -DUSB_STACK_FREERTOS_HEAP_SIZE=32768 \
     -DFSL_OSA_BM_TASK_ENABLE=0 \
@@ -97,7 +98,6 @@ SET(CMAKE_C_FLAGS_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -std=gnu99 \
@@ -120,7 +120,6 @@ SET(CMAKE_CXX_FLAGS_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -fno-rtti \
@@ -143,7 +142,6 @@ SET(CMAKE_CXX_FLAGS_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mapcs \
     -fno-rtti \
@@ -159,7 +157,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \
@@ -189,7 +186,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     -fno-common \
     -ffunction-sections \
     -fdata-sections \
-    -ffreestanding \
     -fno-builtin \
     -mthumb \
     -mapcs \

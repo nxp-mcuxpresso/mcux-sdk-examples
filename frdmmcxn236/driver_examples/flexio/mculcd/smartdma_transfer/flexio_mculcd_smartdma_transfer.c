@@ -414,7 +414,7 @@ int main(void)
         .pinDirection = kGPIO_DigitalOutput,
         .outputLogic  = 1,
     };
-    
+
     BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();

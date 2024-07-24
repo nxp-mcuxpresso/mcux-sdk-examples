@@ -46,7 +46,7 @@ extern uint32_t Image$$CORE1_REGION$$Length;
 #elif defined(__ICCARM__)
 #pragma section = "__core1_image"
 #define CORE1_IMAGE_START __section_begin("__core1_image")
-#elif defined(__GNUC__)
+#elif (defined(__GNUC__)) && (!defined(__MCUXPRESSO))
 extern const char core1_image_start[];
 extern const char *core1_image_end;
 extern int core1_image_size;
@@ -108,7 +108,7 @@ void APP_WAKEUP_BUTTON_IRQ_HANDLER(void)
 {
     /* Clear GPIO stop request. */
     GPIO_ClearStopRequest();
-    
+	
     if ((1U << APP_WAKEUP_BUTTON_GPIO_PIN) &
         RGPIO_GetPinsInterruptFlags(APP_WAKEUP_BUTTON_GPIO, kRGPIO_InterruptOutput0))
     {

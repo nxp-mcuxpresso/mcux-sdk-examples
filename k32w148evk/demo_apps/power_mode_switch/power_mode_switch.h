@@ -1,5 +1,5 @@
 /*
- * Copyright 2019, 2022 NXP
+ * Copyright 2019, 2022, 2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -48,8 +48,8 @@ typedef enum _app_wakeup_source
 #define AT_ALWAYS_ON_DATA(var)      __attribute__((section("AlwaysOnData"), zero_init)) var
 #define AT_ALWAYS_ON_DATA_INIT(var) __attribute__((section("AlwaysOnData.init"))) var
 #elif (defined(__GNUC__))
-#define AT_ALWAYS_ON_DATA(var)      __attribute__((section("AlwaysOnData,\"aw\",%nobits @"))) var
-#define AT_ALWAYS_ON_DATA_INIT(var) __attribute__((section("AlwaysOnData.init"))) var
+#define AT_ALWAYS_ON_DATA(var)      __attribute__((section(".AlwaysOnData,\"aw\",%nobits @"))) var
+#define AT_ALWAYS_ON_DATA_INIT(var) __attribute__((section(".AlwaysOnData.init"))) var
 #else
 #error Toolchain not supported.
 #endif /* defined(__ICCARM__) */

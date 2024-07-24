@@ -1,5 +1,5 @@
 /*
- *  Copyright 2023 NXP
+ *  Copyright 2023-2024 NXP
  *  All rights reserved.
  *
  *  SPDX-License-Identifier: BSD-3-Clause
@@ -80,8 +80,12 @@
 /* MPL */
 #define CONFIG_BT_MPL 1
 
-/* The default frame duration is 10ms, below macro used to enable 7.5ms frame duration. */
-#define LE_AUDIO_FRAME_DURATION_7_5MS 0
+/* CSIP */
+#define CONFIG_BT_CSIP_SET_COORDINATOR 1
+#define CONFIG_BT_ATT_TX_COUNT 16
+#define CONFIG_LITTLE_ENDIAN 1
+
+#define LE_CONN_COUNT 2
 
 #define CONFIG_BT_HOST_USB_ENABLE     1
 #define CONFIG_BT_HOST_USB_IRQ_ENABLE 1

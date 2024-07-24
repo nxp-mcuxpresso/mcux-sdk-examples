@@ -6,12 +6,10 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-#include <sbl.h>
 #include "fsl_device_registers.h"
 #include "fsl_debug_console.h"
 #include "fsl_cache.h"
 #include "fsl_trdc.h"
-
 #include "pin_mux.h"
 #include "clock_config.h"
 #include "board.h"
@@ -26,9 +24,6 @@
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
-#if (defined(COMPONENT_MCU_ISP))
-extern int isp_kboot_main(bool isInfiniteIsp);
-#endif
 
 /*******************************************************************************
  * Code
@@ -146,10 +141,13 @@ void trdc_setup(void)
     mrcRegionConfig.nseEnable = false;      /* if the cm33 is secure then set to false, otherwise set to true. */
     mrcRegionConfig.mrcIdx    = 1;
     mrcRegionConfig.domainIdx = 2;          /* cm33 uses domain 2 by default */
+
+#if 0    
     mrcRegionConfig.regionIdx = 0;
     mrcRegionConfig.startAddr = 0x47420000; /* Cover the FlexSPI-1 tx/rx fifo */
     mrcRegionConfig.endAddr   = 0x47440000;
     TRDC_MrcSetRegionDescriptorConfig(TRDC_INSTANCE, &mrcRegionConfig);
+#endif
 
     mrcRegionConfig.regionIdx = 1;
     mrcRegionConfig.startAddr = 0x28000000; /* Cover the FlexSPI-1 memory */
@@ -174,11 +172,6 @@ void trdc_setup(void)
  */
 int main(void)
 {
-#if (defined(COMPONENT_MCU_ISP))
-    bool isInfiniteIsp = false;
-    (void)isp_kboot_main(isInfiniteIsp)
-#endif
-
     /* Init board hardware. */
     BOARD_ConfigMPU();
     BOARD_InitPins();
@@ -199,9 +192,6 @@ int main(void)
     SBL_DisableRemap();
 #endif
 
-    /* IMPORTANT - Comment out when running from a debug session
-     * TODO - Find a way to determine this at runtime
-     */
     trdc_setup();
 
     (void)sbl_boot_main();

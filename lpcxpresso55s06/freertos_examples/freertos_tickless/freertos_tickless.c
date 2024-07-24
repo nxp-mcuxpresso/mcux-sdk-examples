@@ -34,8 +34,8 @@
 #define BOARD_SW_GPIO        BOARD_SW3_GPIO
 #define BOARD_SW_PORT        BOARD_SW3_GPIO_PORT
 #define BOARD_SW_GPIO_PIN    BOARD_SW3_GPIO_PIN
-#define BOARD_SW_IRQ         PIN_INT1_IRQn
-#define BOARD_SW_IRQ_HANDLER PIN_INT1_IRQHandler
+#define BOARD_SW_IRQ         PIN_INT0_IRQn
+#define BOARD_SW_IRQ_HANDLER PIN_INT0_IRQHandler
 #define BOARD_SW_NAME        BOARD_SW3_NAME
 
 /* @brief FreeRTOS tickless timer configuration. */

@@ -9,7 +9,7 @@
 #endif
 #include "crc.h"
 
-#ifdef CONFIG_CRC32_HW_ACCELERATE
+#if CONFIG_CRC32_HW_ACCELERATE
 void ncp_tlv_chksum_init(void)
 {
     crc_config_t crcUserConfig;

@@ -86,7 +86,11 @@ wm8960_config_t wm8960Config = {
     .master_slave = false,
 };
 codec_config_t boardCodecConfig = {.codecDevType = kCODEC_WM8960, .codecDevConfig = &wm8960Config};
+#if defined(DEMO_QUICKACCESS_SECTION_CACHEABLE) && DEMO_QUICKACCESS_SECTION_CACHEABLE
+AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t txHandle);
+#else
 AT_QUICKACCESS_SECTION_DATA(sai_edma_handle_t txHandle);
+#endif
 edma_handle_t g_dmaHandle = {0};
 extern codec_config_t boardCodecConfig;
 AT_NONCACHEABLE_SECTION_ALIGN(static uint8_t buffer[BUFFER_NUM * DEMO_XFER_BUFFER_SIZE], 4);
@@ -206,7 +210,7 @@ int main(void)
     DMAMUX_SetSource(DMAMUX0, DEMO_EDMA_CHANNEL, DEMO_SAI_TX_SOURCE);
     DMAMUX_EnableChannel(DMAMUX0, DEMO_EDMA_CHANNEL);
 
-    PRINTF("SAI example started!\n\r");
+    PRINTF("SAI EDMA example started!\n\r");
 
 #if (!defined(DEMO_EDMA_HAS_CHANNEL_CONFIG) || (defined(DEMO_EDMA_HAS_CHANNEL_CONFIG) && !DEMO_EDMA_HAS_CHANNEL_CONFIG))
     /* Create EDMA handle */

@@ -5,12 +5,12 @@ Application demonstrating the shell mode of the simplified Adapter APIs.
 
 SDK version
 ===========
-- Version: 2.15.0
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- MCUXpresso  11.8.0
-- GCC ARM Embedded  12.2
+- MCUXpresso  11.10.0
+- GCC ARM Embedded  13.2.1
 
 Hardware requirements
 =====================
@@ -19,11 +19,15 @@ Hardware requirements
 - Personal Computer
 - One of the following modules:
   - WIFI_IW416_BOARD_MURATA_1XK_M2
+  - WIFI_88W8987_BOARD_MURATA_1ZM_M2
+  - WIFI_IW612_BOARD_MURATA_2EL_M2
 
 Board settings
 ==============
 Before building the example application select Wi-Fi module macro in the app_config.h. (see #define WIFI_<SoC Name>_BOARD_<Module Name>).
 If you want use the WIFI_IW416_BOARD_MURATA_1XK_M2, please change the macro to WIFI_IW416_BOARD_MURATA_1XK_M2.
+If you want use the WIFI_88W8987_BOARD_MURATA_1ZM_M2, please change the macro to WIFI_88W8987_BOARD_MURATA_1ZM_M2.
+If you want use the WIFI_IW612_BOARD_MURATA_2EL_M2, please change the macro to WIFI_IW612_BOARD_MURATA_2EL_M2.
 
 Murata Solution Board settings
 Murata uSD-M.2 adapter resource page: https://www.murata.com/en-us/products/connectivitymodule/wi-fi-bluetooth/overview/lineup/usd-m2-adapter
@@ -31,7 +35,7 @@ Murata uSD-M.2 adapter datasheet: https://www.murata.com/-/media/webrenewal/prod
 Embedded Artists M.2 module resource page: https://www.embeddedartists.com/m2
 Embedded Artists 1XK module datasheet: https://www.embeddedartists.com/doc/ds/1XK_M2_Datasheet.pdf
 Embedded Artists 1ZM module datasheet: https://www.embeddedartists.com/doc/ds/1ZM_M2_Datasheet.pdf
-
+Embedded Artists 2EL module datasheet: https://www.embeddedartists.com/doc/ds/2EL_M2_Datasheet.pdf
 Jumper settings for WIFI_IW416_BOARD_MURATA_1XK_M2:
   - J41 : from position (1-2) to position (2-3)
   - move R300-R305 from position A(2-1) to position B(2-3)
@@ -676,5 +680,33 @@ RFCOMM Client Side,
 4. After rfcomm connection is created, input "rfcomm.send <count of sending>" to send data
 5. After rfcomm connection is created, input "rfcomm.disconnect" to disconnect with peer device
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Here is an example running In-band and Out-of-band independent reset
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1. Input "bt.init" to initialize bluetooth
+@bt> bt.init
+download starts(384072)
+.....................
+download success!
+@bt> Bluetooth initialized
+Settings Loaded
+2. Input "bt.ind_reset inband"  to run In-band independent reset
+@bt> bt.ind_reset inband
+IR configured successfully for mode 2, ir_state = 3
+EtherMind: Bluetooth OFF ...
+Sending Inband IR Trigger
+download starts(384072)
+.....................
+download success!
+IR exit with state = 0
+3. Input "bt.ind_reset oob"  to run  Out-of-band independent reset
+@bt> bt.ind_reset oob
+IR configured successfully for mode 1, ir_state = 3
+EtherMind: Bluetooth OFF ...
+Sending Out of Band IR Trigger
+download starts(384072)
+.....................
+download success!
+IR exit with state = 0
 
 

@@ -22,7 +22,7 @@
 
 
 #define NCP_GET_PEER_CHKSUM(tlv, tlv_sz)  (*((uint32_t *)((uint8_t *)tlv + tlv_sz)))
-#define NCP_GET_CLASS(tlv)                (((tlv) & 0xff000000) >> 24)
+#define NCP_GET_CLASS(tlv)                (((tlv) & 0xf0000000) >> 28)
 
 #define ARG_UNUSED(x) (void)(x)
 
@@ -46,7 +46,7 @@ typedef struct _ncp_tlv_adapter
 } ncp_tlv_adapter_t;
 
 /* NCP Debug options */
-#ifdef CONFIG_NCP_DEBUG
+#if CONFIG_NCP_DEBUG
 /* Interface related stats*/
 typedef struct _stats_intf
 {
@@ -63,16 +63,16 @@ typedef struct _stats_intf
 typedef struct _ncp_stats
 {
     stats_inft_t tlvq;
-#ifdef CONFIG_NCP_UART
+#if CONFIG_NCP_UART
     stats_inft_t uart;
 #endif
-#ifdef CONFIG_NCP_SPI
+#if CONFIG_NCP_SPI
     stats_inft_t spi;
 #endif
-#ifdef CONFIG_NCP_USB
+#if CONFIG_NCP_USB
     stats_inft_t usb;
 #endif
-#ifdef CONFIG_NCP_SDIO
+#if CONFIG_NCP_SDIO
     stats_inft_t sdio;
 #endif
 } ncp_stats_t;
@@ -89,25 +89,25 @@ extern ncp_stats_t ncp_stats;
 
 
 #define NCP_TLV_STATS_INC(x) NCP_STATS_INC(tlvq.x)
-#if defined(CONFIG_NCP_DEBUG) && defined(CONFIG_NCP_UART)
+#if (CONFIG_NCP_DEBUG) && (CONFIG_NCP_UART)
 #define NCP_UART_STATS_INC(x) NCP_STATS_INC(uart.x)
 #else
 #define NCP_UART_STATS_INC(x)
 #endif
 
-#if defined(CONFIG_NCP_DEBUG) && defined(CONFIG_NCP_SPI)
+#if (CONFIG_NCP_DEBUG) && (CONFIG_NCP_SPI)
 #define NCP_SPI_STATS_INC(x) NCP_STATS_INC(spi.x)
 #else
 #define NCP_SPI_STATS_INC(x)
 #endif
 
-#if defined(CONFIG_NCP_DEBUG) && defined(CONFIG_NCP_USB)
+#if (CONFIG_NCP_DEBUG) && (CONFIG_NCP_USB)
 #define NCP_USB_STATS_INC(x) NCP_STATS_INC(usb.x)
 #else
 #define NCP_USB_STATS_INC(x)
 #endif
 
-#if defined(CONFIG_NCP_DEBUG) && defined(CONFIG_NCP_SDIO)
+#if (CONFIG_NCP_DEBUG) && (CONFIG_NCP_SDIO)
 #define NCP_SDIO_STATS_INC(x) NCP_STATS_INC(sdio.x)
 #else
 #define NCP_SDIO_STATS_INC(x)
@@ -139,9 +139,11 @@ typedef NCP_TLV_PACK_START struct
 	(type *)( (char *)__mptr - offsetof(type,member) );})
 
 /* ADAPTER TLV TASK PRIORITY */
-#ifdef CONFIG_NCP_WIFI
+#if CONFIG_NCP_WIFI
 #define NCP_TLV_TX_TASK_PRIORITY    11
-#elif defined(CONFIG_NCP_BLE)      
+#elif CONFIG_NCP_BLE      
+#define NCP_TLV_TX_TASK_PRIORITY    11
+#elif defined(CONFIG_NCP_OT)
 #define NCP_TLV_TX_TASK_PRIORITY    11
 #endif      
 

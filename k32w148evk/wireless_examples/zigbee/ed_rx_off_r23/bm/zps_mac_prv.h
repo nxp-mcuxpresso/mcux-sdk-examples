@@ -190,7 +190,7 @@ MODULE	void		SOC_ZPS_vMacPibSetBeaconRequestLqiThreshold(uint8 u8LqiThreshold);
 MODULE	void		SOC_ZPS_vMacPibSetMaxMaxConcurrentAssocResponses(uint8 u8Max);
 MODULE	void 		SOC_ZPS_vMacPibSetExtAddr(tsExtAddr *psExtAddr);
 MODULE  void 		SOC_ZPS_vMacPibSetRxInCca(bool_t bEnable);
-MODULE	void		SOC_ZPS_bMacPibSetAutoRequest(bool_t bAutoRequest);
+MODULE	void		SOC_ZPS_vMacPibSetAutoRequest(bool_t bAutoRequest);
 
 /* TX POWER API */
 MODULE  uint8 		SOC_ZPS_u8MacGetTXPower(uint64 u64IEEEAddress, MAC_TxPower_s *psMacTxPower);
@@ -316,6 +316,7 @@ MODULE	void 		SERIAL_ZPS_vMacPibSetDutyCyleRegulated(uint16 u16HundredsOfPerc);
 MODULE	void 		SERIAL_ZPS_vMacPibSetDutyCyleWarningThreshold(uint16 u16HundredsOfPerc);
 PUBLIC	void 		SERIAL_ZPS_vMacPibSetDutyCyleCriticalThreshold(uint16 u16HundredsOfPerc);
 MODULE  void 		SERIAL_ZPS_vMacSetVsOUIBytes(uint8 *puint8VsOUI);
+PUBLIC	void 		SERIAL_ZPS_vMacPibSetAutoRequest(bool_t bAutoRequest);
 
 /* TX POWER API */
 MODULE  uint8 		SERIAL_ZPS_u8MacGetTXPower(uint64 u64IEEEAddress, MAC_TxPower_s *psMacTxPower);

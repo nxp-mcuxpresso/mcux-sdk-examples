@@ -24,9 +24,9 @@
 #define BOARD_FLEXIO_BASE      FLEXIO2
 
 /* Get frequency of lpi2c clock */
-#define LPI2C_CLOCK_FREQUENCY (CLOCK_GetFreqFromObs(CCM_OBS_LPI2C5_CLK_ROOT))
+#define LPI2C_CLOCK_FREQUENCY (CLOCK_GetRootClockFreq(kCLOCK_Root_Lpi2c5))
 
-#define FLEXIO_CLOCK_FREQUENCY (CLOCK_GetFreqFromObs(CCM_OBS_FLEXIO2_CLK_ROOT))
+#define FLEXIO_CLOCK_FREQUENCY (CLOCK_GetRootClockFreq(kCLOCK_Root_Flexio2))
 
 #define FLEXIO_I2C_SDA_PIN 11U
 #define FLEXIO_I2C_SCL_PIN 10U

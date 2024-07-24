@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 NXP
+ * Copyright 2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -221,7 +221,9 @@ int main(void)
         do
         {
             result = ELE_GetTrngState(S3MU, &trng_state);
-        } while ((trng_state & 0xFF) != kELE_TRNG_ready && result == kStatus_Success);
+        } while (((trng_state & 0xFFu) != kELE_TRNG_ready) &&
+                 ((trng_state & 0xFF00u) != kELE_TRNG_CSAL_success << 8u ) &&
+                   result == kStatus_Success);
 
         PRINTF("EdgeLock RNG ready to use.\r\n\r\n");
 

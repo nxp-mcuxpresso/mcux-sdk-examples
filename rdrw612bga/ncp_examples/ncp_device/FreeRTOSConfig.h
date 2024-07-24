@@ -43,7 +43,7 @@
 #define configUSE_TICKLESS_IDLE                 0
 #define configCPU_CLOCK_HZ                      (SystemCoreClock)
 #define configTICK_RATE_HZ                      ((TickType_t)1000)
-#if defined (CONFIG_NCP_WIFI) && !defined (CONFIG_NCP_BLE)
+#if (CONFIG_NCP_WIFI) && !(CONFIG_NCP_BLE)
 #define configMAX_PRIORITIES                    5
 #else
 #define configMAX_PRIORITIES                    10

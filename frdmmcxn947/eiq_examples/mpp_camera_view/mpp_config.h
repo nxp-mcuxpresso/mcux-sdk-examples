@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 NXP
+ * Copyright 2023-2024 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -19,10 +19,12 @@
  * Disabling HAL of unused/missing devices saves memory
  */
 #define HAL_ENABLE_DISPLAY
-#define HAL_ENABLE_DISPLAY_DEV_McuLcdSsd1963 1
+#define HAL_ENABLE_DISPLAY_DEV_McuLcdST7796S 1
+#define HAL_ENABLE_DISPLAY_DEV_McuLcdSsd1963 0
 #define HAL_ENABLE_CAMERA
 #define HAL_ENABLE_CAMERA_DEV_EzhOv7670 1
 #define HAL_ENABLE_2D_IMGPROC
+#define HAL_ENABLE_GFX_DEV_Cpu 1
 #define HAL_ENABLE_GFX_DEV_Pxp 0
 
 /**
@@ -68,12 +70,12 @@
 #define APP_CAMERA_FORMAT MPP_PIXEL_RGB565
 
 /* display params */
-#define APP_DISPLAY_NAME   "McuLcdSsd1963"
-#define APP_DISPLAY_WIDTH  320  /* max is 800 */
+#define APP_DISPLAY_NAME   "McuLcdST7796S"
+#define APP_DISPLAY_WIDTH  320  /* max is 320 */
 #define APP_DISPLAY_HEIGHT 240  /* max is 480 */
 #define APP_DISPLAY_FORMAT MPP_PIXEL_RGB565
-/* camera is oriented with 270 degree compared to display */
-#define APP_DISPLAY_LANDSCAPE_ROTATE ROTATE_270
+/* camera is oriented with 180 degree compared to display */
+#define APP_DISPLAY_LANDSCAPE_ROTATE ROTATE_180
 
 /*
  * when display has remote FB, partial refresh is possible,
@@ -87,6 +89,21 @@
  * use display rotation to match camera orientation
  */
 #define APP_SKIP_CONVERT_FOR_DISPLAY
+
+/* stripe mode for camera and display
+ * 0: disabled
+ * 1: enabled
+ */
+#define APP_STRIPE_MODE 1
+
+/* RC cycle parameters:
+ * frame capture rate is 10 fps,
+ * each stripe takes 5.4ms
+ * all stripes received after 87ms (~16*5.4).
+ * but set task cycle below 100ms to avoid shift
+ */
+#define APP_RC_CYCLE_INC 16
+#define APP_RC_CYCLE_MIN 96
 
 #endif /* _MPP_CONFIG_H */
 

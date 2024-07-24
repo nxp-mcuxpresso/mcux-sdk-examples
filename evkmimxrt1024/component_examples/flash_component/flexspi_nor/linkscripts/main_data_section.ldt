@@ -26,6 +26,6 @@
        . = ALIGN(4) ;
        __interrupts_ram_end__ = .; /* Define a global symbol at data end */
        _edata = . ;
-    } > SRAM_ITC AT>BOARD_FLASH
+    } > SRAM_ITC AT>PROGRAM_FLASH
     __VECTOR_TABLE = __vectors_start__;
     __RAM_VECTOR_TABLE_SIZE_BYTES = (__interrupts_ram_end__ - __interrupts_ram_start__);

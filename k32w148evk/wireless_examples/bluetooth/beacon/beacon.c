@@ -4,7 +4,7 @@
 ********************************************************************************** */
 /*! *********************************************************************************
 * Copyright 2015 Freescale Semiconductor, Inc.
-* Copyright 2016-2023 NXP
+* Copyright 2016-2024 NXP
 *
 *
 * \file
@@ -44,6 +44,7 @@
 /* Application */
 #include "app.h"
 #include "app_conn.h"
+#include "app_advertiser.h"
 #include "beacon.h"
 #include "ble_conn_manager.h"
 

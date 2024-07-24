@@ -33,6 +33,7 @@
     <definition extID="middleware.sdmmc.host.usdhc.cache.MIMXRT685S"/>
     <definition extID="component.osa_bm.MIMXRT685S"/>
     <definition extID="component.osa_interface.MIMXRT685S"/>
+    <definition extID="utility.str.MIMXRT685S"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT685S"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
@@ -40,7 +41,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt685_sdcard_polling" name="sdcard_polling" device_core="cm33_MIMXRT685S" dependency="platform.drivers.lpc_gpio.MIMXRT685S platform.drivers.usdhc.MIMXRT685S middleware.sdmmc.host.usdhc.MIMXRT685S middleware.sdmmc.sd.MIMXRT685S middleware.sdmmc.host.usdhc.polling.MIMXRT685S platform.drivers.flexcomm_i2c.MIMXRT685S driver.pca9420.MIMXRT685S utility.debug_console_lite.MIMXRT685S platform.utilities.assert_lite.MIMXRT685S component.rt_gpio_adapter.MIMXRT685S platform.drivers.clock.MIMXRT685S platform.drivers.common.MIMXRT685S device.MIMXRT685S_CMSIS.MIMXRT685S component.usart_adapter.MIMXRT685S platform.drivers.power.MIMXRT685S platform.drivers.flash_config.evkmimxrt685.MIMXRT685S platform.drivers.flexspi.MIMXRT685S platform.drivers.cache_cache64.MIMXRT685S platform.drivers.flexcomm_usart.MIMXRT685S component.lists.MIMXRT685S device.MIMXRT685S_startup.MIMXRT685S platform.drivers.flexcomm.MIMXRT685S platform.drivers.lpc_iopctl.MIMXRT685S platform.drivers.reset.MIMXRT685S platform.utilities.misc_utilities.MIMXRT685S middleware.sdmmc.common.MIMXRT685S middleware.sdmmc.osa.bm.MIMXRT685S middleware.sdmmc.usdhc.template.MIMXRT685S middleware.sdmmc.host.usdhc.cache.MIMXRT685S component.osa_bm.MIMXRT685S component.osa_interface.MIMXRT685S CMSIS_Include_core_cm.MIMXRT685S" category="sdmmc_examples/sdcard_polling">
+  <example id="evkmimxrt685_sdcard_polling" name="sdcard_polling" device_core="cm33_MIMXRT685S" dependency="platform.drivers.lpc_gpio.MIMXRT685S platform.drivers.usdhc.MIMXRT685S middleware.sdmmc.host.usdhc.MIMXRT685S middleware.sdmmc.sd.MIMXRT685S middleware.sdmmc.host.usdhc.polling.MIMXRT685S platform.drivers.flexcomm_i2c.MIMXRT685S driver.pca9420.MIMXRT685S utility.debug_console_lite.MIMXRT685S platform.utilities.assert_lite.MIMXRT685S component.rt_gpio_adapter.MIMXRT685S platform.drivers.clock.MIMXRT685S platform.drivers.common.MIMXRT685S device.MIMXRT685S_CMSIS.MIMXRT685S component.usart_adapter.MIMXRT685S platform.drivers.power.MIMXRT685S platform.drivers.flash_config.evkmimxrt685.MIMXRT685S platform.drivers.flexspi.MIMXRT685S platform.drivers.cache_cache64.MIMXRT685S platform.drivers.flexcomm_usart.MIMXRT685S component.lists.MIMXRT685S device.MIMXRT685S_startup.MIMXRT685S platform.drivers.flexcomm.MIMXRT685S platform.drivers.lpc_iopctl.MIMXRT685S platform.drivers.reset.MIMXRT685S platform.utilities.misc_utilities.MIMXRT685S middleware.sdmmc.common.MIMXRT685S middleware.sdmmc.osa.bm.MIMXRT685S middleware.sdmmc.usdhc.template.MIMXRT685S middleware.sdmmc.host.usdhc.cache.MIMXRT685S component.osa_bm.MIMXRT685S component.osa_interface.MIMXRT685S utility.str.MIMXRT685S CMSIS_Include_core_cm.MIMXRT685S" category="sdmmc_examples/sdcard_polling">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -72,7 +73,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

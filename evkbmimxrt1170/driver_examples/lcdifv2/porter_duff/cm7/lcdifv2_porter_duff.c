@@ -240,6 +240,9 @@ int main(void)
     BOARD_ResetDisplayMix();
     BOARD_InitLpuartPins();
     BOARD_InitMipiPanelPins();
+#if (USE_MIPI_PANEL == MIPI_PANEL_RASPI_7INCH)
+    BOARD_InitLpi2cPins();
+#endif
     BOARD_InitDebugConsole();
     BOARD_InitLcdifClock();
 

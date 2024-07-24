@@ -19,11 +19,11 @@
 #include "stdbool.h"
 
 #include "fsl_common.h"
-#ifdef CONFIG_WIFI_SMOKE_TESTS
+#if CONFIG_WIFI_SMOKE_TESTS
 #include "fsl_iomuxc.h"
 #include "fsl_enet.h"
 #endif
-#ifdef CONFIG_WIFI_SMOKE_TESTS
+#if CONFIG_WIFI_SMOKE_TESTS
 #if BOARD_NETWORK_USE_100M_ENET_PORT
 #include "fsl_phyrtl8201.h"
 #else
@@ -34,7 +34,7 @@
  * Definitions
  ******************************************************************************/
 
-#ifdef CONFIG_WIFI_SMOKE_TESTS
+#if CONFIG_WIFI_SMOKE_TESTS
 #if BOARD_NETWORK_USE_100M_ENET_PORT
 extern phy_rtl8201_resource_t g_phy_resource;
 #define EXAMPLE_ENET ENET
@@ -92,7 +92,7 @@ static void main_task(void *param);
 /*******************************************************************************
  * Code
  ******************************************************************************/
-#ifdef CONFIG_WIFI_SMOKE_TESTS
+#if CONFIG_WIFI_SMOKE_TESTS
 #if BOARD_NETWORK_USE_100M_ENET_PORT
 phy_rtl8201_resource_t g_phy_resource;
 #else
@@ -318,7 +318,7 @@ int main(void)
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
 
-#ifdef CONFIG_WIFI_SMOKE_TESTS
+#if CONFIG_WIFI_SMOKE_TESTS
     BOARD_InitModuleClock();
 
     IOMUXC_SelectENETClock();

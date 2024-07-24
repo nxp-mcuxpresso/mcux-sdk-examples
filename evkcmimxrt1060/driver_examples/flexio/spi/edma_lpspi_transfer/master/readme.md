@@ -8,12 +8,12 @@ In this example, a flexio simulated master connect to a lpspi slave .
 
 SDK version
 ===========
-- Version: 2.15.100
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  12.2
-- MCUXpresso  11.8.0
+- GCC ARM Embedded  13.2.1
+- MCUXpresso  11.10.0
 
 Hardware requirements
 =====================
@@ -79,12 +79,6 @@ End of example.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Note
-
-This case use flexio to simulate spi protocol. 
-
-Owing to this simulate process is software and executed in qspi_flash for flexspi_nor target. 
-
-But external flash's speed can not support to the rate of SPI transmit because of effected by performance. 
-
-So the settings for baudrate of transmission do not more than 150k in this case.
-
+When the code is executed in external flash (flexspi_nor targets), the code execution speed
+is slow. If the baudrate is fast, software can't handle the data in time. So in this case
+don't set baudrate of transmission more than 150k.

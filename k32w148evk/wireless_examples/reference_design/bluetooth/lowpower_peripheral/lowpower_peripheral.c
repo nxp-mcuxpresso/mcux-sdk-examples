@@ -4,7 +4,7 @@
 ********************************************************************************** */
 /*! *********************************************************************************
 * Copyright (c) 2015, Freescale Semiconductor, Inc.
-* Copyright 2016-2022 NXP
+* Copyright 2016-2024 NXP
 * All rights reserved.
 *
 * \file
@@ -54,6 +54,7 @@
 #include "board.h"
 #include "lowpower_peripheral.h"
 #include "app_conn.h"
+#include "app_advertiser.h"
 
 #if defined(gAppMonitorControllerNotifications_d) && (gAppMonitorControllerNotifications_d == 1)
 #include "enhanced_notification.h"

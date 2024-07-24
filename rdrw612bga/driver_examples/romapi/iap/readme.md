@@ -7,11 +7,11 @@ The ROM API project is a simple demonstration program of the SDK ROM API driver.
 
 SDK version
 ===========
-- Version: 2.15.000
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  12.2
+- GCC ARM Embedded  13.2.1
 
 Hardware requirements
 =====================
@@ -44,6 +44,8 @@ When the example runs successfully, the following message is displayed in the te
 INFO: IAP driver version [I-v1.0.0]
 INFO: Starting Example test_iap_mem_operation
 INFO: Finished Example test_iap_mem_operation
+INFO: Starting Example test_iap_mem_operation_user_managed_encrypted_flash
+INFO: Finished Example test_iap_mem_operation_user_managed_encrypted_flash
 INFO: Starting Example test_sb_loader_examples
 INFO: Finished Example test_sb_loader_examples
 ALL IAP Examples completed successfully!

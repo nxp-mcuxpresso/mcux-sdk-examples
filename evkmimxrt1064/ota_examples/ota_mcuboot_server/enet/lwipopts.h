@@ -130,12 +130,10 @@ void sys_mark_tcpip_thread(void);
  * LWIP_IPV6==1: Enable IPv6
  */
 
-#ifdef CONFIG_IPV6
 #define LWIP_IPV6   1
 #define IP6_DEBUG   LWIP_DBG_OFF
 #define ICMP6_DEBUG LWIP_DBG_OFF
 #define DHCP6_DEBUG LWIP_DBG_OFF
-#endif
 
 /* ---------- TCP options ---------- */
 #ifndef LWIP_TCP

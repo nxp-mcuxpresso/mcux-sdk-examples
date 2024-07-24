@@ -33,6 +33,7 @@
     <definition extID="middleware.azure_rtos.tx.template.LPC55S28"/>
     <definition extID="platform.drivers.reset.LPC55S28"/>
     <definition extID="CMSIS_Include_core_cm.LPC55S28"/>
+    <definition extID="utility.str.LPC55S28"/>
     <definition extID="device.LPC55S28_system.LPC55S28"/>
     <definition extID="component.osa_interface.LPC55S28"/>
     <definition extID="armgcc"/>
@@ -41,7 +42,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="lpcxpresso55s28_usbx_host_cdc_acm" name="usbx_host_cdc_acm" dependency="middleware.usb.phy.LPC55S28 middleware.azure_rtos.ux.sp.LPC55S28 middleware.azure_rtos.ux.ip3516.LPC55S28 middleware.azure_rtos.ux.ohci.LPC55S28 platform.drivers.power.LPC55S28 platform.drivers.clock.LPC55S28 platform.drivers.common.LPC55S28 device.LPC55S28_CMSIS.LPC55S28 utility.debug_console.LPC55S28 component.usart_adapter.LPC55S28 component.serial_manager_uart.LPC55S28 component.serial_manager.LPC55S28 platform.drivers.flexcomm_usart.LPC55S28 component.lists.LPC55S28 device.LPC55S28_startup.LPC55S28 platform.drivers.flexcomm.LPC55S28 platform.drivers.lpc_iocon.LPC55S28 platform.drivers.lpc_gpio.LPC55S28 platform.utilities.assert.LPC55S28 component.osa_thread.LPC55S28 platform.utilities.misc_utilities.LPC55S28 middleware.usb.common_header.LPC55S28 component.osa.LPC55S28 middleware.azure_rtos.ux.template.LPC55S28 middleware.azure_rtos.nxd.sp.LPC55S28 middleware.azure_rtos.nxd.template.LPC55S28 middleware.azure_rtos.fx.sp.LPC55S28 middleware.azure_rtos.fx.template.LPC55S28 middleware.azure_rtos.tx.sp.LPC55S28 middleware.azure_rtos.tx.template.LPC55S28 platform.drivers.reset.LPC55S28 CMSIS_Include_core_cm.LPC55S28 device.LPC55S28_system.LPC55S28 component.osa_interface.LPC55S28" category="azure_rtos_examples">
+  <example id="lpcxpresso55s28_usbx_host_cdc_acm" name="usbx_host_cdc_acm" dependency="middleware.usb.phy.LPC55S28 middleware.azure_rtos.ux.sp.LPC55S28 middleware.azure_rtos.ux.ip3516.LPC55S28 middleware.azure_rtos.ux.ohci.LPC55S28 platform.drivers.power.LPC55S28 platform.drivers.clock.LPC55S28 platform.drivers.common.LPC55S28 device.LPC55S28_CMSIS.LPC55S28 utility.debug_console.LPC55S28 component.usart_adapter.LPC55S28 component.serial_manager_uart.LPC55S28 component.serial_manager.LPC55S28 platform.drivers.flexcomm_usart.LPC55S28 component.lists.LPC55S28 device.LPC55S28_startup.LPC55S28 platform.drivers.flexcomm.LPC55S28 platform.drivers.lpc_iocon.LPC55S28 platform.drivers.lpc_gpio.LPC55S28 platform.utilities.assert.LPC55S28 component.osa_thread.LPC55S28 platform.utilities.misc_utilities.LPC55S28 middleware.usb.common_header.LPC55S28 component.osa.LPC55S28 middleware.azure_rtos.ux.template.LPC55S28 middleware.azure_rtos.nxd.sp.LPC55S28 middleware.azure_rtos.nxd.template.LPC55S28 middleware.azure_rtos.fx.sp.LPC55S28 middleware.azure_rtos.fx.template.LPC55S28 middleware.azure_rtos.tx.sp.LPC55S28 middleware.azure_rtos.tx.template.LPC55S28 platform.drivers.reset.LPC55S28 CMSIS_Include_core_cm.LPC55S28 utility.str.LPC55S28 device.LPC55S28_system.LPC55S28 component.osa_interface.LPC55S28" category="azure_rtos_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -85,7 +86,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

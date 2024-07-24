@@ -67,9 +67,6 @@ PUBLIC uint8 u8Error;
  ****************************************************************************/
 void vAppMain(void)
 {
-#ifndef K32W1480_SERIES
-    APP_vLedInitialise();
-#endif
     APP_vInitResources();
     APP_vInitZigbeeResources();
     APP_vInitialise();

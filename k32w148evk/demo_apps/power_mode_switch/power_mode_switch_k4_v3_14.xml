@@ -60,7 +60,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>
@@ -75,8 +75,8 @@
           <value>true</value>
         </option>
         <option id="com.crt.advproject.link.memory.sections" type="stringList">
-          <value>isd=*(AlwaysOnData.init);region=AlwaysOnData;type=.data</value>
-          <value>isd=*(AlwaysOnData);region=AlwaysOnData;type=.bss</value>
+          <value>isd=*(.AlwaysOnData.init);region=AlwaysOnData;type=.data</value>
+          <value>isd=*(.AlwaysOnData);region=AlwaysOnData;type=.bss</value>
         </option>
         <option id="com.crt.advproject.link.memory.heapAndStack" type="string">
           <value>&amp;Heap:Default;Default;Default&amp;Stack:Cstack;End;0x400</value>

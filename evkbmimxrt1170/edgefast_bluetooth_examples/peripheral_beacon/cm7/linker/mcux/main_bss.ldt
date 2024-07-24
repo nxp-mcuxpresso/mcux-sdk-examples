@@ -1,0 +1,4 @@
+        . = ALIGN(32);
+        *(m_usb_dma_noninit_data)
+        . = ALIGN(32);
+        *(.bss*)

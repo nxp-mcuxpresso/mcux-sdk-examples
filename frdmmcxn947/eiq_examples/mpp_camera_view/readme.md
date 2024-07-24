@@ -12,12 +12,12 @@ Toolchains supported
 
 SDK version
 ===========
-- Version: 2.14.0
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- MCUXpresso  11.9.0
-- GCC ARM Embedded  12.2
+- MCUXpresso  11.10.0
+- GCC ARM Embedded  13.2.1
 
 Hardware requirements
 =====================
@@ -25,7 +25,8 @@ Hardware requirements
 - Mini/micro USB cable
 - Personal computer
 - OV7670 camera
-- MikroElektronika TFT Proto 5" display (800x480)
+- NXP LCD-PAR-S035 display 320x480 (default)
+- MikroElektronika TFT Proto 5" display 800x480
 
 Board settings
 ==============

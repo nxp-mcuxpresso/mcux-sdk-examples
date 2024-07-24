@@ -78,6 +78,7 @@ void DEMO_LPSPI_MASTER_IRQHandler(void)
     {
         LPSPI_DisableInterrupts(DEMO_LPSPI_MASTER_BASEADDR, kLPSPI_AllInterruptEnable);
     }
+    DisableIRQ(DEMO_LPSPI_MASTER_IRQN);
     SDK_ISR_EXIT_BARRIER;
 }
 
@@ -115,15 +116,16 @@ int main(void)
 
     PRINTF("\r\nSINC LPSPI Example.\r\n");
 
+	DEMO_InitSinc();
     DEMO_InitLpspi();
-    DEMO_InitSinc();
     while (1)
     {
         PRINTF("\r\nPress any key to trigger sinc conversion!\r\n");
         GETCHAR();
+        SINC_AffirmChannelSoftwareTrigger(DEMO_SINC, (1UL << (uint32_t)kSINC_Channel0));
         LPSPI_EnableInterrupts(DEMO_LPSPI_MASTER_BASEADDR,
                                kLPSPI_TxInterruptEnable | kLPSPI_TransferCompleteInterruptEnable);
-        SINC_AffirmChannelSoftwareTrigger(DEMO_SINC, (1UL << (uint32_t)kSINC_Channel0));
+        EnableIRQ(DEMO_LPSPI_MASTER_IRQN);
         while (!dataReady)
         {
         }
@@ -197,10 +199,6 @@ static void DEMO_InitLpspi(void)
     tcrReg = DEMO_LPSPI_MASTER_BASEADDR->TCR;
     tcrReg = DEMO_LPSPI_MASTER_BASEADDR->TCR;
 
-    /* Enable the NVIC for LPSPI peripheral. Note that below code is useless if the LPSPI interrupt is in INTMUX ,
-     * and you should also enable the INTMUX interupt in your application.
-     */
-    EnableIRQ(DEMO_LPSPI_MASTER_IRQN);
     IRQ_SetPriority(DEMO_LPSPI_MASTER_IRQN, 1U);
 }
 

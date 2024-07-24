@@ -31,7 +31,7 @@
 
 #define MASTER_FLEXIO_SPI_IRQ FLEXIO2_IRQn
 
-#define MASTER_FLEXIO_SPI_CLOCK_FREQUENCY (CLOCK_GetFreqFromObs(CCM_OBS_FLEXIO2_CLK_ROOT))
+#define MASTER_FLEXIO_SPI_CLOCK_FREQUENCY (CLOCK_GetRootClockFreq(kCLOCK_Root_Flexio2))
 
 #define FLEXIO_DMA_REQUEST_SOURCE_BASE        (kDmaRequestMuxFlexIO2Request0Request1)
 #define EXAMPLE_FLEXIO_SPI_DMAMUX_BASEADDR    DMAMUX0
@@ -199,6 +199,9 @@ int main(void)
 
     /* Init the EDMA module */
     EDMA_GetDefaultConfig(&config);
+#if defined(BOARD_GetEDMAConfig)
+    BOARD_GetEDMAConfig(config);
+#endif
     EDMA_Init(EXAMPLE_FLEXIO_SPI_DMA_LPSPI_BASEADDR, &config);
     EDMA_CreateHandle(&txHandle, EXAMPLE_FLEXIO_SPI_DMA_LPSPI_BASEADDR, FLEXIO_SPI_TX_DMA_LPSPI_CHANNEL);
     EDMA_CreateHandle(&rxHandle, EXAMPLE_FLEXIO_SPI_DMA_LPSPI_BASEADDR, FLEXIO_SPI_RX_DMA_LPSPI_CHANNEL);

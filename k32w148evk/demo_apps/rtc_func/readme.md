@@ -17,12 +17,12 @@ The RTC demo supports the following features:
 
 SDK version
 ===========
-- Version: 2.15.000
+- Version: 2.16.000
 
 Toolchain supported
 ===================
-- GCC ARM Embedded  12.2
-- MCUXpresso  11.8.0
+- GCC ARM Embedded  13.2.1
+- MCUXpresso  11.10.0
 
 Hardware requirements
 =====================
@@ -55,13 +55,9 @@ The following lines are printed to the serial terminal when the demo program is 
 RTC Demo running...
 
 Please choose the sub demo to run:
-
 1) Get current date time.
-
 2) Set current date time.
-
 3) Alarm trigger show.
-
 4) Second interrupt show (demo for 20s).
 
 Select:

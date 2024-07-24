@@ -48,12 +48,11 @@
     <definition extID="device.RW612_system.RW612"/>
     <definition extID="component.els_pkc.els_header_only.RW612"/>
     <definition extID="component.els_pkc.els_common.RW612"/>
-    <definition extID="component.els_pkc.standalone_keyManagement.RW612"/>
+    <definition extID="component.els_pkc.memory.RW612"/>
     <definition extID="component.els_pkc.standalone_gdet.RW612"/>
-    <definition extID="component.els_pkc.platform.rw61x_interface_files.RW612"/>
+    <definition extID="component.els_pkc.platform.rw61x_inf_header_only.RW612"/>
     <definition extID="component.els_pkc.buffer.RW612"/>
     <definition extID="component.els_pkc.core.RW612"/>
-    <definition extID="component.els_pkc.memory.RW612"/>
     <definition extID="component.els_pkc.param_integrity.RW612"/>
     <definition extID="component.els_pkc.flow_protection.RW612"/>
     <definition extID="component.els_pkc.secure_counter.RW612"/>
@@ -66,7 +65,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="rdrw612bga_lwip_mqtt_freertos" name="lwip_mqtt_freertos" device_core="cm33_RW612" dependency="driver.phy-device-ksz8081.RW612 platform.drivers.enet.RW612 middleware.lwip.kinetis_ethernetif.RW612 middleware.lwip.RW612 component.silicon_id_rw610.RW612 utility.debug_console.RW612 platform.utilities.assert.RW612 middleware.lwip.apps.mqtt.RW612 platform.drivers.clock.RW612 middleware.freertos-kernel.heap_3.RW612 middleware.freertos-kernel.cm33_non_trustzone.RW612 platform.drivers.flash_config.rdrw612bga.RW612 device.RW612_CMSIS.RW612 device.RW612_startup.RW612 platform.drivers.reset.RW612 platform.drivers.flexspi.RW612 platform.drivers.cache_cache64.RW612 platform.drivers.cns_io_mux.RW612 platform.drivers.lpc_gpio.RW612 platform.drivers.power.RW612 platform.drivers.ocotp.RW612 component.els_pkc.platform.rw61x_standalone_clib_gdet_sensor.RW612 platform.utilities.misc_utilities.RW612 driver.phy-common.RW612 platform.drivers.memory.RW612 platform.drivers.common.RW612 middleware.lwip.template.RW612 component.lpc_gpio_adapter.RW612 platform.drivers.inputmux.RW612 platform.drivers.pint.RW612 platform.drivers.inputmux_connections.RW612 component.silicon_id.RW612 component.serial_manager.RW612 utility.str.RW612 component.lists.RW612 component.serial_manager_uart.RW612 component.usart_adapter.RW612 platform.drivers.flexcomm_usart.RW612 platform.drivers.flexcomm.RW612 middleware.freertos-kernel.RW612 middleware.freertos-kernel.template.RW612 middleware.freertos-kernel.extension.RW612 CMSIS_Include_core_cm.RW612 device.RW612_system.RW612 component.els_pkc.els_header_only.RW612 component.els_pkc.els_common.RW612 component.els_pkc.standalone_keyManagement.RW612 component.els_pkc.standalone_gdet.RW612 component.els_pkc.platform.rw61x_interface_files.RW612 component.els_pkc.buffer.RW612 component.els_pkc.core.RW612 component.els_pkc.memory.RW612 component.els_pkc.param_integrity.RW612 component.els_pkc.flow_protection.RW612 component.els_pkc.secure_counter.RW612 component.els_pkc.pre_processor.RW612 component.els_pkc.toolchain.RW612 component.els_pkc.data_integrity.RW612" category="lwip_examples">
+  <example id="rdrw612bga_lwip_mqtt_freertos" name="lwip_mqtt_freertos" device_core="cm33_RW612" dependency="driver.phy-device-ksz8081.RW612 platform.drivers.enet.RW612 middleware.lwip.kinetis_ethernetif.RW612 middleware.lwip.RW612 component.silicon_id_rw610.RW612 utility.debug_console.RW612 platform.utilities.assert.RW612 middleware.lwip.apps.mqtt.RW612 platform.drivers.clock.RW612 middleware.freertos-kernel.heap_3.RW612 middleware.freertos-kernel.cm33_non_trustzone.RW612 platform.drivers.flash_config.rdrw612bga.RW612 device.RW612_CMSIS.RW612 device.RW612_startup.RW612 platform.drivers.reset.RW612 platform.drivers.flexspi.RW612 platform.drivers.cache_cache64.RW612 platform.drivers.cns_io_mux.RW612 platform.drivers.lpc_gpio.RW612 platform.drivers.power.RW612 platform.drivers.ocotp.RW612 component.els_pkc.platform.rw61x_standalone_clib_gdet_sensor.RW612 platform.utilities.misc_utilities.RW612 driver.phy-common.RW612 platform.drivers.memory.RW612 platform.drivers.common.RW612 middleware.lwip.template.RW612 component.lpc_gpio_adapter.RW612 platform.drivers.inputmux.RW612 platform.drivers.pint.RW612 platform.drivers.inputmux_connections.RW612 component.silicon_id.RW612 component.serial_manager.RW612 utility.str.RW612 component.lists.RW612 component.serial_manager_uart.RW612 component.usart_adapter.RW612 platform.drivers.flexcomm_usart.RW612 platform.drivers.flexcomm.RW612 middleware.freertos-kernel.RW612 middleware.freertos-kernel.template.RW612 middleware.freertos-kernel.extension.RW612 CMSIS_Include_core_cm.RW612 device.RW612_system.RW612 component.els_pkc.els_header_only.RW612 component.els_pkc.els_common.RW612 component.els_pkc.memory.RW612 component.els_pkc.standalone_gdet.RW612 component.els_pkc.platform.rw61x_inf_header_only.RW612 component.els_pkc.buffer.RW612 component.els_pkc.core.RW612 component.els_pkc.param_integrity.RW612 component.els_pkc.flow_protection.RW612 component.els_pkc.secure_counter.RW612 component.els_pkc.pre_processor.RW612 component.els_pkc.toolchain.RW612 component.els_pkc.data_integrity.RW612" category="lwip_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -104,7 +103,7 @@
           <value>com.crt.advproject.gcc.fpu.fpv5sp.hard</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-mcpu=cortex-m33+nodsp -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-mcpu=cortex-m33+nodsp -c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

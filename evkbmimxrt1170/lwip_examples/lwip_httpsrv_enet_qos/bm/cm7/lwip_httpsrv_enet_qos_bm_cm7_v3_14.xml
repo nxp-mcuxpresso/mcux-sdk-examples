@@ -39,6 +39,7 @@
     <definition extID="component.igpio_adapter.MIMXRT1176"/>
     <definition extID="platform.drivers.anatop_ai.MIMXRT1176"/>
     <definition extID="CMSIS_Include_core_cm.MIMXRT1176"/>
+    <definition extID="utility.str.MIMXRT1176"/>
     <definition extID="platform.devices.MIMXRT1176_system.MIMXRT1176"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
@@ -46,7 +47,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="evkbmimxrt1170_lwip_httpsrv_enet_qos_bm_cm7" name="lwip_httpsrv_enet_qos_bm_cm7" device_core="cm7_MIMXRT1176xxxxx" dependency="driver.phy-device-rtl8211f.MIMXRT1176 component.silicon_id_rt1170.MIMXRT1176 component.silicon_id.MIMXRT1176 middleware.lwip.apps.httpd.MIMXRT1176 platform.drivers.enet_qos.MIMXRT1176 middleware.lwip.enet_ethernetif.MIMXRT1176 middleware.lwip.MIMXRT1176 platform.drivers.clock.MIMXRT1176 platform.drivers.common.MIMXRT1176 platform.devices.MIMXRT1176_CMSIS.MIMXRT1176 utility.debug_console.MIMXRT1176 component.lpuart_adapter.MIMXRT1176 component.serial_manager_uart.MIMXRT1176 component.serial_manager.MIMXRT1176 platform.drivers.lpuart.MIMXRT1176 component.lists.MIMXRT1176 platform.devices.MIMXRT1176_startup.MIMXRT1176 platform.drivers.gpc_3.MIMXRT1176 platform.drivers.soc_src.MIMXRT1176 platform.drivers.mu.MIMXRT1176 platform.drivers.iomuxc.MIMXRT1176 platform.utilities.assert.MIMXRT1176 platform.drivers.igpio.MIMXRT1176 platform.drivers.xip_device.MIMXRT1176 platform.drivers.xip_board.evkbmimxrt1170.MIMXRT1176 platform.drivers.pmu_1.MIMXRT1176 platform.drivers.dcdc_soc.MIMXRT1176 platform.drivers.cache_armv7_m7.MIMXRT1176 platform.drivers.xmcd.evkbmimxrt1170.MIMXRT1176 platform.utilities.misc_utilities.MIMXRT1176 driver.phy-common.MIMXRT1176 middleware.lwip.apps.httpd.support.MIMXRT1176 platform.drivers.memory.MIMXRT1176 middleware.lwip.template.MIMXRT1176 component.igpio_adapter.MIMXRT1176 platform.drivers.anatop_ai.MIMXRT1176 CMSIS_Include_core_cm.MIMXRT1176 platform.devices.MIMXRT1176_system.MIMXRT1176" category="lwip_examples">
+  <example id="evkbmimxrt1170_lwip_httpsrv_enet_qos_bm_cm7" name="lwip_httpsrv_enet_qos_bm_cm7" device_core="cm7_MIMXRT1176xxxxx" dependency="driver.phy-device-rtl8211f.MIMXRT1176 component.silicon_id_rt1170.MIMXRT1176 component.silicon_id.MIMXRT1176 middleware.lwip.apps.httpd.MIMXRT1176 platform.drivers.enet_qos.MIMXRT1176 middleware.lwip.enet_ethernetif.MIMXRT1176 middleware.lwip.MIMXRT1176 platform.drivers.clock.MIMXRT1176 platform.drivers.common.MIMXRT1176 platform.devices.MIMXRT1176_CMSIS.MIMXRT1176 utility.debug_console.MIMXRT1176 component.lpuart_adapter.MIMXRT1176 component.serial_manager_uart.MIMXRT1176 component.serial_manager.MIMXRT1176 platform.drivers.lpuart.MIMXRT1176 component.lists.MIMXRT1176 platform.devices.MIMXRT1176_startup.MIMXRT1176 platform.drivers.gpc_3.MIMXRT1176 platform.drivers.soc_src.MIMXRT1176 platform.drivers.mu.MIMXRT1176 platform.drivers.iomuxc.MIMXRT1176 platform.utilities.assert.MIMXRT1176 platform.drivers.igpio.MIMXRT1176 platform.drivers.xip_device.MIMXRT1176 platform.drivers.xip_board.evkbmimxrt1170.MIMXRT1176 platform.drivers.pmu_1.MIMXRT1176 platform.drivers.dcdc_soc.MIMXRT1176 platform.drivers.cache_armv7_m7.MIMXRT1176 platform.drivers.xmcd.evkbmimxrt1170.MIMXRT1176 platform.utilities.misc_utilities.MIMXRT1176 driver.phy-common.MIMXRT1176 middleware.lwip.apps.httpd.support.MIMXRT1176 platform.drivers.memory.MIMXRT1176 middleware.lwip.template.MIMXRT1176 component.igpio_adapter.MIMXRT1176 platform.drivers.anatop_ai.MIMXRT1176 CMSIS_Include_core_cm.MIMXRT1176 utility.str.MIMXRT1176 platform.devices.MIMXRT1176_system.MIMXRT1176" category="lwip_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -108,7 +109,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>
@@ -146,10 +147,6 @@
       <files mask="build_flexspi_nor_sdram_debug.sh"/>
       <files mask="build_flexspi_nor_sdram_release.bat"/>
       <files mask="build_flexspi_nor_sdram_release.sh"/>
-      <files mask="build_sdram_debug.bat"/>
-      <files mask="build_sdram_debug.sh"/>
-      <files mask="build_sdram_release.bat"/>
-      <files mask="build_sdram_release.sh"/>
     </source>
     <source path="../../../../../../core/devices/MIMXRT1176" project_relative_path="./" type="workspace" toolchain="armgcc">
       <files mask="all_lib_device.cmake"/>
@@ -180,7 +177,6 @@
       <files mask="readme.md"/>
     </source>
     <source path="armgcc" project_relative_path="MIMXRT1176/gcc" type="linker" toolchain="armgcc">
-      <files mask="MIMXRT1176xxxxx_cm7_sdram.ld"/>
       <files mask="MIMXRT1176xxxxx_cm7_flexspi_nor_sdram.ld"/>
     </source>
     <source path="." project_relative_path="evkbmimxrt1170" type="other" toolchain="armgcc">

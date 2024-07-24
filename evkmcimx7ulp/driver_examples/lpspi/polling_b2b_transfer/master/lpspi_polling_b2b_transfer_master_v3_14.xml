@@ -16,12 +16,13 @@
     <definition extID="platform.drivers.gpio.MCIMX7U5"/>
     <definition extID="platform.drivers.msmc.MCIMX7U5"/>
     <definition extID="platform.utilities.misc_utilities.MCIMX7U5"/>
+    <definition extID="utility.str.MCIMX7U5"/>
     <definition extID="CMSIS_Include_core_cm.MCIMX7U5"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="evkmcimx7ulp_lpspi_polling_b2b_transfer_master" name="lpspi_polling_b2b_transfer_master" dependency="utility.debug_console_lite.MCIMX7U5 platform.utilities.assert_lite.MCIMX7U5 platform.drivers.port.MCIMX7U5 platform.drivers.lpspi.MCIMX7U5 platform.drivers.clock.MCIMX7U5 platform.drivers.iomuxc.MCIMX7U5 platform.drivers.common.MCIMX7U5 platform.devices.MCIMX7U5_CMSIS.MCIMX7U5 component.lpuart_adapter.MCIMX7U5 platform.drivers.lpuart.MCIMX7U5 component.lists.MCIMX7U5 platform.devices.MCIMX7U5_startup.MCIMX7U5 platform.drivers.gpio.MCIMX7U5 platform.drivers.msmc.MCIMX7U5 platform.utilities.misc_utilities.MCIMX7U5 CMSIS_Include_core_cm.MCIMX7U5" category="driver_examples/lpspi">
+  <example id="evkmcimx7ulp_lpspi_polling_b2b_transfer_master" name="lpspi_polling_b2b_transfer_master" dependency="utility.debug_console_lite.MCIMX7U5 platform.utilities.assert_lite.MCIMX7U5 platform.drivers.port.MCIMX7U5 platform.drivers.lpspi.MCIMX7U5 platform.drivers.clock.MCIMX7U5 platform.drivers.iomuxc.MCIMX7U5 platform.drivers.common.MCIMX7U5 platform.devices.MCIMX7U5_CMSIS.MCIMX7U5 component.lpuart_adapter.MCIMX7U5 platform.drivers.lpuart.MCIMX7U5 component.lists.MCIMX7U5 platform.devices.MCIMX7U5_startup.MCIMX7U5 platform.drivers.gpio.MCIMX7U5 platform.drivers.msmc.MCIMX7U5 platform.utilities.misc_utilities.MCIMX7U5 utility.str.MCIMX7U5 CMSIS_Include_core_cm.MCIMX7U5" category="driver_examples/lpspi">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -45,7 +46,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

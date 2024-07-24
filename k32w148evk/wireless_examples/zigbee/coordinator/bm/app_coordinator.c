@@ -1,5 +1,5 @@
 /*
-* Copyright 2019, 2023 NXP
+* Copyright 2019, 2023-2024 NXP
 * All rights reserved.
 *
 * SPDX-License-Identifier: BSD-3-Clause
@@ -26,26 +26,11 @@
 #include "app_leds.h"
 #include "app.h"
 
-#ifdef NCP_HOST
-#include "serial_link_ctrl.h"
-#include "serial_link_cmds_ctrl.h"
-#endif
-
 
 /****************************************************************************/
 /***        Macro Definitions                                             ***/
 /****************************************************************************/
-#ifndef TRACE_APP
-#define TRACE_APP FALSE
-#endif
 
-#ifndef TRACE_APP_INIT
-#define TRACE_APP_INIT FALSE
-#endif
-
-#ifndef MAX_HOST_TO_COPROCESSOR_COMMS_ATTEMPS
-#define MAX_HOST_TO_COPROCESSOR_COMMS_ATTEMPS (5)
-#endif
 /****************************************************************************/
 /***        Type Definitions                                              ***/
 /****************************************************************************/
@@ -55,14 +40,10 @@
 /****************************************************************************/
 
 static void vAppHandleAfEvent( BDB_tsZpsAfEvent *psZpsAfEvent);
-static void vAppHandleZdoEvents( BDB_tsZpsAfEvent *psZpsAfEvent);
 static void vAppSendOnOff(void);
 static void vAppSendIdentifyStop( uint16_t u16Address, uint8_t u8Endpoint);
 static void vAppSendRemoteBindRequest(uint16_t u16DstAddr, uint16_t u16ClusterId, uint8_t u8DstEp);
 static void APP_vBdbInit(void);
-#ifdef NCP_HOST
-void APP_vProcessZCLMessage(uint32_t u32Msg);
-#endif
 
 /****************************************************************************/
 /***        Exported Variables                                            ***/
@@ -74,10 +55,107 @@ extern uint32_t u32Togglems;
 /***        Local Variables                                               ***/
 /****************************************************************************/
 
-static teNodeState eNodeState;
-#ifdef NCP_HOST
-PRIVATE bool_t bZCLQueueFull = FALSE;
+#ifdef R23_UPDATES
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wpacked"
+#pragma GCC diagnostic ignored "-Wattributes"
+
+/* Derive a test-specific type from tuTlvManufacturerSpecific */
+TLV_DEF(tuTlvTestSpecific1,
+        uint16, u16ZigbeeManufId,
+        uint8, au8Extra[2]
+);
+TLV_DEF(tuTlvTestSpecific2,
+        uint16, u16ZigbeeManufId,
+        uint8, au8Extra[6]
+);
+
+#define APP_SIZE_JOINREQ_TLV (sizeof(tuTlvTestSpecific1) +\
+                              sizeof(tuFragParams) +\
+                              sizeof(tuSupportedKeyNegotiationMethods) +\
+                              sizeof(tuTlvTestSpecific2))
+
+TLV_ENCAPS(g_sJoinerTlvs,
+           APP_SIZE_JOINREQ_TLV,
+           m_, tuTlvTestSpecific1,
+           m_, tuFragParams,
+           m_, tuSupportedKeyNegotiationMethods,
+           m_, tuTlvTestSpecific2) =
+{
+        .u8Tag = ZPS_TLV_G_JOINERENCAPS, .u8Len = APP_SIZE_JOINREQ_TLV - 1,
+
+        /* This TLV is sent inside the Joiner Encapsulation */
+        { .u16ZigbeeManufId = 0x1234, .au8Extra[0] = 0xAA, .au8Extra[1] = 0xBB,
+          .u8Tag = ZPS_TLV_G_MANUFSPEC, .u8Len = sizeof(tuTlvTestSpecific1) - 1 - ZPS_TLV_HDR_SIZE
+        },
+
+        { .u16NodeId = 1, .u8FragOpt = 2, .u16InMaxLen = 10,
+          .u8Tag = ZPS_TLV_G_FRAGPARAMS, .u8Len = sizeof(tuFragParams) - 1 - ZPS_TLV_HDR_SIZE
+        },
+
+        { .u8KeyNegotProtMask = ZPS_TLV_G_SUPPKEYNEGMETH_STATKEYREQ,
+          .u8SharedSecretsMask = 0,
+          .au8SrcIeeeAddr = {0},
+          .u8Tag = ZPS_TLV_G_SUPPKEYNEGMETH, .u8Len = sizeof(tuSupportedKeyNegotiationMethods) - 1 - ZPS_TLV_HDR_SIZE
+        },
+
+        /* This TLV is sent inside the Joiner Encapsulation */
+        { .u16ZigbeeManufId = 0x1234, .au8Extra = {0, 1, 2, 3, 4, 5},
+          .u8Tag = ZPS_TLV_G_MANUFSPEC, .u8Len = sizeof(tuTlvTestSpecific2) - 1 - ZPS_TLV_HDR_SIZE
+        }
+};
+#pragma GCC diagnostic pop
+
+uint8 au8Storage_Tlv1[sizeof(tuTlvManufacturerSpecific) + 3] =
+{
+    [offsetof(tuTlvManufacturerSpecific, u8Tag)] = ZPS_TLV_G_MANUFSPEC,
+    [offsetof(tuTlvManufacturerSpecific, u8Len)] = sizeof(au8Storage_Tlv1) - 1 - ZPS_TLV_HDR_SIZE,
+    [offsetof(tuTlvManufacturerSpecific, u16ZigbeeManufId)    ] = 0x12,
+    [offsetof(tuTlvManufacturerSpecific, u16ZigbeeManufId) + 1] = 0x34,
+    [offsetof(tuTlvManufacturerSpecific, au8Extra)    ] = 'N',
+    [offsetof(tuTlvManufacturerSpecific, au8Extra) + 1] = 'X',
+    [offsetof(tuTlvManufacturerSpecific, au8Extra) + 2] = 'P',
+};
+tuTlvManufacturerSpecific *g_pTlv1 = (tuTlvManufacturerSpecific *)&au8Storage_Tlv1;
+
+//TLV_MANUFACTURERSPECIFIC_PTR(const static, g_p, Tlv2, 0x3412);
+TLV_MANUFACTURERSPECIFIC_PTR( , g_p, Tlv2, 0x3412);
+
+TLV_MANUFACTURERSPECIFIC_EX_PTR( , g_p, Tlv3, 0x3412, 9, 'T', 'L', 'V', 'S', ' ', 'D', 'A', 'T', 'A');
+
+tuRouterInfo g_Tlv4 = {
+        .u8Tag = ZPS_TLV_G_ROUTERINFO, .u8Len = sizeof(tuRouterInfo) - 1 - ZPS_TLV_HDR_SIZE,
+        0xAABB
+};
+TLV_MANUFACTURERSPECIFIC_EX_PTR( , g_p, Tlv5, 0xFFFE, 8, 0, 0, 0, 0, 0, 0, 0, 0);
+TLV_USERDEFINED_PTR( , g_p, Tlv6, 60, 6, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF);
+
+uint8 au8TestTlvs[sizeof(au8Storage_Tlv1) + sizeof(au8Storage_Tlv2) +
+                  sizeof(au8Storage_Tlv3) + sizeof(g_Tlv4)];
+uint8 au8JoinTlvs[sizeof(au8Storage_Tlv1) + sizeof(au8Storage_Tlv2) +
+                  sizeof(au8Storage_Tlv3) + sizeof(g_sJoinerTlvs)];
+
+uint8 au8TestTlvs1[sizeof(au8Storage_Tlv5) + sizeof(au8Storage_Tlv6)];
+
+#define APP_SIZE_PERMITJOINREQ_TLV (sizeof(tuSupportedKeyNegotiationMethods) +\
+                                    sizeof(tuFragParams) + sizeof(au8TestTlvs))
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wpacked"
+TLV_ENCAPS(g_sPermitJoinReqTlvs, APP_SIZE_PERMITJOINREQ_TLV, m_, tuSupportedKeyNegotiationMethods, m_, tuFragParams) =
+{
+        .u8Tag = ZPS_TLV_G_BEACONAPPENCAPS, .u8Len = sizeof(tuSupportedKeyNegotiationMethods) + sizeof(tuFragParams) - 1,
+        { .u8KeyNegotProtMask = ZPS_TLV_G_SUPPKEYNEGMETH_STATKEYREQ,
+          .u8SharedSecretsMask = 0,
+          .au8SrcIeeeAddr = {0},
+          .u8Tag = ZPS_TLV_G_SUPPKEYNEGMETH, .u8Len = sizeof(tuSupportedKeyNegotiationMethods) - sizeof(tsTlvGeneric) - 1 },
+        { .u16NodeId = 1, .u8FragOpt = 2, .u16InMaxLen = 10,
+          .u8Tag = ZPS_TLV_G_FRAGPARAMS, .u8Len = sizeof(tuFragParams) - 1 - ZPS_TLV_HDR_SIZE }
+};
+#pragma GCC diagnostic pop
 #endif
+
+static teNodeState eNodeState;
 #define GREEN_POWER_ENDPOINT                   242
 
 /****************************************************************************/
@@ -101,7 +179,6 @@ PUBLIC uint16 u16appPrintBufferTimeInSec = 300U;
  * void
  *
  ****************************************************************************/
-#ifndef NCP_HOST
 void APP_vInitialiseCoordinator(void)
 {
     /* Restore any application data previously saved to flash
@@ -119,8 +196,20 @@ void APP_vInitialiseCoordinator(void)
     APP_SetHighTxPowerMode();
 #endif
 
+#ifdef R23_UPDATES
+    ZPS_vTlvBuildSequence(4, sizeof(au8JoinTlvs), au8JoinTlvs,
+          g_pTlv1, g_pTlv2, g_pTlv3, &g_sJoinerTlvs);
+    ZPS_vTlvBuildSequence(4, sizeof(au8TestTlvs), au8TestTlvs,
+           g_pTlv1, g_pTlv2, g_pTlv3, &g_Tlv4);
+    ZPS_vAplAfSetAdditionalTlvs(au8JoinTlvs, sizeof(au8JoinTlvs));
+#endif
     /* Initialise ZBPro stack */
     ZPS_eAplAfInit();
+
+#ifdef R23_UPDATES
+    ZPS_vNwkNibSetBeaconAppendix(ZPS_pvAplZdoGetNwkHandle(), FALSE, TRUE,
+          sizeof(au8TestTlvs), (tsTlvGeneric *)au8TestTlvs);
+#endif
 
 #ifdef ENABLE_SUBG_IF
     void *pvNwk = ZPS_pvAplZdoGetNwkHandle();
@@ -141,28 +230,6 @@ void APP_vInitialiseCoordinator(void)
     DBG_vPrintf(TRACE_APP, "Recovered Application State %d On Network %d\r\n",
             eNodeState, sBDB.sAttrib.bbdbNodeIsOnANetwork);
 }
-#else
-void APP_vInitialiseCoordinator(void)
-{
-    /* Restore any application data previously saved to flash */
-    eNodeState = E_STARTUP;
-    uint16_t u16ByteRead;
-    PDM_eReadDataFromRecord(PDM_ID_APP_COORD,
-                            &eNodeState,
-                            sizeof(eNodeState),
-                            &u16ByteRead);
-
-    APP_ZCL_vInitialise();
-
-    /* Initialise other software modules
-     * HERE
-     */
-    APP_eZbModuleInitialise();
-    APP_vBdbInit();
-    DBG_vPrintf(TRACE_APP, "Recovered Application State %d On Network %d\r\n",
-            eNodeState, sBDB.sAttrib.bbdbNodeIsOnANetwork);
-}
-#endif
 
 /****************************************************************************
  *
@@ -203,7 +270,6 @@ void APP_vBdbCallback(BDB_tsBdbEvent *psBdbEvent)
 
         case BDB_EVENT_NWK_STEERING_SUCCESS:
             DBG_vPrintf(TRACE_APP,"APP-BDB: NwkSteering Success\r\n");
-#ifndef NCP_HOST
             if(u32Togglems == 1000)
             {
                 u32Togglems = 250;
@@ -214,7 +280,6 @@ void APP_vBdbCallback(BDB_tsBdbEvent *psBdbEvent)
             }
             ZTIMER_eStop(u8LedTimer);
             ZTIMER_eStart(u8LedTimer, ZTIMER_TIME_MSEC(u32Togglems));
-#endif
             break;
 
         case BDB_EVENT_NWK_FORMATION_FAILURE:
@@ -333,7 +398,6 @@ void APP_taskCoordinator(void)
                 case APP_E_EVENT_SERIAL_FIND_BIND_START:
                     eStatus = BDB_eFbTriggerAsInitiator(COORDINATOR_APPLICATION_ENDPOINT);
                     DBG_vPrintf(TRACE_APP, "APP-EVT: Find and Bind initiate %02x\r\n", eStatus);
-#ifndef NCP_HOST
                     if(BDB_E_SUCCESS == eStatus)
                     {
                     	if(ZPS_bGetPermitJoiningStatus())
@@ -347,7 +411,6 @@ void APP_taskCoordinator(void)
                         ZTIMER_eStop(u8LedTimer);
                         ZTIMER_eStart(u8LedTimer,ZTIMER_TIME_MSEC(u32Togglems));
                     }
-#endif
                     break;
 
                 case APP_E_EVENT_SERIAL_FORM_NETWORK:
@@ -428,7 +491,7 @@ static void vAppHandleAfEvent( BDB_tsZpsAfEvent *psZpsAfEvent)
  * void
  *
  ****************************************************************************/
-static void vAppHandleZdoEvents( BDB_tsZpsAfEvent *psZpsAfEvent)
+void vAppHandleZdoEvents( BDB_tsZpsAfEvent *psZpsAfEvent)
 {
     ZPS_tsAfEvent *psAfEvent = &(psZpsAfEvent->sStackEvent);
 
@@ -657,20 +720,6 @@ void APP_vFactoryResetRecords(void)
     eNodeState = E_STARTUP;
     PDM_eSaveRecordData(PDM_ID_APP_COORD,&eNodeState,sizeof(teNodeState));
     APP_vSetLed(APP_E_LEDS_LED_2, APP_E_LED_OFF);
-
-#ifdef NCP_HOST
-    DBG_vPrintf(TRUE, "Erasing PDM data on Coprocessor...");
-    u8ErasePersistentData();
-
-    /* wait for coprocessor to be ready */
-    vSetJNState(JN_NOT_READY);
-    vWaitForJNReady(JN_READY_TIME_MS);
-    vSL_SetStandardResponsePeriod();
-
-    /* handle NCP HOST side */
-    PDM_vDeleteAllDataRecords();
-    APP_vNcpHostReset();
-#endif
 }
 
 /****************************************************************************
@@ -740,419 +789,6 @@ uint8_t APP_u8GetDeviceEndpoint( void)
     return COORDINATOR_APPLICATION_ENDPOINT;
 }
 
-#ifdef NCP_HOST
-/********************************************************************************
-  *
-  * @fn PRIVATE void APP_vNcpMainTask
-  *
-  */
- /**
-  *
-  * @param p_arg void *
-  *
-  * @brief Main State Machine for local Node
-  *
-  * @return void
-  *
-  * @note
-  *
-  * imported description
- ********************************************************************************/
-void APP_vNcpMainTask(void)
-{
-    bool pBT;
-    uint32_t u32Msg;
-
-    /* handle serial messages  */
-    (void)vSL_CheckAndHandleSerialMsg();
-
-    /* handle zcl messages  */
-    pBT = ZQ_bQueueReceive((void *)&zclQueueHandle, (void*)&u32Msg);
-
-    if (bZCLQueueFull == (bool_t)TRUE)
-    {
-        DBG_vPrintf((bool_t)TRUE, "Reading ZCL Queue After Post Fail Main Task %d\n", pBT);
-        bZCLQueueFull = (bool_t)FALSE;
-    }
-
-    if(pBT == TRUE)
-    {
-        APP_vProcessZCLMessage(u32Msg);
-    }
-    /* handle application messages */
-    pBT = ZQ_bQueueReceive((void *)&appQueueHandle, (void*)&u32Msg);
-
-    if(pBT == TRUE)
-    {
-            if ((u32Msg & QUEUE_MSG_BY_VALUE) == QUEUE_MSG_BY_VALUE )
-            {
-                uint32 u32LocalMsg =  u32Msg & (~QUEUE_MSG_BY_VALUE);
-                vApp_ProcessMessageVal(u32LocalMsg);
-            }
-            else
-            {
-                vApp_ProcessMessage(u32Msg);
-            }
-    }
-}
-
-/********************************************************************************
- *
- * @fn PUBLIC void APP_vPostToAppQueue
- *
- */
-/**
- *
- * @param pvMsg void *
- *
- * @brief post message to app queue
- *
- * @return None
- *
- * @note
- *
- * imported description
-********************************************************************************/
-PUBLIC void APP_vPostToAppQueue (void *pvMsg)
-{
-	if (FALSE == ZQ_bQueueSend(&appQueueHandle, pvMsg) )
-	{
-		vSL_FreeRxBuffer( (uint8*)pvMsg);
-		APP_vVerifyFatal( (bool_t)FALSE, "Post to App queue failed", ERR_FATAL_ZIGBEE_RESTART);
-	}
-}
-
-/********************************************************************************
-  *
-  * @fn PUBLIC void APP_vPostToAppQueueWord
-  *
-  */
- /**
-  *
-  * @param u8MsgType uint8
-  *
-  * @brief void
-  *
-  * @return PUBLIC void
-  *
-  * @note
-  *
- ********************************************************************************/
-PUBLIC void APP_vPostToAppQueueWord (uint8 u8MsgType )
-{
-    uint32 u32Msg = QUEUE_MSG_BY_VALUE | (uint32)u8MsgType;
-	if (FALSE == ZQ_bQueueSend(&appQueueHandle, (void *)&u32Msg) )
-	{
-		vSL_FreeRxBuffer( (uint8*)&u32Msg);
-		APP_vVerifyFatal( (bool_t)FALSE, "Post to App queue failed", ERR_FATAL_ZIGBEE_RESTART);
-	}
-}
-
-/********************************************************************************
-  *
-  * @fn PUBLIC void APP_vPostToZclQueue
-  *
-  */
- /**
-  *
-  * @param pvMessage void *
-  *
-  * @brief post message to zcl queue
-  *
-  * @return None
-  *
-  * @note
-  *
-  * imported description
- ********************************************************************************/
-PUBLIC void APP_vPostToZclQueue(void *pvMessage)
-{
-	if (FALSE == ZQ_bQueueSend(&zclQueueHandle, &pvMessage))
-	{
-		vSL_FreeRxBuffer( (uint8*)pvMessage);
-		bZCLQueueFull = (bool_t)TRUE;
-		APP_vVerifyFatal( (bool_t)FALSE, "Queue Send to ZCL failed", ERR_FATAL_ZIGBEE_RESTART);
-	}
-}
-
-/********************************************************************************
-  *
-  * @fn PUBLIC void vFlushZclQueue
-  *
-  */
- /**
-  *
-  *
-  * @brief void
-  *
-  * @return PUBLIC void
-  *
-  * @note
-  *
- ********************************************************************************/
-PUBLIC void vFlushZclQueue(void)
-{
-	(void)ZQ_bQueueFlush(&zclQueueHandle);
-}
-
-/********************************************************************************
-  *
-  * @fn PUBLIC void vFlushAppQueue
-  *
-  */
- /**
-  *
-  *
-  * @brief void
-  *
-  * @return PUBLIC void
-  *
-  * @note
-  *
- ********************************************************************************/
-PUBLIC void vFlushAppQueue(void)
-{
-	(void)ZQ_bQueueFlush(&appQueueHandle);
-}
-
-/****************************************************************************
- *
- * NAME: APP_eZbModuleInitialise
- *
- * DESCRIPTION:
- * Initialises the ZB module
- *
- * RETURNS:
- * void
- *
- ****************************************************************************/
-PUBLIC ZPS_teStatus APP_eZbModuleInitialise(void)
-{
-    teSL_ZigBeeDeviceType eDeviceType = E_SL_DEVICE_INVALID;
-    teSL_DeviceMacType eMacType = E_SL_MAC_UNDEFINED;
-    ZPS_teStatus 	eStatus = 0U;
-    uint32	u32ZbVersion = 0U;
-    uint16	u16OptionMask = 0U;
-    uint32  u32SDKVersion = 0U;
-
-    vSL_SetLongResponsePeriod();
-
-    DBG_vPrintf((bool_t)TRACE_APP_INIT, "Zigbee Module initialization\r\n");
-
-//    vSL_ResetRxBufferPool();
-
-    DBG_vPrintf((bool_t)TRACE_APP_INIT, "Reading Zigbee Module Version Number\r\n");
-    uint32 u32Count = 0U;
-    while(u32Count < MAX_HOST_TO_COPROCESSOR_COMMS_ATTEMPS)
-    {
-        eStatus = u8GetVersionAndDeviceType(&u32ZbVersion, &eDeviceType,
-                                            &eMacType, &u16OptionMask,
-                                            &u32SDKVersion);
-        if((eStatus == (ZPS_teStatus)E_SL_MSG_STATUS_BUSY) ||
-           (eStatus == (ZPS_teStatus)E_SL_MSG_STATUS_TIME_OUT))
-        {
-            DBG_vPrintf((bool_t)TRACE_APP_INIT, "Zigbee module busy %d\n", u32Count++);
-            vSleep(1000UL);
-        }
-        else
-        {
-            break;
-        }
-    }
-
-    if(eStatus == (ZPS_teStatus)E_ZCL_SUCCESS)
-    {
-        DBG_vPrintf ((bool_t)TRACE_APP_INIT, "Success: ");
-        DBG_vPrintf((bool_t)TRACE_APP_INIT,
-                "Version number of Zigbee Module FW 0x%08x Mac type %d Options Mask 0x%04x SDK Version = %d\n",
-                u32ZbVersion, eMacType, u16OptionMask, u32SDKVersion);
-    }
-    else if(eStatus == (ZPS_teStatus)E_SL_MSG_STATUS_HARDWARE_FAILURE)
-    {
-        DBG_vPrintf((bool_t)TRACE_APP_INIT, "Coprocessor module hardware failure\n");
-        APP_vVerifyFatal((bool_t)FALSE, "Fatal error, hardware failure on Coprocessor module", ERR_FATAL_NON_RECOVERABLE);
-    }
-    else
-    {
-        DBG_vPrintf((bool_t)TRUE,
-                "Error: Status code from attempt to get version number of Zigbee Module %d\r\n",
-                eStatus);
-        APP_vVerifyFatal((bool_t)FALSE, "Fatal error, cannot continue", ERR_FATAL_NON_RECOVERABLE);
-    }
-
-    if (eNodeState == E_STARTUP)
-    {
-        DBG_vPrintf((bool_t)TRACE_APP_INIT, "Erasing Persistent Data on Zigbee Module\n");
-        eStatus = u8ErasePersistentData();
-        if(eStatus == (ZPS_teStatus)E_ZCL_SUCCESS)
-        {
-            DBG_vPrintf((bool_t)TRACE_APP_INIT,
-                    "Success: Erasing Persistent Data on Zigbee Module\n");
-        }
-        else
-        {
-            DBG_vPrintf((bool_t)TRUE,
-                    "Error: Erasing Persistent Data on Zigbee Module 0x%x\r\n", eStatus);
-            vSL_SetStandardResponsePeriod();
-            return eStatus;
-        }
-        /* wait for Zigbee module to stabilize after PDM erase */
-        vSetJNState(JN_NOT_READY);
-        vWaitForJNReady(JN_READY_TIME_MS);
-
-        /* wait for Zigbee module to stabilize after Reset */
-        vSetJNState(JN_NOT_READY);
-        APP_vNcpHostResetZigBeeModule();
-        vWaitForJNReady(JN_READY_TIME_MS);
-    }
-    vSL_SetStandardResponsePeriod();
-    return eStatus;
-}
-
-/********************************************************************************
-  *
-  * @fn PUBLIC void APP_vProcessZCLMessage
-  *
-  */
- /**
-  *
-  * @param u32Msg uint32
-  *
-  * @brief process ZCL messages
-  *
-  * @return void
-  *
-  * @note
-  *
-  * imported description
- ********************************************************************************/
-PUBLIC void APP_vProcessZCLMessage(uint32 u32Msg)
-{
-    tsZCL_CallBackEvent  sCallBackEvent;
-    ZPS_tsAfEvent sStackEvent;
-#ifdef APP_ENABLE_PRINT_BUFFERS
-    static uint16 u16appPrintBufferTimeInSecCount = 0U;
-#endif
-
-    if(*((uint8*)u32Msg) == (uint32)APP_MSG_TYPE_ZCL_TIMER)
-    {
-
-        sCallBackEvent.eEventType = E_ZCL_CBET_TIMER;
-        vLockZCLMutex();
-        //vZCL_SetUTCTimeWoSyncSet(APP_u32GetTime() - 1U);
-        vZCL_EventHandler(&sCallBackEvent);
-        vUnlockZCLMutex();
-        //vApp_HandleZclTimerEvent();
-#ifdef APP_ENABLE_PRINT_BUFFERS
-        if(u16appPrintBufferTimeInSec>0){
-            u16appPrintBufferTimeInSecCount++;
-            if(u16appPrintBufferTimeInSecCount == u16appPrintBufferTimeInSec)
-            {
-                u16appPrintBufferTimeInSecCount = 0U;
-                vSL_PrintRxBufferPool(TRUE);
-                PDUM_vPrintAllocatedBuffers(TRUE);
-            }
-        }
-#endif
-    }
-    else if(*((uint8*)u32Msg) == SL_MSG_TYPE_APDU)
-    {
-        PDUM_thAPduInstance myPDUM_thAPduInstance = PDUM_INVALID_HANDLE;
-        uint8 u8EndPoint;
-
-        /* clear StackEvent */
-        (void)ZBmemset(&sStackEvent, 0x00, sizeof(ZPS_tsAfEvent));
-        sCallBackEvent.eEventType = E_ZCL_CBET_ZIGBEE_EVENT;
-        sCallBackEvent.pZPSevent = &sStackEvent;
-
-        /* Process the serial buffer */
-        vSL_HandleApduEvent((uint8*)u32Msg,&myPDUM_thAPduInstance, &sStackEvent);
-
-
-        /* Before pushing the event to ZCL, construct the serial
-         * payload as per stack event structure */
-        if((sStackEvent.eType == (ZPS_teAfEventType)ZPS_EVENT_APS_DATA_INDICATION) ||
-           (sStackEvent.eType == (ZPS_teAfEventType)ZPS_EVENT_APS_DATA_ACK))
-        {
-            bool bValidEp = (bool)TRUE;
-            if (sStackEvent.eType == (ZPS_teAfEventType)ZPS_EVENT_APS_DATA_INDICATION)
-            {
-                u8EndPoint = sStackEvent.uEvent.sApsDataIndEvent.u8DstEndpoint;
-                (void)ZPS_eAplAfGetEndpointState(sStackEvent.uEvent.sApsDataIndEvent.u8DstEndpoint, &bValidEp);
-            }
-            else /* sStackEvent.eType ==(ZPS_teAfEventType)ZPS_EVENT_APS_DATA_ACK */
-            {
-                u8EndPoint = sStackEvent.uEvent.sApsDataAckEvent.u8DstEndpoint;
-                (void)ZPS_eAplAfGetEndpointState(sStackEvent.uEvent.sApsDataAckEvent.u8DstEndpoint, &bValidEp);
-            }
-
-            if (bValidEp)
-            {
-                if (u8EndPoint == COORDINATOR_ZDO_ENDPOINT) {
-                    vAppHandleZdoEvents(&sStackEvent);
-                } else {
-                    vLockZCLMutex();
-                    /* post to the ZCL as Event */
-                    vZCL_EventHandler(&sCallBackEvent);
-                    vUnlockZCLMutex();
-                }
-            }
-            else
-            {
-                if (sStackEvent.eType ==(ZPS_teAfEventType)ZPS_EVENT_APS_DATA_INDICATION)
-                {
-                    DBG_vPrintf((bool_t)TRUE, "Data Indication for unsupported end point %d\n",
-                          sStackEvent.uEvent.sApsDataIndEvent.u8DstEndpoint);
-                }
-                else
-                {
-                    DBG_vPrintf((bool_t)TRUE, "Data Ack for unspported end point %d\n",
-                          sStackEvent.uEvent.sApsDataAckEvent.u8DstEndpoint);
-                }
-            }
-         }
-        if (myPDUM_thAPduInstance != PDUM_INVALID_HANDLE)
-        {
-            (void)PDUM_eAPduFreeAPduInstance(myPDUM_thAPduInstance);
-        }
-    }
-    else if(*((uint8*)u32Msg) == SL_MSG_TYPE_INTERPAN)
-    {
-        PDUM_thAPduInstance myPDUM_thAPduInstance = PDUM_INVALID_HANDLE;
-        /* clear StackEvent */
-        (void)ZBmemset(&sStackEvent, 0x00, sizeof(ZPS_tsAfEvent));
-        sCallBackEvent.eEventType = E_ZCL_CBET_ZIGBEE_EVENT;
-        sCallBackEvent.pZPSevent = &sStackEvent;
-
-        /* Process the serial buffer */
-        vSL_HandleInterpanEvent((uint8*)u32Msg, &myPDUM_thAPduInstance, &sStackEvent);
-
-        /* Before pushing the event to ZCL, construct the serial payload as per
-         * stack event structure */
-        if((sStackEvent.eType == (ZPS_teAfEventType)ZPS_EVENT_APS_INTERPAN_DATA_INDICATION)||
-                (sStackEvent.eType == (ZPS_teAfEventType)ZPS_EVENT_APS_INTERPAN_DATA_CONFIRM))
-        {
-            /* Hook to handle raw GB spec inter pan messages and drop InterPan CBKE unless in correct state */
-            //if ((bool_t)TRUE == bPassInterPanToZcl(&sStackEvent))
-            {
-                /* post to the ZCL as Event */
-                vZCL_EventHandler(&sCallBackEvent);
-            }
-        }
-        if (myPDUM_thAPduInstance != PDUM_INVALID_HANDLE)
-        {
-            (void)PDUM_eAPduFreeAPduInstance(myPDUM_thAPduInstance);
-        }
-    }
-    else
-    {
-        /*nodefault action required */
-    }
-
-    //APP_vDirtyTimerHandler(u32Msg);
-}
-
-#endif /* NCP_HOST */
 /****************************************************************************/
 /***        END OF FILE                                                   ***/
 /****************************************************************************/

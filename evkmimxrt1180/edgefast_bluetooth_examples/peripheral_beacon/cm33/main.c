@@ -259,22 +259,6 @@ void USB_HostIsrEnable(void)
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
     BOARD_SetDMA4Permission();
-    /*
-     * Workaround to disable the cache for whole OCRAM1,
-     * since mbedtls component requires cache disabled.
-     */
-    /* Disable code & system cache */
-    XCACHE_DisableCache(XCACHE_PC);
-    XCACHE_DisableCache(XCACHE_PS);
-    /* Disable MPU */
-    ARM_MPU_Disable();
-    ARM_MPU_SetRegion(8U, ARM_MPU_RBAR(0x20480000, ARM_MPU_SH_NON, 0U, 1U, 0U),
-                          ARM_MPU_RLAR(0x204FFFFF, 1U));
-    /* Enable MPU */
-    ARM_MPU_Enable(MPU_CTRL_PRIVDEFENA_Msk);
-    /* Enable code & system cache */
-    XCACHE_EnableCache(XCACHE_PS);
-    XCACHE_EnableCache(XCACHE_PC);
 
 #if (((defined(CONFIG_BT_SMP)) && (CONFIG_BT_SMP)))
     CRYPTO_InitHardware();

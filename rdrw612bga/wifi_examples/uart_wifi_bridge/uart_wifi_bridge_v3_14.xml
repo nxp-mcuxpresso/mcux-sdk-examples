@@ -31,6 +31,8 @@
     <definition extID="platform.drivers.imu.RW612"/>
     <definition extID="platform.drivers.flexcomm.RW612"/>
     <definition extID="platform.drivers.flexcomm_usart.RW612"/>
+    <definition extID="component.mflash.rdrw610.RW612"/>
+    <definition extID="component.mflash.common.RW612"/>
     <definition extID="component.serial_manager.RW612"/>
     <definition extID="utility.str.RW612"/>
     <definition extID="component.serial_manager_uart.RW612"/>
@@ -41,12 +43,11 @@
     <definition extID="device.RW612_system.RW612"/>
     <definition extID="component.els_pkc.els_header_only.RW612"/>
     <definition extID="component.els_pkc.els_common.RW612"/>
-    <definition extID="component.els_pkc.standalone_keyManagement.RW612"/>
+    <definition extID="component.els_pkc.memory.RW612"/>
     <definition extID="component.els_pkc.standalone_gdet.RW612"/>
-    <definition extID="component.els_pkc.platform.rw61x_interface_files.RW612"/>
+    <definition extID="component.els_pkc.platform.rw61x_inf_header_only.RW612"/>
     <definition extID="component.els_pkc.buffer.RW612"/>
     <definition extID="component.els_pkc.core.RW612"/>
-    <definition extID="component.els_pkc.memory.RW612"/>
     <definition extID="component.els_pkc.param_integrity.RW612"/>
     <definition extID="component.els_pkc.flow_protection.RW612"/>
     <definition extID="component.els_pkc.secure_counter.RW612"/>
@@ -59,7 +60,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="rdrw612bga_uart_wifi_bridge" name="uart_wifi_bridge" device_core="cm33_RW612" dependency="component.osa_free_rtos.RW612 component.wireless_imu_adapter.RW612 platform.drivers.flexcomm_usart_freertos.RW612 driver.conn_fwloader.RW612 utility.debug_console.RW612 platform.utilities.assert.RW612 middleware.freertos-kernel.RW612 middleware.freertos-kernel.heap_4.RW612 middleware.freertos-kernel.cm33_non_trustzone.RW612 platform.drivers.flash_config.rdrw612bga.RW612 device.RW612_CMSIS.RW612 device.RW612_startup.RW612 platform.drivers.reset.RW612 platform.drivers.flexspi.RW612 platform.drivers.cache_cache64.RW612 platform.drivers.cns_io_mux.RW612 platform.drivers.lpc_gpio.RW612 platform.drivers.power.RW612 platform.drivers.ocotp.RW612 component.els_pkc.platform.rw61x_standalone_clib_gdet_sensor.RW612 platform.utilities.misc_utilities.RW612 platform.drivers.clock.RW612 platform.drivers.common.RW612 component.lists.RW612 component.osa_interface.RW612 platform.drivers.gdma.RW612 platform.drivers.imu.RW612 platform.drivers.flexcomm.RW612 platform.drivers.flexcomm_usart.RW612 component.serial_manager.RW612 utility.str.RW612 component.serial_manager_uart.RW612 component.usart_adapter.RW612 middleware.freertos-kernel.template.RW612 middleware.freertos-kernel.extension.RW612 CMSIS_Include_core_cm.RW612 device.RW612_system.RW612 component.els_pkc.els_header_only.RW612 component.els_pkc.els_common.RW612 component.els_pkc.standalone_keyManagement.RW612 component.els_pkc.standalone_gdet.RW612 component.els_pkc.platform.rw61x_interface_files.RW612 component.els_pkc.buffer.RW612 component.els_pkc.core.RW612 component.els_pkc.memory.RW612 component.els_pkc.param_integrity.RW612 component.els_pkc.flow_protection.RW612 component.els_pkc.secure_counter.RW612 component.els_pkc.pre_processor.RW612 component.els_pkc.toolchain.RW612 component.els_pkc.data_integrity.RW612" category="wifi_examples">
+  <example id="rdrw612bga_uart_wifi_bridge" name="uart_wifi_bridge" device_core="cm33_RW612" dependency="component.osa_free_rtos.RW612 component.wireless_imu_adapter.RW612 platform.drivers.flexcomm_usart_freertos.RW612 driver.conn_fwloader.RW612 utility.debug_console.RW612 platform.utilities.assert.RW612 middleware.freertos-kernel.RW612 middleware.freertos-kernel.heap_4.RW612 middleware.freertos-kernel.cm33_non_trustzone.RW612 platform.drivers.flash_config.rdrw612bga.RW612 device.RW612_CMSIS.RW612 device.RW612_startup.RW612 platform.drivers.reset.RW612 platform.drivers.flexspi.RW612 platform.drivers.cache_cache64.RW612 platform.drivers.cns_io_mux.RW612 platform.drivers.lpc_gpio.RW612 platform.drivers.power.RW612 platform.drivers.ocotp.RW612 component.els_pkc.platform.rw61x_standalone_clib_gdet_sensor.RW612 platform.utilities.misc_utilities.RW612 platform.drivers.clock.RW612 platform.drivers.common.RW612 component.lists.RW612 component.osa_interface.RW612 platform.drivers.gdma.RW612 platform.drivers.imu.RW612 platform.drivers.flexcomm.RW612 platform.drivers.flexcomm_usart.RW612 component.mflash.rdrw610.RW612 component.mflash.common.RW612 component.serial_manager.RW612 utility.str.RW612 component.serial_manager_uart.RW612 component.usart_adapter.RW612 middleware.freertos-kernel.template.RW612 middleware.freertos-kernel.extension.RW612 CMSIS_Include_core_cm.RW612 device.RW612_system.RW612 component.els_pkc.els_header_only.RW612 component.els_pkc.els_common.RW612 component.els_pkc.memory.RW612 component.els_pkc.standalone_gdet.RW612 component.els_pkc.platform.rw61x_inf_header_only.RW612 component.els_pkc.buffer.RW612 component.els_pkc.core.RW612 component.els_pkc.param_integrity.RW612 component.els_pkc.flow_protection.RW612 component.els_pkc.secure_counter.RW612 component.els_pkc.pre_processor.RW612 component.els_pkc.toolchain.RW612 component.els_pkc.data_integrity.RW612" category="wifi_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -83,6 +84,7 @@
           <value>BOOT_HEADER_ENABLE=1</value>
           <value>FSL_OSA_TASK_ENABLE=1</value>
           <value>SDK_OS_FREE_RTOS</value>
+          <value>MFLASH_FILE_BASEADDR=7340032</value>
           <value>SERIAL_PORT_TYPE_UART=1</value>
         </option>
         <option id="com.crt.advproject.gas.hdrlib" type="enum">
@@ -125,7 +127,7 @@
           <value>com.crt.advproject.gcc.fpu.fpv5sp.hard</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-mcpu=cortex-m33+nodsp -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-mcpu=cortex-m33+nodsp -c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>
@@ -154,6 +156,7 @@
       <include_path path="../../../../core/boards/rdrw612bga" project_relative_path="board" type="c_include"/>
       <include_path path="../../../../core/boards/rdrw612bga" project_relative_path="." type="c_include"/>
       <include_path path="." project_relative_path="source" type="asm_include"/>
+      <include_path path="." project_relative_path="board" type="asm_include"/>
       <include_path path="../../../../core/boards/rdrw612bga" project_relative_path="board" type="asm_include"/>
     </include_paths>
     <source path="armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">
@@ -190,11 +193,6 @@
     <source path="." project_relative_path="board" type="c_include">
       <files mask="pin_mux.h"/>
     </source>
-    <source path="." project_relative_path="source" type="c_include">
-      <files mask="wifi_config.h"/>
-      <files mask="lwipopts.h"/>
-      <files mask="lwippools.h"/>
-    </source>
     <source path="." project_relative_path="doc" type="doc" exclude="true">
       <files mask="readme_modules.txt"/>
     </source>
@@ -203,18 +201,24 @@
       <files mask="RW610_flash.ld"/>
     </source>
     <source path="." project_relative_path="source" type="c_preinclude">
-      <files mask="app_config.h"/>
+      <files mask="wifi_config.h"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include">
+      <files mask="lwipopts.h"/>
+      <files mask="lwippools.h"/>
     </source>
     <source path="mfg_wifi_bt_firmware" project_relative_path="source" type="c_include">
       <files mask="mfg_wlan_bt_fw.h"/>
       <files mask="sd8801_mfg_wlan.h"/>
       <files mask="sduart8987_mfg_wlan_bt.h"/>
       <files mask="sduartIW416_mfg_wlan_bt.h"/>
-      <files mask="sduart_nw61x_mfg.h"/>
       <files mask="sduart_nw61x_mfg_se.h"/>
     </source>
     <source path="." project_relative_path="source" type="c_include" config="true">
       <files mask="FreeRTOSConfig.h"/>
+    </source>
+    <source path="." project_relative_path="source" type="c_include">
+      <files mask="app_config.h"/>
     </source>
     <source path="../../../../core/boards/rdrw612bga" project_relative_path="board" type="src">
       <files mask="board.c"/>

@@ -49,8 +49,14 @@
 #define CONFIG_BT_SETTINGS              1
 #define CONFIG_BT_KEYS_OVERWRITE_OLDEST 1
 
+
+#if (defined(CONFIG_BT_SMP) && (CONFIG_BT_SMP > 0U))
+    #define CONFIG_BT_RX_STACK_SIZE 2500
+#else
+    #define CONFIG_BT_RX_STACK_SIZE 1024
+#endif
+
 #define CONFIG_BT_BLE_DISABLE 1
-#define CONFIG_BT_RX_STACK_SIZE         2500
 
 #include "edgefast_bluetooth_config.h"
 #include "edgefast_bluetooth_debug_config.h"

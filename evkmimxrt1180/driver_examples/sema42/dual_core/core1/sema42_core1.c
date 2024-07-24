@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2015, Freescale Semiconductor, Inc.
- * Copyright 2016-2017 NXP
+ * Copyright 2016-2017, 2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -10,9 +10,9 @@
 #include "fsl_sema42.h"
 #include "pin_mux.h"
 #include "board.h"
-#include "fsl_mu.h"
 
 #include "fsl_soc_src.h"
+#include "fsl_mu.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -44,6 +44,13 @@
  */
 #ifndef USE_STATIC_DOMAIN_ID
 #define USE_STATIC_DOMAIN_ID 1
+#endif
+
+/*
+ * Use MU peripheral for inter-core notifications.
+ */
+#ifndef USE_MU_NOTIFICATIONS
+#define USE_MU_NOTIFICATIONS 1
 #endif
 
 /*
@@ -91,19 +98,35 @@ int main(void)
     APP_InitCore1Domain();
 #endif
 
+#if USE_MU_NOTIFICATIONS
     /* MUB init */
     MU_Init(APP_MU);
+#else
+    APP_InitInterCoreNotifications();
+#endif
 
     /* Synchronize with core 0, make sure all resources are ready. */
+#if USE_MU_NOTIFICATIONS
     while (BOOT_FLAG != MU_GetFlags(APP_MU))
+#else
+    while (BOOT_FLAG != APP_GetInterCoreNotificationsData())
+#endif
     {
     }
 
     /* Send flag to Core 0 to indicate Core 1 has startup */
+#if USE_MU_NOTIFICATIONS
     MU_SetFlags(APP_MU, BOOT_FLAG);
+#else
+    APP_SetInterCoreNotificationsData((uint32_t)BOOT_FLAG);
+#endif
 
     /* Wait for core 1 lock the sema42 gate. */
+#if USE_MU_NOTIFICATIONS
     while (SEMA42_LOCK_FLAG != MU_GetFlags(APP_MU))
+#else
+    while (SEMA42_LOCK_FLAG != APP_GetInterCoreNotificationsData())
+#endif
     {
     }
 
@@ -121,7 +144,11 @@ int main(void)
 #endif
 
     /* Send flag to Core 0 to indicate Core 1 has locked the semaphore. */
+#if USE_MU_NOTIFICATIONS
     MU_SetFlags(APP_MU, SEMA42_CORE1_LOCK_FLAG);
+#else
+    APP_SetInterCoreNotificationsData((uint32_t)SEMA42_CORE1_LOCK_FLAG);
+#endif
 
     while (1)
     {

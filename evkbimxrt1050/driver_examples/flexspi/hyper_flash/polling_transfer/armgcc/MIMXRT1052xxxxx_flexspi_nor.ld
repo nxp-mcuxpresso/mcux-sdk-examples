@@ -89,12 +89,20 @@ SECTIONS
         */flexspi_hyper_flash_ops.c.obj
         */fsl_flexspi.c.obj
         */fsl_clock.c.obj
+        *_udivmoddi4.o
+        *_aeabi_ldivmod.o
+        *_aeabi_uldivmod.o
+        *_dvmd_tls.o
     ) .text)                 /* .text sections (code) */
     *(EXCLUDE_FILE(
         /* Exclude flash and frequently executed functions from XIP */
         */flexspi_hyper_flash_ops.c.obj
         */fsl_flexspi.c.obj
         */fsl_clock.c.obj
+        *_udivmoddi4.o
+        *_aeabi_ldivmod.o
+        *_aeabi_uldivmod.o
+        *_dvmd_tls.o
     ) .text*)                /* .text* sections (code) */
     *(.rodata)               /* .rodata sections (constants, strings, etc.) */
     *(.rodata*)              /* .rodata* sections (constants, strings, etc.) */
@@ -109,14 +117,14 @@ SECTIONS
   .ARM.extab :
   {
     *(.ARM.extab* .gnu.linkonce.armextab.*)
-  } > m_text
+  } > m_data2
 
   .ARM :
   {
     __exidx_start = .;
     *(.ARM.exidx*)
     __exidx_end = .;
-  } > m_text
+  } > m_data2
 
  .ctors :
   {
@@ -189,6 +197,10 @@ SECTIONS
     */flexspi_hyper_flash_ops.c.obj
     */fsl_flexspi.c.obj
     */fsl_clock.c.obj
+    *_udivmoddi4.o
+    *_aeabi_ldivmod.o
+    *_aeabi_uldivmod.o
+    *_dvmd_tls.o
     *(.data)                 /* .data sections */
     *(.data*)                /* .data* sections */
     KEEP(*(.jcr*))

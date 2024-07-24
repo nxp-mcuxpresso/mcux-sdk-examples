@@ -21,11 +21,11 @@
 #define CONTROLLER_ID                               kUSB_ControllerEhci0
 
 /* Logs */
-#define CONFIG_ENABLE_ERROR_LOGS   1
-#define CONFIG_ENABLE_WARNING_LOGS 1
+#define CONFIG_ENABLE_ERROR_LOGS                    1
+#define CONFIG_ENABLE_WARNING_LOGS                  1
 
 /* Task priority */
-#if defined(CONFIG_NCP_BLE)
+#if (CONFIG_NCP_BLE)
 #undef CONFIG_WIFI_MAX_PRIO
 #define CONFIG_WIFI_MAX_PRIO (configMAX_PRIORITIES - 6)
 #endif
@@ -53,16 +53,13 @@
 #define CONFIG_BT_GATT_NOTIFY_MULTIPLE              1
 #define CONFIG_BT_ATT_RETRY_ON_SEC_ERR              0
 #define CONFIG_BT_GATT_DYNAMIC_DB                   1
-/* #define CONFIG_BT_EXT_ADV                 1  */
 #define CONFIG_BT_BUF_ACL_RX_SIZE                   100
-/* #define CONFIG_BT_TINYCRYPT_ECC 1 */
 #define CONFIG_BT_TESTING                           1
 #define CONFIG_BT_DIS_MODEL                         "NCP BLE Demo"
 #define CONFIG_BT_DIS_MANUF                         "NXP"
-
-#define CONFIG_BT_SETTINGS              1
-#define CONFIG_BT_HOST_CRYPTO           1
-#define CONFIG_BT_KEYS_OVERWRITE_OLDEST 1
+#define CONFIG_BT_SETTINGS                          1
+#define CONFIG_BT_HOST_CRYPTO                       1
+#define CONFIG_BT_KEYS_OVERWRITE_OLDEST             1
 
 #define CONFIG_BT_BROADCASTER                       1
 #define CONFIG_BT_OBSERVER                          1
@@ -102,14 +99,6 @@
 #define CONFIG_BT_LIM_ADV_TIMEOUT                   30
 #define CONFIG_BT_CONN_TX_MAX                       3
 
-
-/*
- * Macro CONFIG_BT_SMP_SC_ONLY should be enabled for below cases:
- * GAP/SEC/SEM/BI-22-C
- * GAP/SEC/SEM/BI-10-C
- */
-/* #define CONFIG_BT_SMP_SC_ONLY              1 */
-
 /*
  * L2CAP Options
  */
@@ -145,9 +134,9 @@
 #define CONFIG_BT_ECC                               1
 #define CONFIG_BT_HOST_CCM                          1
 
-#define CONFIG_WORK_QUEUE_TASK_STACK_SIZE  4096
-#define CONFIG_BT_CONN_PARAM_RETRY_COUNT   3
-#define CONFIG_BT_CONN_PARAM_RETRY_TIMEOUT 5000
+#define CONFIG_WORK_QUEUE_TASK_STACK_SIZE           4096
+#define CONFIG_BT_CONN_PARAM_RETRY_COUNT            3
+#define CONFIG_BT_CONN_PARAM_RETRY_TIMEOUT          5000
 
 
 #define DEBUG_CONSOLE_RX_ENABLE                     0
@@ -157,6 +146,8 @@
 
 #define OSA_USED                                    1
 //#define CONFIG_BT_SNOOP 1
+
+#define CONFIG_BLE_ADV_REPORT_BUFFER_LIMIT          1
 
 #include "edgefast_bluetooth_config.h"
 

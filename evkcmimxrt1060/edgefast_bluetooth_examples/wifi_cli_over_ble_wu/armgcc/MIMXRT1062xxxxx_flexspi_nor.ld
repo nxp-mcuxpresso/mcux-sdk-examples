@@ -51,8 +51,8 @@ MEMORY
   m_interrupts          (RX)  : ORIGIN = 0x60002000, LENGTH = 0x00000400
   m_text                (RX)  : ORIGIN = m_text_start, LENGTH = m_text_size
   m_qacode              (RX)  : ORIGIN = 0x00000000, LENGTH = 0x00020000
-  m_data2                (RW)  : ORIGIN = 0x20000000, LENGTH = 0x00020000
-  m_data               (RW)  : ORIGIN = 0x20200000, LENGTH = 0x000C0000
+  m_data                (RW)  : ORIGIN = 0x20000000, LENGTH = 0x00020000
+  m_data2               (RW)  : ORIGIN = 0x20200000, LENGTH = 0x000C0000
 }
 
 /* NOTE: The last LITTLEFS_REGION_SIZE Flash( in range (m_text_start + m_text_size) ~ (m_text_start + m_text_size + LITTLEFS_REGION_SIZE -1)) is reserved for litteFS data */
@@ -268,7 +268,9 @@ SECTIONS
     . = ALIGN(4);
     __DATA_RAM = .;
     __data_start__ = .;      /* create a global symbol at data start */
+    . = ALIGN(32);
     *(m_usb_dma_init_data)
+    . = ALIGN(32);
     /* Explicit placement of flash and frequently executed functions in RAM */
     */fsl_adapter_flexspi_nor_flash.c.obj
     */mflash_drv.c.obj
@@ -285,7 +287,7 @@ SECTIONS
     KEEP(*(SORT(._net_buf_pool*)))
     . = ALIGN(4);
     __data_end__ = .;        /* define a global symbol at data end */
-  } > m_data
+  } > m_data2
 
   __ram_function_flash_start = __DATA_ROM + (__data_end__ - __data_start__); /* Symbol is used by startup for TCM data initialization */
 
@@ -325,14 +327,16 @@ SECTIONS
     . = ALIGN(4);
     __START_BSS = .;
     __bss_start__ = .;
+    . = ALIGN(32);
     *(m_usb_dma_noninit_data)
+    . = ALIGN(32);
     *(.bss)
     *(.bss*)
     *(COMMON)
     . = ALIGN(4);
     __bss_end__ = .;
     __END_BSS = .;
-  } > m_data
+  } > m_data2
 
   .heap :
   {
@@ -343,16 +347,16 @@ SECTIONS
     . += HEAP_SIZE;
     __HeapLimit = .;
     __heap_limit = .; /* Add for _sbrk */
-  } > m_data2
+  } > m_data
 
   .stack :
   {
     . = ALIGN(8);
     . += STACK_SIZE;
-  } > m_data2
+  } > m_data
 
   /* Initializes stack on the end of block */
-  __StackTop   = ORIGIN(m_data2) + LENGTH(m_data2);
+  __StackTop   = ORIGIN(m_data) + LENGTH(m_data);
   __StackLimit = __StackTop - STACK_SIZE;
   PROVIDE(__stack = __StackTop);
 

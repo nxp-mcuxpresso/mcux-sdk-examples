@@ -20,16 +20,15 @@ static void app_mdns_add_srv_txt(struct mdns_service *service, void *txt_userdat
  * Definitions
  ******************************************************************************/
 #ifdef MDNS_STA_INTERFACE
-#define SYS_STA_KEYVAL "txtvers=1:path=/sys:description=NCP Bridge APP Demo:interface=STA"
+#define SYS_STA_KEYVAL "txtvers=1:path=/sys:description=NCP APP Demo:interface=STA"
 #endif
-#define SYS_UAP_KEYVAL "txtvers=1:path=/sys:description=NCP Bridge APP Demo:interface=uAP"
+#define SYS_UAP_KEYVAL "txtvers=1:path=/sys:description=NCP APP Demo:interface=uAP"
 
 /*******************************************************************************
  * Variables
  ******************************************************************************/
 static mdns_result_ring_buffer_t g_mdns_results;
-static mdns_result_t g_mdns_result_a;
-static mdns_result_t g_mdns_result_aaaa;
+static mdns_result_t g_mdns_res_a_or_aaaa;
 static ip_addr_t query_a_addr;
 
 static bool mdns_started = 0;
@@ -42,7 +41,7 @@ static char s_mdns_hostname[MDNS_LABEL_MAXLEN + 1] = "";
 
 #ifdef MDNS_STA_INTERFACE
 struct mdns_service ncp_sta_service = {
-    .name         = "ncp_bridge_sta",     /* Name of service */
+    .name         = "ncp_sta",            /* Name of service */
     .service      = "_http",              /* Type of service */
     .txt_fn       = app_mdns_add_srv_txt, /* Callback function and userdata to update txtdata buffer */
     .txt_userdata = SYS_STA_KEYVAL,
@@ -52,7 +51,7 @@ struct mdns_service ncp_sta_service = {
 #endif
 
 struct mdns_service ncp_uap_service = {
-    .name         = "ncp_bridge_uap",     /* Name of service */
+    .name         = "ncp_uap",            /* Name of service */
     .service      = "_http",              /* Type of service */
     .txt_fn       = app_mdns_add_srv_txt, /* Callback function and userdata to update txtdata buffer */
     .txt_userdata = SYS_UAP_KEYVAL,
@@ -76,12 +75,7 @@ static void *app_mdns_malloc(size_t size)
     if (size == 0)
         return NULL;
 
-    void *pbuffer = os_mem_alloc(size);
-    if (pbuffer)
-    {
-        (void)memset(pbuffer, 0, size);
-    }
-
+    void *pbuffer = OSA_MemoryAllocate(size);
     return pbuffer;
 }
 
@@ -95,7 +89,7 @@ static void *app_mdns_malloc(size_t size)
  */
 static void app_mdns_free(void *buffer)
 {
-    os_mem_free(buffer);
+    OSA_MemoryFree(buffer);
 }
 
 /**
@@ -200,6 +194,15 @@ static int app_mdns_remove_service_iface(mdns_service_config_t *service_config)
 
     if (service_config == NULL)
         return -WM_FAIL;
+
+    struct mdns_host *mdns = netif_mdns_data(service_config->mdns_netif);
+    if (mdns)
+    {
+        sys_untimeout(mdns_multicast_timeout_25ttl_reset_ipv4, service_config->mdns_netif);
+        sys_untimeout(mdns_multicast_timeout_25ttl_reset_ipv6, service_config->mdns_netif);
+        mdns_multicast_timeout_25ttl_reset_ipv4(service_config->mdns_netif);
+        mdns_multicast_timeout_25ttl_reset_ipv6(service_config->mdns_netif);
+    }
 
     ret = mdns_resp_del_service(service_config->mdns_netif, service_config->service_id);
     if (ret != WM_SUCCESS)
@@ -405,6 +408,7 @@ void app_mdns_result_ring_buffer_free(mdns_result_t *mdns_res)
         tmp->next         = NULL;
         app_mdns_free(tmp);
         tmp = mdns_res->ip_addr;
+        mdns_res->ip_count--;
     }
 }
 
@@ -874,7 +878,7 @@ static void app_mdns_answer_parse_a_or_aaaa(mdns_result_t *mdns_res_a,
 }
 
 /**
- *  @brief Add IPv4/IPv6 address resource record to g_mdns_result_a/g_mdns_result_aaaa
+ *  @brief Add IPv4/IPv6 address resource record to g_mdns_res_a_or_aaaa
  *
  *  @param mdns_results The mDNS result ring buffer
  *  @param res          The mDNS result with A or AAAA resource record
@@ -886,11 +890,18 @@ static void app_mdns_result_add_a_or_aaaa(mdns_result_t *mdns_results, mdns_resu
     if (mdns_results == NULL || res == NULL)
         return;
 
+    res->ip_addr->next = mdns_results->ip_addr;
     mdns_results->ip_addr = res->ip_addr;
-    mdns_results->target  = res->target;
+    mdns_results->ip_count++;
+    if (mdns_results->target != NULL)
+    {
+        app_mdns_free(mdns_results->target);
+    }
+    mdns_results->target = res->target;
+
 }
 
-static mdns_ip_addr_t *app_add_ip_addr(mdns_result_t *mdns_res)
+static mdns_ip_addr_t *app_add_ip_addr(mdns_ip_addr_t *ip_addr)
 {
     mdns_ip_addr_t *new_ip = NULL;
 
@@ -899,7 +910,7 @@ static mdns_ip_addr_t *app_add_ip_addr(mdns_result_t *mdns_res)
     {
         mdns_e("failed to allocate memory for A or AAAA ip address: Size: %d", sizeof(mdns_ip_addr_t));
     }
-    (void)memcpy((char *)new_ip, (char *)mdns_res->ip_addr, sizeof(mdns_ip_addr_t));
+    (void)memcpy((char *)new_ip, (char *)ip_addr, sizeof(mdns_ip_addr_t));
 
     return new_ip;
 }
@@ -907,43 +918,55 @@ static mdns_ip_addr_t *app_add_ip_addr(mdns_result_t *mdns_res)
 /**
  *  @brief Check all ip addresses and add them to instance.
  *
- *  @param mdns_result_list  The mDNS result ring buffer
- *  @param mdns_res          The mDNS result with A or AAAA resource record
+ *  @param mdns_res_list  The mDNS result ring buffer
+ *  @param mdns_res       The mDNS result with A or AAAA resource record
  *
  *  @return None
  */
-static void check_ip_addr(mdns_result_t *mdns_result_list, mdns_result_t *mdns_res)
+static void check_ip_addr(mdns_result_t *mdns_res_list, mdns_result_t *mdns_res)
 {
-    mdns_ip_addr_t *temp = NULL;
+    mdns_ip_addr_t *psrc = NULL;
+    mdns_ip_addr_t *pdst = NULL;
+    mdns_ip_addr_t *tmp  = NULL;
 
-    if (mdns_result_list == NULL || mdns_res == NULL)
+    if (mdns_res_list == NULL || mdns_res == NULL)
         return;
 
-    if ((mdns_result_list->target != NULL) && !strcmp(mdns_result_list->target, mdns_res->target))
+    if ((mdns_res_list->target != NULL) && !strcmp(mdns_res_list->target, mdns_res->target))
     {
-        temp = mdns_result_list->ip_addr;
+        psrc = mdns_res->ip_addr;
+        pdst = mdns_res_list->ip_addr;
 
-        if (temp == NULL)
+        if (pdst == NULL)
         {
-            mdns_result_list->ip_addr = app_add_ip_addr(mdns_res);
-            mdns_result_list->ip_count++;
+            while (psrc != NULL)
+            {
+                tmp = app_add_ip_addr(psrc);
+                tmp->next = mdns_res_list->ip_addr;
+                mdns_res_list->ip_addr = tmp;
+                mdns_res_list->ip_count++;
+
+                psrc = psrc->next;
+            }
             return;
         }
 
-        while (temp != NULL)
+        while (psrc != NULL)
         {
-            if (!memcmp((void *)&mdns_result_list->ip_addr->ip, (void *)&mdns_res->ip_addr->ip,
-                        sizeof(mdns_res->ip_addr->ip)))
-                return;
-
-            if (temp->next == NULL)
+            tmp = pdst;
+            while (tmp != NULL)
             {
-                temp->next = app_add_ip_addr(mdns_res);
-                mdns_result_list->ip_count++;
-                return;
+                if (!memcmp((void *)&tmp->ip, (void *)&psrc->ip, sizeof(tmp->ip)))
+                    goto next;
+                tmp = tmp->next;
             }
-
-            temp = temp->next;
+            tmp = app_add_ip_addr(psrc);
+            tmp->next = mdns_res_list->ip_addr;
+            mdns_res_list->ip_addr = tmp;
+            mdns_res_list->ip_count++;
+            
+next:
+            psrc = psrc->next;
         }
     }
 }
@@ -961,17 +984,18 @@ static void check_ip_addr(mdns_result_t *mdns_result_list, mdns_result_t *mdns_r
  */
 static void app_mdns_search_result(struct mdns_answer *answer, const char *varpart, int varlen, int flags, void *arg)
 {
-#ifdef CONFIG_NCP_BRIDGE_DEBUG
+#if CONFIG_NCP_DEBUG
     static uint8_t ans_num;
 #endif
     mdns_result_t mdns_res;
+    mdns_ip_addr_t *p_first = NULL;
+    uint32_t rd = 0, wr = 0;
     info_t info      = *(info_t *)arg;
     uint8_t only_ptr = info.only_ptr;
-    int i;
 
     if (flags == MDNS_SEARCH_RESULT_FIRST || only_ptr)
     {
-#ifdef CONFIG_NCP_BRIDGE_DEBUG
+#if CONFIG_NCP_DEBUG
         ans_num = 0;
 #endif
         mdns_d("==========Start==============");
@@ -987,7 +1011,10 @@ static void app_mdns_search_result(struct mdns_answer *answer, const char *varpa
     {
         case DNS_RRTYPE_PTR:
             app_mdns_answer_parse_ptr(&mdns_res, answer, varpart, varlen);
-            app_mdns_result_add_ptr(&g_mdns_results, &mdns_res);
+            if (mdns_res.service_name != NULL)
+            {
+                app_mdns_result_add_ptr(&g_mdns_results, &mdns_res);
+            }
             mdns_d("     Type         : PTR (%d)", answer->info.type);
             mdns_d("     Instance Name: %s", mdns_res.instance_name);
             mdns_d("     Service Type : %s", mdns_res.service_type);
@@ -1013,8 +1040,8 @@ static void app_mdns_search_result(struct mdns_answer *answer, const char *varpa
             break;
         case DNS_RRTYPE_A:
             app_mdns_answer_parse_a_or_aaaa(&mdns_res, answer, varpart, varlen);
-            app_mdns_result_add_a_or_aaaa(&g_mdns_result_a, &mdns_res);
-#ifdef CONFIG_NCP_BRIDGE_DEBUG
+            app_mdns_result_add_a_or_aaaa(&g_mdns_res_a_or_aaaa, &mdns_res);
+#if CONFIG_NCP_DEBUG
             struct in_addr ip_a;
             ip_a.s_addr = mdns_res.ip_addr->ip.ip_v4;
 #endif
@@ -1024,8 +1051,9 @@ static void app_mdns_search_result(struct mdns_answer *answer, const char *varpa
             break;
         case DNS_RRTYPE_AAAA:
             app_mdns_answer_parse_a_or_aaaa(&mdns_res, answer, varpart, varlen);
-            app_mdns_result_add_a_or_aaaa(&g_mdns_result_aaaa, &mdns_res);
-#ifdef CONFIG_NCP_BRIDGE_DEBUG
+            app_mdns_result_add_a_or_aaaa(&g_mdns_res_a_or_aaaa, &mdns_res);
+#if CONFIG_NCP_DEBUG
+            int i;
             struct net_ipv6_config ip_aaaa;
             for (i = 0; i < 4; i++)
             {
@@ -1043,29 +1071,28 @@ static void app_mdns_search_result(struct mdns_answer *answer, const char *varpa
 
     if (flags == MDNS_SEARCH_RESULT_LAST)
     {
-        for (i = 0; i < MAX_RESULTS_ALIGN; i++)
+        rd = g_mdns_results.ring_tail;
+        wr = g_mdns_results.ring_head;
+        while (rd != wr)
         {
-            /* linked list of IPv4 addresses found */
-            check_ip_addr(&g_mdns_results.ring_buffer[i], &g_mdns_result_a);
-            /* linked list of IPv6 addresses found */
-            check_ip_addr(&g_mdns_results.ring_buffer[i], &g_mdns_result_aaaa);
+            /* linked list of IPv4/IPv6 addresses found */
+            check_ip_addr(&g_mdns_results.ring_buffer[rd], &g_mdns_res_a_or_aaaa);
+            /* Update ring buffer index */
+            MDNS_BUFFER_UPDATE_HEAD_TAIL(rd, 1);
         }
 
-        if (g_mdns_result_a.ip_addr)
+        p_first = g_mdns_res_a_or_aaaa.ip_addr;
+        while ( p_first != NULL)
         {
-            app_mdns_free(g_mdns_result_a.ip_addr);
-            g_mdns_result_a.ip_addr = NULL;
-            app_mdns_free(g_mdns_result_a.target);
-            g_mdns_result_a.target = NULL;
-        }
+            g_mdns_res_a_or_aaaa.ip_addr = p_first->next;
+            p_first->next = NULL;
+            app_mdns_free(p_first);
+            g_mdns_res_a_or_aaaa.ip_count--;
 
-        if (g_mdns_result_aaaa.ip_addr)
-        {
-            app_mdns_free(g_mdns_result_aaaa.ip_addr);
-            g_mdns_result_aaaa.ip_addr = NULL;
-            app_mdns_free(g_mdns_result_aaaa.target);
-            g_mdns_result_aaaa.target = NULL;
+            p_first = g_mdns_res_a_or_aaaa.ip_addr;
         }
+        app_mdns_free(g_mdns_res_a_or_aaaa.target);
+        g_mdns_res_a_or_aaaa.target = NULL;
 
         /* Notify app_notify_event task to process mdns result */
         app_notify_event(APP_EVT_MDNS_SEARCH_RESULT, APP_EVT_REASON_SUCCESS, &g_mdns_results, 0);

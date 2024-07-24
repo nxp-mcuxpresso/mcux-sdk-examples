@@ -37,12 +37,13 @@
     <definition extID="middleware.freertos-kernel.extension.LPC54628"/>
     <definition extID="platform.drivers.reset.LPC54628"/>
     <definition extID="CMSIS_Include_core_cm.LPC54628"/>
+    <definition extID="utility.str.LPC54628"/>
     <definition extID="device.LPC54628_system.LPC54628"/>
     <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="lpcxpresso54628_lwip_ping_freertos" name="lwip_ping_freertos" dependency="driver.phy-device-lan8720a.LPC54628 platform.drivers.iap.LPC54628 component.silicon_id.LPC54628 platform.drivers.lpc_enet.LPC54628 middleware.lwip.enet_ethernetif.LPC54628 middleware.lwip.LPC54628 middleware.lwip.contrib.ping.LPC54628 platform.drivers.lpc_iocon.LPC54628 platform.drivers.clock.LPC54628 middleware.freertos-kernel.heap_3.LPC54628 platform.drivers.common.LPC54628 platform.drivers.power.LPC54628 device.LPC54628_CMSIS.LPC54628 utility.debug_console.LPC54628 component.usart_adapter.LPC54628 component.serial_manager_uart.LPC54628 component.serial_manager.LPC54628 platform.drivers.flexcomm_usart.LPC54628 component.lists.LPC54628 device.LPC54628_startup.LPC54628 platform.drivers.flexcomm.LPC54628 platform.drivers.lpc_gpio.LPC54628 platform.drivers.emc.LPC54628 platform.utilities.assert.LPC54628 platform.utilities.misc_utilities.LPC54628 driver.phy-common.LPC54628 middleware.lwip.template.LPC54628 component.lpc_gpio_adapter.LPC54628 platform.drivers.inputmux.LPC54628 platform.drivers.pint.LPC54628 platform.drivers.inputmux_connections.LPC54628 middleware.freertos-kernel.LPC54628 middleware.freertos-kernel.template.LPC54628 middleware.freertos-kernel.extension.LPC54628 platform.drivers.reset.LPC54628 CMSIS_Include_core_cm.LPC54628 device.LPC54628_system.LPC54628" category="lwip_examples">
+  <example id="lpcxpresso54628_lwip_ping_freertos" name="lwip_ping_freertos" dependency="driver.phy-device-lan8720a.LPC54628 platform.drivers.iap.LPC54628 component.silicon_id.LPC54628 platform.drivers.lpc_enet.LPC54628 middleware.lwip.enet_ethernetif.LPC54628 middleware.lwip.LPC54628 middleware.lwip.contrib.ping.LPC54628 platform.drivers.lpc_iocon.LPC54628 platform.drivers.clock.LPC54628 middleware.freertos-kernel.heap_3.LPC54628 platform.drivers.common.LPC54628 platform.drivers.power.LPC54628 device.LPC54628_CMSIS.LPC54628 utility.debug_console.LPC54628 component.usart_adapter.LPC54628 component.serial_manager_uart.LPC54628 component.serial_manager.LPC54628 platform.drivers.flexcomm_usart.LPC54628 component.lists.LPC54628 device.LPC54628_startup.LPC54628 platform.drivers.flexcomm.LPC54628 platform.drivers.lpc_gpio.LPC54628 platform.drivers.emc.LPC54628 platform.utilities.assert.LPC54628 platform.utilities.misc_utilities.LPC54628 driver.phy-common.LPC54628 middleware.lwip.template.LPC54628 component.lpc_gpio_adapter.LPC54628 platform.drivers.inputmux.LPC54628 platform.drivers.pint.LPC54628 platform.drivers.inputmux_connections.LPC54628 middleware.freertos-kernel.LPC54628 middleware.freertos-kernel.template.LPC54628 middleware.freertos-kernel.extension.LPC54628 platform.drivers.reset.LPC54628 CMSIS_Include_core_cm.LPC54628 utility.str.LPC54628 device.LPC54628_system.LPC54628" category="lwip_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -61,7 +62,7 @@
           <value>com.crt.advproject.misc.dialect.gnu99</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+          <value>-c -ffunction-sections -fdata-sections -fno-builtin</value>
         </option>
         <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
           <value>false</value>

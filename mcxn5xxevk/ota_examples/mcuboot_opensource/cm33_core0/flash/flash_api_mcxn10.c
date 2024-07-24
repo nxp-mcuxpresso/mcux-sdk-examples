@@ -1,12 +1,11 @@
 /*
  * Copyright (c) 2018 Nordic Semiconductor ASA
  * Copyright (c) 2015 Runtime Inc
- * Copyright 2021 NXP
+ * Copyright 2024 NXP
  *
  * SPDX-License-Identifier: Apache-2.0
  */
 
-#include <sbl.h>
 #include <stdint.h>
 #include <string.h>
 #include "flash_map.h"
@@ -15,11 +14,16 @@
 #include "bootutil/bootutil_log.h"
 #include "mflash_drv.h"
 
-/* MCUBOOT flash port layer for MCX N10 series */
+/*
+  MCUBOOT flash port layer for MCX series
 
-#if !defined(ARRAY_SIZE)
-#define ARRAY_SIZE(x) (sizeof(x) / sizeof((x)[0]))
-#endif
+  MCX N, MCX A series RM says:
+
+  A flash memory location must be in the erased state before being programmed. Cumulative programming of bits
+  (back-to-back program operations without an intervening erase) within a flash phrase or page is not allowed.
+  Re-programming of existing 0s to 0 is not allowed as this overstresses the device. 
+ */
+
 
 /* minimal write size is 16 bytes (phrase size) */
 #define ALIGN_VAL 16
@@ -60,6 +64,7 @@ void flash_area_close(const struct flash_area *area)
 /*
  * Read/write/erase. Offset is relative from beginning of flash area.
  */
+
 int flash_area_read(const struct flash_area *area, uint32_t off, void *dst, uint32_t len)
 {
     uint32_t addr = area->fa_off + off;
