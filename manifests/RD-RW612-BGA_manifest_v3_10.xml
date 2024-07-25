@@ -13975,7 +13975,7 @@ ${load}</script>
         <include_path relative_path="output/templates/config" project_relative_path="source" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.edgefast_wifi.RW612" name="edgefast_wifi" brief="Wi-Fi Edgefast Abstraction Layer" version="1.0.0" full_name="Middleware Edgefast Wi-Fi" devices="RW612" device_cores="cm33_RW612" category="Wireless/Middleware Edgefast Wi-Fi" user_visible="true" type="middleware" package_base_path="core/middleware/edgefast_wifi" project_base_path="edgefast_wifi">
+    <component id="middleware.edgefast_wifi.RW612" name="edgefast_wifi" brief="Wi-Fi Edgefast Abstraction Layer" version="1.0.0" full_name="Middleware Edgefast Wi-Fi" devices="RW612" device_cores="cm33_RW612" category="Wireless/Middleware Edgefast Wi-Fi" user_visible="true" type="middleware" package_base_path="core/components/edgefast_wifi" project_base_path="edgefast_wifi">
       <dependencies>
         <component_dependency value="middleware.wifi.RW612"/>
       </dependencies>
@@ -13989,7 +13989,7 @@ ${load}</script>
         <include_path relative_path="include" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.edgefast_wifi_nxp.RW612" name="edgefast_wifi_nxp" brief="Blocking layer for NXP Wi-Fi" version="1.0.0" full_name="Middleware Edgefast Wi-Fi NXP" devices="RW612" device_cores="cm33_RW612" category="Wireless/Middleware Edgefast Wi-Fi" user_visible="true" type="middleware" package_base_path="core/middleware/edgefast_wifi" project_base_path="edgefast_wifi">
+    <component id="middleware.edgefast_wifi_nxp.RW612" name="edgefast_wifi_nxp" brief="Blocking layer for NXP Wi-Fi" version="1.0.0" full_name="Middleware Edgefast Wi-Fi NXP" devices="RW612" device_cores="cm33_RW612" category="Wireless/Middleware Edgefast Wi-Fi" user_visible="true" type="middleware" package_base_path="core/components/edgefast_wifi" project_base_path="edgefast_wifi">
       <dependencies>
         <all>
           <component_dependency value="middleware.edgefast_wifi.RW612"/>

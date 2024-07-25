@@ -5270,7 +5270,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexcomm_i2c_freertos.LPC55S36" name="i2c_freertos" brief="I2C Driver" version="2.0.8" full_name="FLEXCOMM I2C FREERTOS Driver" devices="LPC55S36" device_cores="cm33_core0_LPC55S36" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm" project_base_path="drivers/freertos">
+    <component id="platform.drivers.flexcomm_i2c_freertos.LPC55S36" name="i2c_freertos" brief="I2C Driver" version="2.0.8" full_name="FLEXCOMM I2C FREERTOS Driver" devices="LPC55S36" device_cores="cm33_core0_LPC55S36" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm/i2c" project_base_path="drivers/freertos">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.flexcomm.LPC55S36"/>
@@ -5373,7 +5373,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexcomm_spi_freertos.LPC55S36" name="spi_freertos" brief="SPI Driver" version="2.1.0" full_name="FLEXCOMM SPI FREERTOS Driver" devices="LPC55S36" device_cores="cm33_core0_LPC55S36" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm" project_base_path="drivers/freertos">
+    <component id="platform.drivers.flexcomm_spi_freertos.LPC55S36" name="spi_freertos" brief="SPI Driver" version="2.1.0" full_name="FLEXCOMM SPI FREERTOS Driver" devices="LPC55S36" device_cores="cm33_core0_LPC55S36" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm/spi" project_base_path="drivers/freertos">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.flexcomm.LPC55S36"/>
@@ -5433,7 +5433,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.flexcomm_usart_freertos.LPC55S36" name="usart_freertos" brief="USART Driver" version="2.6.0" full_name="FLEXCOMM USART FREERTOS Driver" devices="LPC55S36" device_cores="cm33_core0_LPC55S36" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm" project_base_path="drivers/freertos">
+    <component id="platform.drivers.flexcomm_usart_freertos.LPC55S36" name="usart_freertos" brief="USART Driver" version="2.6.0" full_name="FLEXCOMM USART FREERTOS Driver" devices="LPC55S36" device_cores="cm33_core0_LPC55S36" user_visible="true" type="driver" package_base_path="core/drivers/flexcomm/usart" project_base_path="drivers/freertos">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.flexcomm.LPC55S36"/>
