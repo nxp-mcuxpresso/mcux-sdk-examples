@@ -2068,7 +2068,7 @@ void main(void)
     audioTxConfig.frameSyncWidth                 = kHAL_AudioFrameSyncWidthHalfFrame;
     audioTxConfig.frameSyncPolarity              = kHAL_AudioBeginAtFallingEdge;
     audioTxConfig.dataFormat                     = kHAL_AudioDataFormatI2sClassic;
-    audioTxConfig.fifoWatermark                  = (uint8_t)((uint32_t)FSL_FEATURE_SAI_FIFO_COUNT / 2U);
+    audioTxConfig.fifoWatermark                  = (uint8_t)((uint32_t)FSL_FEATURE_SAI_FIFO_COUNTn(BOARD_DEMO_SAI) / 2U);
     audioTxConfig.bitWidth                       = (uint8_t)kHAL_AudioWordWidth16bits;
     audioTxConfig.lineChannels                   = kHAL_AudioStereo;
 
