@@ -1,5 +1,5 @@
 /*
-* Copyright 2019, 2023 NXP
+* Copyright 2019, 2023-2024 NXP
 * All rights reserved.
 *
 * SPDX-License-Identifier: BSD-3-Clause
@@ -61,6 +61,7 @@
 /****************************************************************************/
 /***        Local Function Prototypes                                     ***/
 /****************************************************************************/
+static void APP_StartFindAndBind(void);
 static void vAppHandleAfEvent( BDB_tsZpsAfEvent *psZpsAfEvent);
 static void vAppHandleZdoEvents( BDB_tsZpsAfEvent *psZpsAfEvent);
 static void APP_vBdbInit(void);
@@ -79,6 +80,108 @@ tsDeviceDesc sDeviceDesc;
 /***        Local Variables                                               ***/
 /****************************************************************************/
 uint32_t u32OldFrameCtr;
+
+
+
+#ifdef R23_UPDATES
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wpacked"
+#pragma GCC diagnostic ignored "-Wattributes"
+
+/* Derive a test-specific type from tuTlvManufacturerSpecific */
+TLV_DEF(tuTlvTestSpecific1,
+        uint16, u16ZigbeeManufId,
+        uint8, au8Extra[2]
+);
+TLV_DEF(tuTlvTestSpecific2,
+        uint16, u16ZigbeeManufId,
+        uint8, au8Extra[6]
+);
+
+#define APP_SIZE_JOINREQ_TLV (sizeof(tuTlvTestSpecific1) +\
+                              sizeof(tuFragParams) +\
+                              sizeof(tuSupportedKeyNegotiationMethods) +\
+                              sizeof(tuTlvTestSpecific2))
+
+TLV_ENCAPS(g_sJoinerTlvs,
+           APP_SIZE_JOINREQ_TLV,
+           m_, tuTlvTestSpecific1,
+           m_, tuFragParams,
+           m_, tuSupportedKeyNegotiationMethods,
+           m_, tuTlvTestSpecific2) =
+{
+        .u8Tag = ZPS_TLV_G_JOINERENCAPS, .u8Len = APP_SIZE_JOINREQ_TLV - 1,
+
+        /* This TLV is sent inside the Joiner Encapsulation */
+        { .u16ZigbeeManufId = 0x1234, .au8Extra[0] = 0xAA, .au8Extra[1] = 0xBB,
+          .u8Tag = ZPS_TLV_G_MANUFSPEC, .u8Len = sizeof(tuTlvTestSpecific1) - 1 - ZPS_TLV_HDR_SIZE
+        },
+
+        { .u16NodeId = 1, .u8FragOpt = 2, .u16InMaxLen = 10,
+          .u8Tag = ZPS_TLV_G_FRAGPARAMS, .u8Len = sizeof(tuFragParams) - 1 - ZPS_TLV_HDR_SIZE
+        },
+
+        { .u8KeyNegotProtMask = ZPS_TLV_G_SUPPKEYNEGMETH_STATKEYREQ,
+          .u8SharedSecretsMask = 0,
+          .au8SrcIeeeAddr = {0},
+          .u8Tag = ZPS_TLV_G_SUPPKEYNEGMETH, .u8Len = sizeof(tuSupportedKeyNegotiationMethods) - 1 - ZPS_TLV_HDR_SIZE
+        },
+
+        /* This TLV is sent inside the Joiner Encapsulation */
+        { .u16ZigbeeManufId = 0x1234, .au8Extra = {0, 1, 2, 3, 4, 5},
+          .u8Tag = ZPS_TLV_G_MANUFSPEC, .u8Len = sizeof(tuTlvTestSpecific2) - 1 - ZPS_TLV_HDR_SIZE
+        }
+};
+#pragma GCC diagnostic pop
+
+uint8 au8Storage_Tlv1[sizeof(tuTlvManufacturerSpecific) + 3] =
+{
+    [offsetof(tuTlvManufacturerSpecific, u8Tag)] = ZPS_TLV_G_MANUFSPEC,
+    [offsetof(tuTlvManufacturerSpecific, u8Len)] = sizeof(au8Storage_Tlv1) - 1 - ZPS_TLV_HDR_SIZE,
+    [offsetof(tuTlvManufacturerSpecific, u16ZigbeeManufId)    ] = 0x12,
+    [offsetof(tuTlvManufacturerSpecific, u16ZigbeeManufId) + 1] = 0x34,
+    [offsetof(tuTlvManufacturerSpecific, au8Extra)    ] = 'N',
+    [offsetof(tuTlvManufacturerSpecific, au8Extra) + 1] = 'X',
+    [offsetof(tuTlvManufacturerSpecific, au8Extra) + 2] = 'P',
+};
+tuTlvManufacturerSpecific *g_pTlv1 = (tuTlvManufacturerSpecific *)&au8Storage_Tlv1;
+
+//TLV_MANUFACTURERSPECIFIC_PTR(const static, g_p, Tlv2, 0x3412);
+TLV_MANUFACTURERSPECIFIC_PTR( , g_p, Tlv2, 0x3412);
+
+TLV_MANUFACTURERSPECIFIC_EX_PTR( , g_p, Tlv3, 0x3412, 9, 'T', 'L', 'V', 'S', ' ', 'D', 'A', 'T', 'A');
+
+tuRouterInfo g_Tlv4 = {
+        .u8Tag = ZPS_TLV_G_ROUTERINFO, .u8Len = sizeof(tuRouterInfo) - 1 - ZPS_TLV_HDR_SIZE,
+        0xAABB
+};
+TLV_MANUFACTURERSPECIFIC_EX_PTR( , g_p, Tlv5, 0xFFFE, 8, 0, 0, 0, 0, 0, 0, 0, 0);
+TLV_USERDEFINED_PTR( , g_p, Tlv6, 60, 6, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF);
+
+uint8 au8TestTlvs[sizeof(au8Storage_Tlv1) + sizeof(au8Storage_Tlv2) +
+                  sizeof(au8Storage_Tlv3) + sizeof(g_Tlv4)];
+uint8 au8JoinTlvs[sizeof(au8Storage_Tlv1) + sizeof(au8Storage_Tlv2) +
+                  sizeof(au8Storage_Tlv3) + sizeof(g_sJoinerTlvs)];
+
+uint8 au8TestTlvs1[sizeof(au8Storage_Tlv5) + sizeof(au8Storage_Tlv6)];
+
+#define APP_SIZE_PERMITJOINREQ_TLV (sizeof(tuSupportedKeyNegotiationMethods) +\
+                                    sizeof(tuFragParams) + sizeof(au8TestTlvs))
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wpacked"
+TLV_ENCAPS(g_sPermitJoinReqTlvs, APP_SIZE_PERMITJOINREQ_TLV, m_, tuSupportedKeyNegotiationMethods, m_, tuFragParams) =
+{
+        .u8Tag = ZPS_TLV_G_BEACONAPPENCAPS, .u8Len = sizeof(tuSupportedKeyNegotiationMethods) + sizeof(tuFragParams) - 1,
+        { .u8KeyNegotProtMask = ZPS_TLV_G_SUPPKEYNEGMETH_STATKEYREQ,
+          .u8SharedSecretsMask = 0,
+          .au8SrcIeeeAddr = {0},
+          .u8Tag = ZPS_TLV_G_SUPPKEYNEGMETH, .u8Len = sizeof(tuSupportedKeyNegotiationMethods) - sizeof(tsTlvGeneric) - 1 },
+        { .u16NodeId = 1, .u8FragOpt = 2, .u16InMaxLen = 10,
+          .u8Tag = ZPS_TLV_G_FRAGPARAMS, .u8Len = sizeof(tuFragParams) - 1 - ZPS_TLV_HDR_SIZE }
+};
+#pragma GCC diagnostic pop
+#endif
 
 /****************************************************************************/
 /***        Exported Functions                                            ***/
@@ -119,8 +222,21 @@ void APP_vInitialiseRouter(void)
     APP_SetHighTxPowerMode();
 #endif
 
+#ifdef R23_UPDATES
+    ZPS_vTlvBuildSequence(4, sizeof(au8JoinTlvs), au8JoinTlvs,
+            g_pTlv1, g_pTlv2, g_pTlv3, &g_sJoinerTlvs);
+    ZPS_vTlvBuildSequence(4, sizeof(au8TestTlvs), au8TestTlvs,
+            g_pTlv1, g_pTlv2, g_pTlv3, &g_Tlv4);
+    ZPS_vAplAfSetAdditionalTlvs(au8JoinTlvs, sizeof(au8JoinTlvs));
+#endif
+
     /* Initialise ZBPro stack */
     ZPS_eAplAfInit();
+
+#ifdef R23_UPDATES
+    ZPS_vNwkNibSetBeaconAppendix(ZPS_pvAplZdoGetNwkHandle(), FALSE, TRUE,
+            sizeof(au8TestTlvs), (tsTlvGeneric *)au8TestTlvs);
+#endif
 
 #ifndef ENABLE_SUBG_IF
     APP_SetMaxTxPower();
@@ -280,32 +396,54 @@ void APP_taskRouter(void)
 
         if(sAppEvent.eType == APP_E_EVENT_BUTTON_DOWN)
         {
-
             switch(sAppEvent.uEvent.sButton.u8Button)
             {
-            BDB_teStatus eStatus;
                 case APP_E_BUTTONS_BUTTON_1:
-                        DBG_vPrintf(TRACE_APP_EVENT, "APP_EVENT: Network steering and F&B as Target\r\n");
-                        eStatus = BDB_eNsStartNwkSteering();
-                        if (eStatus != 0)
-                        {
-                            DBG_vPrintf(TRACE_APP_EVENT, "APP_EVENT: Network Steering %02x\r\n", eStatus);
-                        }
-                        eStatus = BDB_eFbTriggerAsTarget(APP_u8GetDeviceEndpoint());
-                        if (eStatus != 0 && eStatus != 9)
-                        {
-                            DBG_vPrintf(TRACE_APP_EVENT, "APP_EVENT: Fiind and Bind Failed %02x\r\n", eStatus);
-                        }
-                        u32Togglems = 250;
-                        ZTIMER_eStop(u8LedTimer);
-                        ZTIMER_eStart(u8LedTimer, ZTIMER_TIME_MSEC(u32Togglems));
+                    APP_StartFindAndBind();
                     break;
 
                 default:
                     break;
             }
         }
+#ifdef APP_ROUTER_NODE_CLI
+        else if(sAppEvent.eType == APP_E_EVENT_SERIAL_FIND_BIND_START)
+        {
+            APP_StartFindAndBind();
+        }
+#endif
     }
+}
+
+/****************************************************************************
+ *
+ * NAME: APP_StartFindAndBind
+ *
+ * DESCRIPTION:
+ * Starts Find and Bind procedure
+ *
+ * RETURNS:
+ * void
+ *
+ ****************************************************************************/
+static void APP_StartFindAndBind(void)
+{
+    BDB_teStatus eStatus;
+
+    DBG_vPrintf(TRACE_APP_EVENT, "APP_EVENT: Network steering and F&B as Target\r\n");
+    eStatus = BDB_eNsStartNwkSteering();
+    if (eStatus != 0)
+    {
+        DBG_vPrintf(TRACE_APP_EVENT, "APP_EVENT: Network Steering %02x\r\n", eStatus);
+    }
+    eStatus = BDB_eFbTriggerAsTarget(APP_u8GetDeviceEndpoint());
+    if (eStatus != 0 && eStatus != 9)
+    {
+        DBG_vPrintf(TRACE_APP_EVENT, "APP_EVENT: Find and Bind Failed %02x\r\n", eStatus);
+    }
+    u32Togglems = 250;
+    ZTIMER_eStop(u8LedTimer);
+    ZTIMER_eStart(u8LedTimer, ZTIMER_TIME_MSEC(u32Togglems));
 }
 
 
@@ -462,7 +600,7 @@ static void vAppHandleZdoEvents( BDB_tsZpsAfEvent *psZpsAfEvent)
 #ifndef KPI_MODE_APP
                 APP_vFactoryResetRecords();
                 MICRO_DISABLE_INTERRUPTS();
-#ifndef K32W1480_SERIES
+#if !defined(K32W1480_SERIES) && !defined(MCXW716A_SERIES) && !defined(MCXW716C_SERIES) && !defined(RW612_SERIES)
                 vMMAC_Disable();
 #endif
                 RESET_SystemReset();
@@ -485,7 +623,7 @@ static void vAppHandleZdoEvents( BDB_tsZpsAfEvent *psZpsAfEvent)
 #else
                 APP_vFactoryResetRecords();
                 MICRO_DISABLE_INTERRUPTS();
-#ifndef K32W1480_SERIES
+#if !defined(K32W1480_SERIES) && !defined(MCXW716A_SERIES) && !defined(MCXW716C_SERIES) && !defined(RW612_SERIES)
                 vMMAC_Disable();
 #endif
                 RESET_SystemReset();
@@ -655,7 +793,7 @@ static void vDeletePDMOnButtonPress(uint8_t u8ButtonID)
             APP_vFactoryResetRecords();
             MICRO_DISABLE_INTERRUPTS();
 // TODO: Making SW reset abstracted
-#ifndef K32W1480_SERIES
+#if !defined(K32W1480_SERIES) && !defined(MCXW716A_SERIES) && !defined(MCXW716C_SERIES) && !defined(RW612_SERIES)
             vMMAC_Disable();
             RESET_SystemReset();
 #else

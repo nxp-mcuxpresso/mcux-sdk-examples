@@ -63,6 +63,8 @@ extern uint32_t u32Togglems;
 
 extern uint8 u8LastMsgLqi; /* last message received lqi */
 
+PUBLIC tsNcpDeviceDesc sNcpDeviceDesc = {FACTORY_NEW, E_STARTUP, ZPS_ZDO_DEVICE_COORD, 0x0000000000000002UL, FALSE};
+
 /****************************************************************************/
 /***        Local Variables                                               ***/
 /****************************************************************************/
@@ -104,13 +106,25 @@ void APP_vInitialiseCoordinator(void)
      * All Application records must be loaded before the call to
      * ZPS_eAplAfInit
      */
-    eNodeState = FACTORY_NEW;
+    sNcpDeviceDesc.eState = FACTORY_NEW;
+    sNcpDeviceDesc.eNodeState = E_STARTUP;
 
     uint16_t u16ByteRead;
-    PDM_eReadDataFromRecord(PDM_ID_APP_COORD,
-                            &eNodeState,
-                            sizeof(eNodeState),
-                            &u16ByteRead);
+
+    /* If not first boot, read PDM data, else initialise PDM data with default value */
+    if(PDM_bDoesDataExist(PDM_ID_APP_COORD,&u16ByteRead))
+    {
+        DBG_vPrintf(TRACE_APP, "Not first boot, query PDM records\r\n");
+        PDM_eReadDataFromRecord(PDM_ID_APP_COORD,
+                        &sNcpDeviceDesc,
+                        sizeof(tsNcpDeviceDesc),
+                        &u16ByteRead);
+    }
+    else
+    {
+        DBG_vPrintf(TRACE_APP, "First boot, create default PDM records\r\n");
+        PDM_eSaveRecordData(PDM_ID_APP_COORD, &sNcpDeviceDesc, sizeof(tsNcpDeviceDesc));
+    }
 
     /* Initialise ZBPro stack */
     ZPS_eAplAfInit();
@@ -152,10 +166,10 @@ void APP_vFactoryResetRecords(void)
     ZPS_vSetKeys();
     ZPS_vSaveAllZpsRecords();
     /* save everything */
-    eNodeState = FACTORY_NEW;
+    sNcpDeviceDesc.eState = FACTORY_NEW;
 
-    PDM_eSaveRecordData(PDM_ID_APP_COORD,&eNodeState,sizeof(teNodeState));
-#ifndef K32W1480_SERIES
+    PDM_eSaveRecordData(PDM_ID_APP_COORD,&sNcpDeviceDesc,sizeof(tsNcpDeviceDesc));
+#if !defined(K32W1480_SERIES) && !defined(MCXW716A_SERIES) && !defined(MCXW716C_SERIES)
     APP_vSetLed(LED2, OFF);
 #endif
 }

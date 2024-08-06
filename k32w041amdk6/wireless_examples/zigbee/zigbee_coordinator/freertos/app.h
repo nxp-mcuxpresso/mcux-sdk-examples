@@ -63,6 +63,17 @@
 #define LED2                    1
 #define LED3                    2
 
+#if defined(gWCI2_UseCoexistence_d) && (gWCI2_UseCoexistence_d == 1)
+#define RF_REQ_GPIO_PORT        (gpioPort_A_c)
+#define RF_REQ_GPIO_PIN         (18u)
+
+#define RF_TX_DENY_GPIO_PORT    (gpioPort_A_c)
+#define RF_TX_DENY_GPIO_PIN     (16u)
+
+#define RX_RX_DENY_GPIO_PORT    (gpioPort_A_c)
+#define RX_RX_DENY_GPIO_PIN     (17u)
+
+#endif /* defined(gWCI2_UseCoexistence_d) && (gWCI2_UseCoexistence_d == 1) */
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/

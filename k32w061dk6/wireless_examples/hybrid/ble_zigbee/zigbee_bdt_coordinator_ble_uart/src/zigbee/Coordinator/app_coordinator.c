@@ -44,7 +44,6 @@ static void vAppSendOnOff(void);
 static void vAppSendIdentifyStop( uint16_t u16Address, uint8_t u8Endpoint);
 static void vAppSendRemoteBindRequest(uint16_t u16DstAddr, uint16_t u16ClusterId, uint8_t u8DstEp);
 static void APP_vBdbInit(void);
-void vAppHandleZdoEvents( BDB_tsZpsAfEvent *psZpsAfEvent);
 
 /****************************************************************************/
 /***        Exported Variables                                            ***/
@@ -55,6 +54,106 @@ extern uint32_t u32Togglems;
 /****************************************************************************/
 /***        Local Variables                                               ***/
 /****************************************************************************/
+
+#ifdef R23_UPDATES
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wpacked"
+#pragma GCC diagnostic ignored "-Wattributes"
+
+/* Derive a test-specific type from tuTlvManufacturerSpecific */
+TLV_DEF(tuTlvTestSpecific1,
+        uint16, u16ZigbeeManufId,
+        uint8, au8Extra[2]
+);
+TLV_DEF(tuTlvTestSpecific2,
+        uint16, u16ZigbeeManufId,
+        uint8, au8Extra[6]
+);
+
+#define APP_SIZE_JOINREQ_TLV (sizeof(tuTlvTestSpecific1) +\
+                              sizeof(tuFragParams) +\
+                              sizeof(tuSupportedKeyNegotiationMethods) +\
+                              sizeof(tuTlvTestSpecific2))
+
+TLV_ENCAPS(g_sJoinerTlvs,
+           APP_SIZE_JOINREQ_TLV,
+           m_, tuTlvTestSpecific1,
+           m_, tuFragParams,
+           m_, tuSupportedKeyNegotiationMethods,
+           m_, tuTlvTestSpecific2) =
+{
+        .u8Tag = ZPS_TLV_G_JOINERENCAPS, .u8Len = APP_SIZE_JOINREQ_TLV - 1,
+
+        /* This TLV is sent inside the Joiner Encapsulation */
+        { .u16ZigbeeManufId = 0x1234, .au8Extra[0] = 0xAA, .au8Extra[1] = 0xBB,
+          .u8Tag = ZPS_TLV_G_MANUFSPEC, .u8Len = sizeof(tuTlvTestSpecific1) - 1 - ZPS_TLV_HDR_SIZE
+        },
+
+        { .u16NodeId = 1, .u8FragOpt = 2, .u16InMaxLen = 10,
+          .u8Tag = ZPS_TLV_G_FRAGPARAMS, .u8Len = sizeof(tuFragParams) - 1 - ZPS_TLV_HDR_SIZE
+        },
+
+        { .u8KeyNegotProtMask = ZPS_TLV_G_SUPPKEYNEGMETH_STATKEYREQ,
+          .u8SharedSecretsMask = 0,
+          .au8SrcIeeeAddr = {0},
+          .u8Tag = ZPS_TLV_G_SUPPKEYNEGMETH, .u8Len = sizeof(tuSupportedKeyNegotiationMethods) - 1 - ZPS_TLV_HDR_SIZE
+        },
+
+        /* This TLV is sent inside the Joiner Encapsulation */
+        { .u16ZigbeeManufId = 0x1234, .au8Extra = {0, 1, 2, 3, 4, 5},
+          .u8Tag = ZPS_TLV_G_MANUFSPEC, .u8Len = sizeof(tuTlvTestSpecific2) - 1 - ZPS_TLV_HDR_SIZE
+        }
+};
+#pragma GCC diagnostic pop
+
+uint8 au8Storage_Tlv1[sizeof(tuTlvManufacturerSpecific) + 3] =
+{
+    [offsetof(tuTlvManufacturerSpecific, u8Tag)] = ZPS_TLV_G_MANUFSPEC,
+    [offsetof(tuTlvManufacturerSpecific, u8Len)] = sizeof(au8Storage_Tlv1) - 1 - ZPS_TLV_HDR_SIZE,
+    [offsetof(tuTlvManufacturerSpecific, u16ZigbeeManufId)    ] = 0x12,
+    [offsetof(tuTlvManufacturerSpecific, u16ZigbeeManufId) + 1] = 0x34,
+    [offsetof(tuTlvManufacturerSpecific, au8Extra)    ] = 'N',
+    [offsetof(tuTlvManufacturerSpecific, au8Extra) + 1] = 'X',
+    [offsetof(tuTlvManufacturerSpecific, au8Extra) + 2] = 'P',
+};
+tuTlvManufacturerSpecific *g_pTlv1 = (tuTlvManufacturerSpecific *)&au8Storage_Tlv1;
+
+//TLV_MANUFACTURERSPECIFIC_PTR(const static, g_p, Tlv2, 0x3412);
+TLV_MANUFACTURERSPECIFIC_PTR( , g_p, Tlv2, 0x3412);
+
+TLV_MANUFACTURERSPECIFIC_EX_PTR( , g_p, Tlv3, 0x3412, 9, 'T', 'L', 'V', 'S', ' ', 'D', 'A', 'T', 'A');
+
+tuRouterInfo g_Tlv4 = {
+        .u8Tag = ZPS_TLV_G_ROUTERINFO, .u8Len = sizeof(tuRouterInfo) - 1 - ZPS_TLV_HDR_SIZE,
+        0xAABB
+};
+TLV_MANUFACTURERSPECIFIC_EX_PTR( , g_p, Tlv5, 0xFFFE, 8, 0, 0, 0, 0, 0, 0, 0, 0);
+TLV_USERDEFINED_PTR( , g_p, Tlv6, 60, 6, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF);
+
+uint8 au8TestTlvs[sizeof(au8Storage_Tlv1) + sizeof(au8Storage_Tlv2) +
+                  sizeof(au8Storage_Tlv3) + sizeof(g_Tlv4)];
+uint8 au8JoinTlvs[sizeof(au8Storage_Tlv1) + sizeof(au8Storage_Tlv2) +
+                  sizeof(au8Storage_Tlv3) + sizeof(g_sJoinerTlvs)];
+
+uint8 au8TestTlvs1[sizeof(au8Storage_Tlv5) + sizeof(au8Storage_Tlv6)];
+
+#define APP_SIZE_PERMITJOINREQ_TLV (sizeof(tuSupportedKeyNegotiationMethods) +\
+                                    sizeof(tuFragParams) + sizeof(au8TestTlvs))
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wpacked"
+TLV_ENCAPS(g_sPermitJoinReqTlvs, APP_SIZE_PERMITJOINREQ_TLV, m_, tuSupportedKeyNegotiationMethods, m_, tuFragParams) =
+{
+        .u8Tag = ZPS_TLV_G_BEACONAPPENCAPS, .u8Len = sizeof(tuSupportedKeyNegotiationMethods) + sizeof(tuFragParams) - 1,
+        { .u8KeyNegotProtMask = ZPS_TLV_G_SUPPKEYNEGMETH_STATKEYREQ,
+          .u8SharedSecretsMask = 0,
+          .au8SrcIeeeAddr = {0},
+          .u8Tag = ZPS_TLV_G_SUPPKEYNEGMETH, .u8Len = sizeof(tuSupportedKeyNegotiationMethods) - sizeof(tsTlvGeneric) - 1 },
+        { .u16NodeId = 1, .u8FragOpt = 2, .u16InMaxLen = 10,
+          .u8Tag = ZPS_TLV_G_FRAGPARAMS, .u8Len = sizeof(tuFragParams) - 1 - ZPS_TLV_HDR_SIZE }
+};
+#pragma GCC diagnostic pop
+#endif
 
 static teNodeState eNodeState;
 #define GREEN_POWER_ENDPOINT                   242
@@ -97,8 +196,20 @@ void APP_vInitialiseCoordinator(void)
     APP_SetHighTxPowerMode();
 #endif
 
+#ifdef R23_UPDATES
+    ZPS_vTlvBuildSequence(4, sizeof(au8JoinTlvs), au8JoinTlvs,
+          g_pTlv1, g_pTlv2, g_pTlv3, &g_sJoinerTlvs);
+    ZPS_vTlvBuildSequence(4, sizeof(au8TestTlvs), au8TestTlvs,
+           g_pTlv1, g_pTlv2, g_pTlv3, &g_Tlv4);
+    ZPS_vAplAfSetAdditionalTlvs(au8JoinTlvs, sizeof(au8JoinTlvs));
+#endif
     /* Initialise ZBPro stack */
     ZPS_eAplAfInit();
+
+#ifdef R23_UPDATES
+    ZPS_vNwkNibSetBeaconAppendix(ZPS_pvAplZdoGetNwkHandle(), FALSE, TRUE,
+          sizeof(au8TestTlvs), (tsTlvGeneric *)au8TestTlvs);
+#endif
 
 #ifdef ENABLE_SUBG_IF
     void *pvNwk = ZPS_pvAplZdoGetNwkHandle();

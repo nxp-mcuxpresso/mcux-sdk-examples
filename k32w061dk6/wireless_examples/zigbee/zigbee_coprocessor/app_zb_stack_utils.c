@@ -1,3 +1,10 @@
+/*
+ * Copyright 2023, 2024 NXP
+ * All rights reserved.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 #include <jendefs.h>
 #include <string.h>
 #include "zps_apl_af.h"

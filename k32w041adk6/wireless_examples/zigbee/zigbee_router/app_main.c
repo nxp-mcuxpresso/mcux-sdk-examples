@@ -1,5 +1,5 @@
 /*
-* Copyright 2019 NXP
+* Copyright 2019, 2024 NXP
 * All rights reserved.
 *
 * SPDX-License-Identifier: BSD-3-Clause
@@ -9,6 +9,8 @@
 /****************************************************************************/
 /***        Include files                                                 ***/
 /****************************************************************************/
+#include "EmbeddedTypes.h"
+
 #ifdef FSL_RTOS_FREE_RTOS
 #include "FreeRTOSConfig.h"
 #include "FreeRTOS.h"
@@ -22,17 +24,17 @@
 #endif
 #endif
 
-#include "EmbeddedTypes.h"
 #include "ZQueue.h"
 #include "ZTimer.h"
 #include "zigbee_config.h"
 #include "fsl_gpio.h"
 #include "app_crypto.h"
-#include "SecLib.h"
-#ifdef K32W1480_SERIES
+#if defined(K32W1480_SERIES) || defined(MCXW716A_SERIES) || defined(MCXW716C_SERIES) || defined(RW612_SERIES)
 #include "fwk_platform.h"
-#include "fwk_platform_ics.h"
 #include "fsl_component_mem_manager.h"
+#if defined(K32W1480_SERIES) || defined(MCXW716A_SERIES) || defined(MCXW716C_SERIES)
+#include "fwk_platform_ics.h"
+#endif
 #else
 #include "MemManager.h"
 #include "TimersManager.h"
@@ -42,7 +44,11 @@
 #include "app_router_node.h"
 #include "app_leds.h"
 
-#ifdef K32W1480_SERIES
+#ifdef APP_ROUTER_NODE_CLI
+#include "app_serial_commands.h"
+#endif
+
+#if defined(K32W1480_SERIES) || defined(MCXW716A_SERIES) || defined(MCXW716C_SERIES)
 int PLATFORM_SwitchToOsc32k();
 #endif
 
@@ -127,17 +133,19 @@ void main_task (uint32_t parameter)
         /* place initialization code here... */
         initialized = TRUE;
 
-#ifndef K32W1480_SERIES
+#if !defined(K32W1480_SERIES) && !defined(MCXW716A_SERIES) && !defined(MCXW716C_SERIES) && !defined(RW612_SERIES)
         TMR_Init();
 #else
+#if defined(K32W1480_SERIES) || defined(MCXW716A_SERIES) || defined(MCXW716C_SERIES)
         PLATFORM_SwitchToOsc32k();
+#endif
         PLATFORM_InitTimerManager();
 #endif
         CRYPTO_u8RandomInit();
-        SecLib_Init();
+        CRYPTO_Init();
         MEM_Init();
 
-#ifdef K32W1480_SERIES
+#if defined(K32W1480_SERIES) || defined(MCXW716A_SERIES) || defined(MCXW716C_SERIES)
 #if defined(USE_NBU) && (USE_NBU == 1)
         PLATFORM_InitNbu();
         PLATFORM_InitMulticore();
@@ -160,9 +168,10 @@ void main_task (uint32_t parameter)
          /* place event handler code here... */
         APP_vRunZigbee();
         ZTIMER_vTask();
-
         APP_taskRouter();
-
+#ifdef APP_ROUTER_NODE_CLI
+        APP_taskAtSerial();
+#endif
 
         if(!gUseRtos_c)
         {

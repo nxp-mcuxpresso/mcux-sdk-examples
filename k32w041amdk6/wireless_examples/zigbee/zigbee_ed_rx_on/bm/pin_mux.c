@@ -9,7 +9,8 @@
 #include "fsl_iocon.h"
 #include "fsl_gpio.h"
 #include "pin_mux.h"
-
+#include "app.h"
+#include "GPIO_Adapter.h"
 /*****************************************************************************
  * Private types/enumerations/variables
  ****************************************************************************/
@@ -81,6 +82,35 @@ static const iocon_group_t sfifi_io_cfg[] = {
         .modefunc = SPIFI_FAST_IO_MODE_INACT,
     },
 };
+
+#if defined(gWCI2_UseCoexistence_d) && (gWCI2_UseCoexistence_d == 1)
+gpioOutputPinConfig_t rf_req = {
+    .gpioPort = RF_REQ_GPIO_PORT,
+    .gpioPin = RF_REQ_GPIO_PIN,
+    .outputLogic = 1,
+    .slewRate = pinSlewRate_Slow_c,
+    .driveStrength = pinDriveStrength_Low_c,
+};
+
+gpioInputPinConfig_t rf_tx_deny = {
+    .gpioPort = gpioPort_A_c,
+    .gpioPin = RF_TX_DENY_GPIO_PIN,
+    .pullSelect = pinPull_Disabled_c,
+    .interruptModeSelect = pinInt_EitherEdge_c,
+    .pinIntSelect = kPINT_PinInt2,
+    .inputmux_attach_id = kINPUTMUX_GpioPort0Pin16ToPintsel,
+    .is_wake_source = FALSE,
+};
+gpioInputPinConfig_t rf_rx_deny = {
+    .gpioPort = gpioPort_A_c,
+    .gpioPin = RX_RX_DENY_GPIO_PIN,
+    .pullSelect = pinPull_Disabled_c,
+    .interruptModeSelect = pinInt_EitherEdge_c,
+    .pinIntSelect = kPINT_PinInt2,
+    .inputmux_attach_id = kINPUTMUX_GpioPort0Pin17ToPintsel,
+    .is_wake_source = FALSE,
+};
+#endif
 
  /*****************************************************************************
  * Private functions
@@ -175,3 +205,20 @@ void BOARD_SetSpiFi_LowPowerEnter(void)
                         LP_DIGITAL_PULLUP_CFG);
     }
 }
+
+#if defined(gWCI2_UseCoexistence_d) && (gWCI2_UseCoexistence_d == 1)
+void BOARD_GetWCI2CoexPins(void **rfReq, void **rfTxDeny, void **rfRxDeny)
+{
+    *rfReq = &rf_req;
+    *rfTxDeny = &rf_tx_deny;
+    *rfRxDeny = &rf_rx_deny;
+}
+#else
+void BOARD_GetWCI2CoexPins(void **rfReq, void **rfTxDeny, void **rfRxDeny)
+{
+    *rfReq = NULL;
+    *rfTxDeny = NULL;
+    *rfRxDeny = NULL;
+
+}
+#endif

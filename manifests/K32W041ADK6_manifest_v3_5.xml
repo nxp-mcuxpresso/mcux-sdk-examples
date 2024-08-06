@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_K32W041ADK6" name="K32W041ADK6" brief="This is SDK version 2.6.14 manifest file. It describes the content of the K32W041ADK6 and additional settings for tools that support SDK version 2.6.14" format_version="3.5" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.5.xsd">
-  <!--Timestamp (UTC): 2024-04-30 11:59:30.026701-->
-  <!--This manifest is generated based on sdk repo commit: 892e44084a7afa594f7e245abdb9da2fc5198c58-->
+<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_K32W041ADK6" name="K32W041ADK6" brief="This is SDK version 2.6.15 manifest file. It describes the content of the K32W041ADK6 and additional settings for tools that support SDK version 2.6.15" format_version="3.5" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.5.xsd">
+  <!--Timestamp (UTC): 2024-08-06 08:22:02.775916-->
+  <!--This manifest is generated based on sdk repo commit: ae4f57890ccab28d737185c070de698514a69b25-->
   <defines>
     <define name="CPU_$|package|" value=""/>
     <define name="CPU_$|package|_$|core|" value=""/>
   </defines>
-  <ksdk id="MCUXpressoSDK2614" name="MCUXpressoSDK2614" version="2.6.14"/>
+  <ksdk id="MCUXpressoSDK2615" name="MCUXpressoSDK2615" version="2.6.15"/>
   <compilers>
     <compiler id="compiler_gcc" name="gcc" type="gcc"/>
   </compilers>
@@ -659,7 +659,7 @@ ${load}</script>
             <files mask="zigbee_bdt_router_ble_uart_bm.xml"/>
           </external>
         </example>
-        <example id="k32w041adk6_zigbee_coordinator_bm" name="zigbee_coordinator_bm" brief="The BLE zigbee_coordinator application is a simple demonstration program based on the MCUXpresso SDK.This application implements zigbee_coordinator demo." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/zigbee/zigbee_coordinator/bm" path="examples/k32w041adk6/wireless_examples/zigbee/zigbee_coordinator/bm">
+        <example id="k32w041adk6_zigbee_coordinator_bm" name="zigbee_coordinator_bm" brief="The zigbee_coordinator application is a simple demonstration program based on the MCUXpresso SDK.This application implements zigbee_coordinator demo." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/zigbee/zigbee_coordinator/bm" path="examples/k32w041adk6/wireless_examples/zigbee/zigbee_coordinator/bm">
           <external path="examples/k32w041adk6/wireless_examples/zigbee/zigbee_coordinator/bm" type="xml">
             <files mask="zigbee_coordinator_bm.xml"/>
           </external>
@@ -5521,7 +5521,18 @@ ${load}</script>
       </source>
     </component>
     <component id="middleware.wireless.zigbee.platform.ncp_host.K32W041A" name="Wireless zigbee NCP Host examples" version="1.0.0" full_name="Wireless zigbee platform" devices="K32W041A" user_visible="false" type="middleware">
+      <source path="middleware/wireless/zigbee/platform/NCP_HOST/cmake" target_path="platform/source" type="script">
+        <files mask="mbedtls_git.cmake"/>
+        <files mask="mbedtls_sdk.cmake"/>
+        <files mask="pdum.cmake"/>
+        <files mask="utils.cmake"/>
+      </source>
+      <source path="middleware/wireless/zigbee/platform/NCP_HOST/cmake/toolchains" target_path="platform/source" type="script">
+        <files mask="arm-linux-gnueabihf.cmake"/>
+        <files mask="x86_64-linux-gnu.cmake"/>
+      </source>
       <source path="middleware/wireless/zigbee/platform/NCP_HOST/framework/Common" target_path="platform/include" type="c_include">
+        <files mask="EmbeddedTypes.h"/>
         <files mask="MicroSpecific.h"/>
         <files mask="app.h"/>
         <files mask="dbg.h"/>
@@ -5557,6 +5568,10 @@ ${load}</script>
       <source path="middleware/wireless/zigbee/platform/NCP_HOST/framework/PWRM/Include" target_path="platform/include" type="c_include">
         <files mask="pwrm.h"/>
       </source>
+      <source path="middleware/wireless/zigbee/platform/NCP_HOST/framework/SecLib/Interface" target_path="platform/include" type="c_include">
+        <files mask="SecLib.h"/>
+        <files mask="aessw_ccm.h"/>
+      </source>
       <source path="middleware/wireless/zigbee/platform/NCP_HOST/ieee-802.15.4" target_path="platform/include" type="c_include">
         <files mask="AppApi.h"/>
         <files mask="MMAC.h"/>
@@ -5566,9 +5581,6 @@ ${load}</script>
         <files mask="mac_sap.h"/>
         <files mask="tsv_pub.h"/>
       </source>
-      <source path="middleware/wireless/zigbee/platform/NCP_HOST/misc" target_path="platform/include" type="c_include">
-        <files mask="fsl_component_generic_list.h"/>
-      </source>
       <source path="middleware/wireless/zigbee/platform/NCP_HOST/platform/Posix" target_path="platform/source" type="src">
         <files mask="console.c"/>
         <files mask="crypto.c"/>
@@ -5576,6 +5588,7 @@ ${load}</script>
         <files mask="leds.c"/>
         <files mask="timer.c"/>
         <files mask="uart.c"/>
+        <files mask="wdog.c"/>
       </source>
     </component>
     <component id="middleware.wireless.zb_examples_collaterals.K32W041A" name="Wireless zigbee examples collaterals" version="1.0.0" full_name="Wireless zigbee examples collaterals" devices="K32W041A" user_visible="false" type="middleware">
@@ -5602,9 +5615,6 @@ ${load}</script>
       </source>
       <source path="middleware/wireless/zigbee/examples/zigbee_coordinator/build_linux" target_path="zigbee/zigbee_coordinator/Linux/build" type="doc">
         <files mask="CMakeLists.txt"/>
-      </source>
-      <source path="middleware/wireless/zigbee/examples/zigbee_coordinator/build_linux" target_path="zigbee/zigbee_coordinator/Linux/build" type="script">
-        <files mask="CreatePDUMLib.cmake"/>
       </source>
       <source path="middleware/wireless/zigbee/examples/zigbee_coordinator/build_linux" target_path="zigbee/zigbee_coordinator/Linux/build" type="other">
         <files mask="README.md"/>

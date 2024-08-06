@@ -31,8 +31,8 @@
 #define KB(x) ((x)<<10)
 #define DBGOUT PRINTF
 
-#define SET_SCB_VTOR(x)  *(uint32_t *)0xE000ED08 = (uint32_t)(x)
-#define SET_MPU_CTRL(x) (*(uint32_t*)0xe000ed94 = (uint32_t)(x))
+#define SET_SCB_VTOR(x)  *(volatile uint32_t *)0xE000ED08 = (uint32_t)(x)
+#define SET_MPU_CTRL(x) (*(volatile uint32_t *)0xe000ed94 = (uint32_t)(x))
 
 #define UPPER_TEXT_LIMIT 0x96000 /* Some applications may reach higher addresses than 0x90000 */
 
@@ -1439,6 +1439,7 @@ int main(void)
 #ifndef QSPI_EARLY_START
                 if(page[0].page0_v3.ota_entry.img_base_addr > FSL_FEATURE_SPIFI_START_ADDR && (SPIFI_Flash_Init() < 0))
                 {
+                    procedure_status = StatusOta_operation_error;
                     break;
                 }
 #endif

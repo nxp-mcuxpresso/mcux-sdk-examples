@@ -22,12 +22,13 @@ extern tszQueue APP_msgSerialRx;
 extern tszQueue APP_msgAppEvents;
 extern uint32_t u32Togglems;
 
-
 extern uint8 u8TempExtendedError;
+extern PUBLIC uint8 u8JNReadyForCmds;
 /****************************************************************************/
 /***        Exported Functions                                            ***/
 /****************************************************************************/
 void APP_vInitResources(void);
+void App_vSoftwareReset(void);
 
 /****************************************************************************/
 /***        External Variables                                            ***/

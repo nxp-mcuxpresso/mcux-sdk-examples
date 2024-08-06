@@ -15,8 +15,7 @@
 #include "zigbee_config.h"
 #include "fsl_gpio.h"
 #include "app_crypto.h"
-#include "SecLib.h"
-#ifdef K32W1480_SERIES
+#if defined(K32W1480_SERIES) || defined(MCXW716A_SERIES) || defined(MCXW716C_SERIES)
 #include "fwk_platform.h"
 #include "fwk_platform_ics.h"
 #include "fsl_component_mem_manager.h"
@@ -99,20 +98,20 @@ void main_task (uint32_t parameter)
         /* place initialization code here... */
         initialized = TRUE;
 
-#ifdef K32W1480_SERIES
+#if defined(K32W1480_SERIES) || defined(MCXW716A_SERIES) || defined(MCXW716C_SERIES)
         PLATFORM_SwitchToOsc32k();
         PLATFORM_InitTimerManager();
 #endif
         PWR_vColdStart();
-#ifndef K32W1480_SERIES
+#if !defined(K32W1480_SERIES) && !defined(MCXW716A_SERIES) && !defined(MCXW716C_SERIES)
         TMR_Init();
 #endif
 
         CRYPTO_u8RandomInit();
-        SecLib_Init();
+        CRYPTO_Init();
         MEM_Init();
 
-#ifdef K32W1480_SERIES
+#if defined(K32W1480_SERIES) || defined(MCXW716A_SERIES) || defined(MCXW716C_SERIES)
 #if defined(USE_NBU) && (USE_NBU == 1)
         PLATFORM_InitNbu();
         PLATFORM_InitMulticore();
@@ -133,7 +132,7 @@ void main_task (uint32_t parameter)
 
         APP_taskEndDevicNode();
 
-#ifndef K32W1480_SERIES
+#if !defined(K32W1480_SERIES) && !defined(MCXW716A_SERIES) && !defined(MCXW716C_SERIES)
         PWR_EnterLowPower();
 #else
         PWR_EnterLowPower(0);

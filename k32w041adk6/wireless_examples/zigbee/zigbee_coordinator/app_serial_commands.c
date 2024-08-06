@@ -20,7 +20,7 @@
 #include "app_main.h"
 #include "ZQueue.h"
 #include "ZTimer.h"
-#if !(defined(K32W1480_SERIES) || defined(NCP_HOST))
+#if !(defined(K32W1480_SERIES) || defined(MCXW716A_SERIES) || defined(MCXW716C_SERIES) || defined(NCP_HOST))
 #include "fsl_reset.h"
 #endif
 #ifndef NCP_HOST

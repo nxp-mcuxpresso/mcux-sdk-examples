@@ -1,5 +1,5 @@
 /*
-* Copyright 2019, 2023 NXP
+* Copyright 2019, 2023-2024 NXP
 * All rights reserved.
 *
 * SPDX-License-Identifier: BSD-3-Clause
@@ -30,7 +30,7 @@
 #include "app_common.h"
 #include "app_crypto.h"
 #ifndef NCP_HOST
-#ifndef K32W1480_SERIES
+#if !defined(K32W1480_SERIES) && !defined(MCXW716A_SERIES) && !defined(MCXW716C_SERIES) && !defined(RW612_SERIES)
 #include "fsl_wwdt.h"
 #endif
 #endif
@@ -66,7 +66,7 @@ typedef enum {
 } teOTA_State;
 
 #ifdef SOTA_ENABLED
-typedef struct 
+typedef struct
 {
     uint16_t blobId;
     bool_t sent;
@@ -245,7 +245,7 @@ static uint8_t nbBlob = 0;
     uint8_t u8SrcEp = APP_u8GetDeviceEndpoint();
     eZCL_Status = eOTA_UpdateClientAttributes(u8SrcEp,0);
 #if (defined OTA_INTERNAL_STORAGE)
-#ifndef K32W1480_SERIES
+#if !defined(K32W1480_SERIES) && !defined(MCXW716A_SERIES) && !defined(MCXW716C_SERIES)
         /* Each Page on JN518x is 512 bytes , Flash size is 632K. Taking into account 31.5K for PDM (start page 1153) and 24K for customer data
          * usable for image is 576K
          * Split it into 2 sections to support OTA, so 288K becomes Max image size

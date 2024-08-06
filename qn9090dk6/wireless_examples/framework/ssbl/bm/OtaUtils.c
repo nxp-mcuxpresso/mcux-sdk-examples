@@ -54,6 +54,10 @@
 #endif
 #define INTERNAL_FLASH_MAX_SAFE_VALUE   0x9de00
 
+#ifndef PDM_EXT_FLASH
+#define DEFAULT_PDM_ADDRESS             (INTERNAL_FLASH_MAX_SAFE_VALUE - DEFAULT_PDM_SIZE)
+#endif
+
 #define SIGNATURE_WRD_LEN               (SIGNATURE_LEN / 4)
 
 #if defined(gOTAUseCustomOtaEntry) && (gOTAUseCustomOtaEntry == 1)
@@ -512,38 +516,47 @@ otaUtilsResult_t OtaUtils_ReadFromEncryptedExtFlashSoftwareKey(uint16_t nbBytesT
 
 uint32_t OtaUtils_GetModifiableInternalFlashTopAddress(void)
 {
-    uint32_t int_reserved_or_pdm_size = 0;
+    uint32_t int_flash_top_addr = INTERNAL_FLASH_MAX_SAFE_VALUE;
+#ifndef PDM_EXT_FLASH
     bool is_pdm_found = false;
+#endif
 
     /* Access PSECT from flash directly without initiate full structure in RAM (only pointer) */
-    const psector_page_data_t *  page = OtaUtils_GetPage0ValidSubpage();
+    const psector_page_data_t * page = OtaUtils_GetPage0ValidSubpage();
     assert(page != NULL);
 
     /* Go through PSECT and update int_flash_top_addr if the NVM or Reserved partition is found in internal flash. Else, use the default value */
     for (int i = 0; i < IMG_DIRECTORY_MAX_SIZE; i++)
     {
-        if(page->page0_v3.img_directory[i].img_type == OTA_UTILS_PSECT_NVM_PARTITION_IMAGE_TYPE)
+        uint8_t  img_type      = page->page0_v3.img_directory[i].img_type;
+        uint32_t img_base_addr = page->page0_v3.img_directory[i].img_base_addr;
+
+#ifndef PDM_EXT_FLASH
+        if (img_type == OTA_UTILS_PSECT_NVM_PARTITION_IMAGE_TYPE)
         {
             is_pdm_found = true;
-            if(OtaUtils_IsInternalFlashAddr(page->page0_v3.img_directory[i].img_base_addr))
+        }
+#endif
+        if ((img_type == OTA_UTILS_PSECT_NVM_PARTITION_IMAGE_TYPE) || (img_type == OTA_UTILS_PSECT_RESERVED_PARTITION_IMAGE_TYPE))
+        {
+            if (OtaUtils_IsInternalFlashAddr(img_base_addr) && (img_base_addr < int_flash_top_addr))
             {
-                int_reserved_or_pdm_size += page->page0_v3.img_directory[i].img_nb_pages*FLASH_PAGE_SIZE;
-                /* Continuing looping on the image directory in case other reserved or DPM partitions are found */
+                int_flash_top_addr = img_base_addr;
             }
         }
-        else if((page->page0_v3.img_directory[i].img_type == OTA_UTILS_PSECT_RESERVED_PARTITION_IMAGE_TYPE && OtaUtils_IsInternalFlashAddr(page->page0_v3.img_directory[i].img_base_addr)))
+    }
+
+#ifndef PDM_EXT_FLASH
+    if(!is_pdm_found)
+    {
+        if (DEFAULT_PDM_ADDRESS < int_flash_top_addr)
         {
-            int_reserved_or_pdm_size += page->page0_v3.img_directory[i].img_nb_pages*FLASH_PAGE_SIZE;
-            /* Continuing looping on the image directory in case other reserved or DPM partitions are found */
+            int_flash_top_addr = DEFAULT_PDM_ADDRESS;
         }
     }
-    if(!is_pdm_found)
-        int_reserved_or_pdm_size += DEFAULT_PDM_SIZE; /* No specific PDM found - use the default PDM size */
+#endif
 
-    if(int_reserved_or_pdm_size > INTERNAL_FLASH_MAX_SAFE_VALUE)
-        int_reserved_or_pdm_size = INTERNAL_FLASH_MAX_SAFE_VALUE; /* Should never enter here ! */
-
-    return (INTERNAL_FLASH_MAX_SAFE_VALUE - int_reserved_or_pdm_size); /* reduce the accessible flash size by the reserved/PDM size */
+    return int_flash_top_addr;
 }
 
 bool OtaUtils_ImgDirectorySanityCheck(psector_page_data_t * page0, uint32_t ext_flash_size)

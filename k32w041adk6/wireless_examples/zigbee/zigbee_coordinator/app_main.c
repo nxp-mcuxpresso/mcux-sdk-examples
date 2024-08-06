@@ -13,6 +13,8 @@
 #include <signal.h>
 #endif
 
+#include "EmbeddedTypes.h"
+
 /* FreeRTOS kernel includes. */
 
 #ifdef FSL_RTOS_FREE_RTOS
@@ -26,19 +28,19 @@
 #endif
 #endif
 
-#include "EmbeddedTypes.h"
 #include "ZQueue.h"
 #include "ZTimer.h"
 #include "zigbee_config.h"
 #include "app_crypto.h"
 #ifndef NCP_HOST
 #include "fsl_gpio.h"
-#include "SecLib.h"
 #endif
-#ifdef K32W1480_SERIES
+#if defined(K32W1480_SERIES) || defined(MCXW716A_SERIES) || defined(MCXW716C_SERIES) || defined(RW612_SERIES)
 #include "fwk_platform.h"
-#include "fwk_platform_ics.h"
 #include "fsl_component_mem_manager.h"
+#if defined(K32W1480_SERIES) || defined(MCXW716A_SERIES) || defined(MCXW716C_SERIES)
+#include "fwk_platform_ics.h"
+#endif
 #else
 #ifndef NCP_HOST
 #include "MemManager.h"
@@ -58,6 +60,7 @@
 #ifdef NCP_HOST
 #include "serial_link_ctrl.h"
 #include "app_common_ncp.h"
+#include "app_console.h"
 #endif
 /****************************************************************************/
 /***        Macro Definitions                                             ***/
@@ -146,23 +149,24 @@ void main_task (uint32_t parameter)
     {
         /* place initialization code here... */
         initialized = TRUE;
-#ifndef K32W1480_SERIES
+#if !defined(K32W1480_SERIES) && !defined(MCXW716A_SERIES) && !defined(MCXW716C_SERIES) && !defined(RW612_SERIES)
         TMR_Init();
 #else
+#if defined(K32W1480_SERIES) || defined(MCXW716A_SERIES) || defined(MCXW716C_SERIES)
         PLATFORM_SwitchToOsc32k();
+#endif
         PLATFORM_InitTimerManager();
 #endif
+        CRYPTO_Init();
         CRYPTO_u8RandomInit();
-        SecLib_Init();
         MEM_Init();
-#ifdef K32W1480_SERIES
+#if defined(K32W1480_SERIES) || defined(MCXW716A_SERIES) || defined(MCXW716C_SERIES)
 #if defined(USE_NBU) && (USE_NBU == 1)
         PLATFORM_InitNbu();
         PLATFORM_InitMulticore();
         PLATFORM_FwkSrvInit();
         PLATFORM_SendChipRevision();
         PLATFORM_LoadHwParams();
-
 #endif
 #endif
         vAppMain();
@@ -290,9 +294,9 @@ int main(int argc, char * argv[])
 
             DBG_vPrintf(TRUE, "MAIN\n");
 
-            vAppMain();
-
             bNcpHostTaskIsRunning = TRUE;
+            
+            vAppMain();
 
             while (bNcpHostTaskIsRunning)
             {
@@ -345,6 +349,8 @@ int main(int argc, char * argv[])
             /* Parent of child process for NCP Host application */
             waitpid(ncpHostPid, &status, 0);
 
+            APP_vConsoleDeinitialise();
+
             if (WIFEXITED(status))
             {
                  DBG_vPrintf(TRACE_APP, "NCP Host Task with pid %d exited with status %d\n",
@@ -359,6 +365,12 @@ int main(int argc, char * argv[])
                  {
                      /* TODO : to be handled */
                  }
+
+                 if (WTERMSIG(status) == SIGSEGV)
+                 {
+                    DBG_vPrintf(TRACE_APP, "NCP Host Task with pid %d encounterd a segmentation fault \n", ncpHostPid);
+                 }
+                 
                  bAppIsRunning = false;
             }
          }

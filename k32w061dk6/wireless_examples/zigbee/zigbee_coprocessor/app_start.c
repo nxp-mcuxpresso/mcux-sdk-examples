@@ -24,6 +24,11 @@
 #include "MDI_ReadFirmVer.h"
 #include "MDI_Programmer.h"
 #endif
+#if defined(gWCI2_UseCoexistence_d) && (gWCI2_UseCoexistence_d == 1)
+#include "MWS.h"
+#include "GPIO_Adapter.h"
+#include "pin_mux.h"
+#endif
 /****************************************************************************/
 /***        Macro Definitions                                             ***/
 /****************************************************************************/
@@ -43,8 +48,12 @@ static void APP_vCheckMtgState(void);
 /****************************************************************************/
 /***        Exported Variables                                            ***/
 /****************************************************************************/
-PUBLIC tsNcpDeviceDesc           sNcpDeviceDesc = {FACTORY_NEW, E_STARTUP, ZPS_ZDO_DEVICE_COORD, 0x0000000000000002UL, FALSE};
 PUBLIC uint8 u8JNReadyForCmds;
+#if defined(gWCI2_UseCoexistence_d) && (gWCI2_UseCoexistence_d == 1)
+/* Avoid including MMAC specific stuff, just declare as extern */
+extern void vDynEnableCoex(void *, void *, void *, void *, void *);
+extern void sched_enable();
+#endif
 /****************************************************************************/
 /***        Local Variables                                               ***/
 /****************************************************************************/
@@ -67,9 +76,6 @@ PUBLIC uint8 u8Error;
  ****************************************************************************/
 void vAppMain(void)
 {
-#ifndef NCP_COPRO
-    APP_vLedInitialise();
-#endif
     APP_vInitResources();
     APP_vInitZigbeeResources();
     APP_vInitialise();
@@ -93,6 +99,13 @@ void vAppMain(void)
  ****************************************************************************/
 static void APP_vInitialise(void)
 {
+#if defined(gWCI2_UseCoexistence_d) && (gWCI2_UseCoexistence_d == 1)
+    mwsStatus_t status;
+    gpioOutputPinConfig_t *rf_req;
+    gpioInputPinConfig_t *rf_tx_deny;
+    gpioInputPinConfig_t *rf_rx_deny;
+#endif
+
     /* Initialise the Persistent Data Manager */
     PDM_eInitialise(1200, 63, NULL);
 
@@ -100,8 +113,26 @@ static void APP_vInitialise(void)
     APP_vCheckMtgState();
 #endif
     UART_vInit(NULL);
+#if defined(gWCI2_UseCoexistence_d) && (gWCI2_UseCoexistence_d == 1)
+    BOARD_GetWCI2CoexPins((void **)&rf_req,
+                          (void **)&rf_tx_deny,
+                          (void **)&rf_rx_deny);
+
+    status = WCI2_CoexistenceInit(rf_req, rf_tx_deny, rf_rx_deny);
+    if (status == gMWS_Success_c)
+    {
+        vDynEnableCoex((void *)WCI2_CoexistenceRegister, (void *)WCI2_CoexistenceRequestAccess,
+                       (void *)WCI2_CoexistenceSetPriority, (void *)WCI2_CoexistenceReleaseAccess,
+                       (void *)WCI2_CoexistenceChangeAccess);
+        WCI2_CoexistenceEnable();
+    }
+
+#endif /* defined(gWCI2_UseCoexistence_d) && (gWCI2_UseCoexistence_d == 1) */
     /* Initialise application */
     APP_vInitialiseCoordinator();
+#if defined(gWCI2_UseCoexistence_d) && (gWCI2_UseCoexistence_d == 1)
+    sched_enable();
+#endif
 }
 
 #ifdef ENABLE_SUBG_IF

@@ -9,9 +9,6 @@
 #define APP_COMMON_H_
 
 #include "EmbeddedTypes.h"
-#ifdef NCP_HOST
-#include <string.h>
-#endif
 #include "zll_commission.h"
 #include "zll_utility.h"
 #include "ZTimer.h"
@@ -46,19 +43,6 @@
 
 #ifndef GP_ZCL_TICK_TIME
 #define GP_ZCL_TICK_TIME        ZTIMER_TIME_MSEC(1)
-#endif
-
-#if defined(NCP_HOST)
-#define MAX_PACKET_TX_SIZE  (1000) 			/*  the apdu payload is directly copied to UART from aps buffer*/
-
-#define ZBmemcpy(a,b,c)	memcpy((a), (b), (c))
-#define ZBmemset(a, b, c) memset((a), (b), (c))
-
-#endif
-
-#ifdef NCP_HOST
-/* How long to wait (max) until the JN is ready to accept commands*/
-#define JN_READY_TIME_MS               2000U
 #endif
 
 /****************************************************************************/
@@ -160,7 +144,7 @@ typedef struct {
 
 typedef struct {
     uint64 u64Address;
-    AESSW_Block_u uKey;
+    CRYPTO_tsAesBlock uKey;
 } APP_tsEventEncryptSendMsg;
 
 typedef struct

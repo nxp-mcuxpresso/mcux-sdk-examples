@@ -27,7 +27,7 @@ extern "C" {
         */
 void BOARD_InitPins(void);
 void BOARD_SetPinsForPowerMode(void);
-
+void BOARD_GetWCI2CoexPins(void **rfReq, void **rfTxDeny, void **rfRxDeny);
 #if defined(__cplusplus)
 }
 #endif /* __cplusplus*/

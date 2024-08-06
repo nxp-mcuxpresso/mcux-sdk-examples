@@ -51,6 +51,7 @@
 /****************************************************************************/
 /***        Local Function Prototypes                                     ***/
 /****************************************************************************/
+static void APP_StartFindAndBind(void);
 static void vAppHandleAfEvent( BDB_tsZpsAfEvent *psZpsAfEvent);
 static void vAppHandleZdoEvents( BDB_tsZpsAfEvent *psZpsAfEvent);
 static void APP_vBdbInit(void);
@@ -136,13 +137,7 @@ void APP_vInitialiseEndDevice(void)
     * HERE
     */
    APP_vBdbInit();
-   /* Initialise LEDs and buttons */
-   APP_vLedInitialise();
 
-#ifndef USART1_FTDI
-   /* GPIO1 is used for USART1 RX */
-   APP_bButtonInitialise();
-#endif
    /* Delete PDM if required */
    vDeletePDMOnButtonPress(APP_E_BUTTONS_BUTTON_1);
 
@@ -251,31 +246,53 @@ void APP_taskEndDevicNode(void)
 
             switch(sAppEvent.uEvent.sButton.u8Button)
             {
-            BDB_teStatus eStatus;
                 case APP_E_BUTTONS_BUTTON_1:
-                        DBG_vPrintf(TRACE_APP_EVENT, "APP_EVENT: Network steering and F&B as Target\r\n");
-                        eStatus = BDB_eNsStartNwkSteering();
-                        if (eStatus != 0)
-                        {
-                            DBG_vPrintf(TRACE_APP_EVENT, "APP_EVENT: Network Steering %02x\r\n", eStatus);
-                        }
-                        eStatus = BDB_eFbTriggerAsTarget(APP_u8GetDeviceEndpoint());
-                        if (eStatus != 0 && eStatus != 9)
-                        {
-                            DBG_vPrintf(TRACE_APP_EVENT, "APP_EVENT: Fiind and Bind Failed %02x\r\n", eStatus);
-                        }
-                        u32Togglems = 250;
-                        ZTIMER_eStop(u8LedTimer);
-                        ZTIMER_eStart(u8LedTimer, ZTIMER_TIME_MSEC(u32Togglems));
+                    APP_StartFindAndBind();
                     break;
 
                 default:
                     break;
             }
         }
+#ifdef APP_END_DEVICE_NODE_CLI
+        else if(sAppEvent.eType == APP_E_EVENT_SERIAL_FIND_BIND_START)
+        {
+            APP_StartFindAndBind();
+        }
+#endif
     }
 }
 
+/****************************************************************************
+ *
+ * NAME: APP_StartFindAndBind
+ *
+ * DESCRIPTION:
+ * Starts Find and Bind procedure
+ *
+ * RETURNS:
+ * void
+ *
+ ****************************************************************************/
+static void APP_StartFindAndBind(void)
+{
+    BDB_teStatus eStatus;
+
+    DBG_vPrintf(TRACE_APP_EVENT, "APP_EVENT: Network steering and F&B as Target\r\n");
+    eStatus = BDB_eNsStartNwkSteering();
+    if (eStatus != 0)
+    {
+        DBG_vPrintf(TRACE_APP_EVENT, "APP_EVENT: Network Steering %02x\r\n", eStatus);
+    }
+    eStatus = BDB_eFbTriggerAsTarget(APP_u8GetDeviceEndpoint());
+    if (eStatus != 0 && eStatus != 9)
+    {
+        DBG_vPrintf(TRACE_APP_EVENT, "APP_EVENT: Fiind and Bind Failed %02x\r\n", eStatus);
+    }
+    u32Togglems = 250;
+    ZTIMER_eStop(u8LedTimer);
+    ZTIMER_eStart(u8LedTimer, ZTIMER_TIME_MSEC(u32Togglems));
+}
 
 /****************************************************************************
  *
@@ -339,6 +356,7 @@ static void vAppHandleZdoEvents( BDB_tsZpsAfEvent *psZpsAfEvent)
                 DBG_vPrintf(TRACE_APP, "\r\nAPP: Failed to start poll");
             }
 			APP_vSetLed(APP_E_LEDS_LED_2, APP_E_LED_ON);
+            DBG_vPrintf(TRUE,"APP-ZDO: Joined nwk with address %04x\r\n", ZPS_u16NwkNibGetNwkAddr(ZPS_pvAplZdoGetNwkHandle()));
         	break;
         case ZPS_EVENT_APS_DATA_INDICATION:
             DBG_vPrintf(TRACE_APP, "APP-ZDO: Data Indication Status %02x from %04x Src Ep Dst %d Ep %d Profile %04x Cluster %04x\r\n",
@@ -563,7 +581,7 @@ static void vDeletePDMOnButtonPress(uint8_t u8ButtonID)
             APP_vFactoryResetRecords();
             MICRO_DISABLE_INTERRUPTS();
 // TODO: Making SW reset abstracted
-#ifndef K32W1480_SERIES
+#if !defined(K32W1480_SERIES) && !defined(MCXW716A_SERIES) && !defined(MCXW716C_SERIES) && !defined(RW612_SERIES)
             vMMAC_Disable();
             RESET_SystemReset();
 #else

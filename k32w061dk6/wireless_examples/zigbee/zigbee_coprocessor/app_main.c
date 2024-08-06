@@ -28,9 +28,8 @@
 #include "zigbee_config.h"
 #include "fsl_gpio.h"
 #include "app_crypto.h"
-#include "SecLib.h"
 
-#ifdef K32W1480_SERIES
+#if defined(K32W1480_SERIES) || defined(MCXW716A_SERIES) || defined(MCXW716C_SERIES)
 #include "fwk_platform.h"
 #include "fwk_platform_ics.h"
 #include "fsl_component_mem_manager.h"
@@ -43,10 +42,12 @@
 #ifndef DUAL_MODE_APP
 #include "app_serial_commands.h"
 #endif
+#include "app_uart.h"
 #include "app_buttons.h"
 #include "app_main.h"
 #include "app_leds.h"
 #include "zps_apl_zdo.h"
+#include "serial_link_wkr.h"
 #include "dbg.h"
 /****************************************************************************/
 /***        Macro Definitions                                             ***/
@@ -64,6 +65,8 @@
 /****************************************************************************/
 /***        Local Function Prototypes                                     ***/
 /****************************************************************************/
+void App_vFlushUart(void);
+
 /****************************************************************************/
 /***        Exported Variables                                            ***/
 /****************************************************************************/
@@ -114,16 +117,16 @@ void main_task (uint32_t parameter)
     {
         /* place initialization code here... */
         initialized = TRUE;
-#ifndef K32W1480_SERIES
+#if !defined(K32W1480_SERIES) && !defined(MCXW716A_SERIES) && !defined(MCXW716C_SERIES)
         TMR_Init();
 #else
         PLATFORM_SwitchToOsc32k();
         PLATFORM_InitTimerManager();
 #endif
+        CRYPTO_Init();
         CRYPTO_u8RandomInit();
-        SecLib_Init();
         MEM_Init();
-#ifdef K32W1480_SERIES
+#if defined(K32W1480_SERIES) || defined(MCXW716A_SERIES) || defined(MCXW716C_SERIES)
 #if defined(USE_NBU) && (USE_NBU == 1)
         PLATFORM_InitNbu();
         PLATFORM_InitMulticore();
@@ -142,11 +145,11 @@ void main_task (uint32_t parameter)
         DBG_vPrintf(TRUE, "Stack High Watermark = %d B\r\n",
         uxHighWaterMark * sizeof(unsigned int));
 #endif
+        App_vFlushUart();
     }
 
-    /* Signal to LPC that I'm ready to receive serial commands */
-    extern uint8 u8JNReadyForCmds;
-    u8JNReadyForCmds = 1;
+    /* Signal to Host that coprocessor is ready to receive serial commands */
+    u8JNReadyForCmds |= JN_READY_FOR_COMMANDS;
 
     while(1)
     {
@@ -185,6 +188,46 @@ void APP_vInitResources(void)
     ZQ_vQueueCreate(&APP_msgAppEvents,        APP_QUEUE_SIZE,          sizeof(APP_tsEvent),         NULL);
 }
 
+/****************************************************************************
+ *
+ * NAME: App_vSoftwareReset
+ *
+ * DESCRIPTION:
+ * Perform a software reset of the coprocessor
+ *
+ * RETURNS:
+ * void
+ *
+ ****************************************************************************/
+void App_vSoftwareReset(void)
+{
+    /* The coprocessor is not ready to receive Serial Link commands */
+    u8JNReadyForCmds = u8JNReadyForCmds & ~JN_READY_FOR_COMMANDS;
+    UART_vFree();
+    RESET_SystemReset();
+}
+
+/****************************************************************************
+ *
+ * NAME: App_vFlushUart
+ *
+ * DESCRIPTION:
+ * Flush characters available in UART before coprocessor is ready to receive
+ * commands: the characters will represent Status messages buffered in UART
+ * FIFO
+ *
+ * RETURNS:
+ * void
+ *
+ ****************************************************************************/
+void App_vFlushUart(void)
+{
+    uint8_t u8UARTByte = 0;
+    while (UART_bReceiveChar(&u8UARTByte))
+    {
+        DBG_vPrintf(FALSE, "0x%02x\n", u8UARTByte);
+    }
+}
 /****************************************************************************/
 /***        Local Functions                                               ***/
 /****************************************************************************/

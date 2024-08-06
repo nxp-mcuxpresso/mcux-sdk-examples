@@ -11,8 +11,13 @@
 /****************************************************************************/
 #include "EmbeddedTypes.h"
 #include "PDM.h"
+#ifdef APP_END_DEVICE_NODE_CLI
+#include "app_console.h"
+#endif
 #include "app_end_device_node.h"
 #include "app_main.h"
+#include "app_leds.h"
+#include "app_buttons.h"
 #include "bdb_api.h"
 #include "zigbee_config.h"
 /****************************************************************************/
@@ -62,6 +67,11 @@ extern void OSA_TimeInit(void);
  ****************************************************************************/
 void vAppMain(void)
 {
+    /* Initialise LEDs and buttons */
+    APP_vLedInitialise();
+#ifndef USART1_FTDI
+   APP_bButtonInitialise();
+#endif
     APP_vInitResources();
     APP_vInitZigbeeResources();
     APP_vInitialise();
@@ -105,6 +115,10 @@ static void APP_vInitialise(void)
 {
     /* Initialise the Persistent Data Manager */
     PDM_eInitialise(1200, 63, NULL);
+
+#ifdef APP_END_DEVICE_NODE_CLI
+    APP_vConsoleInitialise();
+#endif
     /* Initialise application */
     APP_vInitialiseEndDevice();
 }

@@ -1,5 +1,5 @@
 /*
-* Copyright 2019, 2023 NXP
+* Copyright 2019, 2023-2024 NXP
 * All rights reserved.
 *
 * SPDX-License-Identifier: BSD-3-Clause
@@ -31,7 +31,9 @@ typedef enum {
     APP_E_BUTTONS_BUTTON_5,
 } APP_teButtons;
 
+#ifndef APP_BUTTONS_NUM
 #define APP_BUTTONS_NUM                     (1UL)
+#endif
 
 /****************************************************************************/
 /***        Exported Functions                                            ***/
