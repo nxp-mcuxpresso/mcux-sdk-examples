@@ -1,0 +1,17 @@
+diff --git a/third_party/github_sdk/manifest/west.yml b/third_party/github_sdk/manifest/west.yml
+--- a/third_party/github_sdk/manifest/west.yml
++++ b/third_party/github_sdk/manifest/west.yml
+@@ -38,6 +38,7 @@ manifest:
+     url: ssh://git@bitbucket.sw.nxp.com/mcucore/mcu-sdk-github-release.git
+     revision: release/2.16.000_major_rfp
+     import:
++      file: 2.16.000_MAJOR_RFP_RC2.yml
+       name-allowlist:
+         - mcux-sdk
+         - FreeRTOS-Kernel
+@@ -56,3 +57,5 @@ manifest:
+         - mcux-sdk-middleware-usb
+         - rpmsg-lite
+         - mcux-sdk-examples
++        - mcux-sdk-middleware-ethermind
++        - fatfs

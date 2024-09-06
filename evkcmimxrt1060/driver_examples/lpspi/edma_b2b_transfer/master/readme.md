@@ -9,7 +9,7 @@ The file 'lpspi_edma_b2b_transfer_master.c' includes the LPSPI master code.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

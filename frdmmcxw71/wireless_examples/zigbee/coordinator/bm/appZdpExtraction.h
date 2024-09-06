@@ -1,6 +1,6 @@
 /****************************************************************************
  *
- * Copyright 2020, 2022, 2023 NXP
+ * Copyright 2020, 2022-2024 NXP
  *
  * NXP Confidential. 
  * 
@@ -126,6 +126,7 @@ typedef struct {
 #endif
 #ifdef R23_UPDATES
         ZPS_tsAplZdpMgmtNwkBeaconSurveyRsp sMgmtBeaconSurveyRsp;
+        ZPS_tsAplZdpSecurityStartKeyUpdateReq sSecStartDlkReq; /* Used also by StartKeyNegotiationReq */
 #endif
         ZPS_tsAplZdpMgmtNwkUpdateNotify sMgmtNwkUpdateNotify;
         ZPS_tsAplZdpMgmtNwkUnSolictedUpdateNotify sMgmtNwkUnsolicitedUpdateNotify;

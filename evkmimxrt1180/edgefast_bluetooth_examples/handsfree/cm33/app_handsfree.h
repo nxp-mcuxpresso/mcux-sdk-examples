@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 NXP
+ * Copyright 2021, 2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -28,5 +28,6 @@ void hfp_volume_update(hf_volume_type_t type, int volume);
 void hfp_enable_ccwa( uint8_t enable);
 void hfp_enable_clip( uint8_t enable);
 void hfp_multiparty_call_option(uint8_t option);
+int app_hfp_hf_discover(struct bt_conn *conn, uint8_t channel);
 
 #endif /* __APPL_PERIPHERAL_HFP_HF_MAIN_H__ */

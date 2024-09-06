@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_FRDM-MCXC444_manifest_v3_14" name="SDK Version Superset" brief="SDK Superset" format_version="3.14" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.14.xsd">
 
-  <ksdk id="MCUXpressoSDK216000" name="MCUXpresso SDK216000" version="2.16.000" revision="2.16.000"/>
+  <ksdk id="MCUXpressoSDK216100" name="MCUXpresso SDK216100" version="2.16.100" revision="2.16.100"/>
   <compilers>
     <compiler id="compiler_gcc" name="gcc" type="gcc"/>
   </compilers>
@@ -2847,7 +2847,7 @@ ${load}</script>
         <include_path relative_path="template/usdhc" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.phydcd_config_header.MCXC444" name="USB device phydcd config header" brief="USB device phydcd config header" version="2.8.4" full_name="USB device phydcd config header" category="USB/USB DCD" user_visible="true" type="project_template" package_base_path="middleware/usb" project_base_path="source">
+    <component id="middleware.usb.phydcd_config_header.MCXC444" name="USB device phydcd config header" brief="USB device phydcd config header" version="2.10.1" full_name="USB device phydcd config header" category="USB/USB DCD" user_visible="true" type="project_template" package_base_path="middleware/usb" project_base_path="source">
       <dependencies>
         <device_dependency value="MCXC444"/>
       </dependencies>
@@ -2861,7 +2861,7 @@ ${load}</script>
         <include_path relative_path="output/npw/dcd_config/phydcd" project_relative_path="generated" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.hsdcd_config_header.MCXC444" name="USB device hsdcd config header" brief="USB device hsdcd config header" version="2.8.4" full_name="USB device hsdcd config header" category="USB/USB DCD" user_visible="true" type="project_template" package_base_path="middleware/usb" project_base_path="source">
+    <component id="middleware.usb.hsdcd_config_header.MCXC444" name="USB device hsdcd config header" brief="USB device hsdcd config header" version="2.10.1" full_name="USB device hsdcd config header" category="USB/USB DCD" user_visible="true" type="project_template" package_base_path="middleware/usb" project_base_path="source">
       <dependencies>
         <device_dependency value="MCXC444"/>
       </dependencies>
@@ -7991,7 +7991,7 @@ ${load}</script>
         <include_path relative_path="host/usdhc" project_relative_path="host" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.khci_config_header.MCXC444" name="USB device khci config header" brief="USB device khci config header" version="2.10.0" full_name="USB device khci config header" category="USB/USB Device" user_visible="true" type="project_template" package_base_path="middleware/usb" project_base_path="source">
+    <component id="middleware.usb.device.khci_config_header.MCXC444" name="USB device khci config header" brief="USB device khci config header" version="2.10.1" full_name="USB device khci config header" category="USB/USB Device" user_visible="true" type="project_template" package_base_path="middleware/usb" project_base_path="source">
       <dependencies>
         <device_dependency value="MCXC444"/>
       </dependencies>
@@ -8005,7 +8005,7 @@ ${load}</script>
         <include_path relative_path="output/npw/device_config/khci" project_relative_path="generated" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.common_header.MCXC444" name="USB Common Header" brief="Middleware usb common_header" version="2.10.0" full_name="USB Common Header" category="USB/USB Common Header" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.common_header.MCXC444" name="USB Common Header" brief="Middleware usb common_header" version="2.10.1" full_name="USB Common Header" category="USB/USB Common Header" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="component.osa.MCXC444"/>
@@ -8024,7 +8024,7 @@ ${load}</script>
         <include_path relative_path="include" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.common_header.MCXC444" name="USB Device Common Header" brief="Middleware usb device common_header" version="2.10.0" full_name="USB Device Common Header" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.common_header.MCXC444" name="USB Device Common Header" brief="Middleware usb device common_header" version="2.10.1" full_name="USB Device Common Header" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="component.osa.MCXC444"/>
@@ -8046,7 +8046,7 @@ ${load}</script>
         <include_path relative_path="device" project_relative_path="device/source" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device_controller_khci.MCXC444" name="USB Device KHCI Controller Driver(FS)" brief="Middleware usb device khci" version="2.10.0" full_name="USB Device KHCI Controller Driver(FS)" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device_controller_khci.MCXC444" name="USB Device KHCI Controller Driver(FS)" brief="Middleware usb device khci" version="2.10.1" full_name="USB Device KHCI Controller Driver(FS)" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.khci_config_header.MCXC444"/>
@@ -8071,7 +8071,7 @@ ${load}</script>
         <include_path relative_path="include" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.stack.external.MCXC444" name="USB Device Stack" brief="Middleware usb device stack external" version="2.10.0" full_name="USB Device Stack" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.stack.external.MCXC444" name="USB Device Stack" brief="Middleware usb device stack external" version="2.10.1" full_name="USB Device Stack" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="component.osa.MCXC444"/>
@@ -8101,7 +8101,7 @@ ${load}</script>
         <include_path relative_path="output/source/device" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.audio.external.MCXC444" name="USB Device Audio" brief="Middleware usb device audio external" version="2.10.0" full_name="USB Device Audio" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.audio.external.MCXC444" name="USB Device Audio" brief="Middleware usb device audio external" version="2.10.1" full_name="USB Device Audio" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.MCXC444"/>
@@ -8122,7 +8122,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.cdc.external.MCXC444" name="USB Device CDC" brief="Middleware usb device cdc external" version="2.10.0" full_name="USB Device CDC" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.cdc.external.MCXC444" name="USB Device CDC" brief="Middleware usb device cdc external" version="2.10.1" full_name="USB Device CDC" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.MCXC444"/>
@@ -8143,7 +8143,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.cdc.rndis.external.MCXC444" name="USB Device CDC RNDIS" brief="Middleware usb device cdc rndis external" version="2.10.0" full_name="USB Device CDC RNDIS" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.cdc.rndis.external.MCXC444" name="USB Device CDC RNDIS" brief="Middleware usb device cdc rndis external" version="2.10.1" full_name="USB Device CDC RNDIS" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.MCXC444"/>
@@ -8165,7 +8165,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.hid.external.MCXC444" name="USB Device HID" brief="Middleware usb device hid external" version="2.10.0" full_name="USB Device HID" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.hid.external.MCXC444" name="USB Device HID" brief="Middleware usb device hid external" version="2.10.1" full_name="USB Device HID" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.MCXC444"/>
@@ -8186,7 +8186,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.dfu.external.MCXC444" name="USB Device DFU" brief="Middleware usb device dfu external" version="2.10.0" full_name="USB Device DFU" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.dfu.external.MCXC444" name="USB Device DFU" brief="Middleware usb device dfu external" version="2.10.1" full_name="USB Device DFU" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.MCXC444"/>
@@ -8207,7 +8207,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.msd.external.MCXC444" name="USB Device MSD" brief="Middleware usb device msd external" version="2.10.0" full_name="USB Device MSD" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.msd.external.MCXC444" name="USB Device MSD" brief="Middleware usb device msd external" version="2.10.1" full_name="USB Device MSD" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.MCXC444"/>
@@ -8230,7 +8230,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.phdc.external.MCXC444" name="USB Device PHDC" brief="Middleware usb device phdc external" version="2.10.0" full_name="USB Device PHDC" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.phdc.external.MCXC444" name="USB Device PHDC" brief="Middleware usb device phdc external" version="2.10.1" full_name="USB Device PHDC" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.MCXC444"/>
@@ -8251,7 +8251,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.video.external.MCXC444" name="USB Device Video" brief="Middleware usb device video external" version="2.10.0" full_name="USB Device Video" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.video.external.MCXC444" name="USB Device Video" brief="Middleware usb device video external" version="2.10.1" full_name="USB Device Video" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.MCXC444"/>
@@ -8272,7 +8272,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.ccid.external.MCXC444" name="USB Device CCID" brief="Middleware usb device ccid external" version="2.10.0" full_name="USB Device CCID" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.ccid.external.MCXC444" name="USB Device CCID" brief="Middleware usb device ccid external" version="2.10.1" full_name="USB Device CCID" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.MCXC444"/>
@@ -8293,7 +8293,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.printer.external.MCXC444" name="USB Device Printer" brief="Middleware usb device printer external" version="2.10.0" full_name="USB Device Printer" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.printer.external.MCXC444" name="USB Device Printer" brief="Middleware usb device printer external" version="2.10.1" full_name="USB Device Printer" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.MCXC444"/>
@@ -8314,7 +8314,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.controller.driver.MCXC444" name="USB Device Common Controller" brief="Middleware usb device controller driver" version="2.10.0" full_name="USB Device Common Controller" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.controller.driver.MCXC444" name="USB Device Common Controller" brief="Middleware usb device controller driver" version="2.10.1" full_name="USB Device Common Controller" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="component.osa.MCXC444"/>
@@ -8334,6 +8334,9 @@ ${load}</script>
       <source exclude="true" relative_path="./" type="doc">
         <files mask="ChangeLogKSDK.txt" hidden="true"/>
       </source>
+      <source exclude="true" relative_path="device" type="c_include">
+        <files mask="usb_device_mcux_drv_port.h" hidden="true"/>
+      </source>
       <source toolchain="armgcc" relative_path="./" type="workspace">
         <files mask="middleware_usb_device_controller_driver.cmake" hidden="true"/>
       </source>
@@ -8342,7 +8345,7 @@ ${load}</script>
         <include_path relative_path="device" project_relative_path="device/source" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host.common_header.MCXC444" name="USB Host Common Header" brief="Middleware usb host common_header" version="2.10.0" full_name="USB Host Common Header" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host.common_header.MCXC444" name="USB Host Common Header" brief="Middleware usb host common_header" version="2.10.1" full_name="USB Host Common Header" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="component.osa.MCXC444"/>
@@ -9497,7 +9500,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.common.MCXC444" name="common" brief="COMMON Driver" version="2.4.1" full_name="COMMON Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/common" project_base_path="drivers">
+    <component id="platform.drivers.common.MCXC444" name="common" brief="COMMON Driver" version="2.4.2" full_name="COMMON Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/common" project_base_path="drivers">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.clock.MCXC444"/>

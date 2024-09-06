@@ -8,7 +8,7 @@ Example will first Write 256 bytes of data from the start of Hyper ram, then rea
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

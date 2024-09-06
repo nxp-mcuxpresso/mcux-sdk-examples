@@ -63,18 +63,18 @@
 /* The following stack sizes have been chosen based on a worst case scenario. 
  * For different compilers and optimization levels they can be reduced. */
 
-#define gHost_TaskStackSize_c           1918
+#define gHost_TaskStackSize_c           1920
 
-#define BUTTON_TASK_STACK_SIZE          356
+#define BUTTON_TASK_STACK_SIZE          640
 
 #define SERIAL_MANAGER_TASK_STACK_SIZE  232
 
 #define gMainThreadStackSize_c          864
 
-#define TM_TASK_STACK_SIZE              500
+#define TM_TASK_STACK_SIZE              640
 
 /* The size used for the Idle task, in dwords. */
-#define configMINIMAL_STACK_SIZE        140
+#define configMINIMAL_STACK_SIZE        160
 
 #endif
 

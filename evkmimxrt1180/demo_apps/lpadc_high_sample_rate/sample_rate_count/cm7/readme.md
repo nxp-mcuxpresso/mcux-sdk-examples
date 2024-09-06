@@ -12,7 +12,7 @@ maximin value). So theoretically, sample rate = maximum frequency / total conver
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

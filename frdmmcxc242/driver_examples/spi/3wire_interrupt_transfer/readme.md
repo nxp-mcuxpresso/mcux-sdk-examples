@@ -7,7 +7,7 @@ and check if the data slave received is correct. Actually, spi 3-wire mode can a
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

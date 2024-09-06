@@ -5,7 +5,7 @@ This example works as a USB Audio Microphone device. It will appear as a USB Aud
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

@@ -11,7 +11,7 @@ is not enabled, offset level is level 0, hysteresis level is level 0.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

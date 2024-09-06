@@ -14,7 +14,7 @@ them out using EDMA version FlexCAN transactional driver. The sent and received 
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

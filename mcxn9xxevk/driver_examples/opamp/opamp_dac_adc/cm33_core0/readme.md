@@ -16,7 +16,7 @@ reference voltage is 0 to VDDA-0.8V.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

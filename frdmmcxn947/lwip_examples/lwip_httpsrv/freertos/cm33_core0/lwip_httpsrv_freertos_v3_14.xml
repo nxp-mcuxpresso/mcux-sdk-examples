@@ -29,6 +29,7 @@
     <definition extID="driver.phy-common.MCXN947"/>
     <definition extID="utility.str.MCXN947"/>
     <definition extID="middleware.lwip.template.MCXN947"/>
+    <definition extID="middleware.lwip.sys_arch_dynamic.MCXN947"/>
     <definition extID="component.gpio_adapter.MCXN947"/>
     <definition extID="middleware.freertos-kernel.MCXN947"/>
     <definition extID="middleware.freertos-kernel.template.MCXN947"/>
@@ -41,7 +42,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="frdmmcxn947_lwip_httpsrv_freertos" name="lwip_httpsrv_freertos" device_core="cm33_core0_MCXN947" dependency="driver.phy-device-lan8741.MCXN947 utility.debug_console_lite.MCXN947 platform.utilities.assert_lite.MCXN947 platform.drivers.flashiap.MCXN947 component.silicon_id.MCXN947 middleware.lwip.mcx_ethernetif.MCXN947 middleware.lwip.MCXN947 platform.drivers.mcx_enet.MCXN947 middleware.freertos-kernel.cm33_non_trustzone.MCXN947 middleware.lwip.apps.httpsrv.MCXN947 middleware.lwip.apps.mdns.MCXN947 platform.drivers.clock.MCXN947 middleware.freertos-kernel.heap_3.MCXN947 platform.drivers.common.MCXN947 platform.drivers.power.MCXN947 platform.drivers.reset.MCXN947 platform.devices.MCXN947_CMSIS.MCXN947 platform.devices.MCXN947_startup.MCXN947 platform.drivers.lpflexcomm_lpuart.MCXN947 platform.drivers.gpio.MCXN947 platform.drivers.port.MCXN947 component.lpuart_adapter.MCXN947 component.lists.MCXN947 platform.utilities.misc_utilities.MCXN947 driver.phy-common.MCXN947 utility.str.MCXN947 middleware.lwip.template.MCXN947 component.gpio_adapter.MCXN947 middleware.freertos-kernel.MCXN947 middleware.freertos-kernel.template.MCXN947 middleware.freertos-kernel.extension.MCXN947 platform.drivers.mcx_spc.MCXN947 CMSIS_Include_core_cm.MCXN947 platform.devices.MCXN947_system.MCXN947 platform.drivers.lpflexcomm.MCXN947" category="lwip_examples">
+  <example id="frdmmcxn947_lwip_httpsrv_freertos" name="lwip_httpsrv_freertos" device_core="cm33_core0_MCXN947" dependency="driver.phy-device-lan8741.MCXN947 utility.debug_console_lite.MCXN947 platform.utilities.assert_lite.MCXN947 platform.drivers.flashiap.MCXN947 component.silicon_id.MCXN947 middleware.lwip.mcx_ethernetif.MCXN947 middleware.lwip.MCXN947 platform.drivers.mcx_enet.MCXN947 middleware.freertos-kernel.cm33_non_trustzone.MCXN947 middleware.lwip.apps.httpsrv.MCXN947 middleware.lwip.apps.mdns.MCXN947 platform.drivers.clock.MCXN947 middleware.freertos-kernel.heap_3.MCXN947 platform.drivers.common.MCXN947 platform.drivers.power.MCXN947 platform.drivers.reset.MCXN947 platform.devices.MCXN947_CMSIS.MCXN947 platform.devices.MCXN947_startup.MCXN947 platform.drivers.lpflexcomm_lpuart.MCXN947 platform.drivers.gpio.MCXN947 platform.drivers.port.MCXN947 component.lpuart_adapter.MCXN947 component.lists.MCXN947 platform.utilities.misc_utilities.MCXN947 driver.phy-common.MCXN947 utility.str.MCXN947 middleware.lwip.template.MCXN947 middleware.lwip.sys_arch_dynamic.MCXN947 component.gpio_adapter.MCXN947 middleware.freertos-kernel.MCXN947 middleware.freertos-kernel.template.MCXN947 middleware.freertos-kernel.extension.MCXN947 platform.drivers.mcx_spc.MCXN947 CMSIS_Include_core_cm.MCXN947 platform.devices.MCXN947_system.MCXN947 platform.drivers.lpflexcomm.MCXN947" category="lwip_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -76,6 +77,15 @@
           <value>HTTPSRV_CFG_WEBSOCKET_ENABLED=1</value>
           <value>MCUXPRESSO_SDK</value>
           <value>LWIP_DISABLE_PBUF_POOL_SIZE_SANITY_CHECKS=1</value>
+          <value>CHECKSUM_GEN_UDP=1</value>
+          <value>CHECKSUM_GEN_TCP=1</value>
+          <value>CHECKSUM_GEN_ICMP=1</value>
+          <value>CHECKSUM_GEN_ICMP6=1</value>
+          <value>CHECKSUM_CHECK_IP=1</value>
+          <value>CHECKSUM_CHECK_UDP=1</value>
+          <value>CHECKSUM_CHECK_TCP=1</value>
+          <value>CHECKSUM_CHECK_ICMP=1</value>
+          <value>CHECKSUM_CHECK_ICMP6=1</value>
           <value>SDK_OS_FREE_RTOS</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">

@@ -8,23 +8,19 @@
 #ifndef SBL_CONFIG_H__
 #define SBL_CONFIG_H__
 
-/* MCU-SBL RT1060 Configuration */
-
-#define SOC_IMXRT1060_SERIES
-#define ARCH_ARM_CORTEX_M7
-#define ARCH_ARM_CORTEX_FPU
-#define SOC_IMXRTYYYY_SERIES
-
-/* MCU SBL core */
+/* MCUBoot Flash Config */
 
 #define CONFIG_MCUBOOT_MAX_IMG_SECTORS 800
 
+#define CONFIG_UPDATEABLE_IMAGE_NUMBER 1
+
+/* MCUBoot upgrade mode */
+
 /*
- * MCUBoot upgrade mode
- *
  * The default MCUBoot configuration is to use swap mechanism. In case the flash
  * remapping functionality is supported by processor the alternative mechanism
  * using direct-xip mode can be used and evaluated by user.
+ * Comment this to enable swap mode.
  */
 #define CONFIG_MCUBOOT_FLASH_REMAP_ENABLE
 
@@ -34,12 +30,18 @@
 /* Encrypted XIP support config */
 
 /*
- * Enable support for on-the-fly decryption of encrypted image.
+ * Enable extension utilizing on-the-fly decryption of encrypted image.
  * For more information please see readme file.
  */
-//#define CONFIG_MCUBOOT_ENCRYPTED_XIP_SUPPORT
+//#define CONFIG_ENCRYPT_XIP_EXT_ENABLE
 
-/* Crypto */
+/*
+ * Encrypted XIP extension uses simpler OVERWRITE_ONLY mode instead of three
+ * slot configuration.
+ */
+//#define CONFIG_ENCRYPT_XIP_EXT_OVERWRITE_ONLY
+
+/* Crypto Config */
 
 #define COMPONENT_MCUBOOT_SECURE
 #define CONFIG_BOOT_SIGNATURE

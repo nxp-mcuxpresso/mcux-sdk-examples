@@ -10,7 +10,7 @@ the sector data. At last check if the data read back is correct.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

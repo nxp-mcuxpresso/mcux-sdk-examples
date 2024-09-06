@@ -8,7 +8,7 @@ ADC16 results to memory and if users press any key, demo will average ADC16 resu
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

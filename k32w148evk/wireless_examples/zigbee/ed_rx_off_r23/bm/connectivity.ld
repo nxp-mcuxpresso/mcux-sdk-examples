@@ -111,6 +111,8 @@ m_cstack_end                        = m_cstack_start + STACK_SIZE - 1;
 
 m_interrupts_ram_start              = DEFINED(m_cstack_ram1) ? m_ram0_start : m_cstack_end + 1;
 m_interrupts_ram_end                = m_interrupts_ram_start + m_ram_vector_table_size - 1;
+__VECTOR_RAM                        = m_interrupts_ram_start;
+__RAM_VECTOR_TABLE_SIZE_BYTES       = m_ram_vector_table_size;
 
 m_data0_start                       = m_interrupts_ram_end + 1;
 m_data0_end                         = m_ram0_end;

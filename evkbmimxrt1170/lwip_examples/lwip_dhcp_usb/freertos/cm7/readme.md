@@ -9,7 +9,7 @@ The application will get ip adress www.nxp.com and ping the ip address.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

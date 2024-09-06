@@ -59,6 +59,8 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../main.c"
 "${ProjDirPath}/../app_handsfree.c"
 "${ProjDirPath}/../app_handsfree.h"
+"${ProjDirPath}/../app_connect.c"
+"${ProjDirPath}/../app_connect.h"
 "${ProjDirPath}/../app_shell.c"
 "${ProjDirPath}/../app_shell.h"
 "${ProjDirPath}/../sco_audio_pl_ext.c"

@@ -7,7 +7,7 @@ if the data master received is correct. This example needs to work with spi_inte
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

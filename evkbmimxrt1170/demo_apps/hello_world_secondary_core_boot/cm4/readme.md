@@ -7,7 +7,7 @@ which helps developers to have more choices on secondary core target memory.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

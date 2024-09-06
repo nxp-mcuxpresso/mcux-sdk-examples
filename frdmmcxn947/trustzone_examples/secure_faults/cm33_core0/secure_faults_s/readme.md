@@ -14,7 +14,7 @@ TEST 5: Invalid data access from normal world, example 2
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

@@ -7,7 +7,7 @@ Note: Intput data and output buffer has to be in non-cached memory space.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

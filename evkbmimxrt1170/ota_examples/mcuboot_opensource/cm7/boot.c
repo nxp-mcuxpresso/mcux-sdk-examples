@@ -21,8 +21,9 @@
 #include "fsl_debug_console.h"
 #include "mflash_drv.h"
 
-#ifdef CONFIG_MCUBOOT_ENCRYPTED_XIP_SUPPORT
+#ifdef CONFIG_ENCRYPT_XIP_EXT_ENABLE
 #include "mcuboot_enc_support.h"
+#include "platform_enc_common.h"
 #endif
 
 /*******************************************************************************
@@ -130,10 +131,22 @@ int sbl_boot_main(void)
     CRYPTO_InitHardware();
 #endif
 
-    mflash_drv_init();
+    rc = mflash_drv_init();
+    if (rc)
+    {
+        PRINTF("Failed to init flash driver\n");
+    }
 
     BOOT_LOG_INF("Bootloader Version %s", BOOTLOADER_VERSION);
-
+    
+#if defined(CONFIG_ENCRYPT_XIP_EXT_ENABLE) && defined(CONFIG_ENCRYPT_XIP_EXT_OVERWRITE_ONLY)
+    /* Initialize encryption XIP over execution region */
+    if(platform_enc_cfg_read(boot_flash_meta_map, NULL) == kStatus_Success){
+      if(platform_enc_cfg_init(boot_flash_meta_map, NULL) != kStatus_Success)
+        BOOT_LOG_ERR("Encrypted XIP initialization failed");
+    }
+#endif
+    
     rc = boot_go(&rsp);
     if (rc != 0)
     {
@@ -142,7 +155,7 @@ int sbl_boot_main(void)
             ;
     }
 
-#ifdef CONFIG_MCUBOOT_ENCRYPTED_XIP_SUPPORT
+#if defined(CONFIG_ENCRYPT_XIP_EXT_ENABLE) && !defined(CONFIG_ENCRYPT_XIP_EXT_OVERWRITE_ONLY)
     BOOT_LOG_INF("\nStarting post-bootloader process of encrypted image...");
     if(mcuboot_process_encryption(&rsp) != kStatus_Success){
       BOOT_LOG_ERR("Fatal error: failed to process encrypted image");

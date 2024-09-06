@@ -52,16 +52,7 @@ extern bool usart_suspend_flag;
 #endif
 extern int wakeup_by;
 extern int is_hs_handshake_done;
-#if CONFIG_NCP_BRIDGE
-#if CONFIG_UART_BRIDGE
-extern int bridge_uart_reinit();
-extern int bridge_uart_deinit();
-#endif
-extern void usb_device_app_reinit(void);
-#if CONFIG_CRC32_HW_ACCELERATE
-extern void hw_crc32_init();
-#endif
-#endif
+
 /*******************************************************************************
  * APIs
  ******************************************************************************/
@@ -86,18 +77,6 @@ void lpm_pm3_exit_hw_reinit()
 #if CONFIG_WPA_SUPP
     CRYPTO_ReInitHardware();
 #endif
-#if CONFIG_NCP_BRIDGE
-#if CONFIG_CRC32_HW_ACCELERATE
-    hw_crc32_init();
-#endif
-#if CONFIG_USB_BRIDGE
-    usb_device_app_reinit();
-#endif
-#if CONFIG_UART_BRIDGE
-    usart_suspend_flag = false;
-    bridge_uart_reinit();
-#endif
-#endif
 #if CONFIG_UART_INTERRUPT
     cli_uart_reinit();
 #endif
@@ -113,11 +92,6 @@ status_t powerManager_BoardNotify(pm_event_type_t eventType, uint8_t powerState,
     {
         if (powerState == PM_LP_STATE_PM3)
         {
-#if CONFIG_NCP_BRIDGE
-#if CONFIG_UART_BRIDGE
-            bridge_uart_deinit();
-#endif
-#endif
 #if CONFIG_UART_INTERRUPT
             cli_uart_deinit();
 #endif

@@ -8,7 +8,7 @@ Turn off the LED, then restore the saved register. Finally, you will see the LED
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

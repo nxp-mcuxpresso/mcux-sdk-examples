@@ -3,9 +3,9 @@
  *  @brief main file
  *
  *  Copyright 2023 NXP
- *  All rights reserved.
  *
  *  SPDX-License-Identifier: BSD-3-Clause
+ *  The BSD-3-Clause license can be found at https://spdx.org/licenses/BSD-3-Clause.html
  */
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -36,6 +36,9 @@ extern int ncp_wifi_app_init();
 #endif
 #if CONFIG_NCP_BLE
 extern int ncp_ble_app_init();
+#endif
+#if CONFIG_NCP_OT
+extern int ncp_ot_app_init();
 #endif
 
 /*******************************************************************************
@@ -92,6 +95,10 @@ void task_main(void *param)
 #endif
 #if CONFIG_NCP_BLE
     result = ncp_ble_app_init();
+    assert(NCP_SUCCESS == result);
+#endif
+#if CONFIG_NCP_OT
+    result = ncp_ot_app_init();
     assert(NCP_SUCCESS == result);
 #endif
 

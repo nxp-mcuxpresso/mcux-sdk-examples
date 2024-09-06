@@ -44,18 +44,18 @@ void BOARD_InitBootPins(void)
 BOARD_InitPins:
 - options: {callFromInitBoot: 'true', coreID: cm33, enableClock: 'true'}
 - pin_list:
-  - {pin_num: '11', peripheral: FLEXIO0, signal: 'D, 5', pin_signal: ADC0_A12/PTA16/RF_NOT_ALLOWED/LPSPI0_PCS0/EWM0_OUT_b/LPI2C0_SCLS/TPM0_CH4/LPUART0_RX/RF_GPO_8/FLEXIO0_D5,
-    eft_interrupt: disable, pull_select: down, pull_enable: disable, slew_rate: fast, open_drain: disable, drive_strength: low}
-  - {pin_num: '12', peripheral: FLEXIO0, signal: 'D, 6', pin_signal: ADC0_A13/PTA17/WUU0_P3/RF_NOT_ALLOWED/LPSPI0_SIN/EWM0_IN/LPI2C0_SDAS/TPM0_CH5/LPUART0_TX/RF_GPO_7/RF_GPO_8/FLEXIO0_D6,
-    eft_interrupt: disable, pull_select: down, pull_enable: disable, slew_rate: fast, open_drain: disable, drive_strength: low}
-  - {pin_num: '42', peripheral: FLEXIO0, signal: 'D, 20', pin_signal: PTC4/WUU0_P10/LPSPI1_SIN/LPI2C1_SCL/TPM2_CH0/FLEXIO0_D20, pull_select: down, pull_enable: disable,
-    slew_rate: fast, passive_filter: disable, open_drain: disable, drive_strength: low, drive_strength_1: normal}
-  - {pin_num: '43', peripheral: FLEXIO0, signal: 'D, 21', pin_signal: PTC5/LPSPI1_PCS0/LPI2C1_SDA/TPM1_CH4/TPM2_CH1/FLEXIO0_D21, pull_select: down, pull_enable: disable,
-    slew_rate: fast, passive_filter: disable, open_drain: disable, drive_strength: low, drive_strength_1: normal}
-  - {pin_num: '39', peripheral: LPUART1, signal: RX, pin_signal: PTC2/WUU0_P9/LPSPI1_SOUT/LPUART1_RX/LPI2C1_SCLS/TPM1_CH2/I3C0_PUR/FLEXIO0_D18, eft_interrupt: disable,
-    pull_select: down, pull_enable: disable, slew_rate: fast, open_drain: disable, drive_strength: low}
-  - {pin_num: '40', peripheral: LPUART1, signal: TX, pin_signal: PTC3/LPSPI1_SCK/LPUART1_TX/LPI2C1_SDAS/TPM1_CH3/FLEXIO0_D19, eft_interrupt: disable, pull_select: down,
+  - {pin_num: '39', peripheral: LPUART1, signal: RX, pin_signal: PTC2/WUU0_P9/LPSPI1_SOUT/LPUART1_RX/LPI2C1_SCLS/TPM1_CH2/I3C0_PUR/FLEXIO0_D18, pull_select: down,
     pull_enable: disable, slew_rate: fast, open_drain: disable, drive_strength: low}
+  - {pin_num: '40', peripheral: LPUART1, signal: TX, pin_signal: PTC3/LPSPI1_SCK/LPUART1_TX/LPI2C1_SDAS/TPM1_CH3/FLEXIO0_D19, pull_select: down, pull_enable: disable,
+    slew_rate: fast, open_drain: disable, drive_strength: low}
+  - {pin_num: '17', peripheral: FLEXIO0, signal: 'D, 7', pin_signal: ADC0_A14/CMP0_IN3/PTA20/LPSPI0_PCS2/LPUART0_TX/EWM0_IN/TPM0_CH1/RF_GPO_2/FLEXIO0_D7, pull_select: down,
+    pull_enable: disable, slew_rate: fast, open_drain: disable, drive_strength: low}
+  - {pin_num: '18', peripheral: FLEXIO0, signal: 'D, 8', pin_signal: ADC0_A15/CMP0_IN2/PTA21/WUU0_P5/LPSPI0_PCS3/LPUART0_RX/EWM0_OUT_b/TPM0_CH0/RF_GPO_3/RF_GPO_7/FLEXIO0_D8/RF_GPO_10,
+    pull_select: down, pull_enable: disable, slew_rate: fast, open_drain: disable, drive_strength: low}
+  - {pin_num: '42', peripheral: FLEXIO0, signal: 'D, 20', pin_signal: PTC4/WUU0_P10/LPSPI1_SIN/CAN0_TX/LPI2C1_SCL/TPM2_CH0/FLEXIO0_D20, pull_select: down, pull_enable: disable,
+    slew_rate: fast, passive_filter: disable, open_drain: disable, drive_strength: low, drive_strength_1: normal}
+  - {pin_num: '43', peripheral: FLEXIO0, signal: 'D, 21', pin_signal: PTC5/LPSPI1_PCS0/CAN0_RX/LPI2C1_SDA/TPM1_CH4/TPM2_CH1/FLEXIO0_D21, pull_select: down, pull_enable: disable,
+    slew_rate: fast, passive_filter: disable, open_drain: disable, drive_strength: low, drive_strength_1: normal}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -73,10 +73,7 @@ void BOARD_InitPins(void)
     /* Clock Configuration: Peripheral clocks are enabled; module does not stall low power mode entry */
     CLOCK_EnableClock(kCLOCK_PortC);
 
-    /* EFT detect interrupts configuration on PORTA */
-    PORT_DisableEFTDetectInterrupts(PORTA, 0x030000u);
-
-    const port_pin_config_t porta16_pin11_config = {/* Internal pull-up/down resistor is disabled */
+    const port_pin_config_t porta20_pin17_config = {/* Internal pull-up/down resistor is disabled */
                                                     (uint16_t)kPORT_PullDisable,
                                                     /* Low internal pull resistor value is selected. */
                                                     (uint16_t)kPORT_LowPullResistor,
@@ -90,14 +87,14 @@ void BOARD_InitPins(void)
                                                     (uint16_t)kPORT_LowDriveStrength,
                                                     /* Normal drive strength is configured */
                                                     (uint16_t)kPORT_NormalDriveStrength,
-                                                    /* Pin is configured as FLEXIO0_D5 */
-                                                    (uint16_t)kPORT_MuxAlt9,
+                                                    /* Pin is configured as FLEXIO0_D7 */
+                                                    (uint16_t)kPORT_MuxAlt8,
                                                     /* Pin Control Register fields [15:0] are not locked */
                                                     (uint16_t)kPORT_UnlockRegister};
-    /* PORTA16 (pin 11) is configured as FLEXIO0_D5 */
-    PORT_SetPinConfig(PORTA, 16U, &porta16_pin11_config);
+    /* PORTA20 (pin 17) is configured as FLEXIO0_D7 */
+    PORT_SetPinConfig(PORTA, 20U, &porta20_pin17_config);
 
-    const port_pin_config_t porta17_pin12_config = {/* Internal pull-up/down resistor is disabled */
+    const port_pin_config_t porta21_pin18_config = {/* Internal pull-up/down resistor is disabled */
                                                     (uint16_t)kPORT_PullDisable,
                                                     /* Low internal pull resistor value is selected. */
                                                     (uint16_t)kPORT_LowPullResistor,
@@ -111,15 +108,12 @@ void BOARD_InitPins(void)
                                                     (uint16_t)kPORT_LowDriveStrength,
                                                     /* Normal drive strength is configured */
                                                     (uint16_t)kPORT_NormalDriveStrength,
-                                                    /* Pin is configured as FLEXIO0_D6 */
-                                                    (uint16_t)kPORT_MuxAlt9,
+                                                    /* Pin is configured as FLEXIO0_D8 */
+                                                    (uint16_t)kPORT_MuxAlt8,
                                                     /* Pin Control Register fields [15:0] are not locked */
                                                     (uint16_t)kPORT_UnlockRegister};
-    /* PORTA17 (pin 12) is configured as FLEXIO0_D6 */
-    PORT_SetPinConfig(PORTA, 17U, &porta17_pin12_config);
-
-    /* EFT detect interrupts configuration on PORTC */
-    PORT_DisableEFTDetectInterrupts(PORTC, 0x0Cu);
+    /* PORTA21 (pin 18) is configured as FLEXIO0_D8 */
+    PORT_SetPinConfig(PORTA, 21U, &porta21_pin18_config);
 
     const port_pin_config_t portc2_pin39_config = {/* Internal pull-up/down resistor is disabled */
                                                    (uint16_t)kPORT_PullDisable,

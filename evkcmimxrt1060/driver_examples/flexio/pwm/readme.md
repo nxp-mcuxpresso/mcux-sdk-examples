@@ -6,7 +6,7 @@ and dynamic duty from 99 to 1 to one of the FLEXIO pins.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

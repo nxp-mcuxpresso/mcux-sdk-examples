@@ -16,12 +16,13 @@
 #include "EmbeddedTypes.h"
 
 /* Select the Elliptic curve: P-256 or Curve25519 */
-#define CRYPTO_ECDH_P256
-#undef  CRYPTO_ECDH_CURVE25519
+//#define CRYPTO_ECDH_P256
+//#define  CRYPTO_ECDH_CURVE25519
+#define  CRYPTO_ECDH_CURVE25519_MBED
 
 /* Crypto related macro & type defines */
 #define CRYPTO_AES_BLK_SIZE 16u             /* [bytes] */
-#ifdef CRYPTO_ECDH_P256
+#if defined(CRYPTO_ECDH_P256) || defined(CRYPTO_ECDH_CURVE25519_MBED)
 #define SEC_ECP256_COORDINATE_BITLEN 256u
 #define SEC_ECP256_COORDINATE_LEN    (SEC_ECP256_COORDINATE_BITLEN / 8u)
 #define SEC_ECP256_COORDINATE_WLEN   (SEC_ECP256_COORDINATE_LEN / 4u)
@@ -48,7 +49,8 @@ typedef struct
 #pragma GCC diagnostic ignored "-Wpacked"
 #pragma GCC diagnostic ignored "-Wattributes"
 #ifdef CRYPTO_ECDH_P256
-typedef union {
+typedef union
+{
     uint8_t raw[2*SEC_ECP256_COORDINATE_LEN];
     PACKED_STRUCT {
         uint8_t x[SEC_ECP256_COORDINATE_LEN];
@@ -62,25 +64,40 @@ typedef union {
         uint8_t X[SEC_ECP256_SCALAR_LEN];
         uint8_t Y[SEC_ECP256_SCALAR_LEN];
     } coord;
-#elif defined(CRYPTO_ECDH_CURVE25519)
-typedef union {
+#elif defined(CRYPTO_ECDH_CURVE25519_MBED)
+typedef union
+{
+    uint8_t raw[SEC_ECP256_COORDINATE_LEN];
+    PACKED_STRUCT {
+        uint8_t x[SEC_ECP256_COORDINATE_LEN];
+    } components_8bit;
+    PACKED_STRUCT {
+        uint32_t x[SEC_ECP256_COORDINATE_WLEN];
+    } components_32bit;
+    PACKED_STRUCT {
+        uint8_t X[SEC_ECP256_SCALAR_LEN];
+    } coord;
 #endif
 } CRYPTO_ecdhPublicKey_t;
 
 typedef CRYPTO_ecdhPublicKey_t CRYPTO_ecdhDhKey_t;
 
-#ifdef CRYPTO_ECDH_P256
-typedef union {
+#if defined(CRYPTO_ECDH_P256) || defined(CRYPTO_ECDH_CURVE25519_MBED)
+typedef union
+{
     uint8_t  raw_8bit[SEC_ECP256_SCALAR_LEN];
     uint32_t raw_32bit[SEC_ECP256_SCALAR_WLEN];
-#elif defined(CRYPTO_ECDH_CURVE25519)
-typedef union {
 #endif
 } CRYPTO_ecdhPrivateKey_t;
 #pragma GCC diagnostic pop
 
 /* Button related functions */
 typedef void (*button_cb)(uint8_t button);
+
+/* Generic PRNG function pointer type definition. */
+typedef int (*fpZbRngPrng_t) (void *data,
+                              unsigned char *output,
+                              size_t len);
 
 bool zbPlatButtonInit(uint8_t num_buttons, button_cb cb);
 uint32_t zbPlatButtonGetState(void);
@@ -96,6 +113,7 @@ bool zbPlatConsoleReceiveChar(uint8_t *ch);
 bool zbPlatConsoleCanTransmit(void);
 bool zbPlatConsoleTransmit(uint8_t pu8Data);
 void zbPlatConsoleSetBaudRate(uint32_t baud);
+void zbPlatConsoleDeInit(void);
 
 /* Uart related functions */
 bool zbPlatUartInit(void *device);
@@ -127,15 +145,18 @@ void zbPlatCryptoAesMmoBlockUpdate(void *hash, void *block);
 void zbPlatCryptoAesMmoFinalUpdate(void *hash, uint8_t *pu8Data, int iDataLen, int iFinalLen);
 bool_t zbPlatCryptoAesSetKey(CRYPTO_tsReg128 *psKeyData);
 void zbPlatCryptoAes128EcbEncrypt(const uint8_t* pu8Input, uint32_t u32InputLen, const uint8_t* pu8Key, uint8_t* pu8Output);
-void zbPlatCryptoAesDecrypt(const uint8_t* pu8Input, const uint8_t* pu8Key, uint8_t* pu8Output);
+void zbPlatCryptoAes128EcbDecrypt(const uint8_t* pu8Input, const uint8_t* pu8Key, uint8_t* pu8Output);
 void zbPlatCryptoAesCcmStar(bool_t bEncrypt, uint8_t u8M, uint8_t  u8AuthLen, uint8_t u8InputLen, CRYPTO_tsAesBlock *puNonce,
         uint8_t *pu8AuthData, uint8_t *pu8Input, uint8_t *pu8ChecksumData, bool_t *pbChecksumVerify);
 uint8_t zbPlatCryptoRandomInit(void);
 uint32_t zbPlatCryptoRandomGet(uint32_t u32Min, uint32_t u32Max);
 uint32_t zbPlatCryptoRandom256Get(void);
 void zbPlatCryptoDeInit(void);
-bool_t zbPlatCryptoEcdhGenerateKeys(CRYPTO_ecdhPublicKey_t *psPublicKey, CRYPTO_ecdhPrivateKey_t *psSecretKey);
-bool_t zbPlatCryptoEcdhComputeDhKey(CRYPTO_ecdhPrivateKey_t *psSecretKey, CRYPTO_ecdhPublicKey_t *psPeerPublicKey, CRYPTO_ecdhDhKey_t *psOutEcdhKey);
+bool_t zbPlatCryptoEcdhGenerateKeys(CRYPTO_ecdhPublicKey_t *psPublicKey, CRYPTO_ecdhPrivateKey_t *psSecretKey, const uint8_t* pu8BasePointG);
+bool_t zbPlatCryptoEcdhComputeDhKey(CRYPTO_ecdhPrivateKey_t *psSecretKey, CRYPTO_ecdhPublicKey_t *psPeerPublicKey, CRYPTO_ecdhDhKey_t *psOutEcdhKey, const uint8_t* pu8BasePointG);
+fpZbRngPrng_t zbPlatRngGetPrngFunc(void);
+void* zbPlatRngGetPrngContext(void);
+int16_t zbPlatRngGetPseudoRandom(uint8_t* pOut, uint8_t outBytes, uint8_t* pSeed);
 
 /* Boot-time functions */
 void zbPlatWdogResetCheckSource(void);

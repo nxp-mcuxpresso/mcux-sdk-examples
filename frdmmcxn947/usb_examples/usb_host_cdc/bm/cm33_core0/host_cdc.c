@@ -97,7 +97,7 @@ static void USB_BmExitCritical(uint8_t sr)
 usb_uart_buffer_struct_t *getNodeFromQueue(usb_uart_buffer_struct_t **queue)
 {
     usb_uart_buffer_struct_t *p;
-    uint8_t usbOsaCurrentSr;
+    uint8_t usbOsaCurrentSr = 0U; 
 
     USB_BmEnterCritical(&usbOsaCurrentSr);
     p = *queue;
@@ -119,7 +119,7 @@ usb_uart_buffer_struct_t *getNodeFromQueue(usb_uart_buffer_struct_t **queue)
  */
 void freeNodeToQueue(usb_uart_buffer_struct_t **queue, usb_uart_buffer_struct_t *p)
 {
-    uint8_t usbOsaCurrentSr;
+    uint8_t usbOsaCurrentSr = 0U; 
 
     USB_BmEnterCritical(&usbOsaCurrentSr);
     if (p)
@@ -141,7 +141,7 @@ void freeNodeToQueue(usb_uart_buffer_struct_t **queue, usb_uart_buffer_struct_t 
 void insertNodeToQueue(usb_uart_buffer_struct_t **queue, usb_uart_buffer_struct_t *p)
 {
     usb_uart_buffer_struct_t *q;
-    uint8_t usbOsaCurrentSr;
+    uint8_t usbOsaCurrentSr = 0U; 
 
     USB_BmEnterCritical(&usbOsaCurrentSr);
 
@@ -350,7 +350,7 @@ void UART_UserTxCallback(void *callbackParam,
  */
 void USB_HostCdcInitBuffer(void)
 {
-    uint8_t usbOsaCurrentSr;
+    uint8_t usbOsaCurrentSr = 0U; 
     uint8_t index;
 
     USB_BmEnterCritical(&usbOsaCurrentSr);
@@ -484,7 +484,7 @@ void USB_HostCdcControlCallback(void *param, uint8_t *data, uint32_t dataLength,
  */
 void USB_HostCdcTask(void *param)
 {
-    uint8_t usbOsaCurrentSr;
+    uint8_t usbOsaCurrentSr = 0U; 
     usb_status_t status                = kStatus_USB_Success;
     cdc_instance_struct_t *cdcInstance = (cdc_instance_struct_t *)param;
     /* device state changes */

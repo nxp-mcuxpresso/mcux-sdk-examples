@@ -14,7 +14,7 @@ the configuration structure's setting in application to fit the special requirem
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

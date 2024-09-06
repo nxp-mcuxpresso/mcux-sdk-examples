@@ -6,7 +6,7 @@ data using AES-CBC, AES-CCM, and XCBC-MAC algorithm.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

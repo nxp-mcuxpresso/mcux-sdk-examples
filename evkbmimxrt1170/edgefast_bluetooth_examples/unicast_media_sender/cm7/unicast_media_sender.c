@@ -159,8 +159,8 @@ static const struct named_lc3_preset lc3_unicast_presets[] = {
 	{"48_6_2", BT_BAP_LC3_UNICAST_PRESET_48_6_2(LOCATION, CONTEXT)},
 };
 
-/* This parameter should be used for fix "connection timeout" issue. */
-#define CONNECTION_PARAMETERS BT_LE_CONN_PARAM(80, 80, 0, 400)
+/* set conn interval to 10ms and timeout to 100ms. */
+#define CONNECTION_PARAMETERS BT_LE_CONN_PARAM(8, 8, 0, 10)
 
 static OSA_SEMAPHORE_HANDLE_DEFINE(sem_wav_opened);
 static OSA_SEMAPHORE_HANDLE_DEFINE(sem_lc3_preset);
@@ -230,7 +230,7 @@ static uint16_t get_and_incr_seq_num(const struct bt_bap_stream *stream)
 	return 0;
 }
 
-static int audio_stream_encode(void)
+static int audio_stream_encode(bool mute)
 {
 	int res;
 	uint32_t sdu_time_stamp;
@@ -238,48 +238,60 @@ static int audio_stream_encode(void)
 
 	/* read one frame samples. */
 #if defined(CONFIG_BT_A2DP_SINK) && (CONFIG_BT_A2DP_SINK > 0)
-	int ret = ring_buf_get(&a2dp_to_ums_audio_buf, wav_file_buff, lc3_codec_info.samples_per_frame * 4);
-
-	if (ret != lc3_codec_info.samples_per_frame * 4)
+	if(!mute)
 	{
-		int clear_bytes = lc3_codec_info.samples_per_frame * 4 - ret;
-		memset(wav_file_buff + ret, 0, clear_bytes);
-	}
-	
-	ring_buff_read_out_bytes += ret;
+		int ret = ring_buf_get(&a2dp_to_ums_audio_buf, wav_file_buff, lc3_codec_info.samples_per_frame * 4);
 
-	if(a2dp_sink_audio_frame_size > 0)
-	{
-		for (; ring_buff_read_out_bytes >= a2dp_sink_audio_frame_size; ring_buff_read_out_bytes -= a2dp_sink_audio_frame_size)
+		if (ret != lc3_codec_info.samples_per_frame * 4)
 		{
-			app_audio_streamer_task_signal();
+			int clear_bytes = lc3_codec_info.samples_per_frame * 4 - ret;
+			memset(wav_file_buff + ret, 0, clear_bytes);
+		}
+
+		ring_buff_read_out_bytes += ret;
+
+		if(a2dp_sink_audio_frame_size > 0)
+		{
+			for (; ring_buff_read_out_bytes >= a2dp_sink_audio_frame_size; ring_buff_read_out_bytes -= a2dp_sink_audio_frame_size)
+			{
+				app_audio_streamer_task_signal();
+			}
 		}
 	}
 
 	bits = 16;
 #else
-	do
+	if(!mute)
 	{
-		res = wav_file_read_samples(&wav_file, wav_file_buff, lc3_codec_info.samples_per_frame);
-		if(res == WAV_FILE_END)
+		do
 		{
-			if(wav_file_rewind(&wav_file))
+			res = wav_file_read_samples(&wav_file, wav_file_buff, lc3_codec_info.samples_per_frame);
+			if(res == WAV_FILE_END)
+			{
+				if(wav_file_rewind(&wav_file))
+				{
+					PRINTF("\nwav_file_rewind fail!\n");
+					return -1;
+				}
+				
+				continue;
+			}
+			if(res == WAV_FILE_ERR)
 			{
 				PRINTF("\nwav_file_rewind fail!\n");
 				return -1;
 			}
-			
-			continue;
-		}
-		if(res == WAV_FILE_ERR)
-		{
-			PRINTF("\nwav_file_rewind fail!\n");
-			return -1;
-		}
-	} while (res != 0);
+		} while (res != 0);
+	}
 
 	bits = wav_file.bits;
 #endif
+
+	if(mute)
+	{
+		memset(wav_file_buff, 0, lc3_codec_info.samples_per_frame * 2 * (bits / 8));
+	}
+
 	/* copy data from pcm form to channel format */
 	if(2 == lc3_codec_info.channels)
 	{
@@ -319,23 +331,16 @@ static int audio_stream_encode(void)
 		net_buf_add_mem(buf[i], sdu_buff[i], lc3_codec_info.octets_per_frame);
 	}
 
-	if(lc3_preset.qos.framing == BT_AUDIO_CODEC_QOS_FRAMING_FRAMED)
+	if(seq_num == 0)
 	{
-		if(seq_num == 0)
-		{
-			tx_samples = 0;
-			tx_time_stamp_start = get_sync_signal_timestamp() + get_iso_interval();
-			sdu_time_stamp = tx_time_stamp_start;
-		}
-		else
-		{
-			tx_samples += lc3_codec_info.samples_per_frame;
-			sdu_time_stamp = (uint32_t)((double)tx_time_stamp_start + (double)tx_samples * 1000000.0 / (double)lc3_codec_info.sample_rate);
-		}
+		tx_samples = 0;
+		tx_time_stamp_start = get_sync_signal_timestamp() + get_iso_interval();
+		sdu_time_stamp = tx_time_stamp_start;
 	}
 	else
 	{
-		sdu_time_stamp = BT_ISO_TIMESTAMP_NONE;
+		tx_samples += lc3_codec_info.samples_per_frame;
+		sdu_time_stamp = (uint32_t)((double)tx_time_stamp_start + (double)tx_samples * 1000000.0 / (double)lc3_codec_info.sample_rate);
 	}
 
 	for(int i = 0; i < CONFIG_BT_BAP_UNICAST_CLIENT_ASE_SNK_COUNT; i++)
@@ -380,10 +385,7 @@ static int audio_stream_encode(void)
 		}
 	}
 
-	if(lc3_preset.qos.framing == BT_AUDIO_CODEC_QOS_FRAMING_FRAMED)
-	{
-		seq_num += 1;
-	}
+	seq_num += 1;
 
 	return 0;
 }
@@ -710,11 +712,8 @@ static void stream_enabled(struct bt_bap_stream *stream)
 
 	if(stream == &streams[0])
 	{
-		if(lc3_preset.qos.framing == BT_AUDIO_CODEC_QOS_FRAMING_FRAMED)
-		{
-			seq_num = 0;
-			BOARD_SyncSignal_Start(0);
-		}
+		seq_num = 0;
+		BOARD_SyncSignal_Start(0);
 	}
 
 	OSA_SemaphorePost(sem_stream_enabled);
@@ -749,10 +748,7 @@ static void stream_disabled(struct bt_bap_stream *stream)
 
 static void stream_stopped(struct bt_bap_stream *stream, uint8_t reason)
 {
-	if(lc3_preset.qos.framing == BT_AUDIO_CODEC_QOS_FRAMING_FRAMED)
-	{
-		BOARD_SyncSignal_Stop();
-	}
+	BOARD_SyncSignal_Stop();
 	PRINTF("Audio Stream %p stopped with reason 0x%02X\n", stream, reason);
 }
 
@@ -918,19 +914,16 @@ static void unicast_client_location_cb(struct bt_conn *conn,
 				      enum bt_audio_dir dir,
 				      enum bt_audio_location loc)
 {
-	int index;
-	
 	PRINTF("dir %u loc %X\n", dir, loc);
 
-	for(index = 0; index < CONFIG_BT_MAX_CONN; index++)
+	for(int index = 0; index < CONFIG_BT_MAX_CONN; index++)
 	{
 		if(conn == default_conn[index])
 		{
+			audio_receiver_loc[index] = loc;
 			break;
 		}
 	}
-
-	audio_receiver_loc[index] = loc;
 }
 
 static void available_contexts_cb(struct bt_conn *conn,
@@ -1781,13 +1774,18 @@ void unicast_media_sender_task(void *param)
 						}
 					}
 				}
-				res = audio_stream_encode();
+				res = audio_stream_encode(false);
 			}
 			else
 			{
 				if(cis_stream_play_update)
 				{
 					cis_stream_play_update = false;
+
+					/* send 2 mute frames to sink to avoid LC3 PLC noise. */
+					(void)audio_stream_encode(true);
+					(void)audio_stream_encode(true);
+
 #if 1				/* MCUX-62728: walkaround to disconnect 2rd CIS first for controller fw limitation. */
 					for(int i = 1; i >= 0; i--)
 #else

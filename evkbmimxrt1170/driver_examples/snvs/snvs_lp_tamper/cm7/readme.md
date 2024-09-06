@@ -4,7 +4,7 @@ The SNVS LP TAMPER project is a simple demonstration program of the SDK SNVS LP 
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

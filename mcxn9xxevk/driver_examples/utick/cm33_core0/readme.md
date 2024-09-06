@@ -6,7 +6,7 @@ a message a printed on the UART terminal.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

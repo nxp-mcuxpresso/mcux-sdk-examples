@@ -28,14 +28,24 @@ struct flash_area boot_flash_map[MCUBOOT_IMAGE_SLOT_NUMBER] = {
      .fa_size      = BOOT_FLASH_CAND_APP - BOOT_FLASH_ACT_APP,
      .fa_name      = "APP_SECONDARY"}};
 
-#ifdef CONFIG_MCUBOOT_ENCRYPTED_XIP_SUPPORT
+#ifdef CONFIG_ENCRYPT_XIP_EXT_ENABLE
 
-struct flash_area boot_enc_flash_map[1] = {
-    /* Image 0; slot virtual - Main Application Encrypted Slot */
+struct flash_area boot_flash_meta_map[1] = {
+    /* Encrypted XIP metadata storage */
     {.fa_id        = 0,
      .fa_device_id = FLASH_DEVICE_ID,
-     .fa_off       = BOOT_FLASH_ENC_APP - BOOT_FLASH_BASE,
+     .fa_off       = BOOT_FLASH_ENC_META - BOOT_FLASH_BASE,
+     .fa_size      = MFLASH_SECTOR_SIZE,
+     .fa_name      = "METADATA"}};
+
+#ifndef CONFIG_ENCRYPT_XIP_EXT_OVERWRITE_ONLY
+struct flash_area boot_flash_exec_map[1] = {
+    /* Encrypted XIP execution slot */
+    {.fa_id        = 0,
+     .fa_device_id = FLASH_DEVICE_ID,
+     .fa_off       = BOOT_FLASH_EXEC_APP - BOOT_FLASH_BASE,
      .fa_size      = BOOT_FLASH_CAND_APP - BOOT_FLASH_ACT_APP,
      .fa_name      = "APP_ENCRYPTED"}};
+#endif
 
 #endif

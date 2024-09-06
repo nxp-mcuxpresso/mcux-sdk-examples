@@ -237,19 +237,6 @@ void BleApp_StateMachineHandler(deviceId_t peerDeviceId, appEvent_t event)
         }
         break;
 
-        case mAppRunning_c:
-        {
-            if ( event == mAppEvt_PeerDisconnected_c )
-            {
-                maPeerInformation[peerDeviceId].deviceId = gInvalidDeviceId_c;
-                maPeerInformation[peerDeviceId].appState = mAppIdle_c;
-                maPeerInformation[peerDeviceId].customInfo.hPsmChannelChar = gGattDbInvalidHandle_d;
-                shell_cmd_finished();
-            }
-
-        }
-        break;
-
         case mAppCCCPhase2WaitingForRequest_c:
         {
             if (event == mAppEvt_SentSPAKEResponse_c)
@@ -291,6 +278,15 @@ void BleApp_StateMachineHandler(deviceId_t peerDeviceId, appEvent_t event)
         }
         break;
     }
+
+    /* Handle disconnected event in all application states */
+    if ( event == mAppEvt_PeerDisconnected_c )
+    {
+        maPeerInformation[peerDeviceId].deviceId = gInvalidDeviceId_c;
+        maPeerInformation[peerDeviceId].appState = mAppIdle_c;
+        maPeerInformation[peerDeviceId].customInfo.hPsmChannelChar = gGattDbInvalidHandle_d;
+        shell_cmd_finished();
+    }
 }
 
 /*!*************************************************************************************************
@@ -317,11 +313,31 @@ void APP_BleEventHandler(void *pData)
         }
         break;
         
-        case mAppEvt_Shell_ShellStartDiscovery_Command_c:
+        case mAppEvt_Shell_ShellStartDiscoveryOP_Command_c:
         {
+#if defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE)
+            gScanParams.filterPolicy = (uint8_t)gScanAll_c;
+            gConnReqParams.filterPolicy = (uint8_t)gUseDeviceAddress_c;
+#endif /* defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE) */
             BleApp_Start();
         }
         break;
+#if defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE)
+        case mAppEvt_Shell_ShellStartDiscoveryPE_Command_c:
+        {
+            gapDecisionInstructionsData_t decisionInstructions;
+            gConnReqParams.filterPolicy = (uint8_t)gUseFilterAcceptListAllPDUs_c;
+            
+            /* Set scanning filter policy for DBAF Decision Indication PDUs */
+            gScanParams.filterPolicy = (uint8_t)gScanOnlyDecisionPDUs_c;
+            /* Set DBAF Decision Instructions */
+            decisionInstructions.testGroup = gDITG_NewTestGroup_c;
+            decisionInstructions.passCriteria = gDITPC_CheckPasses_c;
+            decisionInstructions.relevantField = gDIRF_AdvAddress_c;
+            decisionInstructions.testParameters.advA.check = gDIAAC_AdvAinFilterAcceptList_c;
+            (void)Gap_SetDecisionInstructions(1U, &decisionInstructions);
+        }
+#endif /* defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE) */
         
         case mAppEvt_Shell_StopDiscovery_Command_c:
         {
@@ -396,6 +412,7 @@ void APP_BleEventHandler(void *pData)
         case mAppEvt_GenericCallback_RandomAddressReady_c:
         case mAppEvt_GenericCallback_CtrlNotifEvent_c:
     	case mAppEvt_GenericCallback_BondCreatedEvent_c:
+        case mAppEvt_GenericCallback_DecisionInstructionsSetupComplete_c:
         {
             App_HandleGenericCallback(pEventData);
             break;
@@ -930,7 +947,13 @@ static void App_HandleGenericCallback(appEventData_t *pEventData)
             break;
         }
 #endif
-        
+#if defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE)
+        case mAppEvt_GenericCallback_DecisionInstructionsSetupComplete_c:
+        {
+            BleApp_Start();
+        }
+        break;
+#endif /* defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE) */
         default:
         {
             ; /* No action required */

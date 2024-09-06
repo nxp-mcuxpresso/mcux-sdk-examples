@@ -18,7 +18,7 @@ product: Pins v15.0
 processor: RW612
 package_id: RW612ETA2I
 mcu_data: ksdk2_0
-processor_version: 0.15.4
+processor_version: 0.16.9
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -45,8 +45,8 @@ void BOARD_InitBootPins(void)
 BOARD_InitPins:
 - options: {callFromInitBoot: 'true', coreID: cm33, enableClock: 'true'}
 - pin_list:
-  - {pin_num: F3, peripheral: FLEXCOMM3, signal: USART_RXD, pin_signal: GPIO_24}
-  - {pin_num: D12, peripheral: GPIO, signal: 'PIO0, 0', pin_signal: GPIO_0, direction: OUTPUT}
+  - {pin_num: E5, peripheral: FLEXCOMM3, signal: USART_RXD, pin_signal: GPIO_24}
+  - {pin_num: M1, peripheral: GPIO, signal: 'PIO0, 0', pin_signal: GPIO_0, direction: OUTPUT}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -63,15 +63,15 @@ void BOARD_InitPins(void)
     /* Enables the clock for the GPIO0 module */
     GPIO_PortInit(GPIO, 0);
 
-    gpio_pin_config_t gpio0_pinD12_config = {
+    gpio_pin_config_t gpio0_pinM1_config = {
         .pinDirection = kGPIO_DigitalOutput,
         .outputLogic = 0U
     };
-    /* Initialize GPIO functionality on pin PIO0_0 (pin D12)  */
-    GPIO_PinInit(GPIO, 0U, 0U, &gpio0_pinD12_config);
-    /* Initialize FC3_USART_DATA functionality on pin GPIO_24 (pin F3) */
+    /* Initialize GPIO functionality on pin PIO0_0 (pin M1)  */
+    GPIO_PinInit(GPIO, 0U, 0U, &gpio0_pinM1_config);
+    /* Initialize FC3_USART_DATA functionality on pin GPIO_24 (pin E5) */
     IO_MUX_SetPinMux(IO_MUX_FC3_USART_DATA);
-    /* Initialize GPIO0 functionality on pin GPIO_0 (pin D12) */
+    /* Initialize GPIO0 functionality on pin GPIO_0 (pin M1) */
     IO_MUX_SetPinMux(IO_MUX_GPIO0);
 }
 /***********************************************************************************************************************

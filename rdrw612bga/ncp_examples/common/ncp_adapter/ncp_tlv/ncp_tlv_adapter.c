@@ -1,8 +1,8 @@
 /*
  * Copyright 2022-2024 NXP
- * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
+ * The BSD-3-Clause license can be found at https://spdx.org/licenses/BSD-3-Clause.html
  */
 
 #include "crc.h"
@@ -50,6 +50,7 @@ void ncp_tlv_process(osa_task_param_t arg);
 static OSA_TASK_DEFINE(ncp_tlv_process, NCP_TLV_TX_TASK_PRIORITY, 1, NCP_TLV_TX_TASK_STACK_SIZE, 0);
 /* NCP adapter tx queue counter */
 static int ncp_tlv_queue_len = 0;
+static bool ncp_initialized = false;
 
 /*******************************************************************************
  * API
@@ -228,6 +229,11 @@ ncp_status_t ncp_adapter_init(void)
 {
     ncp_status_t status = NCP_STATUS_SUCCESS;
 
+    if (ncp_initialized == true)
+    {
+        return status;
+    }
+
 #if CONFIG_NCP_UART
     ncp_tlv_adapter.intf_ops = &ncp_uart_ops;
 #elif (CONFIG_NCP_SPI)
@@ -252,12 +258,16 @@ ncp_status_t ncp_adapter_init(void)
         return status;
     }
 
+    ncp_initialized = true;
+
     return status;
 }
 
 ncp_status_t ncp_adapter_deinit(void)
 {
     ncp_status_t status = NCP_STATUS_SUCCESS;
+
+    ncp_initialized = false;
 
     /* Deinit interface */
     status = (ncp_status_t)ncp_tlv_adapter.intf_ops->deinit(NULL);

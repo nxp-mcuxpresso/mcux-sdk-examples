@@ -9,7 +9,7 @@ TCP/IP stack. It means the program running on the target device can communicate 
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

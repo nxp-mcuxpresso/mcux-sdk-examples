@@ -37,7 +37,7 @@ void ctimer_match1_callback(uint32_t flags);
 
 /* Array of function pointers for callback for each channel */
 ctimer_callback_t ctimer_callback_table[] = {
-    NULL, ctimer_match0_callback, NULL, ctimer_match1_callback, NULL, NULL, NULL, NULL};
+    NULL, NULL, ctimer_match0_callback, ctimer_match1_callback, NULL, NULL, NULL, NULL};
 
 /*******************************************************************************
  * Variables

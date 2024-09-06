@@ -8,7 +8,7 @@ Theoretically, the triggered SINC result should be equal to the SPI's output val
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

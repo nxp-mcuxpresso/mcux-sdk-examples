@@ -4,7 +4,7 @@
   <externalDefinitions>
     <definition extID="MIMXRT1176DVMAA"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK216000_evkbmimxrt1170_examples_manifest_v3_14" name="MCUXpressoSDK216000_evkbmimxrt1170_examples_manifest_v3_14" version="2.16.000" revision="2.16.000"/>
+  <ksdk id="MCUXpressoSDK216100_evkbmimxrt1170_examples_manifest_v3_14" name="MCUXpressoSDK216100_evkbmimxrt1170_examples_manifest_v3_14" version="2.16.100" revision="2.16.100"/>
   <boards>
     <board id="evkbmimxrt1170" name="MIMXRT1170-EVKB" version="1.0.0" package="MIMXRT1176DVMAA">
       <examples>
@@ -1251,6 +1251,26 @@
         <example id="evkbmimxrt1170_wifi_cli_over_ble_wu" name="wifi_cli_over_ble_wu" brief="wifi_cli_over_ble_wu" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/wifi_cli_over_ble_wu/cm7">
           <external path="edgefast_bluetooth_examples/wifi_cli_over_ble_wu/cm7" type="xml">
             <files mask="wifi_cli_over_ble_wu_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkbmimxrt1170_pbap_pce_cm7" name="pbap_pce_cm7" brief="The Edgefast Bluetooth bluetooth pbap_pce example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/pbap_pce/cm7">
+          <external path="edgefast_bluetooth_examples/pbap_pce/cm7" type="xml">
+            <files mask="pbap_pce_cm7_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkbmimxrt1170_pbap_pse_cm7" name="pbap_pse_cm7" brief="The Edgefast Bluetooth bluetooth pbap_pse example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/pbap_pse/cm7">
+          <external path="edgefast_bluetooth_examples/pbap_pse/cm7" type="xml">
+            <files mask="pbap_pse_cm7_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkbmimxrt1170_map_mce_cm7" name="map_mce_cm7" brief="The Edgefast Bluetooth bluetooth map_mce example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/map_mce/cm7">
+          <external path="edgefast_bluetooth_examples/map_mce/cm7" type="xml">
+            <files mask="map_mce_cm7_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkbmimxrt1170_map_mse_cm7" name="map_mse_cm7" brief="The Edgefast Bluetooth bluetooth map_mse example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/map_mse/cm7">
+          <external path="edgefast_bluetooth_examples/map_mse/cm7" type="xml">
+            <files mask="map_mse_cm7_v3_14.xml"/>
           </external>
         </example>
         <example id="evkbmimxrt1170_dev_audio_generator_bm_cm7" name="dev_audio_generator_bm_cm7" brief="The USB Audio Generator application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a recording device and users can record the sound from this device via the &quot;Sound Recorder&quot; in the Windows Accessories." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/evkbmimxrt1170/usb_examples/usb_device_audio_generator/bm/cm7">
@@ -2838,6 +2858,16 @@
             <files mask="wifi_ipv4_ipv6_echo_cm7_v3_14.xml"/>
           </external>
         </example>
+        <example id="evkbmimxrt1170_coex_cli_cm7" name="coex_cli_cm7" brief="The coex_cli." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="coex_examples" path="examples/evkbmimxrt1170/coex_examples/coex_cli/cm7">
+          <external path="coex_examples/coex_cli/cm7" type="xml">
+            <files mask="coex_cli_cm7_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkbmimxrt1170_coex_wpa_supplicant_cm7" name="coex_wpa_supplicant_cm7" brief="The coex_wpa_supplicant." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="coex_examples" path="examples/evkbmimxrt1170/coex_examples/coex_wpa_supplicant/cm7">
+          <external path="coex_examples/coex_wpa_supplicant/cm7" type="xml">
+            <files mask="coex_wpa_supplicant_cm7_v3_14.xml"/>
+          </external>
+        </example>
         <example id="evkbmimxrt1170_puf_cm7" name="puf_cm7" brief="This driver example project demonstrates how to use driver for the PUF controller which provides a secure key storage." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/puf" path="examples/evkbmimxrt1170/driver_examples/puf/cm7">
           <external path="driver_examples/puf/cm7" type="xml">
             <files mask="puf_cm7_v3_14.xml"/>
@@ -2936,6 +2966,11 @@
         <example id="evkbmimxrt1170_power_manager_test_asymmetric_multiCore_bm_core0" name="power_manager_test_asymmetric_multiCore_bm_core0" brief="This example demonstrates the basic usage of the Power Manager framework for asymmetric multicore platforms." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" linked_projects="evkbmimxrt1170_power_manager_test_asymmetric_multiCore_bm_core1" path="examples/evkbmimxrt1170/demo_apps/power_manager_test/multiCore_bm/core0">
           <external path="demo_apps/power_manager_test/multiCore_bm/core0" type="xml">
             <files mask="power_manager_test_asymmetric_multiCore_bm_core0_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkbmimxrt1170_tflm_cm7" name="tflm_cm7" brief="Library build of TensorFlow Lite Micro" toolchain="mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkbmimxrt1170/eiq_examples/tflm_lib_cm7">
+          <external path="eiq_examples/tflm_lib_cm7" type="xml">
+            <files mask="tflm_cm7_v3_14.xml"/>
           </external>
         </example>
         <example id="evkbmimxrt1170_tflm_cifar10_cm7" name="tflm_cifar10_cm7" brief="CIFAR-10 example for TensorFlow Lite Micro" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkbmimxrt1170/eiq_examples/tflm_cifar10">

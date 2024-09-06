@@ -18,7 +18,7 @@ User can also set the wakeup source following the debug console prompts.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

@@ -36,7 +36,7 @@ To run PC side as a client with a board connected as a server to COM3 execute:
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

@@ -9,7 +9,7 @@ The file 'spi_dma_b2b_transfer_master.c' includes the SPI master code.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

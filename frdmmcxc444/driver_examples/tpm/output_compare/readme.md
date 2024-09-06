@@ -6,7 +6,7 @@ should probe the TPM output with a oscilloscope to see the signal toggling.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

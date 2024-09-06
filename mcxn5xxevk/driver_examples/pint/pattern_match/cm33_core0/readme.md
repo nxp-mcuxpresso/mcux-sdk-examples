@@ -4,7 +4,7 @@ This example shows how to use SDK drivers to use the Pin interrupt & pattern mat
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

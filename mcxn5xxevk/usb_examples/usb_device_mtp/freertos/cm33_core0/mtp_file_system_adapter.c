@@ -246,6 +246,7 @@ usb_status_t USB_DeviceMtpFstat(const uint16_t *fileName, usb_device_mtp_file_in
     uint8_t *src;
     uint8_t *dest;
 
+    (void)memset(&fno, 0, sizeof(fno));
     if (fileInfo == NULL)
     {
         return kStatus_USB_InvalidParameter;
@@ -362,6 +363,7 @@ usb_status_t USB_DeviceMtpReadDir(usb_device_mtp_dir_handle_t dir, usb_device_mt
     uint8_t *src;
     uint8_t *dest;
 
+    (void)memset(&fno, 0, sizeof(fno));
     if (dir == NULL)
     {
         return kStatus_USB_InvalidHandle;
@@ -459,10 +461,10 @@ usb_status_t USB_DeviceMtpRename(const uint16_t *oldName, const uint16_t *newNam
 
 usb_status_t USB_DeviceMtpGetDiskTotalBytes(const uint16_t *path, uint64_t *totalBytes)
 {
-    DWORD freeClust;
-    DWORD totalSector;
-    FATFS *fs;
-    uint32_t sectorSize;
+    DWORD freeClust = 0;
+    DWORD totalSector = 0;
+    FATFS *fs = NULL;
+    uint32_t sectorSize = 0U;
 
     if (totalBytes == NULL)
     {
@@ -479,10 +481,10 @@ usb_status_t USB_DeviceMtpGetDiskTotalBytes(const uint16_t *path, uint64_t *tota
 
 usb_status_t USB_DeviceMtpGetDiskFreeBytes(const uint16_t *path, uint64_t *freeBytes)
 {
-    DWORD freeClust;
-    DWORD freeSector;
-    FATFS *fs;
-    uint32_t sectorSize;
+    DWORD freeClust = 0;
+    DWORD freeSector = 0;
+    FATFS *fs = NULL;
+    uint32_t sectorSize = 0U;
 
     if (freeBytes == NULL)
     {

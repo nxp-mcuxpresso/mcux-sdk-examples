@@ -6,7 +6,7 @@ the waveform type based on the log, and then the selected waveform will be outpu
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

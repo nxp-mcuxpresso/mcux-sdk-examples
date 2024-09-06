@@ -8,7 +8,7 @@ In this example, it would output a time stamp information when the application i
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

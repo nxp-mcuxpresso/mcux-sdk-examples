@@ -23,10 +23,10 @@
 #define TRANSFER_BAUDRATE 500000U /*! Transfer baudrate - 500k */
 /* Slave related */
 #define SLAVE_FLEXIO_SPI_BASEADDR (FLEXIO0)
-#define FLEXIO_SPI_SIN_PIN        8U
-#define FLEXIO_SPI_SOUT_PIN       20U
-#define FLEXIO_SPI_CLK_PIN        21U
-#define FLEXIO_SPI_PCS_PIN        7U
+#define FLEXIO_SPI_SIN_PIN        21U
+#define FLEXIO_SPI_SOUT_PIN       7U
+#define FLEXIO_SPI_CLK_PIN        8U
+#define FLEXIO_SPI_PCS_PIN        20U
 #define SLAVE_FLEXIO_SPI_IRQ      FLEXIO0_IRQn
 /* Master related */
 #define MASTER_LPSPI_BASEADDR         (LPSPI0)

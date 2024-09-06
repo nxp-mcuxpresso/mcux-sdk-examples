@@ -12,18 +12,21 @@
 
 #include "lwip/opt.h"
 
-#if LWIP_IPV4 && LWIP_DHCP && LWIP_DNS && LWIP_RAW && LWIP_IGMP && LWIP_UDP
-#include "lwip/dhcp.h"
+#if LWIP_IPV4 && LWIP_DNS && LWIP_RAW && LWIP_IGMP && LWIP_UDP
 #include "lwip/dns.h"
 #include "lwip/igmp.h"
 #include "lwip/init.h"
 #include "lwip/ip4_addr.h"
-#include "lwip/prot/dhcp.h"
 #include "lwip/timeouts.h"
 #include "netif/ethernet.h"
 #include "ping.h"
 #include "udpecho_raw.h"
 #include "usb_ethernetif.h"
+
+#if LWIP_DHCP
+#include "lwip/dhcp.h"
+#include "lwip/prot/dhcp.h"
+#endif
 
 #include "fsl_device_registers.h"
 #include "usb_host_config.h"
@@ -39,17 +42,34 @@
 #define EXAMPLE_NETIF_INIT_FN USB_EthernetIfInIt
 #endif
 
-#define PING_DOMAIN_NAME   ("www.nxp.com")
-#define MUTICAST_GROUP_IP1 (239)
-#define MUTICAST_GROUP_IP2 (0)
-#define MUTICAST_GROUP_IP3 (0)
-#define MUTICAST_GROUP_IP4 (1)
+#ifndef NETIF_STATIC_ADDR
+#define NETIF_STATIC_ADDR ("192.168.0.1")
+#endif
+
+#ifndef NETIF_STATIC_MASK
+#define NETIF_STATIC_MASK ("255.255.255.0")
+#endif
+
+#ifndef NETIF_STATIC_GW
+#define NETIF_STATIC_GW ("192.168.0.254")
+#endif
+
+#ifndef NETIF_STATIC_DNS
+#define NETIF_STATIC_DNS ("1.1.1.1")
+#endif
+
+#define PING_DOMAIN_NAME    ("nxp.com")
+#define IGMP_MUTICAST_GROUP ("239.0.0.1")
+
+#define NETIF_LINK_STATE_OK (1U << 0)
+#define NETIF_LINK_IP_OK    (1U << 1)
+#define NETIF_LINK_IGMP_OK  (1U << 2)
+#define NETIF_LINK_READY    (1U << 3)
+#define NETIF_LINK_MASK     (0x0000000FU)
 
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
-static void lwip_dns_found(const char *name, const ip_addr_t *ipaddr, void *arg);
-static void print_dhcp_state(struct netif *netif);
 void BOARD_InitHardware(void);
 void USB_EthernetIfProcess(struct netif *netif);
 
@@ -59,14 +79,7 @@ void USB_EthernetIfProcess(struct netif *netif);
 extern usb_host_handle g_HostHandle;
 struct netif netif;
 ethernetifConfig_t ethernetConfig;
-ip4_addr_t multicastGroup;
-ip4_addr_t dnsResolution;
-uint8_t linkState = 0;
-uint8_t dhcpState = 0;
-uint8_t dnsState  = 0;
-uint8_t pingState = 0;
-uint8_t igmpState = 0;
-uint8_t udpState  = 0;
+uint32_t netifLinkState = 0;
 
 /*******************************************************************************
  * Code
@@ -117,9 +130,11 @@ int main(void)
 
     ethernetConfig.controllerId = CONTROLLER_ID;
     ethernetConfig.privateData  = NULL;
-    netif_add(&netif, NULL, NULL, NULL, &ethernetConfig, EXAMPLE_NETIF_INIT_FN, ethernet_input);
+    netif_add(&netif, IP4_ADDR_ANY, IP4_ADDR_ANY, IP4_ADDR_ANY, &ethernetConfig, EXAMPLE_NETIF_INIT_FN, ethernet_input);
     netif_set_default(&netif);
     netif_set_up(&netif);
+
+    netifLinkState &= ~NETIF_LINK_MASK;
 
     while (1)
     {
@@ -138,199 +153,176 @@ void SysTick_Handler(void)
 }
 
 /**
- * @brief prints DHCP status of the interface when it has changed from last status
- * @param netif network interface structure
- */
-static void print_dhcp_state(struct netif *netif)
-{
-    static u8_t dhcp_last_state = DHCP_STATE_OFF;
-    struct dhcp *dhcp           = netif_dhcp_data(netif);
-
-    if (dhcp == NULL)
-    {
-        dhcp_last_state = DHCP_STATE_OFF;
-    }
-    else if (dhcp_last_state != dhcp->state)
-    {
-        dhcp_last_state = dhcp->state;
-
-        PRINTF(" DHCP state       : ");
-        switch (dhcp_last_state)
-        {
-            case DHCP_STATE_OFF:
-                PRINTF("OFF");
-                break;
-
-            case DHCP_STATE_REQUESTING:
-                PRINTF("REQUESTING");
-                break;
-
-            case DHCP_STATE_INIT:
-                PRINTF("INIT");
-                break;
-
-            case DHCP_STATE_REBOOTING:
-                PRINTF("REBOOTING");
-                break;
-
-            case DHCP_STATE_REBINDING:
-                PRINTF("REBINDING");
-                break;
-
-            case DHCP_STATE_RENEWING:
-                PRINTF("RENEWING");
-                break;
-
-            case DHCP_STATE_SELECTING:
-                PRINTF("SELECTING");
-                break;
-
-            case DHCP_STATE_INFORMING:
-                PRINTF("INFORMING");
-                break;
-
-            case DHCP_STATE_CHECKING:
-                PRINTF("CHECKING");
-                break;
-
-            case DHCP_STATE_BOUND:
-                PRINTF("BOUND");
-                break;
-
-            case DHCP_STATE_BACKING_OFF:
-                PRINTF("BACKING_OFF");
-                break;
-
-            default:
-                PRINTF("%u", dhcp_last_state);
-                assert(0);
-                break;
-        }
-        PRINTF("\r\n");
-
-        if (dhcp_last_state == DHCP_STATE_BOUND)
-        {
-            dhcpState = 1;
-            PRINTF("\r\n IPv4 Address     : %s\r\n", ipaddr_ntoa(&netif->ip_addr));
-            PRINTF(" IPv4 Subnet mask : %s\r\n", ipaddr_ntoa(&netif->netmask));
-            PRINTF(" IPv4 Gateway     : %s\r\n\r\n", ipaddr_ntoa(&netif->gw));
-        }
-    }
-}
-
-/**
  * @brief check DHCP state and process ICMP & IGMP
  * @param netif network interface structure
  */
 void USB_EthernetIfProcess(struct netif *netif)
 {
-    if (netif_is_link_up(netif) && !linkState)
+    static ip4_addr_t netif_multicastGroup;
+    static ip4_addr_t dnsResolution;
+
+    if (netif_is_up(netif))
     {
-        if (!dhcpState)
+        if (netif_is_link_up(netif) && !(netifLinkState & NETIF_LINK_STATE_OK))
         {
+            netifLinkState |= NETIF_LINK_STATE_OK;
+
+#if LWIP_DHCP
+            PRINTF("Get IPv4 information from DHCP\r\n");
             dhcp_start(netif);
-            PRINTF(
-                "\r\n"
-                "************************************************\r\n"
-                " DHCP Information\r\n"
-                "************************************************\r\n");
-            while (!dhcp_supplied_address(netif))
+            PRINTF("Waiting DHCP server process...");
+            u8_t dhcp_last_state = DHCP_STATE_OFF;
+            u8_t dhcp_state      = DHCP_STATE_OFF;
+            while (!(netifLinkState & NETIF_LINK_IP_OK))
             {
                 USB_EthernetIfInput(netif);
                 sys_check_timeouts();
-                print_dhcp_state(netif);
-            }
-        }
 
-        if (!igmpState)
-        {
-            IP4_ADDR(&multicastGroup, MUTICAST_GROUP_IP1, MUTICAST_GROUP_IP2, MUTICAST_GROUP_IP3, MUTICAST_GROUP_IP4);
-            igmp_joingroup_netif(netif, &multicastGroup);
-            igmpState = 1;
-
-            PRINTF(
-                "************************************************\r\n"
-                " IGMP Information\r\n"
-                "************************************************\r\n");
-            PRINTF(" IPv4 Group       : %s\r\n", ipaddr_ntoa(&multicastGroup));
-            PRINTF("\r\n");
-        }
-
-        if (!udpState)
-        {
-            udpecho_raw_init();
-            udpState = 1;
-        }
-        PRINTF("Server listening on UDP port 7\r\n");
-
-        if (!dnsState)
-        {
-            if (dns_gethostbyname(PING_DOMAIN_NAME, &dnsResolution, lwip_dns_found, NULL) != ERR_OK)
-            {
-                while (!dnsState)
+                if (!netif_is_link_up(netif))
                 {
+                    PRINTF(" ERROR!\r\n");
+                    break;
+                }
+
+                dhcp_state = ((struct dhcp *)(netif_dhcp_data(netif)))->state;
+                if (dhcp_state != dhcp_last_state)
+                {
+                    PRINTF(" %d ", dhcp_state);
+                }
+                dhcp_last_state = dhcp_state;
+
+                if (dhcp_supplied_address(netif))
+                {
+                    netifLinkState |= NETIF_LINK_IP_OK;
+                    PRINTF(" OK!\r\n");
+                }
+            }
+#else
+            PRINTF("Setting IPv4 information...");
+            ip4_addr_t netif_addr, netif_mask, netif_gw, netif_dns;
+            ip4addr_aton(NETIF_STATIC_ADDR, &netif_addr);
+            ip4addr_aton(NETIF_STATIC_MASK, &netif_mask);
+            ip4addr_aton(NETIF_STATIC_GW, &netif_gw);
+            ip4addr_aton(NETIF_STATIC_DNS, &netif_dns);
+            netif_set_addr(netif, &netif_addr, &netif_mask, &netif_gw);
+            dns_setserver(0, &netif_dns);
+            netifLinkState |= NETIF_LINK_IP_OK;
+            PRINTF(" OK!\r\n");
+#endif
+
+            if (netifLinkState & NETIF_LINK_IP_OK)
+            {
+                ip4addr_aton(IGMP_MUTICAST_GROUP, &netif_multicastGroup);
+                if (igmp_joingroup_netif(netif, &netif_multicastGroup) != ERR_OK)
+                {
+                    PRINTF("Joining group error\r\n");
+                }
+                else
+                {
+                    netifLinkState |= NETIF_LINK_IGMP_OK;
+                }
+
+                if (netifLinkState & NETIF_LINK_IGMP_OK)
+                {
+                    netifLinkState |= NETIF_LINK_READY;
+                    PRINTF(
+                        "\r\n"
+                        "************************************************\r\n"
+                        " Network Interface Information\r\n"
+                        "************************************************\r\n");
+                    PRINTF(" IPv4 Address     : %s\r\n", ipaddr_ntoa(&netif->ip_addr));
+                    PRINTF(" IPv4 Subnet mask : %s\r\n", ipaddr_ntoa(&netif->netmask));
+                    PRINTF(" IPv4 Gateway     : %s\r\n", ipaddr_ntoa(&netif->gw));
+                    for (u8_t num = 0; num < DNS_MAX_SERVERS; num++)
+                    {
+                        PRINTF(" IPv4 DNS%2d       : %s\r\n", num, ipaddr_ntoa(dns_getserver(num)));
+                    }
+                    PRINTF(" IPv4 Group       : %s\r\n", ipaddr_ntoa(&netif_multicastGroup));
+                    PRINTF(" MAC Address      : %X:%X:%X:%X:%X:%X\r\n\r\n", netif->hwaddr[0], netif->hwaddr[1],
+                           netif->hwaddr[2], netif->hwaddr[3], netif->hwaddr[4], netif->hwaddr[5]);
+                }
+            }
+
+            if (netifLinkState & NETIF_LINK_READY)
+            {
+                udpecho_raw_init();
+                PRINTF("Server listening on UDP port 7\r\n");
+
+                dnsResolution   = *IP4_ADDR_ANY;
+                u8_t retryCount = 0;
+                u8_t linkErr    = 0;
+                PRINTF("\r\nStart resolving domain name (%s)...\r\n", PING_DOMAIN_NAME);
+                err_t dnsErr;
+                do
+                {
+                    dnsErr = dns_gethostbyname(PING_DOMAIN_NAME, &dnsResolution, NULL, NULL);
+
                     USB_EthernetIfInput(netif);
                     sys_check_timeouts();
+
+                    if (!netif_is_link_up(netif))
+                    {
+                        linkErr = 1;
+                        break;
+                    }
+
+                    if (dnsErr != ERR_INPROGRESS && dnsErr != ERR_OK)
+                    {
+                        retryCount++;
+                        PRINTF("Retrying to resolve domain name (%s) %d...\r\n", PING_DOMAIN_NAME, retryCount);
+                    }
+                } while (dnsErr != ERR_OK && retryCount < 5);
+
+                if (!linkErr)
+                {
+                    if (ip4_addr_cmp(&dnsResolution, IP4_ADDR_ANY))
+                    {
+                        PRINTF("Resolving domain name (%s) error\r\n", PING_DOMAIN_NAME);
+                        ip4addr_aton(ipaddr_ntoa(dns_getserver(0)), &dnsResolution);
+                        PRINTF("\r\nTry to ping DNS server\r\n");
+                    }
+                    else
+                    {
+                        PRINTF("Domain name resolution success\r\n");
+                        PRINTF("\r\nTry to ping %s\r\n", PING_DOMAIN_NAME);
+                    }
+
+                    PRINTF("Start pinging [%s]:\r\n", ipaddr_ntoa(&dnsResolution));
+                    ping_init(&dnsResolution);
                 }
             }
         }
 
-        if (!pingState)
+        if (!netif_is_link_up(netif) && (netifLinkState & NETIF_LINK_STATE_OK))
         {
-            PRINTF("Pinging %s [%s]:\r\n", PING_DOMAIN_NAME, ipaddr_ntoa((ip_addr_t *)(&dnsResolution)));
-            ping_init((ip_addr_t *)(&dnsResolution));
-            pingState = 1;
-        }
+            netifLinkState &= ~NETIF_LINK_READY;
 
-        linkState = 1;
-    }
-    else if (!netif_is_link_up(netif) && linkState)
-    {
-        if (pingState)
-        {
             ping_stop();
-            pingState = 0;
-        }
 
-        if (igmpState)
-        {
-            igmp_leavegroup_netif(netif, &multicastGroup);
-            igmpState = 0;
-        }
+            if (netifLinkState & NETIF_LINK_IGMP_OK)
+            {
+                if (igmp_leavegroup_netif(netif, &netif_multicastGroup) != ERR_OK)
+                {
+                    PRINTF("Leaving group error\r\n");
+                }
+                else
+                {
+                    netifLinkState &= ~NETIF_LINK_IGMP_OK;
+                }
+            }
 
-        if (dhcpState)
-        {
-            dhcp_release_and_stop(netif);
-            dhcpState = 0;
-        }
+            if (netifLinkState & NETIF_LINK_IP_OK)
+            {
+#if LWIP_DHCP
+                dhcp_release_and_stop(netif);
+#else
+                netif_set_addr(netif, IP4_ADDR_ANY, IP4_ADDR_ANY, IP4_ADDR_ANY);
+#endif
+                netifLinkState &= ~NETIF_LINK_IP_OK;
+            }
 
-        if (dnsState)
-        {
-            dnsState = 0;
+            netifLinkState &= ~NETIF_LINK_STATE_OK;
         }
-
-        linkState = 0;
     }
-}
-
-/**
- * @brief callback when DNS resolution of dns_gethostbyname is successful
- * @param name DNS address input
- * @param ipaddr resolved ip address
- * @param arg arguments invoked
- */
-static void lwip_dns_found(const char *name, const ip_addr_t *ipaddr, void *arg)
-{
-    if (ipaddr != NULL)
-    {
-        dnsResolution.addr = ipaddr->addr;
-        dnsState           = 1;
-    }
-    else
-    {
-        PRINTF("DNS request error.\r\n");
-    }
-
-    return;
 }
 #endif

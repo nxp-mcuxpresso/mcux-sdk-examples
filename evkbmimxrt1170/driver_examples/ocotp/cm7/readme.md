@@ -6,7 +6,7 @@ Consider of the feature of One-Time programable, this example will just print th
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

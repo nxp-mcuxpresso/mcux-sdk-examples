@@ -9,7 +9,7 @@ Note: In flash boot mode, if you want to use the IDE reset program, please use s
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

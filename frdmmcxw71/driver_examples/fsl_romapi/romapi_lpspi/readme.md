@@ -10,7 +10,7 @@ operations on SPI flash memory are performed.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

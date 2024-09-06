@@ -3,7 +3,7 @@
  * @{
  ********************************************************************************** */
 /*
- * Copyright 2021 - 2023 NXP
+ * Copyright 2021 - 2024 NXP
  *
  *
  *
@@ -93,14 +93,14 @@
 
 #define BUTTON_TASK_STACK_SIZE          364
 
-#define SERIAL_MANAGER_TASK_STACK_SIZE  224
+#define SERIAL_MANAGER_TASK_STACK_SIZE  272
 
 #define gMainThreadStackSize_c          1200
 
-#define TM_TASK_STACK_SIZE              272
+#define TM_TASK_STACK_SIZE              384
 
 /* The size used for the Idle task, in dwords. */
-#define configMINIMAL_STACK_SIZE        140
+#define configMINIMAL_STACK_SIZE        158
 
 #endif
 
@@ -116,6 +116,8 @@
 /* Enable Serial Manager interface */
 #define gAppUseSerialManager_c                      1
 
+/* See documentation on how to enable DBAF */
+#define gBLE60_DecisionBasedAdvertisingFilteringSupport_d FALSE
 /*! *********************************************************************************
  *  Auto Configuration
  ********************************************************************************** */

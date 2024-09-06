@@ -185,6 +185,7 @@ PUBLIC uint8 u8SetReprovisionData( tsReprovissionData *psReprovission);
 PUBLIC uint8 u8SetJnAuthorizationTimeout(uint8 u8TimeOut);
 PUBLIC uint8 u8SendEndDeviceTimeOut( void);
 uint8 u8SetParentTimeoutMethod(uint8 u8Method);
+PUBLIC bool_t ZPS_bIsCoprocessorNewModule(void);
 
 /****************************************************************************/
 /***        External Functions                                            ***/

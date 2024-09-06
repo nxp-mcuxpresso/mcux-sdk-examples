@@ -6,7 +6,7 @@ configuration and use of the Programmable Logic Unit (PLU) to construct a combin
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

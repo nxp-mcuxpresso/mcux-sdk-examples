@@ -62,6 +62,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../edgefast_bluetooth_config.h"
 "${ProjDirPath}/../edgefast_bluetooth_audio_config.h"
 "${ProjDirPath}/../edgefast_bluetooth_debug_config.h"
+"${ProjDirPath}/../shell_common.c"
 "${ProjDirPath}/../board.c"
 "${ProjDirPath}/../board.h"
 "${ProjDirPath}/../clock_config.c"

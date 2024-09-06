@@ -59,5 +59,7 @@
 
 #include "edgefast_bluetooth_debug_config.h"
 
+#include "monolithic_config.h"
+
 #define DEBUG_CONSOLE_TX_RELIABLE_ENABLE (0U)
 

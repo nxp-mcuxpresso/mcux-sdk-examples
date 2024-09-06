@@ -103,6 +103,12 @@ extern int ncp_host_wifi_command_init();
 #if CONFIG_NCP_BLE
 extern int ncp_host_ble_command_init();
 #endif
+#if CONFIG_NCP_OT
+extern int ncp_host_ot_command_init();
+#if CONFIG_NCP_SDIO
+extern uint8_t ot_reset_flag;
+#endif
+#endif
 
 int mcu_get_command_resp_sem()
 {
@@ -601,6 +607,7 @@ done:
 
     return ret;
 }
+
 void ncp_host_input_task(void *pvParameters)
 {
     ncp_host_input_uart_config.srcclk = NCP_HOST_INPUT_UART_CLK_FREQ;
@@ -659,8 +666,20 @@ void ncp_host_input_task(void *pvParameters)
                 /*If the string command is empty, release command response semaphore.*/
                 mcu_put_command_resp_sem();
             }
-            else /*Send tlv command to ncp device */
+            else
+            {
+                /*Send tlv command to ncp device */
                 ncp_host_send_tlv_command();
+#if (CONFIG_NCP_OT && CONFIG_NCP_SDIO)
+                if (ot_reset_flag)
+                {
+                  PRINTF("Reseting...\n");
+                  /* Factoryreset need to erase flash, delay 3 seconds to ensure successful reset on the device side,  */
+                  vTaskDelay(pdMS_TO_TICKS(3000));
+                  ot_reset_flag = 0;
+                }
+#endif
+            }
 
             (void)PRINTF(PROMPT);
         }
@@ -724,6 +743,9 @@ int ncp_host_cli_init(void)
 #endif
 #if CONFIG_NCP_BLE
     ncp_host_ble_command_init();
+#endif
+#if CONFIG_NCP_OT
+    ncp_host_ot_command_init();
 #endif
 
     int n = 0;

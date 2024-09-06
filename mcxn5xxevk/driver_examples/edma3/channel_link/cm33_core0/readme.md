@@ -14,7 +14,7 @@ The example demostrate the channel link transfer by the feature of edma4:
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

@@ -6,7 +6,7 @@ Then tests the expected behaviour.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================
@@ -15,8 +15,8 @@ Toolchain supported
 
 Hardware requirements
 =====================
-- Mini/micro USB cable
-- FRDM-RW612 board
+- USB-C cable
+- FRDM-RW612 v2 board
 - Personal Computer
 
 Board settings
@@ -24,7 +24,7 @@ Board settings
 
 Prepare the Demo
 ================
-1.  Connect a micro USB cable between the PC host and the CMSIS DAP USB port (J1) on the board
+1.  Connect a USB-C cable between the PC host and the CMSIS DAP USB port (J1) on the board
 2.  Open a serial terminal with the following settings (See Appendix A in Getting started guide for description how to determine serial port number):
     - 115200 baud rate
     - 8 data bits

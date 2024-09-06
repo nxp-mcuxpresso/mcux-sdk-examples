@@ -5,7 +5,7 @@ external flash device.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================
@@ -14,8 +14,8 @@ Toolchain supported
 
 Hardware requirements
 =====================
-- Micro USB cable
-- FRDM-RW612 board
+- USB-C cable
+- FRDM-RW612 v2 board
 - Personal Computer
 
 Board settings

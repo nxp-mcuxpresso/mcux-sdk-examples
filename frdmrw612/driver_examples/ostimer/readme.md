@@ -7,7 +7,7 @@ to trigger the interrupt while the timer count tick reach the match value about 
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================
@@ -16,8 +16,8 @@ Toolchain supported
 
 Hardware requirements
 =====================
-- Micro USB cable
-- FRDM-RW612 board
+- USB-C cable
+- FRDM-RW612 v2 board
 - Personal Computer
 
 Board settings
@@ -25,7 +25,7 @@ Board settings
 
 Prepare the Demo
 ================
-1.  Connect a micro USB cable between the PC host and the MCU-Link USB port (J10) on the board
+1.  Connect a USB-C cable between the PC host and the MCU-Link USB port (J10) on the board
 2.  Open a serial terminal with the following settings:
     - 115200 baud rate
     - 8 data bits

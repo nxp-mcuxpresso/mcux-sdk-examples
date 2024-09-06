@@ -77,6 +77,8 @@
       <toolchainSetting id_refs="com.nxp.mcuxpresso">
         <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
           <value>FSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1</value>
+          <value>CONFIG_MFG_MONOLITHIC=1</value>
+          <value>CONFIG_MONOLITHIC_WIFI=1</value>
           <value>USE_RTOS=1</value>
           <value>PRINTF_ADVANCED_ENABLE=1</value>
           <value>CPU_RW612ETA2I</value>
@@ -171,10 +173,6 @@
       <files mask="build_flash_release.sh"/>
       <files mask="build_flash_debug.bat"/>
       <files mask="build_flash_debug.sh"/>
-      <files mask="build_debug.bat"/>
-      <files mask="build_debug.sh"/>
-      <files mask="build_release.bat"/>
-      <files mask="build_release.sh"/>
     </source>
     <source path="../../../../core/devices/RW612" project_relative_path="./" type="workspace" toolchain="armgcc">
       <files mask="all_lib_device.cmake"/>
@@ -197,7 +195,6 @@
       <files mask="readme_modules.txt"/>
     </source>
     <source path="armgcc/linker" project_relative_path="frdmrw612/wifi_examples/common/linker" type="linker" toolchain="armgcc">
-      <files mask="RW610_ram.ld"/>
       <files mask="RW610_flash.ld"/>
     </source>
     <source path="." project_relative_path="source" type="c_preinclude">

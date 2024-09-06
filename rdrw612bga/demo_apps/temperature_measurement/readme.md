@@ -5,7 +5,7 @@ this case just support RW61x platform at present.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

@@ -10,7 +10,7 @@ output signal frequency is 1/4 of the frequency when right frame is shown.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

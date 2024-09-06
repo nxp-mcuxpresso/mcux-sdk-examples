@@ -11,7 +11,7 @@ The demo shows how the various power mode switch to each other based on power ma
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

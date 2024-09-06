@@ -4,7 +4,7 @@
 ********************************************************************************** */
 /*! *********************************************************************************
 * Copyright 2015 Freescale Semiconductor, Inc.
-* Copyright 2016-2023 NXP
+* Copyright 2016-2024 NXP
 *
 *
 * \file
@@ -33,6 +33,9 @@
 #define smpEdiv         0x1F99
 #define mcEncryptionKeySize_c  16
 #define mDefaultTxPower               gBleAdvTxPowerNoPreference_c
+#if defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE)
+#define mcDbafEncryptionKeySize_c 16
+#endif /* defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE) */
 /************************************************************************************
 *************************************************************************************
 * Private type definitions
@@ -269,6 +272,71 @@ gapExtAdvertisingParameters_t gExtAdvParamsNonConnNonScann =
     /* secondaryAdvMaxSkip */       0, \
     /* enableScanReqNotification*/  FALSE \
 };
+
+#if defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE)
+/* DBAF Scannable Advertising Parameters */
+gapExtAdvertisingParameters_t gDbafParamsScannable =
+{
+    /* SID */                       (uint8_t)mExtAdvScannableSetId_c, \
+    /* handle */                    0xff, \
+    /* minInterval */               1600 /* 1 s */, \
+    /* maxInterval */               3200 /* 2 s */, \
+    /* ownAddrType */               gBleAddrTypePublic_c,\
+    /* ownAddress */                {0, 0, 0, 0, 0, 0}, \
+    /* peerAddrType */              gBleAddrTypePublic_c,\
+    /* peerAddress */               {0, 0, 0, 0, 0, 0}, \
+    /* channelMap */                (gapAdvertisingChannelMapFlags_t) (gAdvChanMapFlag37_c | gAdvChanMapFlag38_c | gAdvChanMapFlag39_c), \
+    /* filterPolicy */              gProcessAll_c, \
+    /* extAdvProperties */          (bleAdvRequestProperties_t)(gAdvReqScannable_c | gAdvUseDecisionPDU_c | gAdvIncludeTxPower_c), \
+    /* TxPower */                   mDefaultTxPower, \
+    /* primaryPHY  */               (gapLePhyMode_t)gLePhyCoded_c,\
+    /* secondaryPHY */              (gapLePhyMode_t)gLePhyCoded_c,\
+    /* secondaryAdvMaxSkip */       0, \
+    /* enableScanReqNotification*/  TRUE \
+};
+
+/* DBAF Connectable Advertising Parameters */
+gapExtAdvertisingParameters_t gDbafParamsConnectable =
+{
+    /* SID */                       (uint8_t)mExtAdvConnectableSetId_c, \
+    /* handle */                    0xff, \
+    /* minInterval */               1600 /* 1 s */, \
+    /* maxInterval */               3200 /* 2 s */, \
+    /* ownAddrType */               gBleAddrTypePublic_c,\
+    /* ownAddress */                {0, 0, 0, 0, 0, 0}, \
+    /* peerAddrType */              gBleAddrTypePublic_c,\
+    /* peerAddress */               {0, 0, 0, 0, 0, 0}, \
+    /* channelMap */                (gapAdvertisingChannelMapFlags_t) (gAdvChanMapFlag37_c | gAdvChanMapFlag38_c | gAdvChanMapFlag39_c), \
+    /* filterPolicy */              gProcessAll_c, \
+    /* extAdvProperties */          (bleAdvRequestProperties_t)(gAdvReqConnectable_c | gAdvUseDecisionPDU_c | gAdvIncludeTxPower_c), \
+    /* TxPower */                   mDefaultTxPower, \
+    /* primaryPHY */                (gapLePhyMode_t)gLePhyCoded_c,\
+    /* secondaryPHY */              (gapLePhyMode_t)gLePhyCoded_c,\
+    /* secondaryAdvMaxSkip */       0, \
+    /* enableScanReqNotification*/  FALSE \
+};
+
+/* DBAF Non Connectable Non Scannable Advertising Parameters */
+gapExtAdvertisingParameters_t gDbafParamsNonConnNonScann =
+{
+    /* SID */                       (uint8_t)mExtAdvNonConnNonScannSetId_c, \
+    /* handle */                    0xff, \
+    /* minInterval */               1600 /* 41.875 ms */, \
+    /* maxInterval */               3200 /* 42.5 ms */, \
+    /* ownAddrType */               gBleAddrTypePublic_c,\
+    /* ownAddress */                {0, 0, 0, 0, 0, 0}, \
+    /* peerAddrType */              gBleAddrTypePublic_c,\
+    /* peerAddress */               {0, 0, 0, 0, 0, 0}, \
+    /* channelMap */                (gapAdvertisingChannelMapFlags_t) (gAdvChanMapFlag37_c | gAdvChanMapFlag38_c | gAdvChanMapFlag39_c), \
+    /* filterPolicy */              gProcessAll_c, \
+    /* extAdvProperties */          (bleAdvRequestProperties_t)(gAdvUseDecisionPDU_c | gAdvIncludeTxPower_c), \
+    /* TxPower */                   mDefaultTxPower, \
+    /* primaryPHY  */               (gapLePhyMode_t)gLePhyCoded_c,\
+    /* secondaryPHY */              (gapLePhyMode_t)gLePhyCoded_c,\
+    /* secondaryAdvMaxSkip */       0, \
+    /* enableScanReqNotification*/  FALSE \
+};
+#endif /* defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE) */
 
 #define extAdvNonConnNonScanDataId1_0 "\
 \n\rEA Non Connectable Non Scanable DataId1 01 EA Non Connectable Non Scanable DataId1 02\
@@ -527,6 +595,23 @@ gapAdvertisingData_t gAppExtAdvDataId2Periodic =
     NumberOfElements(extAdvPeriodicDataId2),
     (void *)extAdvPeriodicDataId2
 };
+
+#if defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE)
+/* DBAF resolvable tag key */
+static uint8_t  dbafKey[mcDbafEncryptionKeySize_c] = 
+    {0x44, 0x65, 0x63, 0x69, 0x73, 0x69, 0x6F, 0x6E,
+    0x42, 0x61, 0x73, 0x65, 0x64, 0x41, 0x64, 0x76};
+
+/* DBAF Decision Data Parameters */
+gapAdvertisingDecisionData_t gAdvDecisionData =
+{
+    /* pKey */                      dbafKey, \
+    /* pPrand */                    NULL, \
+    /* pDecisionData */             NULL, \
+    /* dataLength */                0, \
+    /* resolvableTagPresent */      FALSE \
+};
+#endif /* defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE) */
 /* SMP Data */
 #if (defined(gAppUsePairing_d) && (gAppUsePairing_d == 1U))
 gapPairingParameters_t gPairingParameters = {

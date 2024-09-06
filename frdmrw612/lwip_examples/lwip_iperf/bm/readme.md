@@ -27,7 +27,7 @@ For RTOS applications, DEFAULT_THREAD_PRIO and TCPIP_THREAD_PRIO values can have
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================
@@ -36,9 +36,9 @@ Toolchain supported
 
 Hardware requirements
 =====================
-- Micro USB cable
+- USB-C cable
 - Network cable RJ45 standard
-- FRDM-RW612 board
+- FRDM-RW612 v2 board
 - Personal Computer
 
 Board settings

@@ -10,7 +10,7 @@ memory and before DMA access the memory.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

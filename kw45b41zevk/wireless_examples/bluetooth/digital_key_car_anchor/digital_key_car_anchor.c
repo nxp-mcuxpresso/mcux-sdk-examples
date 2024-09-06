@@ -623,6 +623,10 @@ void BleApp_PE_Start(void)
 {
     mOwnerPairingMode = FALSE;
     gAppAdvParams.pGapAdvData = &gAppAdvertisingDataEmpty;
+#if defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE)
+    gLegacyAdvParams.extAdvProperties = (bleAdvRequestProperties_t)(gAdvReqConnectable_c | gAdvUseDecisionPDU_c | gAdvIncludeAdvAinDecisionPDU_c);
+    gExtAdvParams.extAdvProperties = (bleAdvRequestProperties_t)(gAdvReqConnectable_c | gAdvIncludeTxPower_c | gAdvUseDecisionPDU_c | gAdvIncludeAdvAinDecisionPDU_c);
+#endif /* defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE) */
     BleApp_Start();
 }
 
@@ -635,6 +639,10 @@ void BleApp_OP_Start(void)
     FLib_MemSet(gaAppOwnDiscAddress, 0x00, gcBleDeviceAddressSize_c);
     mOwnerPairingMode = TRUE;
     gAppAdvParams.pGapAdvData = &gAppAdvertisingData;
+#if defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE)
+    gLegacyAdvParams.extAdvProperties = (bleAdvRequestProperties_t)(gAdvReqConnectable_c | gAdvReqScannable_c | gAdvReqLegacy_c);
+    gExtAdvParams.extAdvProperties = (bleAdvRequestProperties_t)(gAdvReqConnectable_c | gAdvIncludeTxPower_c);
+#endif /* defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE) */
     BleApp_Start();
 }
 
@@ -713,25 +721,6 @@ void BleApp_StateMachineHandler(deviceId_t peerDeviceId, appEvent_t event)
         }
         break;
 
-        case mAppRunning_c:
-        {
-            if ( event == mAppEvt_PeerDisconnected_c )
-            {
-                maPeerInformation[peerDeviceId].deviceId = gInvalidDeviceId_c;
-                maPeerInformation[peerDeviceId].appState = mAppIdle_c;
-                maPeerInformation[peerDeviceId].isLinkEncrypted = FALSE;
-            }
-            else if ( event == mAppEvt_PsmChannelCreated_c)
-            {
-                /* No action required */
-            }
-            else
-            {
-                /* For MISRA compliance */
-            }
-        }
-        break;
-
         case mAppCCCReadyForPairing_c:
         {
             if ( event == mAppEvt_PairingPeerOobDataRcv_c )
@@ -779,7 +768,15 @@ void BleApp_StateMachineHandler(deviceId_t peerDeviceId, appEvent_t event)
         }
         break;
     }
-    
+
+    /* Handle disconnect event in all application states */
+    if ( event == mAppEvt_PeerDisconnected_c )
+    {
+        maPeerInformation[peerDeviceId].deviceId = gInvalidDeviceId_c;
+        maPeerInformation[peerDeviceId].appState = mAppIdle_c;
+        maPeerInformation[peerDeviceId].isLinkEncrypted = FALSE;
+    }
+
     /* Inform the user interface handler about events received in the BleApp_StateMachineHandler */
     if(mpfBleUserInterfaceEventHandler != NULL)
     {

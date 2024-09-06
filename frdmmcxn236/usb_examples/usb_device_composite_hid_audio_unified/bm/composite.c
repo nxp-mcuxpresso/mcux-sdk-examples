@@ -397,9 +397,9 @@ void CTIMER_CaptureInit(void)
     /* Initialize CTimer module */
     CTIMER_Init(CTIMER0, &ctimerInfoPll);
 
-    CTIMER_SetupCapture(CTIMER0, kCTIMER_Capture_0, kCTIMER_Capture_RiseEdge, true);
-
     CTIMER_RegisterCallBack(CTIMER0, (ctimer_callback_t *)&cb_func_pll[0], kCTIMER_SingleCallback);
+
+    CTIMER_SetupCapture(CTIMER0, kCTIMER_Capture_0, kCTIMER_Capture_RiseEdge, true);
 
     /* Start the L counter */
     CTIMER_StartTimer(CTIMER0);

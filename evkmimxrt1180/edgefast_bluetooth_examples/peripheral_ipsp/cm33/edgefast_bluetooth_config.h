@@ -42,7 +42,7 @@
  * with specified driver, should be no less than 512.
  */
 #ifndef CONFIG_BT_HCI_TX_STACK_SIZE
-    #define CONFIG_BT_HCI_TX_STACK_SIZE 1024
+    #define CONFIG_BT_HCI_TX_STACK_SIZE 2048
 #endif
 
 /*! @brief HCI TX task priority.
@@ -1749,12 +1749,97 @@ Select this for LE Peripheral role support.
     #define CONFIG_BT_HFP_AG 0
 #endif
 
+/*! @brief Bluetooth PBAP profile PCE Role support [EXPERIMENTAL], if the macro is set to 0, feature is disabled, if 1, feature is enabled.
+ * This option enables Bluetooth PCE support
+ */
+#ifndef CONFIG_BT_PBAP_PCE
+    #define CONFIG_BT_PBAP_PCE 0
+#endif
+
+#ifndef CONFIG_BT_PBAP_PCE_SUPPORTED_FEATURE
+    #define CONFIG_BT_PBAP_PCE_SUPPORTED_FEATURE (0x000003FFU)
+#endif
+
+#ifndef CONFIG_BT_PBAP_PCE_MAX_PKT_LEN
+    #define CONFIG_BT_PBAP_PCE_MAX_PKT_LEN (600U)
+#endif
+
+/*! @brief Bluetooth PBAP profile PSE Role support [EXPERIMENTAL], if the macro is set to 0, feature is disabled, if 1, feature is enabled.
+ * This option enables Bluetooth PSE support
+ */
+#ifndef CONFIG_BT_PBAP_PSE
+    #define CONFIG_BT_PBAP_PSE 0
+#endif
+
+#ifndef CONFIG_BT_PBAP_PSE_SUPPORTED_FEATURES
+    #define  CONFIG_BT_PBAP_PSE_SUPPORTED_FEATURES    (0x000003FFU)
+#endif
+
+#ifndef CONFIG_BT_PBAP_PSE_SUPPORTED_REPOSITORIES
+    #define CONFIG_BT_PBAP_PSE_SUPPORTED_REPOSITORIES   (0x0FU)
+#endif
+
 /*! @brief Bluetooth AVDTP protocol support [EXPERIMENTAL], if the macro is set to 0, feature is disabled, if 1, feature is enabled.
  * This option enables Bluetooth AVDTP support
  */
 #ifndef CONFIG_BT_AVDTP
     #define CONFIG_BT_AVDTP 0
 #endif
+
+/*! @brief Bluetooth MAP profile MCE Role support [EXPERIMENTAL], if the macro is set to 0, feature is disabled, if 1, feature is enabled.
+ * This option enables Bluetooth MAP MCE support
+ */
+#ifndef CONFIG_BT_MAP_MCE
+    #define CONFIG_BT_MAP_MCE 0
+#endif
+
+#if defined(CONFIG_BT_MAP_MCE) && (CONFIG_BT_MAP_MCE > 0)
+
+#ifndef CONFIG_BT_MAP_MCE_MAS_NUM_INSTANCES
+    #define CONFIG_BT_MAP_MCE_MAS_NUM_INSTANCES 2
+#endif
+
+#ifndef CONFIG_BT_MAP_MCE_MNS_NUM_INSTANCES
+    #define CONFIG_BT_MAP_MCE_MNS_NUM_INSTANCES 1
+#endif
+
+#ifndef CONFIG_BT_MAP_MCE_MAS_MAX_PKT_LEN
+    #define CONFIG_BT_MAP_MCE_MAS_MAX_PKT_LEN 512
+#endif
+
+#ifndef CONFIG_BT_MAP_MCE_MNS_MAX_PKT_LEN
+    #define CONFIG_BT_MAP_MCE_MNS_MAX_PKT_LEN 1790
+#endif
+
+#ifndef CONFIG_BT_MAP_MCE_MAS_SUPPORTED_FEATURES
+    #define CONFIG_BT_MAP_MCE_MAS_SUPPORTED_FEATURES 0x0077FFFF
+#endif
+
+#endif /* CONFIG_BT_MAP_MCE */
+
+#if defined(CONFIG_BT_MAP_MSE) && (CONFIG_BT_MAP_MSE > 0)
+
+#ifndef CONFIG_BT_MAP_MSE_MAS_NUM_INSTANCES
+    #define CONFIG_BT_MAP_MSE_MAS_NUM_INSTANCES 2
+#endif
+
+#ifndef CONFIG_BT_MAP_MSE_MNS_NUM_INSTANCES
+    #define CONFIG_BT_MAP_MSE_MNS_NUM_INSTANCES 1
+#endif
+
+#ifndef CONFIG_BT_MAP_MSE_MAS_MAX_PKT_LEN
+    #define CONFIG_BT_MAP_MSE_MAS_MAX_PKT_LEN 1790
+#endif
+
+#ifndef CONFIG_BT_MAP_MSE_MNS_MAX_PKT_LEN
+    #define CONFIG_BT_MAP_MSE_MNS_MAX_PKT_LEN 512
+#endif
+
+#ifndef CONFIG_BT_MAP_MSE_MNS_SUPPORTED_FEATURES
+    #define CONFIG_BT_MAP_MSE_MNS_SUPPORTED_FEATURES 0x0077FFFF
+#endif
+
+#endif /* CONFIG_BT_MAP_MSE */
 
 /*! @brief Bluetooth A2DP Profile.
  * This option enables the A2DP profile

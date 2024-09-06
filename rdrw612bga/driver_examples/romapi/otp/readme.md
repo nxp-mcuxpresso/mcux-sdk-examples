@@ -6,7 +6,7 @@ The ROM API project is a simple demonstration program of the SDK ROM API driver.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

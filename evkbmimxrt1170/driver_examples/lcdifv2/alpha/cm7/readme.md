@@ -21,7 +21,7 @@ in the overlay region, the color is purple.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

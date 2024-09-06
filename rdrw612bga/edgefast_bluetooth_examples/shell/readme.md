@@ -5,7 +5,7 @@ Application demonstrating the shell mode of the simplified Adapter APIs.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

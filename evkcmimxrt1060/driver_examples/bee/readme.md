@@ -6,7 +6,7 @@ The example itself does not perform any data decryption operation over QSPI. It 
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

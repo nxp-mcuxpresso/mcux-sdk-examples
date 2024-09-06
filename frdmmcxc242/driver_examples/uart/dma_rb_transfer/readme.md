@@ -14,7 +14,7 @@ should be aligned to a 0-modulo-boundary.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

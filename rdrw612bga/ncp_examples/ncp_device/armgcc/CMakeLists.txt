@@ -72,6 +72,8 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../ble/service/gatt_server/peripheral_hrs.h"
 "${ProjDirPath}/../ble/service/gatt_server/peripheral_hts.c"
 "${ProjDirPath}/../ble/service/gatt_server/peripheral_hts.h"
+"${ProjDirPath}/../ble/service/gatt_server/peripheral_ncs.c"
+"${ProjDirPath}/../ble/service/gatt_server/peripheral_ncs.h"
 "${ProjDirPath}/../ble/service/gatt_client/central_hrc.c"
 "${ProjDirPath}/../ble/service/gatt_client/central_hrc.h"
 "${ProjDirPath}/../ble/service/gatt_client/central_htc.c"
@@ -80,6 +82,9 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../ble/service/bas.h"
 "${ProjDirPath}/../ble/service/service.c"
 "${ProjDirPath}/../ble/service/service.h"
+"${ProjDirPath}/../ot/peripherals.c"
+"${ProjDirPath}/../ot/peripherals.h"
+"${ProjDirPath}/../ot/rw612-mbedtls-config.h"
 "${ProjDirPath}/../lwipopts.h"
 "${ProjDirPath}/../lwippools.h"
 "${ProjDirPath}/../lwiphooks.h"
@@ -87,6 +92,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../pin_mux.h"
 "${ProjDirPath}/../app.h"
 "${ProjDirPath}/../main.c"
+"${ProjDirPath}/../controller_coex_nxp.c"
 "${ProjDirPath}/../app_config.h"
 "${ProjDirPath}/../FreeRTOSConfig.h"
 "${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/ncp_cmd_common.h"
@@ -122,8 +128,8 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/ncp_config/ncp_config.h"
 "${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/mdns/mdns_service.c"
 "${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/mdns/mdns_service.h"
-"${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/lpm/lpm.c"
-"${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/lpm/lpm.h"
+"${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/lpm/ncp_lpm.c"
+"${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/lpm/ncp_lpm.h"
 "${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/lpm/host_sleep.c"
 "${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/lpm/host_sleep.h"
 "${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/lpm/host_sleep_wifi.c"
@@ -178,6 +184,7 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
     ${ProjDirPath}/../system
     ${ProjDirPath}/../wifi
+    ${ProjDirPath}/../ot
     ${SdkRootDirPath}/examples/rdrw612bga
     ${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common
     ${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/ncp_adapter
@@ -206,17 +213,19 @@ set_source_files_properties("${ProjDirPath}/../FreeRTOSConfig.h" PROPERTIES COMP
 set_source_files_properties("${SdkRootDirPath}/examples/rdrw612bga/ncp_examples/common/ncp_adapter/ncp_intf/usb/usb_device_cdc/usb_device_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_usb_device_ehci_config_header")
 
 if(CMAKE_BUILD_TYPE STREQUAL flash_release)
-     target_compile_definitions(${MCUX_SDK_PROJECT_NAME}  PRIVATE MBEDTLS_CONFIG_FILE="els_pkc_mbedtls_config.h" MBEDTLS_USER_CONFIG_FILE="wpa_supp_els_pkc_mbedtls_config.h" LWIP_HOOK_FILENAME="lwip_default_hooks.h")
+     target_compile_definitions(${MCUX_SDK_PROJECT_NAME}  PRIVATE MBEDTLS_CONFIG_FILE="rw612-mbedtls-config.h" MBEDTLS_USER_CONFIG_FILE="wpa_supp_els_pkc_mbedtls_config.h" LWIP_HOOK_FILENAME="lwip_default_hooks.h")
 endif(CMAKE_BUILD_TYPE STREQUAL flash_release)
 
 if(CMAKE_BUILD_TYPE STREQUAL flash_debug)
-     target_compile_definitions(${MCUX_SDK_PROJECT_NAME}  PRIVATE MBEDTLS_CONFIG_FILE="els_pkc_mbedtls_config.h" MBEDTLS_USER_CONFIG_FILE="wpa_supp_els_pkc_mbedtls_config.h" LWIP_HOOK_FILENAME="lwip_default_hooks.h")
+     target_compile_definitions(${MCUX_SDK_PROJECT_NAME}  PRIVATE MBEDTLS_CONFIG_FILE="rw612-mbedtls-config.h" MBEDTLS_USER_CONFIG_FILE="wpa_supp_els_pkc_mbedtls_config.h" LWIP_HOOK_FILENAME="lwip_default_hooks.h")
 endif(CMAKE_BUILD_TYPE STREQUAL flash_debug)
 
 include(${SdkRootDirPath}/core/devices/RW612/all_lib_device.cmake)
 
+include(${ProjDirPath}/../ot/third_party/ot_config.cmake)
+
 IF(NOT DEFINED TARGET_LINK_SYSTEM_LIBRARIES)  
-    SET(TARGET_LINK_SYSTEM_LIBRARIES "-lm -lc -lgcc -lnosys")  
+    SET(TARGET_LINK_SYSTEM_LIBRARIES "-lstdc++ -lm -lc -lgcc -lnosys")  
 ENDIF()  
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--start-group)

@@ -27,6 +27,7 @@
     <definition extID="platform.drivers.memory.RW612"/>
     <definition extID="platform.drivers.common.RW612"/>
     <definition extID="middleware.lwip.template.RW612"/>
+    <definition extID="middleware.lwip.sys_arch_dynamic.RW612"/>
     <definition extID="component.lpc_gpio_adapter.RW612"/>
     <definition extID="platform.drivers.inputmux.RW612"/>
     <definition extID="platform.drivers.pint.RW612"/>
@@ -60,7 +61,7 @@
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="frdmrw612_lwip_ping_bm" name="lwip_ping_bm" device_core="cm33_RW612" dependency="driver.phy-device-ksz8081.RW612 platform.drivers.enet.RW612 middleware.lwip.kinetis_ethernetif.RW612 middleware.lwip.RW612 component.silicon_id_rw610.RW612 utility.debug_console.RW612 platform.utilities.assert.RW612 middleware.lwip.contrib.ping.RW612 platform.drivers.clock.RW612 platform.drivers.flash_config.frdmrw612.RW612 device.RW612_CMSIS.RW612 device.RW612_startup.RW612 platform.drivers.reset.RW612 platform.drivers.flexspi.RW612 platform.drivers.cache_cache64.RW612 platform.drivers.cns_io_mux.RW612 platform.drivers.lpc_gpio.RW612 platform.drivers.power.RW612 platform.drivers.ocotp.RW612 component.els_pkc.platform.rw61x_standalone_clib_gdet_sensor.RW612 platform.utilities.misc_utilities.RW612 driver.phy-common.RW612 platform.drivers.memory.RW612 platform.drivers.common.RW612 middleware.lwip.template.RW612 component.lpc_gpio_adapter.RW612 platform.drivers.inputmux.RW612 platform.drivers.pint.RW612 platform.drivers.inputmux_connections.RW612 component.silicon_id.RW612 component.serial_manager.RW612 utility.str.RW612 component.lists.RW612 component.serial_manager_uart.RW612 component.usart_adapter.RW612 platform.drivers.flexcomm_usart.RW612 platform.drivers.flexcomm.RW612 CMSIS_Include_core_cm.RW612 device.RW612_system.RW612 component.els_pkc.els_header_only.RW612 component.els_pkc.els_common.RW612 component.els_pkc.memory.RW612 component.els_pkc.standalone_gdet.RW612 component.els_pkc.platform.rw61x_inf_header_only.RW612 component.els_pkc.buffer.RW612 component.els_pkc.core.RW612 component.els_pkc.param_integrity.RW612 component.els_pkc.flow_protection.RW612 component.els_pkc.secure_counter.RW612 component.els_pkc.pre_processor.RW612 component.els_pkc.toolchain.RW612 component.els_pkc.data_integrity.RW612" category="lwip_examples">
+  <example id="frdmrw612_lwip_ping_bm" name="lwip_ping_bm" device_core="cm33_RW612" dependency="driver.phy-device-ksz8081.RW612 platform.drivers.enet.RW612 middleware.lwip.kinetis_ethernetif.RW612 middleware.lwip.RW612 component.silicon_id_rw610.RW612 utility.debug_console.RW612 platform.utilities.assert.RW612 middleware.lwip.contrib.ping.RW612 platform.drivers.clock.RW612 platform.drivers.flash_config.frdmrw612.RW612 device.RW612_CMSIS.RW612 device.RW612_startup.RW612 platform.drivers.reset.RW612 platform.drivers.flexspi.RW612 platform.drivers.cache_cache64.RW612 platform.drivers.cns_io_mux.RW612 platform.drivers.lpc_gpio.RW612 platform.drivers.power.RW612 platform.drivers.ocotp.RW612 component.els_pkc.platform.rw61x_standalone_clib_gdet_sensor.RW612 platform.utilities.misc_utilities.RW612 driver.phy-common.RW612 platform.drivers.memory.RW612 platform.drivers.common.RW612 middleware.lwip.template.RW612 middleware.lwip.sys_arch_dynamic.RW612 component.lpc_gpio_adapter.RW612 platform.drivers.inputmux.RW612 platform.drivers.pint.RW612 platform.drivers.inputmux_connections.RW612 component.silicon_id.RW612 component.serial_manager.RW612 utility.str.RW612 component.lists.RW612 component.serial_manager_uart.RW612 component.usart_adapter.RW612 platform.drivers.flexcomm_usart.RW612 platform.drivers.flexcomm.RW612 CMSIS_Include_core_cm.RW612 device.RW612_system.RW612 component.els_pkc.els_header_only.RW612 component.els_pkc.els_common.RW612 component.els_pkc.memory.RW612 component.els_pkc.standalone_gdet.RW612 component.els_pkc.platform.rw61x_inf_header_only.RW612 component.els_pkc.buffer.RW612 component.els_pkc.core.RW612 component.els_pkc.param_integrity.RW612 component.els_pkc.flow_protection.RW612 component.els_pkc.secure_counter.RW612 component.els_pkc.pre_processor.RW612 component.els_pkc.toolchain.RW612 component.els_pkc.data_integrity.RW612" category="lwip_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -78,7 +79,13 @@
           <value>MCUXPRESSO_SDK</value>
           <value>BOOT_HEADER_ENABLE=1</value>
           <value>LWIP_DISABLE_PBUF_POOL_SIZE_SANITY_CHECKS=1</value>
+          <value>CHECKSUM_GEN_UDP=1</value>
+          <value>CHECKSUM_GEN_TCP=1</value>
+          <value>CHECKSUM_GEN_ICMP=1</value>
           <value>CHECKSUM_GEN_ICMP6=1</value>
+          <value>CHECKSUM_CHECK_UDP=1</value>
+          <value>CHECKSUM_CHECK_TCP=1</value>
+          <value>CHECKSUM_CHECK_ICMP=1</value>
           <value>CHECKSUM_CHECK_ICMP6=1</value>
           <value>SERIAL_PORT_TYPE_UART=1</value>
         </option>

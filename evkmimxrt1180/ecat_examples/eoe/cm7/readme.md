@@ -9,7 +9,7 @@ For more information on digital_io example, please refer to '.\boards\evkmimxrt1
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================
@@ -102,4 +102,4 @@ EoE interface init success...
 ***********************************************************
 
 NOTE: To modify the html of http server, please refer to lwip_examples/lwip_httpsrv example.
-
+      Eoe example User Guide path: .\docs\ecatEoE\eCAT_EoE_Example_User_Guide.pdf

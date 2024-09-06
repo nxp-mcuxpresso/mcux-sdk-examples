@@ -16,7 +16,7 @@ address is then exported from the linker to the application.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

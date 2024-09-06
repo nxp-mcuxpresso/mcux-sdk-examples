@@ -9,7 +9,7 @@ With this example, user can define the DAC12 output array to generate the differ
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

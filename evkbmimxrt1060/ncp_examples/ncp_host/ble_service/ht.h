@@ -1,11 +1,12 @@
-/** @file ht.h
- *
- *  @brief  Health Thermometer Profile defineations.
- *
- *  Copyright 2023 NXP
+/*
+ *  Copyright 2024 NXP
  *
  *  SPDX-License-Identifier: BSD-3-Clause
- *
+ * 
+ */
+
+/*!\file ht.h
+ * \brief Health Thermometer Profile defineations.
  */
 
 #ifndef __HT_H_
@@ -21,75 +22,88 @@ extern "C" {
 /*******************************************************************************
 * Definitions
 ******************************************************************************/
+/** HTC device found event ID */
 #define HTC_EVENT_DEVICE_FOUND                  0x01
+/** HTC connected event ID */
 #define HTC_EVENT_CONNECTED                     0x02
+/** HTC get primary service event ID */
 #define HTC_EVENT_GET_PRIMARY_SERVICE           0x03
+/** HTC get characteristic ID */
 #define HTC_EVENT_GET_CHARACTERISTICS           0x04
+/** HTC get characteristic configuration changed event ID */
 #define HTC_EVENT_GET_CCC                       0x05
-
+/** HTC write characteristic response event ID */
 #define HTS_EVENT_WRITE_CHRA_RSP                0x01
 
-/**
- *  @brief GATT Primary Service UUID
- */
+/** GATT Primary Service UUID */
 #define UUID_GATT_PRIMARY 0x2800
 
-/**
- *  @brief Health Thermometer Service UUID
- */
+/** Health Thermometer Service UUID */
 #define UUID_HTS 0x1809
 
-/**
- *  @brief HTS Characteristic Measurement Value UUID
- */
+/** HTS Characteristic Measurement Value UUID */
 #define UUID_HTS_MEASUREMENT 0x2a1c
 
-/**
- *  @brief GATT Client Characteristic Configuration UUID
- */
+/** GATT Client Characteristic Configuration UUID */
 #define UUID_GATT_CCC 0x2902
 
 /** Client Characteristic Configuration Values */
 
-/**
- *  @brief Client Characteristic Configuration Notification.
- *
- *  If set, changes to Characteristic Value shall be notified.
+
+/** Client Characteristic Configuration Notification.
+ * If set, changes to Characteristic Value shall be notified.
  */
 #define BT_GATT_CCC_NOTIFY			0x0001
-/**
- *  @brief Client Characteristic Configuration Indication.
- *
- *  If set, changes to Characteristic Value shall be indicated.
+/** Client Characteristic Configuration Indication.
+ * If set, changes to Characteristic Value shall be indicated.
  */
 #define BT_GATT_CCC_INDICATE			0x0002
 
-/* HTS flag values */
+/** HTS flag values */
 #define hts_unit_celsius_c        0x00U /* bit 0 unset */
 #define hts_unit_fahrenheit_c     0x01U /* bit 0 set */
 
 #define hts_include_temp_type     0x04U /* bit 2 set */
 
 
-/* Temperature measurement format */
+/** Temperature measurement format */
 struct temp_measurement
 {
+    /** temperature type flag 
+     * 0: Fahrenheit
+     * 1: Celsius
+    */
     uint8_t flags;
+    /** temperature */
     uint8_t temperature[4];
+    /** Possible temperature sensor locations
+     * 0: hts_no_temp_type
+     * 1: hts_armpit
+     * 2: hts_body
+     * 3: hts_ear
+     * 4: hts_finger
+     * 5: hts_gastroInt
+     * 6: hts_mouth
+     * 7: hts_rectum
+     * 8: hts_toe
+     * 9: hts_tympanum
+    */
     uint8_t type;
 };
 
-/* Heart Rate format */
+/** Heart Rate format */
 struct hr_measurement
 {
+    /** sensor id */
     uint8_t sensor;
+    /** heart rate */
     uint8_t rate;
 };
 
 /*******************************************************************************
 * Prototypes
 ******************************************************************************/
-/* Possible temperature sensor locations */
+/** Possible temperature sensor locations */
 enum
 {
     hts_no_temp_type = 0x00U,
@@ -107,7 +121,17 @@ enum
 /*******************************************************************************
  * API
  ******************************************************************************/
+/**
+ * Start Central HTC Service
+ * 
+ * \return void
+ */
 void central_htc_start(void);
+/**
+ * Init HTC Service
+ * 
+ * \return void
+ */
 void htc_init(void);
 #if 0
 void central_htc_event_put(osa_event_flags_t flag);
@@ -118,9 +142,33 @@ void central_htc_get_ccc(NCP_DISC_ALL_DESC_RP * param);
 void central_notify(uint8_t *data);
 #endif
 
+/**
+ * Init HTS Service
+ * 
+ * \return void
+ */
 void hts_init(void);
+/**
+ * count binary semaphore to wait HTS write characteristic response event
+ * 
+ * \param[in] flag flag to wait
+ * 
+ * \return void
+ */
 void peripheral_hts_event_put(osa_event_flags_t flag);
+/**
+ * Start Peripheral HTS Service
+ * 
+ * \return void
+ */
 void peripheral_hts_start(void);
+/**
+ * Indicate HTS characteristic value change event 
+ * 
+ * \param[in] value hts value
+ * 
+ * \return void
+ */
 void peripheral_hts_indicate(uint8_t value);
 
 

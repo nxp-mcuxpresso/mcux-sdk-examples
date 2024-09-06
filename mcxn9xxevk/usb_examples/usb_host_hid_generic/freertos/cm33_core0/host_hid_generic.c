@@ -398,8 +398,8 @@ usb_status_t USB_HostHidGenericEvent(usb_device_handle deviceHandle,
                                      usb_host_configuration_handle configurationHandle,
                                      uint32_t eventCode)
 {
-    uint32_t pid;
-    uint32_t vid;
+    uint32_t pid = 0U;
+    uint32_t vid = 0U;
     usb_host_configuration_t *configuration;
     usb_host_interface_t *interface;
     uint32_t infoValue  = 0U;

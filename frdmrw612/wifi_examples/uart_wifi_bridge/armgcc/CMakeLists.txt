@@ -38,7 +38,7 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(uart_wifi_bridge)
 
-set(MCUX_BUILD_TYPES flash_release flash_debug debug release)
+set(MCUX_BUILD_TYPES flash_release flash_debug)
 
 set(MCUX_SDK_PROJECT_NAME uart_wifi_bridge.elf)
 

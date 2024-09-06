@@ -6,7 +6,7 @@ The example uses FLEXIO-PIN input to capture the edge of other gpio pin.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

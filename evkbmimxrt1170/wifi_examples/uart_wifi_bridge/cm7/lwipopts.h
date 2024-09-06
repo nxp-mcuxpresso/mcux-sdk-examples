@@ -37,11 +37,24 @@
  */
 #define NO_SYS 0
 
+/* ---------- Support Wi-Fi SLIM feature ---------- */
+/**
+ * Enabling CONFIG_LWIP_LOW_MEM_FOOTPRINT will have a negative impact on TCP/IP performance.
+ */
+
+#if CONFIG_LWIP_LOW_MEM_FOOTPRINT
+#define CONFIG_NETWORK_HIGH_PERF 0
+
+#define MAX_SOCKETS_TCP          4
+#define MAX_SOCKETS_UDP          3
+#else
 #define CONFIG_NETWORK_HIGH_PERF 1
 
-#define MAX_SOCKETS_TCP           8
+#define MAX_SOCKETS_TCP          8
+#define MAX_SOCKETS_UDP          6
+#endif
+
 #define MAX_LISTENING_SOCKETS_TCP 4
-#define MAX_SOCKETS_UDP           6
 #define TCP_SND_BUF_COUNT         2
 #define TCPIP_STACK_TX_HEAP_SIZE  0
 #define LWIP_COMPAT_SOCKETS       2
@@ -56,7 +69,7 @@
 
 #define TCPIP_THREAD_NAME      "tcp/ip"
 #define TCPIP_THREAD_STACKSIZE 768
-#define TCPIP_THREAD_PRIO      2
+#define TCPIP_THREAD_PRIO      (configMAX_PRIORITIES - 3)
 #if CONFIG_NETWORK_HIGH_PERF
 #define TCPIP_MBOX_SIZE 64
 #else
@@ -262,7 +275,12 @@
 /**
  * PBUF_POOL_SIZE: the number of buffers in the pbuf pool.
  */
+#if CONFIG_LWIP_LOW_MEM_FOOTPRINT
+#define PBUF_POOL_SIZE 20
+#else
 #define PBUF_POOL_SIZE 40
+#endif
+
 
 /*
    ----------------------------------
@@ -386,12 +404,20 @@
 /**
  * LWIP_STATS==1: Enable statistics collection in lwip_stats.
  */
+#if CONFIG_LWIP_LOW_MEM_FOOTPRINT
+#define LWIP_STATS 0
+#else
 #define LWIP_STATS 1
+#endif
 
 /**
  * LWIP_STATS_DISPLAY==1: Compile in the statistics output functions.
  */
+#if CONFIG_LWIP_LOW_MEM_FOOTPRINT
+#define LWIP_STATS_DISPLAY 0
+#else
 #define LWIP_STATS_DISPLAY 1
+#endif
 
 /*
    ----------------------------------

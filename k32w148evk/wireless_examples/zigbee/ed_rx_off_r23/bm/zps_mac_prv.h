@@ -337,6 +337,9 @@ MODULE PHY_Enum_e 	SERIAL_ZPS_eMacPlmeGet(PHY_PibAttr_e ePhyPibAttribute, uint32
 MODULE PHY_Enum_e 	SERIAL_ZPS_eMacPlmeSet(PHY_PibAttr_e ePhyPibAttribute, uint32 u32PhyPibValue);
 PUBLIC void         SERIAL_ZPS_vSerialMacResetCallback( uint8 u8ResetReason , uint8 u8Length, uint8* pu8Buffer);
 
+MODULE PHY_Enum_e 	SERIAL_ZPS_eAddPhyFilteringAddr(uint16 u16Addr, uint64 u64ExtAddr);
+MODULE PHY_Enum_e 	SERIAL_ZPS_eClearPhyFilter();
+
 /* Antenna Input Setting */
 MODULE bool_t       SERIAL_ZPS_bSetAntennaInput(uint8 u8Input);
 

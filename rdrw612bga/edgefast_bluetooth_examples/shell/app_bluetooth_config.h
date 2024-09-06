@@ -11,7 +11,7 @@
 #define CONFIG_BT_PERIPHERAL           1
 #define CONFIG_BT_CENTRAL              1
 #define CONFIG_BT_L2CAP_IFRAME_SUPPORT 1
-
+#define CONFIG_BT_L2CAP_UNBLOCK_SEND    1
 #define CONFIG_BT_DEVICE_NAME_DYNAMIC   1
 #define CONFIG_BT_PHY_UPDATE            1
 #define CONFIG_BT_AUTO_PHY_UPDATE       1
@@ -39,6 +39,8 @@
 #define CONFIG_BT_PER_ADV 1
 #endif
 
+#define CONFIG_BLE_ADV_REPORT_BUFFER_FILTER 1
+
 #define CONFIG_BT_SNOOP        1
 #define CONFIG_BT_RF_TEST_MODE 1
 #if 0
@@ -58,6 +60,8 @@
 #include "edgefast_bluetooth_config.h"
 
 #include "edgefast_bluetooth_debug_config.h"
+
+#include "monolithic_config.h"
 
 #define DEBUG_CONSOLE_TX_RELIABLE_ENABLE (0U)
 

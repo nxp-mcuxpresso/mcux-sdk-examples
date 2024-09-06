@@ -31,7 +31,6 @@
 //#define BOARD_32KHZ_XTAL_CLOAD_DEFAULT 8U
 
 /*! \brief Default coarse adjustement config for 32KHz crystal,
-      can be overidden from board.h,
       user shall define this flag in board.h file to set an other default value
       Values must be adjusted depending the equivalent series resistance (ESR) of the crystal on the board
 */

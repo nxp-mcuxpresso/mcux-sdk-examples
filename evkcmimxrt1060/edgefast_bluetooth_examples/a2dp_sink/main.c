@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 - 2021 NXP
+ * Copyright 2020 - 2021, 2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -9,6 +9,8 @@
 
 #include "FreeRTOS.h"
 #include "task.h"
+#include <bluetooth/bluetooth.h>
+#include <bluetooth/conn.h>
 #include "app_a2dp_sink.h"
 
 #include "pin_mux.h"

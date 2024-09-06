@@ -5,7 +5,7 @@ from CMP and PIT. If the button is pressed(CMP interrupt) and the PIT periodic i
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

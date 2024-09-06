@@ -44,6 +44,7 @@
 #define LWIP_DNS  1
 #define LWIP_IGMP 1
 #define LWIP_RAW  1
+#define LWIP_DHCP 1
 #else
 /**
  * NO_SYS==1: Bare metal lwIP

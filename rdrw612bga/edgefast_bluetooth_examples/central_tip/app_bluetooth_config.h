@@ -21,3 +21,4 @@
 #define CONFIG_BT_GATT_CLIENT           1
 #include "edgefast_bluetooth_config.h"
 #include "edgefast_bluetooth_debug_config.h"
+#include "monolithic_config.h"

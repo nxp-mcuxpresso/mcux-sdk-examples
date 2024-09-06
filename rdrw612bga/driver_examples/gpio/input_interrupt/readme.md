@@ -6,7 +6,7 @@ The example is supported to set with selection of polarity and edge vs level tri
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

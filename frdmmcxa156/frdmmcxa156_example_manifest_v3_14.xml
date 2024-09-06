@@ -4,7 +4,7 @@
   <externalDefinitions>
     <definition extID="MCXA156VLL"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK216000_frdmmcxa156_examples_manifest_v3_14" name="MCUXpressoSDK216000_frdmmcxa156_examples_manifest_v3_14" version="2.16.000" revision="2.16.000"/>
+  <ksdk id="MCUXpressoSDK216100_frdmmcxa156_examples_manifest_v3_14" name="MCUXpressoSDK216100_frdmmcxa156_examples_manifest_v3_14" version="2.16.100" revision="2.16.100"/>
   <boards>
     <board id="frdmmcxa156" name="FRDM-MCXA156" version="1.0.0" package="MCXA156VLL">
       <examples>

@@ -7,7 +7,7 @@ and check if the data slave received is correct. This example needs to work with
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

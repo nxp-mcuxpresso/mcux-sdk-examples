@@ -5,7 +5,7 @@ Application demonstrating how to use the telephone call gateway feature of LE Au
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

@@ -12,7 +12,7 @@ consumer and producer must be prepared to enable transaction.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

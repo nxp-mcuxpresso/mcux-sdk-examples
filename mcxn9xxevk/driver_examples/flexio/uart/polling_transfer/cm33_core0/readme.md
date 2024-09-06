@@ -7,7 +7,7 @@ all characters that PC send to the board.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

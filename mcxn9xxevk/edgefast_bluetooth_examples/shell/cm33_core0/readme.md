@@ -5,7 +5,7 @@ Application demonstrating the shell mode of the simplified Adapter APIs.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================
@@ -673,32 +673,337 @@ RFCOMM Client Side,
 5. After rfcomm connection is created, input "rfcomm.disconnect" to disconnect with peer device
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Here is an example running In-band and Out-of-band independent reset
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Running BR/EDR PBAP
+Note: Only 1 PBAP connection is supported in shell project.
+shell project supports PCE and PSE.
+
+The commands are as follow:
++---"pbap": pbap Bluetooth pbap shell commands
+    +---"pce": pce [none]
+        +---"register": register [none]
+        +---"connect": connect SDP first, then connect.
+                            -psm(optional).
+                            obex auth params(optional)
+                            -uid   : [userid].
+                            -pwd   : [password].
+        +---"disconnect": disconnect [none]
+        +---"abort": abort [none]
+        +---"pull_phonebook": pull_phonebook 
+                           -name(mandatory) : [name].
+                            -srmp(optional)  : [Single Response Mode Param(>=0)].
+                           input application parameters(optional). 
+                           1: -ps  : [Property Selector (64-bit)].
+                           2: -f   : [Format(0: vcard 2.1 | 1 : vcard 3.0)].
+                           3: -mlc : [MaxListCount (0 - 0xFFFF)].
+                           4: -lso : [ListStartOffset (0 - 0xFFFF)].
+                           5: -rnmc: [RestNewMissedCalls(0/1)].
+                           6: -cs  : [vCardSelector(64-bit)].
+                           7: -cso : [vCardSelecorOperator(0 : or | 1 : and)]
+        +---"set_path": set_path [path_name]
+        +---"pull_vcardlist": pull_vcardlist 
+                            -name(mandatory) : [name].
+                            -srmp(optional)  : [Single Response Mode Param(>=0)].
+                           input application parameters(optional). 
+                           1: -o   : [order(0 : Indexed | 1 : Alphanumeric | 2 : Phonetical)].
+                           2: -sp  : [SearchProperty(0 : name | 1 : number | 2 : sound)].
+                           3: -sv  : [SearchValue(string)].
+                           4: -mlc : [MaxListCount (0 - 0xFFFF)].
+                           5: -lso : [ListStartOffset (0 - 0xFFFF)].
+                           6: -rnmc: [ResetNewMissedCalls(0/1)].
+                           7: -cs  : [vCardSelector (64-bit)].
+                           8: -cso : [vCardSelecorOperator(0 : or | 1 : and)].
+        +---"pull_vcardentry": pull_vcardentry 
+                            -name(mandatory) : [name].
+                            -srmp(optional)  : [Single Response Mode Param(>=0)].
+                           input application parameters(optional).
+                           1: -ps  : [Property Selector (64-bit)].
+                           2: -f   : [Format(0: vcard 2.1 | 1 : vcard 3.0)].
+    +---"pse": pse [none]
+        +---"register": register [none]
+        +---"disconnect": disconnect [none]
+
+Here is an example of run PCE, and PSE is a mobile phone or a board running a PSE application.
+
 1. Input "bt.init" to initialize bluetooth
-@bt> bt.init
-download starts(384072)
-.....................
-download success!
-@bt> Bluetooth initialized
-Settings Loaded
-2. Input "bt.ind_reset inband"  to run In-band independent reset
-@bt> bt.ind_reset inband
-IR configured successfully for mode 2, ir_state = 3
-EtherMind: Bluetooth OFF ...
-Sending Inband IR Trigger
-download starts(384072)
-.....................
-download success!
-IR exit with state = 0
-3. Input "bt.ind_reset oob"  to run  Out-of-band independent reset
-@bt> bt.ind_reset oob
-IR configured successfully for mode 1, ir_state = 3
-EtherMind: Bluetooth OFF ...
-Sending Out of Band IR Trigger
-download starts(384072)
-.....................
-download success!
-IR exit with state = 0
+2. After bluetooth init successfully, Input "br.pscan on" to turn on pscan, PCE can be discoverable.
+3. Input "br.iscan on" to turn on iscan, PCE can be connectable.
+4. Input "pbap.pce.register" to init PBAP PCE.
+5. Input "hfp.init" to init HFP.
+   If PSE is a mobile phone and it wants to connect PCE proactively, this step is mandatory, otherwise optional.
+6. Input "br.discovery on" to discover PSE.
+   If PSE connect PCE proactively, this step is optional.
+7. Input "br.connect xx:xx:xx:xx:x:xx" to create ACL connection to PSE.
+   If PSE connect PCE proactively, do not perform this step.
+8. After ACL connected successfully, input "pbap.pce.connect" to create PBAP connection to PSE.
+   PCE establishes PBAP connections to PSE based on the rfcomm channel by default.
+   If want to based on GOEP_L2CAP_PSM, add parameter "-psm", like "pbap.connect -psm".
+   If PSE does not supported GOEP_L2CAP_PSM, PCE will continue to establishe PBAP connection based on the rfcomm channel.
+   If PCE wants to authenticate PSE proactively, add parameter "-pwd" which means OBEX pin_code, like "pbap.connect -pwd 0000".
+   parameter '-uid' which means OBEX use_id is optional because it is not suppoeted now.
+   If PSE and PCE have not negotiated authenticate information, it is recommended that PCE do not authenticate PSE proactively.
+   For example: PSE is a mobile phone.
+9. After PBAP connected successfully, input "pbap.pce.pull_phonebook -name telecom/pb.vcf" to pull phonebook object from PSE.
+   The name shall contain the absolute path in the virtual folders architecture of the PSE.
+   Example: telecom/pb.vcf or SIM1/telecom/pb.vcf.
+   If want to set the parameter "srmp", add the parameter "-srmp", like "pbap.pull_phonebook -name telecom/pb.vcf -srmp 3". 
+   If want to add applicaton parameters, input like "pbap.pull_phonebook -name telecom/pb.vcf -f 1".
+   All application parameters are optional and their specific information can be found in spec.
+   It is possible that PSE does not support all parameters. 
+10. After receiving all the information from PSE, input "pbap.pce.set_path ./telecom" to set PSE path to telecom.
+   When name is "/", go to root directory.
+   When name is ".." or "../", go up one level.
+   When name is "child" or "./child", go to child.
+11. After setting path successfully, input "pbap.pce.pull_vcardlist -name cch" to pull cch vcard listing object from PSE.
+   The name shall not include any path information, since the PullvCardListing function uses relative paths.
+   Example: cch or ich or och.
+   If want to set the parameter "srmp", add the parameter "-srmp", like "pbap.pull_vcardlist -name cch -srmp 3". 
+   If want to add applicaton parameters, input like "pbap.pull_vcardlist -name cch -name telecom/pb.vcf -o 0".
+   All application parameters are optional and their specific information can be found in spec.
+   It is possible that PSE does not support all parameters or name(spd, fav). 
+12. After receiving all the information from PSE, Input "pbap.pce.set_path ./cch" to set pse path to cch
+   When name is "/", go to root directory.
+   When name is ".." or "../", go up one level.
+   When name is "child" or "./child", go to child.
+13. After setting path successfully, Input "pbap.pce.pull_vcardentry -name 4.vcf" to pull handle=4 vcard entry object from PSE.
+   The name shall be used to indicate the name or the X-BT-UID of the object, and not include any path information.
+   Example: 4.vcf or X-BT-UID:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.
+   If want to set the parameter "srmp", add the parameter "-srmp", like "pbap.pull_vcardentry -name 4.vcf -srmp 3". 
+   If want to add applicaton parameters, input like "pbap.pull_vcardentry -name 4.vcf -f 1".
+   All application parameters are optional and their specific information can be found in spec.
+   It is possible that PSE does not support all parameters or X-BT-UID. 
+14. Input "pbap.pce.disconnect" to disconnect PBAP connection to PSE
+   If PSE is a mobile phone, it will disconnect ACL connect proactively after pbap disconnect.
 
+Note:
+1. If using the a mobile phone as PSE to actively connect to PCE, please be sure to follow step 5 and ignore step 6, 7.
+   After testing, it was found that some mobile phones would only actively query for major services such as HFP or A2DP etc,
+   and if it did not find them or establish an L2CAP connection within the allotted time, the phone would actively disconnect ACL connection.
+   If the PCE initiates the connection to a mobile phone actively, step 5 is optional.
+2. If PSE is a mobile iphone, after connection,  user needs to actively turn on the "Share Contacts Permission" on the phone.
+   Otherwise PCE can not get message from PSE.
+3. If you want to get the vcard listing object or vcard entry object which belongs to a certain folder, please set path to the certain folder first.
+   Example： if you want to get vcard entry object "telecom/cch/4.vcf", first set path to "telecom", then set path to "cch".
+4. It is possible that PSE does not support all application parameters.
 
+Here is an example of run PSE, and PCE is a board running a shell project.
+
+1. Input "bt.init" to initialize bluetooth.
+2. After bluetooth init successfully, Input "br.pscan on" to turn on pscan, PSE can be discoverable.
+3. Input "br.iscan on" to turn on iscan, PSE can be connectable.
+4. Input "pbap.pse.register" to init PBAP PSE.
+5. After that, on PCE side, perform the above steps(step 1 - 14) to test PSE functions.
+6. Input "pbap.pse.disconnect" to disconnect PBAP connection.
+   PBAP connection also can be disconnected by inputting "pbap.pce.disconnect" on PCE side.
+
+Note:
+1. This example acting as PSE doesn't supports all application parameters and only supports to parse/send the part of application parameters from/to PCE.
+
+Running BR/EDR MAP
+Note: Only 1 MAP MAS and MNS connection is supported in shell project.
+shell project supports MCE and MSE.
+
+The commands are as follow:
++---"map": map Bluetooth MAP shell commands
+    +---"mce": mce [none]
+        +---"register": register [none]
+        +---"unregister": unregister [none]
+        +---"mns_register": mns_register [none]
+        +---"mns_unregister": mns_unregister [none]
+        +---"connect": connect SDP first, then connect
+        +---"disconnect": disconnect [none]
+        +---"mns_disconnect": mns_disconnect [none]
+        +---"abort": abort [none]
+        +---"get_folder_list": get_folder_list 
+               -srmp(optional) : [Single Response Mode Param (>=0)].
+               input application parameters(optional).
+               1: -mlc : [MaxListCount (0 - 0xFFFF)].
+               2: -lso : [ListStartOffset (0 - 0xFFFF)].
+        +---"set_folder": set_folder 
+               -name(mandatory) : [name ("/" : root | "../" : parent | "child" : child | "../child" : parent then child)].
+        +---"get_msg_list": get_msg_list 
+               -name(mandatory if getting child folder, or optional) : [name (string)].
+               -srmp(optional) : [Single Response Mode Param (>=0)].
+               input application parameters(optional).
+               1: -mlc : [MaxListCount (0 - 0xFFFF)].
+               2: -lso : [ListStartOffset (0 - 0xFFFF)].
+               3: -sl  : [SubjectLength (1 - 255)].
+               4: -pm  : [ParameterMask (0 - 0x1FFFFF)].
+               5: -fmt : [FilterMessageType (0 - 0x1F)].
+               6: -fpb : [FilterPeriodBegin (string of timestamp)].
+               7: -fpe : [FilterPeriodEnd (string of timestamp)].
+               8: -frs : [FilterReadStatus (0 : no-filter | 1: unread | 2 : read)].
+               9: -fr  : [FilterRecipient (string)].
+               10: -fo : [FilterOriginator (string)].
+               11: -fp : [FilterPriority (0 : no-filter | 1: high priority msg | 2 : non-high priority msg)].
+               12: -ci : [ConversationID (128-bit value in hex string format)].
+               13: -fmh : [FilterMessageHandle (64-bit value in hex string format)].
+        +---"get_msg": get_msg 
+               -name(mandatory) : [MessageHandle (string)].
+               -srmp(optional)  : [Single Response Mode Param (>=0)].
+               input application parameters.
+               1: -a(mandatory) : [Attachment (0 : OFF | 1 : ON)].
+               2: -c(mandatory) : [Charset (0 : native | 1 : UTF-8)].
+               3: -fr(optional) : [FractionRequest (0 : first | 1 : next)].
+        +---"set_msg_status": set_msg_status 
+               -name(mandatory) : [Message Handle (string)].
+               input application parameters.
+               1: -si(mandatory) : [StatusIndicator (0 : readStatus | 1 : deletedStatus | 2 : setExtendedData)].
+               2: -sv(mandatory) : [StatusValue (0 : no | 1 : yes)].
+               3: -ed(optional)  : [ExtendedData (string)].
+        +---"push_msg": push_msg 
+               -name(mandatory if pushing child folder, or optional) : [name (string)].
+               input application parameters.
+               1: -t(optional)  : [Transparent (0 : OFF | 1 : ON)].
+               2: -r(optional)  : [Retry (0 : OFF | 1 : ON)].
+               3: -c(mandatory) : [Charset (0 : native | 1 : UTF-8)].
+               4: -ci(optional) : [ConversationID (128-bit value in hex string format)].
+               5: -mh(optional if Message Forwarding is supported or excluded) : [MessageHandle (string)].
+               6: -a(mandatory if MessageHandle present in request or excluded)  : [Attachment (0 : OFF | 1 : ON)].
+               7: -mt(mandatory if MessageHandle present in request or excluded) : [ModifyText (0 : REPLACE | 1 : PREPEND)].
+        +---"set_ntf_reg": set_ntf_reg 
+               input application parameters(mandatory).
+               1: -ns : [NotificationStatus (0 : OFF | 1 : ON)].
+        +---"update_inbox": update_inbox [none]
+        +---"get_mas_inst_info": get_mas_inst_info 
+               -srmp(optional) : [Single Response Mode Param (>=0)].
+               input application parameters(mandatory).
+               1: -mii : [MASInstanceID (0 - 255)].
+        +---"set_owner_status": set_owner_status 
+               input application parameters(at least one parameter present).
+               1: -pa : [PresenceAvailability (0 - 255)].
+               2: -pt : [PresenceText (string)].
+               3: -la : [LastActivity (string of timestamp)].
+               4: -cs : [ChatState (0 - 255)].
+               5: -ci : [ConversationID (128-bit value in hex string format)].
+        +---"get_owner_status": get_owner_status 
+               -srmp(optional) : [Single Response Mode Param (>=0)].
+               input application parameters(optional).
+               1: -ci : [ConversationID (128-bit value in hex string format)].
+        +---"get_convo_list": get_convo_list 
+               -srmp(optional) : [Single Response Mode Param (>=0)].
+               input application parameters(optional).
+               1: -mlc  : [MaxListCount (0 - 0xFFFF)].
+               2: -lso  : [ListStartOffset (0 - 0xFFFF)].
+               3: -flab : [FilterLastActivityBegin (string)].
+               4: -flae : [FilterLastActivityEnd (string)].
+               5: -frs  : [FilterReadStatus (0 : no-filter | 1: unread | 2 : read)].
+               6: -fr   : [FilterRecipient (string)].
+               7. -ci   : [ConversationID (128-bit value in hex string format)].
+               8: -cpm  : [ConvParameterMask (0 - 0x7FFF)].
+        +---"set_ntf_filter": set_ntf_filter 
+               input application parameters(mandatory).
+               1: -nfm : [NotificationFilterMask (0 - 0x7FFF)].
+    +---"mse": mse [none]
+        +---"register": register [none]
+        +---"unregister": unregister [none]
+        +---"mns_register": mns_register [none]
+        +---"mns_unregister": mns_unregister [none]
+        +---"disconnect": disconnect [none]
+        +---"mns_disconnect": mns_disconnect [none]
+        +---"send_event": send_event 
+               input application parameters(mandatory).
+               1: -mii : [MASInstanceID (0 - 255)].
+
+Here is an example of run MCE, and MSE is a mobile phone or a board running a MSE application.
+
+1. Input "bt.init" to initialize bluetooth.
+2. After bluetooth init successfully, Input "br.pscan on" to turn on pscan, MCE can be discoverable.
+3. Input "br.iscan on" to turn on iscan, MCE can be connectable.
+4. Input "map.mce.register" to init MAP MCE MAS. Input "map.mce.mns_register" to init MAP MCE MNS.
+5. Input "hfp.init" to init HFP.
+   If MSE is a mobile phone and it wants to connect MCE proactively, this step is mandatory, otherwise optional.
+6. Input "br.discovery on" to discover MSE.
+   If MSE connects MCE proactively, this step is optional.
+7. Input "br.connect xx:xx:xx:xx:xx:xx" to create ACL connection to MSE.
+   If MSE connects MCE proactively, do not perform this step.
+8. After ACL connected successfully, input "map.mce.connect" to create MAP MAS connection to MSE.
+   MAP MAS connection to MSE based on the RFCOMM channel or L2CAP depends on whether the GoepL2capPsm is found in SDP record.
+   If the GoepL2capPsm is found, this connection is based on L2CAP otherwise RFCOMM channel. 
+9. After MAP MAS connection is established, input "map.mce.get_folder_list" to get folder listing from the current folder of MSE.
+   If want to set the parameter "srmp", add the parameter "-srmp", like "map.mce.get_folder_list -srmp 3". 
+   If want to add applicaton parameters, input like "map.mce.get_folder_list -mlc 10 -lso 0".
+   All application parameters are optional and their specific information can be found in spec.
+   It is possible that MSE does not support all parameters.
+10. Input "map.mce.set_folder -name ./telecom" to set path to "telecom".
+   Input "map.mce.set_folder -name ./msg" to set path to "msg".
+   Input "map.mce.set_folder -name ./inbox" to set path to "inbox".
+   When name is "/", go to root directory.
+   When name is ".." or "../", go up one level.
+   When name is "child" or "./child", go to child.
+   When name is "../child", go up one level and then go to child.
+11. After going to "inbox", input "map.mce.get_msg_list" to get Messages-Listing objects from the current folder of MSE.
+   If getting Messages-Listing objects in the child folder, the name is mandatory otherwise excluded. The name shall not include any path information.
+   If want to set the parameter "srmp", add the parameter "-srmp", like "map.mce.get_msg_list -srmp 3". 
+   If want to add application parameters, input like "map.mce.get_msg_list -mlc 10 -lso 0 -fpb 20240713T000000".
+   All application parameters are optional and their specific information can be found in spec.
+   It is possible that MSE does not support all parameters.
+12. After getting Messages-Listing objects successfully, input "map.mce.get_msg -name XXXXXXXXXXXXXXXX -a 0 -c 0" to get message content.
+   The name "XXXXXXXXXXXXXXXX" is a message handle returned in the "map.mce.get_msg_list" repsonse.
+   If want to set the parameter "srmp", add the parameter "-srmp", like "map.mce.get_msg -name XXXXXXXXXXXXXXXX -a 0 -c 0 -srmp 3".
+   The "FractionRequest" application parameter is optional and its specific information can be found in spec.
+   It is possible that MSE does not support all parameters.
+13. After getting Messages-Listing objects successfully, input "map.mce.set_msg_status -name XXXXXXXXXXXXXXXX -si 0 -sv 0" to set message status to "unread".
+   The name "XXXXXXXXXXXXXXXX" is a message handle returned in the "map.mce.get_msg_list" repsonse.
+   The "ExtendedData" application parameter is optional and its specific information can be found in spec.
+   It is possible that MSE does not support all parameters.
+14. Input "map.mce.push_msg -c 0" to push a message to the current folder of MSE.
+   If pushing message to a child folder, the name is mandatory otherwise excluded. The name shall not include any path information.
+   Other application parameters are optional and their specific information can be found in spec.
+   It is possible that MSE does not support all parameters.
+15. Input "map.mce.set_ntf_reg -ns 1" to register itself for being notified of the arrival of new messages.
+   After receiving this command, MSE will initiate a MAP MNS connection. After MAP MNS connection is established, MSE can send event to MCE.
+16. Input "map.mce.update_inbox" to initiate an update of the MSE's inbox.
+   MSE shall contact the network to retrieve new messages if available.
+17. Input "map.mce.get_mas_inst_info -mii 0" to get user-readable information about the MAS Instances provided by the MSE.
+   If want to set the parameter "srmp", add the parameter "-srmp", like "map.mce.get_mas_inst_info -mii 0 -srmp 3".
+18. Input "map.mce.set_owner_status -cs 1" to change the Chat State of the owner on the MSE.
+   At least one application parameter is selected to set.
+   Other application parameters are optional and their specific information can be found in spec.
+   It is possible that MSE does not support all parameters.
+   The command will not be sent if the 'Owner status' bit in the MapSupportedFeatures of the MSE is not set.
+19. Input "map.mce.get_owner_status -ci XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" to the Presence, Chat State, or Last Activity of the owner on MSE.
+   If want to set the parameter "srmp", add the parameter "-srmp", like "map.mce.get_owner_status -ci XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -srmp 3".
+   It is possible that MSE is not able to handle the ConversationID.
+   The command will not be sent if the 'Owner status' bit in the MapSupportedFeatures of the MSE is not set.
+20. Input "map.mce.get_convo_list" to get Conversation-Listing objects from MSE.
+   If want to set the parameter "srmp", add the parameter "-srmp", like "map.mce.get_convo_list -srmp 3".
+   If want to add application parameters, input like "map.mce.get_convo_list -mlc 10 -lso 0".
+   All application parameters are optional and their specific information can be found in spec.
+   It is possible that MSE does not support all parameters.
+   The command will not be sent if the 'Conversation listing' bit in the MapSupportedFeatures of the MSE is not set.
+21. Input "map.mce.set_ntf_filter -nfm 7FFF" to unmask all notifications.
+   The command will not be sent if the 'Notification Filtering' bit in the MapSupportedFeatures of the MSE is not set.
+22. Input "map.mce.set_ntf_reg -ns 0" to unregister itself for being notified of the arrival of new messages.
+   After receiving this command, MSE will disconnect the MAP MNS connection.
+   MAP MNS connection also can be disconnected by inputting "map.mce.mns_disconnect".
+23. Input "map.mce.disconnect" to disconnect MAP MAS connection to MSE
+   If MSE is a mobile phone, it will disconnect ACL connect proactively after MAP MAS diconnection.
+
+Note:
+1. If using the a mobile phone as an MSE to actively connect to MCE, please be sure to follow step 5 and ignore step 6, 7.
+   After testing, it was found that some mobile phones would only actively query for major services such as HFP or A2DP etc,
+   and if it did not find them or establish an L2CAP connection within the allotted time, the phone would actively disconnect ACL connection.
+   If the MCE initiates a connection to a mobile phone actively, step 5 is optional.
+2. If MSE is a mobile iphone, after connection, user needs to actively turn on the permission to allow access to messages.
+   Otherwise MCE can not get message from MSE.
+3. It is possible that MSE does not support all MAP commands and application parameters.
+
+Here is an example of run MSE, and MCE is a board running a shell project.
+
+1. Input "bt.init" to initialize bluetooth.
+2. After bluetooth init successfully, Input "br.pscan on" to turn on pscan, MSE can be discoverable.
+3. Input "br.iscan on" to turn on iscan, MSE can be connectable.
+4. Input "map.mse.register" to init MAP MSE MAS. Input "map.mse.mns_register" to init MAP MSE MNS.
+5. After that, on MCE side, perform the above steps(step 1 - 23) to test MSE functions.
+6. After MAP MNS connection is established, input "map.mse.send_event -mii 0" to send MAP-Event-Report object to MCE.
+7. Input "map.mse.mns_disconnect" to disconnect MAP MNS connection.
+   MAP MNS connection also can be disconnected by inputting "map.mce.set_ntf_reg -ns 0" or "map.mce.mns_disconnect" on MCE side.
+8. Input "map.mse.disconnect" to disconnect MAP MAS connection.
+   MAP MAS connection also can be disconnected by inputting "map.mce.disconnect" on MCE side.
+
+Note:
+1. Due to the memory size limitation, some boards don't enable MSE function, such as MIMXRT1170-EVKB.
+   If users wants to enable MSE function, please set the macro of CONFIG_BT_MAP_MSE to 1 and set the macro of RAM_DISK_ENABLE to 1.
+2. This example acting as MSE doesn't supports all application parameters and only supports to parse/send the part of application parameters from/to MCE.
+3. This example acting as MSE is based on FatFs RAM disk. There is a limited memory to store the incoming message from MCE.

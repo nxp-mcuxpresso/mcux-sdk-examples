@@ -10,7 +10,7 @@ In this example , we make use of the available electrodes on board to show drive
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

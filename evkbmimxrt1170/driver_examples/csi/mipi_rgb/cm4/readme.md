@@ -8,7 +8,7 @@ is used to convert the XRGB8888 to RGB565 and shown in the LCD panel.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

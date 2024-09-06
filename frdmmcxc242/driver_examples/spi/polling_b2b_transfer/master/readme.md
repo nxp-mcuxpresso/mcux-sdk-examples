@@ -8,7 +8,7 @@ data to slave, and receive a piece of data from slave. This example checks if th
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

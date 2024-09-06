@@ -1,0 +1,57 @@
+/* @TEST_ANCHOR */
+#define WIFI_IW612_BOARD_MURATA_2EL_M2
+/* @END_TEST_ANCHOR */
+
+/*#define WIFI_IW416_BOARD_AW_AM457_USD*/
+/*#define WIFI_IW416_BOARD_AW_AM457MA*/
+/*#define WIFI_88W8977_BOARD_PAN9026_SDIO*/
+/*#define WIFI_88W8801_BOARD_AW_NM191MA*/
+/*#define WIFI_BOARD_AW_AM281SM*/
+/*#define WIFI_88W8987_BOARD_AW_CM358MA*/
+/*#define WIFI_88W8987_BOARD_AW_CM358_USD*/
+/*#define WIFI_IW612_BOARD_RD_USD*/
+/*#define WIFI_IW612_BOARD_MURATA_2EL_USD*/
+/*#define WIFI_IW612_BOARD_MURATA_2EL_M2*/
+/*#define WIFI_IW416_BOARD_MURATA_1XK_M2*/
+/*#define WIFI_88W8987_BOARD_MURATA_1ZM_M2*/
+
+/* Enable for BT indpendent firmware download */
+/*#define CONFIG_BT_IND_DNLD*/
+
+#define APP_CONFIG_ENABLE_STACK_OVERFLOW_FREERTOS_HOOK 1U
+#define APP_CONFIG_ENABLE_MALLOC_FAILURE_FREERTOS_HOOK 1U
+
+#ifdef WIFI_IW612_BOARD_MURATA_2EL_M2
+#define PCAL6408A_IO_EXP_ENABLE
+#endif /*WIFI_IW612_BOARD_MURATA_2EL_M2*/
+
+/* LE Audio flags */
+#if 0
+
+#if defined(LE_AUDIO_PL_EXT_ENABLE) && (LE_AUDIO_PL_EXT_ENABLE == 1U)
+#if ( defined(WIFI_IW612_BOARD_MURATA_2EL_M2) || defined(WIFI_IW612_BOARD_RD_USD) )
+#define LE_AUDIO_SRC_SYNC_ENABLE			1U
+#define LE_AUDIO_SINK_SYNC_ENABLE       		1U
+#endif /*( defined(WIFI_IW612_BOARD_MURATA_2EL_M2) || defined(WIFI_IW612_BOARD_RD_USD) )*/
+
+#if defined (LE_AUDIO_SRC_SYNC_ENABLE) || defined (LE_AUDIO_SINK_SYNC_ENABLE)
+#define LE_AUDIO_ENABLE_SYNC_SIG_SUPP			1U
+#define LE_AUDIO_DISABLE_MIC_FOR_CT_CG_ROLE	 	1U
+#define LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING 	 	0U
+#endif /*defined (LE_AUDIO_SRC_SYNC_ENABLE) || defined (LE_AUDIO_SINK_SYNC_ENABLE)*/
+
+#else
+#define LE_AUDIO_SRC_SYNC_ENABLE			0U
+#define LE_AUDIO_SINK_SYNC_ENABLE       		0U
+/*Below is required to be set to enable common debug which needs to non-le-audio operations*/
+#define LE_AUDIO_ENABLE_PRINTS_FOR_STREAMING	1U
+#endif /*defined(LE_AUDIO_PL_EXT_ENABLE) && (LE_AUDIO_PL_EXT_ENABLE == 1U)*/
+
+#endif //#if 0
+
+
+/* Enable coex_examples for board */
+#define CONFIG_DISABLE_BLE 0
+#define CONFIG_WIFI_BLE_COEX_APP 1
+
+#include "wifi_bt_module_config.h"

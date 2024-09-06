@@ -1013,7 +1013,7 @@ static bool_t BleApp_CheckScanEvent
     gapScannedDevice_t *pData
 )
 {
-    uint8_t index = 0;
+    uint32_t index = 0;
     bool_t foundMatch = FALSE;
 
     while (index < pData->dataLength)
@@ -1035,7 +1035,7 @@ static bool_t BleApp_CheckScanEvent
         }
 
         /* Move on to the next AD element type */
-        index += adElement.length + (uint8_t)sizeof(uint8_t);
+        index += (uint32_t)adElement.length + (uint8_t)sizeof(uint8_t);
     }
 
     return foundMatch;

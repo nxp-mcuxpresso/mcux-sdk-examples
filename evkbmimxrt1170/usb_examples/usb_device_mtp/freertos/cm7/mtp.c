@@ -753,6 +753,7 @@ void USB_DeviceDiskOperationTask(void *arg)
     usb_mtp_disk_operation_msgq_struct_t msgQ;
     usb_device_mtp_response_struct_t response;
 
+    (void)memset(&msgQ, 0, sizeof(msgQ));
     while (1)
     {
         if (pdTRUE == xQueueReceive(g_mtp.queueHandle, &msgQ, portMAX_DELAY))

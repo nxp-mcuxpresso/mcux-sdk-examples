@@ -6,7 +6,7 @@ The example will read WHO_AM_I value from lsm6dso.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

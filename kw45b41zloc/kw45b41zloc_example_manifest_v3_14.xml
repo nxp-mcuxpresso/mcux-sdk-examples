@@ -4,7 +4,7 @@
   <externalDefinitions>
     <definition extID="KW45B41Z83AFPA"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK216000_kw45b41zloc_examples_manifest_v3_14" name="MCUXpressoSDK216000_kw45b41zloc_examples_manifest_v3_14" version="2.16.000" revision="2.16.000"/>
+  <ksdk id="MCUXpressoSDK216100_kw45b41zloc_examples_manifest_v3_14" name="MCUXpressoSDK216100_kw45b41zloc_examples_manifest_v3_14" version="2.16.100" revision="2.16.100"/>
   <boards>
     <board id="kw45b41zloc" name="KW45B41Z-LOC" version="1.0.0" package="KW45B41Z83AFPA">
       <examples>

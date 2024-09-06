@@ -7,7 +7,7 @@ receives a trigger signal, it will switch to different output voltages.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

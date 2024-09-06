@@ -170,7 +170,7 @@ tsTlvDescr g_Tlv_NodeDescReq =
 
 tsTlvDescr g_Tlv_NodeDescRsp =
 {
-    2,       /* One TLV defined for this command */
+    2,       /* Two TLVs defined for this command */
     0,       /* Do not discard payload if unexpected TLV is found */
     0,       /* Local TLVs are not illegal */
     0,
@@ -265,7 +265,7 @@ tsTlvDescr g_Tlv_ApsFrameCounterRsp =
 
 tsTlvDescr g_Tlv_SecStartKeyUpdateReq =
 {
-    1,       /* One TLV defined for this command */
+    2,       /* Two TLVs defined for this command */
     0,       /* Do not discard payload if unexpected TLV is found */
     0,       /* Local TLVs are not illegal */
     0,
@@ -294,15 +294,27 @@ tsTlvDescr g_Tlv_SecStartKeyNegotiationRsp =
     {{0, 40}}/* Curve25519 Public Point ID = 0, min len 40 B */
 };
 
-#if 0
-tsTlvDescr g_Tlv_SecRetrAuthTokenReq =
+tsTlvDescr g_Tlv_SecRetrieveAuthTokenReq =
 {
     1,       /* One TLV defined for this command */
     0,       /* Do not discard payload if unexpected TLV is found */
+    0,       /* Local TLVs are not illegal */
+    0,
     0,
     {{0, 1}} /* Auth Token ID = 0, min len 1 B */
 };
 
+tsTlvDescr g_Tlv_SecRetrieveAuthTokenRsp =
+{
+    1,       /* One TLV defined for this command */
+    0,       /* Do not discard payload if unexpected TLV is found */
+    1,       /* Local TLVs are illegal */
+    0,
+    0,
+    {{ZPS_TLV_G_SYMPASSPHRASE, ZPS_TLVLEN_G_SYMPASSPHRASE}} /* I.4.6 */
+};
+
+#if 0
 tsTlvDescr g_Tlv_SecGetAuthLvlRsp =
 {
     1,       /* One TLV defined for this command */
@@ -364,7 +376,7 @@ static const uint8 asTlvMinLen[ZPS_TLV_G_LASTTAG - ZPS_TLV_L_MAXTAG - 1] =
     ZPS_TLVLEN_G_PANIDCONFLREP,
     ZPS_TLVLEN_G_PANIDNEXT,
     ZPS_TLVLEN_G_CHANNEXT,
-    ZPS_TLVLEN_G_SYMPASS,
+    ZPS_TLVLEN_G_SYMPASSPHRASE,
     ZPS_TLVLEN_G_ROUTERINFO,
     ZPS_TLVLEN_G_FRAGPARAMS,
     /* remaining items are 0 */

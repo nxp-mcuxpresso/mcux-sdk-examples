@@ -5,7 +5,7 @@ This example works as a USB HID device. It will appear as a USB keyboard device 
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

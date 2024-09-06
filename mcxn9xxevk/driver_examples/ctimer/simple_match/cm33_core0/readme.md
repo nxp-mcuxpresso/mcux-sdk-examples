@@ -5,7 +5,7 @@ In this example, the match feature of the CTimer is used to toggle the output le
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

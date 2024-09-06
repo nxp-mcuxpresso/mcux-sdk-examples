@@ -25,7 +25,7 @@ The assigned unique local or global unique addresses could be typed into the web
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

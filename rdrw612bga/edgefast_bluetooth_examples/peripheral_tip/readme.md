@@ -6,7 +6,7 @@ specifically implements the Time Profile.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

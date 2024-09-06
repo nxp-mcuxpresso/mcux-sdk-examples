@@ -51,6 +51,10 @@
 
 #define CONFIG_BT_RFCOMM                    1
 #define CONFIG_BT_HFP_HF                    1
+#define CONFIG_BT_MAP_MCE                   1
+#define CONFIG_BT_MAP_MSE                   1
+#define CONFIG_BT_PBAP_PCE                  1
+#define CONFIG_BT_PBAP_PSE                  1
 #define CONFIG_BT_A2DP                      1
 #define CONFIG_BT_A2DP_SOURCE               1
 #define CONFIG_BT_A2DP_SINK                 1
@@ -341,7 +345,12 @@
 #define CONFIG_WORK_QUEUE_TASK_STACK_SIZE 4096
 
 #define SHELL_BUFFER_SIZE 512U
+#if ((defined(CONFIG_BT_MAP_MCE) && (CONFIG_BT_MAP_MCE > 0U)) || \
+     (defined(CONFIG_BT_PBAP_PCE) && (CONFIG_BT_PBAP_PCE > 0U)))
+#define SHELL_MAX_ARGS    40
+#else
 #define SHELL_MAX_ARGS    20
+#endif
 
 #if (defined(CONFIG_BT_SMP) && (CONFIG_BT_SMP > 0U))
     #define CONFIG_BT_RX_STACK_SIZE 3000

@@ -26,6 +26,7 @@
     <definition extID="driver.phy-common.MCXN547"/>
     <definition extID="utility.str.MCXN547"/>
     <definition extID="middleware.lwip.template.MCXN547"/>
+    <definition extID="middleware.lwip.sys_arch_dynamic.MCXN547"/>
     <definition extID="component.gpio_adapter.MCXN547"/>
     <definition extID="middleware.lwip.apps.httpd.support.MCXN547"/>
     <definition extID="platform.drivers.mcx_spc.MCXN547"/>
@@ -36,7 +37,7 @@
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
   </externalDefinitions>
-  <example id="mcxn5xxevk_lwip_httpsrv_bm" name="lwip_httpsrv_bm" device_core="cm33_core0_MCXN547" dependency="driver.phy-device-lan8741.MCXN547 utility.debug_console_lite.MCXN547 platform.utilities.assert_lite.MCXN547 platform.drivers.flashiap.MCXN547 component.silicon_id.MCXN547 middleware.lwip.mcx_ethernetif.MCXN547 middleware.lwip.MCXN547 platform.drivers.mcx_enet.MCXN547 middleware.lwip.apps.httpd.MCXN547 platform.drivers.clock.MCXN547 platform.drivers.common.MCXN547 platform.drivers.power.MCXN547 platform.drivers.reset.MCXN547 platform.devices.MCXN547_CMSIS.MCXN547 platform.devices.MCXN547_startup.MCXN547 platform.drivers.lpflexcomm_lpuart.MCXN547 platform.drivers.gpio.MCXN547 platform.drivers.port.MCXN547 component.lpuart_adapter.MCXN547 component.lists.MCXN547 platform.utilities.misc_utilities.MCXN547 driver.phy-common.MCXN547 utility.str.MCXN547 middleware.lwip.template.MCXN547 component.gpio_adapter.MCXN547 middleware.lwip.apps.httpd.support.MCXN547 platform.drivers.mcx_spc.MCXN547 CMSIS_Include_core_cm.MCXN547 platform.devices.MCXN547_system.MCXN547 platform.drivers.lpflexcomm.MCXN547" category="lwip_examples">
+  <example id="mcxn5xxevk_lwip_httpsrv_bm" name="lwip_httpsrv_bm" device_core="cm33_core0_MCXN547" dependency="driver.phy-device-lan8741.MCXN547 utility.debug_console_lite.MCXN547 platform.utilities.assert_lite.MCXN547 platform.drivers.flashiap.MCXN547 component.silicon_id.MCXN547 middleware.lwip.mcx_ethernetif.MCXN547 middleware.lwip.MCXN547 platform.drivers.mcx_enet.MCXN547 middleware.lwip.apps.httpd.MCXN547 platform.drivers.clock.MCXN547 platform.drivers.common.MCXN547 platform.drivers.power.MCXN547 platform.drivers.reset.MCXN547 platform.devices.MCXN547_CMSIS.MCXN547 platform.devices.MCXN547_startup.MCXN547 platform.drivers.lpflexcomm_lpuart.MCXN547 platform.drivers.gpio.MCXN547 platform.drivers.port.MCXN547 component.lpuart_adapter.MCXN547 component.lists.MCXN547 platform.utilities.misc_utilities.MCXN547 driver.phy-common.MCXN547 utility.str.MCXN547 middleware.lwip.template.MCXN547 middleware.lwip.sys_arch_dynamic.MCXN547 component.gpio_adapter.MCXN547 middleware.lwip.apps.httpd.support.MCXN547 platform.drivers.mcx_spc.MCXN547 CMSIS_Include_core_cm.MCXN547 platform.devices.MCXN547_system.MCXN547 platform.drivers.lpflexcomm.MCXN547" category="lwip_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -47,6 +48,15 @@
           <value>PRINTF_ADVANCED_ENABLE=1</value>
           <value>MCUXPRESSO_SDK</value>
           <value>LWIP_DISABLE_PBUF_POOL_SIZE_SANITY_CHECKS=1</value>
+          <value>CHECKSUM_GEN_UDP=1</value>
+          <value>CHECKSUM_GEN_TCP=1</value>
+          <value>CHECKSUM_GEN_ICMP=1</value>
+          <value>CHECKSUM_GEN_ICMP6=1</value>
+          <value>CHECKSUM_CHECK_IP=1</value>
+          <value>CHECKSUM_CHECK_UDP=1</value>
+          <value>CHECKSUM_CHECK_TCP=1</value>
+          <value>CHECKSUM_CHECK_ICMP=1</value>
+          <value>CHECKSUM_CHECK_ICMP6=1</value>
         </option>
         <option id="com.crt.advproject.gas.fpu" type="enum">
           <value>com.crt.advproject.gas.fpu.fpv5sp.hard</value>

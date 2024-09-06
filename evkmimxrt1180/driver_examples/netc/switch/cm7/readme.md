@@ -5,7 +5,7 @@ In this demo, NETC acts as network switch.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

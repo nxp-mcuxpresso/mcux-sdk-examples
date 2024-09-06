@@ -6,7 +6,7 @@ wake up the device from sleep mode
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

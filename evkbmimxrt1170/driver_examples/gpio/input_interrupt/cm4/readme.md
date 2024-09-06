@@ -6,7 +6,7 @@ The example is supported by the set, clear registers for each GPIO pin output re
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

@@ -605,7 +605,7 @@ int unicast_client_delete_group(void)
     return 0;
 }
 
-int unicast_client_release_streams(void)
+int unicast_client_release_streams_of_conn(struct bt_conn *conn)
 {
     struct conn_state *state = NULL;
     int err = -ENOTCONN;
@@ -613,7 +613,7 @@ int unicast_client_release_streams(void)
 
     for (uint32_t index = 0; index < ARRAY_SIZE(server_state); index++)
     {
-        if (NULL != server_state[index].conn)
+        if (((NULL == conn) && (NULL != server_state[index].conn)) || ((NULL != conn) && (conn == server_state[index].conn)))
         {
             if ((0U == server_state[index].src_cap_support) && (0U == server_state[index].snk_cap_support))
             {
@@ -716,6 +716,11 @@ int unicast_client_release_streams(void)
     }
 
     return err;
+}
+
+int unicast_client_release_streams(void)
+{
+    return unicast_client_release_streams_of_conn(NULL);
 }
 
 int unicast_client_configure_streams(void)
@@ -1103,7 +1108,7 @@ int unicast_client_metadata(uint16_t tx_context, uint16_t rx_context)
     return err;
 }
 
-int unicast_client_disable_stream_unidirectional(uint8_t is_tx)
+int unicast_client_disable_stream_unidirectional_of_conn(struct bt_conn *conn, uint8_t is_tx)
 {
     struct conn_state *state = NULL;
     int err;
@@ -1111,7 +1116,7 @@ int unicast_client_disable_stream_unidirectional(uint8_t is_tx)
 
     for (uint32_t index = 0; index < ARRAY_SIZE(server_state); index++)
     {
-        if (NULL != server_state[index].conn)
+        if (((NULL == conn) && (NULL != server_state[index].conn)) || ((NULL != conn) && (conn == server_state[index].conn)))
         {
             state = &server_state[index];
 
@@ -1176,6 +1181,23 @@ int unicast_client_disable_stream_unidirectional(uint8_t is_tx)
         }
     }
     return 0;
+}
+
+int unicast_client_disable_stream_unidirectional(uint8_t is_tx)
+{
+    return unicast_client_disable_stream_unidirectional_of_conn(NULL, is_tx);
+}
+
+int unicast_client_disable_streams_of_conn(struct bt_conn *conn)
+{
+    int err;
+
+    err = unicast_client_disable_stream_unidirectional_of_conn(conn, 0);
+    if (err >= 0)
+    {
+        err = unicast_client_disable_stream_unidirectional_of_conn(conn, 1);
+    }
+    return err;
 }
 
 int unicast_client_disable_streams(void)
@@ -3136,9 +3158,13 @@ static void disconnected(struct bt_conn *conn, uint8_t reason)
     }
 #endif /* UNICAST_AUDIO_SYNC_MODE */
 
-    unicast_client_disable_streams();
-    unicast_client_release_streams();
-    unicast_client_delete_group();
+    unicast_client_disable_streams_of_conn(conn);
+    unicast_client_release_streams_of_conn(conn);
+
+    if (1U == source_connect_count())
+    {
+        unicast_client_delete_group();
+    }
 
     for (uint32_t index = 0; index < ARRAY_SIZE(server_state); index++)
     {

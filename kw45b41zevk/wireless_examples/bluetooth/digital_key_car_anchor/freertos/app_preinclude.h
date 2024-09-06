@@ -91,6 +91,7 @@
   #define gAppLedCnt_c                    0
   #define gAppLpuart0WakeUpSourceEnable_d 1
 #endif
+
 /*! *********************************************************************************
  *     CCC Configuration
  ********************************************************************************** */
@@ -145,7 +146,7 @@
 #define TM_TASK_STACK_SIZE              (512U)
 #define BUTTON_TASK_STACK_SIZE          (512U)
 #define SERIAL_MANAGER_TASK_STACK_SIZE  (512U)
-#define gHost_TaskStackSize_c           (1700U)
+#define gHost_TaskStackSize_c           (1760U)
 /*! *********************************************************************************
  *     BLE Stack Configuration
  ********************************************************************************** */
@@ -186,6 +187,8 @@
 /* Disable GATT automatic robust caching */
 #define gGattAutomaticRobustCachingSupport_d  0
 
+/* See documentation on how to enable DBAF */
+#define gBLE60_DecisionBasedAdvertisingFilteringSupport_d FALSE
 /*! *********************************************************************************
  *  Auto Configuration
  ********************************************************************************** */

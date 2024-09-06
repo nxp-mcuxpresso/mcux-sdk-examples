@@ -556,7 +556,8 @@ PUBLIC void 		ZPS_vMacInterruptHandler(void);
 PUBLIC PHY_Enum_e 	ZPS_eMacPlmeGet(PHY_PibAttr_e ePhyPibAttribute, uint32 *pu32PhyPibValue);
 PUBLIC PHY_Enum_e 	ZPS_eMacPlmeSet(PHY_PibAttr_e ePhyPibAttribute, uint32 u32PhyPibValue);
 
-
+PUBLIC PHY_Enum_e ZPS_eAddPhyFilteringAddr(uint16 u16Addr, uint64 u64ExtAddr);
+PUBLIC PHY_Enum_e ZPS_eClearPhyFilter();
 
 /****************************************************************************/
 /***        MAC Interface Table                                           ***/

@@ -6,7 +6,7 @@ When the TPM interrupt is triggered 1000 times, a message is printed on the UART
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

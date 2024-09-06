@@ -88,16 +88,30 @@ static void security_changed(struct bt_conn *conn, bt_security_t level,
         }
         else
         {
+            PRINTF("BR Security failed: %s level %u err %d\n", addr, level, err);
             if (err == BT_SECURITY_ERR_PIN_OR_KEY_MISSING)
             {
-                PRINTF("\n");
+                struct bt_conn_info info;
+                int ret;
 
-                PRINTF("___________________________________________________________\n");
+                bt_conn_get_info(conn, &info);
+                if (info.type == BT_CONN_TYPE_LE)
+                {
+                    return;
+                }
+
                 PRINTF("The peer device seems to have lost the bonding information.\n");
-                PRINTF("Kindly delete the bonding information of the peer and try again.\n");
-                PRINTF("\n");
+                PRINTF("Delete the bonding information of the peer, please try again.\n");
+                ret = bt_unpair(BT_ID_DEFAULT, info.le.remote);
+                if (ret)
+                {
+                    PRINTF("fail to delete.\n");
+                }
+                else
+                {
+                    PRINTF("success to delete.\n");
+                }
             }
-            PRINTF("BR Security failed: %s level %u err %d\n", addr, level, err);
         }
     }
 }

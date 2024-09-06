@@ -1,9 +1,9 @@
 /*
  * Copyright (c) 2024, Freescale Semiconductor, Inc.
  * Copyright 2024 NXP
- * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
+ * The BSD-3-Clause license can be found at https://spdx.org/licenses/BSD-3-Clause.html
  */
 #ifndef __APP_H__
 #define __APP_H__

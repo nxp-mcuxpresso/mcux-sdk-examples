@@ -62,13 +62,12 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../edgefast_bluetooth_config.h"
 "${ProjDirPath}/../edgefast_bluetooth_audio_config.h"
 "${ProjDirPath}/../edgefast_bluetooth_debug_config.h"
+"${ProjDirPath}/../shell_common.c"
 "${ProjDirPath}/../board.c"
 "${ProjDirPath}/../board.h"
 "${ProjDirPath}/../clock_config.c"
 "${ProjDirPath}/../clock_config.h"
-"${ProjDirPath}/../controller/configs/lwip/lwipopts.h"
-"${ProjDirPath}/../controller/configs/lwip/lwippools.h"
-"${ProjDirPath}/../controller/configs/wifi/wifi_config.h"
+"${ProjDirPath}/../source/monolithic_config.h"
 "${ProjDirPath}/../platform/configs/ffconf.h"
 "${ProjDirPath}/../platform/configs/usb_host_config.h"
 )
@@ -76,8 +75,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/..
     ${ProjDirPath}/../controller/configs/mbedtls
-    ${ProjDirPath}/../controller/configs/lwip
-    ${ProjDirPath}/../controller/configs/wifi
+    ${ProjDirPath}/../source
     ${SdkRootDirPath}/core/boards/frdmrw612
     ${ProjDirPath}/../platform/configs
 )

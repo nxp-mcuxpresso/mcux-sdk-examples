@@ -5,7 +5,7 @@ The I2S example project uses one I2S interface to continuously playback the sine
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

@@ -269,8 +269,7 @@ static int ssi_ota_image_info(HTTPSRV_SSI_PARAM_STRUCT *param)
             char versionstr[40];
             int slotused;
 
-            status = mflash_drv_read(fa->fa_off, (uint32_t *)&ih, sizeof(ih));
-            if (status != kStatus_Success)
+            if (bl_flash_read(fa->fa_off, (uint32_t *)&ih, sizeof(ih)) != 0)
             {
                 PRINTF("Failed to read image header/n");
                 return 0;

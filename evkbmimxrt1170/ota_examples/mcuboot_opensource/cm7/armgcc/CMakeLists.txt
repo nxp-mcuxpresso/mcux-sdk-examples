@@ -60,6 +60,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../evkbmimxrt1170_connect_cm4_cm7side.jlinkscript"
 "${ProjDirPath}/../boot.c"
 "${ProjDirPath}/../boot.h"
+"${ProjDirPath}/../bootutil_hooks.c"
 "${ProjDirPath}/../keys.c"
 "${ProjDirPath}/../include/mbedtls_config.h"
 "${ProjDirPath}/../include/mcuboot_config/mcuboot_config.h"

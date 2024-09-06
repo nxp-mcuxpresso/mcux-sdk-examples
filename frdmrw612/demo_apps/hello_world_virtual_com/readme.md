@@ -7,7 +7,7 @@ The purpose of this demo is to demonstrate how to use virtual com and provide a 
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================
@@ -16,8 +16,8 @@ Toolchain supported
 
 Hardware requirements
 =====================
-- Two Micro USB cable
-- FRDM-RW612 board
+- Two USB-C cable
+- FRDM-RW612 v2 board
 - Personal Computer
 
 Board settings

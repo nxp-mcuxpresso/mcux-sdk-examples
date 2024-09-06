@@ -38,7 +38,7 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(wifi_cert)
 
-set(MCUX_BUILD_TYPES flash_release flash_debug debug release)
+set(MCUX_BUILD_TYPES flash_release flash_debug)
 
 set(MCUX_SDK_PROJECT_NAME wifi_cert.elf)
 

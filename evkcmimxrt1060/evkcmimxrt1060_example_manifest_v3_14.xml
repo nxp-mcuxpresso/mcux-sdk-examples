@@ -4,7 +4,7 @@
   <externalDefinitions>
     <definition extID="MIMXRT1062DVL6B"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK216000_evkcmimxrt1060_examples_manifest_v3_14" name="MCUXpressoSDK216000_evkcmimxrt1060_examples_manifest_v3_14" version="2.16.000" revision="2.16.000"/>
+  <ksdk id="MCUXpressoSDK216100_evkcmimxrt1060_examples_manifest_v3_14" name="MCUXpressoSDK216100_evkcmimxrt1060_examples_manifest_v3_14" version="2.16.100" revision="2.16.100"/>
   <boards>
     <board id="evkcmimxrt1060" name="MIMXRT1060-EVKC" version="1.0.0" package="MIMXRT1062DVL6B">
       <examples>
@@ -131,6 +131,26 @@
         <example id="evkcmimxrt1060_call_terminal" name="call_terminal" brief="The Edgefast Bluetooth call terminal example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/call_terminal">
           <external path="edgefast_bluetooth_examples/call_terminal" type="xml">
             <files mask="call_terminal_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkcmimxrt1060_pbap_pce" name="pbap_pce" brief="The Edgefast Bluetooth bluetooth pbap_pce example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/pbap_pce">
+          <external path="edgefast_bluetooth_examples/pbap_pce" type="xml">
+            <files mask="pbap_pce_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkcmimxrt1060_pbap_pse" name="pbap_pse" brief="The Edgefast Bluetooth bluetooth pbap_pse example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/pbap_pse">
+          <external path="edgefast_bluetooth_examples/pbap_pse" type="xml">
+            <files mask="pbap_pse_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkcmimxrt1060_map_mce" name="map_mce" brief="The Edgefast Bluetooth bluetooth map_mce example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/map_mce">
+          <external path="edgefast_bluetooth_examples/map_mce" type="xml">
+            <files mask="map_mce_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkcmimxrt1060_map_mse" name="map_mse" brief="The Edgefast Bluetooth bluetooth map_mse example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/map_mse">
+          <external path="edgefast_bluetooth_examples/map_mse" type="xml">
+            <files mask="map_mse_v3_14.xml"/>
           </external>
         </example>
         <example id="evkcmimxrt1060_cmsis_lpi2c_edma_b2b_transfer_master" name="cmsis_lpi2c_edma_b2b_transfer_master" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_i2c_edma_b2b_transfer_master example shows how to use i2c driver as master to do board to board transfer with EDMA:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/lpi2c" path="examples/evkcmimxrt1060/cmsis_driver_examples/lpi2c/edma_b2b_transfer/master">
@@ -1518,6 +1538,11 @@
             <files mask="uart_wifi_bridge_v3_14.xml"/>
           </external>
         </example>
+        <example id="evkcmimxrt1060_wifi_cli_static" name="wifi_cli_static" brief="wifi_cli_static" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="examples/evkcmimxrt1060/wifi_examples/wifi_cli_static">
+          <external path="wifi_examples/wifi_cli_static" type="xml">
+            <files mask="wifi_cli_static_v3_14.xml"/>
+          </external>
+        </example>
         <example id="evkcmimxrt1060_wifi_cli" name="wifi_cli" brief="wifi_cli" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="examples/evkcmimxrt1060/wifi_examples/wifi_cli">
           <external path="wifi_examples/wifi_cli" type="xml">
             <files mask="wifi_cli_v3_14.xml"/>
@@ -1541,6 +1566,16 @@
         <example id="evkcmimxrt1060_wifi_ipv4_ipv6_echo" name="wifi_ipv4_ipv6_echo" brief="The wifi_ipv4_ipv6_echo demo application demonstrates a TCP or UDP echo demo on the lwIP TCP/IP stack with FreeRTOS. The demo uses the TCP or UDP protocol over both IPv4 and IPv6 and acts as an echo server. The application sends back the received TCP or UDP packets from the PC, which can be used to test whether a TCP or UDP is available." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="examples/evkcmimxrt1060/wifi_examples/wifi_ipv4_ipv6_echo">
           <external path="wifi_examples/wifi_ipv4_ipv6_echo" type="xml">
             <files mask="wifi_ipv4_ipv6_echo_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkcmimxrt1060_coex_cli" name="coex_cli" brief="The coex_cli." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="coex_examples" path="examples/evkcmimxrt1060/coex_examples/coex_cli">
+          <external path="coex_examples/coex_cli" type="xml">
+            <files mask="coex_cli_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkcmimxrt1060_coex_wpa_supplicant" name="coex_wpa_supplicant" brief="The coex_wpa_supplicant." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="coex_examples" path="examples/evkcmimxrt1060/coex_examples/coex_wpa_supplicant">
+          <external path="coex_examples/coex_wpa_supplicant" type="xml">
+            <files mask="coex_wpa_supplicant_v3_14.xml"/>
           </external>
         </example>
         <example id="evkcmimxrt1060_maestro_playback" name="maestro_playback" brief="Audio maestro framework demo example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="audio_examples" path="examples/evkcmimxrt1060/audio_examples/maestro_playback">

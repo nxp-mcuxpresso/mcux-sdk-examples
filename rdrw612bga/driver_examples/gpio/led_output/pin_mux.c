@@ -18,7 +18,7 @@ product: Pins v15.0
 processor: RW612
 package_id: RW612ETA2I
 mcu_data: ksdk2_0
-processor_version: 0.0.0
+processor_version: 0.16.10
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -44,9 +44,9 @@ void BOARD_InitBootPins(void)
 BOARD_InitPins:
 - options: {callFromInitBoot: 'true', coreID: cm33, enableClock: 'true'}
 - pin_list:
-  - {pin_num: F3, peripheral: FLEXCOMM3, signal: USART_RXD, pin_signal: GPIO_24}
-  - {pin_num: G3, peripheral: GPIO, signal: 'PIO0, 25', pin_signal: GPIO_25}
-  - {pin_num: C12, peripheral: GPIO, signal: 'PIO0, 1', pin_signal: GPIO_1}
+  - {pin_num: E5, peripheral: FLEXCOMM3, signal: USART_RXD, pin_signal: GPIO_24}
+  - {pin_num: E7, peripheral: GPIO, signal: 'PIO0, 25', pin_signal: GPIO_25}
+  - {pin_num: N2, peripheral: GPIO, signal: 'PIO0, 1', pin_signal: GPIO_1}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -60,11 +60,11 @@ BOARD_InitPins:
 /* Function assigned for the Cortex-M33 */
 void BOARD_InitPins(void)
 {
-    /* Initialize FC3_USART_DATA functionality on pin GPIO_24 (pin F3) */
+    /* Initialize FC3_USART_DATA functionality on pin GPIO_24 (pin E5) */
     IO_MUX_SetPinMux(IO_MUX_FC3_USART_DATA);
-    /* Initialize GPIO1 functionality on pin GPIO_1 (pin C12) */
+    /* Initialize GPIO1 functionality on pin GPIO_1 (pin N2) */
     IO_MUX_SetPinMux(IO_MUX_GPIO1);
-    /* Initialize GPIO25 functionality on pin GPIO_25 (pin G3) */
+    /* Initialize GPIO25 functionality on pin GPIO_25 (pin E7) */
     IO_MUX_SetPinMux(IO_MUX_GPIO25);
 }
 /***********************************************************************************************************************

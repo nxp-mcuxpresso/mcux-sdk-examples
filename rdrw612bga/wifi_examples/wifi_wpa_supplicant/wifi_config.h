@@ -28,7 +28,6 @@
 #define PRINTF_FLOAT_ENABLE 1
 #define CONFIG_HOST_SLEEP 1
 #define CONFIG_POWER_MANAGER 1
-#define CONFIG_CLOUD_KEEP_ALIVE 1
 #define CONFIG_MEF_CFG 1
 /** If define CONFIG_TX_RX_ZERO_COPY 1, please make sure
  *  #define PBUF_POOL_BUFSIZE 1752

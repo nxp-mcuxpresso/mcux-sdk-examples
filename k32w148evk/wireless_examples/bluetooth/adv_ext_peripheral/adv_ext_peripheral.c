@@ -65,8 +65,14 @@
 #define mAE_PeripheralDebug_c   (0)
 #endif
 
+#if defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE)
+#define mChangePerAdvDataOption_c                   (10U)
+#define mChangeDbafNonConnNonScannAdvDataOption_c   (9U)
+#define mChangeNonConnNonScannAdvDataOption_c       (8U)
+#else
 #define mChangePerAdvDataOption_c              (6U)
 #define mChangeNonConnNonScannAdvDataOption_c  (5U)
+#endif /* defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE) */
 
 #define Serial_Print(a,b,c)     (void)SerialManager_WriteBlocking((serial_write_handle_t)s_writeHandle, (uint8_t *)&(b)[0], strlen(b))
 #define Serial_PrintDec(a,b)    (void)SerialManager_WriteBlocking((serial_write_handle_t)s_writeHandle, FORMAT_Dec2Str(b), strlen((char const *)FORMAT_Dec2Str(b)))
@@ -96,6 +102,11 @@ typedef enum
     mExtAdvScannIndex_c,
     mExtAdvConnIndex_c,
     mExtAdvNonConnNonScanIndex_c,
+#if defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE)
+    mDbafAdvScannIndex_c,
+    mDbafAdvConnIndex_c,
+    mDbafAdvNonConnNonScanIndex_c,
+#endif /* defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE) */
     mPeriodicAdvIndex_c,
     mAdvIndexMax_c
 }advIndex_t;
@@ -150,7 +161,26 @@ static char* extAdvScannStrings[] = {"\n\r 2. Start Extended Scannable Advertisi
 static char* extAdvConnStrings[] = {"\n\r 3. Start Extended Connectable Advertising",\
                                           "\n\r 3. Stop Extended Connectable Advertising",
                                           "\n\rConnected"};
+#if defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE)
+static char* extAdvNonConnNonScanStrings[] = {"\n\r 4. Start Extended Non Connectable Non Scannable Advertising",\
+        "\n\r 4. Stop Extended Non Connectable Non Scannable Advertising \n\r 9. Change Data for Non Connectable Non Scannable Advertising"};
 
+static char* dbafAdvScannStrings[] = {"\n\r 5. Start DBAF Scannable Advertising",\
+                                           "\n\r 5. Stop DBAF Scannable Advertising"};
+
+static char* dbafAdvConnStrings[] = {"\n\r 6. Start DBAF Connectable Advertising",\
+                                          "\n\r 6. Stop DBAF Connectable Advertising",
+                                          "\n\rConnected"};
+
+static char* dbafAdvNonConnNonScanStrings[] = {"\n\r 7. Start DBAF Non Connectable Non Scannable Advertising",\
+        "\n\r 7. Stop DBAF Non Connectable Non Scannable Advertising \n\r 10. Change Data for DBAF Non Connectable Non Scannable Advertising"};
+
+static char* periodicAdvStrings[] = {"\n\r 8. Start Periodic Advertising",\
+        "\n\r 8. Stop Periodic Advertising \n\r 11. Change Data for Periodic Advertising"};
+
+static char** maMenu[]= {legacyAdvStrings, extAdvScannStrings, extAdvConnStrings, extAdvNonConnNonScanStrings, dbafAdvScannStrings, dbafAdvConnStrings, dbafAdvNonConnNonScanStrings, periodicAdvStrings};
+static char* menuOptions[] ={"\r 1 ","\r 2 ", "\r 3 ", "\r 4 ", "\r 5 ", "\r 6 ", "\r 7 ", "\r 8 ", "\r 9 ", "\r 10", "\r 11"};
+#else
 static char* extAdvNonConnNonScanStrings[] = {"\n\r 4. Start Extended Non Connectable Non Scannable Advertising",\
         "\n\r 4. Stop Extended Non Connectable Non Scannable Advertising \n\r 6. Change Data for Non Connectable Non Scannable Advertising"};
 
@@ -159,22 +189,38 @@ static char* periodicAdvStrings[] = {"\n\r 5. Start Periodic Advertising",\
 
 static char** maMenu[]= {legacyAdvStrings, extAdvScannStrings, extAdvConnStrings, extAdvNonConnNonScanStrings, periodicAdvStrings};
 static char* menuOptions[] ={"\r 1","\r 2", "\r 3", "\r 4", "\r 5", "\r 6", "\r 7"};
+#endif /* defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE) */
 #endif /*gAppButtonCnt_c > 0*/
 static advHandleStatus_t maAdvHandle[mNumberOfAdvHandles_c] = {madvHandle_Available_c, madvHandle_Available_c};
 static advIndex_t maLastAdvIndexForThisHandle[mNumberOfAdvHandles_c]={ mAdvIndexMax_c, mAdvIndexMax_c};
+#if defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE)
+static gapExtAdvertisingParameters_t* maPExtAdvParam[] = {&gExtAdvParamsLegacy, &gExtAdvParamsScannable, &gExtAdvParamsConnectable, &gExtAdvParamsNonConnNonScann, &gDbafParamsScannable, &gDbafParamsConnectable, &gDbafParamsNonConnNonScann };
+
+static gapAdvertisingData_t* maPExtAdvData[] = {&gAppAdvertisingData , NULL, &gAppExtAdvDataConnectable, &gAppExtAdvDataId1NonConnNonScan, NULL, &gAppExtAdvDataConnectable, &gAppExtAdvDataId1NonConnNonScan };
+static gapAdvertisingData_t* maPExtScanData[] = {&gAppScanRspData , &gAppExtAdvDataScannable, NULL, &gAppScanRspData, &gAppExtAdvDataScannable, NULL, &gAppScanRspData };
+#else
 static gapExtAdvertisingParameters_t* maPExtAdvParam[] = {&gExtAdvParamsLegacy, &gExtAdvParamsScannable, &gExtAdvParamsConnectable, &gExtAdvParamsNonConnNonScann };
 
 static gapAdvertisingData_t* maPExtAdvData[] = {&gAppAdvertisingData , NULL, &gAppExtAdvDataConnectable, &gAppExtAdvDataId1NonConnNonScan };
 static gapAdvertisingData_t* maPExtScanData[] = {&gAppScanRspData , &gAppExtAdvDataScannable, NULL, &gAppScanRspData };
+#endif /* defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE) */
 static gapAdvertisingData_t* maPPeriodicAdvData[] = {&gAppExtAdvDataId1Periodic, &gAppExtAdvDataId2Periodic};
 static gapAdvertisingData_t* maPExtAdvDataNonConnNonScan[] = {&gAppExtAdvDataId1NonConnNonScan, &gAppExtAdvDataId2NonConnNonScan};
 static uint8_t mPeriodicAdvDataIndex = 0;
 static uint8_t mExtAdvDataNCNSIndex = 0;
+#if defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE)
+static uint8_t mDbafAdvDataNCNSIndex = 0;
+#endif /* defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE) */
 
 static char* advTypeStrings[] = {"\n\rLegacy Advertising",\
                                        "\n\rExtended Scanable Advertising",\
                                        "\n\rExtended Connectable Advertising",\
-                                       "\n\rExtended Non Connectable Non Scanable Advertising",\
+                                       "\n\rExtended Non Connectable Non Scanable Advertising",
+#if defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE)
+                                       "\n\rDBAF Scanable Advertising",\
+                                       "\n\rDBAF Connectable Advertising",\
+                                       "\n\rDBAF Non Connectable Non Scanable Advertising",
+#endif /* defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE) */
                                        "\n\rExtended Periodic Advertising"};
 
 #if mAE_PeripheralDebug_c
@@ -277,7 +323,9 @@ static void BleApp_HandleExtAdvNonConnNonScannMode(uint8_t mode);
 static void BleApp_HandlePeriodicAdvMode(uint8_t mode);
 static void BleApp_HandleChangePerAdvDataMode(void);
 static void BleApp_HandleChangeNonConnNonScannAdvDataMode(void);
-
+#if defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE)
+static void BleApp_HandleChangeDbafNonConnNonScannAdvDataMode(void);
+#endif /* defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE) */
 /************************************************************************************
 *************************************************************************************
 * Public functions
@@ -316,6 +364,11 @@ void BleApp_Start(uint8_t mode)
     case (uint8_t)mExtAdvScannIndex_c:
     case (uint8_t)mExtAdvConnIndex_c:
     case (uint8_t)mExtAdvNonConnNonScanIndex_c:
+#if defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE)
+    case (uint8_t)mDbafAdvScannIndex_c:
+    case (uint8_t)mDbafAdvConnIndex_c:
+    case (uint8_t)mDbafAdvNonConnNonScanIndex_c:
+#endif /* defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE) */
         BleApp_HandleExtAdvNonConnNonScannMode(mode);
         break;
 
@@ -330,6 +383,11 @@ void BleApp_Start(uint8_t mode)
     case mChangeNonConnNonScannAdvDataOption_c:
         BleApp_HandleChangeNonConnNonScannAdvDataMode();
         break;
+#if defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE)
+    case mChangeDbafNonConnNonScannAdvDataOption_c:
+        BleApp_HandleChangeDbafNonConnNonScannAdvDataMode();
+        break;
+#endif /* defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE) */
     default:
         {
             ; /* No action required */
@@ -352,14 +410,21 @@ button_status_t BleApp_HandleKeys0(void *buttonHandle, button_callback_message_t
     case kBUTTON_EventShortPress:
     case kBUTTON_EventLongPress:
         {
-            uint8_t bmValidOption = (uint8_t)0x1fU |
+#if defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE)
+            uint16_t bmValidOption = (uint16_t)0x00ffU |
+                (((maAdvStatus[mExtAdvNonConnNonScanIndex_c] == mAdvStatus_On_c)? (uint8_t)1:(uint8_t)0)<<8) |
+                    (((maAdvStatus[mDbafAdvNonConnNonScanIndex_c] == mAdvStatus_On_c)? (uint8_t)1:(uint8_t)0)<<9) |
+                    (((maAdvStatus[mPeriodicAdvIndex_c] == mAdvStatus_On_c)? (uint8_t)1:(uint8_t)0)<<10);
+#else
+            uint16_t bmValidOption = (uint16_t)0x001fU |
                 (((maAdvStatus[mExtAdvNonConnNonScanIndex_c] == mAdvStatus_On_c)? (uint8_t)1:(uint8_t)0)<<5) |
                     (((maAdvStatus[mPeriodicAdvIndex_c] == mAdvStatus_On_c)? (uint8_t)1:(uint8_t)0)<<6);
+#endif /* defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE) */
             do
             {
                 menuOption = (menuOption + 1U)%NumberOfElements(menuOptions);
             }
-            while( ((((uint8_t)1)<<menuOption) & bmValidOption) == 0U);
+            while( ((((uint16_t)1)<<menuOption) & bmValidOption) == 0U);
         }
         (void)App_PostCallbackMessage(AppPrintStringCallback, (void*)menuOptions[menuOption]);
         switch2Status = mSS_HandleOption_c;
@@ -1169,6 +1234,9 @@ static void BleApp_HandleExtAdvNonConnNonScannMode(uint8_t mode)
                 mAppExtAdvParams.handle = maPExtAdvParam[mode]->handle;
                 mAppExtAdvParams.pGapAdvData = maPExtAdvData[mode];
                 mAppExtAdvParams.pScanResponseData = maPExtScanData[mode];
+#if defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE)
+                mAppExtAdvParams.pGapDecisionData = &gAdvDecisionData;
+#endif /* defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE) */
 
                 if(((uint8_t)maLastAdvIndexForThisHandle[maPExtAdvParam[mode]->handle] == mode) || (maLastAdvIndexForThisHandle[maPExtAdvParam[mode]->handle] == mAdvIndexMax_c))
                 {
@@ -1318,7 +1386,32 @@ static void BleApp_HandleChangeNonConnNonScannAdvDataMode(void)
         }
     }
 }
+#if defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE)
+static void BleApp_HandleChangeDbafNonConnNonScannAdvDataMode(void)
+{
+    if(ExtAdvAPIRequest(mDbafAdvNonConnNonScanIndex_c) == gApiReq_Denied_c)
+    {
+        AppPrintString("\n\rAnother Advertising Operation in Progress. Try later...");
+    }
+    else
+    {
+        mDbafAdvDataNCNSIndex ^= 1U;
+        maPExtAdvData[mExtAdvAPIOwner] = maPExtAdvDataNonConnNonScan[mDbafAdvDataNCNSIndex];
 
+        if(gBleSuccess_c != Gap_StopExtAdvertising(maPExtAdvParam[mExtAdvAPIOwner]->handle))
+        {
+            AppPrintString("\n\rGap_StopExtAdvertising Failed");
+            mDbafAdvDataNCNSIndex ^= 1U;
+            maPExtAdvData[mExtAdvAPIOwner] = maPExtAdvDataNonConnNonScan[mDbafAdvDataNCNSIndex];
+            FreeExtAdvAPI();
+        }
+        else
+        {
+            mExtAdvSequence = mExtAdvSeq_ChangeExtAdvData_c;
+        }
+    }
+}
+#endif /* defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE) */
 /*! *********************************************************************************
 * @}
 ********************************************************************************** */

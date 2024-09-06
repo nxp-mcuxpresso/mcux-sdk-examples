@@ -16,7 +16,6 @@
 #define MLAN_MAX_VER_STR_LEN         128
 #define MLAN_MAC_ADDR_LENGTH         6
 #define WLAN_NETWORK_NAME_MAX_LENGTH 32
-#define IEEEtypes_SSID_SIZE          32
 #define IDENTITY_MAX_LENGTH          64
 #define PASSWORD_MAX_LENGTH          128
 #define MAX_NUM_CLIENTS              16
@@ -25,10 +24,6 @@
 #define CSI_FILTER_MAX               16
 
 #define NCP_IPERF_END_TOKEN_SIZE 11
-/* Min WPA2 passphrase can be upto 8 ASCII chars */
-#define WLAN_PSK_MIN_LENGTH 8U
-/** Max WPA2 passphrase can be upto 63 ASCII chars or 64 hexadecimal digits*/
-#define WLAN_PSK_MAX_LENGTH 65U
 
 /*Structures which are used by ncp_cmd_wifi.h but not defined in mcu project.*/
 /** Station information structure */

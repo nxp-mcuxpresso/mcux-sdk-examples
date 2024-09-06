@@ -8,7 +8,7 @@ Example will write/read through the whole chip, using DMA transfer way.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

@@ -134,8 +134,6 @@ extern phy_rtl8211f_resource_t g_phy_resource;
 #define BUF_LEN         2048
 
 #if defined(RW610_SERIES) || defined(RW612_SERIES)
-#define CONFIG_WIFI_MAX_PRIO (configMAX_PRIORITIES - 1)
-
 #define WM_SUCCESS 0
 #define WM_FAIL    1
 
@@ -170,6 +168,26 @@ extern phy_rtl8211f_resource_t g_phy_resource;
 #define WLAN_CAU_TEMPERATURE_FW_ADDR (0x41382490U)
 #define WLAN_FW_WAKE_STATUS_ADDR     (0x40031068U)
 
+#if defined(CONFIG_SUPPORT_WIFI) && (CONFIG_MONOLITHIC_WIFI)
+extern const uint32_t fw_cpu1[];
+#define WIFI_FW_ADDRESS  (uint32_t)&fw_cpu1[0]
+#else
+#define WIFI_FW_ADDRESS  0U
+#endif
+
+#if defined(CONFIG_SUPPORT_WIFI) && (CONFIG_MONOLITHIC_IEEE802154)
+extern const uint32_t fw_cpu2_combo[];
+#define COMBO_FW_ADDRESS (uint32_t)&fw_cpu2_combo[0]
+#else
+#define COMBO_FW_ADDRESS   0U
+#endif
+
+#if (defined(CONFIG_SUPPORT_BLE) && !defined(CONFIG_SUPPORT_15D4)) && ((CONFIG_MONOLITHIC_BT) && !(CONFIG_MONOLITHIC_IEEE802154))
+extern const uint32_t fw_cpu2_ble[];
+#define BLE_FW_ADDRESS   (uint32_t)&fw_cpu2_ble[0]
+#else
+#define BLE_FW_ADDRESS   0U
+#endif
 #endif
 
 enum
@@ -228,7 +246,7 @@ lpuart_rtos_handle_t handle_bt;
 struct _lpuart_handle t_handle_bt;
 
 lpuart_rtos_config_t lpuart_config_bt = {
-    .baudrate    = 115200,
+    .baudrate    = 3000000,
     .parity      = kLPUART_ParityDisabled,
     .stopbits    = kLPUART_OneStopBit,
     .buffer      = background_buffer_bt,
@@ -387,7 +405,7 @@ static status_t MDIO_Read(uint8_t phyAddr, uint8_t regAddr, uint16_t *pData)
 
 static void main_task(osa_task_param_t arg);
 
-static OSA_TASK_DEFINE(main_task, OSA_PRIORITY_NORMAL, 1, MAIN_TASK_STACK_SIZE, 0);
+static OSA_TASK_DEFINE(main_task, PRIORITY_RTOS_TO_OSA((configMAX_PRIORITIES - 2)), 1, MAIN_TASK_STACK_SIZE, 0);
 
 OSA_TASK_HANDLE_DEFINE(main_task_Handle);
 
@@ -1163,7 +1181,7 @@ static void main_task(osa_task_param_t arg)
     "One of CONFIG_SUPPORT_WIFI CONFIG_SUPPORT_15D4 and CONFIG_SUPPORT_BLE should be defined, or it will not download any formware!!"
 #endif
 #if (CONFIG_SUPPORT_WIFI) && (CONFIG_SUPPORT_WIFI == 1)
-    sb3_fw_download(LOAD_WIFI_FIRMWARE, 1, 0);
+    sb3_fw_reset(LOAD_WIFI_FIRMWARE, 1, WIFI_FW_ADDRESS);
 #endif
 
     wifi_cau_temperature_enable();
@@ -1171,11 +1189,11 @@ static void main_task(osa_task_param_t arg)
 
     /* 15d4 single and 15d4+ble combo */
 #if (CONFIG_SUPPORT_15D4) && (CONFIG_SUPPORT_15D4 == 1)
-    sb3_fw_download(LOAD_15D4_FIRMWARE, 1, 0);
+    sb3_fw_reset(LOAD_15D4_FIRMWARE, 1, COMBO_FW_ADDRESS);
 #endif
     /* only ble, no 15d4 */
 #if (CONFIG_SUPPORT_15D4) && (CONFIG_SUPPORT_15D4 == 0) && (CONFIG_SUPPORT_BLE) && (CONFIG_SUPPORT_BLE == 1)
-    sb3_fw_download(LOAD_BLE_FIRMWARE, 1, 0);
+    sb3_fw_reset(LOAD_BLE_FIRMWARE, 1, BLE_FW_ADDRESS);
 #endif
 
     /* Initialize WIFI Driver */

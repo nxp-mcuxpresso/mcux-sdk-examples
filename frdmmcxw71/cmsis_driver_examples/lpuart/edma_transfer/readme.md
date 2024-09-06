@@ -14,7 +14,7 @@ Note: The example echo every 8 characters, so input 8 characters every time.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

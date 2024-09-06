@@ -4,7 +4,7 @@
   <externalDefinitions>
     <definition extID="PROGRAM_FLASH_MCXN547"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK216000" name="MCUXpresso SDK216000" version="2.16.000" revision="2.16.000"/>
+  <ksdk id="MCUXpressoSDK216100" name="MCUXpresso SDK216100" version="2.16.100" revision="2.16.100"/>
   <compilers>
     <compiler id="compiler_gcc" name="gcc" type="gcc"/>
   </compilers>
@@ -1569,6 +1569,11 @@ ${load}</script>
             <files mask="itrc_v3_14.xml"/>
           </external>
         </example>
+        <example id="mcxn5xxevk_iped" name="iped" brief="The IPED Example project is a demonstration program that uses the MCUX SDK software to show funcionality of Inline Prince Encryption Decryption." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/iped" path="examples/mcxn5xxevk/driver_examples/iped/cm33_core0">
+          <external path="examples/mcxn5xxevk/driver_examples/iped/cm33_core0" type="xml">
+            <files mask="iped_v3_14.xml"/>
+          </external>
+        </example>
         <example id="mcxn5xxevk_gdet" name="gdet" brief="The GDET Example project is a demonstration program that uses the MCUX SDK software to show funcionality of Glitch Detect (GDET) module." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/gdet" path="examples/mcxn5xxevk/driver_examples/gdet/cm33_core0">
           <external path="examples/mcxn5xxevk/driver_examples/gdet/cm33_core0" type="xml">
             <files mask="gdet_v3_14.xml"/>
@@ -1826,6 +1831,7 @@ ${load}</script>
       </memory>
       <total_memory flash_size_kb="2048" ram_size_kb="512"/>
       <package id="MCXN547VDF" name="MCXN547VDF"/>
+      <package id="MCXN547VPB" name="MCXN547VPB"/>
       <package id="MCXN547VNL" name="MCXN547VNL"/>
       <evaluation_boards>
         <evaluation_board name="mcxn5xxevk"/>
@@ -4682,7 +4688,7 @@ ${load}</script>
         <files mask="MCUXpresso SDK USB Stack Composite Device User's Guide.pdf"/>
       </source>
     </component>
-    <component id="middleware.usb.phydcd_config_header.MCXN547" name="USB device phydcd config header" brief="USB device phydcd config header" version="2.8.4" full_name="USB device phydcd config header" category="USB/USB DCD" user_visible="true" type="project_template" package_base_path="middleware/usb" project_base_path="source">
+    <component id="middleware.usb.phydcd_config_header.MCXN547" name="USB device phydcd config header" brief="USB device phydcd config header" version="2.10.1" full_name="USB device phydcd config header" category="USB/USB DCD" user_visible="true" type="project_template" package_base_path="middleware/usb" project_base_path="source">
       <dependencies>
         <device_dependency value="MCXN547"/>
       </dependencies>
@@ -4696,7 +4702,7 @@ ${load}</script>
         <include_path relative_path="output/npw/dcd_config/phydcd" project_relative_path="generated" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.hsdcd_config_header.MCXN547" name="USB device hsdcd config header" brief="USB device hsdcd config header" version="2.8.4" full_name="USB device hsdcd config header" category="USB/USB DCD" user_visible="true" type="project_template" package_base_path="middleware/usb" project_base_path="source">
+    <component id="middleware.usb.hsdcd_config_header.MCXN547" name="USB device hsdcd config header" brief="USB device hsdcd config header" version="2.10.1" full_name="USB device hsdcd config header" category="USB/USB DCD" user_visible="true" type="project_template" package_base_path="middleware/usb" project_base_path="source">
       <dependencies>
         <device_dependency value="MCXN547"/>
       </dependencies>
@@ -4985,6 +4991,20 @@ ${load}</script>
       <source relative_path="src" type="src">
         <files mask="mcuboot_enc_support.c"/>
         <files mask="platform_enc_bee.c"/>
+      </source>
+      <source relative_path="./" type="doc">
+        <files mask="mcuboot_encrypted_xip.md"/>
+      </source>
+      <source relative_path="enc_xip_images" type="image">
+        <files mask="bee_metadata.jpg"/>
+        <files mask="bee_rom_layout.jpg"/>
+        <files mask="device_fleet_graph.jpg"/>
+        <files mask="general_metadata.jpg"/>
+        <files mask="keys_scheme.jpg"/>
+        <files mask="overwrite_only.jpg"/>
+        <files mask="overwrite_only_flow.jpg"/>
+        <files mask="three_slot.jpg"/>
+        <files mask="three_slot_flow.jpg"/>
       </source>
       <source toolchain="armgcc" relative_path="./" type="workspace">
         <files mask="middleware_mcuboot_encrypted_xip.cmake" hidden="true"/>
@@ -6322,27 +6342,52 @@ ${load}</script>
         <include_path relative_path="osal" type="c_include"/>
       </include_paths>
     </component>
-    <component id="component.psa_crypto_driver.els_pkc.oracle.MCXN547" name="psa_crypto_driver els_pkc_oracle" brief="Oracle of PSA crypto driver for els_pkc" version="1.0.0" full_name="Oracle of PSA crypto driver for els_pkc" category="psa_crypto_driver/psa_crypto_driver_els_pkc_oracle" user_visible="false" type="software_component" package_base_path="core/components/psa_crypto_driver" project_base_path="component/psa_crypto_driver">
+    <component id="component.psa_crypto_driver.mbedtls_thread_alt.MCXN547" name="psa_crypto_driver mbedtls_threading_alt" brief="Threading Alt implementation for mbedtls layer via PSA crypto driver" version="1.0.0" full_name="PSA crypto driver threading alt layer for mbedtls threading based" category="psa_crypto_driver/psa_dri_mbed_thrd_alt" user_visible="false" type="software_component" package_base_path="core/components/psa_crypto_driver" project_base_path="component/psa_crypto_driver">
       <dependencies>
         <device_dependency value="MCXN547"/>
       </dependencies>
-      <source relative_path="els_pkc/oracle/inc" type="c_include">
-        <files mask="mcuxClPsaDriver_Oracle_Interface_builtin_key_ids.h"/>
-        <files mask="mcuxClPsaDriver_Oracle_Interface_key_locations.h"/>
-        <files mask="mcuxClPsaDriver_Oracle_ElsUtils.h"/>
-        <files mask="mcuxClPsaDriver_Oracle_Macros.h"/>
-        <files mask="mcuxClPsaDriver_Oracle_Utils.h"/>
+      <source relative_path="mbedtls_thread_alt" type="src">
+        <files mask="threading_alt.c"/>
       </source>
-      <source relative_path="els_pkc/oracle/src" type="src">
-        <files mask="mcuxClPsaDriver_Oracle.c"/>
-        <files mask="mcuxClPsaDriver_Oracle_ElsUtils.c"/>
-        <files mask="mcuxClPsaDriver_Oracle_Utils.c"/>
+      <source relative_path="mbedtls_thread_alt" type="c_include">
+        <files mask="threading_alt.h"/>
       </source>
       <source toolchain="armgcc" relative_path="./" type="workspace">
-        <files mask="component_psa_crypto_driver_els_pkc_oracle.cmake" hidden="true"/>
+        <files mask="component_psa_crypto_driver_mbedtls_thread_alt.cmake" hidden="true"/>
       </source>
       <include_paths>
-        <include_path relative_path="els_pkc/oracle/inc" type="c_include"/>
+        <include_path relative_path="mbedtls_thread_alt" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="component.psa_crypto_driver.els_pkc.oracle.rw61x.MCXN547" name="psa_crypto_driver els_pkc_oracle_rw61x" brief="Key Recipes for rw61x for els_pkc" version="1.0.0" full_name="Key Recipes for rw61x for els_pkc" category="psa_crypto_driver/psa_crypto_driver_els_pkc_oracle" user_visible="false" type="software_component" package_base_path="core/components/psa_crypto_driver" project_base_path="component/psa_crypto_driver">
+      <dependencies>
+        <device_dependency value="MCXN547"/>
+      </dependencies>
+      <source relative_path="els_pkc/oracle/platforms/rw61x" type="c_include">
+        <files mask="mcuxClPsaDriver_Oracle_KeyRecipes.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="./" type="workspace">
+        <files mask="component_psa_crypto_driver_els_pkc_oracle_rw61x.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="els_pkc/oracle/platforms/rw61x" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="component.psa_crypto_driver.els_pkc.oracle.mcxn.MCXN547" name="psa_crypto_driver els_pkc_oracle_mxcn" brief="Key Recipes for mcxn for els_pkc" version="1.0.0" full_name="Key Recipes for mcxn for els_pkc" category="psa_crypto_driver/psa_crypto_driver_els_pkc_oracle" user_visible="false" type="software_component" package_base_path="core/components/psa_crypto_driver" project_base_path="component/psa_crypto_driver">
+      <dependencies>
+        <device_dependency value="MCXN547"/>
+      </dependencies>
+      <source relative_path="els_pkc/oracle/platforms/mcxn" type="c_include">
+        <files mask="mcuxClPsaDriver_Oracle_KeyRecipes.h"/>
+      </source>
+      <source relative_path="els_pkc/oracle/platforms/mcxn" type="src">
+        <files mask="mcuxClPsaDriver_Oracle_KeyRecipes_Utils.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="./" type="workspace">
+        <files mask="component_psa_crypto_driver_els_pkc_oracle_mcxn.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="els_pkc/oracle/platforms/mcxn" type="c_include"/>
       </include_paths>
     </component>
     <component id="component.psa_crypto_driver.els_pkc.common.MCXN547" name="psa_crypto_driver els_pkc_common" brief="Common files of PSA crypto driver for els_pkc" version="1.0.0" full_name="Common files of PSA crypto driver for els_pkc" category="psa_crypto_driver/psa_crypto_driver_els_pkc_common" user_visible="false" type="software_component" package_base_path="core/components/psa_crypto_driver" project_base_path="component/psa_crypto_driver">
@@ -9221,7 +9266,7 @@ ${load}</script>
         <include_path relative_path="RTX/Config" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.common.MCXN547" name="common" brief="COMMON Driver" version="2.4.1" full_name="COMMON Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/common" project_base_path="drivers">
+    <component id="platform.drivers.common.MCXN547" name="common" brief="COMMON Driver" version="2.4.2" full_name="COMMON Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/common" project_base_path="drivers">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.reset.MCXN547"/>
@@ -10679,6 +10724,29 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
+    <component id="platform.drivers.iped.MCXN547" name="iped" brief="iped Driver" version="2.3.0" full_name="iped Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/iped" project_base_path="drivers">
+      <dependencies>
+        <all>
+          <component_dependency value="platform.drivers.common.MCXN547"/>
+          <component_dependency value="component.els_pkc.MCXN547"/>
+          <component_dependency value="platform.drivers.flashiap.MCXN547"/>
+          <component_dependency value="platform.drivers.memInterface.MCXN547"/>
+          <device_dependency value="MCXN547"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_iped.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_iped.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="./" type="workspace">
+        <files mask="driver_iped.MCXN547.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
     <component id="platform.drivers.irtc.MCXN547" name="rtc" brief="IRTC Driver" version="2.3.1" full_name="IRTC Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/irtc" project_base_path="drivers">
       <dependencies>
         <all>
@@ -11161,7 +11229,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.cache_cache64.MCXN547" name="cache" brief="CACHE Driver" version="2.0.7" full_name="CACHE Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/cache/cache64" project_base_path="drivers">
+    <component id="platform.drivers.cache_cache64.MCXN547" name="cache" brief="CACHE Driver" version="2.0.8" full_name="CACHE Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/cache/cache64" project_base_path="drivers">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.common.MCXN547"/>
@@ -11254,7 +11322,7 @@ ${load}</script>
         <include_path relative_path="CortexM33-MCXN94X/Lib/Inc" toolchain="mcuxpresso" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host_controller_khci.MCXN547" name="USB Host KHCI Controller Driver(FS)" brief="Middleware usb host khci" version="2.10.0" full_name="USB Host KHCI Controller Driver(FS)" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host_controller_khci.MCXN547" name="USB Host KHCI Controller Driver(FS)" brief="Middleware usb host khci" version="2.10.1" full_name="USB Host KHCI Controller Driver(FS)" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.host.khci_config_header.MCXN547"/>
@@ -11276,7 +11344,7 @@ ${load}</script>
         <include_path relative_path="include" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host_controller_ehci.MCXN547" name="USB Host EHCI Controller Driver(HS)" brief="Middleware usb host ehci" version="2.10.0" full_name="USB Host EHCI Controller Driver(HS)" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host_controller_ehci.MCXN547" name="USB Host EHCI Controller Driver(HS)" brief="Middleware usb host ehci" version="2.10.1" full_name="USB Host EHCI Controller Driver(HS)" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.host.ehci_config_header.MCXN547"/>
@@ -11299,7 +11367,7 @@ ${load}</script>
         <include_path relative_path="include" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host_audio.MCXN547" name="USB Host Audio" brief="Middleware usb host audio" version="2.10.0" full_name="USB Host Audio" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host_audio.MCXN547" name="USB Host Audio" brief="Middleware usb host audio" version="2.10.1" full_name="USB Host Audio" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.host.stack.MCXN547"/>
@@ -11319,7 +11387,7 @@ ${load}</script>
         <include_path relative_path="host/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host_cdc.MCXN547" name="USB Host CDC" brief="Middleware usb host cdc" version="2.10.0" full_name="USB Host CDC" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host_cdc.MCXN547" name="USB Host CDC" brief="Middleware usb host cdc" version="2.10.1" full_name="USB Host CDC" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.host.stack.MCXN547"/>
@@ -11339,7 +11407,7 @@ ${load}</script>
         <include_path relative_path="host/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host_cdc_ecm.MCXN547" name="USB Host CDC ECM" brief="Middleware usb host cdc_ecm" version="2.9.1" full_name="USB Host CDC ECM" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host_cdc_ecm.MCXN547" name="USB Host CDC ECM" brief="Middleware usb host cdc_ecm" version="2.10.1" full_name="USB Host CDC ECM" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.host.stack.MCXN547"/>
@@ -11360,7 +11428,7 @@ ${load}</script>
         <include_path relative_path="host/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host_cdc_rndis.MCXN547" name="USB Host CDC RNDIS" brief="Middleware usb host cdc_rndis" version="2.10.0" full_name="USB Host CDC RNDIS" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host_cdc_rndis.MCXN547" name="USB Host CDC RNDIS" brief="Middleware usb host cdc_rndis" version="2.10.1" full_name="USB Host CDC RNDIS" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.host.stack.MCXN547"/>
@@ -11381,7 +11449,7 @@ ${load}</script>
         <include_path relative_path="host/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host_hid.MCXN547" name="USB Host HID" brief="Middleware usb host hid" version="2.10.0" full_name="USB Host HID" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host_hid.MCXN547" name="USB Host HID" brief="Middleware usb host hid" version="2.10.1" full_name="USB Host HID" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.host.stack.MCXN547"/>
@@ -11401,7 +11469,7 @@ ${load}</script>
         <include_path relative_path="host/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host_msd.MCXN547" name="USB Host MSD" brief="Middleware usb host msd" version="2.10.0" full_name="USB Host MSD" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host_msd.MCXN547" name="USB Host MSD" brief="Middleware usb host msd" version="2.10.1" full_name="USB Host MSD" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.host.stack.MCXN547"/>
@@ -11422,7 +11490,7 @@ ${load}</script>
         <include_path relative_path="host/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host_video.MCXN547" name="USB Host Video" brief="Middleware usb host video" version="2.10.0" full_name="USB Host Video" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host_video.MCXN547" name="USB Host Video" brief="Middleware usb host video" version="2.10.1" full_name="USB Host Video" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.host.stack.MCXN547"/>
@@ -11442,7 +11510,7 @@ ${load}</script>
         <include_path relative_path="host/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host_phdc.MCXN547" name="USB Host PHDC" brief="Middleware usb host phdc" version="2.10.0" full_name="USB Host PHDC" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host_phdc.MCXN547" name="USB Host PHDC" brief="Middleware usb host phdc" version="2.10.1" full_name="USB Host PHDC" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.host.stack.MCXN547"/>
@@ -11462,7 +11530,7 @@ ${load}</script>
         <include_path relative_path="host/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host_printer.MCXN547" name="USB Host Printer" brief="Middleware usb host printer" version="2.10.0" full_name="USB Host Printer" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host_printer.MCXN547" name="USB Host Printer" brief="Middleware usb host printer" version="2.10.1" full_name="USB Host Printer" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.host.stack.MCXN547"/>
@@ -11482,7 +11550,7 @@ ${load}</script>
         <include_path relative_path="host/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host.common_header.MCXN547" name="USB Host Common Header" brief="Middleware usb host common_header" version="2.10.0" full_name="USB Host Common Header" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host.common_header.MCXN547" name="USB Host Common Header" brief="Middleware usb host common_header" version="2.10.1" full_name="USB Host Common Header" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="component.osa.MCXN547"/>
@@ -11503,7 +11571,7 @@ ${load}</script>
         <include_path relative_path="host" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host.khci_config_header.MCXN547" name="USB host khci config header" brief="USB host khci config header" version="2.10.0" full_name="USB host khci config header" category="USB/USB Host" user_visible="true" type="project_template" package_base_path="middleware/usb" project_base_path="source">
+    <component id="middleware.usb.host.khci_config_header.MCXN547" name="USB host khci config header" brief="USB host khci config header" version="2.10.1" full_name="USB host khci config header" category="USB/USB Host" user_visible="true" type="project_template" package_base_path="middleware/usb" project_base_path="source">
       <dependencies>
         <device_dependency value="MCXN547"/>
       </dependencies>
@@ -11517,7 +11585,7 @@ ${load}</script>
         <include_path relative_path="output/npw/host_config/khci" project_relative_path="generated" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host.ehci_config_header.MCXN547" name="USB host ehci config header" brief="USB host ehci config header" version="2.10.0" full_name="USB host ehci config header" category="USB/USB Host" user_visible="true" type="project_template" package_base_path="middleware/usb" project_base_path="source">
+    <component id="middleware.usb.host.ehci_config_header.MCXN547" name="USB host ehci config header" brief="USB host ehci config header" version="2.10.1" full_name="USB host ehci config header" category="USB/USB Host" user_visible="true" type="project_template" package_base_path="middleware/usb" project_base_path="source">
       <dependencies>
         <device_dependency value="MCXN547"/>
       </dependencies>
@@ -11531,7 +11599,7 @@ ${load}</script>
         <include_path relative_path="output/npw/host_config/ehci" project_relative_path="generated" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host.stack.MCXN547" name="USB Host Stack" brief="Middleware usb host stack" version="2.10.0" full_name="USB Host Stack" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host.stack.MCXN547" name="USB Host Stack" brief="Middleware usb host stack" version="2.10.1" full_name="USB Host Stack" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <any_of>
@@ -11570,7 +11638,7 @@ ${load}</script>
         <include_path relative_path="include" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.khci_config_header.MCXN547" name="USB device khci config header" brief="USB device khci config header" version="2.10.0" full_name="USB device khci config header" category="USB/USB Device" user_visible="true" type="project_template" package_base_path="middleware/usb" project_base_path="source">
+    <component id="middleware.usb.device.khci_config_header.MCXN547" name="USB device khci config header" brief="USB device khci config header" version="2.10.1" full_name="USB device khci config header" category="USB/USB Device" user_visible="true" type="project_template" package_base_path="middleware/usb" project_base_path="source">
       <dependencies>
         <device_dependency value="MCXN547"/>
       </dependencies>
@@ -11584,7 +11652,7 @@ ${load}</script>
         <include_path relative_path="output/npw/device_config/khci" project_relative_path="generated" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.ehci_config_header.MCXN547" name="USB device ehci config header" brief="USB device ehci config header" version="2.10.0" full_name="USB device ehci config header" category="USB/USB Device" user_visible="true" type="project_template" package_base_path="middleware/usb" project_base_path="source">
+    <component id="middleware.usb.device.ehci_config_header.MCXN547" name="USB device ehci config header" brief="USB device ehci config header" version="2.10.1" full_name="USB device ehci config header" category="USB/USB Device" user_visible="true" type="project_template" package_base_path="middleware/usb" project_base_path="source">
       <dependencies>
         <device_dependency value="MCXN547"/>
       </dependencies>
@@ -11598,7 +11666,7 @@ ${load}</script>
         <include_path relative_path="output/npw/device_config/ehci" project_relative_path="generated" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.common_header.MCXN547" name="USB Common Header" brief="Middleware usb common_header" version="2.10.0" full_name="USB Common Header" category="USB/USB Common Header" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.common_header.MCXN547" name="USB Common Header" brief="Middleware usb common_header" version="2.10.1" full_name="USB Common Header" category="USB/USB Common Header" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="component.osa.MCXN547"/>
@@ -11617,7 +11685,7 @@ ${load}</script>
         <include_path relative_path="include" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.common_header.MCXN547" name="USB Device Common Header" brief="Middleware usb device common_header" version="2.10.0" full_name="USB Device Common Header" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.common_header.MCXN547" name="USB Device Common Header" brief="Middleware usb device common_header" version="2.10.1" full_name="USB Device Common Header" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="component.osa.MCXN547"/>
@@ -11639,7 +11707,7 @@ ${load}</script>
         <include_path relative_path="device" project_relative_path="device/source" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device_controller_khci.MCXN547" name="USB Device KHCI Controller Driver(FS)" brief="Middleware usb device khci" version="2.10.0" full_name="USB Device KHCI Controller Driver(FS)" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device_controller_khci.MCXN547" name="USB Device KHCI Controller Driver(FS)" brief="Middleware usb device khci" version="2.10.1" full_name="USB Device KHCI Controller Driver(FS)" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.khci_config_header.MCXN547"/>
@@ -11664,7 +11732,7 @@ ${load}</script>
         <include_path relative_path="include" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device_controller_ehci.MCXN547" name="USB Device EHCI Controller Driver(HS)" brief="Middleware usb device ehci" version="2.10.0" full_name="USB Device EHCI Controller Driver(HS)" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device_controller_ehci.MCXN547" name="USB Device EHCI Controller Driver(HS)" brief="Middleware usb device ehci" version="2.10.1" full_name="USB Device EHCI Controller Driver(HS)" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.ehci_config_header.MCXN547"/>
@@ -11687,7 +11755,7 @@ ${load}</script>
         <include_path relative_path="include" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.phy.MCXN547" name="USB PHY" brief="Middleware usb phy" version="2.10.0" full_name="USB PHY" category="USB/USB PHY" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.phy.MCXN547" name="USB PHY" brief="Middleware usb phy" version="2.10.1" full_name="USB PHY" category="USB/USB PHY" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.common_header.MCXN547"/>
@@ -11707,7 +11775,7 @@ ${load}</script>
         <include_path relative_path="phy" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.stack.external.MCXN547" name="USB Device Stack" brief="Middleware usb device stack external" version="2.10.0" full_name="USB Device Stack" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.stack.external.MCXN547" name="USB Device Stack" brief="Middleware usb device stack external" version="2.10.1" full_name="USB Device Stack" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="component.osa.MCXN547"/>
@@ -11737,7 +11805,7 @@ ${load}</script>
         <include_path relative_path="output/source/device" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.audio.external.MCXN547" name="USB Device Audio" brief="Middleware usb device audio external" version="2.10.0" full_name="USB Device Audio" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.audio.external.MCXN547" name="USB Device Audio" brief="Middleware usb device audio external" version="2.10.1" full_name="USB Device Audio" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.MCXN547"/>
@@ -11758,7 +11826,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.cdc.external.MCXN547" name="USB Device CDC" brief="Middleware usb device cdc external" version="2.10.0" full_name="USB Device CDC" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.cdc.external.MCXN547" name="USB Device CDC" brief="Middleware usb device cdc external" version="2.10.1" full_name="USB Device CDC" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.MCXN547"/>
@@ -11779,7 +11847,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.cdc.rndis.external.MCXN547" name="USB Device CDC RNDIS" brief="Middleware usb device cdc rndis external" version="2.10.0" full_name="USB Device CDC RNDIS" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.cdc.rndis.external.MCXN547" name="USB Device CDC RNDIS" brief="Middleware usb device cdc rndis external" version="2.10.1" full_name="USB Device CDC RNDIS" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.MCXN547"/>
@@ -11801,7 +11869,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.hid.external.MCXN547" name="USB Device HID" brief="Middleware usb device hid external" version="2.10.0" full_name="USB Device HID" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.hid.external.MCXN547" name="USB Device HID" brief="Middleware usb device hid external" version="2.10.1" full_name="USB Device HID" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.MCXN547"/>
@@ -11822,7 +11890,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.dfu.external.MCXN547" name="USB Device DFU" brief="Middleware usb device dfu external" version="2.10.0" full_name="USB Device DFU" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.dfu.external.MCXN547" name="USB Device DFU" brief="Middleware usb device dfu external" version="2.10.1" full_name="USB Device DFU" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.MCXN547"/>
@@ -11843,7 +11911,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.msd.external.MCXN547" name="USB Device MSD" brief="Middleware usb device msd external" version="2.10.0" full_name="USB Device MSD" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.msd.external.MCXN547" name="USB Device MSD" brief="Middleware usb device msd external" version="2.10.1" full_name="USB Device MSD" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.MCXN547"/>
@@ -11866,7 +11934,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.phdc.external.MCXN547" name="USB Device PHDC" brief="Middleware usb device phdc external" version="2.10.0" full_name="USB Device PHDC" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.phdc.external.MCXN547" name="USB Device PHDC" brief="Middleware usb device phdc external" version="2.10.1" full_name="USB Device PHDC" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.MCXN547"/>
@@ -11887,7 +11955,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.video.external.MCXN547" name="USB Device Video" brief="Middleware usb device video external" version="2.10.0" full_name="USB Device Video" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.video.external.MCXN547" name="USB Device Video" brief="Middleware usb device video external" version="2.10.1" full_name="USB Device Video" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.MCXN547"/>
@@ -11908,7 +11976,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.ccid.external.MCXN547" name="USB Device CCID" brief="Middleware usb device ccid external" version="2.10.0" full_name="USB Device CCID" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.ccid.external.MCXN547" name="USB Device CCID" brief="Middleware usb device ccid external" version="2.10.1" full_name="USB Device CCID" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.MCXN547"/>
@@ -11929,7 +11997,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.printer.external.MCXN547" name="USB Device Printer" brief="Middleware usb device printer external" version="2.10.0" full_name="USB Device Printer" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.printer.external.MCXN547" name="USB Device Printer" brief="Middleware usb device printer external" version="2.10.1" full_name="USB Device Printer" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.MCXN547"/>
@@ -11950,7 +12018,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.hsdcd.MCXN547" name="USB HSDCD" brief="Middleware usb HSDCD (Select manually if needed)" version="2.8.4" full_name="USB HSDCD" category="USB/USB DCD" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.hsdcd.MCXN547" name="USB HSDCD" brief="Middleware usb HSDCD (Select manually if needed)" version="2.10.1" full_name="USB HSDCD" category="USB/USB DCD" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.hsdcd_config_header.MCXN547"/>
@@ -11971,7 +12039,7 @@ ${load}</script>
         <include_path relative_path="dcd" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.controller.driver.MCXN547" name="USB Device Common Controller" brief="Middleware usb device controller driver" version="2.10.0" full_name="USB Device Common Controller" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.controller.driver.MCXN547" name="USB Device Common Controller" brief="Middleware usb device controller driver" version="2.10.1" full_name="USB Device Common Controller" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <any_of>
@@ -11993,6 +12061,9 @@ ${load}</script>
       </source>
       <source exclude="true" relative_path="./" type="doc">
         <files mask="ChangeLogKSDK.txt" hidden="true"/>
+      </source>
+      <source exclude="true" relative_path="device" type="c_include">
+        <files mask="usb_device_mcux_drv_port.h" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="./" type="workspace">
         <files mask="middleware_usb_device_controller_driver.cmake" hidden="true"/>
@@ -16498,6 +16569,29 @@ ${load}</script>
       <dependencies>
         <all>
           <any_of>
+            <all>
+              <not>
+                <component_dependency value="middleware.lwip.sys_arch_static.MCXN547"/>
+              </not>
+              <component_dependency value="middleware.lwip.sys_arch_dynamic.MCXN547"/>
+            </all>
+            <all>
+              <not>
+                <component_dependency value="middleware.lwip.sys_arch_dynamic.MCXN547"/>
+              </not>
+              <not>
+                <component_dependency value="middleware.lwip.usb_ethernetif.MCXN547"/>
+              </not>
+              <not>
+                <component_dependency value="middleware.lwip.eoe_ethernetif.MCXN547"/>
+              </not>
+              <not>
+                <component_dependency value="middleware.lwip.mcx_ethernetif.MCXN547"/>
+              </not>
+              <component_dependency value="middleware.lwip.sys_arch_static.MCXN547"/>
+            </all>
+          </any_of>
+          <any_of>
             <component_dependency value="middleware.lwip.usb_ethernetif.MCXN547"/>
             <component_dependency value="middleware.lwip.empty_ethernetif.MCXN547"/>
             <component_dependency value="middleware.lwip.eoe_ethernetif.MCXN547"/>
@@ -16540,13 +16634,9 @@ ${load}</script>
       <source relative_path="doc/doxygen/output" type="doc">
         <files mask="index.html" hidden="true"/>
       </source>
-      <source relative_path="port" type="src">
-        <files mask="sys_arch.c"/>
-      </source>
       <source relative_path="port/arch" type="c_include">
         <files mask="cc.h"/>
         <files mask="perf.h"/>
-        <files mask="sys_arch.h"/>
       </source>
       <source relative_path="src" type="doc">
         <files mask="FILES" hidden="true"/>
@@ -16817,6 +16907,50 @@ ${load}</script>
         <include_path relative_path="src/include" type="c_include"/>
       </include_paths>
     </component>
+    <component id="middleware.lwip.sys_arch_dynamic.MCXN547" name="Sys Arch Dynamic interface" brief="lwIP System Abstraction Layer using either FreeRTOS dynamic memory allocation APIs or bare-metal" version="2.2.1" revision="1" full_name="Sys Arch Dynamic interface" category="Network/lwIP TCPIP Networking Stack" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.lwip.MCXN547"/>
+          <component_dependency value="middleware.lwip.template.MCXN547"/>
+          <device_dependency value="MCXN547"/>
+        </all>
+      </dependencies>
+      <source relative_path="port/sys_arch/dynamic" type="src">
+        <files mask="sys_arch.c"/>
+      </source>
+      <source relative_path="port/sys_arch/dynamic/arch" type="c_include">
+        <files mask="sys_arch.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="./" type="workspace">
+        <files mask="middleware_lwip_sys_arch_dynamic.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="port" type="c_include"/>
+        <include_path relative_path="port/sys_arch/dynamic" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.lwip.sys_arch_static.MCXN547" name="Sys Arch Static interface" brief="Experimental lwIP System Abstraction Layer using FreeRTOS static memory allocation APIs - it is not supported and not guaranteed to work, also might be removed in future" version="2.2.1" revision="1" full_name="Sys Arch Static interface - experimental" category="Network/lwIP TCPIP Networking Stack" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.lwip.MCXN547"/>
+          <component_dependency value="middleware.lwip.template.MCXN547"/>
+          <device_dependency value="MCXN547"/>
+        </all>
+      </dependencies>
+      <source relative_path="port/sys_arch/static" type="src">
+        <files mask="sys_arch.c"/>
+      </source>
+      <source relative_path="port/sys_arch/static/arch" type="c_include">
+        <files mask="sys_arch.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="./" type="workspace">
+        <files mask="middleware_lwip_sys_arch_static.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="port" type="c_include"/>
+        <include_path relative_path="port/sys_arch/static" type="c_include"/>
+      </include_paths>
+    </component>
     <component id="middleware.lwip.eoe_ethernetif.MCXN547" name="EtherCAT EOE ethernet interface" brief="EtherCAT EOE ethernet interface" version="2.2.1" revision="1" full_name="EtherCAT EOE ethernet interface" category="Network/lwIP TCPIP Networking Stack" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
       <defines>
         <define name="CHECKSUM_GEN_IP" value="1"/>
@@ -16829,6 +16963,7 @@ ${load}</script>
         <all>
           <component_dependency value="middleware.lwip.MCXN547"/>
           <component_dependency value="middleware.lwip.template.MCXN547"/>
+          <component_dependency value="middleware.lwip.sys_arch_dynamic.MCXN547"/>
           <component_dependency value="middleware.freertos-kernel.MCXN547"/>
           <device_dependency value="MCXN547"/>
         </all>
@@ -16849,11 +16984,21 @@ ${load}</script>
     <component id="middleware.lwip.mcx_ethernetif.MCXN547" name="MCX ethernet interface" brief="MCX ethernet interface" version="2.2.1" revision="1" full_name="MCX ethernet interface" category="Network/lwIP TCPIP Networking Stack" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
       <defines>
         <define name="LWIP_DISABLE_PBUF_POOL_SIZE_SANITY_CHECKS" value="1"/>
+        <define name="CHECKSUM_GEN_UDP" value="1"/>
+        <define name="CHECKSUM_GEN_TCP" value="1"/>
+        <define name="CHECKSUM_GEN_ICMP" value="1"/>
+        <define name="CHECKSUM_GEN_ICMP6" value="1"/>
+        <define name="CHECKSUM_CHECK_IP" value="1"/>
+        <define name="CHECKSUM_CHECK_UDP" value="1"/>
+        <define name="CHECKSUM_CHECK_TCP" value="1"/>
+        <define name="CHECKSUM_CHECK_ICMP" value="1"/>
+        <define name="CHECKSUM_CHECK_ICMP6" value="1"/>
       </defines>
       <dependencies>
         <all>
           <component_dependency value="middleware.lwip.MCXN547"/>
           <component_dependency value="middleware.lwip.template.MCXN547"/>
+          <component_dependency value="middleware.lwip.sys_arch_dynamic.MCXN547"/>
           <component_dependency value="driver.phy-common.MCXN547"/>
           <component_dependency value="platform.drivers.mcx_enet.MCXN547"/>
           <component_dependency value="component.gpio_adapter.MCXN547"/>
@@ -16871,6 +17016,9 @@ ${load}</script>
         <files mask="ethernetif_mmac.h"/>
         <files mask="ethernetif_priv.h"/>
         <files mask="enet_configchecks.h"/>
+      </source>
+      <source relative_path="port" type="doc">
+        <files mask="README.md" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="./" type="workspace">
         <files mask="middleware_lwip_mcx_ethernetif.cmake" hidden="true"/>
@@ -16891,6 +17039,7 @@ ${load}</script>
             <component_dependency value="middleware.usb.host_controller_ehci.MCXN547"/>
           </any_of>
           <component_dependency value="middleware.lwip.MCXN547"/>
+          <component_dependency value="middleware.lwip.sys_arch_dynamic.MCXN547"/>
           <component_dependency value="middleware.usb.host_cdc.MCXN547"/>
           <device_dependency value="MCXN547"/>
         </all>
@@ -18240,6 +18389,7 @@ ${load}</script>
           <component_dependency value="middleware.freertos-kernel.MCXN547"/>
           <component_dependency value="utility.debug_console.MCXN547"/>
           <component_dependency value="component.osa_free_rtos.MCXN547"/>
+          <component_dependency value="middleware.wifi.cli.MCXN547"/>
           <component_dependency value="middleware.wifi.MCXN547"/>
           <component_dependency value="middleware.lwip.MCXN547"/>
           <component_dependency value="middleware.mbedtls.MCXN547"/>
@@ -18250,13 +18400,16 @@ ${load}</script>
         <files mask="wpa_supp_mbedtls_config.h"/>
         <files mask="wpa_supp_els_pkc_mbedtls_config.h"/>
         <files mask="wpa_supp_ele_s400_mbedtls_config.h"/>
+        <files mask="supp_crypto.h"/>
+      </source>
+      <source relative_path="port/mbedtls" type="src">
+        <files mask="supp_crypto.c"/>
       </source>
       <source relative_path="src/common" type="src">
         <files mask="wpa_common.c"/>
         <files mask="ieee802_11_common.c"/>
         <files mask="hw_features_common.c"/>
         <files mask="wpa_ctrl.c"/>
-        <files mask="cli.c"/>
         <files mask="sae.c"/>
         <files mask="dragonfly.c"/>
         <files mask="gas.c"/>
@@ -18631,7 +18784,6 @@ ${load}</script>
       </source>
       <source relative_path="src/common" type="c_include">
         <files mask="brcm_vendor.h"/>
-        <files mask="cli.h"/>
         <files mask="ctrl_iface_common.h"/>
         <files mask="defs.h"/>
         <files mask="dhcp.h"/>
@@ -20357,6 +20509,32 @@ ${load}</script>
       </source>
       <include_paths>
         <include_path relative_path="osal/baremetal" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="component.psa_crypto_driver.els_pkc.oracle.MCXN547" name="psa_crypto_driver els_pkc_oracle" brief="Oracle of PSA crypto driver for els_pkc" version="1.0.0" full_name="Oracle of PSA crypto driver for els_pkc" category="psa_crypto_driver/psa_crypto_driver_els_pkc_oracle" user_visible="false" type="software_component" package_base_path="core/components/psa_crypto_driver" project_base_path="component/psa_crypto_driver">
+      <dependencies>
+        <all>
+          <component_dependency value="component.psa_crypto_driver.els_pkc.oracle.mcxn.MCXN547"/>
+          <device_dependency value="MCXN547"/>
+        </all>
+      </dependencies>
+      <source relative_path="els_pkc/oracle/inc" type="c_include">
+        <files mask="mcuxClPsaDriver_Oracle_Interface_builtin_key_ids.h"/>
+        <files mask="mcuxClPsaDriver_Oracle_Interface_key_locations.h"/>
+        <files mask="mcuxClPsaDriver_Oracle_ElsUtils.h"/>
+        <files mask="mcuxClPsaDriver_Oracle_Macros.h"/>
+        <files mask="mcuxClPsaDriver_Oracle_Utils.h"/>
+      </source>
+      <source relative_path="els_pkc/oracle/src" type="src">
+        <files mask="mcuxClPsaDriver_Oracle.c"/>
+        <files mask="mcuxClPsaDriver_Oracle_ElsUtils.c"/>
+        <files mask="mcuxClPsaDriver_Oracle_Utils.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="./" type="workspace">
+        <files mask="component_psa_crypto_driver_els_pkc_oracle.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="els_pkc/oracle/inc" type="c_include"/>
       </include_paths>
     </component>
     <component id="component.els_pkc.doc.mcxn.MCXN547" name="els_pkc.doc.mcxn" brief="Component els_pkc.doc.mcxn" version="1.9.0" full_name="Component els_pkc.doc.mcxn" category="els_pkc/doc" user_visible="true" type="software_component" package_base_path="core/components/els_pkc/" project_base_path="component/els_pkc/">
@@ -25142,6 +25320,8 @@ ${load}</script>
         <files mask="bt_pal_keys_br.c"/>
         <files mask="bt_pal_l2cap.c"/>
         <files mask="bt_pal_l2cap_br.c"/>
+        <files mask="bt_pal_map_mce.c"/>
+        <files mask="bt_pal_map_mse.c"/>
         <files mask="bt_pal_monitor.c"/>
         <files mask="bt_pal_rfcomm.c"/>
         <files mask="bt_pal_spp.c"/>
@@ -25153,6 +25333,8 @@ ${load}</script>
         <files mask="bt_pal_uuid.c"/>
         <files mask="bt_pal_hfp_ag.c"/>
         <files mask="bt_pal_hfp_hf.c"/>
+        <files mask="bt_pal_pbap_pce.c"/>
+        <files mask="bt_pal_pbap_pse.c"/>
       </source>
       <source relative_path="source/impl/ethermind/host" project_relative_path="source/host" type="c_include">
         <files mask="bt_pal_a2dp_internal.h"/>
@@ -25179,6 +25361,7 @@ ${load}</script>
         <files mask="bt_pal_l2cap_internal.h"/>
         <files mask="bt_pal_l2cap_br_internal.h"/>
         <files mask="bt_pal_l2cap_br_interface.h"/>
+        <files mask="bt_pal_map_internal.h"/>
         <files mask="bt_pal_monitor.h"/>
         <files mask="bt_pal_rfcomm_internal.h"/>
         <files mask="bt_pal_rpa.h"/>
@@ -25187,11 +25370,15 @@ ${load}</script>
         <files mask="bt_pal_smp.h"/>
         <files mask="bt_pal_ssp.h"/>
         <files mask="bt_pal_hfp_internal.h"/>
+        <files mask="bt_pal_pbap_internal.h"/>
       </source>
       <source relative_path="source/impl/ethermind/host/a2dp_codec/sbc" project_relative_path="source/host/a2dp_codec/sbc" type="src">
         <files mask="a2dp_codec_sbc.c"/>
       </source>
       <source relative_path="include/bluetooth" type="c_include">
+        <files mask="pbap_pce.h"/>
+        <files mask="pbap_pse.h"/>
+        <files mask="pbap_types.h"/>
         <files mask="a2dp.h"/>
         <files mask="avrcp.h"/>
         <files mask="a2dp_codec_sbc.h"/>
@@ -25202,6 +25389,10 @@ ${load}</script>
         <files mask="direction.h"/>
         <files mask="buf.h"/>
         <files mask="l2cap.h"/>
+        <files mask="map_mce.h"/>
+        <files mask="map_mse.h"/>
+        <files mask="map_types.h"/>
+        <files mask="obex.h"/>
         <files mask="rfcomm.h"/>
         <files mask="spp.h"/>
         <files mask="sdp.h"/>
@@ -25378,6 +25569,8 @@ ${load}</script>
         <files mask="bt_pal_keys_br.c"/>
         <files mask="bt_pal_l2cap.c"/>
         <files mask="bt_pal_l2cap_br.c"/>
+        <files mask="bt_pal_map_mce.c"/>
+        <files mask="bt_pal_map_mse.c"/>
         <files mask="bt_pal_monitor.c"/>
         <files mask="bt_pal_rfcomm.c"/>
         <files mask="bt_pal_spp.c"/>
@@ -25389,6 +25582,8 @@ ${load}</script>
         <files mask="bt_pal_uuid.c"/>
         <files mask="bt_pal_hfp_ag.c"/>
         <files mask="bt_pal_hfp_hf.c"/>
+        <files mask="bt_pal_pbap_pce.c"/>
+        <files mask="bt_pal_pbap_pse.c"/>
       </source>
       <source relative_path="source/impl/ethermind/host" project_relative_path="source/host" type="c_include">
         <files mask="bt_pal_a2dp_internal.h"/>
@@ -25414,6 +25609,7 @@ ${load}</script>
         <files mask="bt_pal_l2cap_internal.h"/>
         <files mask="bt_pal_l2cap_br_internal.h"/>
         <files mask="bt_pal_l2cap_br_interface.h"/>
+        <files mask="bt_pal_map_internal.h"/>
         <files mask="bt_pal_monitor.h"/>
         <files mask="bt_pal_rfcomm_internal.h"/>
         <files mask="bt_pal_rpa.h"/>
@@ -25422,11 +25618,15 @@ ${load}</script>
         <files mask="bt_pal_smp.h"/>
         <files mask="bt_pal_ssp.h"/>
         <files mask="bt_pal_hfp_internal.h"/>
+        <files mask="bt_pal_pbap_internal.h"/>
       </source>
       <source relative_path="source/impl/ethermind/host/a2dp_codec/sbc" project_relative_path="source/host/a2dp_codec/sbc" type="src">
         <files mask="a2dp_codec_sbc.c"/>
       </source>
       <source relative_path="include/bluetooth" type="c_include">
+        <files mask="pbap_pce.h"/>
+        <files mask="pbap_pse.h"/>
+        <files mask="pbap_types.h"/>
         <files mask="a2dp.h"/>
         <files mask="avrcp.h"/>
         <files mask="a2dp_codec_sbc.h"/>
@@ -25437,6 +25637,10 @@ ${load}</script>
         <files mask="direction.h"/>
         <files mask="buf.h"/>
         <files mask="l2cap.h"/>
+        <files mask="map_mce.h"/>
+        <files mask="map_mse.h"/>
+        <files mask="map_types.h"/>
+        <files mask="obex.h"/>
         <files mask="rfcomm.h"/>
         <files mask="spp.h"/>
         <files mask="sdp.h"/>
@@ -26231,12 +26435,17 @@ ${load}</script>
         <files mask="shell_avrcp.c"/>
         <files mask="shell_test_mode.c"/>
         <files mask="shell_iso.c"/>
+        <files mask="shell_map.c"/>
+        <files mask="shell_pbap.c"/>
+        <files mask="shell_hfp.c"/>
+        <files mask="shell_ble_scan_filter.c"/>
       </source>
       <source relative_path="source/shell" project_relative_path="shell" type="c_include">
         <files mask="shell_bt.h"/>
         <files mask="shell_hci.h"/>
         <files mask="fsl_shell.h"/>
         <files mask="shell_test_mode.h"/>
+        <files mask="shell_ble_scan_filter.h"/>
       </source>
       <source toolchain="armgcc" relative_path="./" type="workspace">
         <files mask="middleware_edgefast_bluetooth_shell.cmake" hidden="true"/>
@@ -26327,12 +26536,14 @@ ${load}</script>
         <files mask="shell_l2cap.c"/>
         <files mask="fsl_shell.c"/>
         <files mask="shell_test_mode.c"/>
+        <files mask="shell_ble_scan_filter.c"/>
       </source>
       <source relative_path="source/shell" project_relative_path="shell" type="c_include">
         <files mask="shell_bt.h"/>
         <files mask="shell_hci.h"/>
         <files mask="fsl_shell.h"/>
         <files mask="shell_test_mode.h"/>
+        <files mask="shell_ble_scan_filter.h"/>
       </source>
       <source toolchain="armgcc" relative_path="./" type="workspace">
         <files mask="middleware_edgefast_bluetooth_shell_ble.cmake" hidden="true"/>

@@ -3,7 +3,7 @@
  * @{
  ********************************************************************************** */
 /*!
- * Copyright 2019-2023 NXP
+ * Copyright 2019-2024 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -100,10 +100,10 @@
 
 #define gMainThreadStackSize_c          776
 
-#define TM_TASK_STACK_SIZE              256
+#define TM_TASK_STACK_SIZE              352
 
 /* The size used for the Idle task, in dwords. */
-#define configMINIMAL_STACK_SIZE        100
+#define configMINIMAL_STACK_SIZE        148
 
 #endif
 /*! *********************************************************************************

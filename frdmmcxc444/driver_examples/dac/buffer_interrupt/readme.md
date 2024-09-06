@@ -13,7 +13,7 @@ The terminal would also display the log that shows the current buffer pointer's 
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

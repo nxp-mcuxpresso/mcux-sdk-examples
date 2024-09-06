@@ -18,7 +18,7 @@ product: Pins v15.0
 processor: RW612
 package_id: RW612ETA2I
 mcu_data: ksdk2_0
-processor_version: 0.0.0
+processor_version: 0.16.10
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -45,8 +45,8 @@ void BOARD_InitBootPins(void)
 BOARD_InitPins:
 - options: {callFromInitBoot: 'true', coreID: cm33, enableClock: 'true'}
 - pin_list:
-  - {pin_num: F3, peripheral: FLEXCOMM3, signal: USART_RXD, pin_signal: GPIO_24}
-  - {pin_num: G3, peripheral: GPIO, signal: 'PIO0, 25', pin_signal: GPIO_25, direction: INPUT, gpio_interrupt_a_enable: enabled, gpio_interrupt_config: gpioIrqFallingEdge}
+  - {pin_num: E5, peripheral: FLEXCOMM3, signal: USART_RXD, pin_signal: GPIO_24}
+  - {pin_num: E7, peripheral: GPIO, signal: 'PIO0, 25', pin_signal: GPIO_25, direction: INPUT, gpio_interrupt_a_enable: enabled, gpio_interrupt_config: gpioIrqFallingEdge}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -63,21 +63,21 @@ void BOARD_InitPins(void)
     /* Enables the clock for the GPIO0 module */
     GPIO_PortInit(GPIO, 0);
 
-    gpio_pin_config_t gpio0_pinG3_config = {
+    gpio_pin_config_t gpio0_pinE7_config = {
         .pinDirection = kGPIO_DigitalInput,
         .outputLogic = 0U
     };
-    gpio_interrupt_config_t gpio0_pinG3_int_config = {
+    gpio_interrupt_config_t gpio0_pinE7_int_config = {
         .mode = kGPIO_PinIntEnableEdge,
         .polarity = kGPIO_PinIntEnableLowOrFall
     };
-    /* Initialize GPIO functionality on pin PIO0_25 (pin G3)  */
-    GPIO_PinInit(GPIO, 0U, 25U, &gpio0_pinG3_config);
-    GPIO_SetPinInterruptConfig(GPIO, 0U, 25U, &gpio0_pinG3_int_config);
+    /* Initialize GPIO functionality on pin PIO0_25 (pin E7)  */
+    GPIO_PinInit(GPIO, 0U, 25U, &gpio0_pinE7_config);
+    GPIO_SetPinInterruptConfig(GPIO, 0U, 25U, &gpio0_pinE7_int_config);
     GPIO_PinEnableInterrupt(GPIO, 0U, 25U, (uint32_t)kGPIO_InterruptA);
-    /* Initialize FC3_USART_DATA functionality on pin GPIO_24 (pin F3) */
+    /* Initialize FC3_USART_DATA functionality on pin GPIO_24 (pin E5) */
     IO_MUX_SetPinMux(IO_MUX_FC3_USART_DATA);
-    /* Initialize GPIO25 functionality on pin GPIO_25 (pin G3) */
+    /* Initialize GPIO25 functionality on pin GPIO_25 (pin E7) */
     IO_MUX_SetPinMux(IO_MUX_GPIO25);
 }
 /***********************************************************************************************************************

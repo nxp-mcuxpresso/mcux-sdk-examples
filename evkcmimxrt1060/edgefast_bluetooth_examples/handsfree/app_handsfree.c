@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 NXP
+ * Copyright 2021, 2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -23,6 +23,7 @@
 #include <bluetooth/l2cap.h>
 #include <bluetooth/hfp_hf.h>
 #include <bluetooth/sdp.h>
+#include <bluetooth/rfcomm.h>
 #include "BT_common.h"
 #include "BT_hci_api.h"
 #include "BT_sm_api.h"
@@ -30,10 +31,85 @@
 #include "app_handsfree.h"
 #include "db_gen.h"
 #include "app_shell.h"
+#include "app_connect.h"
 
+#define APP_HFP_HF_INITIAL_VGS_GAIN 12
+#define APP_HFP_HF_INITIAL_VGM_GAIN 12
 #define HFP_CLASS_OF_DEVICE (0x200404U)
-static struct bt_conn *default_conn;
+
 static volatile uint8_t s_call_status = 0;
+hfp_hf_get_config hfp_hf_config = {
+    .bt_hfp_hf_vgs             = APP_HFP_HF_INITIAL_VGS_GAIN,
+    .bt_hfp_hf_vgm             = APP_HFP_HF_INITIAL_VGM_GAIN,
+};
+
+static struct bt_sdp_attribute hfp_hf_attrs[] = {
+    BT_SDP_NEW_SERVICE,
+    BT_SDP_LIST(
+        BT_SDP_ATTR_SVCLASS_ID_LIST,
+        BT_SDP_TYPE_SIZE_VAR(BT_SDP_SEQ8, 6), //35 06
+        BT_SDP_DATA_ELEM_LIST(
+        {
+            BT_SDP_TYPE_SIZE(BT_SDP_UUID16), //19
+            BT_SDP_ARRAY_16(BT_SDP_HANDSFREE_SVCLASS) //11 1E
+        },
+        {
+            BT_SDP_TYPE_SIZE(BT_SDP_UUID16), //19
+            BT_SDP_ARRAY_16(BT_SDP_GENERIC_AUDIO_SVCLASS) //12 03
+        },
+        )
+    ),
+    BT_SDP_LIST(
+        BT_SDP_ATTR_PROTO_DESC_LIST,
+        BT_SDP_TYPE_SIZE_VAR(BT_SDP_SEQ8, 12),//35 10
+        BT_SDP_DATA_ELEM_LIST(
+        {
+            BT_SDP_TYPE_SIZE_VAR(BT_SDP_SEQ8, 3),// 35 06
+            BT_SDP_DATA_ELEM_LIST(
+            {
+                BT_SDP_TYPE_SIZE(BT_SDP_UUID16), //19
+                BT_SDP_ARRAY_16(BT_SDP_PROTO_L2CAP) // 01 00
+            },
+            )
+        },
+        {
+            BT_SDP_TYPE_SIZE_VAR(BT_SDP_SEQ8, 5),// 35 05
+            BT_SDP_DATA_ELEM_LIST(
+            {
+                BT_SDP_TYPE_SIZE(BT_SDP_UUID16), //19
+                BT_SDP_ARRAY_16(BT_SDP_PROTO_RFCOMM) // 00 19
+            },
+            {
+                BT_SDP_TYPE_SIZE(BT_SDP_UINT8), //08
+                BT_SDP_ARRAY_16(BT_RFCOMM_CHAN_HFP_HF) //channel number
+            },
+            )
+        },
+        )
+    ),
+    BT_SDP_LIST(
+        BT_SDP_ATTR_PROFILE_DESC_LIST,
+        BT_SDP_TYPE_SIZE_VAR(BT_SDP_SEQ8, 8), //35 08
+        BT_SDP_DATA_ELEM_LIST(
+        {
+            BT_SDP_TYPE_SIZE_VAR(BT_SDP_SEQ8, 6), //35 06
+            BT_SDP_DATA_ELEM_LIST(
+            {
+                BT_SDP_TYPE_SIZE(BT_SDP_UUID16), //19
+                BT_SDP_ARRAY_16(BT_SDP_HANDSFREE_SVCLASS) //11 1E
+            },
+            {
+                BT_SDP_TYPE_SIZE(BT_SDP_UINT16), //09
+                BT_SDP_ARRAY_16(0x0108U) //01 08
+            },
+            )
+        },
+        )
+    ),
+    BT_SDP_SERVICE_NAME("Handsfree"),
+    BT_SDP_SUPPORTED_FEATURES(0x3400),
+};
+static struct bt_sdp_record hfp_hf_rec = BT_SDP_RECORD(hfp_hf_attrs);
 
 static void auth_cancel(struct bt_conn *conn)
 {
@@ -66,8 +142,16 @@ static struct bt_conn_auth_cb auth_cb_display = {
 };
 static void connected(struct bt_conn *conn)
 {
+#if !((defined AUTO_CONNECT_USE_BOND_INFO) && (AUTO_CONNECT_USE_BOND_INFO))
+    struct bt_conn_info info;
+#endif
+
     printf("HFP HF Connected!\n");
     default_conn = conn;
+#if !((defined AUTO_CONNECT_USE_BOND_INFO) && (AUTO_CONNECT_USE_BOND_INFO))
+    bt_conn_get_info(conn, &info);
+    app_auto_connect_save_addr(info.br.dst);
+#endif
 }
 
 static void disconnected(struct bt_conn *conn)
@@ -76,7 +160,6 @@ static void disconnected(struct bt_conn *conn)
 
     if (default_conn)
     {
-        bt_conn_unref(default_conn);
         default_conn = NULL;
     }
 }
@@ -156,6 +239,11 @@ static void waiting_call(struct bt_conn *conn, hf_waiting_call_state_t *wcs)
     printf(" bt multipcall 3. Conference all calls\n");
     printf(" bt multipcall 4. Connect other calls and disconnect self from TWC\n");
 }
+
+static void app_hfp_hf_get_config( hfp_hf_get_config **config)
+{
+    *config = &hfp_hf_config;
+}
 static struct bt_hfp_hf_cb hf_cb = {
     .connected       = connected,
     .disconnected    = disconnected,
@@ -170,6 +258,7 @@ static struct bt_hfp_hf_cb hf_cb = {
     .call_phnum      = call_phnum,
     .voicetag_phnum  = voicetag_phnum,
     .waiting_call    = waiting_call,
+    .get_config      = app_hfp_hf_get_config,
 };
 
 static void handsfree_enable(void)
@@ -183,6 +272,21 @@ static void handsfree_enable(void)
     }
 }
 
+int app_hfp_hf_discover(struct bt_conn *conn, uint8_t channel)
+{
+    int err = 0;
+
+    if (default_conn == conn)
+    {
+        err = bt_hfp_hf_connect(default_conn, channel);
+        if (err)
+        {
+            PRINTF("fail to connect hfp_hf (err: %d)\r\n", err);
+        }
+    }
+    return err;
+}
+
 static void bt_ready(int err)
 {
     struct net_buf *buf = NULL;
@@ -193,6 +297,10 @@ static void bt_ready(int err)
         PRINTF("Bluetooth init failed (err %d)\n", err);
         return;
     }
+
+#if (defined(CONFIG_BT_SETTINGS) && (CONFIG_BT_SETTINGS > 0))
+    settings_load();
+#endif /* CONFIG_BT_SETTINGS */
 
     PRINTF("Bluetooth initialized\n");
 
@@ -213,24 +321,13 @@ static void bt_ready(int err)
         PRINTF("setting class of device failed\n");
     }
 
+    app_connect_init();
     bt_conn_auth_cb_register(&auth_cb_display);
-
-    err = bt_br_set_connectable(true);
-    if (err)
-    {
-        PRINTF("BR/EDR set/rest connectable failed (err %d)\n", err);
-        return;
-    }
-    err = bt_br_set_discoverable(true);
-    if (err)
-    {
-        PRINTF("BR/EDR set discoverable failed (err %d)\n", err);
-        return;
-    }
-    PRINTF("BR/EDR set connectable and discoverable done\n");
-
+    bt_sdp_register_service(&hfp_hf_rec);
     handsfree_enable();
     app_shell_init();
+    app_a2dp_hf_auto_connect();
+    
 }
 
 void hfp_AnswerCall(void)

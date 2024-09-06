@@ -8,7 +8,7 @@ This application supports only unconditional frame types.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

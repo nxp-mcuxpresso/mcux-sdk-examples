@@ -36,7 +36,7 @@ Type "help" to see the command list. Similar description will be displayed on se
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

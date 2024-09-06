@@ -16,7 +16,6 @@
  ******************************************************************************/
 
 void peripheral_hfp_ag_task(void *param);
-int app_hfp_ag_disconnect(void);
 int app_hfp_ag_discover(struct bt_conn *conn, uint8_t channel);
 int app_hfp_ag_start_incoming_call(void);
 int app_hfp_ag_accept_incoming_call(void);

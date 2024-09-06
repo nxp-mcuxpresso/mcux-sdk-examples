@@ -44,26 +44,26 @@ void BOARD_InitBootPins(void)
 BOARD_InitPins:
 - options: {callFromInitBoot: 'true', coreID: cm33, enableClock: 'true'}
 - pin_list:
-  - {pin_num: '17', peripheral: FLEXIO0, signal: 'D, 7', pin_signal: ADC0_A14/CMP0_IN3/PTA20/LPSPI0_PCS2/LPUART0_TX/EWM0_IN/TPM0_CH1/RF_GPO_2/FLEXIO0_D7, pull_select: down,
-    pull_enable: disable, slew_rate: fast, open_drain: disable, drive_strength: low}
-  - {pin_num: '18', peripheral: FLEXIO0, signal: 'D, 8', pin_signal: ADC0_A15/CMP0_IN2/PTA21/WUU0_P5/LPSPI0_PCS3/LPUART0_RX/EWM0_OUT_b/TPM0_CH0/RF_GPO_3/RF_GPO_7/FLEXIO0_D8/RF_GPO_10,
-    pull_select: down, pull_enable: disable, slew_rate: fast, open_drain: disable, drive_strength: low}
-  - {pin_num: '42', peripheral: FLEXIO0, signal: 'D, 20', pin_signal: PTC4/WUU0_P10/LPSPI1_SIN/LPI2C1_SCL/TPM2_CH0/FLEXIO0_D20, pull_select: down, pull_enable: disable,
-    slew_rate: fast, passive_filter: disable, open_drain: disable, drive_strength: low, drive_strength_1: normal}
-  - {pin_num: '43', peripheral: FLEXIO0, signal: 'D, 21', pin_signal: PTC5/LPSPI1_PCS0/LPI2C1_SDA/TPM1_CH4/TPM2_CH1/FLEXIO0_D21, pull_select: down, pull_enable: disable,
-    slew_rate: fast, passive_filter: disable, open_drain: disable, drive_strength: low, drive_strength_1: normal}
   - {pin_num: '39', peripheral: LPUART1, signal: RX, pin_signal: PTC2/WUU0_P9/LPSPI1_SOUT/LPUART1_RX/LPI2C1_SCLS/TPM1_CH2/I3C0_PUR/FLEXIO0_D18, pull_select: down,
     pull_enable: disable, slew_rate: fast, open_drain: disable, drive_strength: low}
   - {pin_num: '40', peripheral: LPUART1, signal: TX, pin_signal: PTC3/LPSPI1_SCK/LPUART1_TX/LPI2C1_SDAS/TPM1_CH3/FLEXIO0_D19, pull_select: down, pull_enable: disable,
     slew_rate: fast, open_drain: disable, drive_strength: low}
+  - {pin_num: '17', peripheral: FLEXIO0, signal: 'D, 7', pin_signal: ADC0_A14/CMP0_IN3/PTA20/LPSPI0_PCS2/LPUART0_TX/EWM0_IN/TPM0_CH1/RF_GPO_2/FLEXIO0_D7, pull_select: down,
+    pull_enable: disable, slew_rate: fast, open_drain: disable, drive_strength: low}
+  - {pin_num: '18', peripheral: FLEXIO0, signal: 'D, 8', pin_signal: ADC0_A15/CMP0_IN2/PTA21/WUU0_P5/LPSPI0_PCS3/LPUART0_RX/EWM0_OUT_b/TPM0_CH0/RF_GPO_3/RF_GPO_7/FLEXIO0_D8/RF_GPO_10,
+    pull_select: down, pull_enable: disable, slew_rate: fast, open_drain: disable, drive_strength: low}
+  - {pin_num: '42', peripheral: FLEXIO0, signal: 'D, 20', pin_signal: PTC4/WUU0_P10/LPSPI1_SIN/CAN0_TX/LPI2C1_SCL/TPM2_CH0/FLEXIO0_D20, pull_select: down, pull_enable: disable,
+    slew_rate: fast, passive_filter: disable, open_drain: disable, drive_strength: low, drive_strength_1: normal}
+  - {pin_num: '43', peripheral: FLEXIO0, signal: 'D, 21', pin_signal: PTC5/LPSPI1_PCS0/CAN0_RX/LPI2C1_SDA/TPM1_CH4/TPM2_CH1/FLEXIO0_D21, pull_select: down, pull_enable: enable,
+    slew_rate: fast, passive_filter: disable, open_drain: disable, drive_strength: low, drive_strength_1: normal}
   - {pin_num: '12', peripheral: LPSPI0, signal: IN, pin_signal: ADC0_A13/PTA17/WUU0_P3/RF_NOT_ALLOWED/LPSPI0_SIN/EWM0_IN/LPI2C0_SDAS/TPM0_CH5/LPUART0_TX/RF_GPO_7/RF_GPO_8/FLEXIO0_D6,
     pull_select: up, pull_enable: enable, slew_rate: fast, open_drain: disable, drive_strength: low}
   - {pin_num: '13', peripheral: LPSPI0, signal: OUT, pin_signal: CMP1_IN1/PTA18/LPSPI0_SOUT/LPUART0_CTS_b/LPI2C0_SDA/TPM0_CH3/RF_GPO_0/LPUART0_RX, pull_select: up,
-    pull_enable: enable, slew_rate: fast, passive_filter: disable, open_drain: disable, drive_strength: low, drive_strength_1: normal}
+    pull_enable: enable, pull_value: low, slew_rate: fast, passive_filter: disable, open_drain: disable, drive_strength: low, drive_strength_1: normal}
   - {pin_num: '11', peripheral: LPSPI0, signal: PCS0, pin_signal: ADC0_A12/PTA16/RF_NOT_ALLOWED/LPSPI0_PCS0/EWM0_OUT_b/LPI2C0_SCLS/TPM0_CH4/LPUART0_RX/RF_GPO_8/FLEXIO0_D5,
     pull_select: up, pull_enable: enable, slew_rate: fast, open_drain: disable, drive_strength: low}
   - {pin_num: '14', peripheral: LPSPI0, signal: SCK, pin_signal: CMP1_IN0/PTA19/WUU0_P4/LPSPI0_SCK/LPUART0_RTS_b/LPI2C0_SCL/TPM0_CH2/RF_GPO_1, pull_select: up, pull_enable: enable,
-    slew_rate: fast, passive_filter: disable, open_drain: disable, drive_strength: low, drive_strength_1: normal}
+    pull_value: low, slew_rate: fast, passive_filter: disable, open_drain: disable, drive_strength: low, drive_strength_1: normal}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -270,8 +270,8 @@ void BOARD_InitPins(void)
     /* PORTC4 (pin 42) is configured as FLEXIO0_D20 */
     PORT_SetPinConfig(PORTC, 4U, &portc4_pin42_config);
 
-    const port_pin_config_t portc5_pin43_config = {/* Internal pull-up/down resistor is disabled */
-                                                   (uint16_t)kPORT_PullDisable,
+    const port_pin_config_t portc5_pin43_config = {/* Internal pull-down resistor is enabled */
+                                                   (uint16_t)kPORT_PullDown,
                                                    /* Low internal pull resistor value is selected. */
                                                    (uint16_t)kPORT_LowPullResistor,
                                                    /* Fast slew rate is configured */

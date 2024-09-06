@@ -19,7 +19,7 @@ RemoteExceptionEvent on the primary core.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

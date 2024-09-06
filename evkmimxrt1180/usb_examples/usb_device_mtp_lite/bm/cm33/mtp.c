@@ -996,7 +996,7 @@ static void USB_DeviceMtpStateMachine(usb_device_mtp_struct_t *mtpHandle,
 
     /* Step B: state is not changed */
     /* Step C: change to new state */
-
+    (void)memset(&dataInfo, 0, sizeof(dataInfo));
     if (message->length == USB_UNINITIALIZED_VAL_32)
     {
         /* callback to cancel current transaction */

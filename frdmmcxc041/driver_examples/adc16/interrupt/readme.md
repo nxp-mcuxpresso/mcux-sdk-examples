@@ -16,7 +16,7 @@ configuration with enabling interrupt setting would be used for each conversion.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

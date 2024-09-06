@@ -7,7 +7,7 @@ The data with 9bit can be received by itself. The each data in TX and RX data re
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

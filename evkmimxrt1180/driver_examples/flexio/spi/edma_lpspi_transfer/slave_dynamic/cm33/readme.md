@@ -7,7 +7,7 @@ after master finishes the transfer and re-asserts the CS signal, interrupt is tr
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

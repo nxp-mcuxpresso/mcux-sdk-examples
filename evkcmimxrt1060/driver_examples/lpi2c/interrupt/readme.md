@@ -9,7 +9,7 @@ In this example , one lpi2c instance used as lpi2c master and another lpi2c inst
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

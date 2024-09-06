@@ -10,7 +10,7 @@ Start the spi_b2b_example_slave example first, then start the spi_b2b_example_ma
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

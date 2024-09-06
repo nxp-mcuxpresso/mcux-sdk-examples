@@ -5,7 +5,7 @@ The GLIKEY Example project is a demonstration program that uses the MCUX SDK sof
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

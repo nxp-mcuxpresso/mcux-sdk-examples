@@ -6,7 +6,7 @@ In this example, a flexio simulated master connect to a flexio simulated spi sla
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================
@@ -25,10 +25,10 @@ To make the example work, connections needed to be as follows:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 MASTER(FlexIO SPI)          connect to      SLAVE(FlexIO SPI)
 Pin Name   Board Location                   Pin Name    Board Location
-SOUT       J1 pin 3                         SIN         J1 pin 3
-SIN        J1 pin 2                         SOUT        J1 pin 2
-SCK        J1 pin 4                         SCK         J1 pin 4
-PCS0       J1 pin 1                         PCS0        J1 pin 1
+SOUT       J1 pin 7                         SIN         J1 pin 7
+SIN        J1 pin 4                         SOUT        J1 pin 4
+SCK        J1 pin 8                         SCK         J1 pin 8
+PCS0       J1 pin 3                         PCS0        J1 pin 3
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Prepare the Demo

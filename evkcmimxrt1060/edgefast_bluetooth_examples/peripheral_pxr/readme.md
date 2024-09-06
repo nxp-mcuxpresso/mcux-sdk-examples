@@ -5,7 +5,7 @@ Application demonstrating the BLE Peripheral role, except that this application 
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

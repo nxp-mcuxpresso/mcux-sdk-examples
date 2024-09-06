@@ -20,7 +20,7 @@ This example will print the capture values and pluse width of the input signal o
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

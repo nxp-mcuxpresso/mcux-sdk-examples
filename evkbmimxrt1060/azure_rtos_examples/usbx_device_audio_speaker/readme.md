@@ -5,7 +5,7 @@ This example works as a USB Audio Speaker device. It will appear as a USB Speake
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

@@ -130,7 +130,7 @@ bleResult_t Ble_DeInitialize(void);
     defined(CPU_MCXW345CHNA) || defined(CPU_MCXW345CUKA) || \
     defined(KW47B42ZB7_cm33_core0_SERIES) || defined(KW47B42ZB6_cm33_core0_SERIES) || defined(KW47B42ZB3_cm33_core0_SERIES) || \
     defined(KW47B42ZB2_cm33_core0_SERIES) || defined(KW47B42Z97_cm33_core0_SERIES) || defined(KW47B42Z96_cm33_core0_SERIES) || \
-    defined(KW47B42Z83_cm33_core0_SERIES) || defined(MCXW716C_SERIES) || defined(MCXW716A_SERIES)
+    defined(KW47B42Z83_cm33_core0_SERIES) || defined(MCXW727C_cm33_core0_SERIES) || defined(MCXW716C_SERIES) || defined(MCXW716A_SERIES)
 
 void Ble_SetBDAddr(void);
 #endif

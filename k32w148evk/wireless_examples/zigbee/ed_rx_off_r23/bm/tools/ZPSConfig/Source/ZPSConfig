@@ -1009,7 +1009,14 @@ typedef struct {
     uint64 u64InitiatorAddr;
     uint64 u64ResponderAddr;
     ZPS_tsTsvTimer sTimer;
-    uint8 au8Key[ZPS_NWK_KEY_LENGTH];
+""")
+    if R23_UPDATES:
+        Cfile.write("    CRYPTO_ecdhPublicKey_t  sPublicKey; /* DLK */\n")
+        Cfile.write("    CRYPTO_ecdhPrivateKey_t sSecretKey; /* DLK */\n")
+        Cfile.write("    uint8 au8Key[ZPS_NWK_KEY_LENGTH];\n")
+    else:
+        Cfile.write("    uint8 au8Key[ZPS_NWK_KEY_LENGTH];")
+    Cfile.write("""
 } zps_tsRequestKeyRequests;
 
 

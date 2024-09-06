@@ -480,8 +480,11 @@ typedef enum
     E_SL_MSG_SET_NWK_ADDR                           =   0x907DU,
     E_SL_MSG_SET_MAC_CAPABILITY                     =   0x907EU,
     E_SL_MSG_SET_NWK_STATE_ACTIVE                   =   0x907FU,
-    E_SL_MSG_SET_DEPTH                              =   0x9080U
-
+    E_SL_MSG_SET_DEPTH                              =   0x9080U,
+    E_SL_MSG_GET_FRAGMENTATION_SUPPORT              =   0x9081U,
+    E_SL_MSG_GET_MAX_PAYLOAD_SIZE                   =   0x9082U,
+    E_SL_MSG_SET_TC_LOCKDOWN_OVERRIDE               =   0x9083U,
+    E_SL_MSG_IS_COPROCESSOR_NEW_MODULE              =   0x9084U
 } teSL_MsgType;
 
 

@@ -65,7 +65,7 @@
 #define apsSecurityTimeoutPeriod    u16ApsSecurityTimeOutPeriod
 #ifdef R23_UPDATES
 #define apsSupportedKeyNegotiationMethods u8ApsSupportedKeyNegotiationMethods
-#define apsSharedSecretsMask u8SharedSecretsMask
+#define apsSharedSecretsMask        u8SharedSecretsMask
 #define apsZdoRestrictedMode        bApsZdoRestrictedMode
 #endif
 
@@ -211,7 +211,7 @@ typedef struct
     struct
 	{
         uint8 u8KeyNegotiationState: 2;
-        uint8 u8PassphraseUpdateAllowed: 1;
+        uint8 bPassphraseUpdateAllowed: 1;
         uint8 u8PassphraseLen:       5; /* Len == 0 means Passphrase unset */
 	};
     uint8 au8Passphrase[ZPS_SEC_KEY_LENGTH];
@@ -328,6 +328,8 @@ PUBLIC uint64 zps_u64AplAibGetApsUseExtendedPanId(void *pvApl);
 PUBLIC ZPS_teStatus zps_eAplAibSetApsUseExtendedPanId(void *pvApl, uint64 u64UseExtPanId);
 PUBLIC uint32* zps_pu32AplAibGetApsChannelMask(void *pvApl, uint8 *u8ChannelMaskCount);
 PUBLIC ZPS_teStatus zps_eAplAibSetApsChannelMask(void *pvApl, uint32 u32ChannelMask);
+PUBLIC uint16 zps_u16AplAibGetDeviceKeyPairTableSize(void *pvApl);
+PUBLIC ZPS_tsAplApsKeyDescriptorEntry zps_tsAplAibGetDeviceKeyPairTableEntry(void *pvApl, uint16 u16Index);
 PUBLIC ZPS_teStatus zps_eAplAibSetApsChannelMaskByMacID (void *pvApl, uint16 u16MacID, uint32 u32ChannelMask);
 PUBLIC ZPS_teStatus zps_eAplAibSetApsDesignatedCoordinator(void *pvApl, bool bDesignatedCoordinator);
 PUBLIC ZPS_teStatus zps_eAplAibSetApsUseInstallCode(void *pvApl, bool bUseInstallCode);
@@ -347,7 +349,7 @@ PUBLIC ZPS_teStatus zps_eAplAibAddFragmentationTableEntry(void* pvApl, tuFragPar
 PUBLIC bool zps_eAplAibFindFragmentationTableEntry(void* pvApl, uint16 u16Addr, ZPS_tsAplApsFragmentationEntry **psFragmentationEntry);
 #endif
 #if defined(R23_UPDATES) || defined(WWAH_SUPPORT)
-PUBLIC bool_t zps_bIsClusterReqWithApsKey ( uint8 u8Endpoint, uint16 u16ClusterId );
+PUBLIC bool_t zps_bIsClusterReqWithApsKey(void *pvApl, uint8 u8Endpoint, uint16 u16ClusterId, ZPS_tuAddress uAddr, bool_t bExt);
 #endif
 #ifdef WWAH_SUPPORT
 PUBLIC void ZPS_vAplExtdedAibSetWWAH ( uint8 u8BitmaskSet );
@@ -404,10 +406,22 @@ ZPS_AIB_INLINE ZPS_teStatus ZPS_eAplAibSetApsChannelMask(uint32 u32ChannelMask)
     return zps_eAplAibSetApsChannelMask(ZPS_pvAplZdoGetAplHandle(), u32ChannelMask);
 }
 
+ZPS_AIB_INLINE PUBLIC uint16 ZPS_u16AplAibGetDeviceKeyPairTableSize(void) ALWAYS_INLINE;
+ZPS_AIB_INLINE PUBLIC uint16 ZPS_u16AplAibGetDeviceKeyPairTableSize(void)
+{
+     return zps_u16AplAibGetDeviceKeyPairTableSize(ZPS_pvAplZdoGetAplHandle());
+}
+
 ZPS_AIB_INLINE ZPS_teStatus ZPS_eAplAibSetApsChannelMaskByMacID(uint16 u16MacID, uint32 u32ChannelMask) ALWAYS_INLINE;
 ZPS_AIB_INLINE ZPS_teStatus ZPS_eAplAibSetApsChannelMaskByMacID(uint16 u16MacID, uint32 u32ChannelMask)
 {
     return zps_eAplAibSetApsChannelMaskByMacID(ZPS_pvAplZdoGetAplHandle(), u16MacID, u32ChannelMask);
+}
+
+ZPS_AIB_INLINE PUBLIC ZPS_tsAplApsKeyDescriptorEntry ZPS_tsAplAibGetDeviceKeyPairTableEntry(uint16 u16Index) ALWAYS_INLINE;
+ZPS_AIB_INLINE PUBLIC ZPS_tsAplApsKeyDescriptorEntry ZPS_tsAplAibGetDeviceKeyPairTableEntry(uint16 u16Index)
+{
+    return zps_tsAplAibGetDeviceKeyPairTableEntry(ZPS_pvAplZdoGetAplHandle(), u16Index);
 }
 
 ZPS_AIB_INLINE ZPS_teStatus ZPS_eAplAibSetApsDesignatedCoordinator(bool bDesignatedCoordinator) ALWAYS_INLINE;

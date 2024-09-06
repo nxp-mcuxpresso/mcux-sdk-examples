@@ -452,6 +452,12 @@ static void spp_data_sent(struct bt_spp *spp, uint8_t *data, uint16_t len)
         PRINTF("%c ", data[index]);
     }
     PRINTF("\n-----------------------------------------------------\n");
+    PRINTF("\n----------------HEX DUMP------------------------\n");
+    for (index = 0; index < len; index++)
+    {
+        PRINTF("%02X ", data[index]);
+    }
+    PRINTF("\n----------------------------------------------------\n");
 }
 
 static void spp_control(struct bt_spp_control *control, int error)
@@ -795,6 +801,7 @@ void spp_appl_disconnect(void)
 void spp_appl_send(uint8_t index)
 {
     int err;
+    uint16_t data_len;
 
     if(0xFF == current_spp_handle)
     {
@@ -809,32 +816,49 @@ void spp_appl_send(uint8_t index)
     }
 
      /*
-     * 1.  AT+CIND=?\\r\n\
-     * 2.  AT+CIND?\\r\n\
-     * 3.  ATEP\\r\n\
-     * 4.  AT+CKPD=E\\r\n\
+     * 1.  AT+CIND=?\r\n
+     * 2.  AT+CIND?\r\n
+     * 3.  ATEP\r\n
+     * 4.  AT+CKPD=E\r\n
+     * 5.  byte data {0x00u, 0x01u, 0x02u, 0x03u, 0x04u, 0x05u, 0x06u}
      */
     switch( index )
     {
     case 1:
-        sprintf((char *)appl_spp_buffer,"AT+CIND=?\\r");
+        sprintf((char *)appl_spp_buffer,"AT+CIND=?\r\n");
+        data_len = (uint16_t)strlen((char*)appl_spp_buffer);
         break;
 
     case 2:
-        sprintf((char *)appl_spp_buffer,"AT+CIND?\\r");
+        sprintf((char *)appl_spp_buffer,"AT+CIND?\r\n");
+        data_len = (uint16_t)strlen((char*)appl_spp_buffer);
         break;
 
     case 3:
-        sprintf((char *)appl_spp_buffer,"ATEP\\r");
+        sprintf((char *)appl_spp_buffer,"ATEP\r\n");
+        data_len = (uint16_t)strlen((char*)appl_spp_buffer);
         break;
 
     case 4:
-        sprintf((char *)appl_spp_buffer,"AT+CKPD=E\\r");
+        sprintf((char *)appl_spp_buffer,"AT+CKPD=E\r\n");
+        data_len = (uint16_t)strlen((char*)appl_spp_buffer);
+        break;
+
+    case 5:
+        appl_spp_buffer[0] = 0x00u;
+        appl_spp_buffer[1] = 0x01u;
+        appl_spp_buffer[2] = 0x02u;
+        appl_spp_buffer[3] = 0x03u;
+        appl_spp_buffer[4] = 0x04u;
+        appl_spp_buffer[5] = 0x05u;
+        appl_spp_buffer[6] = 0x06u;
+        data_len = 7u;
         break;
 
     default:
-        PRINTF("Invalid choice. Defaulting to AT+CIND=?\\r\n");
-        sprintf((char *)appl_spp_buffer,"AT+CIND=?\\r");
+        PRINTF("Invalid choice. Defaulting to AT+CIND=?\\r\\n");
+        sprintf((char *)appl_spp_buffer,"AT+CIND=?\r\n");
+        data_len = (uint16_t)strlen((char*)appl_spp_buffer);
         break;
     } /* switch */
 
@@ -842,7 +866,7 @@ void spp_appl_send(uint8_t index)
              (
                  spp_appl[current_spp_handle].spp_handle,
                  appl_spp_buffer,
-                 (uint16_t)sizeof(appl_spp_buffer)
+                 data_len
              );
 
     if (0 != err)

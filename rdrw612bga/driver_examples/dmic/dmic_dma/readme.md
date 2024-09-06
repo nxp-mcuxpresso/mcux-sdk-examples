@@ -4,7 +4,7 @@ This example shows how to use DMA to transfer data from DMIC to memory.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

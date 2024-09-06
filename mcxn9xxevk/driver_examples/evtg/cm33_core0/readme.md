@@ -8,7 +8,7 @@ The purpose of this demonstration is to show how to use the EVTG driver in the S
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

@@ -799,7 +799,7 @@ static void BleApp_StoreServiceHandles
 ********************************************************************************** */
 static bool_t BleApp_CheckScanEvent(gapScannedDevice_t* pData)
 {
-    uint8_t index = 0;
+    uint32_t index = 0;
     uint8_t name[10];
     uint32_t nameLength = 0U;
     bool_t foundMatch = FALSE;
@@ -836,7 +836,7 @@ static bool_t BleApp_CheckScanEvent(gapScannedDevice_t* pData)
         }
 
         /* Move on to the next AD element type */
-        index += adElement.length + (uint8_t)sizeof(uint8_t);
+        index += (uint32_t)adElement.length + (uint8_t)sizeof(uint8_t);
     }
 
     if (foundMatch)

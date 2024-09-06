@@ -5,7 +5,7 @@
     <definition extID="rdrw612bga"/>
     <definition extID="rdrw612qfn"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK216000" name="MCUXpresso SDK216000" version="2.16.000" revision="2.16.000"/>
+  <ksdk id="MCUXpressoSDK216100" name="MCUXpresso SDK216100" version="2.16.100" revision="2.16.100"/>
   <compilers>
     <compiler id="compiler_gcc" name="gcc" type="gcc"/>
   </compilers>
@@ -132,6 +132,11 @@ ${load}</script>
             <files mask="central_hpc_v3_14.xml"/>
           </external>
         </example>
+        <example id="frdmrw612_wireless_uart" name="wireless_uart" brief="The Edgefast Bluetooth wireless uart example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/frdmrw612/edgefast_bluetooth_examples/wireless_uart">
+          <external path="examples/frdmrw612/edgefast_bluetooth_examples/wireless_uart" type="xml">
+            <files mask="wireless_uart_v3_14.xml"/>
+          </external>
+        </example>
         <example id="frdmrw612_peripheral_beacon" name="peripheral_beacon" brief="The Edgefast Bluetooth beacon example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/frdmrw612/edgefast_bluetooth_examples/peripheral_beacon">
           <external path="examples/frdmrw612/edgefast_bluetooth_examples/peripheral_beacon" type="xml">
             <files mask="peripheral_beacon_v3_14.xml"/>
@@ -155,6 +160,11 @@ ${load}</script>
         <example id="frdmrw612_central_tip" name="central_tip" brief="The Edgefast Bluetooth tip example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/frdmrw612/edgefast_bluetooth_examples/central_tip">
           <external path="examples/frdmrw612/edgefast_bluetooth_examples/central_tip" type="xml">
             <files mask="central_tip_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmrw612_wifi_cli_over_ble_wu" name="wifi_cli_over_ble_wu" brief="wifi_cli_over_ble_wu" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/frdmrw612/edgefast_bluetooth_examples/wifi_cli_over_ble_wu">
+          <external path="examples/frdmrw612/edgefast_bluetooth_examples/wifi_cli_over_ble_wu" type="xml">
+            <files mask="wifi_cli_over_ble_wu_v3_14.xml"/>
           </external>
         </example>
         <example id="frdmrw612_pin_detect_hid_mouse_freertos" name="pin_detect_hid_mouse_freertos" brief="This pin detect HID example supports the mouse device. The application prints the operation information when the mouse device is attached or plugged in to the PC host." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/frdmrw612/usb_examples/usb_pin_detect_hid_mouse/freertos">
@@ -227,6 +237,11 @@ ${load}</script>
             <files mask="host_printer_plain_text_freertos_v3_14.xml"/>
           </external>
         </example>
+        <example id="frdmrw612_host_suspend_resume_hid_mouse_freertos" name="host_suspend_resume_hid_mouse_freertos" brief="This is one example support suspend/resume." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/frdmrw612/usb_examples/usb_suspend_resume_host_hid_mouse/freertos">
+          <external path="examples/frdmrw612/usb_examples/usb_suspend_resume_host_hid_mouse/freertos" type="xml">
+            <files mask="host_suspend_resume_hid_mouse_freertos_v3_14.xml"/>
+          </external>
+        </example>
         <example id="frdmrw612_host_audio_speaker_bm" name="host_audio_speaker_bm" brief="The Host Audio example supports the audio speaker device. @n The application prints the audio speaker information when the USB speaker device is attached." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/frdmrw612/usb_examples/usb_host_audio_speaker/bm">
           <external path="examples/frdmrw612/usb_examples/usb_host_audio_speaker/bm" type="xml">
             <files mask="host_audio_speaker_bm_v3_14.xml"/>
@@ -275,6 +290,11 @@ ${load}</script>
         <example id="frdmrw612_host_printer_plain_text_bm" name="host_printer_plain_text_bm" brief="The host printer example demonstrates how to get the status of the printer deviceand how to print a certain test string." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/frdmrw612/usb_examples/usb_host_printer_plain_text/bm">
           <external path="examples/frdmrw612/usb_examples/usb_host_printer_plain_text/bm" type="xml">
             <files mask="host_printer_plain_text_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmrw612_host_suspend_resume_hid_mouse_bm" name="host_suspend_resume_hid_mouse_bm" brief="This is one example support suspend/resume." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/frdmrw612/usb_examples/usb_suspend_resume_host_hid_mouse/bm">
+          <external path="examples/frdmrw612/usb_examples/usb_suspend_resume_host_hid_mouse/bm" type="xml">
+            <files mask="host_suspend_resume_hid_mouse_bm_v3_14.xml"/>
           </external>
         </example>
         <example id="frdmrw612_dev_audio_generator_freertos" name="dev_audio_generator_freertos" brief="The USB Audio Generator application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a recording device and users can record the sound from this device via the &quot;Sound Recorder&quot; in the Windows Accessories." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/frdmrw612/usb_examples/usb_device_audio_generator/freertos">
@@ -335,6 +355,11 @@ ${load}</script>
         <example id="frdmrw612_dev_printer_virtual_plain_text_freertos" name="dev_printer_virtual_plain_text_freertos" brief="The USB virtual printer application is a simple application to demonstrate a virtual printer functionality.Because there is no printer language parsing, the received raw data is output directly in the debug console.As a result, only plain text is suitable for testing. For other printer language support, such as postscript, implement the corresponding parser." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/frdmrw612/usb_examples/usb_device_printer_virtual_plain_text/freertos">
           <external path="examples/frdmrw612/usb_examples/usb_device_printer_virtual_plain_text/freertos" type="xml">
             <files mask="dev_printer_virtual_plain_text_freertos_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmrw612_dev_suspend_resume_hid_mouse_freertos" name="dev_suspend_resume_hid_mouse_freertos" brief="the application is enumerated as a mouse. When host releases the USB Bus, the device will enter into low power mode. The device can be waked up when resume signal is detected on the bus. Or the device can remote wake-up the host by delivering the resume signal when the remote wake-up is enabled by the host." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/frdmrw612/usb_examples/usb_suspend_resume_device_hid_mouse/freertos">
+          <external path="examples/frdmrw612/usb_examples/usb_suspend_resume_device_hid_mouse/freertos" type="xml">
+            <files mask="dev_suspend_resume_hid_mouse_freertos_v3_14.xml"/>
           </external>
         </example>
         <example id="frdmrw612_dev_video_virtual_camera_freertos" name="dev_video_virtual_camera_freertos" brief="The USB video virtual camera application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a camera and users can see the video of the device by using a PC test tool." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/frdmrw612/usb_examples/usb_device_video_virtual_camera/freertos">
@@ -460,6 +485,16 @@ ${load}</script>
         <example id="frdmrw612_dev_printer_virtual_plain_text_lite_bm" name="dev_printer_virtual_plain_text_lite_bm" brief="The USB virtual printer application is a simple application to demonstrate a virtual printer functionality.Because there is no printer language parsing, the received raw data is output directly in the debug console.As a result, only plain text is suitable for testing. For other printer language support, such as postscript, implement the corresponding parser." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/frdmrw612/usb_examples/usb_device_printer_virtual_plain_text_lite/bm">
           <external path="examples/frdmrw612/usb_examples/usb_device_printer_virtual_plain_text_lite/bm" type="xml">
             <files mask="dev_printer_virtual_plain_text_lite_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmrw612_dev_suspend_resume_hid_mouse_bm" name="dev_suspend_resume_hid_mouse_bm" brief="the application is enumerated as a mouse. When host releases the USB Bus, the device will enter into low power mode. The device can be waked up when resume signal is detected on the bus. Or the device can remote wake-up the host by delivering the resume signal when the remote wake-up is enabled by the host." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/frdmrw612/usb_examples/usb_suspend_resume_device_hid_mouse/bm">
+          <external path="examples/frdmrw612/usb_examples/usb_suspend_resume_device_hid_mouse/bm" type="xml">
+            <files mask="dev_suspend_resume_hid_mouse_bm_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmrw612_dev_suspend_resume_hid_mouse_lite_bm" name="dev_suspend_resume_hid_mouse_lite_bm" brief="the application is enumerated as a mouse. When host releases the USB Bus, the device will enter into low power mode. The device can be waked up when resume signal is detected on the bus. Or the device can remote wake-up the host by delivering the resume signal when the remote wake-up is enabled by the host." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/frdmrw612/usb_examples/usb_suspend_resume_device_hid_mouse_lite/bm">
+          <external path="examples/frdmrw612/usb_examples/usb_suspend_resume_device_hid_mouse_lite/bm" type="xml">
+            <files mask="dev_suspend_resume_hid_mouse_lite_bm_v3_14.xml"/>
           </external>
         </example>
         <example id="frdmrw612_dev_video_virtual_camera_bm" name="dev_video_virtual_camera_bm" brief="The USB video virtual camera application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a camera and users can see the video of the device by using a PC test tool." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/frdmrw612/usb_examples/usb_device_video_virtual_camera/bm">
@@ -757,6 +792,21 @@ ${load}</script>
             <files mask="gdma_transfer_wrap_v3_14.xml"/>
           </external>
         </example>
+        <example id="frdmrw612_gpio_led_output" name="gpio_led_output" brief="The GPIO Example project is a demonstration program that uses the KSDK software to manipulate the general-purposeoutputs. The example use LEDs and buttons to demonstrates GPIO API for port and pin manipulation (init, set,clear, and toggle)." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/gpio" path="examples/frdmrw612/driver_examples/gpio/led_output">
+          <external path="examples/frdmrw612/driver_examples/gpio/led_output" type="xml">
+            <files mask="gpio_led_output_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmrw612_gpio_input_interrupt" name="gpio_input_interrupt" brief="The GPIO Example project is a demonstration program that uses the KSDK software to manipulate the general-purposeoutputs.The example is supported by the set, clear registers for each GPIO pin output register. " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/gpio" path="examples/frdmrw612/driver_examples/gpio/input_interrupt">
+          <external path="examples/frdmrw612/driver_examples/gpio/input_interrupt" type="xml">
+            <files mask="gpio_input_interrupt_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmrw612_pint_pin_interrupt" name="pint_pin_interrupt" brief="This example shows how to use SDK drivers to use the Pin interrupt &amp; pattern match peripheral." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/pint" path="examples/frdmrw612/driver_examples/pint/pin_interrupt">
+          <external path="examples/frdmrw612/driver_examples/pint/pin_interrupt" type="xml">
+            <files mask="pint_pin_interrupt_v3_14.xml"/>
+          </external>
+        </example>
         <example id="frdmrw612_flexspi_nor_polling_transfer" name="flexspi_nor_polling_transfer" brief="The flexspi_nor_polling_transfer example shows how to use flexspi driver with polling:In this example, flexspi will send data and operate the external Nor flash connected with FLEXSPI. Some simple flash command willbe executed, such as Write Enable, Erase sector, Program page.Example will first erase the sector and program a page into the flash, at last check if the data in flash is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/flexspi" path="examples/frdmrw612/driver_examples/flexspi/nor/polling_transfer">
           <external path="examples/frdmrw612/driver_examples/flexspi/nor/polling_transfer" type="xml">
             <files mask="flexspi_nor_polling_transfer_v3_14.xml"/>
@@ -825,6 +875,11 @@ ${load}</script>
         <example id="frdmrw612_hello_world_virtual_com" name="hello_world_virtual_com" brief="Hello World Virtual Com demonstrates the use of virtual com to print the &quot;Hello World&quot; string to the terminal. Different with Hello World demo (a HW UART peripheral is used to transmit data), the demo transmits data based on a serial port simulated by the USB device stack on target board side via USB peripheral. The purpose of this demo is to demonstrate how to use virtual com and provide a simple project for debugging and further development." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmrw612/demo_apps/hello_world_virtual_com">
           <external path="examples/frdmrw612/demo_apps/hello_world_virtual_com" type="xml">
             <files mask="hello_world_virtual_com_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmrw612_power_mode_switch" name="power_mode_switch" brief="The Power mode switch demo application demonstrates the use of power modes in the KSDK. The demo prints the power mode menuthrough the debug console, where the user can set the MCU to a specific power mode. The user can also set the wakeupsource by following the debug console prompts. The purpose of this demo is to show how to switch between different power modes, and how to configure a wakeup source and wakeup the MCU from low power modes. Tips: This demo is to show how the various power mode can switch to each other. However, in actual low power use case, to save energy and reduce the consumption even more, many things can be done including: - Disable the clock for unnecessary module during low power mode. That means, programmer can disable the clocks before entering the low power mode and re-enable them after exiting the low power mode when necessary. - Disable the function for unnecessary part of a module when other part would keep working in low power mode. At the most time, more powerful function means more power consumption. For example, disable the digital function for the unnecessary pin mux, and so on. - Set the proper pin state (direction and logic level) according to the actual application hardware. Otherwise, the pin cirrent would be activied unexpectedly waste some energy. - Other low power consideration based on the actual application hardware. - Debug pins(e.g SWD_DIO) would consume addtional power, had better to disable related pins or disconnect them. " toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmrw612/demo_apps/power_mode_switch">
+          <external path="examples/frdmrw612/demo_apps/power_mode_switch" type="xml">
+            <files mask="power_mode_switch_v3_14.xml"/>
           </external>
         </example>
         <example id="frdmrw612_power_manager_test_bm" name="power_manager_test_bm" brief="The power manager test application demonstrates the basic usage of power manager framework without RTOS. The demo tests all features of power manager framework, including notification manager, wakeup source manager and so on." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmrw612/demo_apps/power_manager_test/bm">
@@ -1027,6 +1082,11 @@ ${load}</script>
             <files mask="wifi_cli_v3_14.xml"/>
           </external>
         </example>
+        <example id="frdmrw612_wifi_cli_static" name="wifi_cli_static" brief="wifi_cli_static" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="examples/frdmrw612/wifi_examples/wifi_cli_static">
+          <external path="examples/frdmrw612/wifi_examples/wifi_cli_static" type="xml">
+            <files mask="wifi_cli_static_v3_14.xml"/>
+          </external>
+        </example>
         <example id="frdmrw612_uart_wifi_bridge" name="uart_wifi_bridge" brief="uart_wifi_bridge" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="examples/frdmrw612/wifi_examples/uart_wifi_bridge">
           <external path="examples/frdmrw612/wifi_examples/uart_wifi_bridge" type="xml">
             <files mask="uart_wifi_bridge_v3_14.xml"/>
@@ -1112,11 +1172,6 @@ ${load}</script>
             <files mask="ota_mcuboot_server_wifi_v3_14.xml"/>
           </external>
         </example>
-        <example id="frdmrw612_wifi_cli_prov" name="wifi_cli_prov" brief="wifi_cli_prov" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="examples/frdmrw612/wifi_examples/wifi_cli_prov">
-          <external path="examples/frdmrw612/wifi_examples/wifi_cli_prov" type="xml">
-            <files mask="wifi_cli_prov_v3_14.xml"/>
-          </external>
-        </example>
         <example id="frdmrw612_wifi_wpa_supplicant" name="wifi_wpa_supplicant" brief="wifi_wpa_supplicant" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="examples/frdmrw612/wifi_examples/wifi_wpa_supplicant">
           <external path="examples/frdmrw612/wifi_examples/wifi_wpa_supplicant" type="xml">
             <files mask="wifi_wpa_supplicant_v3_14.xml"/>
@@ -1125,6 +1180,16 @@ ${load}</script>
         <example id="frdmrw612_temperature_measurement" name="temperature_measurement" brief="The temperature measurement demo is used to measure the temperature, note that this case just support RW61x platform at present." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="demo_apps" path="examples/frdmrw612/demo_apps/temperature_measurement">
           <external path="examples/frdmrw612/demo_apps/temperature_measurement" type="xml">
             <files mask="temperature_measurement_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmrw612_i2c_read_p3t1755_temp_value_transfer" name="i2c_read_p3t1755_temp_value_transfer" brief="The i2c_read_p3t1755_temp_value_transfer example shows how to use i2c driver as master to communicate with sensor P3T1755." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/i2c" path="examples/frdmrw612/driver_examples/i2c/read_p3t1755_temp_value_transfer">
+          <external path="examples/frdmrw612/driver_examples/i2c/read_p3t1755_temp_value_transfer" type="xml">
+            <files mask="i2c_read_p3t1755_temp_value_transfer_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmrw612_ncp_device" name="ncp_device" brief="The ncp_device." toolchain="armgcc" compiler="compiler_gcc" category="ncp_examples" path="examples/frdmrw612/ncp_examples/ncp_device">
+          <external path="examples/frdmrw612/ncp_examples/ncp_device" type="xml">
+            <files mask="ncp_device_v3_14.xml"/>
           </external>
         </example>
         <example id="frdmrw612_freertos_hello" name="freertos_hello" brief="The Hello World project is a simple demonstration program that uses the SDK UART driver in combination with FreeRTOS. The purpose of this demo is to show how to use the debug console and toprovide a simple project for debugging and further development.The example application creates one task called hello_task. This task print &quot;Hello world.&quot; messagevia debug console utility and suspend itself." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="freertos_examples" path="examples/frdmrw612/freertos_examples/freertos_hello">
@@ -1160,6 +1225,11 @@ ${load}</script>
         <example id="frdmrw612_freertos_swtimer" name="freertos_swtimer" brief="This document explains the freertos_swtimer example. It shows usage of software timer and itscallback.The example application creates one software timer SwTimer. The timer's callback SwTimerCallback isperiodically executed and text &quot;Tick.&quot; is printed to terminal." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="freertos_examples" path="examples/frdmrw612/freertos_examples/freertos_swtimer">
           <external path="examples/frdmrw612/freertos_examples/freertos_swtimer" type="xml">
             <files mask="freertos_swtimer_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmrw612_freertos_tickless" name="freertos_tickless" brief="This document explains the freertos_tickless example. It shows the CPU enter at sleep mode and then it is waked up by expired time delay that using timer module." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="freertos_examples" path="examples/frdmrw612/freertos_examples/freertos_tickless">
+          <external path="examples/frdmrw612/freertos_examples/freertos_tickless" type="xml">
+            <files mask="freertos_tickless_v3_14.xml"/>
           </external>
         </example>
       </examples>
@@ -5947,6 +6017,20 @@ ${load}</script>
         <files mask="mcuboot_enc_support.c"/>
         <files mask="platform_enc_bee.c"/>
       </source>
+      <source relative_path="./" type="doc">
+        <files mask="mcuboot_encrypted_xip.md"/>
+      </source>
+      <source relative_path="enc_xip_images" type="image">
+        <files mask="bee_metadata.jpg"/>
+        <files mask="bee_rom_layout.jpg"/>
+        <files mask="device_fleet_graph.jpg"/>
+        <files mask="general_metadata.jpg"/>
+        <files mask="keys_scheme.jpg"/>
+        <files mask="overwrite_only.jpg"/>
+        <files mask="overwrite_only_flow.jpg"/>
+        <files mask="three_slot.jpg"/>
+        <files mask="three_slot_flow.jpg"/>
+      </source>
       <source toolchain="armgcc" relative_path="./" type="workspace">
         <files mask="middleware_mcuboot_encrypted_xip.cmake" hidden="true"/>
       </source>
@@ -6753,7 +6837,7 @@ ${load}</script>
         <include_path relative_path="template/usdhc" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.phydcd_config_header.RW612" name="USB device phydcd config header" brief="USB device phydcd config header" version="2.8.4" full_name="USB device phydcd config header" category="USB/USB DCD" user_visible="true" type="project_template" package_base_path="middleware/usb" project_base_path="source">
+    <component id="middleware.usb.phydcd_config_header.RW612" name="USB device phydcd config header" brief="USB device phydcd config header" version="2.10.1" full_name="USB device phydcd config header" category="USB/USB DCD" user_visible="true" type="project_template" package_base_path="middleware/usb" project_base_path="source">
       <dependencies>
         <device_dependency value="RW612"/>
       </dependencies>
@@ -6767,7 +6851,7 @@ ${load}</script>
         <include_path relative_path="output/npw/dcd_config/phydcd" project_relative_path="generated" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.hsdcd_config_header.RW612" name="USB device hsdcd config header" brief="USB device hsdcd config header" version="2.8.4" full_name="USB device hsdcd config header" category="USB/USB DCD" user_visible="true" type="project_template" package_base_path="middleware/usb" project_base_path="source">
+    <component id="middleware.usb.hsdcd_config_header.RW612" name="USB device hsdcd config header" brief="USB device hsdcd config header" version="2.10.1" full_name="USB device hsdcd config header" category="USB/USB DCD" user_visible="true" type="project_template" package_base_path="middleware/usb" project_base_path="source">
       <dependencies>
         <device_dependency value="RW612"/>
       </dependencies>
@@ -6825,27 +6909,52 @@ ${load}</script>
         <include_path relative_path="osal" type="c_include"/>
       </include_paths>
     </component>
-    <component id="component.psa_crypto_driver.els_pkc.oracle.RW612" name="psa_crypto_driver els_pkc_oracle" brief="Oracle of PSA crypto driver for els_pkc" version="1.0.0" full_name="Oracle of PSA crypto driver for els_pkc" category="psa_crypto_driver/psa_crypto_driver_els_pkc_oracle" user_visible="false" type="software_component" package_base_path="core/components/psa_crypto_driver" project_base_path="component/psa_crypto_driver">
+    <component id="component.psa_crypto_driver.mbedtls_thread_alt.RW612" name="psa_crypto_driver mbedtls_threading_alt" brief="Threading Alt implementation for mbedtls layer via PSA crypto driver" version="1.0.0" full_name="PSA crypto driver threading alt layer for mbedtls threading based" category="psa_crypto_driver/psa_dri_mbed_thrd_alt" user_visible="false" type="software_component" package_base_path="core/components/psa_crypto_driver" project_base_path="component/psa_crypto_driver">
       <dependencies>
         <device_dependency value="RW612"/>
       </dependencies>
-      <source relative_path="els_pkc/oracle/inc" type="c_include">
-        <files mask="mcuxClPsaDriver_Oracle_Interface_builtin_key_ids.h"/>
-        <files mask="mcuxClPsaDriver_Oracle_Interface_key_locations.h"/>
-        <files mask="mcuxClPsaDriver_Oracle_ElsUtils.h"/>
-        <files mask="mcuxClPsaDriver_Oracle_Macros.h"/>
-        <files mask="mcuxClPsaDriver_Oracle_Utils.h"/>
+      <source relative_path="mbedtls_thread_alt" type="src">
+        <files mask="threading_alt.c"/>
       </source>
-      <source relative_path="els_pkc/oracle/src" type="src">
-        <files mask="mcuxClPsaDriver_Oracle.c"/>
-        <files mask="mcuxClPsaDriver_Oracle_ElsUtils.c"/>
-        <files mask="mcuxClPsaDriver_Oracle_Utils.c"/>
+      <source relative_path="mbedtls_thread_alt" type="c_include">
+        <files mask="threading_alt.h"/>
       </source>
       <source toolchain="armgcc" relative_path="./" type="workspace">
-        <files mask="component_psa_crypto_driver_els_pkc_oracle.cmake" hidden="true"/>
+        <files mask="component_psa_crypto_driver_mbedtls_thread_alt.cmake" hidden="true"/>
       </source>
       <include_paths>
-        <include_path relative_path="els_pkc/oracle/inc" type="c_include"/>
+        <include_path relative_path="mbedtls_thread_alt" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="component.psa_crypto_driver.els_pkc.oracle.rw61x.RW612" name="psa_crypto_driver els_pkc_oracle_rw61x" brief="Key Recipes for rw61x for els_pkc" version="1.0.0" full_name="Key Recipes for rw61x for els_pkc" category="psa_crypto_driver/psa_crypto_driver_els_pkc_oracle" user_visible="false" type="software_component" package_base_path="core/components/psa_crypto_driver" project_base_path="component/psa_crypto_driver">
+      <dependencies>
+        <device_dependency value="RW612"/>
+      </dependencies>
+      <source relative_path="els_pkc/oracle/platforms/rw61x" type="c_include">
+        <files mask="mcuxClPsaDriver_Oracle_KeyRecipes.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="./" type="workspace">
+        <files mask="component_psa_crypto_driver_els_pkc_oracle_rw61x.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="els_pkc/oracle/platforms/rw61x" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="component.psa_crypto_driver.els_pkc.oracle.mcxn.RW612" name="psa_crypto_driver els_pkc_oracle_mxcn" brief="Key Recipes for mcxn for els_pkc" version="1.0.0" full_name="Key Recipes for mcxn for els_pkc" category="psa_crypto_driver/psa_crypto_driver_els_pkc_oracle" user_visible="false" type="software_component" package_base_path="core/components/psa_crypto_driver" project_base_path="component/psa_crypto_driver">
+      <dependencies>
+        <device_dependency value="RW612"/>
+      </dependencies>
+      <source relative_path="els_pkc/oracle/platforms/mcxn" type="c_include">
+        <files mask="mcuxClPsaDriver_Oracle_KeyRecipes.h"/>
+      </source>
+      <source relative_path="els_pkc/oracle/platforms/mcxn" type="src">
+        <files mask="mcuxClPsaDriver_Oracle_KeyRecipes_Utils.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="./" type="workspace">
+        <files mask="component_psa_crypto_driver_els_pkc_oracle_mcxn.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="els_pkc/oracle/platforms/mcxn" type="c_include"/>
       </include_paths>
     </component>
     <component id="component.psa_crypto_driver.els_pkc.common.RW612" name="psa_crypto_driver els_pkc_common" brief="Common files of PSA crypto driver for els_pkc" version="1.0.0" full_name="Common files of PSA crypto driver for els_pkc" category="psa_crypto_driver/psa_crypto_driver_els_pkc_common" user_visible="false" type="software_component" package_base_path="core/components/psa_crypto_driver" project_base_path="component/psa_crypto_driver">
@@ -7648,6 +7757,170 @@ ${load}</script>
         <include_path relative_path="asrc_sw/include" type="c_include"/>
         <include_path relative_path="asrc_sw" type="c_include"/>
         <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="driver.p3t1755.RW612" name="p3t1755" brief="Driver p3t1755" version="2.0.0" full_name="Driver p3t1755" category="Device/SDK Drivers" user_visible="true" type="board_component" package_base_path="core/components/sensor/p3t1755" project_base_path="component/p3t1755">
+      <dependencies>
+        <device_dependency value="RW612"/>
+      </dependencies>
+      <source relative_path="./" type="c_include">
+        <files mask="fsl_p3t1755.h"/>
+      </source>
+      <source relative_path="./" type="src">
+        <files mask="fsl_p3t1755.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="./" type="workspace">
+        <files mask="driver_p3t1755.RW612.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.wireless.coex.RW612" name="NXP Coex" brief="Middlware Coex" version="1.0.0" full_name="NXP Coex" category="Wireless/NXP Wi-Fi" user_visible="false" type="middleware" package_base_path="middleware/wireless/coex" project_base_path="coex">
+      <dependencies>
+        <device_dependency value="RW612"/>
+      </dependencies>
+      <source relative_path="core/boards/rw612" type="c_include">
+        <files mask="app_config.h"/>
+        <files mask="board.h"/>
+        <files mask="clock_config.h"/>
+        <files mask="FreeRTOSConfig.h"/>
+        <files mask="peripherals.h"/>
+        <files mask="pin_mux.h"/>
+      </source>
+      <source relative_path="core/boards/rw612" type="src">
+        <files mask="app_services_init.c"/>
+        <files mask="board.c"/>
+        <files mask="clock_config.c"/>
+        <files mask="hardware_init.c"/>
+        <files mask="peripherals.c"/>
+        <files mask="pin_mux.c"/>
+      </source>
+      <source relative_path="core/boards/rw612" type="doc">
+        <files mask="CMakeLists.txt"/>
+      </source>
+      <source relative_path="boards" type="doc">
+        <files mask="CMakeLists.txt"/>
+      </source>
+      <source relative_path="cmake/platform/rw612" type="script">
+        <files mask="config_frdmrw612.cmake"/>
+        <files mask="config_rdrw612bga.cmake"/>
+        <files mask="flags.cmake"/>
+        <files mask="rw612.cmake"/>
+      </source>
+      <source relative_path="cmake/toolchain" type="script">
+        <files mask="arm-none-eabi.cmake"/>
+        <files mask="armgcc_force_cpp.cmake"/>
+        <files mask="armgcc.cmake"/>
+        <files mask="mcux_config.cmake"/>
+        <files mask="xcc.cmake"/>
+        <files mask="xclang.cmake"/>
+      </source>
+      <source relative_path="cmake" type="script">
+        <files mask="options.cmake"/>
+        <files mask="utils.cmake"/>
+      </source>
+      <source relative_path="examples/coex_app" type="doc">
+        <files mask="CMakeLists.txt"/>
+        <files mask="readme.md"/>
+      </source>
+      <source relative_path="examples/coex_app" type="src">
+        <files mask="main.c"/>
+      </source>
+      <source relative_path="examples/linker" type="linker">
+        <files mask="RW61x_flash.ld"/>
+      </source>
+      <source relative_path="examples" type="doc">
+        <files mask="CMakeLists.txt"/>
+      </source>
+      <source relative_path="script" type="other">
+        <files mask="build_rw612"/>
+      </source>
+      <source relative_path="src/common" type="doc">
+        <files mask="CMakeLists.txt"/>
+      </source>
+      <source relative_path="src/common" type="src">
+        <files mask="controller_coex_nxp.c"/>
+        <files mask="host_msd_fatfs.c"/>
+      </source>
+      <source relative_path="src/common" type="c_include">
+        <files mask="host_msd_fatfs.h"/>
+        <files mask="ringtone.h"/>
+      </source>
+      <source relative_path="src/configs/ble" type="c_include">
+        <files mask="app_bluetooth_config.h"/>
+        <files mask="edgefast_bluetooth_audio_config.h"/>
+        <files mask="edgefast_bluetooth_config.h"/>
+        <files mask="edgefast_bluetooth_debug_config.h"/>
+      </source>
+      <source relative_path="src/configs/lwip" type="c_include">
+        <files mask="lwiphooks.h"/>
+        <files mask="lwipopts.h"/>
+        <files mask="lwippools.h"/>
+      </source>
+      <source relative_path="src/configs/mbedtls" type="c_include">
+        <files mask="mbedtls_config_client.h"/>
+      </source>
+      <source relative_path="src/configs/platform" type="c_include">
+        <files mask="ffconf.h"/>
+        <files mask="usb_host_config.h"/>
+      </source>
+      <source relative_path="src/configs/wifi" type="c_include">
+        <files mask="wifi_config.h"/>
+      </source>
+      <source relative_path="src/configs" type="doc">
+        <files mask="CMakeLists.txt"/>
+      </source>
+      <source relative_path="src/edgefast" type="src">
+        <files mask="coex_shell.c"/>
+      </source>
+      <source relative_path="src/edgefast" type="c_include">
+        <files mask="coex_shell.h"/>
+      </source>
+      <source relative_path="src/edgefast" type="doc">
+        <files mask="CMakeLists.txt"/>
+      </source>
+      <source relative_path="src" type="doc">
+        <files mask="CMakeLists.txt"/>
+      </source>
+      <source relative_path="third_party" type="doc">
+        <files mask="CMakeLists.txt"/>
+      </source>
+      <source relative_path="./" type="other">
+        <files mask="add_coex_v3.yml"/>
+        <files mask="LICENSE"/>
+      </source>
+      <source relative_path="./" type="script">
+        <files mask="build_coex.sh"/>
+      </source>
+      <source relative_path="./" type="doc">
+        <files mask="CMakeLists.txt"/>
+        <files mask="README.md"/>
+      </source>
+      <source toolchain="armgcc" relative_path="./" type="workspace">
+        <files mask="middleware_wireless_coex.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="./" type="c_include"/>
+        <include_path relative_path="core/boards/rw612" type="c_include"/>
+        <include_path relative_path="cmake" type="c_include"/>
+        <include_path relative_path="cmake/platform/rw612" type="c_include"/>
+        <include_path relative_path="cmake/toolchain" type="c_include"/>
+        <include_path relative_path="examples" type="c_include"/>
+        <include_path relative_path="examples/coex_app" type="c_include"/>
+        <include_path relative_path="examples/linker" type="c_include"/>
+        <include_path relative_path="script" type="c_include"/>
+        <include_path relative_path="src" type="c_include"/>
+        <include_path relative_path="src/common" type="c_include"/>
+        <include_path relative_path="src/configs" type="c_include"/>
+        <include_path relative_path="src/configs/ble" type="c_include"/>
+        <include_path relative_path="src/configs/lwip" type="c_include"/>
+        <include_path relative_path="src/configs/mbedtls" type="c_include"/>
+        <include_path relative_path="src/configs/platform" type="c_include"/>
+        <include_path relative_path="src/configs/wifi" type="c_include"/>
+        <include_path relative_path="src/edgefast" type="c_include"/>
+        <include_path relative_path="third_party" type="c_include"/>
+        <include_path relative_path="third_party/mcu-sdk" type="c_include"/>
       </include_paths>
     </component>
     <component id="middleware.wireless.zigbee.cmake.RW612" name="Middleware wireless zigbee cmake infrastructure" brief="middleware wireless zigbee cmake infrastructure" version="1.0.0" full_name="wireless zigbee cmake infrastructure" category="Zigbee Stack Class/Zigbee Stack Group" user_visible="false" type="middleware" package_base_path="middleware/wireless/zigbee" project_base_path="zigbee">
@@ -10163,6 +10436,11 @@ ${load}</script>
         <files mask="mbedtls_git.cmake"/>
         <files mask="mbedtls_sdk.cmake"/>
         <files mask="pdum.cmake"/>
+        <files mask="utils.cmake"/>
+      </source>
+      <source relative_path="NCP_HOST/cmake/toolchains" project_relative_path="cmake/toolchains" type="script">
+        <files mask="arm-linux-gnueabihf.cmake"/>
+        <files mask="x86_64-linux-gnu.cmake"/>
       </source>
       <source relative_path="NCP_HOST/framework/Common" project_relative_path="framework/Common" type="c_include">
         <files mask="EmbeddedTypes.h"/>
@@ -10582,158 +10860,6 @@ ${load}</script>
       </source>
       <include_paths>
         <include_path relative_path="rdrw612bga" type="c_include"/>
-      </include_paths>
-    </component>
-    <component id="middleware.wireless.coex.RW612" name="NXP Coex" brief="Middlware Coex" version="1.0.0" full_name="NXP Coex" category="Wireless/NXP Wi-Fi" user_visible="false" type="middleware" package_base_path="middleware/wireless/coex" project_base_path="coex">
-      <dependencies>
-        <device_dependency value="RW612"/>
-      </dependencies>
-      <source relative_path="core/boards/rw612" type="c_include">
-        <files mask="app_config.h"/>
-        <files mask="board.h"/>
-        <files mask="clock_config.h"/>
-        <files mask="FreeRTOSConfig.h"/>
-        <files mask="peripherals.h"/>
-        <files mask="pin_mux.h"/>
-      </source>
-      <source relative_path="core/boards/rw612" type="src">
-        <files mask="app_services_init.c"/>
-        <files mask="board.c"/>
-        <files mask="clock_config.c"/>
-        <files mask="hardware_init.c"/>
-        <files mask="peripherals.c"/>
-        <files mask="pin_mux.c"/>
-      </source>
-      <source relative_path="core/boards/rw612" type="doc">
-        <files mask="CMakeLists.txt"/>
-      </source>
-      <source relative_path="boards" type="doc">
-        <files mask="CMakeLists.txt"/>
-      </source>
-      <source relative_path="cmake/platform/rw612" type="script">
-        <files mask="config_frdmrw612.cmake"/>
-        <files mask="config_rdrw612bga.cmake"/>
-        <files mask="flags.cmake"/>
-        <files mask="rw612.cmake"/>
-      </source>
-      <source relative_path="cmake/toolchain" type="script">
-        <files mask="arm-none-eabi.cmake"/>
-        <files mask="armgcc_force_cpp.cmake"/>
-        <files mask="armgcc.cmake"/>
-        <files mask="mcux_config.cmake"/>
-        <files mask="xcc.cmake"/>
-        <files mask="xclang.cmake"/>
-      </source>
-      <source relative_path="cmake" type="script">
-        <files mask="options.cmake"/>
-        <files mask="utils.cmake"/>
-      </source>
-      <source relative_path="examples/coex_app" type="doc">
-        <files mask="CMakeLists.txt"/>
-        <files mask="readme.md"/>
-      </source>
-      <source relative_path="examples/coex_app" type="src">
-        <files mask="main.c"/>
-      </source>
-      <source relative_path="examples/linker" type="linker">
-        <files mask="RW61x_flash.ld"/>
-      </source>
-      <source relative_path="examples" type="doc">
-        <files mask="CMakeLists.txt"/>
-      </source>
-      <source relative_path="script" type="other">
-        <files mask="build_rw612"/>
-        <files mask="make-pretty"/>
-      </source>
-      <source relative_path="src/common" type="doc">
-        <files mask="CMakeLists.txt"/>
-      </source>
-      <source relative_path="src/common" type="src">
-        <files mask="controller_coex_nxp.c"/>
-        <files mask="host_msd_fatfs.c"/>
-      </source>
-      <source relative_path="src/common" type="c_include">
-        <files mask="host_msd_fatfs.h"/>
-        <files mask="ringtone.h"/>
-      </source>
-      <source relative_path="src/configs/ble" type="c_include">
-        <files mask="app_bluetooth_config.h"/>
-        <files mask="edgefast_bluetooth_audio_config.h"/>
-        <files mask="edgefast_bluetooth_config.h"/>
-        <files mask="edgefast_bluetooth_debug_config.h"/>
-      </source>
-      <source relative_path="src/configs/lwip" type="c_include">
-        <files mask="lwiphooks.h"/>
-        <files mask="lwipopts.h"/>
-        <files mask="lwippools.h"/>
-      </source>
-      <source relative_path="src/configs/mbedtls" type="c_include">
-        <files mask="mbedtls_config_client.h"/>
-      </source>
-      <source relative_path="src/configs/platform" type="c_include">
-        <files mask="ffconf.h"/>
-        <files mask="usb_host_config.h"/>
-      </source>
-      <source relative_path="src/configs/wifi" type="c_include">
-        <files mask="wifi_config.h"/>
-      </source>
-      <source relative_path="src/configs" type="doc">
-        <files mask="CMakeLists.txt"/>
-      </source>
-      <source relative_path="src/edgefast" type="src">
-        <files mask="coex_shell.c"/>
-      </source>
-      <source relative_path="src/edgefast" type="c_include">
-        <files mask="coex_shell.h"/>
-      </source>
-      <source relative_path="src/edgefast" type="doc">
-        <files mask="CMakeLists.txt"/>
-      </source>
-      <source relative_path="src" type="doc">
-        <files mask="CMakeLists.txt"/>
-      </source>
-      <source relative_path="third_party" type="doc">
-        <files mask="CMakeLists.txt"/>
-      </source>
-      <source relative_path="third_party/mcu-sdk" type="doc">
-        <files mask="readme.md"/>
-      </source>
-      <source relative_path="./" type="other">
-        <files mask=".gitmodules"/>
-        <files mask="add_coex_v3.yml"/>
-        <files mask="LICENSE"/>
-      </source>
-      <source relative_path="./" type="script">
-        <files mask="build_coex.sh"/>
-      </source>
-      <source relative_path="./" type="doc">
-        <files mask="CMakeLists.txt"/>
-        <files mask="README.md"/>
-      </source>
-      <source toolchain="armgcc" relative_path="./" type="workspace">
-        <files mask="middleware_wireless_coex.cmake" hidden="true"/>
-      </source>
-      <include_paths>
-        <include_path relative_path="./" type="c_include"/>
-        <include_path relative_path="core/boards/rw612" type="c_include"/>
-        <include_path relative_path="cmake" type="c_include"/>
-        <include_path relative_path="cmake/platform/rw612" type="c_include"/>
-        <include_path relative_path="cmake/toolchain" type="c_include"/>
-        <include_path relative_path="examples" type="c_include"/>
-        <include_path relative_path="examples/coex_app" type="c_include"/>
-        <include_path relative_path="examples/linker" type="c_include"/>
-        <include_path relative_path="script" type="c_include"/>
-        <include_path relative_path="src" type="c_include"/>
-        <include_path relative_path="src/common" type="c_include"/>
-        <include_path relative_path="src/configs" type="c_include"/>
-        <include_path relative_path="src/configs/ble" type="c_include"/>
-        <include_path relative_path="src/configs/lwip" type="c_include"/>
-        <include_path relative_path="src/configs/mbedtls" type="c_include"/>
-        <include_path relative_path="src/configs/platform" type="c_include"/>
-        <include_path relative_path="src/configs/wifi" type="c_include"/>
-        <include_path relative_path="src/edgefast" type="c_include"/>
-        <include_path relative_path="third_party" type="c_include"/>
-        <include_path relative_path="third_party/mcu-sdk" type="c_include"/>
       </include_paths>
     </component>
     <component id="middleware.wireless.framework.rng.RW612" name="wireless framework RNG" brief="Middleware wireless framework_rng" version="1.0.0" full_name="wireless framework RNG" category="Connectivity Framework Class/Connectivity Framework Group" user_visible="false" type="middleware" package_base_path="middleware/wireless/framework/RNG" project_base_path="framework">
@@ -12766,7 +12892,7 @@ ${load}</script>
         <include_path relative_path="RTX/Config" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.common.RW612" name="common" brief="COMMON Driver" version="2.4.1" full_name="COMMON Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/common" project_base_path="drivers">
+    <component id="platform.drivers.common.RW612" name="common" brief="COMMON Driver" version="2.4.2" full_name="COMMON Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/common" project_base_path="drivers">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.reset.RW612"/>
@@ -13594,6 +13720,7 @@ ${load}</script>
           <component_dependency value="middleware.freertos-kernel.RW612"/>
           <component_dependency value="utility.debug_console.RW612"/>
           <component_dependency value="component.osa_free_rtos.RW612"/>
+          <component_dependency value="middleware.wifi.cli.RW612"/>
           <component_dependency value="middleware.wifi.RW612"/>
           <component_dependency value="middleware.lwip.RW612"/>
           <component_dependency value="middleware.mbedtls.RW612"/>
@@ -13604,13 +13731,16 @@ ${load}</script>
         <files mask="wpa_supp_mbedtls_config.h"/>
         <files mask="wpa_supp_els_pkc_mbedtls_config.h"/>
         <files mask="wpa_supp_ele_s400_mbedtls_config.h"/>
+        <files mask="supp_crypto.h"/>
+      </source>
+      <source relative_path="port/mbedtls" type="src">
+        <files mask="supp_crypto.c"/>
       </source>
       <source relative_path="src/common" type="src">
         <files mask="wpa_common.c"/>
         <files mask="ieee802_11_common.c"/>
         <files mask="hw_features_common.c"/>
         <files mask="wpa_ctrl.c"/>
-        <files mask="cli.c"/>
         <files mask="sae.c"/>
         <files mask="dragonfly.c"/>
         <files mask="gas.c"/>
@@ -13985,7 +14115,6 @@ ${load}</script>
       </source>
       <source relative_path="src/common" type="c_include">
         <files mask="brcm_vendor.h"/>
-        <files mask="cli.h"/>
         <files mask="ctrl_iface_common.h"/>
         <files mask="defs.h"/>
         <files mask="dhcp.h"/>
@@ -14803,6 +14932,29 @@ ${load}</script>
       <dependencies>
         <all>
           <any_of>
+            <all>
+              <not>
+                <component_dependency value="middleware.lwip.sys_arch_static.RW612"/>
+              </not>
+              <component_dependency value="middleware.lwip.sys_arch_dynamic.RW612"/>
+            </all>
+            <all>
+              <not>
+                <component_dependency value="middleware.lwip.sys_arch_dynamic.RW612"/>
+              </not>
+              <not>
+                <component_dependency value="middleware.lwip.usb_ethernetif.RW612"/>
+              </not>
+              <not>
+                <component_dependency value="middleware.lwip.kinetis_ethernetif.RW612"/>
+              </not>
+              <not>
+                <component_dependency value="middleware.lwip.eoe_ethernetif.RW612"/>
+              </not>
+              <component_dependency value="middleware.lwip.sys_arch_static.RW612"/>
+            </all>
+          </any_of>
+          <any_of>
             <component_dependency value="middleware.lwip.usb_ethernetif.RW612"/>
             <component_dependency value="middleware.lwip.kinetis_ethernetif.RW612"/>
             <component_dependency value="middleware.lwip.empty_ethernetif.RW612"/>
@@ -14845,13 +14997,9 @@ ${load}</script>
       <source relative_path="doc/doxygen/output" type="doc">
         <files mask="index.html" hidden="true"/>
       </source>
-      <source relative_path="port" type="src">
-        <files mask="sys_arch.c"/>
-      </source>
       <source relative_path="port/arch" type="c_include">
         <files mask="cc.h"/>
         <files mask="perf.h"/>
-        <files mask="sys_arch.h"/>
       </source>
       <source relative_path="src" type="doc">
         <files mask="FILES" hidden="true"/>
@@ -15122,16 +15270,67 @@ ${load}</script>
         <include_path relative_path="src/include" type="c_include"/>
       </include_paths>
     </component>
+    <component id="middleware.lwip.sys_arch_dynamic.RW612" name="Sys Arch Dynamic interface" brief="lwIP System Abstraction Layer using either FreeRTOS dynamic memory allocation APIs or bare-metal" version="2.2.1" revision="1" full_name="Sys Arch Dynamic interface" category="Network/lwIP TCPIP Networking Stack" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.lwip.RW612"/>
+          <component_dependency value="middleware.lwip.template.RW612"/>
+          <device_dependency value="RW612"/>
+        </all>
+      </dependencies>
+      <source relative_path="port/sys_arch/dynamic" type="src">
+        <files mask="sys_arch.c"/>
+      </source>
+      <source relative_path="port/sys_arch/dynamic/arch" type="c_include">
+        <files mask="sys_arch.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="./" type="workspace">
+        <files mask="middleware_lwip_sys_arch_dynamic.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="port" type="c_include"/>
+        <include_path relative_path="port/sys_arch/dynamic" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.lwip.sys_arch_static.RW612" name="Sys Arch Static interface" brief="Experimental lwIP System Abstraction Layer using FreeRTOS static memory allocation APIs - it is not supported and not guaranteed to work, also might be removed in future" version="2.2.1" revision="1" full_name="Sys Arch Static interface - experimental" category="Network/lwIP TCPIP Networking Stack" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.lwip.RW612"/>
+          <component_dependency value="middleware.lwip.template.RW612"/>
+          <device_dependency value="RW612"/>
+        </all>
+      </dependencies>
+      <source relative_path="port/sys_arch/static" type="src">
+        <files mask="sys_arch.c"/>
+      </source>
+      <source relative_path="port/sys_arch/static/arch" type="c_include">
+        <files mask="sys_arch.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="./" type="workspace">
+        <files mask="middleware_lwip_sys_arch_static.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="port" type="c_include"/>
+        <include_path relative_path="port/sys_arch/static" type="c_include"/>
+      </include_paths>
+    </component>
     <component id="middleware.lwip.kinetis_ethernetif.RW612" name="Kinetis enet ethernet interface" brief="Kinetis ethernet interface" version="2.2.1" revision="1" full_name="Kinetis ethernet interface" category="Network/lwIP TCPIP Networking Stack" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
       <defines>
         <define name="LWIP_DISABLE_PBUF_POOL_SIZE_SANITY_CHECKS" value="1"/>
+        <define name="CHECKSUM_GEN_UDP" value="1"/>
+        <define name="CHECKSUM_GEN_TCP" value="1"/>
+        <define name="CHECKSUM_GEN_ICMP" value="1"/>
         <define name="CHECKSUM_GEN_ICMP6" value="1"/>
+        <define name="CHECKSUM_CHECK_UDP" value="1"/>
+        <define name="CHECKSUM_CHECK_TCP" value="1"/>
+        <define name="CHECKSUM_CHECK_ICMP" value="1"/>
         <define name="CHECKSUM_CHECK_ICMP6" value="1"/>
       </defines>
       <dependencies>
         <all>
           <component_dependency value="middleware.lwip.RW612"/>
           <component_dependency value="middleware.lwip.template.RW612"/>
+          <component_dependency value="middleware.lwip.sys_arch_dynamic.RW612"/>
           <component_dependency value="driver.phy-common.RW612"/>
           <component_dependency value="platform.drivers.enet.RW612"/>
           <component_dependency value="component.lpc_gpio_adapter.RW612"/>
@@ -15149,6 +15348,9 @@ ${load}</script>
         <files mask="ethernetif_mmac.h"/>
         <files mask="ethernetif_priv.h"/>
         <files mask="kinetis_configchecks.h"/>
+      </source>
+      <source relative_path="port" type="doc">
+        <files mask="README.md" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="./" type="workspace">
         <files mask="middleware_lwip_kinetis_ethernetif.cmake" hidden="true"/>
@@ -15169,6 +15371,7 @@ ${load}</script>
         <all>
           <component_dependency value="middleware.lwip.RW612"/>
           <component_dependency value="middleware.lwip.template.RW612"/>
+          <component_dependency value="middleware.lwip.sys_arch_dynamic.RW612"/>
           <component_dependency value="middleware.freertos-kernel.RW612"/>
           <device_dependency value="RW612"/>
         </all>
@@ -15194,6 +15397,7 @@ ${load}</script>
             <component_dependency value="middleware.usb.host_cdc_rndis.RW612"/>
           </any_of>
           <component_dependency value="middleware.lwip.RW612"/>
+          <component_dependency value="middleware.lwip.sys_arch_dynamic.RW612"/>
           <component_dependency value="middleware.usb.host_cdc.RW612"/>
           <component_dependency value="middleware.usb.host_controller_ehci.RW612"/>
           <device_dependency value="RW612"/>
@@ -16488,7 +16692,7 @@ ${load}</script>
         <include_path relative_path="host/usdhc" project_relative_path="host" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.ehci_config_header.RW612" name="USB device ehci config header" brief="USB device ehci config header" version="2.10.0" full_name="USB device ehci config header" category="USB/USB Device" user_visible="true" type="project_template" package_base_path="middleware/usb" project_base_path="source">
+    <component id="middleware.usb.device.ehci_config_header.RW612" name="USB device ehci config header" brief="USB device ehci config header" version="2.10.1" full_name="USB device ehci config header" category="USB/USB Device" user_visible="true" type="project_template" package_base_path="middleware/usb" project_base_path="source">
       <dependencies>
         <device_dependency value="RW612"/>
       </dependencies>
@@ -16502,7 +16706,7 @@ ${load}</script>
         <include_path relative_path="output/npw/device_config/ehci" project_relative_path="generated" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.common_header.RW612" name="USB Common Header" brief="Middleware usb common_header" version="2.10.0" full_name="USB Common Header" category="USB/USB Common Header" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.common_header.RW612" name="USB Common Header" brief="Middleware usb common_header" version="2.10.1" full_name="USB Common Header" category="USB/USB Common Header" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="component.osa.RW612"/>
@@ -16521,7 +16725,7 @@ ${load}</script>
         <include_path relative_path="include" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.common_header.RW612" name="USB Device Common Header" brief="Middleware usb device common_header" version="2.10.0" full_name="USB Device Common Header" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.common_header.RW612" name="USB Device Common Header" brief="Middleware usb device common_header" version="2.10.1" full_name="USB Device Common Header" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="component.osa.RW612"/>
@@ -16543,7 +16747,7 @@ ${load}</script>
         <include_path relative_path="device" project_relative_path="device/source" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device_controller_ehci.RW612" name="USB Device EHCI Controller Driver(HS)" brief="Middleware usb device ehci" version="2.10.0" full_name="USB Device EHCI Controller Driver(HS)" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device_controller_ehci.RW612" name="USB Device EHCI Controller Driver(HS)" brief="Middleware usb device ehci" version="2.10.1" full_name="USB Device EHCI Controller Driver(HS)" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.ehci_config_header.RW612"/>
@@ -16566,7 +16770,7 @@ ${load}</script>
         <include_path relative_path="include" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.stack.external.RW612" name="USB Device Stack" brief="Middleware usb device stack external" version="2.10.0" full_name="USB Device Stack" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.stack.external.RW612" name="USB Device Stack" brief="Middleware usb device stack external" version="2.10.1" full_name="USB Device Stack" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="component.osa.RW612"/>
@@ -16596,7 +16800,7 @@ ${load}</script>
         <include_path relative_path="output/source/device" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.audio.external.RW612" name="USB Device Audio" brief="Middleware usb device audio external" version="2.10.0" full_name="USB Device Audio" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.audio.external.RW612" name="USB Device Audio" brief="Middleware usb device audio external" version="2.10.1" full_name="USB Device Audio" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.RW612"/>
@@ -16617,7 +16821,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.cdc.external.RW612" name="USB Device CDC" brief="Middleware usb device cdc external" version="2.10.0" full_name="USB Device CDC" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.cdc.external.RW612" name="USB Device CDC" brief="Middleware usb device cdc external" version="2.10.1" full_name="USB Device CDC" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.RW612"/>
@@ -16638,7 +16842,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.cdc.rndis.external.RW612" name="USB Device CDC RNDIS" brief="Middleware usb device cdc rndis external" version="2.10.0" full_name="USB Device CDC RNDIS" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.cdc.rndis.external.RW612" name="USB Device CDC RNDIS" brief="Middleware usb device cdc rndis external" version="2.10.1" full_name="USB Device CDC RNDIS" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.RW612"/>
@@ -16660,7 +16864,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.hid.external.RW612" name="USB Device HID" brief="Middleware usb device hid external" version="2.10.0" full_name="USB Device HID" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.hid.external.RW612" name="USB Device HID" brief="Middleware usb device hid external" version="2.10.1" full_name="USB Device HID" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.RW612"/>
@@ -16681,7 +16885,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.dfu.external.RW612" name="USB Device DFU" brief="Middleware usb device dfu external" version="2.10.0" full_name="USB Device DFU" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.dfu.external.RW612" name="USB Device DFU" brief="Middleware usb device dfu external" version="2.10.1" full_name="USB Device DFU" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.RW612"/>
@@ -16702,7 +16906,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.msd.external.RW612" name="USB Device MSD" brief="Middleware usb device msd external" version="2.10.0" full_name="USB Device MSD" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.msd.external.RW612" name="USB Device MSD" brief="Middleware usb device msd external" version="2.10.1" full_name="USB Device MSD" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.RW612"/>
@@ -16725,7 +16929,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.phdc.external.RW612" name="USB Device PHDC" brief="Middleware usb device phdc external" version="2.10.0" full_name="USB Device PHDC" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.phdc.external.RW612" name="USB Device PHDC" brief="Middleware usb device phdc external" version="2.10.1" full_name="USB Device PHDC" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.RW612"/>
@@ -16746,7 +16950,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.video.external.RW612" name="USB Device Video" brief="Middleware usb device video external" version="2.10.0" full_name="USB Device Video" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.video.external.RW612" name="USB Device Video" brief="Middleware usb device video external" version="2.10.1" full_name="USB Device Video" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.RW612"/>
@@ -16767,7 +16971,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.ccid.external.RW612" name="USB Device CCID" brief="Middleware usb device ccid external" version="2.10.0" full_name="USB Device CCID" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.ccid.external.RW612" name="USB Device CCID" brief="Middleware usb device ccid external" version="2.10.1" full_name="USB Device CCID" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.RW612"/>
@@ -16788,7 +16992,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.printer.external.RW612" name="USB Device Printer" brief="Middleware usb device printer external" version="2.10.0" full_name="USB Device Printer" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.printer.external.RW612" name="USB Device Printer" brief="Middleware usb device printer external" version="2.10.1" full_name="USB Device Printer" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.RW612"/>
@@ -16809,7 +17013,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.controller.driver.RW612" name="USB Device Common Controller" brief="Middleware usb device controller driver" version="2.10.0" full_name="USB Device Common Controller" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.controller.driver.RW612" name="USB Device Common Controller" brief="Middleware usb device controller driver" version="2.10.1" full_name="USB Device Common Controller" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="component.osa.RW612"/>
@@ -16829,6 +17033,9 @@ ${load}</script>
       <source exclude="true" relative_path="./" type="doc">
         <files mask="ChangeLogKSDK.txt" hidden="true"/>
       </source>
+      <source exclude="true" relative_path="device" type="c_include">
+        <files mask="usb_device_mcux_drv_port.h" hidden="true"/>
+      </source>
       <source toolchain="armgcc" relative_path="./" type="workspace">
         <files mask="middleware_usb_device_controller_driver.cmake" hidden="true"/>
       </source>
@@ -16837,7 +17044,7 @@ ${load}</script>
         <include_path relative_path="device" project_relative_path="device/source" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host_controller_ehci.RW612" name="USB Host EHCI Controller Driver(HS)" brief="Middleware usb host ehci" version="2.10.0" full_name="USB Host EHCI Controller Driver(HS)" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host_controller_ehci.RW612" name="USB Host EHCI Controller Driver(HS)" brief="Middleware usb host ehci" version="2.10.1" full_name="USB Host EHCI Controller Driver(HS)" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.host.ehci_config_header.RW612"/>
@@ -16860,7 +17067,7 @@ ${load}</script>
         <include_path relative_path="include" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host_audio.RW612" name="USB Host Audio" brief="Middleware usb host audio" version="2.10.0" full_name="USB Host Audio" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host_audio.RW612" name="USB Host Audio" brief="Middleware usb host audio" version="2.10.1" full_name="USB Host Audio" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.host.stack.RW612"/>
@@ -16880,7 +17087,7 @@ ${load}</script>
         <include_path relative_path="host/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host_cdc.RW612" name="USB Host CDC" brief="Middleware usb host cdc" version="2.10.0" full_name="USB Host CDC" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host_cdc.RW612" name="USB Host CDC" brief="Middleware usb host cdc" version="2.10.1" full_name="USB Host CDC" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.host.stack.RW612"/>
@@ -16900,7 +17107,7 @@ ${load}</script>
         <include_path relative_path="host/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host_cdc_ecm.RW612" name="USB Host CDC ECM" brief="Middleware usb host cdc_ecm" version="2.9.1" full_name="USB Host CDC ECM" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host_cdc_ecm.RW612" name="USB Host CDC ECM" brief="Middleware usb host cdc_ecm" version="2.10.1" full_name="USB Host CDC ECM" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.host.stack.RW612"/>
@@ -16921,7 +17128,7 @@ ${load}</script>
         <include_path relative_path="host/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host_cdc_rndis.RW612" name="USB Host CDC RNDIS" brief="Middleware usb host cdc_rndis" version="2.10.0" full_name="USB Host CDC RNDIS" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host_cdc_rndis.RW612" name="USB Host CDC RNDIS" brief="Middleware usb host cdc_rndis" version="2.10.1" full_name="USB Host CDC RNDIS" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.host.stack.RW612"/>
@@ -16942,7 +17149,7 @@ ${load}</script>
         <include_path relative_path="host/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host_hid.RW612" name="USB Host HID" brief="Middleware usb host hid" version="2.10.0" full_name="USB Host HID" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host_hid.RW612" name="USB Host HID" brief="Middleware usb host hid" version="2.10.1" full_name="USB Host HID" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.host.stack.RW612"/>
@@ -16962,7 +17169,7 @@ ${load}</script>
         <include_path relative_path="host/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host_msd.RW612" name="USB Host MSD" brief="Middleware usb host msd" version="2.10.0" full_name="USB Host MSD" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host_msd.RW612" name="USB Host MSD" brief="Middleware usb host msd" version="2.10.1" full_name="USB Host MSD" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.host.stack.RW612"/>
@@ -16983,7 +17190,7 @@ ${load}</script>
         <include_path relative_path="host/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host_video.RW612" name="USB Host Video" brief="Middleware usb host video" version="2.10.0" full_name="USB Host Video" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host_video.RW612" name="USB Host Video" brief="Middleware usb host video" version="2.10.1" full_name="USB Host Video" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.host.stack.RW612"/>
@@ -17003,7 +17210,7 @@ ${load}</script>
         <include_path relative_path="host/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host_phdc.RW612" name="USB Host PHDC" brief="Middleware usb host phdc" version="2.10.0" full_name="USB Host PHDC" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host_phdc.RW612" name="USB Host PHDC" brief="Middleware usb host phdc" version="2.10.1" full_name="USB Host PHDC" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.host.stack.RW612"/>
@@ -17023,7 +17230,7 @@ ${load}</script>
         <include_path relative_path="host/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host_printer.RW612" name="USB Host Printer" brief="Middleware usb host printer" version="2.10.0" full_name="USB Host Printer" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host_printer.RW612" name="USB Host Printer" brief="Middleware usb host printer" version="2.10.1" full_name="USB Host Printer" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.host.stack.RW612"/>
@@ -17043,7 +17250,7 @@ ${load}</script>
         <include_path relative_path="host/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host.common_header.RW612" name="USB Host Common Header" brief="Middleware usb host common_header" version="2.10.0" full_name="USB Host Common Header" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host.common_header.RW612" name="USB Host Common Header" brief="Middleware usb host common_header" version="2.10.1" full_name="USB Host Common Header" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="component.osa.RW612"/>
@@ -17064,7 +17271,7 @@ ${load}</script>
         <include_path relative_path="host" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host.ehci_config_header.RW612" name="USB host ehci config header" brief="USB host ehci config header" version="2.10.0" full_name="USB host ehci config header" category="USB/USB Host" user_visible="true" type="project_template" package_base_path="middleware/usb" project_base_path="source">
+    <component id="middleware.usb.host.ehci_config_header.RW612" name="USB host ehci config header" brief="USB host ehci config header" version="2.10.1" full_name="USB host ehci config header" category="USB/USB Host" user_visible="true" type="project_template" package_base_path="middleware/usb" project_base_path="source">
       <dependencies>
         <device_dependency value="RW612"/>
       </dependencies>
@@ -17078,7 +17285,7 @@ ${load}</script>
         <include_path relative_path="output/npw/host_config/ehci" project_relative_path="generated" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host.stack.RW612" name="USB Host Stack" brief="Middleware usb host stack" version="2.10.0" full_name="USB Host Stack" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host.stack.RW612" name="USB Host Stack" brief="Middleware usb host stack" version="2.10.1" full_name="USB Host Stack" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="component.osa.RW612"/>
@@ -17456,11 +17663,44 @@ ${load}</script>
         <files mask="rw61x_sb_ble_a2.bin"/>
         <files mask="rw61x_sb_ble_15d4_combo_a2.bin"/>
       </source>
+      <source relative_path="fw_bin/inc" type="asm_include">
+        <files mask="nbu_15_4.bin.inc"/>
+        <files mask="nbu_15_4_mfg.bin.inc"/>
+        <files mask="nbu_15_4_raw_cpu2_15d4.bin.inc"/>
+        <files mask="nbu_15_4_sb.bin.inc"/>
+        <files mask="nbu_15_4_sb_mfg.bin.inc"/>
+        <files mask="rw610_sb_ble.bin.inc"/>
+        <files mask="rw610_sb_ble_15d4_combo.bin.inc"/>
+        <files mask="rw610_sb_mfg_fw_ble_15d4_combo.bin.inc"/>
+        <files mask="rw610_sb_wifi.bin.inc"/>
+        <files mask="rw610n_mfg_fw_cpu2_ble.bin.inc"/>
+        <files mask="rw610n_sb_mfg_fw_cpu2.bin.inc"/>
+        <files mask="rw610w_mfg_fw_cpu1.bin.inc"/>
+        <files mask="rw610w_sb_mfg_fw_cpu1.bin.inc"/>
+        <files mask="rw61x_sb_ble_15d4_combo_a2.bin.inc"/>
+        <files mask="rw61x_sb_ble_a2.bin.inc"/>
+        <files mask="rw61x_sb_wifi_a2.bin.inc"/>
+        <files mask="rw61xn_combo_raw_cpu2_ble_15_4_combo_a2.bin.inc"/>
+        <files mask="rw61xn_raw_cpu2_ble_a2.bin.inc"/>
+        <files mask="rw61xn_raw_cpu2_ble_zb_combo.bin.inc"/>
+        <files mask="rw61xn_sb_mfg_fw_cpu2_ble_a2.bin.inc"/>
+        <files mask="rw61xn_sb_mfg_fw_cpu2_combo_a2.bin.inc"/>
+        <files mask="rw61xw_raw_cpu1_a2.bin.inc"/>
+        <files mask="rw61xw_raw_cpu1_a2_vdllv2.bin.inc"/>
+        <files mask="rw61xw_sb_mfg_fw_cpu1_a2.bin.inc"/>
+      </source>
+      <source relative_path="fw_bin/rw61x" type="src">
+        <files mask="rw61x_cpu1.c"/>
+        <files mask="rw61x_cpu2.c"/>
+      </source>
       <source toolchain="armgcc" relative_path="./" type="workspace">
         <files mask="driver_conn_fwloader.RW612.cmake" hidden="true"/>
       </source>
       <include_paths>
         <include_path relative_path="include" type="c_include"/>
+        <include_path relative_path="fw_bin" type="c_include"/>
+        <include_path relative_path="fw_bin/inc" type="c_include"/>
+        <include_path relative_path="fw_bin/rw61x" type="c_include"/>
       </include_paths>
     </component>
     <component id="component.lpc_crc_adapter.RW612" name="lpc_crc_adapter" brief="Component lpc_crc_adapter" version="1.0.0" full_name="Component lpc_crc_adapter" category="Device/SDK Drivers" user_visible="true" type="abstraction_layer" package_base_path="core/components/crc" project_base_path="component/crc">
@@ -17567,6 +17807,32 @@ ${load}</script>
       </source>
       <include_paths>
         <include_path relative_path="osal/baremetal" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="component.psa_crypto_driver.els_pkc.oracle.RW612" name="psa_crypto_driver els_pkc_oracle" brief="Oracle of PSA crypto driver for els_pkc" version="1.0.0" full_name="Oracle of PSA crypto driver for els_pkc" category="psa_crypto_driver/psa_crypto_driver_els_pkc_oracle" user_visible="false" type="software_component" package_base_path="core/components/psa_crypto_driver" project_base_path="component/psa_crypto_driver">
+      <dependencies>
+        <all>
+          <component_dependency value="component.psa_crypto_driver.els_pkc.oracle.rw61x.RW612"/>
+          <device_dependency value="RW612"/>
+        </all>
+      </dependencies>
+      <source relative_path="els_pkc/oracle/inc" type="c_include">
+        <files mask="mcuxClPsaDriver_Oracle_Interface_builtin_key_ids.h"/>
+        <files mask="mcuxClPsaDriver_Oracle_Interface_key_locations.h"/>
+        <files mask="mcuxClPsaDriver_Oracle_ElsUtils.h"/>
+        <files mask="mcuxClPsaDriver_Oracle_Macros.h"/>
+        <files mask="mcuxClPsaDriver_Oracle_Utils.h"/>
+      </source>
+      <source relative_path="els_pkc/oracle/src" type="src">
+        <files mask="mcuxClPsaDriver_Oracle.c"/>
+        <files mask="mcuxClPsaDriver_Oracle_ElsUtils.c"/>
+        <files mask="mcuxClPsaDriver_Oracle_Utils.c"/>
+      </source>
+      <source toolchain="armgcc" relative_path="./" type="workspace">
+        <files mask="component_psa_crypto_driver_els_pkc_oracle.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="els_pkc/oracle/inc" type="c_include"/>
       </include_paths>
     </component>
     <component id="component.els_pkc.doc.rw61x.RW612" name="els_pkc.doc.rw61x" brief="Component els_pkc.doc.rw61x" version="1.9.0" full_name="Component els_pkc.doc.rw61x" category="els_pkc/doc" user_visible="true" type="software_component" package_base_path="core/components/els_pkc/" project_base_path="component/els_pkc/">
@@ -22980,7 +23246,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.cache_cache64.RW612" name="cache" brief="CACHE Driver" version="2.0.7" full_name="CACHE Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/cache/cache64" project_base_path="drivers">
+    <component id="platform.drivers.cache_cache64.RW612" name="cache" brief="CACHE Driver" version="2.0.8" full_name="CACHE Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/cache/cache64" project_base_path="drivers">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.common.RW612"/>
@@ -24126,6 +24392,8 @@ ${load}</script>
         <files mask="bt_pal_keys_br.c"/>
         <files mask="bt_pal_l2cap.c"/>
         <files mask="bt_pal_l2cap_br.c"/>
+        <files mask="bt_pal_map_mce.c"/>
+        <files mask="bt_pal_map_mse.c"/>
         <files mask="bt_pal_monitor.c"/>
         <files mask="bt_pal_rfcomm.c"/>
         <files mask="bt_pal_spp.c"/>
@@ -24137,6 +24405,8 @@ ${load}</script>
         <files mask="bt_pal_uuid.c"/>
         <files mask="bt_pal_hfp_ag.c"/>
         <files mask="bt_pal_hfp_hf.c"/>
+        <files mask="bt_pal_pbap_pce.c"/>
+        <files mask="bt_pal_pbap_pse.c"/>
       </source>
       <source relative_path="source/impl/ethermind/host" project_relative_path="source/host" type="c_include">
         <files mask="bt_pal_a2dp_internal.h"/>
@@ -24163,6 +24433,7 @@ ${load}</script>
         <files mask="bt_pal_l2cap_internal.h"/>
         <files mask="bt_pal_l2cap_br_internal.h"/>
         <files mask="bt_pal_l2cap_br_interface.h"/>
+        <files mask="bt_pal_map_internal.h"/>
         <files mask="bt_pal_monitor.h"/>
         <files mask="bt_pal_rfcomm_internal.h"/>
         <files mask="bt_pal_rpa.h"/>
@@ -24171,11 +24442,15 @@ ${load}</script>
         <files mask="bt_pal_smp.h"/>
         <files mask="bt_pal_ssp.h"/>
         <files mask="bt_pal_hfp_internal.h"/>
+        <files mask="bt_pal_pbap_internal.h"/>
       </source>
       <source relative_path="source/impl/ethermind/host/a2dp_codec/sbc" project_relative_path="source/host/a2dp_codec/sbc" type="src">
         <files mask="a2dp_codec_sbc.c"/>
       </source>
       <source relative_path="include/bluetooth" type="c_include">
+        <files mask="pbap_pce.h"/>
+        <files mask="pbap_pse.h"/>
+        <files mask="pbap_types.h"/>
         <files mask="a2dp.h"/>
         <files mask="avrcp.h"/>
         <files mask="a2dp_codec_sbc.h"/>
@@ -24186,6 +24461,10 @@ ${load}</script>
         <files mask="direction.h"/>
         <files mask="buf.h"/>
         <files mask="l2cap.h"/>
+        <files mask="map_mce.h"/>
+        <files mask="map_mse.h"/>
+        <files mask="map_types.h"/>
+        <files mask="obex.h"/>
         <files mask="rfcomm.h"/>
         <files mask="spp.h"/>
         <files mask="sdp.h"/>
@@ -24356,6 +24635,8 @@ ${load}</script>
         <files mask="bt_pal_keys_br.c"/>
         <files mask="bt_pal_l2cap.c"/>
         <files mask="bt_pal_l2cap_br.c"/>
+        <files mask="bt_pal_map_mce.c"/>
+        <files mask="bt_pal_map_mse.c"/>
         <files mask="bt_pal_monitor.c"/>
         <files mask="bt_pal_rfcomm.c"/>
         <files mask="bt_pal_spp.c"/>
@@ -24367,6 +24648,8 @@ ${load}</script>
         <files mask="bt_pal_uuid.c"/>
         <files mask="bt_pal_hfp_ag.c"/>
         <files mask="bt_pal_hfp_hf.c"/>
+        <files mask="bt_pal_pbap_pce.c"/>
+        <files mask="bt_pal_pbap_pse.c"/>
       </source>
       <source relative_path="source/impl/ethermind/host" project_relative_path="source/host" type="c_include">
         <files mask="bt_pal_a2dp_internal.h"/>
@@ -24392,6 +24675,7 @@ ${load}</script>
         <files mask="bt_pal_l2cap_internal.h"/>
         <files mask="bt_pal_l2cap_br_internal.h"/>
         <files mask="bt_pal_l2cap_br_interface.h"/>
+        <files mask="bt_pal_map_internal.h"/>
         <files mask="bt_pal_monitor.h"/>
         <files mask="bt_pal_rfcomm_internal.h"/>
         <files mask="bt_pal_rpa.h"/>
@@ -24400,11 +24684,15 @@ ${load}</script>
         <files mask="bt_pal_smp.h"/>
         <files mask="bt_pal_ssp.h"/>
         <files mask="bt_pal_hfp_internal.h"/>
+        <files mask="bt_pal_pbap_internal.h"/>
       </source>
       <source relative_path="source/impl/ethermind/host/a2dp_codec/sbc" project_relative_path="source/host/a2dp_codec/sbc" type="src">
         <files mask="a2dp_codec_sbc.c"/>
       </source>
       <source relative_path="include/bluetooth" type="c_include">
+        <files mask="pbap_pce.h"/>
+        <files mask="pbap_pse.h"/>
+        <files mask="pbap_types.h"/>
         <files mask="a2dp.h"/>
         <files mask="avrcp.h"/>
         <files mask="a2dp_codec_sbc.h"/>
@@ -24415,6 +24703,10 @@ ${load}</script>
         <files mask="direction.h"/>
         <files mask="buf.h"/>
         <files mask="l2cap.h"/>
+        <files mask="map_mce.h"/>
+        <files mask="map_mse.h"/>
+        <files mask="map_types.h"/>
+        <files mask="obex.h"/>
         <files mask="rfcomm.h"/>
         <files mask="spp.h"/>
         <files mask="sdp.h"/>
@@ -25228,12 +25520,17 @@ ${load}</script>
         <files mask="shell_avrcp.c"/>
         <files mask="shell_test_mode.c"/>
         <files mask="shell_iso.c"/>
+        <files mask="shell_map.c"/>
+        <files mask="shell_pbap.c"/>
+        <files mask="shell_hfp.c"/>
+        <files mask="shell_ble_scan_filter.c"/>
       </source>
       <source relative_path="source/shell" project_relative_path="shell" type="c_include">
         <files mask="shell_bt.h"/>
         <files mask="shell_hci.h"/>
         <files mask="fsl_shell.h"/>
         <files mask="shell_test_mode.h"/>
+        <files mask="shell_ble_scan_filter.h"/>
       </source>
       <source toolchain="armgcc" relative_path="./" type="workspace">
         <files mask="middleware_edgefast_bluetooth_shell.cmake" hidden="true"/>
@@ -25318,12 +25615,14 @@ ${load}</script>
         <files mask="shell_l2cap.c"/>
         <files mask="fsl_shell.c"/>
         <files mask="shell_test_mode.c"/>
+        <files mask="shell_ble_scan_filter.c"/>
       </source>
       <source relative_path="source/shell" project_relative_path="shell" type="c_include">
         <files mask="shell_bt.h"/>
         <files mask="shell_hci.h"/>
         <files mask="fsl_shell.h"/>
         <files mask="shell_test_mode.h"/>
+        <files mask="shell_ble_scan_filter.h"/>
       </source>
       <source toolchain="armgcc" relative_path="./" type="workspace">
         <files mask="middleware_edgefast_bluetooth_shell_ble.cmake" hidden="true"/>

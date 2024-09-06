@@ -7,7 +7,7 @@ to the CODEC, then the audio data will be output to Lineout of CODEC.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

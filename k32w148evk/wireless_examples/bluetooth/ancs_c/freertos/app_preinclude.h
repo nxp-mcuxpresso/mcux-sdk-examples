@@ -3,7 +3,7 @@
  * @{
  ********************************************************************************** */
 /*
- * Copyright 2021 - 2023 NXP
+ * Copyright 2021 - 2024 NXP
  *
  *
  *
@@ -76,6 +76,17 @@
 
 /*! The minimum heap size needed (measured with MEM_STATISTICS) */
 #define MinimalHeapSize_c               17000
+
+/*! *********************************************************************************
+ *     RTOS Configuration
+ ********************************************************************************** */
+#if defined(SDK_OS_FREE_RTOS)
+/* The following stack sizes have been chosen based on a worst case scenario. 
+ * For different compilers and optimization levels they can be reduced. */
+
+#define gHost_TaskStackSize_c           1920
+
+#endif
 
 /*! *********************************************************************************
  *     BLE Stack Configuration

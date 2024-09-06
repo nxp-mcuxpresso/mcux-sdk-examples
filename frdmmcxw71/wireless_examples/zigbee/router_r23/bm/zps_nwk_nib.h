@@ -960,6 +960,9 @@ PUBLIC void ZPS_vNwkIncOutFC(void *pvNwk);
 PUBLIC uint64
 ZPS_u64NwkNibGetEpid(void *pvNwk);
 
+PUBLIC uint16
+ZPS_u16NwkNibGetPid(void *pvNwk);
+
 PUBLIC void
 ZPS_vNtSetAuthStatus(void *pvNwk,
                      ZPS_tsNwkActvNtEntry *psActvNtEntry,

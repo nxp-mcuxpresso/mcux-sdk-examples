@@ -9,7 +9,7 @@ because these two targets spend different time to fill the frame buffer.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

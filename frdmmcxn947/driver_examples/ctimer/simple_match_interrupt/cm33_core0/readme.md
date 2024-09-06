@@ -9,7 +9,7 @@ With an interrupt callback the match value is changed frequently in such a way t
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

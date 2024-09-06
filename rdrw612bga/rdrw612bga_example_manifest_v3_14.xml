@@ -4,10 +4,15 @@
   <externalDefinitions>
     <definition extID="RW612ETA2I"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK216000_rdrw612bga_examples_manifest_v3_14" name="MCUXpressoSDK216000_rdrw612bga_examples_manifest_v3_14" version="2.16.000" revision="2.16.000"/>
+  <ksdk id="MCUXpressoSDK216100_rdrw612bga_examples_manifest_v3_14" name="MCUXpressoSDK216100_rdrw612bga_examples_manifest_v3_14" version="2.16.100" revision="2.16.100"/>
   <boards>
     <board id="rdrw612bga" name="RD-RW612-BGA" version="1.0.0" package="RW612ETA2I">
       <examples>
+        <example id="rdrw612bga_nbu_bb_bm" name="nbu_bb_bm" brief="The nbu_bb_bm." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="bt_ble_examples" path="examples/rdrw612bga/bt_ble_examples/nbu_bb_bm">
+          <external path="bt_ble_examples/nbu_bb_bm" type="xml">
+            <files mask="nbu_bb_bm_v3_14.xml"/>
+          </external>
+        </example>
         <example id="rdrw612bga_edgefast_bluetooth_shell" name="edgefast_bluetooth_shell" brief="The Edgefast Bluetooth shell example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/shell">
           <external path="edgefast_bluetooth_examples/shell" type="xml">
             <files mask="edgefast_bluetooth_shell_v3_14.xml"/>
@@ -1093,6 +1098,11 @@
             <files mask="wifi_cli_v3_14.xml"/>
           </external>
         </example>
+        <example id="rdrw612bga_wifi_cli_static" name="wifi_cli_static" brief="wifi_cli_static" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="examples/rdrw612bga/wifi_examples/wifi_cli_static">
+          <external path="wifi_examples/wifi_cli_static" type="xml">
+            <files mask="wifi_cli_static_v3_14.xml"/>
+          </external>
+        </example>
         <example id="rdrw612bga_uart_wifi_bridge" name="uart_wifi_bridge" brief="uart_wifi_bridge" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="examples/rdrw612bga/wifi_examples/uart_wifi_bridge">
           <external path="wifi_examples/uart_wifi_bridge" type="xml">
             <files mask="uart_wifi_bridge_v3_14.xml"/>
@@ -1171,11 +1181,6 @@
         <example id="rdrw612bga_ota_mcuboot_server_wifi" name="ota_mcuboot_server_wifi" brief="This ota_mcuboot_server application demonstrates OTA using an HTTP server based on lwIP TCP/IP stack with FreeRTOS. The user uses an Internet browser to upload new update package to reprogram application running on the board." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="ota_examples" path="examples/rdrw612bga/ota_examples/ota_mcuboot_server/wifi">
           <external path="ota_examples/ota_mcuboot_server/wifi" type="xml">
             <files mask="ota_mcuboot_server_wifi_v3_14.xml"/>
-          </external>
-        </example>
-        <example id="rdrw612bga_wifi_cli_prov" name="wifi_cli_prov" brief="wifi_cli_prov" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="examples/rdrw612bga/wifi_examples/wifi_cli_prov">
-          <external path="wifi_examples/wifi_cli_prov" type="xml">
-            <files mask="wifi_cli_prov_v3_14.xml"/>
           </external>
         </example>
         <example id="rdrw612bga_wifi_wpa_supplicant" name="wifi_wpa_supplicant" brief="wifi_wpa_supplicant" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="examples/rdrw612bga/wifi_examples/wifi_wpa_supplicant">

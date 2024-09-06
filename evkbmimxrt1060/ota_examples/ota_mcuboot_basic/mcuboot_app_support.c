@@ -87,7 +87,7 @@ const union boot_img_magic_t boot_img_magic = {
 #define BOOT_IMG_ALIGN  (boot_img_magic.align)
 #endif
 
-#if defined(CONFIG_MCUBOOT_ENCRYPTED_XIP_SUPPORT)
+#if defined(CONFIG_ENCRYPT_XIP_EXT_ENABLE)
 
 #define ENC_MAGIC_SZ    16
 
@@ -105,8 +105,6 @@ const union enc_magic_t enc_magic = {
     }
 };
 
-static int32_t flash_read(uint32_t addr, uint32_t *buffer, uint32_t len);
-
 #define ENC_MAGIC  (enc_magic.val)
 
 /** Structure holds partial metadata used for active slot
@@ -121,34 +119,31 @@ typedef struct
     uint8_t magic[ENC_MAGIC_SZ];                // Magic number
 } enc_metadata_t;
 
-/* Returns what slot the encrypted XIP image belongs to */
+/* Returns slot number linked to execution slot */
 static uint32_t read_enc_metadata(void)
 {
   enc_metadata_t metadata;
-  uint32_t off = boot_enc_flash_map[0].fa_off + boot_enc_flash_map[0].fa_size 
+  uint32_t off = boot_flash_meta_map[0].fa_off + boot_flash_meta_map[0].fa_size 
                   - sizeof(enc_metadata_t);
   
   memset(&metadata, 0, sizeof(enc_metadata_t));
-  if(flash_read(off, (uint32_t *)&metadata, sizeof(enc_metadata_t)) != 0)
+  if(bl_flash_read(off, (uint32_t *)&metadata, sizeof(enc_metadata_t)) != 0)
      goto error;
   if(memcmp(&metadata.magic, ENC_MAGIC, ENC_MAGIC_SZ) == 0)
   {
-    if(metadata.active_slot == 0){
-      PRINTF("This app is linked to primary slot\n");
+    if(metadata.active_slot == 0)
       return PRIMARY_SLOT_ACTIVE;
-    }
-    else{
-      PRINTF("This app is linked to secondary slot\n");
+    else
       return SECONDARY_SLOT_ACTIVE;
-    }
   }
 error:
   /* Valid metadata should be always present in production phase */
+  /* Always return a slot number */
   PRINTF("WARNING: invalid metadata of active slot - debug session?\n");
   PRINTF("WARNING: OTA image will be downloaded to secondary slot\n");
-  return SECONDARY_SLOT_ACTIVE;
+  return PRIMARY_SLOT_ACTIVE;
 }
-#endif /* CONFIG_MCUBOOT_ENCRYPTED_XIP_SUPPORT */
+#endif /* CONFIG_ENCRYPT_XIP_EXT_ENABLE */
 
 
 /** Find out what slot is currently booted.
@@ -183,7 +178,7 @@ static uint32_t get_active_image(uint32_t image)
     else
         return PRIMARY_SLOT_ACTIVE;
     
-#elif defined (CONFIG_MCUBOOT_ENCRYPTED_XIP_SUPPORT)
+#elif defined (CONFIG_ENCRYPT_XIP_EXT_ENABLE)
     return read_enc_metadata();
 #else
 
@@ -195,7 +190,7 @@ static uint32_t get_active_image(uint32_t image)
 
 /** This wrapper function deals with mflash driver limitations such as unaligned
  *  access to memory, copying data into unaligned destination and data size is
- *  not multiplies of 4.
+ *  not multiple of 4.
  *
  * @retval kStatus_Success: all OK
  *         otherwise something failed
@@ -266,53 +261,6 @@ static int32_t mflash_drv_read_wrapper(uint32_t addr, void *dst, uint32_t len)
     return kStatus_Success;
 }
 #endif /* CONFIG_MCUBOOT_FLASH_REMAP_ENABLE */
-
-static int32_t flash_read(uint32_t addr, uint32_t *buffer, uint32_t len)
-{
-    uint8_t *buffer_u8 = (uint8_t *)buffer;
-
-    /* inter-page lenght of the first read can be smaller than page size */
-    size_t plen = MFLASH_PAGE_SIZE - (addr % MFLASH_PAGE_SIZE);
-
-    while (len > 0)
-    {
-        size_t readsize = (len > plen) ? plen : len;
-
-#if defined(MFLASH_PAGE_INTEGRITY_CHECKS) && MFLASH_PAGE_INTEGRITY_CHECKS
-        if (mflash_drv_is_readable(addr) != kStatus_Success)
-        {
-            /* PRINTF("%s: UNREADABLE PAGE at %x\n", __func__, addr); */
-            memset(buffer_u8, 0xff, readsize);
-        }
-        else
-#endif
-        {
-#ifdef CONFIG_MCUBOOT_FLASH_REMAP_ENABLE
-            /* flash remapped memory is accessible by FlexSpi peripheral */
-            if (mflash_drv_read_wrapper(addr, (uint32_t *)buffer_u8, readsize) != kStatus_Success)
-            {
-                return -1;
-            }
-#else
-            void *flash_ptr = mflash_drv_phys2log(addr, readsize);
-            if (flash_ptr == NULL)
-            {
-                return -1;
-            }
-            /* use direct memcpy as mflash_drv_read low layer may expects len to be word aligned */
-            memcpy(buffer_u8, flash_ptr, readsize);
-#endif /* CONFIG_MCUBOOT_FLASH_REMAP_ENABLE */
-        }
-
-        len -= readsize;
-        addr += readsize;
-        buffer_u8 += readsize;
-
-        plen = MFLASH_PAGE_SIZE;
-    }
-
-    return 0;
-}
 
 static int check_unset(uint8_t *p, int len)
 {
@@ -414,7 +362,7 @@ static status_t boot_swap_ok(int image)
     fa          = &boot_flash_map[faid];
     off = fa->fa_off + fa->fa_size;
 
-    status = flash_read(off - MFLASH_PAGE_SIZE, buf, MFLASH_PAGE_SIZE);
+    status = bl_flash_read(off - MFLASH_PAGE_SIZE, buf, MFLASH_PAGE_SIZE);
     if (status != kStatus_Success)
     {
         PRINTF("%s: failed to read trailer\r\n", __func__);
@@ -472,7 +420,7 @@ int32_t bl_verify_image(uint32_t addrphy, uint32_t size)
     /* Secure that buffer size is 4B aligned */
     uint32_t buffer[(sizeof(struct image_header) / sizeof(uint32_t) + 3) & (~3)];
 
-    if (flash_read(offset, (uint32_t *)buffer, sizeof(struct image_header)) != kStatus_Success)
+    if (bl_flash_read(offset, (uint32_t *)buffer, sizeof(struct image_header)) != kStatus_Success)
     {
         PRINTF("Flash read failed\n");
         return 0;
@@ -506,7 +454,7 @@ int32_t bl_verify_image(uint32_t addrphy, uint32_t size)
         {
             return 0;
         }
-        if (flash_read(offset + ih->ih_img_size + ih->ih_hdr_size, (uint32_t *)buffer, sizeof(struct image_tlv_info)) !=
+        if (bl_flash_read(offset + ih->ih_img_size + ih->ih_hdr_size, (uint32_t *)buffer, sizeof(struct image_tlv_info)) !=
             kStatus_Success)
         {
             PRINTF("Flash read failed\n");
@@ -523,7 +471,7 @@ int32_t bl_verify_image(uint32_t addrphy, uint32_t size)
     /* check for optional TLVs following the image as declared by the header */
     /* the struct is always present following firmware image or protected TLV*/
     /* if protected area is present */
-    if (flash_read(offset + decl_size, (uint32_t *)buffer, sizeof(struct image_tlv_info)) != kStatus_Success)
+    if (bl_flash_read(offset + decl_size, (uint32_t *)buffer, sizeof(struct image_tlv_info)) != kStatus_Success)
     {
         PRINTF("Flash read failed\n");
         return 0;
@@ -648,7 +596,7 @@ status_t bl_get_image_state(uint32_t image, uint32_t *state)
     fa   = &boot_flash_map[faid];
 
     off    = fa->fa_off + fa->fa_size - sizeof(struct image_trailer);
-    status = flash_read(off, (uint32_t *)&image_trailer1, sizeof(struct image_trailer));
+    status = bl_flash_read(off, (uint32_t *)&image_trailer1, sizeof(struct image_trailer));
     if (status)
     {
         PRINTF("%s: failed to read trailer in primary slot\r\n", __func__);
@@ -660,7 +608,7 @@ status_t bl_get_image_state(uint32_t image, uint32_t *state)
     fa   = &boot_flash_map[faid];
 
     off    = fa->fa_off + fa->fa_size - sizeof(struct image_trailer);
-    status = flash_read(off, (uint32_t *)&image_trailer2, sizeof(struct image_trailer));
+    status = bl_flash_read(off, (uint32_t *)&image_trailer2, sizeof(struct image_trailer));
     if (status)
     {
         PRINTF("%s: failed to read trailer in secondary slot\r\n", __func__);
@@ -778,8 +726,8 @@ void bl_print_image_info(bl_hashfunc_t hashfunc)
             PRINTF("\n  Slot %d %s; offset 0x%x; size 0x%x (%u): \n",
                     faid, fa->fa_name, fa->fa_off, fa->fa_size, fa->fa_size);
             
-            ret = mflash_drv_read(slot_offset_phys[slot], (uint32_t *)&ih, sizeof(ih));
-            if (ret != kStatus_Success)
+            ret = bl_flash_read(slot_offset_phys[slot], (uint32_t *)&ih, sizeof(ih));          
+            if (ret != 0)
             {
                 PRINTF("    Failed to read!\n");
                 continue;
@@ -830,6 +778,9 @@ void bl_print_image_info(bl_hashfunc_t hashfunc)
                 if (boot_flash_map[get_active_image(image)].fa_off == slot_offset_phys[slot])
                 {
                     PRINTF("    *ACTIVE*\n");
+#if defined(CONFIG_ENCRYPT_XIP_EXT_ENABLE) && !defined(CONFIG_ENCRYPT_XIP_EXT_OVERWRITE_ONLY)
+                    PRINTF("    Encrypted XIP: This slot is linked to execution slot\n");
+#endif
                 }
             }
             else
@@ -839,4 +790,57 @@ void bl_print_image_info(bl_hashfunc_t hashfunc)
         }
     }
     PUTCHAR('\n');
+}
+
+/** Wrapper function for flash memory access which deals with flash remap and
+ *  peripheral limitation.
+ *
+ * @retval 0  OK
+ *         -1 Fail
+ */
+int32_t bl_flash_read(uint32_t addr, uint32_t *buffer, uint32_t len)
+{
+    uint8_t *buffer_u8 = (uint8_t *)buffer;
+
+    /* inter-page lenght of the first read can be smaller than page size */
+    size_t plen = MFLASH_PAGE_SIZE - (addr % MFLASH_PAGE_SIZE);
+
+    while (len > 0)
+    {
+        size_t readsize = (len > plen) ? plen : len;
+
+#if defined(MFLASH_PAGE_INTEGRITY_CHECKS) && MFLASH_PAGE_INTEGRITY_CHECKS
+        if (mflash_drv_is_readable(addr) != kStatus_Success)
+        {
+            /* PRINTF("%s: UNREADABLE PAGE at %x\n", __func__, addr); */
+            memset(buffer_u8, 0xff, readsize);
+        }
+        else
+#endif
+        {
+#ifdef CONFIG_MCUBOOT_FLASH_REMAP_ENABLE
+            /* remapped memory is accessible only by flash peripheral */
+            if (mflash_drv_read_wrapper(addr, (uint32_t *)buffer_u8, readsize) != kStatus_Success)
+            {
+                return -1;
+            }
+#else
+            void *flash_ptr = mflash_drv_phys2log(addr, readsize);
+            if (flash_ptr == NULL)
+            {
+                return -1;
+            }
+            /* use direct memcpy as mflash_drv_read low layer may expects len to be word aligned */
+            memcpy(buffer_u8, flash_ptr, readsize);
+#endif /* CONFIG_MCUBOOT_FLASH_REMAP_ENABLE */
+        }
+
+        len -= readsize;
+        addr += readsize;
+        buffer_u8 += readsize;
+
+        plen = MFLASH_PAGE_SIZE;
+    }
+
+    return 0;
 }

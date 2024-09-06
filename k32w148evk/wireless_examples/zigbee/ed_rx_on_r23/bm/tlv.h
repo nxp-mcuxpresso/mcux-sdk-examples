@@ -48,7 +48,7 @@
 #define ZPS_TLVLEN_G_PANIDCONFLREP     4
 #define ZPS_TLVLEN_G_PANIDNEXT         2
 #define ZPS_TLVLEN_G_CHANNEXT          4
-#define ZPS_TLVLEN_G_SYMPASS          16
+#define ZPS_TLVLEN_G_SYMPASSPHRASE     (sizeof(tuSymPassphrase) - ZPS_TLV_HDR_SIZE)
 #define ZPS_TLVLEN_G_ROUTERINFO        2
 #define ZPS_TLVLEN_G_FRAGPARAMS        5
 #define ZPS_TLVLEN_G_CONFIGPARAMS      2
@@ -59,6 +59,17 @@
 #define ZPS_TLV_G_SUPPKEYNEGMETH_STATKEYREQ  (1) /* Zigbee 3.0 Mechanism */
 #define ZPS_TLV_G_SUPPKEYNEGMETH_SPEKEAES128 (2) /* SPEKE using Curve25519 with Hash AES-MMO-128 */
 #define ZPS_TLV_G_SUPPKEYNEGMETH_SPEKESHA256 (4) /* SPEKE using Curve25519 with Hash SHA-256 */
+
+#define ZPS_TLV_G_SELECTKEYNEGMETH_STATKEYREQ  (0) /* Zigbee 3.0 Mechanism */
+#define ZPS_TLV_G_SELECTKEYNEGMETH_SPEKEAES128 (1) /* SPEKE using Curve25519 with Hash AES-MMO-128 */
+#define ZPS_TLV_G_SELECTKEYNEGMETH_SPEKESHA256 (2) /* SPEKE using Curve25519 with Hash SHA-256 */
+
+#define ZPS_TLV_G_PSK_SYMMETRIC    (1) /* Symmetric authentication token */
+#define ZPS_TLV_G_PSK_INSTALLCODE  (2) /* Pre-configured link-ley derived from installation code */
+#define ZPS_TLV_G_PSK_PASSCODE     (4) /* Variable-length pass code (for PAKE protocols) */
+#define ZPS_TLV_G_PSK_BASICAUTH    (8) /* Basic Authorization Key */
+#define ZPS_TLV_G_PSK_ADMINAUTH   (16) /* Administrative Authorization Key */
+#define ZPS_TLV_G_PSK_WELLKNOWN  (255) /* Anonymous Well-Known Secret */
 
 #define ZPS_TLV_G_ROUTERINFO_HUBCONN         (1) /* Hub Connectivity */
 #define ZPS_TLV_G_ROUTERINFO_LONGUPTIME      (2) /* Uptime > 24 hrs */
@@ -90,7 +101,7 @@ typedef enum
     ZPS_TLV_G_PANIDCONFLREP = 66,
     ZPS_TLV_G_PANIDNEXT = 67,
     ZPS_TLV_G_CHANNEXT = 68,
-    ZPS_TLV_G_SYMPASS = 69,
+    ZPS_TLV_G_SYMPASSPHRASE = 69,
     ZPS_TLV_G_ROUTERINFO = 70,
     ZPS_TLV_G_FRAGPARAMS = 71,
     ZPS_TLV_G_JOINERENCAPS = 72,
@@ -273,6 +284,13 @@ TLV_DEF(tuSupportedKeyNegotiationMethods,
 );
 _Static_assert(sizeof(tuSupportedKeyNegotiationMethods) == 12, "TLV type error");
 
+TLV_DEF(tuSelectedKeyNegotiationMethod,
+        uint8, u8KeyNegotiationProtocol,
+        uint8, u8PresharedSecrets,
+        uint8, au8SrcIeeeAddr[8]
+);
+_Static_assert(sizeof(tuSelectedKeyNegotiationMethod) == 12, "TLV type error");
+
 TLV_DEF(tuCurve25519PublicPoint,
         uint64, u64DeviceEui64,
         uint8, au8PublicPoint[32]
@@ -284,6 +302,11 @@ TLV_DEF(tuSupportedKeyNegotiationMethodsNoAddr,
         uint8, u8SharedSecretsMask
 );
 _Static_assert(sizeof(tuSupportedKeyNegotiationMethodsNoAddr) == 4, "TLV type error");
+
+TLV_DEF(tuAuthTokenId,
+        uint8, u8TlvTypeTagId
+);
+_Static_assert(sizeof(tuAuthTokenId) == 3, "TLV type error");
 
 TLV_DEF(tuPanidConflictReport,
         uint16, u16PanidConflictCount
@@ -301,10 +324,10 @@ TLV_DEF(tuNextChannelChange,
 );
 _Static_assert(sizeof(tuNextChannelChange) == 6, "TLV type error");
 
-TLV_DEF(tuSymPass,
-        uint8, au8SymPass[16]
+TLV_DEF(tuSymPassphrase,
+        uint8, au8SymPassphrase[16]
 );
-_Static_assert(sizeof(tuSymPass) == 18, "TLV type error");
+_Static_assert(sizeof(tuSymPassphrase) == 18, "TLV type error");
 
 TLV_DEF(tuRouterInfo,
         uint16, u16BmpRouterInfo
@@ -428,7 +451,6 @@ typedef ZPS_teTlvEnum (*tpfParseTLVContent)(uint8 u8Tag, uint8 u8Len,
 extern tsTlvDescr g_Tlv_ManufacturerSpecific;
 extern tsTlvDescr g_Tlv_NextPanidChange;
 extern tsTlvDescr g_Tlv_NextChannelChange;
-extern tsTlvDescr g_Tlv_SymPass;
 extern tsTlvDescr g_Tlv_FragParams;
 #endif
 
@@ -445,7 +467,8 @@ extern tsTlvDescr g_Tlv_BeaconSurveyConfig;
 extern tsTlvDescr g_Tlv_BeaconSurveyRsp;
 extern tsTlvDescr g_Tlv_SecStartKeyNegotiationReq;
 extern tsTlvDescr g_Tlv_SecStartKeyNegotiationRsp;
-extern tsTlvDescr g_Tlv_SecRetrAuthTokenReq;
+extern tsTlvDescr g_Tlv_SecRetrieveAuthTokenReq;
+extern tsTlvDescr g_Tlv_SecRetrieveAuthTokenRsp;
 extern tsTlvDescr g_Tlv_SecGetAuthLvlReq;
 extern tsTlvDescr g_Tlv_SecGetAuthLvlRsp;
 extern tsTlvDescr g_Tlv_SecSetConfigReq;

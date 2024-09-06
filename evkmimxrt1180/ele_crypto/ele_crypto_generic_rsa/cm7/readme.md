@@ -6,7 +6,7 @@ software to perform generic crypto operations usign plaintext key with EdgeLock 
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

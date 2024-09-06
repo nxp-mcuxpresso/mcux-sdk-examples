@@ -8,7 +8,7 @@ Note that the demo CAN NOT be built directly. Please see the "Prepare the Demo" 
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================
@@ -153,4 +153,6 @@ When FoE upgrade is successful, the serial port will output:
 	   	Image version: 2.4.0
 		Image state: testing
 		Set image as confirmed: success
+
+Note: FoE example detailed User Guide path: .\docs\ecatFoE\eCAT_FoE_Example_User_Guide.pdf
 

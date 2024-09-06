@@ -13,7 +13,7 @@ or CR+LF when pressing the enter key.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

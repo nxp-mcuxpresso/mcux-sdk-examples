@@ -16,10 +16,10 @@
  * Definitions
  ******************************************************************************/
 #define BOARD_FLEXIO_BASE   (FLEXIO0)
-#define FLEXIO_SPI_MOSI_PIN 20U
-#define FLEXIO_SPI_MISO_PIN 6U
-#define FLEXIO_SPI_SCK_PIN  21U
-#define FLEXIO_SPI_CSn_PIN  5U
+#define FLEXIO_SPI_MOSI_PIN 21U
+#define FLEXIO_SPI_MISO_PIN 7U
+#define FLEXIO_SPI_SCK_PIN  8U
+#define FLEXIO_SPI_CSn_PIN  20U
 
 #define EXAMPLE_FLEXIO_SPI_DMA_BASEADDR DMA0
 #define FLEXIO_SPI_TX_DMA_CHANNEL       (0U)

@@ -5,7 +5,7 @@
 /*! *********************************************************************************
 * \file shell_digital_key_device.c
 *
-* Copyright 2021 - 2023 NXP
+* Copyright 2021 - 2024 NXP
 *
 * NXP Confidential Proprietary
 *
@@ -91,7 +91,7 @@ static shell_command_t mFactoryResetCmd =
 static shell_command_t mSdCmd =
 {
     .pcCommand = "sd",
-    .cExpectedNumberOfParameters = 0,
+    .cExpectedNumberOfParameters = SHELL_IGNORE_PARAMETER_COUNT,
     .pFuncCallBack = ShellStartDiscovery_Command,
     .pcHelpString = "\r\n\"sd\": Start Discovery for Owner Pairing or Passive Entry.\r\n",
 };
@@ -426,15 +426,51 @@ static shell_status_t ShellStartDiscovery_Command(shell_handle_t shellHandle, in
 {
     if(mpfBleEventHandler != NULL)
     {
-        appEventData_t *pEventData = MEM_BufferAlloc(sizeof(appEventData_t));
-        if(pEventData != NULL)
+        if ((uint32_t)argc == 1U)
         {
-            pEventData->appEvent = mAppEvt_Shell_ShellStartDiscovery_Command_c;
-            if (gBleSuccess_c != App_PostCallbackMessage(mpfBleEventHandler, pEventData))
+            appEventData_t *pEventData = MEM_BufferAlloc(sizeof(appEventData_t));
+            if(pEventData != NULL)
             {
-                (void)MEM_BufferFree(pEventData);
+                pEventData->appEvent = mAppEvt_Shell_ShellStartDiscoveryOP_Command_c;
+                if (gBleSuccess_c != App_PostCallbackMessage(mpfBleEventHandler, pEventData))
+                {
+                    (void)MEM_BufferFree(pEventData);
+                }
             }
         }
+#if defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE)
+        else if ((uint32_t)argc == 2U)
+        {
+            const char* passiveEntryCmd = "pe";
+            
+            if (TRUE == FLib_MemCmp(argv[1], passiveEntryCmd, 2))
+            {
+                appEventData_t *pEventData = MEM_BufferAlloc(sizeof(appEventData_t));
+                if(pEventData != NULL)
+                {
+                    pEventData->appEvent = mAppEvt_Shell_ShellStartDiscoveryPE_Command_c;
+                    if (gBleSuccess_c != App_PostCallbackMessage(mpfBleEventHandler, pEventData))
+                    {
+                        (void)MEM_BufferFree(pEventData);
+                    }
+                }
+            }
+            else
+            {
+                shell_write("\r\nUsage: \
+                            \r\nsd - Start scanning for Owner Pairing \
+                                \r\nsd pe - Start scanning for Passive Entry \
+                                    \r\n");
+            }
+        }
+        else
+        {
+            shell_write("\r\nUsage: \
+                        \r\nsd - Start scanning for Owner Pairing \
+                            \r\nsd pe - Start scanning for Passive Entry \
+                                \r\n");
+        }
+#endif /* defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE) */
     }
     return kStatus_SHELL_Success;
 }

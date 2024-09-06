@@ -67,6 +67,7 @@
 * Private macros
 *************************************************************************************
 ************************************************************************************/
+
 /************************************************************************************
 *************************************************************************************
 * Private type definitions
@@ -159,6 +160,7 @@ button_status_t BleApp_HandleKeys0(void *buttonHandle, button_callback_message_t
 * Public memory declarations
 *************************************************************************************
 ************************************************************************************/
+
 /************************************************************************************
 *************************************************************************************
 * Public functions
@@ -196,7 +198,6 @@ void BluetoothLEHost_AppInit(void)
 
     /* Set generic callback */
     BluetoothLEHost_SetGenericCallback(BleApp_GenericCallback);
-
     /* Initialize Bluetooth Host Stack */
     BluetoothLEHost_Init(BluetoothLEHost_Initialized);
 
@@ -415,6 +416,24 @@ void BleApp_GenericCallback (gapGenericEvent_t* pGenericEvent)
             BleApp_GenericCallback_HandlePrivacyEvents(pGenericEvent);
         }
         break;
+#if defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE)
+        case gDecisionInstructionsSetupComplete_c:
+        {
+            if(mpfBleEventHandler != NULL)
+            {
+                appEventData_t *pEventData = MEM_BufferAlloc(sizeof(appEventData_t));
+                if(pEventData != NULL)
+                {
+                    pEventData->appEvent = mAppEvt_GenericCallback_DecisionInstructionsSetupComplete_c;
+                    if (gBleSuccess_c != App_PostCallbackMessage(mpfBleEventHandler, pEventData))
+                    {
+                        (void)MEM_BufferFree(pEventData);
+                    }
+                }
+            }
+        }
+        break;
+#endif /* defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE) */
             
         default:
             {

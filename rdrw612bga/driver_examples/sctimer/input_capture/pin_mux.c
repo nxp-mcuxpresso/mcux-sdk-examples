@@ -18,7 +18,7 @@ product: Pins v15.0
 processor: RW612
 package_id: RW612ETA2I
 mcu_data: ksdk2_0
-processor_version: 0.0.0
+processor_version: 0.16.10
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -45,8 +45,8 @@ void BOARD_InitBootPins(void)
 BOARD_InitPins:
 - options: {callFromInitBoot: 'true', coreID: cm33, enableClock: 'true'}
 - pin_list:
-  - {pin_num: F3, peripheral: FLEXCOMM3, signal: USART_RXD, pin_signal: GPIO_24}
-  - {pin_num: N3, peripheral: SCT0, signal: 'IN, 1', pin_signal: GPIO_4}
+  - {pin_num: E5, peripheral: FLEXCOMM3, signal: USART_RXD, pin_signal: GPIO_24}
+  - {pin_num: F8, peripheral: SCT0, signal: 'IN, 1', pin_signal: GPIO_4}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -62,9 +62,9 @@ void BOARD_InitPins(void)
 {
     /* pmux clock control: Enable clock */
     CLOCK_EnableClock(kCLOCK_InputMux);
-    /* Initialize FC3_USART_DATA functionality on pin GPIO_24 (pin F3) */
+    /* Initialize FC3_USART_DATA functionality on pin GPIO_24 (pin E5) */
     IO_MUX_SetPinMux(IO_MUX_FC3_USART_DATA);
-    /* Initialize SCT_IN_1 functionality on pin GPIO_4 (pin N3) */
+    /* Initialize SCT_IN_1 functionality on pin GPIO_4 (pin F8) */
     IO_MUX_SetPinMux(IO_MUX_SCT_IN_1);
     /* SCT0_PIN_INP1 is selected for SCT0 input 1 */
     INPUTMUX_AttachSignal(INPUTMUX, 1U, kINPUTMUX_Gpio4Inp1ToSct0);

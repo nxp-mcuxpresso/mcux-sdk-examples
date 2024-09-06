@@ -10,7 +10,7 @@ Note: Autobaudrate feature should stay disabled since the driver needs to be upd
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

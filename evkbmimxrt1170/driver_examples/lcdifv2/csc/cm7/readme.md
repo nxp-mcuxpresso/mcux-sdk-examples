@@ -22,7 +22,7 @@ When the example runs, the panel shows four color blocks:
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

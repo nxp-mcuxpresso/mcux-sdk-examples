@@ -16,11 +16,7 @@
 /* Leave AON modules on in PM2 */
 #define WLAN_PM2_MEM_PU_CFG ((uint32_t)kPOWER_Pm2MemPuAon1 | (uint32_t)kPOWER_Pm2MemPuAon0)
 /* All ANA in low power mode in PM2 */
-#if CONFIG_NCP_BRIDGE
-#define WLAN_PM2_ANA_PU_CFG (10U)
-#else
 #define WLAN_PM2_ANA_PU_CFG (0U)
-#endif
 /* Buck18 and Buck11 both in sleep level in PM3 */
 #define WLAN_PM3_BUCK_CFG (0U)
 /* All clock gated */
@@ -42,11 +38,7 @@
 #define WAKEUP_BY_WLAN   0x1
 #define WAKEUP_BY_RTC    0x2
 #define WAKEUP_BY_PIN    0x4
-#if CONFIG_NCP_BRIDGE
-#define WAKEUP_BY_USART0 0x8
-#else
 #define WAKEUP_BY_USART3 0x8
-#endif
 
 /*******************************************************************************
  * API

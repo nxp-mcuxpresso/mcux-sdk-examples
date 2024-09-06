@@ -12,7 +12,7 @@ be printed when the execution return to the main function.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

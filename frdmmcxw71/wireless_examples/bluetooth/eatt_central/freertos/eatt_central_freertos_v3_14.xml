@@ -19,6 +19,7 @@
     <definition extID="middleware.wireless.ble_host.MCXW716C"/>
     <definition extID="middleware.wireless.ble_host_AE_central_component_lib_iar.MCXW716C"/>
     <definition extID="middleware.wireless.ble_host_AE_central_component_lib_mcux.MCXW716C"/>
+    <definition extID="middleware.wireless.ble_host_AE_central_component_lib_armgcc.MCXW716C"/>
     <definition extID="middleware.wireless.ble_gatt_db.MCXW716C"/>
     <definition extID="middleware.wireless.ble_gatt_service_discovery.MCXW716C"/>
     <definition extID="middleware.wireless.ble_profiles.battery_service.MCXW716C"/>
@@ -90,6 +91,7 @@
     <definition extID="CMSIS_Include_core_cm.MCXW716C"/>
     <definition extID="device.MCXW716C_system.MCXW716C"/>
     <definition extID="middleware.wireless.framework.platform_sensors.connected_mcu.MCXW716C"/>
+    <definition extID="platform.drivers.trdc.MCXW716C"/>
     <definition extID="platform.drivers.lpadc.MCXW716C"/>
     <definition extID="platform.drivers.vref_1.MCXW716C"/>
     <definition extID="middleware.multicore.mcmgr.MCXW716C"/>
@@ -104,12 +106,13 @@
     <definition extID="component.power_manager_core.MCXW716C"/>
     <definition extID="platform.drivers.crc.MCXW716C"/>
     <definition extID="middleware.wireless.framework.platform_mws.connected_mcu.MCXW716C"/>
+    <definition extID="armgcc"/>
     <definition extID="mcuxpresso"/>
     <definition extID="com.nxp.mcuxpresso"/>
     <definition extID="com.crt.advproject.config.exe.debug"/>
     <definition extID="com.crt.advproject.config.exe.release"/>
   </externalDefinitions>
-  <example id="frdmmcxw71_eatt_central_freertos" name="eatt_central_freertos" dependency="middleware.wireless.freertos_heap.MCXW716C component.osa_free_rtos.MCXW716C component.reset_adapter.MCXW716C component.common_task.MCXW716C middleware.wireless.framework.common.MCXW716C component.mem_manager_light.MCXW716C component.messaging.MCXW716C component.panic.MCXW716C middleware.wireless.HWParameter.MCXW716C middleware.wireless.framework.nvm.MCXW716C middleware.wireless.framework.nv_fsci.MCXW716C middleware.wireless.framework.module_info.MCXW716C utility.shell.MCXW716C middleware.wireless.framework.function_lib.MCXW716C middleware.wireless.framework.fwk_debug.MCXW716C middleware.wireless.ble_host.MCXW716C middleware.wireless.ble_host_AE_central_component_lib_iar.MCXW716C middleware.wireless.ble_host_AE_central_component_lib_mcux.MCXW716C middleware.wireless.ble_gatt_db.MCXW716C middleware.wireless.ble_gatt_service_discovery.MCXW716C middleware.wireless.ble_profiles.battery_service.MCXW716C middleware.wireless.ble_profiles.device_info_service.MCXW716C platform.drivers.clock.MCXW716C platform.drivers.common.MCXW716C device.MCXW716C_CMSIS.MCXW716C platform.devices.MCXW716C.MCXW716C platform.drivers.lpuart.MCXW716C platform.drivers.lptmr.MCXW716C platform.drivers.port.MCXW716C platform.drivers.lpspi.MCXW716C platform.drivers.gpio.MCXW716C platform.drivers.flash_k4.MCXW716C component.k4_flash_adapter.MCXW716C component.lpuart_adapter.MCXW716C platform.drivers.tpm.MCXW716C platform.utilities.assert_lite.MCXW716C utility.debug_console_lite.MCXW716C utility.format.MCXW716C component.serial_manager_uart.MCXW716C component.serial_manager.MCXW716C component.lists.MCXW716C component.lptmr_time_stamp_adapter.MCXW716C middleware.wireless.framework.rpmsg_config.MCXW716C component.rpmsg_adapter.MCXW716C component.serial_manager_rpmsg.MCXW716C platform.drivers.ltc.MCXW716C middleware.wireless.framework.Sensors.MCXW716C middleware.wireless.framework.platform.connected_mcu.MCXW716C device.MCXW716C_utility.frdmmcxw71.MCXW716C middleware.freertos-kernel.cm33_non_trustzone.MCXW716C middleware.multicore.mcmgr.mcxw716.MCXW716C middleware.wireless.ble_hci_transport_rpmsg.MCXW716C middleware.multicore.rpmsg_lite.frdmmcxw71_freertos.MCXW716C middleware.multicore.rpmsg_lite.freertos.MCXW716C middleware.multicore.rpmsg_lite.MCXW716C middleware.freertos-kernel.MCXW716C component.log.MCXW716C platform.drivers.wuu.MCXW716C platform.drivers.cmc.MCXW716C platform.drivers.spc.MCXW716C platform.drivers.ccm32k.MCXW716C platform.drivers.sfa.MCXW716C middleware.wireless.framework.platform_lowpower.connected_mcu.MCXW716C platform.drivers.elemu.MCXW716C middleware.secure-subsystem.elemu.MCXW716C middleware.secure-subsystem.port_kw45_k4w1.MCXW716C middleware.wireless.framework.sec_lib_sss.MCXW716C middleware.wireless.framework.rng.MCXW716C middleware.wireless.framework.platform_ble.connected_mcu.MCXW716C middleware.wireless.framework.platform_ics.connected_mcu.MCXW716C middleware.wireless.framework.linkscripts_kw45.MCXW716C middleware.wireless.framework_freertos_utils.MCXW716C component.power_manager_frdmmcxw71.MCXW716C component.gpio_adapter.MCXW716C component.button.MCXW716C component.led.MCXW716C component.lptmr_adapter.MCXW716C component.timer_manager.MCXW716C middleware.wireless.framework.coexistence.MCXW716C middleware.wireless.framework.coexistence.intercore.MCXW716C middleware.wireless.controller_api.MCXW716C platform.utilities.misc_utilities.MCXW716C component.osa_interface.MCXW716C component.osa.MCXW716C utility.str.MCXW716C middleware.wireless.framework_swo_dbg.MCXW716C CMSIS_Include_core_cm.MCXW716C device.MCXW716C_system.MCXW716C middleware.wireless.framework.platform_sensors.connected_mcu.MCXW716C platform.drivers.lpadc.MCXW716C platform.drivers.vref_1.MCXW716C middleware.multicore.mcmgr.MCXW716C platform.drivers.imu.MCXW716C middleware.freertos-kernel.template.MCXW716C middleware.freertos-kernel.extension.MCXW716C middleware.secure-subsystem.mu.MCXW716C middleware.secure-subsystem.MCXW716C middleware.wireless.framework.platform_rng.connected_mcu.MCXW716C middleware.wireless.framework.platform_coex.connected_mcu.MCXW716C middleware.wireless.framework.SFC.MCXW716C component.power_manager_core.MCXW716C platform.drivers.crc.MCXW716C middleware.wireless.framework.platform_mws.connected_mcu.MCXW716C" category="wireless_examples/bluetooth/eatt_central/freertos">
+  <example id="frdmmcxw71_eatt_central_freertos" name="eatt_central_freertos" dependency="middleware.wireless.freertos_heap.MCXW716C component.osa_free_rtos.MCXW716C component.reset_adapter.MCXW716C component.common_task.MCXW716C middleware.wireless.framework.common.MCXW716C component.mem_manager_light.MCXW716C component.messaging.MCXW716C component.panic.MCXW716C middleware.wireless.HWParameter.MCXW716C middleware.wireless.framework.nvm.MCXW716C middleware.wireless.framework.nv_fsci.MCXW716C middleware.wireless.framework.module_info.MCXW716C utility.shell.MCXW716C middleware.wireless.framework.function_lib.MCXW716C middleware.wireless.framework.fwk_debug.MCXW716C middleware.wireless.ble_host.MCXW716C middleware.wireless.ble_host_AE_central_component_lib_iar.MCXW716C middleware.wireless.ble_host_AE_central_component_lib_mcux.MCXW716C middleware.wireless.ble_host_AE_central_component_lib_armgcc.MCXW716C middleware.wireless.ble_gatt_db.MCXW716C middleware.wireless.ble_gatt_service_discovery.MCXW716C middleware.wireless.ble_profiles.battery_service.MCXW716C middleware.wireless.ble_profiles.device_info_service.MCXW716C platform.drivers.clock.MCXW716C platform.drivers.common.MCXW716C device.MCXW716C_CMSIS.MCXW716C platform.devices.MCXW716C.MCXW716C platform.drivers.lpuart.MCXW716C platform.drivers.lptmr.MCXW716C platform.drivers.port.MCXW716C platform.drivers.lpspi.MCXW716C platform.drivers.gpio.MCXW716C platform.drivers.flash_k4.MCXW716C component.k4_flash_adapter.MCXW716C component.lpuart_adapter.MCXW716C platform.drivers.tpm.MCXW716C platform.utilities.assert_lite.MCXW716C utility.debug_console_lite.MCXW716C utility.format.MCXW716C component.serial_manager_uart.MCXW716C component.serial_manager.MCXW716C component.lists.MCXW716C component.lptmr_time_stamp_adapter.MCXW716C middleware.wireless.framework.rpmsg_config.MCXW716C component.rpmsg_adapter.MCXW716C component.serial_manager_rpmsg.MCXW716C platform.drivers.ltc.MCXW716C middleware.wireless.framework.Sensors.MCXW716C middleware.wireless.framework.platform.connected_mcu.MCXW716C device.MCXW716C_utility.frdmmcxw71.MCXW716C middleware.freertos-kernel.cm33_non_trustzone.MCXW716C middleware.multicore.mcmgr.mcxw716.MCXW716C middleware.wireless.ble_hci_transport_rpmsg.MCXW716C middleware.multicore.rpmsg_lite.frdmmcxw71_freertos.MCXW716C middleware.multicore.rpmsg_lite.freertos.MCXW716C middleware.multicore.rpmsg_lite.MCXW716C middleware.freertos-kernel.MCXW716C component.log.MCXW716C platform.drivers.wuu.MCXW716C platform.drivers.cmc.MCXW716C platform.drivers.spc.MCXW716C platform.drivers.ccm32k.MCXW716C platform.drivers.sfa.MCXW716C middleware.wireless.framework.platform_lowpower.connected_mcu.MCXW716C platform.drivers.elemu.MCXW716C middleware.secure-subsystem.elemu.MCXW716C middleware.secure-subsystem.port_kw45_k4w1.MCXW716C middleware.wireless.framework.sec_lib_sss.MCXW716C middleware.wireless.framework.rng.MCXW716C middleware.wireless.framework.platform_ble.connected_mcu.MCXW716C middleware.wireless.framework.platform_ics.connected_mcu.MCXW716C middleware.wireless.framework.linkscripts_kw45.MCXW716C middleware.wireless.framework_freertos_utils.MCXW716C component.power_manager_frdmmcxw71.MCXW716C component.gpio_adapter.MCXW716C component.button.MCXW716C component.led.MCXW716C component.lptmr_adapter.MCXW716C component.timer_manager.MCXW716C middleware.wireless.framework.coexistence.MCXW716C middleware.wireless.framework.coexistence.intercore.MCXW716C middleware.wireless.controller_api.MCXW716C platform.utilities.misc_utilities.MCXW716C component.osa_interface.MCXW716C component.osa.MCXW716C utility.str.MCXW716C middleware.wireless.framework_swo_dbg.MCXW716C CMSIS_Include_core_cm.MCXW716C device.MCXW716C_system.MCXW716C middleware.wireless.framework.platform_sensors.connected_mcu.MCXW716C platform.drivers.trdc.MCXW716C platform.drivers.lpadc.MCXW716C platform.drivers.vref_1.MCXW716C middleware.multicore.mcmgr.MCXW716C platform.drivers.imu.MCXW716C middleware.freertos-kernel.template.MCXW716C middleware.freertos-kernel.extension.MCXW716C middleware.secure-subsystem.mu.MCXW716C middleware.secure-subsystem.MCXW716C middleware.wireless.framework.platform_rng.connected_mcu.MCXW716C middleware.wireless.framework.platform_coex.connected_mcu.MCXW716C middleware.wireless.framework.SFC.MCXW716C component.power_manager_core.MCXW716C platform.drivers.crc.MCXW716C middleware.wireless.framework.platform_mws.connected_mcu.MCXW716C" category="wireless_examples/bluetooth/eatt_central/freertos">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -249,6 +252,22 @@
       <include_path path=".." project_relative_path="source" type="c_include"/>
       <include_path path="." project_relative_path="source" type="asm_include"/>
     </include_paths>
+    <source path="armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">
+      <files mask="build_all.bat"/>
+      <files mask="build_all.sh"/>
+      <files mask="clean.bat"/>
+      <files mask="clean.sh"/>
+      <files mask="CMakeLists.txt"/>
+      <files mask="flags.cmake"/>
+      <files mask="config.cmake"/>
+      <files mask="build_debug.bat"/>
+      <files mask="build_debug.sh"/>
+      <files mask="build_release.bat"/>
+      <files mask="build_release.sh"/>
+    </source>
+    <source path="../../../../../../core/devices/MCXW716C" project_relative_path="./" type="workspace" toolchain="armgcc">
+      <files mask="all_lib_device.cmake"/>
+    </source>
     <source path="." project_relative_path="source" type="src">
       <files mask="app_services_init.c"/>
       <files mask="app_ble_init.c"/>
@@ -315,9 +334,11 @@
     <source path="." project_relative_path="source" type="c_include">
       <files mask="app_preinclude_common.h"/>
     </source>
-    <source path="../../../../../../middleware/wireless/ble_controller/bin" project_relative_path="source" type="other">
-      <files mask="mcxw71_nbu_ble_1_9_14_0.xip"/>
-      <files mask="mcxw71_nbu_ble_1_9_14_0.sb3"/>
+    <source path="armgcc" project_relative_path="wireless/framework/Common/devices/kw45_k32w1/gcc" type="linker" toolchain="armgcc">
+      <files mask="connectivity_ble.ld"/>
+    </source>
+    <source path="../../../../../../middleware/wireless/ble_controller/bin" project_relative_path="source" type="binary">
+      <files mask="k32w1_nbu_ble_hosted.bin"/>
     </source>
   </example>
 </ksdk:examples>

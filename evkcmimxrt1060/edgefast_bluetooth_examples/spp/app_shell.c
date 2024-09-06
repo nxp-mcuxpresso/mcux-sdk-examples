@@ -85,7 +85,7 @@ SHELL_COMMAND_DEFINE(spp,
                      "    spp discover              discover spp server channel on peer device\r\n"
                      "    spp connect <cid>         create spp connection\r\n"
                      "    spp disconnect            disconnect current spp connection.\r\n"
-                     "    spp send <1|2|3|4>        send data over spp connection.\r\n"
+                     "    spp send <1|2|3|4|5>        send data over spp connection.\r\n"
                      "    spp get_port <s|c> <cid>  get spp port setting of server/client channel(cid).\r\n"
                      "    spp set_port <s|c> <cid>  set spp port setting of server/client channel(cid).\r\n"
                      "    spp set_pn <s|c> <cid>    set pn of server/client channel(cid).\r\n"

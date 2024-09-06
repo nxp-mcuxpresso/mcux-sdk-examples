@@ -17,7 +17,7 @@
 #include "ble_service/ht.h"
 #include "ble_service/hr.h"
 #include "ble_service/bas.h"
-
+   
 /*******************************************************************************
  * Variables
  ******************************************************************************/
@@ -47,7 +47,7 @@ static int ble_start_encryption_command(int argc, char **argv);
 static int ble_read_characteristic_command(int argc, char **argv);
 static int ble_register_service_command(int argc, char **argv);
 static int ble_set_power_mode_command(int argc, char **argv);
-static int ble_set_device_address_command(int argc, char **argv);
+//static int ble_set_device_address_command(int argc, char **argv);
 //static int ble_set_device_name_command(int argc, char **argv);
 static int ble_host_service_add_command(int argc, char **argv);
 static int ble_start_service_command(int argc, char **argv);
@@ -84,6 +84,7 @@ static int ble_process_l2cap_received(uint8_t *res);
 static int ble_process_gatt_prim_discovered(uint8_t *res);
 static int ble_process_gatt_chrc_discovered(uint8_t *res);
 static int ble_process_gatt_desc_discovered(uint8_t *res);
+static int ble_process_gatt_ncs_info_receive(uint8_t *res);
 static int ble_process_start_adv_response(uint8_t *res);
 static int ble_process_stop_adv_response(uint8_t *res);
 static int ble_process_set_adv_data_response(uint8_t *res);
@@ -143,7 +144,7 @@ struct _host_svc_list host_service_list[] = {
 #if CONFIG_NCP_BAS
     {"bas", peripheral_bas_start},
 #endif
-    NULL,
+    {NULL, NULL},
 };
 
 /*******************************************************************************
@@ -866,6 +867,7 @@ static int ble_register_service_command(int argc, char **argv)
         printf("                   3  BAS\r\n");
         printf("                   4  Central_HTS\r\n");
         printf("                   5  Central_HRS\r\n");
+        printf("                   6  Peripheral_NCS\r\n");
         return -NCP_STATUS_ERROR;
     }
 
@@ -925,6 +927,7 @@ static int ble_set_power_mode_command(int argc, char **argv)
     return NCP_STATUS_SUCCESS;
 }
 
+#if 0
 /**
  * @brief This function prepares set device address command
  *
@@ -964,7 +967,6 @@ static int ble_set_device_address_command(int argc, char **argv)
     return NCP_STATUS_SUCCESS;
 }
 
-#if 0
 /**
  * @brief This function prepares set device name command
  *
@@ -1208,6 +1210,7 @@ static int ble_start_service_command(int argc, char **argv)
         printf("                     hrs\r\n");
         printf("                     hrc\r\n");
         printf("                     bas\r\n");
+        printf("                     ncs\r\n");
     }
 
     for (uint8_t i = 0; i < ARRAY_SIZE(host_service_list); i++)
@@ -1926,8 +1929,11 @@ int ble_process_ncp_event(uint8_t *res)
         case NCP_EVENT_GATT_DISC_DESC:
             ret = ble_process_gatt_desc_discovered(res);
             break;
+        case NCP_EVENT_GATT_NCS_INFO:
+            ret = ble_process_gatt_ncs_info_receive(res);
+            break;
         default:
-            printf("Invaild event! Invalid event id is %08x\r\n", evt->header.cmd);
+            printf("Invaild event! Invalid event id is %08lx\r\n", evt->header.cmd);
             break;
     }
     return ret;
@@ -2009,7 +2015,7 @@ static int ble_process_passkey_display(uint8_t *res)
     NCP_PASSKEY_DISPLAY_EV *passkey_display_tlv = (NCP_PASSKEY_DISPLAY_EV *)&evt_res->params.passkey_display;
 
     key = passkey_display_tlv->passkey;
-    printf("Pass Key PIN: %06d\r\n", key);
+    printf("Pass Key PIN: %06ld\r\n", key);
 
     return NCP_STATUS_SUCCESS;
 }
@@ -2467,6 +2473,40 @@ int ble_process_gatt_desc_discovered(uint8_t *res)
         (void)PRINTF("Discovered Client Characteristic Configuration: Handle %04X, uuid: %02X%02X\r\n", \
                     descriptor.descriptor_handle,descriptor.uuid[1],descriptor.uuid[0]);
     }
+
+    return NCP_STATUS_SUCCESS;
+}
+
+int ble_process_gatt_ncs_info_receive(uint8_t *res)
+{
+    MCU_NCPCmd_DS_COMMAND *evt_res = (MCU_NCPCmd_DS_COMMAND *)res;
+    NCP_NCS_INFO_EV *ncs_info_tlv = (NCP_NCS_INFO_EV *)&evt_res->params.ncs_info_rp;
+    ncp_commission_cfg_t wifi_info;
+
+    (void)PRINTF("Commission ssid, ssid len: %d, ssid: ", ncs_info_tlv->ssid_len);
+    for (uint8_t i = 0; i < ncs_info_tlv->ssid_len; i++)
+    {
+        (void)PRINTF("%c", ncs_info_tlv->ssid[i]);
+    }
+    (void)PRINTF("\r\n");
+
+    (void)PRINTF("Commission password, password len: %d, password: ", ncs_info_tlv->pswd_len);
+    for (uint8_t i = 0; i < ncs_info_tlv->pswd_len; i++)
+    {
+        (void)PRINTF("%c", ncs_info_tlv->pswd[i]);
+    }
+    (void)PRINTF("\r\n");
+
+    (void)PRINTF("Commission secure, secure len: %d, secure mode: ", ncs_info_tlv->secu_len);
+    for (uint8_t i = 0; i < ncs_info_tlv->secu_len; i++)
+    {
+        (void)PRINTF("%c", ncs_info_tlv->secu[i]);
+    }
+    (void)PRINTF("\r\n");
+
+    memcpy(&wifi_info, ncs_info_tlv, sizeof(wifi_info));
+
+    ncp_network_commissioning(&wifi_info);
 
     return NCP_STATUS_SUCCESS;
 }
@@ -3069,6 +3109,9 @@ static int ble_process_register_service_response(uint8_t *res)
                 case 5:
                     printf("Central_HRS ");
                     break;
+                case 6:
+                    printf("Peripheral_NCS ");
+                    break;
 
                 default:
                     break;
@@ -3101,11 +3144,11 @@ static void htc_central_notify(uint8_t *data)
 
     if ((temp_measurement.flags & 0x01) == hts_unit_celsius_c)
     {
-        printf("Temperature %d degrees Celsius \n", temperature);
+        printf("Temperature %ld degrees Celsius \n", temperature);
     }
     else
     {
-        printf("Temperature %d degrees Fahrenheit \n", temperature);
+        printf("Temperature %ld degrees Fahrenheit \n", temperature);
     }
 }
 

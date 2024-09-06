@@ -8,7 +8,7 @@ The symmetric key is generated at random, using CAAM's random number generator.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

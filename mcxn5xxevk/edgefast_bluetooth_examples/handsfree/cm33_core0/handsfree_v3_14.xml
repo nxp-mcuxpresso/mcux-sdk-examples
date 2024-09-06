@@ -325,11 +325,13 @@
     <source path="." project_relative_path="source" type="src">
       <files mask="main.c"/>
       <files mask="app_handsfree.c"/>
+      <files mask="app_connect.c"/>
       <files mask="app_shell.c"/>
       <files mask="sco_audio_pl_ext.c"/>
     </source>
     <source path="." project_relative_path="source" type="c_include">
       <files mask="app_handsfree.h"/>
+      <files mask="app_connect.h"/>
       <files mask="app_shell.h"/>
       <files mask="ringtone.h"/>
     </source>

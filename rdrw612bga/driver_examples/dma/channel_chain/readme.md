@@ -14,7 +14,7 @@ Channel0 is configured with two descriptor, first descriptor is linked to the se
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

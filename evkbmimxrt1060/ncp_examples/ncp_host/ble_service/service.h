@@ -1,12 +1,14 @@
-/** @file service.h
- *
- *  @brief  Bluetooth service defineations.
- *
- *  Copyright 2008-2023 NXP
- *
- *  SPDX-License-Identifier: BSD-3-Clause
+/*
+ *	Copyright 2024 NXP
+ *	
+ *	SPDX-License-Identifier: BSD-3-Clause	
  *
  */
+
+/*!\file service.h
+ *\brief Bluetooth service defineations.
+ */
+
 #if CONFIG_NCP_BLE
 
 #ifndef __SERVICE_H_
@@ -16,21 +18,34 @@
 #include <string.h>
 #include <stddef.h>
 
+/** NCP Bluetooth LE priority */
 #define NCP_BLE_SERVICE_PRIO   0
+
+/** NCP Bluetooth LE adv data type structure */
 typedef struct adv_data {
+	/** adv data length */
 	uint8_t data_len;
+	/** adv data type */
 	uint8_t type;
+	/** adv data */
 	const uint8_t *data;
 }adv_data_t;
 
+/** NCP Bluetooth LE host gatt attribute type structure */
 struct host_gatt_attr {
+	/** NCP Bluetooth LE TLV type */
     uint8_t type;
+	/** attribute properties */
     uint8_t properties;
+	/** attribute permissions */
     uint16_t permissions;
+	/** service uuid length */
     uint8_t uuid_length;
+	/** service uuid */
     uint8_t uuid[SERVER_MAX_UUID_LEN];
 };
 
+/** NCP Bluetooth LE inline tool funciton */
 #define BT_BYTES_LIST_LE16(_v)         \
 	(((_v) >>  0) & 0xFFU),     \
 	(((_v) >>  8) & 0xFFU)      \
@@ -44,62 +59,57 @@ struct host_gatt_attr {
 	.permissions = _perm,   \
 }
 
-#define GATT_PRIMARY_SERVICE(_uuid)                  HOST_GATT_ATTRIBUTE(NCP_CMD_GATT_ADD_SERVICE_TLV, _uuid, NULL, NULL)
+#define GATT_PRIMARY_SERVICE(_uuid)                  HOST_GATT_ATTRIBUTE(NCP_CMD_GATT_ADD_SERVICE_TLV, _uuid, 0, 0)
 #define GATT_CHARACTERISTIC(_uuid, _props, _perm)    HOST_GATT_ATTRIBUTE(NCP_CMD_GATT_ADD_CHRC_TLV, _uuid, _props, _perm)
-#define GATT_CCC(_perm)                              HOST_GATT_ATTRIBUTE(NCP_CMD_GATT_ADD_DESC_TLV, UUID_GATT_CCC, NULL, _perm)
+#define GATT_CCC(_perm)                              HOST_GATT_ATTRIBUTE(NCP_CMD_GATT_ADD_DESC_TLV, UUID_GATT_CCC, 0, _perm)
 
-/* Auto register host services into ncp device database */
+/** Auto register host services into ncp device database */
 #define NCP_BLE_HOST_SERVICE_AUTO_START
 
 /** Characteristic Properties Bit field values */
 
-/**
- *  @brief Characteristic broadcast property.
- *
- *  If set, permits broadcasts of the Characteristic Value using Server
- *  Characteristic Configuration Descriptor.
+/** Characteristic broadcast property.
+ * If set, permits broadcasts of the Characteristic Value using Server
+ * Characteristic Configuration Descriptor.
  */
 #define BT_GATT_CHRC_BROADCAST			0x01
 /**
- *  @brief Characteristic read property.
- *
- *  If set, permits reads of the Characteristic Value.
+ * Characteristic read property.
+ * If set, permits reads of the Characteristic Value.
  */
 #define BT_GATT_CHRC_READ			0x02
 /**
- *  @brief Characteristic write without response property.
- *
- *  If set, permits write of the Characteristic Value without response.
+ * Characteristic write without response property.
+ * If set, permits write of the Characteristic Value without response.
  */
 #define BT_GATT_CHRC_WRITE_WITHOUT_RESP		0x04
 /**
- *  @brief Characteristic write with response property.
- *
- *  If set, permits write of the Characteristic Value with response.
+ * Characteristic write with response property.
+ * If set, permits write of the Characteristic Value with response.
  */
 #define BT_GATT_CHRC_WRITE			0x08
 /**
- *  @brief Characteristic notify property.
- *
- *  If set, permits notifications of a Characteristic Value without
- *  acknowledgment.
+ * Characteristic notify property.
+ * 
+ * If set, permits notifications of a Characteristic Value without acknowledgment.
  */
 #define BT_GATT_CHRC_NOTIFY			0x10
 /**
- *  @brief Characteristic indicate property.
- *
+ * Characteristic indicate property.
+ * 
  * If set, permits indications of a Characteristic Value with acknowledgment.
  */
 #define BT_GATT_CHRC_INDICATE			0x20
 /**
- *  @brief Characteristic Authenticated Signed Writes property.
- *
- *  If set, permits signed writes to the Characteristic Value.
+ * Characteristic Authenticated Signed Writes property.
+ * 
+ * If set, permits signed writes to the Characteristic Value.
  */
 #define BT_GATT_CHRC_AUTH			0x40
 /**
- *  @brief Characteristic Extended Properties property.
- *
+ * Characteristic Extended Properties property.
+ * 
+ * 
  * If set, additional characteristic properties are defined in the
  * Characteristic Extended Properties Descriptor.
  */
@@ -116,88 +126,86 @@ struct host_gatt_attr {
 /** Attribute write permission. */
 #define BT_GATT_PERM_WRITE 0x0002
 
-/** @brief Attribute read permission with encryption.
- *
- *  If set, requires encryption for read access.
+/**
+ * Attribute read permission with encryption.
+ * 
+ * If set, requires encryption for read access.
  */
 #define BT_GATT_PERM_READ_ENCRYPT 0x0004
-
-/** @brief Attribute write permission with encryption.
- *
- *  If set, requires encryption for write access.
+/**
+ * Attribute write permission with encryption.
+ * 
+ * If set, requires encryption for write access.
  */
 #define BT_GATT_PERM_WRITE_ENCRYPT 0x0008
 
-/** @brief Attribute read permission with authentication.
- *
- *  If set, requires encryption using authenticated link-key for read
- *  access.
+/**
+ * Attribute read permission with authentication.
+ * 
+ * If set, requires encryption using authenticated link-key for read access.
  */
 #define BT_GATT_PERM_READ_AUTHEN 0x0010
-
-/** @brief Attribute write permission with authentication.
- *
- *  If set, requires encryption using authenticated link-key for write
- *  access.
+/**
+ * Attribute write permission with authentication.
+ * 
+ * If set, requires encryption using authenticated link-key for write access.
  */
 #define BT_GATT_PERM_WRITE_AUTHEN 0x0020
-
-/** @brief Attribute prepare write permission.
- *
+/**
+ * Attribute prepare write permission.
+ * 
  *  If set, allows prepare writes with use of BT_GATT_WRITE_FLAG_PREPARE
  *  passed to write callback.
  */
 #define BT_GATT_PERM_PREPARE_WRITE 0x0040
 
-/** @brief Attribute read permission with LE Secure Connection encryption.
- *
- *  If set, requires that LE Secure Connections is used for read access.
+/**
+ * Attribute read permission with LE Secure Connection encryption.
+ * 
+ * If set, requires that LE Secure Connections is used for read access.
  */
 #define BT_GATT_PERM_READ_LESC 0x0080
 
-/** @brief Attribute write permission with LE Secure Connection encryption.
- *
- *  If set, requires that LE Secure Connections is used for write access.
+/**
+ * Attribute write permission with LE Secure Connection encryption.
+ * 
+ * If set, requires that LE Secure Connections is used for write access.
  */
 #define BT_GATT_PERM_WRITE_LESC 0x0100
 
 /** Client Characteristic Configuration Values */
 
 /**
- *  @brief Client Characteristic Configuration Notification.
- *
- *  If set, changes to Characteristic Value shall be notified.
+ * Client Characteristic Configuration Notification.
+ * 
+ * If set, changes to Characteristic Value shall be notified.
  */
 #define BT_GATT_CCC_NOTIFY			0x0001
 /**
- *  @brief Client Characteristic Configuration Indication.
- *
- *  If set, changes to Characteristic Value shall be indicated.
+ * Client Characteristic Configuration Indication.
+ * 
+ * If set, changes to Characteristic Value shall be indicated.
  */
 #define BT_GATT_CCC_INDICATE			0x0002
 
-/**
- *  @brief GATT Primary Service UUID
- */
+/** GATT Primary Service UUID */
 #define UUID_GATT_PRIMARY 0x2800
 
-/**
- *  @brief GATT Client Characteristic Configuration UUID
- */
+/** GATT Client Characteristic Configuration UUID */
 #define UUID_GATT_CCC 0x2902
 
 /** Client Characteristic Configuration Values */
 
 /**
- *  @brief Client Characteristic Configuration Notification.
- *
- *  If set, changes to Characteristic Value shall be notified.
+ * Client Characteristic Configuration Notification.
+ * 
+ * If set, changes to Characteristic Value shall be notified.
  */
 #define BT_GATT_CCC_NOTIFY			0x0001
 /**
- *  @brief Client Characteristic Configuration Indication.
- *
- *  If set, changes to Characteristic Value shall be indicated.
+ * Client Characteristic Configuration Indication.
+ * 
+ * If set, changes to Characteristic Value shall be indicated.
  */
 #define BT_GATT_CCC_INDICATE			0x0002
 
@@ -235,18 +243,20 @@ struct host_gatt_attr {
 #define BT_DATA_BROADCAST_CODE          0x2d /* Broadcast Code */
 #define BT_DATA_CSIS_RSI                0x2e /* CSIS Random Set ID type */
 
-/* device central profile service ID */
+/** device central profile service ID */
 #define CENTRAL_HTC_SERVICE_ID         4
 #define CENTRAL_HRC_SERVICE_ID         5
 
 /**
- *  @brief Put a 16-bit integer as little-endian to arbitrary location.
+ *  Put a 16-bit integer as little-endian to arbitrary location.
  *
  *  Put a 16-bit integer, originally in host endianness, to a
  *  potentially unaligned memory location in little-endian format.
  *
- *  @param val 16-bit integer in host endianness.
- *  @param dst Destination memory address to store the result.
+ * \param[in] val 16-bit integer in host endianness.
+ * \param[in,out] dst Destination memory address to store the result.
+ * 
+ * \return void
  */
 static inline void sys_put_le16(uint16_t val, uint8_t dst[2])
 {
@@ -255,13 +265,15 @@ static inline void sys_put_le16(uint16_t val, uint8_t dst[2])
 }
 
 /**
- *  @brief Put a 32-bit integer as little-endian to arbitrary location.
+ *  Put a 32-bit integer as little-endian to arbitrary location.
  *
  *  Put a 32-bit integer, originally in host endianness, to a
  *  potentially unaligned memory location in little-endian format.
  *
- *  @param val 32-bit integer in host endianness.
- *  @param dst Destination memory address to store the result.
+ * \param[in] val 32-bit integer in host endianness.
+ * \param[in,out] dst Destination memory address to store the result.
+ * 
+ * \return void
  */
 static inline void sys_put_le32(uint32_t val, uint8_t dst[4])
 {
@@ -270,14 +282,14 @@ static inline void sys_put_le32(uint32_t val, uint8_t dst[4])
 }
 
 /**
- *  @brief Get a 16-bit integer stored in little-endian format.
+ *  Get a 16-bit integer stored in little-endian format.
  *
  *  Get a 16-bit integer, stored in little-endian format in a potentially
  *  unaligned memory location, and convert it to the host endianness.
  *
- *  @param src Location of the little-endian 16-bit integer to get.
+ *  \param[in,out] src Location of the little-endian 16-bit integer to get.
  *
- *  @return 16-bit integer in host endianness.
+ *  \return 16-bit integer in host endianness.
  */
 static inline uint16_t sys_get_le16(const uint8_t src[2])
 {
@@ -285,14 +297,14 @@ static inline uint16_t sys_get_le16(const uint8_t src[2])
 }
 
 /**
- *  @brief Get a 32-bit integer stored in little-endian format.
+ *  Get a 32-bit integer stored in little-endian format.
  *
  *  Get a 32-bit integer, stored in little-endian format in a potentially
  *  unaligned memory location, and convert it to the host endianness.
  *
- *  @param src Location of the little-endian 32-bit integer to get.
+ *  \param[in,out] src Location of the little-endian 32-bit integer to get.
  *
- *  @return 32-bit integer in host endianness.
+ *  \return 32-bit integer in host endianness.
  */
 static inline uint32_t sys_get_le32(const uint8_t src[4])
 {

@@ -9,7 +9,7 @@ the response of the key interrupt, and confirm the interrupt timeout by the flag
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

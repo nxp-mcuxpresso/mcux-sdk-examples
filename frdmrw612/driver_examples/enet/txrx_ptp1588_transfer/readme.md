@@ -20,7 +20,7 @@ in TWR-SERIAL board for the external PHY.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================
@@ -29,9 +29,9 @@ Toolchain supported
 
 Hardware requirements
 =====================
-- Micro USB cable
+- USB-C cable
 - Loopback network cable RJ45 standard
-- FRDM-RW612 board
+- FRDM-RW612 v2 board
 - Personal Computer
 
 Board settings

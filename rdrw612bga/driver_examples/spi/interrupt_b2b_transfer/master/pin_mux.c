@@ -18,7 +18,7 @@ product: Pins v15.0
 processor: RW612
 package_id: RW612ETA2I
 mcu_data: ksdk2_0
-processor_version: 0.0.0
+processor_version: 0.16.10
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -44,11 +44,11 @@ void BOARD_InitBootPins(void)
 BOARD_InitPins:
 - options: {callFromInitBoot: 'true', coreID: cm33, enableClock: 'true'}
 - pin_list:
-  - {pin_num: F3, peripheral: FLEXCOMM3, signal: USART_RXD, pin_signal: GPIO_24}
-  - {pin_num: D12, peripheral: FLEXCOMM0, signal: SPI_SSELN0, pin_signal: GPIO_0, pull_up_down: disable}
-  - {pin_num: N3, peripheral: FLEXCOMM0, signal: SPI_SCK, pin_signal: GPIO_4, pull_up_down: disable}
-  - {pin_num: U2, peripheral: FLEXCOMM0, signal: SPI_MOSI, pin_signal: GPIO_2, pull_up_down: disable}
-  - {pin_num: L4, peripheral: FLEXCOMM0, signal: SPI_MISO, pin_signal: GPIO_3, pull_up_down: disable}
+  - {pin_num: E5, peripheral: FLEXCOMM3, signal: USART_RXD, pin_signal: GPIO_24}
+  - {pin_num: M1, peripheral: FLEXCOMM0, signal: SPI_SSELN0, pin_signal: GPIO_0, pull_up_down: disable}
+  - {pin_num: F8, peripheral: FLEXCOMM0, signal: SPI_SCK, pin_signal: GPIO_4, pull_up_down: disable}
+  - {pin_num: F10, peripheral: FLEXCOMM0, signal: SPI_MOSI, pin_signal: GPIO_2, pull_up_down: disable}
+  - {pin_num: C13, peripheral: FLEXCOMM0, signal: SPI_MISO, pin_signal: GPIO_3, pull_up_down: disable}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -62,17 +62,17 @@ BOARD_InitPins:
 /* Function assigned for the Cortex-M33 */
 void BOARD_InitPins(void)
 {
-    /* Initialize FC0_SPI_SS0 functionality on pin GPIO_0, GPIO_4, GPIO_2, GPIO_3 (pin D12_N3_U2_L4) */
+    /* Initialize FC0_SPI_SS0 functionality on pin GPIO_0, GPIO_4, GPIO_2, GPIO_3 (pin M1_F8_F10_C13) */
     IO_MUX_SetPinMux(IO_MUX_FC0_SPI_SS0);
-    /* Initialize FC3_USART_DATA functionality on pin GPIO_24 (pin F3) */
+    /* Initialize FC3_USART_DATA functionality on pin GPIO_24 (pin E5) */
     IO_MUX_SetPinMux(IO_MUX_FC3_USART_DATA);
-    /* Set GPIO_0 (pin D12_N3_U2_L4) configuration - Disable pull-up / pull-down; strongest slew rate */
+    /* Set GPIO_0 (pin M1_F8_F10_C13) configuration - Disable pull-up / pull-down; strongest slew rate */
     IO_MUX_SetPinConfig(0U, IO_MUX_PinConfigNoPull);
-    /* Set GPIO_2 (pin D12_N3_U2_L4) configuration - Disable pull-up / pull-down; strongest slew rate */
+    /* Set GPIO_2 (pin M1_F8_F10_C13) configuration - Disable pull-up / pull-down; strongest slew rate */
     IO_MUX_SetPinConfig(2U, IO_MUX_PinConfigNoPull);
-    /* Set GPIO_3 (pin D12_N3_U2_L4) configuration - Disable pull-up / pull-down; strongest slew rate */
+    /* Set GPIO_3 (pin M1_F8_F10_C13) configuration - Disable pull-up / pull-down; strongest slew rate */
     IO_MUX_SetPinConfig(3U, IO_MUX_PinConfigNoPull);
-    /* Set GPIO_4 (pin D12_N3_U2_L4) configuration - Disable pull-up / pull-down; strongest slew rate */
+    /* Set GPIO_4 (pin M1_F8_F10_C13) configuration - Disable pull-up / pull-down; strongest slew rate */
     IO_MUX_SetPinConfig(4U, IO_MUX_PinConfigNoPull);
 }
 /***********************************************************************************************************************

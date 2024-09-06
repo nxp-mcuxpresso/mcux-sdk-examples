@@ -9,7 +9,7 @@ In this example , one i2c instance used as I2C master and another i2c instance u
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

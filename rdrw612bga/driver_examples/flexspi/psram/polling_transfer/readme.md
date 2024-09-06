@@ -8,7 +8,7 @@ Example will write/read through the whole chip, through IP command and AHB comma
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================
