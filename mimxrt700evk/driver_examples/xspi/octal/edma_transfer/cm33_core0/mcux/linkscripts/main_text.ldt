@@ -1,0 +1,1 @@
+        *(EXCLUDE_FILE(*fsl_xspi.o *xspi_octal_flash_edma_ops.o *fsl_xspi_edma.o *fsl_edma.o *fsl_edma_soc.o *fsl_edma_core.o) .text*)

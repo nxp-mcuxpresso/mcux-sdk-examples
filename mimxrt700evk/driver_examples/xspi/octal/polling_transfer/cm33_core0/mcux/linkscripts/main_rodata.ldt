@@ -1,0 +1,4 @@
+       *(EXCLUDE_FILE(*xspi_octal_flash_ops.o *fsl_xspi.o) .rodata)
+       *(EXCLUDE_FILE(*xspi_octal_flash_ops.o *fsl_xspi.o) .rodata.*)
+       *(EXCLUDE_FILE(*xspi_octal_flash_ops.o *fsl_xspi.o) .constdata)
+       *(EXCLUDE_FILE(*xspi_octal_flash_ops.o *fsl_xspi.o) .constdata.*) 

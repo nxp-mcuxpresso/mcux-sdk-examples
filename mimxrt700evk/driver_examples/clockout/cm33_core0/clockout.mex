@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding= "UTF-8" ?>
+<configuration name="MIMXRT798S" xsi:schemaLocation="http://mcuxpresso.nxp.com/XSD/mex_configuration_15 http://mcuxpresso.nxp.com/XSD/mex_configuration_15.xsd" uuid="07ed7e39-7b54-4fd9-8f27-0598822d3e95" version="15" xmlns="http://mcuxpresso.nxp.com/XSD/mex_configuration_15" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <common>
+      <processor>MIMXRT798S</processor>
+      <package>MIMXRT798SGFOA</package>
+      <mcu_data>ksdk2_0</mcu_data>
+      <cores selected="cm33_core0">
+         <core name="Cortex-M33 (Core #0)" id="cm33_core0" description=""/>
+         <core name="Cortex-M33 (Core #1)" id="cm33_core1" description=""/>
+      </cores>
+      <description></description>
+   </common>
+   <preferences>
+      <validate_boot_init_only>true</validate_boot_init_only>
+      <generate_extended_information>false</generate_extended_information>
+      <generate_code_modified_registers_only>false</generate_code_modified_registers_only>
+      <update_include_paths>true</update_include_paths>
+      <generate_registers_defines>false</generate_registers_defines>
+   </preferences>
+   <tools>
+      <pins name="Pins" version="15.0" enabled="true" update_project_code="true">
+         <pins_profile>
+            <processor_version>0.0.0</processor_version>
+         </pins_profile>
+         <functions_list>
+            <function name="BOARD_InitPins">
+               <description>Configures pin routing and optionally pin electrical features.</description>
+               <options>
+                  <callFromInitBoot>true</callFromInitBoot>
+                  <coreID>cm33_core0</coreID>
+                  <enableClock>true</enableClock>
+               </options>
+               <dependencies>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Pins initialization requires the COMMON Driver in the project." problem_level="2" source="Pins:BOARD_InitPins">
+                     <feature name="enabled" evaluation="equal" configuration="cm33_core0">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.lpc_iopctl" description="Pins initialization requires the LPC_IOPCTL Driver in the project." problem_level="2" source="Pins:BOARD_InitPins">
+                     <feature name="enabled" evaluation="equal" configuration="cm33_core0">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+               </dependencies>
+               <pins>
+                  <pin peripheral="CLKCTL0" signal="CLKOUT_VDD, 2" pin_num="L1" pin_signal="PIO0_14/LP_FLEXCOMM5_P4/SCT0_GPIN0/SCT0_OUT8/CTIMER_C_INP2/SAI2_RX_DATA/CLKOUT_VDD2">
+                     <pin_features>
+                        <pin_feature name="selects_transmitter_current_drive" value="O_100"/>
+                        <pin_feature name="invert_input" value="normal"/>
+                        <pin_feature name="open_drain" value="disable"/>
+                        <pin_feature name="analog_mux" value="digital"/>
+                        <pin_feature name="slew_rate" value="standard"/>
+                        <pin_feature name="input_buffer" value="enable"/>
+                        <pin_feature name="pull_select" value="down"/>
+                        <pin_feature name="pull_enable" value="disable"/>
+                        <pin_feature name="full_drive" value="Normal"/>
+                     </pin_features>
+                  </pin>
+                  <pin peripheral="LP_FLEXCOMM0" signal="P0" pin_num="N4" pin_signal="PIO0_31/LP_FLEXCOMM0_P0/UTICK0_CAP2/SCT0_OUT8/CTIMER4_MAT0">
+                     <pin_features>
+                        <pin_feature name="selects_transmitter_current_drive" value="O_100"/>
+                        <pin_feature name="invert_input" value="normal"/>
+                        <pin_feature name="open_drain" value="disable"/>
+                        <pin_feature name="analog_mux" value="digital"/>
+                        <pin_feature name="slew_rate" value="standard"/>
+                        <pin_feature name="input_buffer" value="enable"/>
+                        <pin_feature name="pull_select" value="down"/>
+                        <pin_feature name="pull_enable" value="disable"/>
+                        <pin_feature name="full_drive" value="Normal"/>
+                     </pin_features>
+                  </pin>
+                  <pin peripheral="LP_FLEXCOMM0" signal="P1" pin_num="N5" pin_signal="PIO1_0/LP_FLEXCOMM0_P1/SCT0_OUT9/CTIMER4_MAT1">
+                     <pin_features>
+                        <pin_feature name="selects_transmitter_current_drive" value="O_100"/>
+                        <pin_feature name="invert_input" value="normal"/>
+                        <pin_feature name="open_drain" value="disable"/>
+                        <pin_feature name="analog_mux" value="digital"/>
+                        <pin_feature name="slew_rate" value="standard"/>
+                        <pin_feature name="input_buffer" value="disable"/>
+                        <pin_feature name="pull_select" value="down"/>
+                        <pin_feature name="pull_enable" value="disable"/>
+                        <pin_feature name="full_drive" value="Normal"/>
+                     </pin_features>
+                  </pin>
+               </pins>
+            </function>
+         </functions_list>
+      </pins>
+      <clocks name="Clocks" version="13.0" enabled="false" update_project_code="true">
+         <clocks_profile>
+            <processor_version>N/A</processor_version>
+         </clocks_profile>
+         <clock_configurations/>
+      </clocks>
+      <dcdx name="DCDx" version="3.0" enabled="false" update_project_code="true">
+         <dcdx_profile>
+            <processor_version>N/A</processor_version>
+         </dcdx_profile>
+         <dcdx_configurations/>
+      </dcdx>
+      <periphs name="Peripherals" version="14.0" enabled="false" update_project_code="true">
+         <peripherals_profile>
+            <processor_version>N/A</processor_version>
+         </peripherals_profile>
+         <functional_groups/>
+         <components/>
+      </periphs>
+      <tee name="TEE" version="6.0" enabled="false" update_project_code="true">
+         <tee_profile>
+            <processor_version>N/A</processor_version>
+         </tee_profile>
+      </tee>
+   </tools>
+</configuration>

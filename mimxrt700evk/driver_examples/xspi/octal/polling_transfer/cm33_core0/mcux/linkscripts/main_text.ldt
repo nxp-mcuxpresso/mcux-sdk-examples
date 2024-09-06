@@ -1,0 +1,1 @@
+        *(EXCLUDE_FILE(*fsl_xspi.o *xspi_octal_flash_ops.o) .text*)

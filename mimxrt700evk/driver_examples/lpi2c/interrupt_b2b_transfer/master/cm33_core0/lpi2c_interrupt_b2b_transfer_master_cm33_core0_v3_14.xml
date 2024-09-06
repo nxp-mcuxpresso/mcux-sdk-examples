@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:examples xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd manifest.xsd">
+  <externalDefinitions>
+    <definition extID="cm33_core0_MIMXRT798S"/>
+    <definition extID="platform.drivers.lpflexcomm_lpi2c.MIMXRT798S"/>
+    <definition extID="utility.debug_console_lite.MIMXRT798S"/>
+    <definition extID="platform.utilities.assert_lite.MIMXRT798S"/>
+    <definition extID="platform.utilities.misc_utilities.MIMXRT798S"/>
+    <definition extID="platform.drivers.clock.MIMXRT798S"/>
+    <definition extID="platform.drivers.common.MIMXRT798S"/>
+    <definition extID="device.MIMXRT798S_CMSIS.MIMXRT798S"/>
+    <definition extID="component.lpuart_adapter.MIMXRT798S"/>
+    <definition extID="platform.drivers.power.MIMXRT798S"/>
+    <definition extID="platform.drivers.cache_xcache.MIMXRT798S"/>
+    <definition extID="platform.drivers.lpflexcomm_lpuart.MIMXRT798S"/>
+    <definition extID="component.lists.MIMXRT798S"/>
+    <definition extID="platform.drivers.flash_config.mimxrt700evk.MIMXRT798S"/>
+    <definition extID="device.MIMXRT798S_startup.MIMXRT798S"/>
+    <definition extID="platform.drivers.lpflexcomm.MIMXRT798S"/>
+    <definition extID="platform.drivers.lpc_iopctl.MIMXRT798S"/>
+    <definition extID="platform.drivers.gpio.MIMXRT798S"/>
+    <definition extID="platform.drivers.reset.MIMXRT798S"/>
+    <definition extID="platform.drivers.xspi.MIMXRT798S"/>
+    <definition extID="platform.drivers.glikey.MIMXRT798S"/>
+    <definition extID="utility.str.MIMXRT798S"/>
+    <definition extID="CMSIS_Include_core_cm.MIMXRT798S"/>
+    <definition extID="device.MIMXRT798S_system.MIMXRT798S"/>
+    <definition extID="armgcc"/>
+    <definition extID="mcuxpresso"/>
+    <definition extID="com.nxp.mcuxpresso"/>
+    <definition extID="com.crt.advproject.config.exe.debug"/>
+    <definition extID="com.crt.advproject.config.exe.release"/>
+  </externalDefinitions>
+  <example id="mimxrt700evk_lpi2c_interrupt_b2b_transfer_master_cm33_core0" name="lpi2c_interrupt_b2b_transfer_master_cm33_core0" device_core="cm33_core0_MIMXRT798S" dependency="platform.drivers.lpflexcomm_lpi2c.MIMXRT798S utility.debug_console_lite.MIMXRT798S platform.utilities.assert_lite.MIMXRT798S platform.utilities.misc_utilities.MIMXRT798S platform.drivers.clock.MIMXRT798S platform.drivers.common.MIMXRT798S device.MIMXRT798S_CMSIS.MIMXRT798S component.lpuart_adapter.MIMXRT798S platform.drivers.power.MIMXRT798S platform.drivers.cache_xcache.MIMXRT798S platform.drivers.lpflexcomm_lpuart.MIMXRT798S component.lists.MIMXRT798S platform.drivers.flash_config.mimxrt700evk.MIMXRT798S device.MIMXRT798S_startup.MIMXRT798S platform.drivers.lpflexcomm.MIMXRT798S platform.drivers.lpc_iopctl.MIMXRT798S platform.drivers.gpio.MIMXRT798S platform.drivers.reset.MIMXRT798S platform.drivers.xspi.MIMXRT798S platform.drivers.glikey.MIMXRT798S utility.str.MIMXRT798S CMSIS_Include_core_cm.MIMXRT798S device.MIMXRT798S_system.MIMXRT798S" category="driver_examples/lpi2c">
+    <projects>
+      <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
+    </projects>
+    <memory>
+      <memoryBlock id="QSPI_FLASH_MIMXRT798S" name="QSPI_FLASH" addr="28000000" size="04000000" type="ExtFlash" access="RO"/>
+      <memoryBlock id="SRAM_MIMXRT798S" name="SRAM" addr="20080000" size="00180000" type="RAM" access="RW"/>
+      <memoryBlock id="NCACHE_REGION_MIMXRT798S" name="NCACHE_REGION" addr="20200000" size="00200000" type="RAM" access="RW"/>
+    </memory>
+    <toolchainSettings>
+      <toolchainSetting id_refs="com.nxp.mcuxpresso">
+        <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList">
+          <value>CPU_MIMXRT798SGFOA_cm33_core0</value>
+          <value>BOOT_HEADER_ENABLE=1</value>
+          <value>FSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1</value>
+          <value>MCUXPRESSO_SDK</value>
+        </option>
+        <option id="com.crt.advproject.gas.fpu" type="enum">
+          <value>com.crt.advproject.gas.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="com.crt.advproject.gcc.fpu" type="enum">
+          <value>com.crt.advproject.gcc.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="gnu.c.compiler.option.optimization.flags" type="string">
+          <value>-fno-common</value>
+        </option>
+        <option id="com.crt.advproject.c.misc.dialect" type="enum">
+          <value>com.crt.advproject.misc.dialect.gnu99</value>
+        </option>
+        <option id="gnu.c.compiler.option.misc.other" type="string">
+          <value>-mcpu=cortex-m33 -c -ffunction-sections -fdata-sections -fno-builtin</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="gnu.c.compiler.option.warnings.toerrors" type="boolean">
+          <value>false</value>
+        </option>
+        <option id="com.crt.advproject.link.fpu" type="enum">
+          <value>com.crt.advproject.link.fpu.fpv5sp.hard</value>
+        </option>
+        <option id="gnu.c.link.option.nostdlibs" type="boolean">
+          <value>true</value>
+        </option>
+        <option id="com.crt.advproject.link.memory.sections" type="stringList">
+          <value>isd=*(NonCacheable.init);region=NCACHE_REGION;type=.data</value>
+          <value>isd=*(NonCacheable);region=NCACHE_REGION;type=.bss</value>
+        </option>
+        <option id="gnu.c.link.option.other" type="stringList">
+          <value>-no-warn-rwx-segments</value>
+        </option>
+      </toolchainSetting>
+    </toolchainSettings>
+    <debug_configurations>
+      <debug_configuration id_refs="com.crt.advproject.config.exe.debug com.crt.advproject.config.exe.release">
+        <drivers>
+          <driver id_refs="QSPI_FLASH_MIMXRT798S">
+            <driverBinary path="../../../../../../../devices/MIMXRT798S/mcuxpresso" project_relative_path="binary" type="binary">
+              <files mask="MIMXRT700_XSPI0_Octal.cfx"/>
+            </driverBinary>
+          </driver>
+        </drivers>
+      </debug_configuration>
+    </debug_configurations>
+    <include_paths>
+      <include_path path="." project_relative_path="mimxrt700evk/driver_examples/lpi2c/interrupt_b2b_transfer/master/cm33_core0" type="c_include"/>
+      <include_path path="." project_relative_path="board" type="c_include"/>
+    </include_paths>
+    <source path="armgcc" project_relative_path="./" type="workspace" toolchain="armgcc">
+      <files mask="build_all.bat"/>
+      <files mask="build_all.sh"/>
+      <files mask="clean.bat"/>
+      <files mask="clean.sh"/>
+      <files mask="CMakeLists.txt"/>
+      <files mask="flags.cmake"/>
+      <files mask="config.cmake"/>
+      <files mask="build_debug.bat"/>
+      <files mask="build_debug.sh"/>
+      <files mask="build_release.bat"/>
+      <files mask="build_release.sh"/>
+      <files mask="build_flash_debug.bat"/>
+      <files mask="build_flash_debug.sh"/>
+      <files mask="build_flash_release.bat"/>
+      <files mask="build_flash_release.sh"/>
+    </source>
+    <source path="../../../../../../../devices/MIMXRT798S" project_relative_path="./" type="workspace" toolchain="armgcc">
+      <files mask="all_lib_device.cmake"/>
+    </source>
+    <source path="." project_relative_path="doc" type="doc" toolchain="mcuxpresso armgcc">
+      <files mask="readme.md"/>
+    </source>
+    <source path="armgcc" project_relative_path="MIMXRT798S/gcc" type="linker" toolchain="armgcc">
+      <files mask="MIMXRT798Sxxxx_cm33_core0_ram.ld"/>
+      <files mask="MIMXRT798Sxxxx_cm33_core0_flash.ld"/>
+    </source>
+    <source path="." project_relative_path="source" type="src">
+      <files mask="lpi2c_interrupt_b2b_transfer_master.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="pin_mux.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="pin_mux.h"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="board.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="board.h"/>
+    </source>
+    <source path="." project_relative_path="board" type="src">
+      <files mask="clock_config.c"/>
+    </source>
+    <source path="." project_relative_path="board" type="c_include">
+      <files mask="clock_config.h"/>
+    </source>
+  </example>
+</ksdk:examples>

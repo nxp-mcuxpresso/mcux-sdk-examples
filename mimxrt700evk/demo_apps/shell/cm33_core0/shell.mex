@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding= "UTF-8" ?>
+<configuration name="MIMXRT798S" xsi:schemaLocation="http://mcuxpresso.nxp.com/XSD/mex_configuration_16 http://mcuxpresso.nxp.com/XSD/mex_configuration_16.xsd" uuid="bf4dae20-6011-416e-8228-0e9960a591ec" version="16" xmlns="http://mcuxpresso.nxp.com/XSD/mex_configuration_16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <common>
+      <processor>MIMXRT798S</processor>
+      <package>MIMXRT798SGFOA</package>
+      <mcu_data>ksdk2_0</mcu_data>
+      <cores selected="cm33_core0">
+         <core name="Cortex-M33 (Core #0)" id="cm33_core0" description=""/>
+         <core name="Cortex-M33 (Core #1)" id="cm33_core1" description=""/>
+      </cores>
+      <description></description>
+   </common>
+   <preferences>
+      <validate_boot_init_only>true</validate_boot_init_only>
+      <generate_extended_information>false</generate_extended_information>
+      <generate_code_modified_registers_only>false</generate_code_modified_registers_only>
+      <custom_copyright>
+         <text>/*
+ * Copyright 2024 NXP
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+</text>
+         <enabled>true</enabled>
+      </custom_copyright>
+      <update_include_paths>true</update_include_paths>
+      <generate_registers_defines>false</generate_registers_defines>
+   </preferences>
+   <tools>
+      <pins name="Pins" version="15.0" enabled="true" update_project_code="true">
+         <pins_profile>
+            <processor_version>0.0.0</processor_version>
+         </pins_profile>
+         <functions_list>
+            <function name="BOARD_InitPins">
+               <description>Configures pin routing and optionally pin electrical features.</description>
+               <options>
+                  <callFromInitBoot>true</callFromInitBoot>
+                  <coreID>cm33_core0</coreID>
+                  <enableClock>true</enableClock>
+               </options>
+               <dependencies>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Pins initialization requires the COMMON Driver in the project." problem_level="2" source="Pins:BOARD_InitPins">
+                     <feature name="enabled" evaluation="equal" configuration="cm33_core0">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.lpc_iopctl" description="Pins initialization requires the LPC_IOPCTL Driver in the project." problem_level="2" source="Pins:BOARD_InitPins">
+                     <feature name="enabled" evaluation="equal" configuration="cm33_core0">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+               </dependencies>
+               <pins>
+                  <pin peripheral="LP_FLEXCOMM0" signal="P0" pin_num="N4" pin_signal="PIO0_31/LP_FLEXCOMM0_P0/UTICK0_CAP2/SCT0_OUT8/CTIMER4_MAT0">
+                     <pin_features>
+                        <pin_feature name="input_buffer" value="enable"/>
+                     </pin_features>
+                  </pin>
+                  <pin peripheral="LP_FLEXCOMM0" signal="P1" pin_num="N5" pin_signal="PIO1_0/LP_FLEXCOMM0_P1/SCT0_OUT9/CTIMER4_MAT1"/>
+                  <pin peripheral="GPIO0" signal="GPIO, 18" pin_num="M7" pin_signal="PIO0_18/LP_FLEXCOMM6_P6/SCT0_GPIN1/SCT0_OUT1/CTIMER2_MAT1/SAI1_RX_DATA"/>
+                  <pin peripheral="GPIO0" signal="GPIO, 17" pin_num="N6" pin_signal="PIO0_17/LP_FLEXCOMM6_P5/SCT0_GPIN0/SCT0_OUT0/CTIMER2_MAT0/SAI1_RX_BCLK"/>
+               </pins>
+            </function>
+         </functions_list>
+      </pins>
+      <clocks name="Clocks" version="14.0" enabled="true" update_project_code="true">
+         <clocks_profile>
+            <processor_version>0.0.0</processor_version>
+         </clocks_profile>
+         <clock_configurations>
+            <clock_configuration name="BOARD_BootClockRUN" id_prefix="" prefix_user_defined="false">
+               <description></description>
+               <options/>
+               <dependencies/>
+               <clock_sources/>
+               <clock_outputs>
+                  <clock_output id="CLKCTL2.audio_pll_vco_vdd1_sense.outFreq" value="384 MHz" locked="false" accuracy=""/>
+                  <clock_output id="CLKCTL2.audio_pll_vco_vdd2_com.outFreq" value="384 MHz" locked="false" accuracy=""/>
+                  <clock_output id="CLKCTL2.audio_pll_vco_vdd2_comp.outFreq" value="384 MHz" locked="false" accuracy=""/>
+                  <clock_output id="CLKCTL2.audio_pll_vco_vdd2_dsp.outFreq" value="384 MHz" locked="false" accuracy=""/>
+                  <clock_output id="CLKCTL2.audio_pll_vco_vdd2_media.outFreq" value="384 MHz" locked="false" accuracy=""/>
+                  <clock_output id="CLKCTL2.audio_pll_vco_vddn_com.outFreq" value="384 MHz" locked="false" accuracy=""/>
+                  <clock_output id="CLKCTL2.audio_pll_vco_vddn_media.outFreq" value="384 MHz" locked="false" accuracy=""/>
+                  <clock_output id="COMM2_CLKOUT.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="COMMON_RAM_CLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="COMMON_VDDN_CLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="COMPUTE_MAIN_CLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="COMPUTE_SYSTICK_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="COMPUTE_TPIU_CLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="CTIMER0_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="CTIMER1_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="CTIMER2_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="CTIMER3_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="CTIMER4_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="CTIMER5_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="CTIMER6_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="CTIMER7_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="DCPIXEL_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="DPHY_BIT_CLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="DPHY_RX_CLK.outFreq" value="64/17 MHz" locked="false" accuracy=""/>
+                  <clock_output id="DPHY_TX_CLK.outFreq" value="32000/153 kHz" locked="false" accuracy=""/>
+                  <clock_output id="DSP_CLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FLEXCOMM0_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FLEXCOMM10_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FLEXCOMM11_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FLEXCOMM12_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FLEXCOMM13_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FLEXCOMM17_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FLEXCOMM18_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FLEXCOMM19_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FLEXCOMM1_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FLEXCOMM20_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FLEXCOMM2_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FLEXCOMM3_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FLEXCOMM4_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FLEXCOMM5_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FLEXCOMM6_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FLEXCOMM7_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FLEXCOMM8_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FLEXCOMM9_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="FLEXIO_CLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="GPU_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="I3C01_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="I3C01_PCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="I3C23_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="LPI2C_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="LPSPI14_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="LPSPI16_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="MEDIA_MAIN_CLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="MEDIA_VDDN_CLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="MICFIL_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="OSEVENT_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="SAI012_CLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="SAI3_CLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="SARADC_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="SCT_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="SDADC_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="SDIO0_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="SDIO1_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="SENSE_CLKOUT.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="SENSE_DSP_CLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="SENSE_MAIN_CLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="SENSE_RAM_CLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="SENSE_SYSTICK_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="USB_WAKE_CLK.outFreq" value="976.5625 Hz" locked="false" accuracy=""/>
+                  <clock_output id="UTICK0_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="UTICK1_CLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="WDT0_FCLK.outFreq" value="1 MHz" locked="false" accuracy=""/>
+                  <clock_output id="WDT1_FCLK.outFreq" value="1 MHz" locked="false" accuracy=""/>
+                  <clock_output id="WDT2_FCLK.outFreq" value="1 MHz" locked="false" accuracy=""/>
+                  <clock_output id="WDT3_FCLK.outFreq" value="1 MHz" locked="false" accuracy=""/>
+                  <clock_output id="XSPI0_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="XSPI0_FCLK_DIV2.outFreq" value="16 MHz" locked="false" accuracy=""/>
+                  <clock_output id="XSPI1_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="XSPI1_FCLK_DIV2.outFreq" value="16 MHz" locked="false" accuracy=""/>
+                  <clock_output id="XSPI2_FCLK.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="XSPI2_FCLK_DIV2.outFreq" value="16 MHz" locked="false" accuracy=""/>
+                  <clock_output id="baseclk_cmpt.outFreq" value="64 MHz" locked="false" accuracy=""/>
+                  <clock_output id="baseclk_com2.outFreq" value="64 MHz" locked="false" accuracy=""/>
+                  <clock_output id="baseclk_comn.outFreq" value="64 MHz" locked="false" accuracy=""/>
+                  <clock_output id="baseclk_dsp.outFreq" value="64 MHz" locked="false" accuracy=""/>
+                  <clock_output id="baseclk_md2.outFreq" value="64 MHz" locked="false" accuracy=""/>
+                  <clock_output id="baseclk_mdn.outFreq" value="64 MHz" locked="false" accuracy=""/>
+                  <clock_output id="baseclk_sense.outFreq" value="64 MHz" locked="false" accuracy=""/>
+                  <clock_output id="eUSB_WAKE_CLK.outFreq" value="976.5625 Hz" locked="false" accuracy=""/>
+                  <clock_output id="fro0_div2.outFreq" value="150 MHz" locked="false" accuracy=""/>
+                  <clock_output id="fro0_div3.outFreq" value="100 MHz" locked="false" accuracy=""/>
+                  <clock_output id="fro0_div6.outFreq" value="50 MHz" locked="false" accuracy=""/>
+                  <clock_output id="fro0_div8.outFreq" value="37.5 MHz" locked="false" accuracy=""/>
+                  <clock_output id="fro0_max_vdd1_sense.outFreq" value="300 MHz" locked="false" accuracy=""/>
+                  <clock_output id="fro0_max_vdd2_com.outFreq" value="300 MHz" locked="false" accuracy=""/>
+                  <clock_output id="fro0_max_vdd2_comp.outFreq" value="300 MHz" locked="false" accuracy=""/>
+                  <clock_output id="fro0_max_vdd2_dsp.outFreq" value="300 MHz" locked="false" accuracy=""/>
+                  <clock_output id="fro0_max_vdd2_media.outFreq" value="300 MHz" locked="false" accuracy=""/>
+                  <clock_output id="fro0_max_vddn_com.outFreq" value="300 MHz" locked="false" accuracy=""/>
+                  <clock_output id="fro0_max_vddn_media.outFreq" value="300 MHz" locked="false" accuracy=""/>
+                  <clock_output id="fro1_div2.outFreq" value="96 MHz" locked="false" accuracy=""/>
+                  <clock_output id="fro1_div3.outFreq" value="64 MHz" locked="false" accuracy=""/>
+                  <clock_output id="fro1_div6.outFreq" value="32 MHz" locked="false" accuracy=""/>
+                  <clock_output id="fro1_div8.outFreq" value="24 MHz" locked="false" accuracy=""/>
+                  <clock_output id="fro1_max.outFreq" value="192 MHz" locked="false" accuracy=""/>
+                  <clock_output id="fro2_div2.outFreq" value="99 MHz" locked="false" accuracy=""/>
+                  <clock_output id="fro2_div3.outFreq" value="66 MHz" locked="false" accuracy=""/>
+                  <clock_output id="fro2_div6.outFreq" value="33 MHz" locked="false" accuracy=""/>
+                  <clock_output id="fro2_div8.outFreq" value="24.75 MHz" locked="false" accuracy=""/>
+                  <clock_output id="fro2_max_vdd1_sense.outFreq" value="198 MHz" locked="false" accuracy=""/>
+                  <clock_output id="fro2_max_vdd2_com.outFreq" value="198 MHz" locked="false" accuracy=""/>
+                  <clock_output id="fro2_max_vdd2_comp.outFreq" value="198 MHz" locked="false" accuracy=""/>
+                  <clock_output id="fro2_max_vdd2_dsp.outFreq" value="198 MHz" locked="false" accuracy=""/>
+                  <clock_output id="fro2_max_vdd2_media.outFreq" value="198 MHz" locked="false" accuracy=""/>
+                  <clock_output id="fro2_max_vddn_com.outFreq" value="198 MHz" locked="false" accuracy=""/>
+                  <clock_output id="fro2_max_vddn_media.outFreq" value="198 MHz" locked="false" accuracy=""/>
+                  <clock_output id="lposc_1m.outFreq" value="1 MHz" locked="false" accuracy=""/>
+                  <clock_output id="wake32k_clk.outFreq" value="976.5625 Hz" locked="false" accuracy=""/>
+               </clock_outputs>
+               <clock_settings/>
+               <called_from_default_init>true</called_from_default_init>
+            </clock_configuration>
+         </clock_configurations>
+      </clocks>
+      <dcdx name="DCDx" version="3.0" enabled="false" update_project_code="true">
+         <dcdx_profile>
+            <processor_version>N/A</processor_version>
+         </dcdx_profile>
+         <dcdx_configurations/>
+      </dcdx>
+      <periphs name="Peripherals" version="15.0" enabled="false" update_project_code="true">
+         <peripherals_profile>
+            <processor_version>N/A</processor_version>
+         </peripherals_profile>
+         <functional_groups/>
+         <components/>
+      </periphs>
+      <tee name="TEE" version="7.0" enabled="false" update_project_code="true">
+         <tee_profile>
+            <processor_version>N/A</processor_version>
+         </tee_profile>
+      </tee>
+   </tools>
+</configuration>
