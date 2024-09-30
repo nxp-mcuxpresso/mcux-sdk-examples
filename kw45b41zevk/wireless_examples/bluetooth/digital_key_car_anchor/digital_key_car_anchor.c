@@ -7,11 +7,7 @@
 *
 * Copyright 2020-2024 NXP
 *
-* NXP Confidential Proprietary
-*
-* No part of this document must be reproduced in any form - including copied,
-* transcribed, printed or by any electronic means - without specific written
-* permission from NXP.
+* SPDX-License-Identifier: BSD-3-Clause
 ********************************************************************************** */
 
 /************************************************************************************

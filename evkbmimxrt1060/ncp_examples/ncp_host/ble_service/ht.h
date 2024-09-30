@@ -6,7 +6,7 @@
  */
 
 /*!\file ht.h
- * \brief Health Thermometer Profile defineations.
+ * \brief Health Thermometer Profile definitions.
  */
 
 #ifndef __HT_H_
@@ -51,11 +51,11 @@ extern "C" {
 
 
 /** Client Characteristic Configuration Notification.
- * If set, changes to Characteristic Value shall be notified.
+ * If set, changes to Characteristic Value are notified.
  */
 #define BT_GATT_CCC_NOTIFY			0x0001
 /** Client Characteristic Configuration Indication.
- * If set, changes to Characteristic Value shall be indicated.
+ * If set, changes to Characteristic Value are indicated.
  */
 #define BT_GATT_CCC_INDICATE			0x0002
 
@@ -122,7 +122,7 @@ enum
  * API
  ******************************************************************************/
 /**
- * Start Central HTC Service
+ * Start central HTC (Health Thermometer) service
  * 
  * \return void
  */
@@ -149,7 +149,7 @@ void central_notify(uint8_t *data);
  */
 void hts_init(void);
 /**
- * count binary semaphore to wait HTS write characteristic response event
+ * Count binary semaphore to wait for HTS write characteristic response event
  * 
  * \param[in] flag flag to wait
  * 

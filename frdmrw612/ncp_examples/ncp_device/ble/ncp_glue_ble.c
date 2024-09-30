@@ -679,9 +679,6 @@ int ble_prepare_status(uint32_t cmd,
 }
 
 struct cmd_t ble_cmd_core[] = {
-   {NCP_CMD_BLE_CORE_SUPPORT_CMD, "read supported commands", ble_read_support_cmd, CMD_SYNC},
-   {NCP_CMD_BLE_CORE_SUPPORT_SER, "read supported services", ble_read_support_ser, CMD_SYNC},
-   {NCP_CMD_BLE_CORE_RESET, "reset board", ble_reset_board, CMD_SYNC}, 
    {NCP_CMD_INVALID, NULL, NULL, NULL},
 };
 struct cmd_t ble_cmd_gap[] = {

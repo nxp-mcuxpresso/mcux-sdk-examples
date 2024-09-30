@@ -30,6 +30,17 @@
 /****************************************************************************/
 /***        Macro Definitions                                             ***/
 /****************************************************************************/
+#ifdef R23_UPDATES
+/* Uncomment this to enable DLK with AES-128 */
+//#define R23_DLK_AES128_ENABLE 1
+#endif
+#if R23_DLK_AES128_ENABLE
+#define R23_DLK_SHARED_SECRETS_MASK 0
+#define R23_DLK_KEY_PROTO_NEGOTIATION_MASK ZPS_TLV_G_SUPPKEYNEGMETH_SPEKEAES128
+#else
+#define R23_DLK_SHARED_SECRETS_MASK 0
+#define R23_DLK_KEY_PROTO_NEGOTIATION_MASK 0
+#endif /* R23_DLK_AES128_ENABLE */
 
 /****************************************************************************/
 /***        Type Definitions                                              ***/
@@ -145,8 +156,9 @@ uint8 au8TestTlvs1[sizeof(au8Storage_Tlv5) + sizeof(au8Storage_Tlv6)];
 TLV_ENCAPS(g_sPermitJoinReqTlvs, APP_SIZE_PERMITJOINREQ_TLV, m_, tuSupportedKeyNegotiationMethods, m_, tuFragParams) =
 {
         .u8Tag = ZPS_TLV_G_BEACONAPPENCAPS, .u8Len = sizeof(tuSupportedKeyNegotiationMethods) + sizeof(tuFragParams) - 1,
-        { .u8KeyNegotProtMask = ZPS_TLV_G_SUPPKEYNEGMETH_STATKEYREQ,
-          .u8SharedSecretsMask = 0,
+        { .u8KeyNegotProtMask = ZPS_TLV_G_SUPPKEYNEGMETH_STATKEYREQ
+                                | R23_DLK_KEY_PROTO_NEGOTIATION_MASK,
+          .u8SharedSecretsMask = R23_DLK_SHARED_SECRETS_MASK,
           .au8SrcIeeeAddr = {0},
           .u8Tag = ZPS_TLV_G_SUPPKEYNEGMETH, .u8Len = sizeof(tuSupportedKeyNegotiationMethods) - sizeof(tsTlvGeneric) - 1 },
         { .u16NodeId = 1, .u8FragOpt = 2, .u16InMaxLen = 10,
@@ -192,6 +204,9 @@ void APP_vInitialiseCoordinator(void)
                             sizeof(eNodeState),
                             &u16ByteRead);
 
+    void *pvNwk = ZPS_pvAplZdoGetNwkHandle();
+    pvNwk = pvNwk;
+
 #if !(defined(ENABLE_SUBG_IF))
     APP_SetHighTxPowerMode();
 #endif
@@ -207,12 +222,21 @@ void APP_vInitialiseCoordinator(void)
     ZPS_eAplAfInit();
 
 #ifdef R23_UPDATES
-    ZPS_vNwkNibSetBeaconAppendix(ZPS_pvAplZdoGetNwkHandle(), FALSE, TRUE,
-          sizeof(au8TestTlvs), (tsTlvGeneric *)au8TestTlvs);
-#endif
+    /* All the network wide TLVs are kept in the app inside an
+     * encapsulation and its payload is passed to the beacon API */
+    ZPS_vNwkNibSetBeaconAppendix(pvNwk, TRUE, FALSE,
+            g_sPermitJoinReqTlvs.u8Len + 1,
+            (tsTlvGeneric *)((uint8 *)&g_sPermitJoinReqTlvs + ZPS_TLV_HDR_SIZE));
+    /* All the local TLVs are kept as a set/collection */
+    ZPS_vNwkNibSetBeaconAppendix(pvNwk, FALSE, TRUE,
+            sizeof(au8TestTlvs), (tsTlvGeneric *)au8TestTlvs);
+
+    ZPS_eAplAibSetKeyNegotiationOptions(
+            g_sPermitJoinReqTlvs.m_tuSupportedKeyNegotiationMethods.u8KeyNegotProtMask,
+            g_sPermitJoinReqTlvs.m_tuSupportedKeyNegotiationMethods.u8SharedSecretsMask);
+#endif /* R23_UPDATES */
 
 #ifdef ENABLE_SUBG_IF
-    void *pvNwk = ZPS_pvAplZdoGetNwkHandle();
 
     ZPS_vNwkNibSetMacEnhancedMode(pvNwk, TRUE);
     ZPS_u8MacMibIeeeSetPolicy(FALSE);
@@ -525,6 +549,31 @@ void vAppHandleZdoEvents( BDB_tsZpsAfEvent *psZpsAfEvent)
         case ZPS_EVENT_NWK_NEW_NODE_HAS_JOINED:
             DBG_vPrintf(TRACE_APP, "APP-ZDO: New Node %04x Has Joined\r\n",
                     psAfEvent->uEvent.sNwkJoinIndicationEvent.u16NwkAddr);
+#if R23_DLK_AES128_ENABLE
+            /* ZigBeeAlliance18 well known pass-phrase */
+            uint8 au8Passphrase[] = {
+                    0x5a,
+                    0x69,
+                    0x67,
+                    0x42,
+                    0x65,
+                    0x65,
+                    0x41,
+                    0x6c,
+                    0x6c,
+                    0x69,
+                    0x61,
+                    0x6e,
+                    0x63,
+                    0x65,
+                    0x31,
+                    0x38
+            };
+
+            ZPS_eAplAibSetDeviceApsDlkPassphrase(
+                    psAfEvent->uEvent.sNwkJoinIndicationEvent.u64ExtAddr,
+                    au8Passphrase, sizeof(au8Passphrase));
+#endif /* R23_DLK_AES128_ENABLE */
             break;
 
         case ZPS_EVENT_NWK_DISCOVERY_COMPLETE:

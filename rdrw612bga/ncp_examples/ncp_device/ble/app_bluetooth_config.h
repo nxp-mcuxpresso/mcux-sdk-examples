@@ -86,7 +86,7 @@
 
 #define CONFIG_BT_RPA                               1
 #define CONFIG_BT_HCI_HOST                          1
-#define CONFIG_BT_HCI_TX_STACK_SIZE                 1024
+#define CONFIG_BT_HCI_TX_STACK_SIZE                 2048
 #define CONFIG_BT_HCI_ECC_STACK_SIZE                1140
 #define CONFIG_BT_RECV_BLOCKING                     1
 #define CONFIG_BT_RX_STACK_SIZE                     2500
@@ -143,27 +143,6 @@
 //#define CONFIG_BT_SNOOP 1
 
 #define CONFIG_BLE_ADV_REPORT_BUFFER_LIMIT          1
-
-#if CONFIG_MONOLITHIC_BT || CONFIG_MONOLITHIC_IEEE802154
-#define gPlatformMonolithicApp_d        1
-
-#if CONFIG_MONOLITHIC_WIFI
-#undef WIFI_FW_ADDRESS
-#else
-#define WIFI_FW_ADDRESS 0
-#endif
-
-#if CONFIG_MONOLITHIC_BT
-#define COMBO_FW_ADDRESS 0
-#undef BLE_FW_ADDRESS
-#endif
-
-#if CONFIG_MONOLITHIC_IEEE802154
-#undef COMBO_FW_ADDRESS 
-#define BLE_FW_ADDRESS 0
-#endif
-
-#endif
 
 #include "edgefast_bluetooth_config.h"
 

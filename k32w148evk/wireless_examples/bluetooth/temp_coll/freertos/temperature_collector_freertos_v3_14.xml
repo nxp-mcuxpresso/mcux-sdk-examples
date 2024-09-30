@@ -320,8 +320,9 @@
     <source path="." project_relative_path="source" type="c_include">
       <files mask="app_preinclude_common.h"/>
     </source>
-    <source path="../../../../../../middleware/wireless/ble_controller/bin" project_relative_path="source" type="binary">
-      <files mask="k32w1_nbu_ble_hosted.bin"/>
+    <source path="../../../../../../middleware/wireless/ble_controller/bin" project_relative_path="source" type="other">
+      <files mask="k32w1_nbu_ble_1_9_14_1.xip"/>
+      <files mask="k32w1_nbu_ble_1_9_14_1.sb3"/>
     </source>
   </example>
 </ksdk:examples>

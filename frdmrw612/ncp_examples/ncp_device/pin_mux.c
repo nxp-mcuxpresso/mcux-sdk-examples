@@ -28,8 +28,8 @@ void BOARD_InitBootPins(void)
  * END ****************************************************************************************************************/
 void BOARD_InitPins(void) {                                /*!< Function assigned for the core: Cortex-M33[cm33] */
     IO_MUX_SetPinMux(IO_MUX_FC3_USART_DATA);
-    /* GPIO pin for PIN1 wakeup */
-    IO_MUX_SetPinMux(IO_MUX_GPIO25);
+    /* GPIO pin for PIN wakeup */
+    IO_MUX_SetPinMux(IO_MUX_GPIO42);
 #if CONFIG_NCP
     /* GPIO pin to wakeup external host */
     IO_MUX_SetPinMux(IO_MUX_GPIO50);

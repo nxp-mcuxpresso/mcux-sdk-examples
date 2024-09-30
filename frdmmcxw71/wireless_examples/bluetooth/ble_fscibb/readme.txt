@@ -1,17 +1,18 @@
 Overview
 ========
-The application implements a custom GATT based Wireless UART Profile that emulates UART over BLE.
+The application implements a dynamic GATT database over BLE.
 For more information, please consult the "BLE Demo Applications User's Guide".
 
 Toolchain supported
 ===================
 - IAR embedded Workbench (ide version details are in the Release Notes)
 - MCUXpresso IDE (ide version details are in the Release Notes)
+- GCC ARM Embedded (ide version details are in the Release Notes)
 
 Hardware requirements
 =====================
 - Mini/micro USB cable
-- frdmmcxw7x board
+- frdmmcxw71 board
 
 Board settings
 ==============

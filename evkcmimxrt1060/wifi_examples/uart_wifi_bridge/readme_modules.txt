@@ -26,3 +26,5 @@ M.2 connector:
 
 For connection with Embedded Artists 2DS M.2 Module (EAR00386):
   - remove R2163
+
+Connect external power supply to J45, set J40: 1-2 and turn on SW6.

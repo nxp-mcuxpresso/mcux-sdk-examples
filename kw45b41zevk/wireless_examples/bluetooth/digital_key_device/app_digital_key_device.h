@@ -5,13 +5,9 @@
 /*! *********************************************************************************
 * \file app_digital_key_device.h
 *
-* Copyright 2021 - 2022 NXP
+* Copyright 2021 - 2022, 2024 NXP
 *
-* NXP Confidential Proprietary
-*
-* No part of this document must be reproduced in any form - including copied,
-* transcribed, printed or by any electronic means - without specific written
-* permission from NXP.
+* SPDX-License-Identifier: BSD-3-Clause
 ********************************************************************************** */
 
 #ifndef APP_DIGITAL_KEY_DEVICE_H

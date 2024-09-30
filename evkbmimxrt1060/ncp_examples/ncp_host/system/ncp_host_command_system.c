@@ -202,6 +202,7 @@ int ncp_wake_cfg_command(int argc, char **argv)
 #endif
         (void)PRINTF("    wake_mode    : GPIO -- GPIO wakeup\r\n");
         (void)PRINTF("                   INTF -- Interface wakeup\r\n");
+        (void)PRINTF("                   WIFI-NB -- WIFI/BLE wakeup. For FRDM board only\r\n");
         (void)PRINTF("    subscribe_evt: 0 -- unsubscribe MCU device sleep status events\r\n");
         (void)PRINTF("                   1 -- subscribe MCU device sleep status events\r\n");
         (void)PRINTF("                   For GPIO mode, sleep status event is forced to be subscribed\r\n");
@@ -231,6 +232,11 @@ int ncp_wake_cfg_command(int argc, char **argv)
     else if (!strncmp(argv[1], "GPIO", 4))
     {
         wake_mode     = WAKE_MODE_GPIO;
+        subscribe_evt = 1;
+    }
+    else if (!strncmp(argv[1], "WIFI-NB", 7))
+    {
+        wake_mode = WAKE_MODE_WIFI_NB;
         subscribe_evt = 1;
     }
     else
@@ -270,7 +276,14 @@ int ncp_process_wake_cfg_response(uint8_t *res)
         (void)PRINTF("Please issue ncp-mcu-sleep command to enable new configs\r\n");
     }
     else
+    {
         (void)PRINTF("Wake mode cfg is failed!\r\n");
+        global_power_config.wake_mode     = 0;
+        global_power_config.subscribe_evt = 0;
+#if !CONFIG_NCP_BLE
+        global_power_config.wake_duration = 0;
+#endif
+    }
 
     return NCP_SUCCESS;
 }
@@ -298,6 +311,9 @@ int ncp_mcu_sleep_command(int argc, char **argv)
 #endif
         (void)PRINTF("                 pm     - Power Manager.\r\n");
         (void)PRINTF("    rtc_timeout: RTC timer value. Unit is second. For Power Manager only!\r\n");
+#if (CONFIG_NCP_BLE && CONFIG_NCP_USB)
+        (void)PRINTF("                 Note: Will be ignored when using USB interface wakeup!\r\n");
+#endif
         (void)PRINTF("Examples:\r\n");
         (void)PRINTF("    ncp-mcu-sleep 1 pm 5\r\n");
 #if CONFIG_NCP_WIFI
@@ -455,7 +471,10 @@ int ncp_get_mcu_sleep_conf_command(int argc, char **argv)
         global_power_config.subscribe_evt = 1;
         global_power_config.wake_duration = 5;
     }
-    PRINTF("Wake mode: %s\r\n", global_power_config.wake_mode == WAKE_MODE_GPIO ? "GPIO" : "UART");
+    if (global_power_config.wake_mode == WAKE_MODE_WIFI_NB)
+        PRINTF("Wake mode: WIFI-NB\r\n");
+    else
+        PRINTF("Wake mode: %s\r\n", global_power_config.wake_mode == WAKE_MODE_GPIO ? "GPIO" : "UART");
     PRINTF("Subscribe event: %s\r\n", global_power_config.subscribe_evt ? "enabled" : "disabled");
     PRINTF("Wake duration: %ds\r\n", global_power_config.wake_duration);
 #if CONFIG_NCP_WIFI
@@ -552,8 +571,10 @@ int ncp_process_sleep_status(uint8_t *res)
     {
         NCP_HOST_COMMAND sleep_cfm;
 
+#if !CONFIG_NCP_BLE
         if(global_power_config.subscribe_evt)
-            ncp_d("MCU device enters sleep mode");
+            PRINTF("MCU device enters sleep mode\r\n");
+#endif
         memset(&sleep_cfm, 0x0, sizeof(sleep_cfm));
         ncp_mcu_sleep_cfm(&sleep_cfm);
         status = (int)ncp_tlv_send((void *)&sleep_cfm, sleep_cfm.size);
@@ -570,8 +591,10 @@ int ncp_process_sleep_status(uint8_t *res)
     }
     else
     {
+#if !CONFIG_NCP_BLE
         if(global_power_config.subscribe_evt)
-            ncp_d("MCU device exits sleep mode");
+            PRINTF("MCU device exits sleep mode\r\n");
+#endif
         mcu_device_status = MCU_DEVICE_STATUS_ACTIVE;
         if (global_power_config.wake_mode == WAKE_MODE_GPIO)
         {

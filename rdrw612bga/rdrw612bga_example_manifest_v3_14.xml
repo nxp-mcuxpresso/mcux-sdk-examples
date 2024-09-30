@@ -13,82 +13,82 @@
             <files mask="nbu_bb_bm_v3_14.xml"/>
           </external>
         </example>
-        <example id="rdrw612bga_edgefast_bluetooth_shell" name="edgefast_bluetooth_shell" brief="The Edgefast Bluetooth shell example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/shell">
+        <example id="rdrw612bga_edgefast_bluetooth_shell" name="edgefast_bluetooth_shell" brief="The EdgeFast BLE/BR/EDR shell example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/shell">
           <external path="edgefast_bluetooth_examples/shell" type="xml">
             <files mask="edgefast_bluetooth_shell_v3_14.xml"/>
           </external>
         </example>
-        <example id="rdrw612bga_peripheral_ht" name="peripheral_ht" brief="The Edgefast Bluetooth hts example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/peripheral_ht">
+        <example id="rdrw612bga_peripheral_ht" name="peripheral_ht" brief="The EdgeFast BLE peripheral ht example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/peripheral_ht">
           <external path="edgefast_bluetooth_examples/peripheral_ht" type="xml">
             <files mask="peripheral_ht_v3_14.xml"/>
           </external>
         </example>
-        <example id="rdrw612bga_central_ht" name="central_ht" brief="The Edgefast Bluetooth hts example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/central_ht">
+        <example id="rdrw612bga_central_ht" name="central_ht" brief="The EdgeFast BLE central ht example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/central_ht">
           <external path="edgefast_bluetooth_examples/central_ht" type="xml">
             <files mask="central_ht_v3_14.xml"/>
           </external>
         </example>
-        <example id="rdrw612bga_peripheral_ipsp" name="peripheral_ipsp" brief="The Edgefast Bluetooth ipsp example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/peripheral_ipsp">
+        <example id="rdrw612bga_peripheral_ipsp" name="peripheral_ipsp" brief="The EdgeFast BLE peripheral ipsp example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/peripheral_ipsp">
           <external path="edgefast_bluetooth_examples/peripheral_ipsp" type="xml">
             <files mask="peripheral_ipsp_v3_14.xml"/>
           </external>
         </example>
-        <example id="rdrw612bga_central_ipsp" name="central_ipsp" brief="The Edgefast Bluetooth ipsp example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/central_ipsp">
+        <example id="rdrw612bga_central_ipsp" name="central_ipsp" brief="The EdgeFast BLE central ipsp example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/central_ipsp">
           <external path="edgefast_bluetooth_examples/central_ipsp" type="xml">
             <files mask="central_ipsp_v3_14.xml"/>
           </external>
         </example>
-        <example id="rdrw612bga_peripheral_pxr" name="peripheral_pxr" brief="The Edgefast Bluetooth pxr example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/peripheral_pxr">
+        <example id="rdrw612bga_peripheral_pxr" name="peripheral_pxr" brief="The EdgeFast BLE peripheral pxr example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/peripheral_pxr">
           <external path="edgefast_bluetooth_examples/peripheral_pxr" type="xml">
             <files mask="peripheral_pxr_v3_14.xml"/>
           </external>
         </example>
-        <example id="rdrw612bga_central_pxm" name="central_pxm" brief="The Edgefast Bluetooth pxm example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/central_pxm">
+        <example id="rdrw612bga_central_pxm" name="central_pxm" brief="The EdgeFast BLE central pxm example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/central_pxm">
           <external path="edgefast_bluetooth_examples/central_pxm" type="xml">
             <files mask="central_pxm_v3_14.xml"/>
           </external>
         </example>
-        <example id="rdrw612bga_peripheral_hps" name="peripheral_hps" brief="The Edgefast Bluetooth hps example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/peripheral_hps">
+        <example id="rdrw612bga_peripheral_hps" name="peripheral_hps" brief="The EdgeFast BLE peripheral hps example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/peripheral_hps">
           <external path="edgefast_bluetooth_examples/peripheral_hps" type="xml">
             <files mask="peripheral_hps_v3_14.xml"/>
           </external>
         </example>
-        <example id="rdrw612bga_central_hpc" name="central_hpc" brief="The Edgefast Bluetooth hpc example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/central_hpc">
+        <example id="rdrw612bga_central_hpc" name="central_hpc" brief="The EdgeFast BLE central hpc example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/central_hpc">
           <external path="edgefast_bluetooth_examples/central_hpc" type="xml">
             <files mask="central_hpc_v3_14.xml"/>
           </external>
         </example>
-        <example id="rdrw612bga_wireless_uart" name="wireless_uart" brief="The Edgefast Bluetooth wireless uart example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/wireless_uart">
+        <example id="rdrw612bga_wireless_uart" name="wireless_uart" brief="The EdgeFast BLE wireless uart example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/wireless_uart">
           <external path="edgefast_bluetooth_examples/wireless_uart" type="xml">
             <files mask="wireless_uart_v3_14.xml"/>
           </external>
         </example>
-        <example id="rdrw612bga_peripheral_beacon" name="peripheral_beacon" brief="The Edgefast Bluetooth beacon example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/peripheral_beacon">
+        <example id="rdrw612bga_peripheral_beacon" name="peripheral_beacon" brief="The EdgeFast BLE peripheral beacon example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/peripheral_beacon">
           <external path="edgefast_bluetooth_examples/peripheral_beacon" type="xml">
             <files mask="peripheral_beacon_v3_14.xml"/>
           </external>
         </example>
-        <example id="rdrw612bga_central_fmp" name="central_fmp" brief="The Edgefast Bluetooth pxm example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/central_fmp">
+        <example id="rdrw612bga_central_fmp" name="central_fmp" brief="The EdgeFast BLE central fmp example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/central_fmp">
           <external path="edgefast_bluetooth_examples/central_fmp" type="xml">
             <files mask="central_fmp_v3_14.xml"/>
           </external>
         </example>
-        <example id="rdrw612bga_peripheral_fmp" name="peripheral_fmp" brief="The Edgefast Bluetooth fmp example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/peripheral_fmp">
+        <example id="rdrw612bga_peripheral_fmp" name="peripheral_fmp" brief="The EdgeFast BLE peripheral fmp example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/peripheral_fmp">
           <external path="edgefast_bluetooth_examples/peripheral_fmp" type="xml">
             <files mask="peripheral_fmp_v3_14.xml"/>
           </external>
         </example>
-        <example id="rdrw612bga_peripheral_tip" name="peripheral_tip" brief="The Edgefast Bluetooth tip example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/peripheral_tip">
+        <example id="rdrw612bga_peripheral_tip" name="peripheral_tip" brief="The EdgeFast BLE peripheral tip example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/peripheral_tip">
           <external path="edgefast_bluetooth_examples/peripheral_tip" type="xml">
             <files mask="peripheral_tip_v3_14.xml"/>
           </external>
         </example>
-        <example id="rdrw612bga_central_tip" name="central_tip" brief="The Edgefast Bluetooth tip example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/central_tip">
+        <example id="rdrw612bga_central_tip" name="central_tip" brief="The EdgeFast BLE central tip example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/central_tip">
           <external path="edgefast_bluetooth_examples/central_tip" type="xml">
             <files mask="central_tip_v3_14.xml"/>
           </external>
         </example>
-        <example id="rdrw612bga_wifi_cli_over_ble_wu" name="wifi_cli_over_ble_wu" brief="wifi_cli_over_ble_wu" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/wifi_cli_over_ble_wu">
+        <example id="rdrw612bga_wifi_cli_over_ble_wu" name="wifi_cli_over_ble_wu" brief="The EdgeFast BLE wifi cli over ble wu example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/rdrw612bga/edgefast_bluetooth_examples/wifi_cli_over_ble_wu">
           <external path="edgefast_bluetooth_examples/wifi_cli_over_ble_wu" type="xml">
             <files mask="wifi_cli_over_ble_wu_v3_14.xml"/>
           </external>
@@ -1096,11 +1096,6 @@
         <example id="rdrw612bga_wifi_cli" name="wifi_cli" brief="wifi_cli" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="examples/rdrw612bga/wifi_examples/wifi_cli">
           <external path="wifi_examples/wifi_cli" type="xml">
             <files mask="wifi_cli_v3_14.xml"/>
-          </external>
-        </example>
-        <example id="rdrw612bga_wifi_cli_static" name="wifi_cli_static" brief="wifi_cli_static" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="examples/rdrw612bga/wifi_examples/wifi_cli_static">
-          <external path="wifi_examples/wifi_cli_static" type="xml">
-            <files mask="wifi_cli_static_v3_14.xml"/>
           </external>
         </example>
         <example id="rdrw612bga_uart_wifi_bridge" name="uart_wifi_bridge" brief="uart_wifi_bridge" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wifi_examples" path="examples/rdrw612bga/wifi_examples/uart_wifi_bridge">

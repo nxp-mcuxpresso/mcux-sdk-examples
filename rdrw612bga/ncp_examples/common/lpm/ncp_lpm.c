@@ -355,6 +355,20 @@ void LPM_ConfigureNextLowPowerMode(uint8_t nextMode, uint32_t timeS)
 {
     (void)PWR_ReleaseLowPowerModeConstraint(currentMode); /* MISRA CID 26556646 */
     (void)PWR_SetLowPowerModeConstraint((PWR_LowpowerMode_t)nextMode);
+
+#if CONFIG_NCP_USB
+    if (nextMode == 2)
+    {
+        /* Set specific constraints for USB PM2 */
+        (void)PM_SetConstraints(PM_LP_STATE_PM2, 1, PM_RESC_USB_ANA_ACTIVE);
+    }
+    if (currentMode == 2)
+    {
+        /* Release specific constraints for USB PM2 */
+        (void)PM_ReleaseConstraints(PM_LP_STATE_PM2, 1, PM_RESC_USB_ANA_ACTIVE);
+    }
+#endif
+
     currentMode = (PWR_LowpowerMode_t)nextMode;
 
     if (timeS > 0U)
@@ -420,7 +434,14 @@ int LPM_Init(void)
     POWER_ClearResetCause(resetSrc);
 
     NVIC_SetPriority(RTC_IRQn, LPM_RTC_PIN1_PRIORITY);
-    NVIC_SetPriority(PIN1_INT_IRQn, LPM_RTC_PIN1_PRIORITY);
+    if(strcmp(BOARD_NAME, "FRDM-RW612") == 0)
+    {
+        NVIC_SetPriority(GPIO_INTA_IRQn, LPM_RTC_PIN1_PRIORITY);
+    }
+    else
+    {
+        NVIC_SetPriority(PIN1_INT_IRQn, LPM_RTC_PIN1_PRIORITY);
+    }
 #if CONFIG_POWER_MANAGER
     powerManager_Init();
 #endif

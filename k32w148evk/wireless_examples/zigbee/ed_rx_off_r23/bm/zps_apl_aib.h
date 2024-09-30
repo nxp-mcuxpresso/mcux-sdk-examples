@@ -347,6 +347,8 @@ PUBLIC ZPS_teStatus zps_eAplAibRemoveChallengeReqEntry(void* pvApl, uint64 u64Ad
 PUBLIC bool zps_eAplAibFindChallengeReqTableEntry(void* pvApl, uint64 u64Addr, ZPS_tsAplApsChallengeReqEntry **psChallengeReqEntry);
 PUBLIC ZPS_teStatus zps_eAplAibAddFragmentationTableEntry(void* pvApl, tuFragParams *psTlvFrag);
 PUBLIC bool zps_eAplAibFindFragmentationTableEntry(void* pvApl, uint16 u16Addr, ZPS_tsAplApsFragmentationEntry **psFragmentationEntry);
+PUBLIC ZPS_teStatus zps_eAplAibSetKeyNegotiationOptions(void *pvApl, uint8 u8Methods, uint8 u8SharedSecrets);
+PUBLIC ZPS_teStatus zps_eAplAibSetDeviceApsDlkPassphrase(void *pvApl, uint64 u64IeeeAddress, uint8 *pu8Passphrase, uint8 u8Len);
 #endif
 #if defined(R23_UPDATES) || defined(WWAH_SUPPORT)
 PUBLIC bool_t zps_bIsClusterReqWithApsKey(void *pvApl, uint8 u8Endpoint, uint16 u16ClusterId, ZPS_tuAddress uAddr, bool_t bExt);
@@ -483,6 +485,19 @@ ZPS_AIB_INLINE ZPS_tsAplApsKeyDescriptorEntry** ZPS_psAplDefaultTrustCenterAPSLi
     return zps_psAplDefaultTrustCenterAPSLinkKey(ZPS_pvAplZdoGetAplHandle());
 }
 
+#ifdef R23_UPDATES
+ZPS_AIB_INLINE ZPS_teStatus ZPS_eAplAibSetKeyNegotiationOptions(uint8 u8Methods, uint8 u8SharedSecrets) ALWAYS_INLINE;
+ZPS_AIB_INLINE ZPS_teStatus ZPS_eAplAibSetKeyNegotiationOptions(uint8 u8Methods, uint8 u8SharedSecrets)
+{
+    return zps_eAplAibSetKeyNegotiationOptions(ZPS_pvAplZdoGetAplHandle(), u8Methods, u8SharedSecrets);
+}
+
+ZPS_AIB_INLINE ZPS_teStatus ZPS_eAplAibSetDeviceApsDlkPassphrase(uint64 u64IeeeAddress, uint8 *pu8Passphrase, uint8 u8Len) ALWAYS_INLINE;
+ZPS_AIB_INLINE ZPS_teStatus ZPS_eAplAibSetDeviceApsDlkPassphrase(uint64 u64IeeeAddress, uint8 *pu8Passphrase, uint8 u8Len)
+{
+    return zps_eAplAibSetDeviceApsDlkPassphrase(ZPS_pvAplZdoGetAplHandle(), u64IeeeAddress, pu8Passphrase, u8Len);
+}
+#endif
 /****************************************************************************/
 /****************************************************************************/
 /****************************************************************************/

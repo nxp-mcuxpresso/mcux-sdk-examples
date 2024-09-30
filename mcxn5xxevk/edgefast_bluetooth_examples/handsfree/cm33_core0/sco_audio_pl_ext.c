@@ -99,7 +99,6 @@ static void rxMicCallback(hal_audio_handle_t handle, hal_audio_status_t completi
     }
     else
     {
-        emptyMicBlock--;
         rxMic_test++;
         OSA_SemaphorePost(xSemaphoreScoAudio);
     }
@@ -290,7 +289,6 @@ static void rxSpeakerCallback(hal_audio_handle_t handle, hal_audio_status_t comp
     }
     else
     {
-        emptySpeakerBlock--;
         OSA_SemaphorePost(xSemaphoreScoAudio);
         rxSpeaker_test++;
     }
@@ -403,6 +401,7 @@ static void Init_Board_RingTone_Audio(uint32_t samplingRate, UCHAR bitWidth)
         CODEC_SetVolume(&codec_handle, kCODEC_VolumeDAC, HFP_CODEC_DAC_VOLUME);
         CODEC_SetVolume(&codec_handle, kCODEC_VolumeHeadphoneLeft | kCODEC_VolumeHeadphoneRight, HFP_CODEC_HP_VOLUME);
         CODEC_SetMute(&codec_handle, kCODEC_PlayChannelHeadphoneRight | kCODEC_PlayChannelHeadphoneLeft, false);
+        codec_inited = 1;
     }
 }
 
@@ -430,6 +429,7 @@ static uint32_t count = 0;
 void SCO_Edma_Task(void *handle)
 {
     hal_audio_transfer_t xfer;
+    OSA_SR_ALLOC();
 
     while (1)
     {
@@ -482,6 +482,9 @@ void SCO_Edma_Task(void *handle)
             xfer.data     = MicBuffer + rxMic_index * BUFFER_SIZE;
             xfer.dataSize = BUFFER_SIZE;
 
+            OSA_ENTER_CRITICAL();
+            emptyMicBlock--;
+            OSA_EXIT_CRITICAL();
             if (kStatus_HAL_AudioSuccess == HAL_AudioTransferReceiveNonBlocking((hal_audio_handle_t)&rx_mic_handle[0], &xfer))
             {
                 rxMic_index++;
@@ -512,6 +515,9 @@ void SCO_Edma_Task(void *handle)
             xfer.data     = SpeakerBuffer + rxSpeaker_index * BUFFER_SIZE;
             xfer.dataSize = BUFFER_SIZE;
 
+            OSA_ENTER_CRITICAL();
+            emptySpeakerBlock--;
+            OSA_EXIT_CRITICAL();
             if (kStatus_HAL_AudioSuccess == HAL_AudioTransferReceiveNonBlocking((hal_audio_handle_t)&rx_speaker_handle[0], &xfer))
             {
                 rxSpeaker_index++;
@@ -564,6 +570,8 @@ API_RESULT sco_audio_start_pl_ext(void)
         taskCreated = 1U;
         (void)result;
     }
+
+    emptyMicBlock = 0;
     for (uint8_t index = 0; index < BUFFER_NUMBER; ++index)
     {
         xfer.data     = MicBuffer + rxMic_index * BUFFER_SIZE;
@@ -578,8 +586,8 @@ API_RESULT sco_audio_start_pl_ext(void)
             rxMic_index = 0U;
         }
     }
-    emptyMicBlock = BUFFER_NUMBER;
 
+    emptySpeakerBlock = 0;
     for (uint8_t index = 0; index < BUFFER_NUMBER; ++index)
     {
         xfer.data     = SpeakerBuffer + rxSpeaker_index * BUFFER_SIZE;
@@ -594,7 +602,6 @@ API_RESULT sco_audio_start_pl_ext(void)
             rxSpeaker_index = 0U;
         }
     }
-    emptySpeakerBlock = BUFFER_NUMBER;
     //BOARD_SCO_EnableSaiMclkOutput(true);
 
     /* play dummy data to codec */

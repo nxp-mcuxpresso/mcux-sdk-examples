@@ -22,6 +22,7 @@
 #include "fsl_pm_device.h"
 #include "fsl_rtc.h"
 #include "fsl_usart.h"
+#include "fsl_gpio.h"
 
 /*******************************************************************************
  * Structures
@@ -69,6 +70,17 @@ void RTC_IRQHandler()
         POWER_DisableWakeup(RTC_IRQn);
         wakeup_by = WAKEUP_BY_RTC;
     }
+}
+
+void GPIO_INTA_DriverIRQHandler()
+{
+    DisableIRQ(GPIO_INTA_IRQn);
+    /* clear the interrupt status */
+    GPIO_PinClearInterruptFlag(GPIO, 0, 11, 0);
+    if (POWER_GetWakeupStatus(GPIO_INTA_IRQn))
+        wakeup_by = WAKEUP_BY_PIN;
+    POWER_ClearWakeupStatus(GPIO_INTA_IRQn);
+    POWER_DisableWakeup(GPIO_INTA_IRQn);
 }
 
 AT_QUICKACCESS_SECTION_CODE(void host_sleep_pre_hook(void))
@@ -133,9 +145,15 @@ int host_sleep_pre_cfg(int mode)
     POWER_ClearWakeupStatus(WL_MCI_WAKEUP0_IRQn);
     POWER_EnableWakeup(WL_MCI_WAKEUP0_IRQn);
     (void)PRINTF("Enter low power mode PM%d\r\n", mode);
-    /* PM2, enable UART3 as wakeup source */
+
     if (mode == 2U)
     {
+        /* For FRDM V2 board, set GPIO as wakeup source in PM2. */
+        NVIC_ClearPendingIRQ(GPIO_INTA_IRQn);
+        EnableIRQ(GPIO_INTA_IRQn);
+        POWER_ClearWakeupStatus(GPIO_INTA_IRQn);
+        POWER_EnableWakeup(GPIO_INTA_IRQn);
+        /* PM2, enable UART3 as wakeup source */
         /* Enable RX interrupt. */
         USART_EnableInterrupts(USART3, kUSART_RxLevelInterruptEnable | kUSART_RxErrorInterruptEnable);
         POWER_ClearWakeupStatus(FLEXCOMM3_IRQn);
@@ -153,6 +171,10 @@ void host_sleep_post_cfg(int mode)
 
     if (mode == 2U)
     {
+        NVIC_ClearPendingIRQ(GPIO_INTA_IRQn);
+        DisableIRQ(GPIO_INTA_IRQn);
+        POWER_ClearWakeupStatus(GPIO_INTA_IRQn);
+        POWER_DisableWakeup(GPIO_INTA_IRQn);
         if (POWER_GetWakeupStatus(FLEXCOMM3_IRQn))
             wakeup_by = WAKEUP_BY_USART3;
         POWER_ClearWakeupStatus(FLEXCOMM3_IRQn);
@@ -169,6 +191,8 @@ void host_sleep_dump_wakeup_source()
         wifi_print_wakeup_reason(0);
     else if (wakeup_by == WAKEUP_BY_RTC)
         PRINTF("Woken up by RTC\r\n");
+    else if (wakeup_by == WAKEUP_BY_PIN)
+        PRINTF("Woken up by PIN\r\n");
     else if (wakeup_by == WAKEUP_BY_USART3)
         PRINTF("Woken up by USART\r\n");
 }

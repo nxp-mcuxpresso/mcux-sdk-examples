@@ -51,7 +51,6 @@ include(${ProjDirPath}/flags.cmake)
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
-"${SdkRootDirPath}/examples/rdrw612bga/bt_ble_examples/configs/monolithic_config.h"
 "${ProjDirPath}/../hardware_init.c"
 "${ProjDirPath}/../pin_mux.c"
 "${ProjDirPath}/../pin_mux.h"
@@ -60,6 +59,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/middleware/wireless/framework/FunctionLib/FunctionLib.c"
 "${SdkRootDirPath}/middleware/wireless/framework/FunctionLib/FunctionLib.h"
 "${ProjDirPath}/../nbu_bb_bm.c"
+"${SdkRootDirPath}/examples/rdrw612bga/bt_ble_examples/configs/monolithic_config.h"
 "${ProjDirPath}/../board.c"
 "${ProjDirPath}/../board.h"
 "${ProjDirPath}/../clock_config.c"
@@ -73,6 +73,14 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${SdkRootDirPath}/core/boards/rdrw612bga
 )
 
+
+if(CMAKE_BUILD_TYPE STREQUAL flash_debug)
+     target_compile_definitions(${MCUX_SDK_PROJECT_NAME}  PRIVATE MBEDTLS_CONFIG_FILE="els_pkc_mbedtls_config.h")
+endif(CMAKE_BUILD_TYPE STREQUAL flash_debug)
+
+if(CMAKE_BUILD_TYPE STREQUAL flash_release)
+     target_compile_definitions(${MCUX_SDK_PROJECT_NAME}  PRIVATE MBEDTLS_CONFIG_FILE="els_pkc_mbedtls_config.h")
+endif(CMAKE_BUILD_TYPE STREQUAL flash_release)
 
 include(${SdkRootDirPath}/core/devices/RW612/all_lib_device.cmake)
 

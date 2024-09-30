@@ -57,3 +57,5 @@ uSD connector:
 M.2 connector:
   - remove resistors: R364, R366, R351, R348, R377, R369 to disconnect the uSD connector (decrease parasitic capacitance).
   - populate R345 with 0Ohm resistor
+
+Connect external power supply to J45, set J40: 1-2 and turn on SW6.

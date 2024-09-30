@@ -31,7 +31,7 @@ Hardware requirements
 =====================
 - USB-C cable
 - Loopback network cable RJ45 standard
-- FRDM-RW612 v2 board
+- FRDM-RW612 board
 - Personal Computer
 
 Board settings

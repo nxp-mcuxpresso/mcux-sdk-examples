@@ -86,7 +86,8 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../board_lp.c"
 "${ProjDirPath}/../board_lp.h"
 "${ProjDirPath}/../app_preinclude_common.h"
-"${SdkRootDirPath}/middleware/wireless/ble_controller/bin/k32w1_nbu_ble_hosted.bin"
+"${SdkRootDirPath}/middleware/wireless/ble_controller/bin/mcxw71_nbu_ble_1_9_14_1.xip"
+"${SdkRootDirPath}/middleware/wireless/ble_controller/bin/mcxw71_nbu_ble_1_9_14_1.sb3"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE

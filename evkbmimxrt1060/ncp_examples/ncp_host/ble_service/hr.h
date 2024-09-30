@@ -6,7 +6,7 @@
  */
 
 /*!\file hr.h
- * \brief Health Rate Profile defineations.
+ * \brief Health Rate Profile definitions.
  */
 
 #ifndef __HR_H_
@@ -88,7 +88,7 @@ void central_notify(uint8_t *data);
  */
 void hrs_init(void);
 /**
- * count binary semaphore to wait HRS write characteristic response event
+ * Count binary semaphore to wait for HRS write characteristic response event
  * 
  * \param[in] flag flag to wait
  * 

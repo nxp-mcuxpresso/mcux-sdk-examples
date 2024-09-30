@@ -627,7 +627,9 @@ static int map_fs_init(void)
     }
 
     /* write one message into inbox */
-    (void)sprintf(&app_instance.path[0], "%s/telecom/msg/inbox/%016llX", MAP_MSE_REPO_ROOT, app_instance.msg_handle);
+    /* Not use %016llX here to avoid uint64_t is not supported in some platforms. */
+    (void)sprintf(&app_instance.path[0], "%s/telecom/msg/inbox/%08X%08X", MAP_MSE_REPO_ROOT,
+    (unsigned int)(app_instance.msg_handle >> 32U), (unsigned int)app_instance.msg_handle);
     app_instance.msg_handle++;
     if (f_open(&map_fdes, &app_instance.path[0], FA_WRITE | FA_CREATE_ALWAYS) != FR_OK)
     {
@@ -1810,7 +1812,9 @@ static void app_push_msg_cb(struct bt_map_mse_mas *mse_mas, struct net_buf *buf,
 
         if (result == BT_MAP_RSP_SUCCESS)
         {
-            (void)sprintf(&path[strlen(&path[0])], "/%016llX", app_instance.msg_handle);
+            /* Not use %016llX here to avoid uint64_t is not supported in some platforms. */
+            (void)sprintf(&path[strlen(&path[0])], "/%08X%08X",
+            (unsigned int)(app_instance.msg_handle >> 32U), (unsigned int)app_instance.msg_handle);
             if (f_open(&map_fdes, &path[0], FA_WRITE | FA_CREATE_ALWAYS) != FR_OK)
             {
                 result = BT_MAP_RSP_INT_SERVER_ERR;
@@ -1836,7 +1840,8 @@ static void app_push_msg_cb(struct bt_map_mse_mas *mse_mas, struct net_buf *buf,
         {
             if ((flag & BT_OBEX_REQ_END) != 0U)
             {
-                (void)sprintf(&msg_handle[0], "%016llX", app_instance.msg_handle);
+                (void)sprintf(&msg_handle[0], "%08X%08X",
+                (unsigned int)(app_instance.msg_handle >> 32U), (unsigned int)app_instance.msg_handle);
                 app_instance.msg_handle++;
                 app_instance.cmd_id = CMD_ID_NONE;
                 name_req = msg_handle;
@@ -1871,28 +1876,9 @@ static void app_set_ntf_reg_cb(struct bt_map_mse_mas *mse_mas, struct net_buf *b
 
     if ((flag & BT_OBEX_REQ_END) != 0U)
     {
-        result = BT_MAP_RSP_SUCCESS;
-        if (ntf_status == 1U)
+        if (ntf_status <= 1U)
         {
-            if (app_instance.mse_mns == NULL)
-            {
-                if (bt_sdp_discover(app_instance.acl_conn, &discov_map_mce) != 0)
-                {
-                    PRINTF("SDP discovery failed: result\r\n");
-                }
-                else
-                {
-                    PRINTF("SDP discovery started\r\n");
-                }
-            }
-            else
-            {
-                PRINTF("MSE MNS connection alreay established\r\n");
-            }
-        }
-        else if (ntf_status == 0U)
-        {
-            (void)bt_map_mse_mns_disconnect(app_instance.mse_mns);
+            result = BT_MAP_RSP_SUCCESS;
         }
         else
         {
@@ -1907,6 +1893,34 @@ static void app_set_ntf_reg_cb(struct bt_map_mse_mas *mse_mas, struct net_buf *b
     if (bt_map_mse_set_ntf_reg_response(mse_mas, result) != 0)
     {
         PRINTF("Failed to send response\r\n");
+    }
+    else
+    {
+        if (result == BT_MAP_RSP_SUCCESS)
+        {
+            if (ntf_status == 1U)
+            {
+                if (app_instance.mse_mns == NULL)
+                {
+                    if (bt_sdp_discover(app_instance.acl_conn, &discov_map_mce) != 0)
+                    {
+                        PRINTF("SDP discovery failed: result\r\n");
+                    }
+                    else
+                    {
+                        PRINTF("SDP discovery started\r\n");
+                    }
+                }
+                else
+                {
+                    PRINTF("MSE MNS connection alreay established\r\n");
+                }
+            }
+            else
+            {
+                (void)bt_map_mse_mns_disconnect(app_instance.mse_mns);
+            }
+        }
     }
 }
 

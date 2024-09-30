@@ -923,7 +923,15 @@ int wlan_process_suspend_response(uint8_t *res)
     uint16_t result                = cmd_res->header.result;
 
     if (result == NCP_CMD_RESULT_ERROR)
+    {
         (void)PRINTF("suspend command is failed\r\n");
+        (void)PRINTF("PM1/2 allowed with INTF mode\r\n");
+        (void)PRINTF("If NCP device is RDRW612:\r\n");
+        (void)PRINTF("    PM1/2/3 allowed with GPIO mode\r\n");
+        (void)PRINTF("If NCP device is FRDMRW612:\r\n");
+        (void)PRINTF("    PM1/2 allowed with GPIO mode\r\n");
+        (void)PRINTF("    PM1/2/3 allowed with WIFI-NB mode\r\n");
+    }
     else
         (void)PRINTF("suspend command is successful\r\n");
     return WM_SUCCESS;
@@ -5018,7 +5026,7 @@ int wlan_process_memory_state_response(uint8_t *res)
     if (cmd_res->header.result == NCP_CMD_RESULT_OK)
     {
         (void)PRINTF("FreeHeapSize    : %u \r\n", mem_state->free_heap_size);
-        (void)PRINTF("MinFreeHeapSize : %u \r\n\r\n", mem_state->minimun_ever_free_heap_size);
+        (void)PRINTF("MinFreeHeapSize : %u \r\n\r\n", mem_state->minimum_ever_free_heap_size);
     }
     else
     {

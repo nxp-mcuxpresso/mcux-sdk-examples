@@ -6,9 +6,8 @@
  *
  * uIP version Copyright (c) 2002-2003, Adam Dunkels.
  * Copyright 2022-2024 NXP
+ * All rights reserved.
  *
- * SPDX-License-Identifier: BSD-3-Clause
- * The BSD-3-Clause license can be found at https://spdx.org/licenses/BSD-3-Clause.html
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:

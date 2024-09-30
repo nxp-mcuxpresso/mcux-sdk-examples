@@ -159,8 +159,8 @@ static const struct named_lc3_preset lc3_unicast_presets[] = {
 	{"48_6_2", BT_BAP_LC3_UNICAST_PRESET_48_6_2(LOCATION, CONTEXT)},
 };
 
-/* set conn interval to 10ms and timeout to 100ms. */
-#define CONNECTION_PARAMETERS BT_LE_CONN_PARAM(8, 8, 0, 10)
+/* This parameter should be used for fix "connection timeout" issue. */
+#define CONNECTION_PARAMETERS BT_LE_CONN_PARAM(80, 80, 0, 400)
 
 static OSA_SEMAPHORE_HANDLE_DEFINE(sem_wav_opened);
 static OSA_SEMAPHORE_HANDLE_DEFINE(sem_lc3_preset);

@@ -1,9 +1,10 @@
 /*
- * Copyright 2024 NXP
- *
- * SPDX-License-Identifier: BSD-3-Clause
- * The BSD-3-Clause license can be found at https://spdx.org/licenses/BSD-3-Clause.html
- */
+* Copyright 2024 NXP
+*
+* SPDX-License-Identifier: BSD-3-Clause
+* The BSD-3-Clause license can be found at https://spdx.org/licenses/BSD-3-Clause.html
+*/
+
 #ifndef _SERIAL_MWM_HTTPC_H_
 #define _SERIAL_MWM_HTTPC_H_
 #include "httpc.h"
@@ -84,55 +85,34 @@ int serial_httpc_cli_init(void);
 
 /* This is taken from tests/data_files/test-ca-sha1.crt. */
 /* BEGIN FILE string macro TEST_CA_CRT_RSA_SHA1_PEM tests/data_files/test-ca-sha1.crt */
-#if 1
-#define NGINX_SERVER_CRT                                                   \
+
+/* NOTE:
+ * 1) CA valid from 2024/9/5 to 2034/9/5
+ * 2) Common Name must be 192.168.50.189
+ * */
+#define NGINX_CA_CRT                                                       \
     "-----BEGIN CERTIFICATE-----\r\n"                                      \
-    "MIIDPzCCAicCFBn1CjMKYpUm9sSzA+ykaWxqnlEIMA0GCSqGSIb3DQEBCwUAMFwx\r\n" \
+    "MIIDPzCCAicCFEPsbEntvNtFMnRJNm/KSItl8eHsMA0GCSqGSIb3DQEBCwUAMFwx\r\n" \
     "CzAJBgNVBAYTAkNOMQswCQYDVQQIDAJTSDELMAkGA1UEBwwCU0gxDDAKBgNVBAoM\r\n" \
-    "A05YUDEMMAoGA1UECwwDTlhQMRcwFQYDVQQDDA4xOTIuMTY4LjUwLjE4OTAeFw0y\r\n" \
-    "MzAyMTUwNjAyMjlaFw0yNDAyMTUwNjAyMjlaMFwxCzAJBgNVBAYTAkNOMQswCQYD\r\n" \
-    "VQQIDAJTSDELMAkGA1UEBwwCU0gxDDAKBgNVBAoMA05YUDEMMAoGA1UECwwDTlhQ\r\n" \
+    "A05YUDEMMAoGA1UECwwDV0NTMRcwFQYDVQQDDA4xOTIuMTY4LjUwLjE4OTAeFw0y\r\n" \
+    "NDA5MDUxMDIzMjRaFw0zNDA5MDUxMDIzMjRaMFwxCzAJBgNVBAYTAkNOMQswCQYD\r\n" \
+    "VQQIDAJTSDELMAkGA1UEBwwCU0gxDDAKBgNVBAoMA05YUDEMMAoGA1UECwwDV0NT\r\n" \
     "MRcwFQYDVQQDDA4xOTIuMTY4LjUwLjE4OTCCASIwDQYJKoZIhvcNAQEBBQADggEP\r\n" \
-    "ADCCAQoCggEBALMMLA9tFcQycG5vtb41EP8MoDT/W5Jdc8zYBClfcsiOmyoo2vRx\r\n" \
-    "AtQVD1WzERf+668sd7ezz2YxdxEPK3K77lOPB4hErL7WAPQ/9H0qjyX4NO7m3oZ5\r\n" \
-    "gNIbdPVCip53tfhlZ5n9mTTPurDXtaesPRX2l+rnnEIbcZb80Qo7xvEkRSXZmD7P\r\n" \
-    "QmncV1pSl+r2e1dVowb02vyPiP3JkAkPvrfg4qDulw7hV2h0qD1DEz+rTrUoaNPI\r\n" \
-    "DniHUl/QQCvKPg9YysXCaB42TBhgoJN1eqvOr4upacvPjjSrV5r/DhO1zrtTzcKN\r\n" \
-    "7q06vyA0+F37WEePRl2wovsiUKINbNcPehkCAwEAATANBgkqhkiG9w0BAQsFAAOC\r\n" \
-    "AQEAkj8h1M5gqF0yhMq+56mcVa6TVapLsUOFo7p5jlEk/riAP2ySeVFf2PnOdWYT\r\n" \
-    "qJn4ZEmR1Qeou2F4JZ/wiX/Ri7QXHgP+uv2FqT0NSVTiRKScXjP7Iq7JwgKAx+DB\r\n" \
-    "Y6LCYJJ68eConq29r5wywc9crxTsaZCeaUJej7gBRYvpPuODl8Sh7G/7/trprEjL\r\n" \
-    "vQaQHGRWoa0F9b7M0YEII/hFkOmC55j3+Ytwth2x1sVcJW0BGQIvxB9Zc6ySWhy7\r\n" \
-    "xK0+Ku2jRnO8S3qPaA14It6nvfZRmW8pvhgSSfCGkWIspa+svlikWi3e16uY1kpt\r\n" \
-    "MTZHqg6PYRwzn9bRO9fzLIlrKA==\r\n"                                     \
+    "ADCCAQoCggEBAMfbbbQc/MU5+uUb06fIPp0M32rp3H17A6dfkDe9RZSulMbkqB5a\r\n" \
+    "0C3Z5CAuj0/c28e3WDg6MSMqG0l7fGrohR7PQkUHUQfBxGsycRiyNwxgwsE/t6Vg\r\n" \
+    "6sQrBou05fAL9lIkJyEptvxGhCB74GtkZLqLrLRyFdxssID/aY8D4PLq6Ekz56va\r\n" \
+    "qod+HbpYDF3jl3cQgcWJcA5odks3si+5UnpkpDvXlM6RbpEiqCz6eGIA31wt8GC6\r\n" \
+    "TYF97CvoCfNMhcS8Gm0SCWPb9vNPWHvC6PY6Hrfyo5Tg9XGJMMzCYwLDTehJUn6S\r\n" \
+    "yo11ocz38F+mLewTUEHXYcDX/Jdkev3Ufo0CAwEAATANBgkqhkiG9w0BAQsFAAOC\r\n" \
+    "AQEAUqJfNQg57neb1YmdkMYZTitkVB36GcXnn9LKDRTQFxutYgnSlmGoy80EGv4Z\r\n" \
+    "z8a2WnpfhetxpgZjI6WEd3+0c7djg4BoqvSM10AOfokq0mvRhqtDI0B1ykhhN7+0\r\n" \
+    "2SP4ngChYtmx1UPdJBk0sq170C+KeX5+EDxDKllZjprD9dGubQJM1+f1gPOiWT4z\r\n" \
+    "U+pKnJ4LkutijPGrvCc/HHndOVkTLM0qcHo/mWypq/8aeo6SaLYy+P+aTBHjDV5F\r\n" \
+    "c7MbfjKg+02+vxJwCyr+Edsr88DrYiJqpGtZ7cD4xze7bgE+NJ1K6aapGtmz3WOp\r\n" \
+    "PQHRpdzTw+rSR9tqSbGmyaBfUQ==\r\n"                                     \
     "-----END CERTIFICATE-----\r\n"
 
-#else
-
-#define NGINX_SERVER_CRT                                                   \
-    "-----BEGIN CERTIFICATE-----\r\n"                                      \
-    "MIIDNjCCAh4CCQCVj0rMfE1o2zANBgkqhkiG9w0BAQsFADBdMQswCQYDVQQGEwJD\r\n" \
-    "TjELMAkGA1UECAwCU0gxCzAJBgNVBAcMAlNIMQwwCgYDVQQKDANueHAxDDAKBgNV\r\n" \
-    "BAsMA254cDEYMBYGA1UEAwwPMTkyLjE2OC4yMDMuMjI0MB4XDTIzMDExODA4MDIx\r\n" \
-    "MFoXDTIzMDIxNzA4MDIxMFowXTELMAkGA1UEBhMCQ04xCzAJBgNVBAgMAlNIMQsw\r\n" \
-    "CQYDVQQHDAJTSDEMMAoGA1UECgwDbnhwMQwwCgYDVQQLDANueHAxGDAWBgNVBAMM\r\n" \
-    "DzE5Mi4xNjguMjAzLjIyNDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEB\r\n" \
-    "AKhtYnMkhdT924DCuRwm8ybGO8zq0j+COwkAL6gL2mhNW+zO0aYpTT8wCOeHlVhR\r\n" \
-    "8HYSdNI48eIlYUInwA9RzA3nCOYpLyq3QiSEYuLy5ZF1MezWdGZGuBe/vz+BYg4W\r\n" \
-    "APu7AWIZ6yzYjGijvycLrKHY03HibkH89wCz9I9h+5RmzKz94UORYzhDGm71Bo15\r\n" \
-    "Ww3LpOb+PTgcYGAe2DzaYWqzdyjnR2a9UkETos27+1FC4kScUM4h/Qs5pXCcMRut\r\n" \
-    "4NCo9OMCfclgCrVUIpahhFpJiqij5vvdUBDEE65zPb4BXVpddgQ117erBS2hyMs9\r\n" \
-    "KgVXTBD/38xtAdfqQJhnqX0CAwEAATANBgkqhkiG9w0BAQsFAAOCAQEAjDcMBkBJ\r\n" \
-    "ABAo9UoyBcIF0epOSHcgAFwL2Is5Vn8Yf5Vu8H7NY6U4vetgo6f9I0iY7DoPtsed\r\n" \
-    "DicnepSsEnxtlt/osyyZVCF7+WjipF2bsdPERkk+S3bvz4d+u5ytRYuVI49+X1u5\r\n" \
-    "Te+AzvekWbFbMnoTMNYMknBrK+9wYV3K6iM9G8ZX5xr8LaBNrED0Y1prdWv1KnS+\r\n" \
-    "To//YNUoAxo/zf9iM5bh4apOWNnSf9D4Zkd/67ej1d78ccTYAHbSce4tQazs2tXd\r\n" \
-    "LC7qdQA4F2hBCNLZxPfnH5Zgh22n1KBLz9RkquEt2CurfuQSnmyi2fz/xSohZqLO\r\n" \
-    "KbMFEo+9BN3+eA==\r\n"                                                 \
-    "-----END CERTIFICATE-----\r\n"
-#endif
-
-#define NGINX_SERVER_CRT_LEN sizeof(NGINX_SERVER_CRT)
+#define NGINX_CA_CRT_LEN sizeof(NGINX_CA_CRT)
 
 enum
 {

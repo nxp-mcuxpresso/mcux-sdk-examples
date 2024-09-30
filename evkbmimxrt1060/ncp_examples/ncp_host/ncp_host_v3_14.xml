@@ -180,7 +180,7 @@
       <include_path path="ble" project_relative_path="source/ble" type="asm_include"/>
       <include_path path="ble_service" project_relative_path="source/ble/ble_service" type="asm_include"/>
       <include_path path="ot" project_relative_path="source/ot" type="asm_include"/>
-      <include_path path="ot_opcode" project_relative_path="source/ot/ot_opcode" type="asm_include"/>
+      <include_path path="ot/ot_opcode" project_relative_path="source/ot/ot_opcode" type="asm_include"/>
       <include_path path="usb_host" project_relative_path="ncp_common/ncp_adapter/ncp_intf/usb/usb_host_cdc" type="asm_include"/>
       <include_path path="sdio_host" project_relative_path="ncp_common/ncp_adapter/ncp_intf/sdio" type="asm_include"/>
       <include_path path="../../../../core/boards/evkbmimxrt1060" project_relative_path="board" type="asm_include"/>
@@ -271,10 +271,10 @@
       <files mask="ncp_host_app_ot.c"/>
       <files mask="ncp_host_command_ot.c"/>
     </source>
-    <source path="ot_opcode" project_relative_path="source/ot/ot_opcode" type="src">
+    <source path="ot/ot_opcode" project_relative_path="source/ot/ot_opcode" type="src">
       <files mask="otopcode.c"/>
     </source>
-    <source path="ot_opcode" project_relative_path="source/ot/ot_opcode" type="c_include">
+    <source path="ot/ot_opcode" project_relative_path="source/ot/ot_opcode" type="c_include">
       <files mask="otopcode.h"/>
       <files mask="otopcode_private.h"/>
     </source>

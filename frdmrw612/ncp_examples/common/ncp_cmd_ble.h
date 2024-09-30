@@ -1,11 +1,12 @@
 /*!\file ncp_cmd_ble.h
- *\brief The file provides Bluetooth LE command and structure definition.
+ *\brief NCP Bluetooth LE command and structure definitions.
  */
 
 /*
  * Copyright (c) 2015-2016 Intel Corporation
  * Copyright (c) 2022 Codecoup
  * Copyright 2022-2024 NXP
+ *
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
@@ -41,28 +42,10 @@
 #endif
 
 /** NCP Command/Response definitions */
-/** Bluetooth LE Core support command ID */
-#define NCP_CMD_BLE_CORE_SUPPORT_CMD    (NCP_CMD_BLE | NCP_CMD_BLE_CORE | NCP_MSG_TYPE_CMD | 0x00000001) /* Read supported commands*/
-/** Bluetooth LE Core support command response ID */
-#define NCP_RSP_BLE_CORE_SUPPORT_CMD    (NCP_CMD_BLE | NCP_CMD_BLE_CORE | NCP_MSG_TYPE_RESP | 0x00000001)
-/** Bluetooth LE Core support service command ID */
-#define NCP_CMD_BLE_CORE_SUPPORT_SER    (NCP_CMD_BLE | NCP_CMD_BLE_CORE | NCP_MSG_TYPE_CMD | 0x00000002) /* Read supported services*/
-/** Bluetooth LE Core support service command response ID */
-#define NCP_RSP_BLE_CORE_SUPPORT_SER    (NCP_CMD_BLE | NCP_CMD_BLE_CORE | NCP_MSG_TYPE_RESP | 0x00000002)
-/** Bluetooth LE Core register command ID */
-#define NCP_CMD_BLE_CORE_REGISTER       (NCP_CMD_BLE | NCP_CMD_BLE_CORE | NCP_MSG_TYPE_CMD | 0x00000003) /* register services */
-/** Bluetooth LE Core register command response ID */
-#define NCP_RSP_BLE_BLE_CORE_REGISTER   (NCP_CMD_BLE | NCP_CMD_BLE_CORE | NCP_MSG_TYPE_RESP | 0x00000003)
-/** Bluetooth LE Core unregister command ID */
-#define NCP_CMD_BLE_CORE_UNREGISTER     (NCP_CMD_BLE | NCP_CMD_BLE_CORE | NCP_MSG_TYPE_CMD | 0x00000004) /* unregister services*/
-/** Bluetooth LE Core unregister command response ID */
-#define NCP_RSP_BLE_CORE_UNREGISTER     (NCP_CMD_BLE | NCP_CMD_BLE_CORE | NCP_MSG_TYPE_RESP | 0x00000004)
-/** Bluetooth LE Core reset command ID */
-#define NCP_CMD_BLE_CORE_RESET          (NCP_CMD_BLE | NCP_CMD_BLE_CORE | NCP_MSG_TYPE_CMD | 0x00000006) /* reset board */
-/** Bluetooth LE Core reset command response ID */
-#define NCP_RSP_BLE_CORE_RESET          (NCP_CMD_BLE | NCP_CMD_BLE_CORE | NCP_MSG_TYPE_RESP | 0x00000006)
 /** Bluetooth LE invalid command ID */
 #define NCP_CMD_BLE_INVALID_CMD         (NCP_CMD_BLE | NCP_CMD_BLE_CORE | NCP_MSG_TYPE_CMD | 0x0000000a) /* invalid command recieve */
+/** Bluetooth LE Core support command response ID */
+#define NCP_RSP_BLE_CORE_SUPPORT_CMD    (NCP_CMD_BLE | NCP_CMD_BLE_CORE | NCP_MSG_TYPE_RESP | 0x00000001)
 
 /** Bluetooth LE GAP set data length command ID */
 #define NCP_CMD_BLE_GAP_SET_DATA_LEN         (NCP_CMD_BLE | NCP_CMD_BLE_GAP | NCP_MSG_TYPE_CMD | 0x00000020) /* Set data len */
@@ -72,21 +55,21 @@
 #define NCP_CMD_BLE_GAP_SET_PHY              (NCP_CMD_BLE | NCP_CMD_BLE_GAP | NCP_MSG_TYPE_CMD | 0x0000001f) /* Set phy */
 /** Bluetooth LE GAP set phy command response ID */
 #define NCP_RSP_BLE_GAP_SET_PHY              (NCP_CMD_BLE | NCP_CMD_BLE_GAP | NCP_MSG_TYPE_RESP | 0x0000001f)
-/** Bluetooth LE GAP set adv data command ID */
-#define NCP_CMD_BLE_GAP_SET_ADV_DATA         (NCP_CMD_BLE | NCP_CMD_BLE_GAP | NCP_MSG_TYPE_CMD | 0x0000001e) /* Set adv data */
-/** Bluetooth LE GAP set adv data command response ID */
+/** Bluetooth LE GAP set advertising data command ID */
+#define NCP_CMD_BLE_GAP_SET_ADV_DATA         (NCP_CMD_BLE | NCP_CMD_BLE_GAP | NCP_MSG_TYPE_CMD | 0x0000001e) /* Set advertising data */
+/** Bluetooth LE GAP set advertising data command response ID */
 #define NCP_RSP_BLE_GAP_SET_ADV_DATA         (NCP_CMD_BLE | NCP_CMD_BLE_GAP | NCP_MSG_TYPE_RESP | 0x0000001e)
 /** Bluetooth LE GAP set scan parameter command ID */
 #define NCP_CMD_BLE_GAP_SET_SCAN_PARAM       (NCP_CMD_BLE | NCP_CMD_BLE_GAP | NCP_MSG_TYPE_CMD | 0x0000001d) /* Set scan parameter */
 /** Bluetooth LE GAP set scan parameter command response ID */
 #define NCP_RSP_BLE_GAP_SET_SCAN_PARAM       (NCP_CMD_BLE | NCP_CMD_BLE_GAP | NCP_MSG_TYPE_RESP | 0x0000001d)
-/** Bluetooth LE GAP start adv command ID */
+/** Bluetooth LE GAP start advertising command ID */
 #define NCP_CMD_BLE_GAP_START_ADV            (NCP_CMD_BLE | NCP_CMD_BLE_GAP | NCP_MSG_TYPE_CMD | 0x0000000a) /* Start advertising */
-/** Bluetooth LE GAP start adv command response ID */
+/** Bluetooth LE GAP start advertising command response ID */
 #define NCP_RSP_BLE_GAP_START_ADV            (NCP_CMD_BLE | NCP_CMD_BLE_GAP | NCP_MSG_TYPE_RESP | 0x0000000a)
-/** Bluetooth LE GAP stop adv command ID */
+/** Bluetooth LE GAP stop advertising command ID */
 #define NCP_CMD_BLE_GAP_STOP_ADV             (NCP_CMD_BLE | NCP_CMD_BLE_GAP | NCP_MSG_TYPE_CMD | 0x0000000b) /* Stop advertising */
-/** Bluetooth LE GAP stop adv command response ID */
+/** Bluetooth LE GAP stop advertising command response ID */
 #define NCP_RSP_BLE_GAP_STOP_ADV             (NCP_CMD_BLE | NCP_CMD_BLE_GAP | NCP_MSG_TYPE_RESP | 0x0000000b)
 /** Bluetooth LE GAP start scan command ID */
 #define NCP_CMD_BLE_GAP_START_SCAN           (NCP_CMD_BLE | NCP_CMD_BLE_GAP | NCP_MSG_TYPE_CMD | 0x0000000c) /* Start discovery */
@@ -117,78 +100,78 @@
 /** Bluetooth LE GAP pair command response ID */
 #define NCP_RSP_BLE_GAP_PAIR                 (NCP_CMD_BLE | NCP_CMD_BLE_GAP | NCP_MSG_TYPE_RESP | 0x00000011)
 
-/** Bluetooth LE GATT add host service attribute command ID */
-#define NCP_CMD_BLE_HOST_SERVICE_ADD         (NCP_CMD_BLE | NCP_CMD_BLE_GATT | NCP_MSG_TYPE_CMD | 0x00000002) /* Add Host Attribute to Device Gatt datebase and start, ble-host-service-start */
-/** Bluetooth LE GATT add host service attribute command response ID */
+/** Bluetooth LE gatt add host service attribute command ID */
+#define NCP_CMD_BLE_HOST_SERVICE_ADD         (NCP_CMD_BLE | NCP_CMD_BLE_GATT | NCP_MSG_TYPE_CMD | 0x00000002) /* Add Host Attribute to Device gatt datebase and start, ble-host-service-start */
+/** Bluetooth LE gatt add host service attribute command response ID */
 #define NCP_RSP_BLE_HOST_SERVICE_ADD         (NCP_CMD_BLE | NCP_CMD_BLE_GATT | NCP_MSG_TYPE_RESP | 0x00000002)
-/** Bluetooth LE GATT discovery primary service/characteristic/descriptor command ID */
+/** Bluetooth LE gatt discovery primary service/characteristic/descriptor command ID */
 #define NCP_CMD_BLE_HOST_SERVICE_DISC        (NCP_CMD_BLE | NCP_CMD_BLE_GATT | NCP_MSG_TYPE_CMD | 0x00000003) /* Discover Primary Service/Characteristics/Descriptors */
-/** Bluetooth LE GATT discovery primary service/characteristic/descriptor command response ID */
+/** Bluetooth LE gatt discovery primary service/characteristic/descriptor command response ID */
 #define NCP_RSP_BLE_HOST_SERVICE_DISC        (NCP_CMD_BLE | NCP_CMD_BLE_GATT | NCP_MSG_TYPE_RESP | 0x00000003)
-/** Bluetooth LE GATT set characteristic/descriptor value command ID */
+/** Bluetooth LE gatt set characteristic/descriptor value command ID */
 #define NCP_CMD_BLE_GATT_SET_VALUE           (NCP_CMD_BLE | NCP_CMD_BLE_GATT | NCP_MSG_TYPE_CMD | 0x00000006) /* Set Characteristic/Descriptor Value */
-/** Bluetooth LE GATT set characteristic/descriptor value command response ID */
+/** Bluetooth LE gatt set characteristic/descriptor value command response ID */
 #define NCP_RSP_BLE_GATT_SET_VALUE           (NCP_CMD_BLE | NCP_CMD_BLE_GATT | NCP_MSG_TYPE_RESP | 0x00000006)
-/** Bluetooth LE GATT start service command ID */
+/** Bluetooth LE gatt start service command ID */
 #define NCP_CMD_BLE_GATT_START_SERVICE       (NCP_CMD_BLE | NCP_CMD_BLE_GATT | NCP_MSG_TYPE_CMD | 0x00000007) /* Start server with previously prepared attributes database. */
-/** Bluetooth LE GATT start service command response ID */
+/** Bluetooth LE gatt start service command response ID */
 #define NCP_RSP_BLE_GATT_START_SERVICE       (NCP_CMD_BLE | NCP_CMD_BLE_GATT | NCP_MSG_TYPE_RESP | 0x00000007)
-/** Bluetooth LE GATT discovery primary service command ID */
+/** Bluetooth LE gatt discovery primary service command ID */
 #define NCP_CMD_BLE_GATT_DISC_PRIM           (NCP_CMD_BLE | NCP_CMD_BLE_GATT | NCP_MSG_TYPE_CMD | GATT_DISC_PRIM_UUID) /* Discover Primary Service */
-/** Bluetooth LE GATT discovery primary service command response ID */
+/** Bluetooth LE gatt discovery primary service command response ID */
 #define NCP_RSP_BLE_GATT_DISC_PRIM           (NCP_CMD_BLE | NCP_CMD_BLE_GATT | NCP_MSG_TYPE_RESP | GATT_DISC_PRIM_UUID)
-/** Bluetooth LE GATT discovery characteristic command ID */
+/** Bluetooth LE gatt discovery characteristic command ID */
 #define NCP_CMD_BLE_GATT_DISC_CHRC           (NCP_CMD_BLE | NCP_CMD_BLE_GATT | NCP_MSG_TYPE_CMD | GATT_DISC_CHRC_UUID) /* Discover Characteristics */
-/** Bluetooth LE GATT discovery characteristic command response ID */
+/** Bluetooth LE gatt discovery characteristic command response ID */
 #define NCP_RSP_BLE_GATT_DISC_CHRC           (NCP_CMD_BLE | NCP_CMD_BLE_GATT | NCP_MSG_TYPE_RESP | GATT_DISC_CHRC_UUID)
-/** Bluetooth LE GATT read characteristic/descriptor command ID */
+/** Bluetooth LE gatt read characteristic/descriptor command ID */
 #define NCP_CMD_BLE_GATT_READ                (NCP_CMD_BLE | NCP_CMD_BLE_GATT | NCP_MSG_TYPE_CMD | 0x00000011) /* Read Characteristic/Descriptor */
-/** Bluetooth LE GATT read characteristic/descriptor command response ID */
+/** Bluetooth LE gatt read characteristic/descriptor command response ID */
 #define NCP_RSP_BLE_GATT_READ                (NCP_CMD_BLE | NCP_CMD_BLE_GATT | NCP_MSG_TYPE_RESP | 0x00000011)
-/** Bluetooth LE GATT config service notify characteristic value command ID */
+/** Bluetooth LE gatt config service notify characteristic value command ID */
 #define NCP_CMD_BLE_GATT_CFG_NOTIFY          (NCP_CMD_BLE | NCP_CMD_BLE_GATT | NCP_MSG_TYPE_CMD | GATT_CFG_NOTIFY) /* Configure service to notify characteristic value to clinet */
-/** Bluetooth LE GATT config service notify characteristic value command response ID */
+/** Bluetooth LE gatt config service notify characteristic value command response ID */
 #define NCP_RSP_BLE_GATT_CFG_NOTIFY          (NCP_CMD_BLE | NCP_CMD_BLE_GATT | NCP_MSG_TYPE_RESP | GATT_CFG_NOTIFY)
-/** Bluetooth LE GATT config service indicate characteristic value command ID */
+/** Bluetooth LE gatt config service indicate characteristic value command ID */
 #define NCP_CMD_BLE_GATT_CFG_INDICATE        (NCP_CMD_BLE | NCP_CMD_BLE_GATT | NCP_MSG_TYPE_CMD | GATT_CFG_INDICATE) /* Configure service to indicate characteristic value to clinet */
-/** Bluetooth LE GATT config service indicate characteristic value command response ID */
+/** Bluetooth LE gatt config service indicate characteristic value command response ID */
 #define NCP_RSP_BLE_GATT_CFG_INDICATE        (NCP_CMD_BLE | NCP_CMD_BLE_GATT | NCP_MSG_TYPE_RESP | GATT_CFG_INDICATE)
-/** Bluetooth LE GATT write characteristic/descriptor command ID */
+/** Bluetooth LE gatt write characteristic/descriptor command ID */
 #define NCP_CMD_BLE_GATT_WRITE               (NCP_CMD_BLE | NCP_CMD_BLE_GATT | NCP_MSG_TYPE_CMD | GATT_WRITE) /* Write Characteristic/Descriptor */
-/** Bluetooth LE GATT write characteristic/descriptor command response ID */
+/** Bluetooth LE gatt write characteristic/descriptor command response ID */
 #define NCP_RSP_BLE_GATT_WRITE               (NCP_CMD_BLE | NCP_CMD_BLE_GATT | NCP_MSG_TYPE_RESP | GATT_WRITE)
-/** Bluetooth LE GATT register service command ID */
+/** Bluetooth LE gatt register service command ID */
 #define NCP_CMD_BLE_GATT_REGISTER_SERVICE    (NCP_CMD_BLE | NCP_CMD_BLE_GATT | NCP_MSG_TYPE_CMD | 0x00000020)  /* register a profile service */
-/** Bluetooth LE GATT register service command response ID */
+/** Bluetooth LE gatt register service command response ID */
 #define NCP_RSP_BLE_GATT_REGISTER_SERVICE    (NCP_CMD_BLE | NCP_CMD_BLE_GATT | NCP_MSG_TYPE_RESP | 0x00000020)
-/** Bluetooth LE GATT discovery descriptor command ID */
+/** Bluetooth LE gatt discovery descriptor command ID */
 #define NCP_CMD_BLE_GATT_DESC_CHRC           (NCP_CMD_BLE | NCP_CMD_BLE_GATT | NCP_MSG_TYPE_CMD | GATT_DISC_DESC_UUID) /* Discover Descriptors */
-/** Bluetooth LE GATT discovery descriptor command response ID */
+/** Bluetooth LE gatt discovery descriptor command response ID */
 #define NCP_RSP_BLE_GATT_DESC_CHRC           (NCP_CMD_BLE | NCP_CMD_BLE_GATT | NCP_MSG_TYPE_RESP | GATT_DISC_DESC_UUID)
 
-/** Bluetooth LE L2CAP connect command ID */
-#define NCP_CMD_BLE_L2CAP_CONNECT            (NCP_CMD_BLE | NCP_CMD_BLE_L2CAP | NCP_MSG_TYPE_CMD | 0x00000002) /* L2CAP connect */
-/** Bluetooth LE L2CAP connect command response ID */
+/** Bluetooth LE l2cap connect command ID */
+#define NCP_CMD_BLE_L2CAP_CONNECT            (NCP_CMD_BLE | NCP_CMD_BLE_L2CAP | NCP_MSG_TYPE_CMD | 0x00000002) /* l2cap connect */
+/** Bluetooth LE l2cap connect command response ID */
 #define NCP_RSP_BLE_L2CAP_CONNECT            (NCP_CMD_BLE | NCP_CMD_BLE_L2CAP | NCP_MSG_TYPE_RESP | 0x00000002)
-/** Bluetooth LE L2CAP disconnect command ID */
-#define NCP_CMD_BLE_L2CAP_DISCONNECT         (NCP_CMD_BLE | NCP_CMD_BLE_L2CAP | NCP_MSG_TYPE_CMD | 0x00000003) /* L2CAP disconnect */
-/** Bluetooth LE L2CAP disconnect command response ID */
+/** Bluetooth LE l2cap disconnect command ID */
+#define NCP_CMD_BLE_L2CAP_DISCONNECT         (NCP_CMD_BLE | NCP_CMD_BLE_L2CAP | NCP_MSG_TYPE_CMD | 0x00000003) /* l2cap disconnect */
+/** Bluetooth LE l2cap disconnect command response ID */
 #define NCP_RSP_BLE_L2CAP_DISCONNECT         (NCP_CMD_BLE | NCP_CMD_BLE_L2CAP | NCP_MSG_TYPE_RESP | 0x00000003)
-/** Bluetooth LE L2CAP send command ID */
-#define NCP_CMD_BLE_L2CAP_SEND               (NCP_CMD_BLE | NCP_CMD_BLE_L2CAP | NCP_MSG_TYPE_CMD | 0x00000004) /* L2CAP send */
-/** Bluetooth LE L2CAP send command response ID */
+/** Bluetooth LE l2cap send command ID */
+#define NCP_CMD_BLE_L2CAP_SEND               (NCP_CMD_BLE | NCP_CMD_BLE_L2CAP | NCP_MSG_TYPE_CMD | 0x00000004) /* l2cap send */
+/** Bluetooth LE l2cap send command response ID */
 #define NCP_RSP_BLE_L2CAP_SEND               (NCP_CMD_BLE | NCP_CMD_BLE_L2CAP | NCP_MSG_TYPE_RESP | 0x00000004)
-/** Bluetooth LE L2CAP register command ID */
-#define NCP_CMD_BLE_L2CAP_REGISTER           (NCP_CMD_BLE | NCP_CMD_BLE_L2CAP | NCP_MSG_TYPE_CMD | 0x0000000a) /* L2CAP register*/
-/** Bluetooth LE L2CAP register command response ID */
+/** Bluetooth LE l2cap register command ID */
+#define NCP_CMD_BLE_L2CAP_REGISTER           (NCP_CMD_BLE | NCP_CMD_BLE_L2CAP | NCP_MSG_TYPE_CMD | 0x0000000a) /* l2cap register*/
+/** Bluetooth LE l2cap register command response ID */
 #define NCP_RSP_BLE_L2CAP_REGISTER           (NCP_CMD_BLE | NCP_CMD_BLE_L2CAP | NCP_MSG_TYPE_RESP | 0x0000000a)
-/** Bluetooth LE L2CAP metrics command ID */
-#define NCP_CMD_BLE_L2CAP_METRICS            (NCP_CMD_BLE | NCP_CMD_BLE_L2CAP | NCP_MSG_TYPE_CMD | 0x0000000b) /* L2CAP metrics */
-/** Bluetooth LE L2CAP metrics command response ID */
+/** Bluetooth LE l2cap metrics command ID */
+#define NCP_CMD_BLE_L2CAP_METRICS            (NCP_CMD_BLE | NCP_CMD_BLE_L2CAP | NCP_MSG_TYPE_CMD | 0x0000000b) /* l2cap metrics */
+/** Bluetooth LE l2cap metrics command response ID */
 #define NCP_RSP_BLE_L2CAP_METRICS            (NCP_CMD_BLE | NCP_CMD_BLE_L2CAP | NCP_MSG_TYPE_RESP | 0x0000000b)
-/** Bluetooth LE L2CAP receive command ID */
-#define NCP_CMD_BLE_L2CAP_RECEIVE            (NCP_CMD_BLE | NCP_CMD_BLE_L2CAP | NCP_MSG_TYPE_CMD | 0x0000000c) /* L2CAP receive */
-/** Bluetooth LE L2CAP receive command response ID */
+/** Bluetooth LE l2cap receive command ID */
+#define NCP_CMD_BLE_L2CAP_RECEIVE            (NCP_CMD_BLE | NCP_CMD_BLE_L2CAP | NCP_MSG_TYPE_CMD | 0x0000000c) /* l2cap receive */
+/** Bluetooth LE l2cap receive command response ID */
 #define NCP_RSP_BLE_L2CAP_RECEIVE            (NCP_CMD_BLE | NCP_CMD_BLE_L2CAP | NCP_MSG_TYPE_RESP | 0x0000000c)
 
 /** Bluetooth LE Vendor enable/disable power mode command ID */
@@ -236,29 +219,29 @@
 #define NCP_EVENT_PHY_UPDATED                (NCP_CMD_BLE | NCP_CMD_BLE_EVENT | NCP_MSG_TYPE_EVENT | GAP_EV_PHY_UPDATED) /* GAP phy updated */
 /** Bluetooth LE data length update event */
 #define NCP_EVENT_DATA_LEN_UPDATED           (NCP_CMD_BLE | NCP_CMD_BLE_EVENT | NCP_MSG_TYPE_EVENT | GAP_EV_DATA_LEN_UPDATED) /* GAP data len updated */
-/** Bluetooth LE GATT notification received event */
-#define NCP_EVENT_GATT_NOTIFICATION          (NCP_CMD_BLE | NCP_CMD_BLE_EVENT | NCP_MSG_TYPE_EVENT | GATT_EV_NOTIFICATION | 0x200) /* GATT notification Receive event */
-/** Bluetooth LE GATT attribute value changed event */
-#define NCP_EVENT_ATTR_VALUE_CHANGED         (NCP_CMD_BLE | NCP_CMD_BLE_EVENT | NCP_MSG_TYPE_EVENT | GATT_EV_ATTR_VALUE_CHANGED | 0x200) /* GATT Attribute Value Changed event */
-/** Bluetooth LE GATT client characteristic configuration changed event */
-#define NCP_EVENT_GATT_CCC_CFG_CHANGED       (NCP_CMD_BLE | NCP_CMD_BLE_EVENT | NCP_MSG_TYPE_EVENT | GATT_EV_CCC_CFG_CHANGED | 0x200) /* GATT Client Characteristic Configuration Changed event */
-/** Bluetooth LE GATT client subscription event */
-#define NCP_EVENT_GATT_SUBSCRIPTIONED        (NCP_CMD_BLE | NCP_CMD_BLE_EVENT | NCP_MSG_TYPE_EVENT | GATT_EV_SUBSCRIPTIONED | 0x200) /* GATT Client Subscription status event */
-/** Bluetooth LE GATT discover primary service event */
+/** Bluetooth LE gatt notification received event */
+#define NCP_EVENT_GATT_NOTIFICATION          (NCP_CMD_BLE | NCP_CMD_BLE_EVENT | NCP_MSG_TYPE_EVENT | GATT_EV_NOTIFICATION | 0x200) /* gatt notification Receive event */
+/** Bluetooth LE gatt attribute value changed event */
+#define NCP_EVENT_ATTR_VALUE_CHANGED         (NCP_CMD_BLE | NCP_CMD_BLE_EVENT | NCP_MSG_TYPE_EVENT | GATT_EV_ATTR_VALUE_CHANGED | 0x200) /* gatt Attribute Value Changed event */
+/** Bluetooth LE gatt client characteristic configuration changed event */
+#define NCP_EVENT_GATT_CCC_CFG_CHANGED       (NCP_CMD_BLE | NCP_CMD_BLE_EVENT | NCP_MSG_TYPE_EVENT | GATT_EV_CCC_CFG_CHANGED | 0x200) /* gatt Client Characteristic Configuration Changed event */
+/** Bluetooth LE gatt client subscription event */
+#define NCP_EVENT_GATT_SUBSCRIPTIONED        (NCP_CMD_BLE | NCP_CMD_BLE_EVENT | NCP_MSG_TYPE_EVENT | GATT_EV_SUBSCRIPTIONED | 0x200) /* gatt Client Subscription status event */
+/** Bluetooth LE gatt discover primary service event */
 #define NCP_EVENT_GATT_DISC_PRIM             (NCP_CMD_BLE | NCP_CMD_BLE_EVENT | NCP_MSG_TYPE_EVENT | 0x19 | 0x200) /* Discover Primary Service event */
-/** Bluetooth LE GATT discover characteristic event */
+/** Bluetooth LE gatt discover characteristic event */
 #define NCP_EVENT_GATT_DISC_CHRC             (NCP_CMD_BLE | NCP_CMD_BLE_EVENT | NCP_MSG_TYPE_EVENT | 0x20 | 0x200) /* Discover Characteristics event */
-/** Bluetooth LE GATT discover descriptor event */
+/** Bluetooth LE gatt discover descriptor event */
 #define NCP_EVENT_GATT_DISC_DESC             (NCP_CMD_BLE | NCP_CMD_BLE_EVENT | NCP_MSG_TYPE_EVENT | 0x21 | 0x200) /* Discover Descriptors event */
 /* NXP commission service info */
 #define NCP_EVENT_GATT_NCS_INFO              (NCP_CMD_BLE | NCP_CMD_BLE_EVENT | NCP_MSG_TYPE_EVENT | 0x30 | 0x200) /* NCS Commission info event */
 
-/** Bluetooth LE L2CAP connect event */
-#define NCP_EVENT_L2CAP_CONNECT              (NCP_CMD_BLE | NCP_CMD_BLE_EVENT | NCP_MSG_TYPE_EVENT | L2CAP_EV_CONNECT | 0x300) /* L2CAP Connect event */
-/** Bluetooth LE L2CAP disconnect event */
-#define NCP_EVENT_L2CAP_DISCONNECT           (NCP_CMD_BLE | NCP_CMD_BLE_EVENT | NCP_MSG_TYPE_EVENT | L2CAP_EV_DISCONNECT | 0x300) /* L2CAP Disconnect event */
-/** Bluetooth LE L2CAP receive event */
-#define NCP_EVENT_L2CAP_RECEIVE              (NCP_CMD_BLE | NCP_CMD_BLE_EVENT | NCP_MSG_TYPE_EVENT | L2CAP_EV_RECEIVE | 0x300) /* L2CAP Receive event */
+/** Bluetooth LE l2cap connect event */
+#define NCP_EVENT_L2CAP_CONNECT              (NCP_CMD_BLE | NCP_CMD_BLE_EVENT | NCP_MSG_TYPE_EVENT | L2CAP_EV_CONNECT | 0x300) /* l2cap Connect event */
+/** Bluetooth LE l2cap disconnect event */
+#define NCP_EVENT_L2CAP_DISCONNECT           (NCP_CMD_BLE | NCP_CMD_BLE_EVENT | NCP_MSG_TYPE_EVENT | L2CAP_EV_DISCONNECT | 0x300) /* l2cap Disconnect event */
+/** Bluetooth LE l2cap receive event */
+#define NCP_EVENT_L2CAP_RECEIVE              (NCP_CMD_BLE | NCP_CMD_BLE_EVENT | NCP_MSG_TYPE_EVENT | L2CAP_EV_RECEIVE | 0x300) /* l2cap Receive event */
 
 /** NCP Bluetooth LE TLV type */
 #define NCP_CMD_GATT_ADD_SERVICE_TLV       0x0001
@@ -285,24 +268,28 @@
 /** Bluetooth LE Vendor set board address hci opcode */
 #define BT_HCI_VD_SET_BD_ADDRESS      BT_OP(BT_OGF_VS, 0x0022)
 
-/** NCP Bluetooth LE set board address config structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE board address */
 typedef  NCP_TLV_PACK_START struct _ncp_ble_set_bd_address_cfg {
-    /** paramter id, default value with 0XFE */
+    /** Vendor command paramter id. \n
+       The id of Bluetooth LE Vendor set board address is 0XFE 
+    */
     uint8_t   paramater_id;
-    /** board address length */
+    /** Bluetooth LE Device address length  \n
+        The length of Bluetooth LE Device address should be 0x06
+    */
     uint8_t   bd_addr_len;
-    /** board address */
+    /** Bluetooth LE Device address */
     uint8_t   bd_address[6];
 } NCP_TLV_PACK_END ncp_ble_set_bd_address_cfg;
 
 /** NCP Bluetooth LE low power mode opcode */
 #define BT_HCI_VD_LOW_POWER_MODE      BT_OP(BT_OGF_VS, 0x0023)
-/** NCP Bluetooth LE low power mode config structure */
+/** This structure is used to set the configuration of CPU2 low power mode */
 typedef  NCP_TLV_PACK_START struct _ncp_ble_low_power_mode_cfg {
     /**
-     * cpu2 power mode,
-     * 2: auto sleep disable
-     * 3: auto sleep enable
+     * Set CPU2 power mode. \n
+      auto sleep disable : 0x02 \n
+      auto sleep enable : 0x03
      */
     uint8_t   power_mode;
     /** sleep timeout value */
@@ -312,39 +299,6 @@ typedef  NCP_TLV_PACK_START struct _ncp_ble_low_power_mode_cfg {
 /** NCP Bluetooth LE multi advertising opcode */
 #define BT_HCI_VD_MULTI_ADV_CMD       BT_OP(BT_OGF_VS, 0x0154)
 
-
-
-/** NCP Bluetooth LE Core read support command ID */
-#define CORE_READ_SUPPORTED_COMMANDS    0x01
-/** NCP Bluetooth LE Core read support response structure */
-typedef NCP_TLV_PACK_START struct core_read_supported_commands_rp_tag {
-    /** response of core read support command */
-    uint8_t rsp;
-} NCP_TLV_PACK_END core_read_supported_commands_rp_t;
-
-/** NCP Bluetooth LE Core read support service command ID */
-#define CORE_READ_SUPPORTED_SERVICES    0x02
-/** NCP Bluetooth LE Core read support service response structure */
-typedef NCP_TLV_PACK_START struct core_read_supported_services_rp_tag {
-    /** response of core read support service command */
-    uint8_t rsp;
-} NCP_TLV_PACK_END core_read_supported_services_rp_t;
-
-/** NCP Bluetooth LE Core register service command ID */
-#define CORE_REGISTER_SERVICE           0x03
-/** NCP Bluetooth LE Core register service command structure */
-typedef NCP_TLV_PACK_START struct core_register_service_cmd_tag {
-    /** register service id */
-    uint8_t id;
-} NCP_TLV_PACK_END core_register_service_cmd_t;
-
-/** NCP Bluetooth LE Core unregister service command ID */
-#define CORE_UNREGISTER_SERVICE         0x04
-typedef NCP_TLV_PACK_START struct core_unregister_service_cmd_tag {
-    /** unregister service id */
-    uint8_t id;
-} NCP_TLV_PACK_END core_unregister_service_cmd_t;
-
 /** NCP Bluetooth LE Core reset board command ID */
 #define CORE_RESET_BOARD                0x06
 
@@ -353,21 +307,9 @@ typedef NCP_TLV_PACK_START struct core_unregister_service_cmd_tag {
 
 /** NCP Bluetooth LE GAP read support command ID */
 #define GAP_READ_SUPPORTED_COMMANDS 0x01
-/** NCP Bluetooth LE GAP read support command response structure */
-typedef NCP_TLV_PACK_START struct gap_read_supported_commands_rp {
-    /** response data of read support command */
-    uint8_t data;
-} NCP_TLV_PACK_END gap_read_supported_commands_rp_t;
 
 /** NCP Bluetooth LE GAP read controller index list command ID */
 #define GAP_READ_CONTROLLER_INDEX_LIST  0x02
-/** NCP Bluetooth LE GAP read controller index list command response ID */
-typedef NCP_TLV_PACK_START struct gap_read_controller_index_list_rp {
-    /** number of index */  
-    uint8_t num;
-    /** index id */
-    uint8_t index;
-} NCP_TLV_PACK_END gap_read_controller_index_list_rp_t;
 
 /** NCP Bluetooth LE GAP set power ID */
 #define GAP_SETTINGS_POWERED            0
@@ -389,7 +331,7 @@ typedef NCP_TLV_PACK_START struct gap_read_controller_index_list_rp {
 #define GAP_SETTINGS_HS                 8
 /** NCP Bluetooth LE GAP set le ID */
 #define GAP_SETTINGS_LE                 9
-/** NCP Bluetooth LE GAP set adv ID */
+/** NCP Bluetooth LE GAP set advertising ID */
 #define GAP_SETTINGS_ADVERTISING        10
 /** NCP Bluetooth LE GAP set SC ID */
 #define GAP_SETTINGS_SC                 11
@@ -402,77 +344,6 @@ typedef NCP_TLV_PACK_START struct gap_read_controller_index_list_rp {
 /** NCP Bluetooth LE GAP set static address ID */
 #define GAP_SETTINGS_STATIC_ADDRESS     15
 
-/** NCP Bluetooth LE GAP read controller info ID */
-#define GAP_READ_CONTROLLER_INFO  0x03
-/** NCP Bluetooth LE GAP read controller info response structure */
-typedef NCP_TLV_PACK_START struct gap_read_controller_info_rp {
-    /** device address */
-    uint8_t  address[6];
-    /** device supoort setting */
-    uint32_t supported_settings;
-    /** device current setting */
-    uint32_t current_settings;
-    /** class of device */
-    uint8_t  cod[3];
-    /** device name */
-    uint8_t  name[249];
-    /** device short name */
-    uint8_t  short_name[11];
-} NCP_TLV_PACK_END gap_read_controller_info_rp_t;
-
-/** NCP Bluetooth LE GAP reset ID */
-#define GAP_RESET     0x04
-/** NCP Bluetooth LE GAP reset response structure */
-typedef NCP_TLV_PACK_START struct gap_reset_rp {
-    /** device current setting */
-    uint32_t current_settings;
-} NCP_TLV_PACK_END gap_reset_rp_t;
-
-/** NCP Bluetooth LE GAP set power ID */
-#define GAP_SET_POWERED     0x05
-/** NCP Bluetooth LE GAP set power command structure */
-typedef NCP_TLV_PACK_START struct gap_set_powered_cmd {
-    /** device power set
-     * 0: disable
-     * 1: enable
-     */
-    uint8_t powered;
-} NCP_TLV_PACK_END gap_set_powered_cmd_t;
-/** NCP Bluetooth LE GAP set power response structure */
-typedef NCP_TLV_PACK_START struct gap_set_powered_rp {
-    /** device current setting */
-    uint32_t current_settings;
-} NCP_TLV_PACK_END gap_set_powered_rp_t;
-
-/** NCP Bluetooth LE GAP set connectable ID */
-#define GAP_SET_CONNECTABLE   0x06
-/** NCP Bluetooth LE GAP set connectable command structure */
-typedef NCP_TLV_PACK_START struct gap_set_connectable_cmd {
-    /** device connectable setting
-     * 0: disable
-     * 1: enable
-     */
-    uint8_t connectable;
-} NCP_TLV_PACK_END gap_set_connectable_cmd_t;
-/** NCP Bluetooth LE GAP set connectable response structure */
-typedef NCP_TLV_PACK_START struct gap_set_connectable_rp {
-    /** device current setting */
-    uint32_t current_settings;
-} NCP_TLV_PACK_END gap_set_connectable_rp_t;
-
-/** NCP Bluetooth LE GAP fast connect ID */
-#define GAP_SET_FAST_CONNECTABLE  0x07
-/** NCP Bluetooth LE GAP fast connectable command structure */
-typedef NCP_TLV_PACK_START struct gap_set_fast_connectable_cmd {
-    /** fast connect setting */
-    uint8_t fast_connectable;
-} NCP_TLV_PACK_END gap_set_fast_connectable_cmd_t;
-/** NCP Bluetooth LE GAP fast connectable response structure */
-typedef NCP_TLV_PACK_START struct gap_set_fast_connectable_rp {
-    /** fast connect setting */
-    uint32_t current_settings;
-} NCP_TLV_PACK_END gap_set_fast_connectable_rp_t;
-
 /** NCP Bluetooth LE GAP non discoverable ID */
 #define GAP_NON_DISCOVERABLE      0x00
 /** NCP Bluetooth LE GAP general discoverable ID */
@@ -481,57 +352,66 @@ typedef NCP_TLV_PACK_START struct gap_set_fast_connectable_rp {
 #define GAP_LIMITED_DISCOVERABLE  0x02
 /** NCP Bluetooth LE GAP discoverable ID */
 #define GAP_SET_DISCOVERABLE    0x08
-/** NCP Bluetooth LE GAP set discoverable command structure */
-typedef NCP_TLV_PACK_START struct gap_set_discoverable_cmd {
-    /** discoverable setting 
-     * 0: non-discoverable
-     * 1: general discoverable
-     * 2: limit discoverable
-     * 8: dsicoverable
-    */
-    uint8_t discoverable;
-} NCP_TLV_PACK_END gap_set_discoverable_cmd_t;
-/** NCP Bluetooth LE GAP set discoverable response structure */
-typedef NCP_TLV_PACK_START struct gap_set_discoverable_rp {
-    /** device current setting */
-    uint32_t current_settings;
-} NCP_TLV_PACK_END gap_set_discoverable_rp_t;
 
 /** NCP Bluetooth LE GAP set bondable ID */
 #define GAP_SET_BONDABLE    0x09
-/** NCP Bluetooth LE GAP set bondable command structure */
-typedef NCP_TLV_PACK_START struct gap_set_bondable_cmd {
-    /** device bondable setting */
-    uint8_t bondable;
-} NCP_TLV_PACK_END gap_set_bondable_cmd_t;
-/** NCP Bluetooth LE GAP set bondable response structure */
-typedef NCP_TLV_PACK_START struct gap_set_bondable_rp {
-    /** device current setting */
-    uint32_t current_settings;
-} NCP_TLV_PACK_END gap_set_bondable_rp_t;
 
 /** NCP Bluetooth LE GAP set advertising ID */
 #define GAP_START_ADVERTISING 0x0a
-/** NCP Bluetooth LE GAP set advertising command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE advertising command */
 typedef NCP_TLV_PACK_START struct gap_start_advertising_cmd {
-    /** adv data length */
+    /** advertising data length */
     uint8_t adv_data_len;
     /** scan response length */
     uint8_t scan_rsp_len;
-    /** adv/scan response data */
+    /** advertising/scan response data */
     uint8_t adv_sr_data[];
 } NCP_TLV_PACK_END gap_start_advertising_cmd_t;
-/** NCP Bluetooth LE GAP set advertising response structure */
+/** This structure is used to store the response of NCP Bluetooth LE set advertising command */
 typedef NCP_TLV_PACK_START struct gap_start_advertising_rp {
-    /** device current setting */
+    /** device current setting \n
+     * bit0: GAP_SETTINGS_POWERED \n
+     * bit1: GAP_SETTINGS_CONNECTABLE \n
+     * bit2: GAP_SETTINGS_FAST_CONNECTABLE \n
+     * bit3: GAP_SETTINGS_DISCOVERABLE \n
+     * bit4: GAP_SETTINGS_BONDABLE \n
+     * bit5: GAP_SETTINGS_LINK_SEC_3 \n
+     * bit6: GAP_SETTINGS_SSP \n
+     * bit7: GAP_SETTINGS_BREDR \n
+     * bit8: GAP_SETTINGS_HS \n
+     * bit9: GAP_SETTINGS_LE \n
+     * bit10: GAP_SETTINGS_ADVERTISING \n
+     * bit11: GAP_SETTINGS_SC \n
+     * bit12: GAP_SETTINGS_DEBUG_KEYS \n
+     * bit13: GAP_SETTINGS_PRIVACY \n
+     * bit14: GAP_SETTINGS_CONTROLLER_CONFIG \n
+     * bit15: GAP_SETTINGS_STATIC_ADDRESS
+    */
     uint32_t current_settings;
 } NCP_TLV_PACK_END gap_start_advertising_rp_t;
 
 /** NCP Bluetooth LE GAP stop advertising ID */
 #define GAP_STOP_ADVERTISING    0x0b
-/** NCP Bluetooth LE GAP stop advertising response structure */
+/** This structure is used to store the response of NCP Bluetooth LE stop advertising command */
 typedef NCP_TLV_PACK_START struct gap_stop_advertising_rp {
-    /** device current setting */
+    /** device current setting  \n
+     * bit0: GAP_SETTINGS_POWERED \n
+     * bit1: GAP_SETTINGS_CONNECTABLE \n
+     * bit2: GAP_SETTINGS_FAST_CONNECTABLE \n
+     * bit3: GAP_SETTINGS_DISCOVERABLE \n
+     * bit4: GAP_SETTINGS_BONDABLE \n
+     * bit5: GAP_SETTINGS_LINK_SEC_3 \n
+     * bit6: GAP_SETTINGS_SSP \n
+     * bit7: GAP_SETTINGS_BREDR \n
+     * bit8: GAP_SETTINGS_HS \n
+     * bit9: GAP_SETTINGS_LE \n
+     * bit10: GAP_SETTINGS_ADVERTISING \n
+     * bit11: GAP_SETTINGS_SC \n
+     * bit12: GAP_SETTINGS_DEBUG_KEYS \n
+     * bit13: GAP_SETTINGS_PRIVACY \n
+     * bit14: GAP_SETTINGS_CONTROLLER_CONFIG \n
+     * bit15: GAP_SETTINGS_STATIC_ADDRESS
+    */
     uint32_t current_settings;
 } NCP_TLV_PACK_END gap_stop_advertising_rp_t;
 
@@ -550,15 +430,15 @@ typedef NCP_TLV_PACK_START struct gap_stop_advertising_rp {
 
 /** NCP Bluetooth LE GAP start discovery ID */
 #define GAP_START_DISCOVERY   0x0c
-/** NCP Bluetooth LE GAP start discovery command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE start discovery command */
 typedef NCP_TLV_PACK_START struct gap_start_discovery_cmd {
-    /** discovery setting
-     * 1: discovery le
-     * 2: discovery bredr
-     * 4: limit discovery
-     * 8: active scan
-     * 0x10: observe
-     * 0x20: discovery own address 
+    /** discovery setting \n 
+      0x01: discovery le \n
+      0x02: discovery bredr \n 
+      0x04: limit discovery \n
+      0x08: active scan \n
+      0x10: observe \n
+      0x20: discovery own address  
      */
     uint8_t flags;
 } NCP_TLV_PACK_END gap_start_discovery_cmd_t;
@@ -569,25 +449,25 @@ typedef NCP_TLV_PACK_START struct gap_start_discovery_cmd {
 #define GAP_CONNECT     0x0e
 /** NCP Bluetooth LE GAP connect command structure */
 typedef NCP_TLV_PACK_START struct gap_connect_cmd {
-    /** address type
-     * 0: public
-     * 1: random
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
      */
     uint8_t address_type;
-    /** peer address */
+    /** Bluetooth LE address */
     uint8_t address[6];
 } NCP_TLV_PACK_END gap_connect_cmd_t;
 
 /** NCP Bluetooth LE GAP disconnect ID */
 #define GAP_DISCONNECT      0x0f
-/** NCP Bluetooth LE GAP connect command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE connect command */
 typedef NCP_TLV_PACK_START struct gap_disconnect_cmd {
-    /** address type
-     * 0: public
-     * 1: random
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
      */
     uint8_t  address_type;
-    /** peer address */
+    /** Bluetooth LE address */
     uint8_t  address[6];
 } NCP_TLV_PACK_END gap_disconnect_cmd_t;
 
@@ -604,166 +484,119 @@ typedef NCP_TLV_PACK_START struct gap_disconnect_cmd {
 
 /** NCP Bluetooth LE GAP IO capablility ID */
 #define GAP_SET_IO_CAP      0x10
-/** NCP Bluetooth LE GAP set IO capablility command structure */
-typedef NCP_TLV_PACK_START struct gap_set_io_cap_cmd {
-    /** io capability setting */
-    uint8_t io_cap;
-} NCP_TLV_PACK_END gap_set_io_cap_cmd_t;
 
 /** NCP Bluetooth LE GAP pair ID */
 #define GAP_PAIR      0x11
 /** NCP Bluetooth LE GAP pair command structure */
 typedef NCP_TLV_PACK_START struct gap_pair_cmd {
-    /** peer address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** peer address */
+    /** Bluetooth LE address */
     uint8_t address[6];
 } NCP_TLV_PACK_END gap_pair_cmd_t;
 
 /** NCP Bluetooth LE GAP unpair ID */
 #define GAP_UNPAIR      0x12
-/** NCP Bluetooth LE GAP unpair command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE unpair command */
 typedef NCP_TLV_PACK_START struct gap_unpair_cmd {
-    /** peer address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** peer address */
+    /** Bluetooth LE address */
     uint8_t address[6];
 } NCP_TLV_PACK_END gap_unpair_cmd_t;
 
 /** NCP Bluetooth LE GAP passkey entry ID */
 #define GAP_PASSKEY_ENTRY   0x13
-/** NCP Bluetooth LE GAP passkey entry command structure */
-typedef NCP_TLV_PACK_START struct gap_passkey_entry_cmd {
-    /** peer address type */
-    uint8_t  address_type;
-    /** peer address */
-    uint8_t  address[6];
-    /** peer address */
-    uint32_t passkey;
-} NCP_TLV_PACK_END gap_passkey_entry_cmd_t;
 
 /** NCP Bluetooth LE GAP passkey confirm ID */
 #define GAP_PASSKEY_CONFIRM   0x14
-/** NCP Bluetooth LE GAP passkey confirm command strcuture */
-typedef NCP_TLV_PACK_START struct gap_passkey_confirm_cmd {
-    /** peer address type */
-    uint8_t address_type;
-    /** peer address */
-    uint8_t address[6];
-    /** passkey match or not */
-    uint8_t match;
-} NCP_TLV_PACK_END gap_passkey_confirm_cmd_t;
 
-/** NCP Bluetooth LE start directed adv hd */
+/** NCP Bluetooth LE start directed advertising hd */
 #define GAP_START_DIRECTED_ADV_HD BIT(0)
-/** NCP Bluetooth LE start directed adv own id */
+/** NCP Bluetooth LE start directed advertising own id */
 #define GAP_START_DIRECTED_ADV_OWN_ID BIT(1)
-/** NCP Bluetooth LE start directed adv peer rpa */
+/** NCP Bluetooth LE start directed advertising peer rpa */
 #define GAP_START_DIRECTED_ADV_PEER_RPA BIT(2)
 
-/** NCP Bluetooth LE start directed adv ID */
+/** NCP Bluetooth LE start directed advertising ID */
 #define GAP_START_DIRECTED_ADV    0x15
-/** NCP Bluetooth LE start directed adv command structure */
-typedef NCP_TLV_PACK_START struct gap_start_directed_adv_cmd {
-    /** peer address type */
-    uint8_t address_type;
-    /** peer address */
-    uint8_t address[6];
-    /** passkey match or not */
-    uint16_t options;
-} NCP_TLV_PACK_END gap_start_directed_adv_cmd_t;
-/** NCP Bluetooth LE start directed adv response structure */
-typedef NCP_TLV_PACK_START struct gap_start_directed_adv_rp {
-    /** device current setting */
-    uint32_t current_settings;
-} NCP_TLV_PACK_END gap_start_directed_adv_rp_t;
 
 /** NCP Bluetooth LE GAP connection parameter update ID */
 #define GAP_CONN_PARAM_UPDATE   0x16
-/** NCP Bluetooth LE GAP connection parameter update command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE connection parameter update command */
 typedef NCP_TLV_PACK_START struct gap_conn_param_update_cmd {
-    /** peer address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** peer address */
+    /** Bluetooth LE address */
     uint8_t address[6];
-    /** connection minimal interval */
+    /** connection minimal interval \n
+        Minimum value for the connection interval. This shall be less than or equal to maximum connection interval
+    */
     uint16_t interval_min;
-    /** connection maximum interval */
+    /** connection maximum interval \n
+        Maximum value for the connection interval. This shall be greater than or equal to minimum connection interval
+    */
     uint16_t interval_max;
-    /** connection latency */
+    /** connection latency \n
+        Maximum peripheral latency for the connection in number of subrated connection events
+    */
     uint16_t latency;
-    /** connection timeout */
+    /** connection timeout \n
+        Supervision timeout for the Bluetooth LE link
+    */
     uint16_t timeout;
 } NCP_TLV_PACK_END gap_conn_param_update_cmd_t;
 
 /** NCP Bluetooth LE GAP pairing consent ID */
 #define GAP_PAIRING_CONSENT   0x17
-/** NCP Bluetooth LE GAP pairing consent command structure */
-typedef NCP_TLV_PACK_START struct gap_pairing_consent_cmd {
-    /** peer address type */
-    uint8_t address_type;
-    /** peer address */
-    uint8_t address[6];
-    /** pair consent */
-    uint8_t consent;
-} NCP_TLV_PACK_END gap_pairing_consent_cmd_t;
 
 /** NCP Bluetooth LE oob legacy set data ID */
 #define GAP_OOB_LEGACY_SET_DATA   0x18
-/** NCP Bluetooth LE oob legacy set data command structure */
-typedef NCP_TLV_PACK_START struct gap_oob_legacy_set_data_cmd {
-    /** out of bound data */
-    uint8_t oob_data[16];
-} NCP_TLV_PACK_END gap_oob_legacy_set_data_cmd_t;
 
 /** NCP Bluetooth LE oob security get local data ID */
 #define GAP_OOB_SC_GET_LOCAL_DATA 0x19
-/** NCP Bluetooth LE oob security get local data response structure */
-typedef NCP_TLV_PACK_START struct gap_oob_sc_get_local_data_rp {
-    /** local rand data */
-    uint8_t rand[16];
-    /** local conf data */
-    uint8_t conf[16];
-} NCP_TLV_PACK_END gap_oob_sc_get_local_data_rp_t;
 
 /** NCP Bluetooth LE oob security set remote data ID */
 #define GAP_OOB_SC_SET_REMOTE_DATA  0x1a
-typedef NCP_TLV_PACK_START struct gap_oob_sc_set_remote_data_cmd {
-    /** local rand data */
-    uint8_t rand[16];
-    /** local conf data */
-    uint8_t conf[16];
-} NCP_TLV_PACK_END gap_oob_sc_set_remote_data_cmd_t;
 
 /** NCP Bluetooth LE GAP set mitm ID */
 #define GAP_SET_MITM      0x1b
-/** NCP Bluetooth LE GAP set mitm ID command structure*/
-typedef NCP_TLV_PACK_START struct gap_set_mitm {
-    /** mitm setting */
-    uint8_t mitm;
-} NCP_TLV_PACK_END gap_set_mitm_t;
 
-/** NCP Bluetooth LE le address type structure*/
+/** This structure is used to store the configuration of NCP Bluetooth LE address type */
 typedef struct le_addr {
-    /** address type */
+    /** Types of Bluetooth LE device addresses: \n
+       Public Address : 0x00 \n
+       Random Address : 0x01 \n
+       Public Identity Address : 0x02 \n
+       Random Identity Address : 0x03
+     */
     uint8_t type;
-    /** le address */
+    /** Bluetooth device Address */
     uint8_t address[6];
 } le_addr_t;
 
 /** NCP Bluetooth LE GAP set fileter list ID */
 #define GAP_SET_FILTER_LIST 0x1c
-/** NCP Bluetooth LE GAP set fileter list type structure */
+/** This structure is used to store the configuration of NCP Bluetooth LE set fileter list type */
 typedef NCP_TLV_PACK_START struct gap_set_filter_list {
-    /** filter list number to set */
+    /** The number of filter addresses to set */
     uint8_t cnt;
-    /** list of filter address */
+    /** list of filter addresses */
     le_addr_t addr;
 } NCP_TLV_PACK_END gap_set_filter_list_t;
 
 /** NCP Bluetooth LE GAP set scan parameter ID */
 #define GAP_SET_SCAN_PARAMETER 0x1d
-/** NCP Bluetooth LE GAP set scan parameter command strcuture */
+/** This structure is used to set the configuration of NCP Bluetooth LE set scan parameter command */
 typedef NCP_TLV_PACK_START struct gap_set_scan_param_cmd {
   /** Bit-field of scanning options. */
   uint32_t options;
@@ -773,51 +606,76 @@ typedef NCP_TLV_PACK_START struct gap_set_scan_param_cmd {
   uint16_t window;
 } NCP_TLV_PACK_END gap_set_scan_param_cmd_t;
 
-/** NCP Bluetooth LE GAP set adv data ID */
+/** NCP Bluetooth LE GAP set advertising data ID */
 #define GAP_SET_ADV_DATA 0x1e
-/** NCP Bluetooth LE GAP set adv data command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE set advertising data command */
 typedef NCP_TLV_PACK_START struct gap_set_adv_data_cmd {
-    /** adv data length */
+    /** advertising data length */
     uint8_t adv_data_len;
-    /** adv data */
+    /** Advertising data to set  \n
+        advertising data should follow struture: \n
+            struct bt_data {  \n
+                U8 len; \n
+                U8 type;  \n
+                const U8 *data; \n
+            } 
+    */
     uint8_t data[31];
 } NCP_TLV_PACK_END gap_set_adv_data_cmd_t;
 
-/** NCP Bluetooth LE GAP set adv data length command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE set advertising data length command */
 typedef NCP_TLV_PACK_START struct gap_set_data_len_cmd {
-    /** device address type  */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t  address_type;
-    /** device address */
+    /** Bluetooth LE address */
     uint8_t  address[6];
-    /** adv time flag */
+    /** option to use \ref tx_max_time or to use system calculate maximum TX transimit time \n
+        0 - use system maximum TX transimit time \n
+        1 - use customized maximum TX transimit time
+    */
     uint8_t  time_flag;
-    /** adv tx maximum length */
+    /** Maximum data length to transmit */
     uint16_t tx_max_len;
-    /** adv tx maximum time */
+    /** Maximum TX transimit time */
     uint16_t tx_max_time;
 } NCP_TLV_PACK_END gap_set_data_len_cmd_t;
 
-/** NCP Bluetooth LE GAP set phy command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE set phy command */
 typedef NCP_TLV_PACK_START struct gap_set_phy_cmd {
-    /** device address type  */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t  address_type;
-    /** device address */
+    /** Bluetooth LE address */
     uint8_t  address[6];
-    /** phy option */
+    /** Connection PHY options  \n
+        0: BT_CONN_LE_PHY_OPT_NONE (Convenience value when no options are specified) \n
+        bit0: BT_CONN_LE_PHY_OPT_CODED_S2 (LE Coded using S=2 coding preferred when transmitting) \n
+        bit1: BT_CONN_LE_PHY_OPT_CODED_S8 (LE Coded using S=8 coding preferred when transmitting)
+    */
     uint16_t options;
-    /** perferred tx phy */
+    /** Bitmask of preferred transmit PHYs  \n
+        0: BT_GAP_LE_PHY_NONE (Convenience macro for when no PHY is set) \n
+        bit0: BT_GAP_LE_PHY_1M (LE 1M PHY) \n
+        bit1: BT_GAP_LE_PHY_2M (LE 2M PHY) \n
+        bit2: BT_GAP_LE_PHY_CODED (LE Coded PHY)
+    */
     uint8_t  pref_tx_phy;
-    /** perferred rx phy */
+    /** Bitmask of preferred receive PHYs \n
+        0: BT_GAP_LE_PHY_NONE (Convenience macro for when no PHY is set) \n
+        bit0: BT_GAP_LE_PHY_1M (LE 1M PHY) \n
+        bit1: BT_GAP_LE_PHY_2M (LE 2M PHY) \n
+        bit2: BT_GAP_LE_PHY_CODED (LE Coded PHY)
+    */
     uint8_t  pref_rx_phy;
 } NCP_TLV_PACK_END gap_set_phy_cmd_t;
 
 /** NCP Bluetooth LE new setting event ID */
 #define GAP_EV_NEW_SETTINGS   0x80
-/** NCP Bluetooth LE new setting event structure */
-typedef NCP_TLV_PACK_START struct gap_new_settings_ev {
-    /** device current setting */
-    uint32_t current_settings;
-} NCP_TLV_PACK_END gap_new_settings_ev_t;
 
 /** NCP Bluetooth LE device found flag */
 #define GAP_DEVICE_FOUND_FLAG_RSSI  0x01
@@ -826,15 +684,22 @@ typedef NCP_TLV_PACK_START struct gap_new_settings_ev {
 
 /** NCP Bluetooth LE device found event ID */
 #define GAP_EV_DEVICE_FOUND   0x81
-/** NCP Bluetooth LE device found event structure */
+/** This structure is used to store the information of NCP Bluetooth LE device found event */
 typedef NCP_TLV_PACK_START struct gap_device_found_ev {
-    /** scan address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t  address_type;
-    /** scan address */
+    /** Bluetooth LE address */
     uint8_t  address[6];
     /** scan rssi */
     int8_t   rssi;
-    /** scan flag */
+    /** Bluetooth LE device found flag \n
+        0x01: GAP_DEVICE_FOUND_FLAG_RSSI \n
+        0x02: GAP_DEVICE_FOUND_FLAG_AD \n
+        0x04: GAP_DEVICE_FOUND_FLAG_SD
+     */
     uint8_t  flags;
     /** scan data length */
     uint16_t eir_data_len;
@@ -844,37 +709,50 @@ typedef NCP_TLV_PACK_START struct gap_device_found_ev {
 
 /** NCP Bluetooth LE device connected event ID */
 #define GAP_EV_DEVICE_CONNECTED   0x82
-/** NCP Bluetooth LE device connected event structure */
+/** This structure is used to store the information of NCP Bluetooth LE device connected event */
 typedef NCP_TLV_PACK_START struct gap_device_connected_ev {
-    /** connect address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** connect address */
+    /** Bluetooth LE address */
     uint8_t address[6];
     /** connection interval */
     uint16_t interval;
-    /** connection latency */
+    /** connection latency \n
+        Maximum peripheral latency for the connection in number of subrated connection events
+    */
     uint16_t latency;
-    /** connection timeout */
+    /** connection timeout \n
+        Supervision timeout for the Bluetooth LE link
+    */
     uint16_t timeout;
 } NCP_TLV_PACK_END gap_device_connected_ev_t;
 
 /** NCP Bluetooth LE device disconnected event ID */
 #define GAP_EV_DEVICE_DISCONNECTED  0x83
-/** NCP Bluetooth LE device disconnected event structure */
+/** This structure is used to store the information of NCP Bluetooth LE disconnected event */
 typedef NCP_TLV_PACK_START struct gap_device_disconnected_ev {
-    /** disconnect address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** disconnect address */
+    /** Bluetooth LE address */
     uint8_t address[6];
 } NCP_TLV_PACK_END gap_device_disconnected_ev_t;
 
 /** NCP Bluetooth LE passkey display event ID */
 #define GAP_EV_PASSKEY_DISPLAY    0x84
-/** NCP Bluetooth LE passkey display event structure */
+/** This structure is used to store the information of NCP Bluetooth LE passkey display event */
 typedef NCP_TLV_PACK_START struct gap_passkey_display_ev {
-    /** device address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t  address_type;
-    /** device address */
+    /** Bluetooth LE address */
     uint8_t  address[6];
     /** device passkey number */
     uint32_t passkey;
@@ -882,53 +760,50 @@ typedef NCP_TLV_PACK_START struct gap_passkey_display_ev {
 
 /** NCP Bluetooth LE passkey entry request event ID */
 #define GAP_EV_PASSKEY_ENTRY_REQ  0x85
-/** NCP Bluetooth LE passkey entry request event structure */
-typedef NCP_TLV_PACK_START struct gap_passkey_entry_req_ev {
-    /** device address type */
-    uint8_t address_type;
-    /** device address */
-    uint8_t address[6];
-} NCP_TLV_PACK_END gap_passkey_entry_req_ev_t;
 
 /** NCP Bluetooth LE passkey confirm request event ID */
 #define GAP_EV_PASSKEY_CONFIRM_REQ  0x86
-/** NCP Bluetooth LE passkey confirm request event structure */
-typedef NCP_TLV_PACK_START struct gap_passkey_confirm_req_ev {
-    /** device address type */
-    uint8_t  address_type;
-    /** device address */
-    uint8_t  address[6];
-    /** device passkey number */
-    uint32_t passkey;
-} NCP_TLV_PACK_END gap_passkey_confirm_req_ev_t;
 
 /** NCP Bluetooth LE identity resolved event ID */
 #define GAP_EV_IDENTITY_RESOLVED  0x87
-/** NCP Bluetooth LE identity resolved event structure */
+/** This structure is used to store the information of NCP Bluetooth LE identity resolved event */
 typedef NCP_TLV_PACK_START struct gap_identity_resolved_ev {
-    /** device address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** device address */
+    /** Bluetooth LE address */
     uint8_t address[6];
-    /** device identity address type */
+    /** Bluetooth LE identity address type \n
+     2: public identity address \n
+     3: random identity address
+    */
     uint8_t identity_address_type;
-    /** device identity address */
+    /** Bluetooth LE identity address */
     uint8_t identity_address[6];
 } NCP_TLV_PACK_END gap_identity_resolved_ev_t;
 
 /** NCP Bluetooth LE connection parameter update event ID */
 #define GAP_EV_CONN_PARAM_UPDATE  0x88
-/** NCP Bluetooth LE connection parameter update event structure */
+/** This structure is used to store the information of NCP Bluetooth LE connection parameter update event */
 typedef NCP_TLV_PACK_START struct gap_conn_param_update_ev {
-    /** device address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** device address */
+    /** Bluetooth LE address */
     uint8_t address[6];
     /** connection interval */
     uint16_t interval;
-    /** connection latency */
+    /** connection latency \n
+        Maximum peripheral latency for the connection in number of subrated connection events
+    */
     uint16_t latency;
-    /** connection timeout */
+    /** connection timeout \n
+        Supervision timeout for the Bluetooth LE link
+    */
     uint16_t timeout;
 } NCP_TLV_PACK_END gap_conn_param_update_ev_t;
 
@@ -939,87 +814,113 @@ typedef NCP_TLV_PACK_START struct gap_conn_param_update_ev {
 
 /** NCP Bluetooth LE security level changed event ID */
 #define GAP_EV_SEC_LEVEL_CHANGED  0x89
-/** NCP Bluetooth LE security level changed event structure */
+/** This structure is used to store the information of NCP Bluetooth LE security level changed event */
 typedef NCP_TLV_PACK_START struct gap_sec_level_changed_ev {
-    /** device address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** device address */
+    /** Bluetooth LE address */
     uint8_t address[6];
-    /** connection security level */
+    /** connection security level \n
+        0x01: No encryption and no authentication \n
+        0x02: Encryption and no authentication (no MITM) \n
+        0x03: Encryption and authentication (MITM)
+    */
     uint8_t sec_level;
 } NCP_TLV_PACK_END gap_sec_level_changed_ev_t;
 
 /** NCP Bluetooth LE pairing consent request event ID */
 #define GAP_EV_PAIRING_CONSENT_REQ  0x8a
-/** NCP Bluetooth LE pairing consent request event structure */
-typedef NCP_TLV_PACK_START struct gap_pairing_consent_req_ev {
-    /** device address type */
-    uint8_t address_type;
-    /** device address */
-    uint8_t address[6];
-} NCP_TLV_PACK_END gap_pairing_consent_req_ev_t;
 
 /** NCP Bluetooth LE bonding lost event ID */
 #define GAP_EV_BOND_LOST  0x8b
-/** NCP Bluetooth LE bonding lost event structure */
+/** This structure is used to store the information of NCP Bluetooth LE bonding lost event */
 typedef NCP_TLV_PACK_START struct gap_bond_lost_ev {
-    /** device address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** device address */
+    /** Bluetooth LE address */
     uint8_t address[6];
 } NCP_TLV_PACK_END gap_bond_lost_ev_t;
 
 /** NCP Bluetooth LE pairing failed event ID */
 #define GAP_EV_PAIRING_FAILED   0x8c
-/** NCP Bluetooth LE pairing failed event structure */
+/** This structure is used to store the information of NCP Bluetooth LE pairing failed event */
 typedef NCP_TLV_PACK_START struct gap_bond_pairing_failed_ev {
-    /** device address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** device address */
+    /** Bluetooth LE address */
     uint8_t address[6];
-    /** pairing failed reason */
+    /** pairing failed reason \n
+      0: Security procedure successful \n
+      1: Authentication failed \n
+      2: PIN or encryption key is missing \n
+      3: OOB data is not available \n
+      4: The requested security level could not be reached \n
+      5: Pairing is not supported \n
+      6: Pairing is not allowed \n
+      7: Invalid parameters \n
+      8: Distributed Key Rejected \n
+      9: Pairing failed but the exact reason could not be specified
+    */
     uint8_t reason;
 } NCP_TLV_PACK_END gap_bond_pairing_failed_ev_t;
 
 /** NCP Bluetooth LE phy update event ID */
 #define GAP_EV_PHY_UPDATED  0x91
-/** NCP Bluetooth LE phy update event structure */
+/** This structure is used to store the information of NCP Bluetooth LE phy update event */
 typedef NCP_TLV_PACK_START struct gap_phy_updated_ev {
-    /** device address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** device address */
+    /** Bluetooth LE address */
     uint8_t address[6];
-    /** tx phy used */
+    /** Bluetooth TX PHY \n
+        1: 1M PHY \n
+        2: 2M PHY \n
+        4: Coded PHY 
+    */
     uint8_t tx_phy;
-    /** rx phy used */
+    /** Bluetooth RX PHY \n
+        1: 1M PHY \n
+        2: 2M PHY \n
+        4: Coded PHY 
+    */
     uint8_t rx_phy;
 } NCP_TLV_PACK_END gap_phy_updated_ev_t;
 
 /** NCP Bluetooth LE data length update event ID */
 #define GAP_EV_DATA_LEN_UPDATED  0x92
-/** NCP Bluetooth LE data length update event structure */
+/** This structure is used to store the information of NCP Bluetooth LE data length update event */
 typedef NCP_TLV_PACK_START struct gap_data_len_updated_ev {
-    /** device address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** device address */
+    /** Bluetooth LE address */
     uint8_t address[6];
-    /** connection tx maximum length */
+    /** Maximum length of TX connection */
     uint16_t tx_max_len;
-    /** connection tx maximum time */
+    /** Maximum time of TX connection */
     uint16_t tx_max_time;
-    /** connection rx maximum length */
+    /** Maximum length of RX connection */
     uint16_t rx_max_len;
-    /** connection rx maximum time */
+    /** Maximum time of RX connection */
     uint16_t rx_max_time;
 } NCP_TLV_PACK_END gap_data_len_updated_ev_t;
 
 /** NCP Bluetooth LE l2cap read support command ID */
 #define L2CAP_READ_SUPPORTED_COMMANDS   0x01
-/** NCP Bluetooth LE l2cap read support command response structure */
-typedef NCP_TLV_PACK_START struct l2cap_read_supported_commands_rp_tag {
-    /** l2cap support command */
-    uint8_t data[1];
-} NCP_TLV_PACK_END l2cap_read_supported_commands_rp_t;
 
 /** NCP Bluetooth LE opt  */
 #define L2CAP_CONNECT_OPT_ECFC          0x01
@@ -1027,21 +928,31 @@ typedef NCP_TLV_PACK_START struct l2cap_read_supported_commands_rp_tag {
 
 /** NCP Bluetooth LE l2cap connect ID */
 #define L2CAP_CONNECT   0x02
-/** NCP Bluetooth LE l2cap connect command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE l2cap connect command */
 typedef NCP_TLV_PACK_START struct l2cap_connect_cmd_tag {
-    /** device address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** device address */
+    /** Bluetooth LE address */
     uint8_t address[6];
     /** protocol service multiplexo */
     uint16_t psm;
-    /** security level */
+    /** connection security level \n
+        0x01: No encryption and no authentication \n
+        0x02: Encryption and no authentication (no MITM) \n
+        0x03: Encryption and authentication (MITM)
+    */
     uint8_t sec;
-    /** security level flag */
+    /** Option to use custom security level or to use system default security level  \n
+        0: to use system default security level \n
+        1: to use customized security level
+    */
     uint8_t sec_flag;
 } NCP_TLV_PACK_END l2cap_connect_cmd_t;
 
-/** NCP Bluetooth LE l2cap connect response structure */
+/** This structure is used to store the response of NCP Bluetooth LE l2cap connect command */
 typedef NCP_TLV_PACK_START struct l2cap_connect_rp_tag {
     /** receive packet number */
     uint8_t num;
@@ -1051,23 +962,29 @@ typedef NCP_TLV_PACK_START struct l2cap_connect_rp_tag {
 
 /** NCP Bluetooth LE l2cap disconnect ID */
 #define L2CAP_DISCONNECT    0x03
-/** NCP Bluetooth LE l2cap disconnect command strcuture */
+/** This structure is used to set the configuration of NCP Bluetooth LE l2cap disconnect command */
 typedef NCP_TLV_PACK_START struct l2cap_disconnect_cmd_tag {
-    /** device address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** device address */
+    /** Bluetooth LE address */
     uint8_t address[6];
 } NCP_TLV_PACK_END l2cap_disconnect_cmd_t;
 
 /** NCP Bluetooth LE l2cap send data ID */
 #define L2CAP_SEND_DATA     0x04
-/** NCP Bluetooth LE l2cap send data command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE l2cap send data command */
 typedef NCP_TLV_PACK_START struct l2cap_send_data_cmd_tag {
-    /** device address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** device address */
+    /** Bluetooth LE address */
     uint8_t address[6];
-    /** send times */
+    /** the number of times a loop is sent */
     uint16_t times;
 } NCP_TLV_PACK_END l2cap_send_data_cmd_t;
 
@@ -1083,177 +1000,80 @@ typedef NCP_TLV_PACK_START struct l2cap_send_data_cmd_tag {
 
 /** NCP Bluetooth LE l2cap listen ID */
 #define L2CAP_LISTEN    0x05
-/** NCP Bluetooth LE l2cap listen command structure */
-typedef NCP_TLV_PACK_START struct l2cap_listen_cmd_tag {
-    /** protocol service multiplexor */
-    uint16_t psm;
-    /** transport type */
-    uint8_t transport;
-    /** maximum transmission unit */
-    uint16_t mtu;
-    /** command response */
-    uint16_t response;
-} NCP_TLV_PACK_END l2cap_listen_cmd_t;
 
 /** NCP Bluetooth LE l2cap accept connection ID */
 #define L2CAP_ACCEPT_CONNECTION     0x06
-/** NCP Bluetooth LE l2cap accept connection command structure */
-typedef NCP_TLV_PACK_START struct l2cap_accept_connection_cmd_tag {
-    /** connection channel ID */
-    uint8_t chan_id;
-    /** command result */
-    uint16_t result;
-} NCP_TLV_PACK_END l2cap_accept_connection_cmd_t;
 
 /** NCP Bluetooth LE l2cap reconfigure ID */
 #define L2CAP_RECONFIGURE   0x07
-/** NCP Bluetooth LE l2cap reconfigure command structure */
-typedef NCP_TLV_PACK_START struct l2cap_reconfigure_cmd_tag {
-    /** device address type */
-    uint8_t address_type;
-    /** device address */
-    uint8_t address[6];
-    /** maximum transmission unit */
-    uint16_t mtu;
-    /** send number */
-    uint8_t num;
-    /** send channel ID */
-    uint8_t chan_id[];
-} NCP_TLV_PACK_END l2cap_reconfigure_cmd_t;
 
 /** NCP Bluetooth LE l2cap credit ID */
 #define L2CAP_CREDITS   0x08
-/** NCP Bluetooth LE l2cap credit command structure */
-typedef NCP_TLV_PACK_START struct l2cap_credits_cmd_tag {
-    /** channel ID */
-    uint8_t chan_id;
-} NCP_TLV_PACK_END l2cap_credits_cmd_t;
 
-/** NCP Bluetooth LE l2cap disconnect eatt channel ID */
+/** NCP Bluetooth LE l2cap disconnect eatt (Enhanced ATT Bearers support) channel ID */
 #define L2CAP_DISCONNECT_EATT_CHANS     0x09
-/** NCP Bluetooth LE l2cap disconnect eatt channel command structure */
-typedef NCP_TLV_PACK_START struct l2cap_disconnect_eatt_chans_cmd_tag {
-    /** device address type */
-    uint8_t address_type;
-    /** device address */
-    uint8_t address[6];
-    /** channel count */
-    uint8_t count;
-} NCP_TLV_PACK_END l2cap_disconnect_eatt_chans_cmd_t;
 
 /** NCP Bluetooth LE l2cap register PSM ID */
 #define L2CAP_REGISTER_PSM     0x0a
-/** NCP Bluetooth LE l2cap register PSM command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE l2cap register PSM command */
 typedef NCP_TLV_PACK_START struct l2cap_register_psm_cmd_tag {
     /** protocol service multiplexor */
     uint16_t psm;
-    /** security level */
+    /** connection security level \n
+        0x01: No encryption and no authentication \n
+        0x02: Encryption and no authentication (no MITM) \n
+        0x03: Encryption and authentication (MITM)
+    */
     uint8_t sec_level;
-    /** security flag */
+    /** Option to use custom security level or to use system default security level \n
+        0: use system default security level \n
+        1: use customized security level
+    */
     uint8_t sec_flag;
-    /** l2cap policy */
+    /** allowlist */
     uint8_t policy;
-    /** l2cap policy flag */
+    /** option to use allowlist \n
+        0: do not use allowlist \n
+        1: use allowlist
+     */
     uint8_t policy_flag;
 } NCP_TLV_PACK_END l2cap_register_psm_cmd_t;
 
 /** NCP Bluetooth LE l2cap metrics ID */
 #define L2CAP_METRICS    0x0b
-/** NCP Bluetooth LE l2cap metrics command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE l2cap metrics command */
 typedef NCP_TLV_PACK_START struct l2cap_metrics_cmd_tag {
-    /** l2cap metric flag */
+    /** option to enable calculating metrics of l2cap rate \n
+      0: disable calculating metrics of l2cap rate  \n
+      1: enable calculating metrics of l2cap rate 
+    */
     bool metrics_flag;
 } NCP_TLV_PACK_END l2cap_metrics_cmd_t;
 
 /** NCP Bluetooth LE l2cap receive ID */
 #define L2CAP_RECV    0x0c
-/** NCP Bluetooth LE l2cap receive command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE l2cap receive command */
 typedef NCP_TLV_PACK_START struct l2cap_recv_cmd_tag {
-    /** receive delay time */
+    /** receive delay time in millisecond*/
     uint32_t l2cap_recv_delay_ms;
 } NCP_TLV_PACK_END l2cap_recv_cmd_t;
 
 /** NCP Bluetooth LE connection request event ID */
 #define L2CAP_EV_CONNECTION_REQ     0x80
-/** NCP Bluetooth LE connection request event structure */
-typedef NCP_TLV_PACK_START struct l2cap_connection_req_ev_tag {
-    /** channel ID */
-    uint8_t chan_id;
-    /** protocol service multiplexor */
-    uint16_t psm;
-    /** device address type */
-    uint8_t address_type;
-    /** device address */
-    uint8_t address[6];
-} NCP_TLV_PACK_END l2cap_connection_req_ev_t;
 
 /** NCP Bluetooth LE l2cap connect event ID */
 #define L2CAP_EV_CONNECTED  0x81
-/** NCP Bluetooth LE l2cap connect event structure */
-typedef NCP_TLV_PACK_START struct l2cap_connected_ev_tag {
-    /** channel ID */
-    uint8_t chan_id;
-    /** protocol service multiplexor */
-    uint16_t psm;
-    /** remote maximum transmission unit */
-    uint16_t mtu_remote;
-    /** remote maximum payload size */
-    uint16_t mps_remote;
-    /** local maximum transmission unit */
-    uint16_t mtu_local;
-    /** local maximum payload size */
-    uint16_t mps_local;
-    /** device address type */
-    uint8_t address_type;
-    /** device address */
-    uint8_t address[6];
-} NCP_TLV_PACK_END l2cap_connected_ev_t;
 
 /** NCP Bluetooth LE l2cap disconnect event ID */
 #define L2CAP_EV_DISCONNECTED   0x82
-/** NCP Bluetooth LE l2cap disconnect event structure */
-typedef NCP_TLV_PACK_START struct l2cap_disconnected_ev_tag {
-    /** l2cap disconnect result */
-    uint16_t result;
-    /** channel id */
-    uint8_t chan_id;
-    /** protocol service multiplexor */
-    uint16_t psm;
-    /** device address type */
-    uint8_t address_type;
-     /** device address */
-    uint8_t address[6];
-} NCP_TLV_PACK_END l2cap_disconnected_ev_t;
 
 /** NCP Bluetooth LE l2cap data receive event ID */
 #define L2CAP_EV_DATA_RECEIVED  0x83
-/** NCP Bluetooth LE l2cap data receive event structure */
-typedef NCP_TLV_PACK_START struct l2cap_data_received_ev_tag {
-    /** channel ID */
-    uint8_t chan_id;
-    /** receive data length */
-    uint16_t data_length;
-    /** receive data */
-    uint8_t data[];
-} NCP_TLV_PACK_END l2cap_data_received_ev_t;
 
 /** NCP Bluetooth LE l2cap reconfigure event ID */
 #define L2CAP_EV_RECONFIGURED   0x84
-/** NCP Bluetooth LE l2cap reconfigure event structure */
-typedef NCP_TLV_PACK_START struct l2cap_reconfigured_ev_tag {
-    /** channel ID */
-    uint8_t chan_id;
-    /** remote maximum transmission unit */
-    uint16_t mtu_remote;
-    /** remote maximum payload size */
-    uint16_t mps_remote;
-    /** local maximum transmission unit */
-    uint16_t mtu_local;
-    /** local maximum payload size */
-    uint16_t mps_local;
-} NCP_TLV_PACK_END l2cap_reconfigured_ev_t;
 
-/** GATT server context */
+/** gatt server context */
 #define SERVER_MAX_SERVICES     10
 #define SERVER_MAX_ATTRIBUTES   50
 #define SERVER_MAX_UUID_LEN     16
@@ -1261,40 +1081,41 @@ typedef NCP_TLV_PACK_START struct l2cap_reconfigured_ev_tag {
 
 /** NCP Bluetooth LE gatt read support command ID */
 #define GATT_READ_SUPPORTED_COMMANDS    0x01
-/** NCP Bluetooth LE gatt read support command response structure */
-typedef NCP_TLV_PACK_START struct gatt_read_supported_commands_rp {
-    /** response data */
-    uint8_t data;
-} NCP_TLV_PACK_END gatt_read_supported_commands_rp_t;
 
 /** NCP Bluetooth LE service type */
 #define GATT_SERVICE_PRIMARY        0x00
 #define GATT_SERVICE_SECONDARY      0x01
 
-/** NCP Bluetooth LE GATT add service ID */
+/** NCP Bluetooth LE gatt add service ID */
 #define GATT_ADD_SERVICE        0x02
-/** NCP Bluetooth LE GATT add service command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE add service command */
 typedef NCP_TLV_PACK_START struct gatt_add_service_cmd {
-    /** tlv type header */
+    /** Header of the type tlv */
     TypeHeader_t header;
-    /** service type */
+    /** Bluetooth LE service type \n
+      0: primary service \n
+      1: secondary service
+     */
     uint8_t type;
-    /** service length */
+    /** service uuid length  \n
+     0x02: UUID type 16-bit \n
+     0x10: UUID type 128-bit
+    */
     uint8_t uuid_length;
     /** service uuid */
     uint8_t uuid[SERVER_MAX_UUID_LEN];
 } NCP_TLV_PACK_END gatt_add_service_cmd_t;
-/** NCP Bluetooth LE GATT add service response structure */
+/** This structure is used to store the response of NCP Bluetooth LE add service command */
 typedef NCP_TLV_PACK_START struct gatt_add_service_rp {
-    /** service id */
+    /** attribute handle of added new service */
     uint16_t svc_id;
 } NCP_TLV_PACK_END gatt_add_service_rp_t;
 
-/** NCP Bluetooth LE GATT add characteristic ID */
+/** NCP Bluetooth LE gatt add characteristic ID */
 #define GATT_ADD_CHARACTERISTIC     0x03
-/** NCP Bluetooth LE GATT add characteristic command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE add characteristic command */
 typedef NCP_TLV_PACK_START struct gatt_add_characteristic_cmd {
-    /** tlv type header */
+    /** Header of the type tlv */
     TypeHeader_t header;
     /** service id */
     uint16_t svc_id;
@@ -1307,17 +1128,17 @@ typedef NCP_TLV_PACK_START struct gatt_add_characteristic_cmd {
     /** characteristic uuid */
     uint8_t uuid[SERVER_MAX_UUID_LEN];
 } NCP_TLV_PACK_END gatt_add_characteristic_cmd_t;
-/** NCP Bluetooth LE GATT add characteristic response structure */
+/** NCP Bluetooth LThis structure is used to store the response of NCP Bluetooth LE add characteristic command */
 typedef NCP_TLV_PACK_START struct gatt_add_characteristic_rp {
     /** characteristic ID */
     uint16_t char_id;
 } NCP_TLV_PACK_END gatt_add_characteristic_rp_t;
 
-/** NCP Bluetooth LE GATT add descriptor ID */
+/** NCP Bluetooth LE gatt add descriptor ID */
 #define GATT_ADD_DESCRIPTOR     0x04
-/** NCP Bluetooth LE GATT add descriptor command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE add descriptor command */
 typedef NCP_TLV_PACK_START struct gatt_add_descriptor_cmd {
-    /** tlv type header */
+    /** Header of the type tlv */
     TypeHeader_t header;
     /** characteristic id */
     uint16_t char_id;
@@ -1328,68 +1149,68 @@ typedef NCP_TLV_PACK_START struct gatt_add_descriptor_cmd {
     /** descriptor uuid */
     uint8_t uuid[SERVER_MAX_UUID_LEN];
 } NCP_TLV_PACK_END gatt_add_descriptor_cmd_t;
-/** NCP Bluetooth LE GATT add descriptor response structure */
+/** NCP This structure is used to store the response of NCP Bluetooth LE add descriptor command */
 typedef NCP_TLV_PACK_START struct gatt_add_descriptor_rp {
     /** descriptor id */
     uint16_t desc_id;
 } NCP_TLV_PACK_END gatt_add_descriptor_rp_t;
 
-/** NCP Bluetooth LE GATT add include service ID */
+/** NCP Bluetooth LE gatt add include service ID */
 #define GATT_ADD_INCLUDED_SERVICE   0x05
-/** NCP Bluetooth LE GATT add include service command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE add include service command */
 typedef NCP_TLV_PACK_START struct gatt_add_included_service_cmd {
-    /** tlv type header */
+    /** Header of the type tlv */
     TypeHeader_t header;
     /** service uuid */
     uint16_t svc_id;
 } NCP_TLV_PACK_END gatt_add_included_service_cmd_t;
-/** NCP Bluetooth LE GATT add include service response structure */
+/** This structure is used to store the response of NCP Bluetooth LE add include service command */
 typedef NCP_TLV_PACK_START struct gatt_add_included_service_rp {
     /** include service ID */
     uint16_t included_service_id;
 } NCP_TLV_PACK_END gatt_add_included_service_rp_t;
 
-/** NCP Bluetooth LE GATT start service command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE start service command */
 typedef NCP_TLV_PACK_START struct gatt_start_service_cmd {
-    /** tlv type header */
+    /** Header of the type tlv */
     TypeHeader_t header;
-    /** service started status
-     * 0: unstart
+    /** service started status \n
+     * 0: unstart \n
      * 1: start
      */
     uint8_t started;
 } NCP_TLV_PACK_END gatt_start_service_cmd_t;
 
-/** NCP Bluetooth LE GATT add service command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE add service command */
 typedef NCP_TLV_PACK_START struct _NCP_CMD_SERVICE_ADD
 {
     /** tlv buf length */
     uint32_t tlv_buf_len;
     /**
-     * add service TLV, gatt_add_service_cmd_t
-     * add characteristic TLV, gatt_add_characteristic_cmd_t
-     * add descriptor TLV, gatt_add_descriptor_cmd_t
-     * add include service TLV, gatt_add_included_service_cmd_t (to be added in the future)
-     * start host servuce TLV, gatt_start_service_cmd_t
+     * add service TLV, gatt_add_service_cmd_t \n 
+     * add characteristic TLV, gatt_add_characteristic_cmd_t \n
+     * add descriptor TLV, gatt_add_descriptor_cmd_t \n
+     * add include service TLV, gatt_add_included_service_cmd_t (to be added in the future) \n
+     * start host servuce TLV, gatt_start_service_cmd_t 
      */
     uint8_t tlv_buf[1];
 } NCP_TLV_PACK_END NCP_CMD_SERVICE_ADD;
 
-/** NCP Bluetooth LE GATT start service command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE start service command */
 typedef NCP_TLV_PACK_START struct _NCP_CMD_START_SERVICE
 {
     /** host status */
     uint8_t form_host;
-    /** service ID 
-     * 4: Central_HTC
+    /** service ID \n
+     * 4: Central_HTC \n
      * 5: Central_HRC
     */
     uint8_t svc_id;
 } NCP_TLV_PACK_END NCP_CMD_START_SERVICE;
 
-/** NCP Bluetooth LE GATT set value ID */
+/** NCP Bluetooth LE gatt set value ID */
 #define GATT_SET_VALUE          0x06
-/** NCP Bluetooth LE GATT set value command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE set value command */
 typedef NCP_TLV_PACK_START struct gatt_set_value_cmd {
     // uint16_t attr_id;
     /** characteristic uuid length */
@@ -1402,9 +1223,9 @@ typedef NCP_TLV_PACK_START struct gatt_set_value_cmd {
     uint8_t value[512];
 } NCP_TLV_PACK_END gatt_set_value_cmd_t;
 
-/** NCP Bluetooth LE GATT start server ID */
+/** NCP Bluetooth LE gatt start server ID */
 #define GATT_START_SERVER       0x07
-/** NCP Bluetooth LE GATT start server response structure */
+/** This structure is used to store the response of NCP Bluetooth LE start server command */
 typedef NCP_TLV_PACK_START struct gatt_start_server_rp {
     /** database attribute offset */
     uint16_t db_attr_off;
@@ -1412,11 +1233,11 @@ typedef NCP_TLV_PACK_START struct gatt_start_server_rp {
     uint8_t db_attr_cnt;
 } NCP_TLV_PACK_END gatt_start_server_rp_t;
 
-/** NCP Bluetooth LE GATT reset server ID */
+/** NCP Bluetooth LE gatt reset server ID */
 #define GATT_RESET_SERVER       0x08
-/** NCP Bluetooth LE GATT set encryption key size ID */
+/** NCP Bluetooth LE gatt set encryption key size ID */
 #define GATT_SET_ENC_KEY_SIZE       0x09
-/** NCP Bluetooth LE GATT set encryption key size command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE set encryption key size command */
 typedef NCP_TLV_PACK_START struct gatt_set_enc_key_size_cmd {
     /** attribute id */
     uint16_t attr_id;
@@ -1424,7 +1245,7 @@ typedef NCP_TLV_PACK_START struct gatt_set_enc_key_size_cmd {
     uint8_t key_size;
 } NCP_TLV_PACK_END gatt_set_enc_key_size_cmd_t;
 
-/** NCP Bluetooth LE gatt service type structure */
+/** This structure is used to store the information of NCP Bluetooth LE service data */
 typedef NCP_TLV_PACK_START struct gatt_service {
     /** service start uuid */
     uint16_t start_handle;
@@ -1436,7 +1257,7 @@ typedef NCP_TLV_PACK_START struct gatt_service {
     uint8_t uuid[SERVER_MAX_UUID_LEN];
 } NCP_TLV_PACK_END gatt_service_t;
 
-/** NCP Bluetooth LE gatt included type structure */
+/** This structure is used to store the information of NCP Bluetooth LE service data */
 typedef NCP_TLV_PACK_START struct gatt_included {
     /** service include uuid */
     uint16_t included_handle;
@@ -1444,7 +1265,7 @@ typedef NCP_TLV_PACK_START struct gatt_included {
     struct gatt_service service;
 } NCP_TLV_PACK_END gatt_included_t;
 
-/** NCP Bluetooth LE gatt characteristic type strcuture */
+/** This structure is used to store the information of NCP Bluetooth LE characteristic data */
 typedef NCP_TLV_PACK_START struct gatt_characteristic {
     /** characteristic handle */
     uint16_t characteristic_handle;
@@ -1458,7 +1279,7 @@ typedef NCP_TLV_PACK_START struct gatt_characteristic {
     uint8_t uuid[SERVER_MAX_UUID_LEN];
 } NCP_TLV_PACK_END gatt_characteristic_t;
 
-/** NCP Bluetooth LE gatt descriptor type structure */
+/** This structure is used to store the information of NCP Bluetooth LE descriptor data */
 typedef NCP_TLV_PACK_START struct gatt_descriptor {
     /** descriptor handle */
     uint16_t descriptor_handle;
@@ -1470,91 +1291,106 @@ typedef NCP_TLV_PACK_START struct gatt_descriptor {
 
 /** NCP Bluetooth LE exchange maximum transimission unit ID */
 #define GATT_EXCHANGE_MTU       0x0a
-/** NCP Bluetooth LE exchange maximum transimission unit command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE exchange maximum transimission unit command */
 typedef NCP_TLV_PACK_START struct gatt_exchange_mtu_cmd {
-    /** device address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** device address */
+    /** Bluetooth LE address */
     uint8_t address[6];
 } NCP_TLV_PACK_END gatt_exchange_mtu_cmd_t;
 
 /** NCP Bluetooth LE discovery primary service ID */
 #define GATT_DISC_ALL_PRIM      0x0b
-/** NCP Bluetooth LE discovery primary service command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE discovery primary service command */
 typedef NCP_TLV_PACK_START struct gatt_disc_all_prim_cmd {
-    /** device address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** device address */
+    /** Bluetooth LE address */
     uint8_t address[6];
 } NCP_TLV_PACK_END gatt_disc_all_prim_cmd_t;
-/** NCP Bluetooth LE discovery primary service response structure */
+/** This structure is used to store the response of NCP Bluetooth LE discovery primary service command */
 typedef NCP_TLV_PACK_START struct gatt_disc_all_prim_rp {
     /** discovered service number */
     uint8_t services_count;
-    /** diecovered service */
+    /** discovered service */
     gatt_service_t services[];
 } NCP_TLV_PACK_END gatt_disc_all_prim_rp_t;
 
 /** NCP Bluetooth LE discovery primary uuid ID */
 #define GATT_DISC_PRIM_UUID     0x0c
-/** NCP Bluetooth LE discovery primary uuid command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE discovery primary uuid command */
 typedef NCP_TLV_PACK_START struct gatt_disc_prim_uuid_cmd {
-    /** tlv type header */
+    /** Header of the type tlv */
     TypeHeader_t header;
-    /** device address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** device address */
+    /** Bluetooth LE address */
     uint8_t address[6];
     /** uuid length */
     uint8_t uuid_length;
     /** uuid data list */
     uint8_t uuid[];
 } NCP_TLV_PACK_END gatt_disc_prim_uuid_cmd_t;
-/** NCP Bluetooth LE discovery primary uuid response structure */
+/** This structure is used to store the response of NCP Bluetooth LE discovery primary uuid command */
 typedef NCP_TLV_PACK_START struct gatt_disc_prim_rp {
-    /** discovered service number */
+    /** The number of discovered services */
     uint8_t services_count;
-    /** diecovered service */
+    /** discovered services */
     gatt_service_t services[];
 } NCP_TLV_PACK_END gatt_disc_prim_rp_t;
 
 /** NCP Bluetooth LE gatt find included ID */
 #define GATT_FIND_INCLUDED      0x0d
-/** NCP Bluetooth LE gatt find included command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE find included service command */
 typedef NCP_TLV_PACK_START struct gatt_find_included_cmd {
-    /** device address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** device address */
+    /** Bluetooth LE address */
     uint8_t address[6];
     /** service start handle */
     uint16_t start_handle;
     /** service end handle */
     uint16_t end_handle;
 } NCP_TLV_PACK_END gatt_find_included_cmd_t;
-/** NCP Bluetooth LE gatt find included response structure */
+/** This structure is used to store the response of NCP Bluetooth LE find included service command */
 typedef NCP_TLV_PACK_START struct gatt_find_included_rp {
-    /** discovered service number */
+    /** The number of discovered services */
     uint8_t services_count;
-    /** diecovered included service */
+    /** discovered included service */
     gatt_included_t included[];
 } NCP_TLV_PACK_END gatt_find_included_rp_t;
 
 /** NCP Bluetooth LE gatt discovery characteristic ID */
 #define GATT_DISC_ALL_CHRC      0x0e
-/** NCP Bluetooth LE gatt discovery characteristic command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE discovery characteristic command */
 typedef NCP_TLV_PACK_START struct gatt_disc_all_chrc_cmd {
-    /** tlv type header */
+    /** Header of the type tlv */
     TypeHeader_t header;
-    /** device address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** device address */
+    /** Bluetooth LE address */
     uint8_t address[6];
     /** characteristic start handle */
     uint16_t start_handle;
     /** characteristic end handle */
     uint16_t end_handle;
 } NCP_TLV_PACK_END gatt_disc_all_chrc_cmd_t;
-/** NCP Bluetooth LE gatt discovery characteristic response structure */
+/** This structure is used to store the response of NCP Bluetooth LE discovery characteristic command */
 typedef NCP_TLV_PACK_START struct gatt_disc_chrc_rp {
     /** discovered characteristic number */
     uint8_t characteristics_count;
@@ -1564,13 +1400,16 @@ typedef NCP_TLV_PACK_START struct gatt_disc_chrc_rp {
 
 /** NCP Bluetooth LE gatt discovery characteristic uuid ID */
 #define GATT_DISC_CHRC_UUID     0x0f
-/** NCP Bluetooth LE gatt discovery characteristic uuid command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE discovery characteristic uuid command */
 typedef NCP_TLV_PACK_START struct gatt_disc_chrc_uuid_cmd {
-    /** tlv type header */
+    /** Header of the type tlv */
     TypeHeader_t header;
-    /** device address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** device address */
+    /** Bluetooth LE address */
     uint8_t address[6];
     /** characteristic start handle */
     uint16_t start_handle;
@@ -1584,11 +1423,14 @@ typedef NCP_TLV_PACK_START struct gatt_disc_chrc_uuid_cmd {
 
 /** NCP Bluetooth LE gatt discovery descriptor ID */
 #define GATT_DISC_ALL_DESC      0x10
-/** NCP Bluetooth LE gatt discovery descriptor command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE discovery descriptor command */
 typedef NCP_TLV_PACK_START struct gatt_disc_all_desc_cmd {
-    /** device address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** device address */
+    /** Bluetooth LE address */
     uint8_t address[6];
     /** descriptor start handle */
     uint16_t start_handle;
@@ -1597,21 +1439,24 @@ typedef NCP_TLV_PACK_START struct gatt_disc_all_desc_cmd {
 } NCP_TLV_PACK_END gatt_disc_all_desc_cmd_t;
 /** NCP Bluetooth LE gatt discovery descriptor response structure */
 typedef NCP_TLV_PACK_START struct gatt_disc_all_desc_rp {
-    /** discovered descriptor number */
+    /** The number of discovered descriptors */
     uint8_t descriptors_count;
-    /** discovered descriptor */
+    /** discovered descriptors */
     gatt_descriptor_t descriptors[];
 } NCP_TLV_PACK_END gatt_disc_all_desc_rp_t;
 
 /** NCP Bluetooth LE gatt discovery descriptor uuid ID */
 #define GATT_DISC_DESC_UUID     0x21
-/** NCP Bluetooth LE gatt discovery descriptor uuid command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE discovery descriptor uuid command */
 typedef NCP_TLV_PACK_START struct gatt_disc_desc_uuid_cmd {
-    /** tlv type header */
+    /** Header of the type tlv */
     TypeHeader_t header;
-    /** device address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** device address */
+    /** Bluetooth LE address */
     uint8_t address[6];
     /** descriptor start handle */
     uint16_t start_handle;
@@ -1623,14 +1468,14 @@ typedef NCP_TLV_PACK_START struct gatt_disc_desc_uuid_cmd {
     uint8_t uuid[];
 } NCP_TLV_PACK_END gatt_disc_desc_uuid_cmd_t;
 
-/** NCP Bluetooth LE service discovery type struct */
+/** This structure is used to set the configuration of NCP Bluetooth LE service discovery data */
 typedef NCP_TLV_PACK_START struct _NCP_CMD_SERVICE_DISC
 {
     /** tlv buf length */
     uint32_t tlv_buf_len;
     /**
-     * discover primary service TLV, gatt_disc_prim_uuid_cmd_t
-     * discover characteristic TLV, gatt_disc_chrc_uuid_cmd_t
+     * discover primary service TLV, gatt_disc_prim_uuid_cmd_t \n
+     * discover characteristic TLV, gatt_disc_chrc_uuid_cmd_t \n
      * discover descriptor TLV, gatt_disc_desc_uuid_cmd_t
      */
     uint8_t tlv_buf[1];
@@ -1638,16 +1483,19 @@ typedef NCP_TLV_PACK_START struct _NCP_CMD_SERVICE_DISC
 
 /** NCP Bluetooth LE gatt read ID */
 #define GATT_READ           0x11
-/** NCP Bluetooth LE gatt read command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE read attribute command */
 typedef NCP_TLV_PACK_START struct gatt_read_cmd {
-    /** device address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** device address */
+    /** Bluetooth LE address */
     uint8_t address[6];
     /** handle uuid */
     uint16_t handle;
 } NCP_TLV_PACK_END gatt_read_cmd_t;
-/** NCP Bluetooth LE gatt read response structure */
+/** This structure is used to store the response of NCP Bluetooth LE read attribute command */
 typedef NCP_TLV_PACK_START struct gatt_read_rp {
     /** attribute reponse */
     uint8_t att_response;
@@ -1659,11 +1507,14 @@ typedef NCP_TLV_PACK_START struct gatt_read_rp {
 
 /** NCP Bluetooth LE gatt read uuid ID */
 #define GATT_READ_UUID          0x12
-/** NCP Bluetooth LE gatt read uuid command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE read uuid command */
 typedef NCP_TLV_PACK_START struct gatt_read_uuid_cmd {
-    /** device address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** device address */
+    /** Bluetooth LE address */
     uint8_t address[6];
     /** uuid start handle */
     uint16_t start_handle;
@@ -1674,16 +1525,16 @@ typedef NCP_TLV_PACK_START struct gatt_read_uuid_cmd {
     /** uuid data */
     uint8_t uuid[];
 } NCP_TLV_PACK_END gatt_read_uuid_cmd_t;
-/** NCP Bluetooth LE gatt characteristic value structure */
+/** This structure is used to store the information of NCP Bluetooth LE characteristic value */
 typedef NCP_TLV_PACK_START struct gatt_char_value {
     /** characteristic handle */
     uint16_t handle;
-    /** data length */
+    /** characteristic data length */
     uint8_t data_len;
-    /** data */
+    /** characteristic data */
     uint8_t data[SERVER_MAX_UUID_LEN];
 } NCP_TLV_PACK_END gatt_char_value_t;
-/** NCP Bluetooth LE gatt read uuid response structure */
+/** This structure is used to store the response of NCP Bluetooth LE read uuid command */
 typedef NCP_TLV_PACK_START struct gatt_read_uuid_rp {
     /** attribute response */
     uint8_t att_response;
@@ -1695,18 +1546,21 @@ typedef NCP_TLV_PACK_START struct gatt_read_uuid_rp {
 
 /** NCP Bluetooth LE gatt read long ID */
 #define GATT_READ_LONG          0x13
-/** NCP Bluetooth LE gatt read long command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE read long attribute command structure */
 typedef NCP_TLV_PACK_START struct gatt_read_long_cmd {
-    /** device address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** device address */
+    /** Bluetooth LE address */
     uint8_t address[6];
     /** handle uuid */
     uint16_t handle;
     /** handle uuid offset */
     uint16_t offset;
 } NCP_TLV_PACK_END gatt_read_long_cmd_t;
-/** NCP Bluetooth LE gatt read long response structure */
+/** This structure is used to store the response of NCP Bluetooth LE read long attribute command */
 typedef NCP_TLV_PACK_START struct gatt_read_long_rp {
     /** attribute response */
     uint8_t att_response;
@@ -1718,18 +1572,21 @@ typedef NCP_TLV_PACK_START struct gatt_read_long_rp {
 
 /** NCP Bluetooth LE gatt read multiple ID */
 #define GATT_READ_MULTIPLE      0x14
-/** NCP Bluetooth LE gatt read multiple command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE read multiple attribute command */
 typedef NCP_TLV_PACK_START struct gatt_read_multiple_cmd {
-    /** device address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** device address */
+    /** Bluetooth LE address */
     uint8_t address[6];
     /** handle uuid number */
     uint8_t handles_count;
     /** handle uuid list */
     uint16_t handles[];
 } NCP_TLV_PACK_END gatt_read_multiple_cmd_t;
-/** NCP Bluetooth LE gatt read multiple response structure */
+/** This structure is used to store the response of NCP Bluetooth LE read multiple atrribute command */
 typedef NCP_TLV_PACK_START struct gatt_read_multiple_rp {
     /** attribute response */
     uint8_t att_response;
@@ -1741,11 +1598,14 @@ typedef NCP_TLV_PACK_START struct gatt_read_multiple_rp {
 
 /** NCP Bluetooth LE gatt write without response ID */
 #define GATT_WRITE_WITHOUT_RSP      0x15
-/** NCP Bluetooth LE gatt write without response command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE write without response command */
 typedef NCP_TLV_PACK_START struct gatt_write_without_rsp_cmd {
-    /** device address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** device address */
+    /** Bluetooth LE address */
     uint8_t address[6];
     /** handle uuid */
     uint16_t handle;
@@ -1757,11 +1617,14 @@ typedef NCP_TLV_PACK_START struct gatt_write_without_rsp_cmd {
 
 /** NCP Bluetooth LE gatt signed write without response ID */
 #define GATT_SIGNED_WRITE_WITHOUT_RSP   0x16
-/** NCP Bluetooth LE gatt signed write without response command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE signed write without response command */
 typedef NCP_TLV_PACK_START struct gatt_signed_write_without_rsp_cmd {
-    /** device address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** device address */
+    /** Bluetooth LE address */
     uint8_t address[6];
     /** handle uuid */
     uint16_t handle;
@@ -1773,11 +1636,14 @@ typedef NCP_TLV_PACK_START struct gatt_signed_write_without_rsp_cmd {
 
 /** NCP Bluetooth LE gatt write ID */
 #define GATT_WRITE          0x17
-/** NCP Bluetooth LE gatt write ID command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE write attribute command */
 typedef NCP_TLV_PACK_START struct gatt_write_cmd {
-    /** device address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** device address */
+    /** Bluetooth LE address */
     uint8_t address[6];
     /** handle uuid */
     uint16_t handle;
@@ -1786,7 +1652,7 @@ typedef NCP_TLV_PACK_START struct gatt_write_cmd {
     /** attribute data */
     uint8_t data[];
 } NCP_TLV_PACK_END gatt_write_cmd_t;
-/** NCP Bluetooth LE gatt write response type structure */
+/** This structure is used to store the response of NCP Bluetooth LE write attribute data command */
 typedef NCP_TLV_PACK_START struct gatt_write_rp {
     /** attribute response */
     uint8_t att_response;
@@ -1794,11 +1660,14 @@ typedef NCP_TLV_PACK_START struct gatt_write_rp {
 
 /** NCP Bluetooth LE gatt write long ID */
 #define GATT_WRITE_LONG         0x18
-/** NCP Bluetooth LE gatt write long command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE write long attribute data command */
 typedef NCP_TLV_PACK_START struct gatt_write_long_cmd {
-    /** device address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** device address */
+    /** Bluetooth LE address */
     uint8_t address[6];
     /** handle uuid */
     uint16_t handle;
@@ -1809,7 +1678,7 @@ typedef NCP_TLV_PACK_START struct gatt_write_long_cmd {
     /** attribute data */
     uint8_t data[];
 } NCP_TLV_PACK_END gatt_write_long_cmd_t;
-/** NCP Bluetooth LE gatt write long response structure */
+/** This structure is used to store the response of NCP Bluetooth LE write long attribute data command */
 typedef NCP_TLV_PACK_START struct gatt_write_long_rp {
     /** attribute response */
     uint8_t att_response;
@@ -1817,11 +1686,14 @@ typedef NCP_TLV_PACK_START struct gatt_write_long_rp {
 
 /** NCP Bluetooth LE gatt write reliable ID */
 #define GATT_RELIABLE_WRITE     0x19
-/** NCP Bluetooth LE gatt write reliable command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE write reliable attribute data command */
 typedef NCP_TLV_PACK_START struct gatt_reliable_write_cmd {
-    /** device address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** device address */
+    /** Bluetooth LE address */
     uint8_t address[6];
     /** handle uuid */
     uint16_t handle;
@@ -1832,24 +1704,27 @@ typedef NCP_TLV_PACK_START struct gatt_reliable_write_cmd {
     /** attribute data */
     uint8_t data[];
 } NCP_TLV_PACK_END gatt_reliable_write_cmd_t;
-/** NCP Bluetooth LE gatt write reliable response structure */
+/** This structure is used to store the response of NCP Bluetooth LE write reliable attribute data command */
 typedef NCP_TLV_PACK_START struct gatt_reliable_write_rp {
     /** attribute response */
     uint8_t att_response;
 } NCP_TLV_PACK_END gatt_reliable_write_rp_t;
 
-/** NCP Bluetooth LE GATT config */
+/** NCP Bluetooth LE gatt config */
 #define GATT_CFG_NOTIFY         0x1a
 #define GATT_CFG_INDICATE       0x1b
 
-/** NCP Bluetooth LE gatt config notify command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE notify command */
 typedef NCP_TLV_PACK_START struct gatt_cfg_notify_cmd {
-    /** device address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** device address */
+    /** Bluetooth LE address */
     uint8_t address[6];
-    /** enable characteristic notification
-     * 0: disable
+    /** enable characteristic notification \n
+     * 0: disable \n
      * 1: enable
      */
     uint8_t enable;
@@ -1857,9 +1732,9 @@ typedef NCP_TLV_PACK_START struct gatt_cfg_notify_cmd {
     uint16_t ccc_handle;
 } NCP_TLV_PACK_END gatt_cfg_notify_cmd_t;
 
-/** NCP Bluetooth LE GATT get attribute ID */
+/** NCP Bluetooth LE gatt get attribute ID */
 #define GATT_GET_ATTRIBUTES     0x1c
-/** NCP Bluetooth LE GATT get attribute command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE get attribute command */
 typedef NCP_TLV_PACK_START struct gatt_get_attributes_cmd {
     /** attribute start handle */
     uint16_t start_handle;
@@ -1870,14 +1745,14 @@ typedef NCP_TLV_PACK_START struct gatt_get_attributes_cmd {
     /** attribute type */
     uint8_t type[];
 } NCP_TLV_PACK_END gatt_get_attributes_cmd_t;
-/** NCP Bluetooth LE GATT get attribute response structure */
+/** This structure is used to store the response of NCP Bluetooth LE get attribute command */
 typedef NCP_TLV_PACK_START struct gatt_get_attributes_rp {
     /** attribute count number */
     uint8_t attrs_count;
     /** attribute list */
     uint8_t attrs[];
 } NCP_TLV_PACK_END gatt_get_attributes_rp_t;
-/** NCP Bluetooth LE GATT attribute type structure */
+/** This structure is used to store the information of NCP Bluetooth LE attribute value */
 typedef NCP_TLV_PACK_START struct gatt_attr {
     /** attribute handle */
     uint16_t handle;
@@ -1889,18 +1764,21 @@ typedef NCP_TLV_PACK_START struct gatt_attr {
     uint8_t type[];
 } NCP_TLV_PACK_END gatt_attr_t;
 
-/** NCP Bluetooth LE GATT get attribute value ID */
+/** NCP Bluetooth LE gatt get attribute value ID */
 #define GATT_GET_ATTRIBUTE_VALUE    0x1d
-/** NCP Bluetooth LE GATT get attribute value command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE get attribute value command */
 typedef NCP_TLV_PACK_START struct gatt_get_attribute_value_cmd {
-    /** device address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** device address */
+    /** Bluetooth LE address */
     uint8_t address[6];
     /** attribute handle */
     uint16_t handle;
 } NCP_TLV_PACK_END gatt_get_attribute_value_cmd_t;
-/** NCP Bluetooth LE GATT get attribute value command structure */
+/** This structure is used to store the response of NCP Bluetooth LE get attribute value command */
 typedef NCP_TLV_PACK_START struct gatt_get_attribute_value_rp {
     /** attribute response */
     uint8_t att_response;
@@ -1909,9 +1787,9 @@ typedef NCP_TLV_PACK_START struct gatt_get_attribute_value_rp {
     /** attribute value */
     uint8_t value[];
 } NCP_TLV_PACK_END gatt_get_attribute_value_rp_t;
-/** NCP Bluetooth LE GATT change DB ID */
+/** NCP Bluetooth LE gatt change DB ID */
 #define GATT_CHANGE_DB          0x1e
-/** NCP Bluetooth LE GATT change DB command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE change DB command */
 typedef NCP_TLV_PACK_START struct gatt_change_db_cmd {
     /** start handle uuid */
     uint16_t start_handle;
@@ -1919,28 +1797,34 @@ typedef NCP_TLV_PACK_START struct gatt_change_db_cmd {
     uint8_t visibility;
 } NCP_TLV_PACK_END gatt_change_db_cmd_t;
 
-/** NCP Bluetooth LE GATT eatt connect ID */
+/** NCP Bluetooth LE gatt eatt connect ID */
 #define GATT_EATT_CONNECT		0x1f
-/** NCP Bluetooth LE GATT eatt connect command structure */
+/**This structure is used to set the configuration of NCP Bluetooth LE eatt connect command */
 struct gatt_eatt_connect_cmd {
-    /** device address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
 	uint8_t address_type;
-    /** device address */
+    /** Bluetooth LE address */
 	uint8_t address[6];
     /** channel number */
 	uint8_t num_channels;
 } NCP_TLV_PACK_END NCP_TLV_PACK_START;
 
-/** NCP Bluetooth LE GATT read multiple variable ID */
+/** NCP Bluetooth LE gatt read multiple variable ID */
 #define GATT_READ_MULTIPLE_VAR      0x20
 
-/** NCP Bluetooth LE GATT notify multiple ID */
+/** NCP Bluetooth LE gatt notify multiple ID */
 #define GATT_NOTIFY_MULTIPLE        0x21
-/** NCP Bluetooth LE GATT notify multiple command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE notify multiple service command */
 typedef NCP_TLV_PACK_START struct gatt_cfg_notify_mult_cmd {
-    /** device address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** device address */
+    /** Bluetooth LE address */
     uint8_t address[6];
     /** attribute number */
     uint16_t cnt;
@@ -1951,7 +1835,7 @@ typedef NCP_TLV_PACK_START struct gatt_cfg_notify_mult_cmd {
 /** NCP Bluetooth LE add service ID */
 #define GATT_NCP_BLE_ADD_SERVICE    0x22
 
-/** NCP Bluetooth LE add service command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE add service command */
 typedef NCP_TLV_PACK_START struct gatt_ncp_ble_add_service_cmd
 {
     /** service length */
@@ -1962,13 +1846,16 @@ typedef NCP_TLV_PACK_START struct gatt_ncp_ble_add_service_cmd
 
 /** NCP Bluetooth LE gatt notification event */
 #define GATT_EV_NOTIFICATION        0x80
-/** NCP Bluetooth LE gatt notification event structure */
+/** This structure is used to store the information of NCP Bluetooth LE notification event */
 typedef NCP_TLV_PACK_START struct gatt_notification_ev {
     /** service id */
     uint8_t svc_id;
-    /** device address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** device address */
+    /** Bluetooth LE address */
     uint8_t address[6];
     /** attribute type */
     uint8_t type;
@@ -1982,7 +1869,7 @@ typedef NCP_TLV_PACK_START struct gatt_notification_ev {
 
 /** NCP Bluetooth LE gatt attribute value change event */
 #define GATT_EV_ATTR_VALUE_CHANGED  0x81
-/** NCP Bluetooth LE gatt attribute value change event structure */
+/** This structure is used to store the information of NCP Bluetooth LE attribute value change event */
 typedef NCP_TLV_PACK_START struct gatt_attr_value_changed_ev {
     /** attribute handle */
     uint16_t handle;
@@ -1994,7 +1881,7 @@ typedef NCP_TLV_PACK_START struct gatt_attr_value_changed_ev {
 
 /** NCP Bluetooth LE gatt client characteristic configuration declaration event ID */
 #define GATT_EV_CCC_CFG_CHANGED  0x82
-/** NCP Bluetooth LE gatt client characteristic configuration declaration event structure */
+/** This structure is used to store the information of NCP Bluetooth LE client characteristic configuration declaration event */
 typedef NCP_TLV_PACK_START struct gatt_ccc_cfg_changed_ev {
     /** ccc value */
     uint16_t ccc_value;
@@ -2006,7 +1893,7 @@ typedef NCP_TLV_PACK_START struct gatt_ccc_cfg_changed_ev {
 
 /** NCP Bluetooth LE gatt subscription event ID */
 #define GATT_EV_SUBSCRIPTIONED  0x85
-/** NCP Bluetooth LE gatt subscription event structure */
+/** This structure is used to store the information of NCP Bluetooth LE subscription event */
 typedef NCP_TLV_PACK_START struct gatt_ncp_ble_svc_subscription_ev {
     /** service id */
     uint8_t svc_id;
@@ -2014,7 +1901,7 @@ typedef NCP_TLV_PACK_START struct gatt_ncp_ble_svc_subscription_ev {
     uint8_t status;
 } NCP_TLV_PACK_END gatt_ncp_ble_svc_subscription_ev_t;
 
-/** NCP Bluetooth LE gatt add service response structure */
+/** This structure is used to store the response of NCP Bluetooth LE add service command */
 typedef NCP_TLV_PACK_START struct gatt_ncp_ble_add_service_rp {
     /** service length */
     uint8_t svc_length;
@@ -2022,37 +1909,46 @@ typedef NCP_TLV_PACK_START struct gatt_ncp_ble_add_service_rp {
     uint8_t status[];
 } NCP_TLV_PACK_END gatt_ncp_ble_add_service_rp_t;
 
-/** NCP Bluetooth LE L2cap connect event ID */
+/** NCP Bluetooth LE l2cap connect event ID */
 #define L2CAP_EV_CONNECT        0x81
-/** NCP Bluetooth LE L2cap connect event structure */
+/** This structure is used to store the information of NCP Bluetooth LE l2cap connect event */
 typedef NCP_TLV_PACK_START struct l2cap_connect_ev {
-    /** address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** address value */
+    /** Bluetooth LE address */
     uint8_t address[6];
     /** PSM value */
     uint16_t psm;
 } NCP_TLV_PACK_END l2cap_connect_ev_t;
 
-/** NCP Bluetooth LE L2cap disconnect event ID */
+/** NCP Bluetooth LE l2cap disconnect event ID */
 #define L2CAP_EV_DISCONNECT        0x82
-/** NCP Bluetooth LE L2cap disconnect event structure */
+/** This structure is used to store the information of NCP Bluetooth LE l2cap disconnect event */
 typedef NCP_TLV_PACK_START struct l2cap_disconnect_ev {
-    /** address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** address value */
+    /** Bluetooth LE address */
     uint8_t address[6];
     /** PSM value */
     uint16_t psm;
 } NCP_TLV_PACK_END l2cap_disconnect_ev_t;
 
-/** NCP Bluetooth LE L2cap receive event ID */
+/** NCP Bluetooth LE l2cap receive event ID */
 #define L2CAP_EV_RECEIVE        0x83
-/** NCP Bluetooth LE L2cap receive event structure */
+/** This structure is used to store the information of NCP Bluetooth LE l2cap receive event */
 typedef NCP_TLV_PACK_START struct l2cap_reveive_ev {
-    /** address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** address value */
+    /** Bluetooth LE address */
     uint8_t address[6];
     /** PSM value */
     uint16_t psm;
@@ -2062,14 +1958,14 @@ typedef NCP_TLV_PACK_START struct l2cap_reveive_ev {
     uint8_t data[256];
 } NCP_TLV_PACK_END l2cap_reveive_ev_t;
 
-/** NCP Bluetooth LE advertising start structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE start advertising command  */
 typedef NCP_TLV_PACK_START struct _NCP_CMD_ADV_START
 {
     /** advertising start value */
     uint8_t data[256];
 } NCP_TLV_PACK_END NCP_CMD_ADV_START;
 
-/** NCP Bluetooth LE set advertising data structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE set advertising data command */
 typedef NCP_TLV_PACK_START struct _NCP_CMD_SET_ADV_DATA
 {
     /** advertising data length */
@@ -2078,7 +1974,7 @@ typedef NCP_TLV_PACK_START struct _NCP_CMD_SET_ADV_DATA
     uint8_t adv_data[];
 } NCP_TLV_PACK_END NCP_CMD_SET_ADV_DATA;
 
-/** NCP Bluetooth LE set scan parameter structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE set scan parameter command */
 typedef NCP_TLV_PACK_START struct _NCP_CMD_SET_SCAN_PARAM
 {
     /** bit-field of scanning options. */
@@ -2089,14 +1985,14 @@ typedef NCP_TLV_PACK_START struct _NCP_CMD_SET_SCAN_PARAM
     uint16_t window;
 } NCP_TLV_PACK_END NCP_CMD_SET_SCAN_PARAM;
 
-/** NCP Bluetooth LE start scan structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE start scanning command */
 typedef NCP_TLV_PACK_START struct _NCP_CMD_SCAN_START
 {
     /** scan start */
     uint8_t type;
 } NCP_TLV_PACK_END NCP_CMD_SCAN_START;
 
-/** NCP Bluetooth LE create connect structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE create connection command */
 typedef NCP_TLV_PACK_START struct _NCP_CMD_CONNECT
 {
     /** remote address type */
@@ -2105,10 +2001,13 @@ typedef NCP_TLV_PACK_START struct _NCP_CMD_CONNECT
     uint8_t addr[6];
 } NCP_TLV_PACK_END NCP_CMD_CONNECT;
 
-/** NCP Bluetooth LE set data length command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE set data length command */
 typedef NCP_TLV_PACK_START struct _NCP_CMD_SET_DATA_LEN
 {
-    /** remote address type*/
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t  address_type;
     /** remote address */
     uint8_t  address[6];
@@ -2120,114 +2019,170 @@ typedef NCP_TLV_PACK_START struct _NCP_CMD_SET_DATA_LEN
     uint16_t tx_max_time;
 } NCP_TLV_PACK_END NCP_CMD_SET_DATA_LEN;
 
-/** NCP Bluetooth LE set phy command structure */
+/** This structure is used to store the information of NCP Bluetooth LE set Bluetooth PHY command  */
 typedef NCP_TLV_PACK_START struct _NCP_CMD_SET_PHY
 {
-    /** remote address type*/
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t  address_type;
-    /** remote address */
+    /** Bluetooth LE address */
     uint8_t  address[6];
-    /** set phy option */
+    /** Connection PHY options \n
+        0: BT_CONN_LE_PHY_OPT_NONE (Convenience value when no options are specified) \n
+        bit0: BT_CONN_LE_PHY_OPT_CODED_S2 (LE Coded using S=2 coding preferred when transmitting) \n
+        bit1: BT_CONN_LE_PHY_OPT_CODED_S8 (LE Coded using S=8 coding preferred when transmitting)
+    */
     uint16_t options;
-    /** preferer transmit phy */
+    /** Bitmask of preferred transmit PHYs \n
+        0: BT_GAP_LE_PHY_NONE (Convenience macro for when no PHY is set) \n
+        bit0: BT_GAP_LE_PHY_1M (LE 1M PHY) \n
+        bit1: BT_GAP_LE_PHY_2M (LE 2M PHY) \n
+        bit2: BT_GAP_LE_PHY_CODED (LE Coded PHY)
+    */
     uint8_t  pref_tx_phy;
-    /** preferer receive phy */
+    /** Bitmask of preferred receive PHYs \n
+        0: BT_GAP_LE_PHY_NONE (Convenience macro for when no PHY is set) \n
+        bit0: BT_GAP_LE_PHY_1M (LE 1M PHY) \n
+        bit1: BT_GAP_LE_PHY_2M (LE 2M PHY) \n
+        bit2: BT_GAP_LE_PHY_CODED (LE Coded PHY)
+    */
     uint8_t  pref_rx_phy;
 } NCP_TLV_PACK_END NCP_CMD_SET_PHY;
 
-/** NCP Bluetooth LE update connection parameter command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE update connection parameter command */
 typedef NCP_TLV_PACK_START struct _NCP_CMD_CONN_PARA_UPDATE
 {
-    /** remote address type*/
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t type;
-    /** remote address */
+    /** Bluetooth LE address */
     uint8_t addr[6];
-    /** connection min interval */
+    /** connection minimal interval \n
+        Minimum value for the connection interval. This shall be less than or equal to maximum connection interval
+    */
     uint16_t interval_min;
-    /** connection max interval */
+    /** connection maximum interval \n
+        Maximum value for the connection interval. This shall be greater than or equal to minimum connection interval
+    */
     uint16_t interval_max;
-    /** connection latency */
+    /** connection latency \n
+        Maximum peripheral latency for the connection in number of subrated connection events
+    */
     uint16_t latency;
-    /** connection timeout */
+    /** connection timeout \n
+        Supervision timeout for the Bluetooth LE link
+    */
     uint16_t timeout;
 } NCP_TLV_PACK_END NCP_CMD_CONN_PARA_UPDATE;
 
-/** NCP Bluetooth LE update connection parameter event structure */
+/** This structure is used to store the information of NCP Bluetooth LE update connection parameter event */
 typedef NCP_TLV_PACK_START struct _NCP_CMD_CONN_PARA_UPDATE_EV
 {
-    /** remote address type*/
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t type;
-    /** remote address */
+    /** Bluetooth LE address */
     uint8_t addr[6];
     /** connection interval */
     uint16_t interval;
-    /** connection latency */
+    /** connection latency \n
+        Maximum peripheral latency for the connection in number of subrated connection events
+    */
     uint16_t latency;
-    /** connection timeout */
+    /** connection timeout \n
+        Supervision timeout for the Bluetooth LE link
+    */
     uint16_t timeout;
 } NCP_TLV_PACK_END NCP_CMD_CONN_PARA_UPDATE_EV;
 
-/** NCP Bluetooth LE set phy event structure */
+/** This structure is used to store the information of NCP Bluetooth LE set Bluetooth PHY event */
 typedef NCP_TLV_PACK_START struct _NCP_CMD_PHY_UPDATE_EV
 {
-    /** remote address type*/
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** remote address */
+    /** Bluetooth LE address */
     uint8_t address[6];
-    /** transmit phy */
+    /** TX physical \n
+        1: 1M PHY \n
+        2: 2M PHY \n
+        4: Coded PHY 
+    */
     uint8_t tx_phy;
-    /** receive phy */
+    /** RX physical \n
+        1: 1M PHY \n
+        2: 2M PHY \n
+        4: Coded PHY 
+    */
     uint8_t rx_phy;
 } NCP_TLV_PACK_END NCP_CMD_PHY_UPDATE_EV;
 
-/** NCP Bluetooth LE set data length event structure */
+/** This structure is used to store the information of NCP Bluetooth LE set data packet length event */
 typedef NCP_TLV_PACK_START struct _NCP_CMD_DATA_LEN_UPDATE_EV
 {
-    /** remote address type*/
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** remote address */
+    /** Bluetooth LE address */
     uint8_t address[6];
-    /** transmit max data length */
+    /** Maximum length of TX connection */
     uint16_t tx_max_len;
-    /** transmit max time */
+    /** Maximum time of TX connection */
     uint16_t tx_max_time;
-    /** receive max data length */
+    /** Maximum length of RX connection */
     uint16_t rx_max_len;
-    /** receive max time */
+    /** Maximum time of RX connection */
     uint16_t rx_max_time;
 } NCP_TLV_PACK_END NCP_CMD_DATA_LEN_UPDATE_EV;
 
-/** NCP Bluetooth LE encription command structure */
-typedef NCP_TLV_PACK_START struct _NCP_CMD_ENCRIPTION
+/** This structure is used to set the configuration of NCP Bluetooth LE encryption command */
+typedef NCP_TLV_PACK_START struct _NCP_CMD_ENCRYPTION
 {
-    /** remote address type*/
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t type;
-    /** remote address */
+    /** Bluetooth LE address */
     uint8_t addr[6];
 } NCP_TLV_PACK_END NCP_CMD_ENCRYPTION;
 
-/** NCP Bluetooth LE set address command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE set address command */
 typedef NCP_TLV_PACK_START struct _NCP_CMD_SET_ADDR
 {
-    /** address value */
+    /** Bluetooth LE address */
     uint8_t addr[6];
 } NCP_TLV_PACK_END NCP_CMD_SET_ADDR;
 
-/** NCP Bluetooth LE set device name command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE set device name command */
 typedef NCP_TLV_PACK_START struct _NCP_CMD_SET_NAME
 {
     /** device name */
     uint8_t name[33];
 } NCP_TLV_PACK_END NCP_CMD_SET_NAME;
 
-/** NCP Bluetooth LE set power mode command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE set power mode command */
 typedef NCP_TLV_PACK_START struct _NCP_CMD_SET_POWER_MODE
 {
-    /** power mode */
+    /**
+     * Set CPU2 power mode. \n
+      auto sleep disable : 0x02 \n
+      auto sleep enable : 0x03
+     */
     uint8_t mode;
 } NCP_TLV_PACK_END NCP_CMD_SET_POWER_MODE;
 
-/** NCP Bluetooth LE set value command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE set attribute value command */
 typedef NCP_TLV_PACK_START struct _NCP_SET_VALUE_CMD {
     /** uuid length */
     uint8_t uuid_length;
@@ -2239,21 +2194,27 @@ typedef NCP_TLV_PACK_START struct _NCP_SET_VALUE_CMD {
     uint8_t value[512];
 } NCP_TLV_PACK_END NCP_SET_VALUE_CMD;
 
-/** NCP Bluetooth LE gatt read value command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE read attribute value command */
 typedef NCP_TLV_PACK_START struct _NCP_GATT_READ_CMD {
-    /** address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t type;
-    /** address value */
+    /** Bluetooth LE address */
     uint8_t addr[6];
-    /** gatt attribute handle */
+    /** Attribute handle to read with Characteristic Value */
     uint16_t handle;
 } NCP_TLV_PACK_END NCP_GATT_READ_CMD;
 
-/** NCP Bluetooth LE gatt discover primary service uuid structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE discover primary service uuid command */
 typedef NCP_TLV_PACK_START struct _NCP_DISC_PRIM_UUID_CMD {
-    /** address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** address value */
+    /** Bluetooth LE address */
     uint8_t address[NCP_BLE_ADDR_LENGTH];
     /** uuid length */
     uint8_t uuid_length;
@@ -2261,11 +2222,14 @@ typedef NCP_TLV_PACK_START struct _NCP_DISC_PRIM_UUID_CMD {
     uint8_t uuid[SERVER_MAX_UUID_LEN];
 } NCP_TLV_PACK_END NCP_DISC_PRIM_UUID_CMD;
 
-/** NCP Bluetooth LE gatt discover characteristic uuid structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE discover characteristic uuid command */
 typedef NCP_TLV_PACK_START struct _NCP_DISC_CHRC_UUID_CMD {
-    /** address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** address value */
+    /** Bluetooth LE address */
     uint8_t address[NCP_BLE_ADDR_LENGTH];
     /** attribute start handle */
     uint16_t start_handle;
@@ -2277,11 +2241,14 @@ typedef NCP_TLV_PACK_START struct _NCP_DISC_CHRC_UUID_CMD {
     uint8_t uuid[SERVER_MAX_UUID_LEN];
 } NCP_TLV_PACK_END NCP_DISC_CHRC_UUID_CMD;
 
-/** NCP Bluetooth LE gatt subscript command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE subscript command */
 typedef NCP_TLV_PACK_START struct _NCP_CFG_SUBCRIBE_CMD {
-    /** address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** address value */
+    /** Bluetooth LE address */
     uint8_t address[NCP_BLE_ADDR_LENGTH];
     /** subscript value */
     uint8_t enable;
@@ -2289,7 +2256,7 @@ typedef NCP_TLV_PACK_START struct _NCP_CFG_SUBCRIBE_CMD {
     uint16_t ccc_handle;
 } NCP_TLV_PACK_END NCP_CFG_SUBCRIBE_CMD;
 
-/** NCP Bluetooth LE gatt register service structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE register service command */
 typedef NCP_TLV_PACK_START struct _NCP_REGISTER_SERVICE
 {
     /** service length */
@@ -2298,77 +2265,123 @@ typedef NCP_TLV_PACK_START struct _NCP_REGISTER_SERVICE
     uint8_t service[MAX_SUPPORT_SERVICE];
 } NCP_TLV_PACK_END NCP_REGISTER_SERVICE;
 
-/** NCP Bluetooth LE l2cap connect command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE l2cap connect command */
 typedef NCP_TLV_PACK_START struct _NCP_L2CAP_CONNECT_CMD {
-    /** remote address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** remote address value */
+    /** Bluetooth LE address */
     uint8_t address[NCP_BLE_ADDR_LENGTH];
     /** PSM value */
     uint16_t psm;
-    /** security */
+    /** connection security level \n
+        0x01: No encryption and no authentication \n
+        0x02: Encryption and no authentication (no MITM) \n
+        0x03: Encryption and authentication (MITM)
+    */
     uint8_t sec;
-    /** security flag*/
+    /** Option to use customized security level or to use system default security level  \n
+        0: to use system default security level \n
+        1: to use customized security level
+    */
     uint8_t sec_flag;
 } NCP_TLV_PACK_END NCP_L2CAP_CONNECT_CMD;
 
-/** NCP Bluetooth LE l2cap disconnect command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE l2cap disconnect command */
 typedef NCP_TLV_PACK_START struct _NCP_L2CAP_DISCONNECT_CMD {
-    /** remote address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** remote address value */
+    /** Bluetooth LE address */
     uint8_t address[NCP_BLE_ADDR_LENGTH];
 } NCP_TLV_PACK_END NCP_L2CAP_DISCONNECT_CMD;
 
-/** NCP Bluetooth LE l2cap send data structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE l2cap send data command */
 typedef NCP_TLV_PACK_START struct _NCP_L2CAP_SEND_CMD {
-    /** remote address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** remote address value */
+    /** Bluetooth LE address */
     uint8_t address[NCP_BLE_ADDR_LENGTH];
-    /** send data times */
+    /** the number of times a loop is sent */
     uint16_t times;
 } NCP_TLV_PACK_END NCP_L2CAP_SEND_CMD;
 
-/** NCP Bluetooth LE l2cap register PSM structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE l2cap register PSM command */
 typedef NCP_TLV_PACK_START struct _NCP_L2CAP_REGISTER_CMD {
     /** PSM value */
     uint16_t psm;
-    /** security level */
+    /** connection security level \n
+        0x01: No encryption and no authentication \n
+        0x02: Encryption and no authentication (no MITM) \n
+        0x03: Encryption and authentication (MITM)
+    */
     uint8_t sec_level;
-    /** security flag */
+    /** Option to use custom security level or to use system default security level \n
+        0: to use system default security level \n
+        1: to use customized security level
+    */
     uint8_t sec_flag;
-    /** policy */
+    /** allowlist */
     uint8_t policy;
-    /** policy flag */
+    /** option to use allowlist \n
+        0: not use allowlist \n
+        1: use allowlist
+     */
     uint8_t policy_flag;
 } NCP_TLV_PACK_END NCP_L2CAP_REGISTER_CMD;
 
-/** NCP Bluetooth LE l2cap set metrics command structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE l2cap set metrics command */
 typedef NCP_TLV_PACK_START struct _NCP_L2CAP_METRICS_CMD {
-    /** metrics flag */
+    /** option to enable calculating metrics of l2cap rate  \n
+      0: disable calculating metrics of l2cap rate  \n
+      1: enable calculating metrics of l2cap rate 
+    */
     bool metrics_flag;
 } NCP_TLV_PACK_END NCP_L2CAP_METRICS_CMD;
 
-/** NCP Bluetooth LE l2cap receive data structure */
+/** This structure is used to set the configuration of NCP Bluetooth LE l2cap receive data command */
 typedef NCP_TLV_PACK_START struct _NCP_L2CAP_RECEIVE_CMD {
-    /** receive data delay */
+    /** receive delay time in millisecond*/
     uint32_t l2cap_recv_delay_ms;
 } NCP_TLV_PACK_END NCP_L2CAP_RECEIVE_CMD;
 
-/** NCP Bluetooth LE start advertising response structure */
+/** This structure is used to store the response of NCP Bluetooth LE start advertising command */
 typedef NCP_TLV_PACK_START struct _NCP_START_ADV_RP {
-    /** advertising setting */
+    /** device current setting \n
+     * bit0: GAP_SETTINGS_POWERED \n
+     * bit1: GAP_SETTINGS_CONNECTABLE \n
+     * bit2: GAP_SETTINGS_FAST_CONNECTABLE \n
+     * bit3: GAP_SETTINGS_DISCOVERABLE \n
+     * bit4: GAP_SETTINGS_BONDABLE \n
+     * bit5: GAP_SETTINGS_LINK_SEC_3 \n
+     * bit6: GAP_SETTINGS_SSP \n
+     * bit7: GAP_SETTINGS_BREDR \n
+     * bit8: GAP_SETTINGS_HS \n
+     * bit9: GAP_SETTINGS_LE \n
+     * bit10: GAP_SETTINGS_ADVERTISING \n
+     * bit11: GAP_SETTINGS_SC \n
+     * bit12: GAP_SETTINGS_DEBUG_KEYS \n
+     * bit13: GAP_SETTINGS_PRIVACY \n
+     * bit14: GAP_SETTINGS_CONTROLLER_CONFIG \n
+     * bit15: GAP_SETTINGS_STATIC_ADDRESS
+    */
     uint32_t adv_setting;
 } NCP_TLV_PACK_END NCP_START_ADV_RP;
 
-/** NCP Bluetooth LE gatt add service response structure */
+/** This structure is used to store the response of NCP Bluetooth LE add service command */
 typedef NCP_TLV_PACK_START struct _NCP_ADD_SERVICE_RP {
     /** service attribute handle */
     uint16_t attr_handle;
 } NCP_TLV_PACK_END NCP_ADD_SERVICE_RP;
 
-/** NCP Bluetooth LE gatt service structure */
+/** This structure is used to store the information of NCP Bluetooth LE service data */
 typedef NCP_TLV_PACK_START struct GATT_SERVICE {
     /** service start handle */
     uint16_t start_handle;
@@ -2380,7 +2393,7 @@ typedef NCP_TLV_PACK_START struct GATT_SERVICE {
     uint8_t uuid[SERVER_MAX_UUID_LEN];
 } NCP_TLV_PACK_END GATT_SERVICE_T;
 
-/** NCP Bluetooth LE gatt characteristic structure */
+/** This structure is used to store the information of NCP Bluetooth LE characteristic data */
 typedef NCP_TLV_PACK_START struct GATT_CHARACTERISTIC {
     /** characteristic handle */
     uint16_t characteristic_handle;
@@ -2394,7 +2407,7 @@ typedef NCP_TLV_PACK_START struct GATT_CHARACTERISTIC {
     uint8_t uuid[SERVER_MAX_UUID_LEN];
 } NCP_TLV_PACK_END GATT_CHARACTERISTIC_T;
 
-/** NCP Bluetooth LE gatt dscriptor structure */
+/** This structure is used to store the information of NCP Bluetooth LE descriptor data */
 typedef NCP_TLV_PACK_START struct GATT_DESCRIPTOR {
     /** descriptor handle */
     uint16_t descriptor_handle;
@@ -2404,7 +2417,7 @@ typedef NCP_TLV_PACK_START struct GATT_DESCRIPTOR {
     uint8_t uuid[SERVER_MAX_UUID_LEN];
 } NCP_TLV_PACK_END GATT_DESCRIPTOR_T;
 
-/** NCP Bluetooth LE gatt discover primary service response structure */
+/** This structure is used to store the response of NCP Bluetooth LE discover primary service command */
 typedef NCP_TLV_PACK_START struct _NCP_DISC_PRIM_RP {
     /** service count */
     uint8_t services_count;
@@ -2412,7 +2425,7 @@ typedef NCP_TLV_PACK_START struct _NCP_DISC_PRIM_RP {
     GATT_SERVICE_T services[MAX_SUPPORT_SERVICE];
 } NCP_TLV_PACK_END NCP_DISC_PRIM_RP, NCP_DISC_PRIM_EV;
 
-/** NCP Bluetooth LE gatt discover characteristic response structure */
+/** This structure is used to store the response of NCP Bluetooth LE discover characteristic command */
 typedef NCP_TLV_PACK_START struct  _NCP_DISC_CHRC_RP {
     /** characteristic count */
     uint8_t characteristics_count;
@@ -2420,7 +2433,7 @@ typedef NCP_TLV_PACK_START struct  _NCP_DISC_CHRC_RP {
     GATT_CHARACTERISTIC_T characteristics[MAX_SUPPORT_SERVICE];
 } NCP_TLV_PACK_END NCP_DISC_CHRC_RP, NCP_DISC_CHRC_EV;
 
-/** NCP Bluetooth LE gatt discover descriptors response structure */
+/** This structure is used to store the response of NCP Bluetooth LE discover descriptors command */
 typedef NCP_TLV_PACK_START struct  _NCP_DISC_ALL_DESC_RP {
     /** descriptors count */
     uint8_t descriptors_count;
@@ -2428,7 +2441,7 @@ typedef NCP_TLV_PACK_START struct  _NCP_DISC_ALL_DESC_RP {
     GATT_DESCRIPTOR_T descriptors[MAX_SUPPORT_SERVICE];
 } NCP_TLV_PACK_END NCP_DISC_ALL_DESC_RP, NCP_DISC_ALL_DESC_EV;
 
-/** NCP Bluetooth LE commission service response structure */
+/** This structure is used to store the response of NCP Bluetooth LE commission service command */
 typedef NCP_TLV_PACK_START struct  _NCP_NCS_INFO_RP {
     /** ssid value */
     char    ssid[32];
@@ -2444,14 +2457,22 @@ typedef NCP_TLV_PACK_START struct  _NCP_NCS_INFO_RP {
     uint8_t secu_len;
 } NCP_TLV_PACK_END NCP_NCS_INFO_RP, NCP_NCS_INFO_EV;
 
+/** This structure is used to store the information of NCP Bluetooth LE device found event */
 typedef NCP_TLV_PACK_START struct _NCP_DEVICE_ADV_REPORT_EV {
-    /** address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t  address_type;
-    /** address value */
+    /** Bluetooth LE address */
     uint8_t  address[6];
     /** advertising packet RSSI */
     int8_t   rssi;
-    /** advertising flags */
+    /** Bluetooth LE device found flag \n
+        0x01: GAP_DEVICE_FOUND_FLAG_RSSI \n
+        0x02: GAP_DEVICE_FOUND_FLAG_AD \n
+        0x04: GAP_DEVICE_FOUND_FLAG_SD
+     */
     uint8_t  flags;
     /** EIR data length */
     uint16_t eir_data_len;
@@ -2459,70 +2480,99 @@ typedef NCP_TLV_PACK_START struct _NCP_DEVICE_ADV_REPORT_EV {
     uint8_t  eir_data[];
 } NCP_TLV_PACK_END NCP_DEVICE_ADV_REPORT_EV;
 
-/** NCP Bluetooth LE device connected event structure */
+/** This structure is used to store the information of NCP Bluetooth LE device connected event */
 typedef NCP_TLV_PACK_START struct _NCP_DEVICE_CONNECTED_EV {
-    /** remote address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** remote address value */
+    /** Bluetooth LE address */
     uint8_t address[6];
     /** connection interval */
     uint16_t interval;
-    /** connection latency */
+    /** connection latency \n
+        Maximum peripheral latency for the connection in number of subrated connection events
+    */
     uint16_t latency;
-    /** connection timeout */
+    /** connection timeout \n
+        Supervision timeout for the Bluetooth LE link
+    */
     uint16_t timeout;
 } NCP_TLV_PACK_END NCP_DEVICE_CONNECTED_EV;
 
-/** NCP Bluetooth LE device disconnected event structure */
+/** This structure is used to store the information of NCP Bluetooth LE device disconnected event */
 typedef NCP_TLV_PACK_START struct _NCP_DEVICE_DISCONNECTED_EV {
-    /** remote address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** remote address value */
+    /** Bluetooth LE address */
     uint8_t address[6];
 } NCP_TLV_PACK_END NCP_DEVICE_DISCONNECTED_EV;
 
-/** NCP Bluetooth LE passkey display event structure */
+/** This structure is used to store the information of NCP Bluetooth LE passkey display event */
 typedef NCP_TLV_PACK_START struct _NCP_PASSKEY_DISPLAY_EV {
-    /** remote address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t  address_type;
-    /** remote address value */
+    /** Bluetooth LE address */
     uint8_t  address[6];
-    /** passkey value */
+    /** device passkey number */
     uint32_t passkey;
 } NCP_TLV_PACK_END NCP_PASSKEY_DISPLAY_EV;
 
-/** NCP Bluetooth LE identity resolved event structure */
+/** This structure is used to store the information of NCP Bluetooth LE identity resolved event */
 typedef NCP_TLV_PACK_START struct _NCP_IDENTITY_RESOLVED_EV {
-    /** address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** address value */
+    /** Bluetooth LE address */
     uint8_t address[6];
-    /** identity address type */
+    /** Bluetooth LE identity address type \n
+     2: public identity address \n
+     3: random identity address
+    */
     uint8_t identity_address_type;
-    /** identity address value */
+    /** Bluetooth LE identity address */
     uint8_t identity_address[6];
 } NCP_TLV_PACK_END NCP_IDENTITY_RESOLVED_EV;
 
-/** NCP Bluetooth LE security level changed event structure */
+/** This structure is used to store the information of NCP Bluetooth LE security level changed event */
 typedef NCP_TLV_PACK_START struct _NCP_SEC_LEVEL_CHANGED_EV {
-    /** address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** address value */
+    /** Bluetooth LE address */
     uint8_t address[6];
-    /** security level */
+    /** connection security level \n
+        0x01: No encryption and no authentication \n
+        0x02: Encryption and no authentication (no MITM) \n
+        0x03: Encryption and authentication (MITM)
+    */
     uint8_t sec_level;
 } NCP_TLV_PACK_END NCP_SEC_LEVEL_CHANGED_EV;
 
-/** NCP Bluetooth LE gatt max attribute value length */
+/** The maximum length of the attribute to notify */
 #define MAX_ATTRIBUTE_VALUE_LEN 256
 
-/** NCP Bluetooth LE gatt notification event structure */
+/** This structure is used to store the information of NCP Bluetooth LE notification event */
 typedef NCP_TLV_PACK_START struct  _NCP_NOTIFICATION_EV {
     /** service id */
     uint8_t svc_id;
-    /** address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** address value */
+    /** Bluetooth LE address */
     uint8_t address[6];
     /** notification type */
     uint8_t type;
@@ -2534,7 +2584,7 @@ typedef NCP_TLV_PACK_START struct  _NCP_NOTIFICATION_EV {
     uint8_t data[MAX_ATTRIBUTE_VALUE_LEN];
 } NCP_TLV_PACK_END NCP_NOTIFICATION_EV;
 
-/** NCP Bluetooth LE gatt attribute value changed event structure */
+/** This structure is used to store the information of NCP Bluetooth LE attribute value changed event */
 typedef NCP_TLV_PACK_START struct  _NCP_ATTR_VALUE_CHANGED_EV {
     /** attribute handle */
     uint16_t handle;
@@ -2544,7 +2594,7 @@ typedef NCP_TLV_PACK_START struct  _NCP_ATTR_VALUE_CHANGED_EV {
     uint8_t data[MAX_ATTRIBUTE_VALUE_LEN];
 } NCP_TLV_PACK_END NCP_ATTR_VALUE_CHANGED_EV;
 
-/** NCP Bluetooth LE gatt client characteristic configuration changed event structure */
+/** This structure is used to store the information of NCP Bluetooth LE client characteristic configuration changed event */
 typedef NCP_TLV_PACK_START struct  _NCP_CCC_CFG_CHANGED_EV {
     /** client characteristic configuration changed value */
     uint16_t ccc_value;
@@ -2554,7 +2604,7 @@ typedef NCP_TLV_PACK_START struct  _NCP_CCC_CFG_CHANGED_EV {
     uint8_t uuid[SERVER_MAX_UUID_LEN];
 } NCP_TLV_PACK_END NCP_CCC_CFG_CHANGED_EV;
 
-/** NCP Bluetooth LE gatt subscription event structure */
+/** This structure is used to store the information of NCP Bluetooth LE subscription event */
 typedef NCP_TLV_PACK_START struct  _NCP_SUBSCRIPTIONED_EV {
     /** service id */
     uint8_t svc_id;
@@ -2562,31 +2612,40 @@ typedef NCP_TLV_PACK_START struct  _NCP_SUBSCRIPTIONED_EV {
     uint8_t status;
 } NCP_TLV_PACK_END NCP_SUBSCRIPTIONED_EV;
 
-/** NCP Bluetooth LE l2cap connection event structure */
+/** This structure is used to store the information of NCP Bluetooth LE l2cap connection event */
 typedef NCP_TLV_PACK_START struct  _NCP_L2CAP_CONNECT_EV {
-    /** address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** address value */
+    /** Bluetooth LE address */
     uint8_t address[6];
     /** PSM value */
     uint16_t psm;
 } NCP_TLV_PACK_END NCP_L2CAP_CONNECT_EV;
 
-/** NCP Bluetooth LE l2cap disconnection event structure */
+/** This structure is used to store the information of NCP Bluetooth LE l2cap disconnection event */
 typedef NCP_TLV_PACK_START struct  _NCP_L2CAP_DISCONNECT_EV {
-    /** address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** address value */
+    /** Bluetooth LE address */
     uint8_t address[6];
     /** PSM value */
     uint16_t psm;
 } NCP_TLV_PACK_END NCP_L2CAP_DISCONNECT_EV;
 
-/** NCP Bluetooth LE l2cap receive data event structure */
+/** This structure is used to store the information of NCP Bluetooth LE l2cap receive data event */
 typedef NCP_TLV_PACK_START struct  _NCP_L2CAP_RECEIVE_EV {
-    /** address type */
+    /** Bluetooth LE address type \n
+      0: public \n
+      1: random
+     */
     uint8_t address_type;
-    /** address value */
+    /** Bluetooth LE address */
     uint8_t address[6];
     /** PSM value */
     uint16_t psm;
@@ -2596,7 +2655,7 @@ typedef NCP_TLV_PACK_START struct  _NCP_L2CAP_RECEIVE_EV {
     uint8_t data[256];
 } NCP_TLV_PACK_END NCP_L2CAP_RECEIVE_EV;
 
-/** NCP Bluetooth LE command structure */
+/** This structure is used to store the information of NCP Bluetooth LE TLV command */
 typedef NCP_TLV_PACK_START struct _NCPCmd_DS_COMMAND
 {
    /** Command Header : Command */
@@ -2604,92 +2663,92 @@ typedef NCP_TLV_PACK_START struct _NCPCmd_DS_COMMAND
    /** Command Body */
    union
    {
-       /** NCP Bluetooth LE Adv */
+       /** NCP Bluetooth LE advertising */
         NCP_CMD_ADV_START adv_start;
-        /** Set NCP Bluetooth LE Adv Data */
+        /** Set NCP Bluetooth LE advertising data */
         NCP_CMD_SET_ADV_DATA set_adv_data;
-        /** Set NCP Bluetooth LE Scan Parameter */
+        /** Set NCP Bluetooth LE scan parameter */
         NCP_CMD_SET_SCAN_PARAM set_scan_parameter;
-        /** NCP Bluetooth LE Scan */
+        /** NCP Bluetooth LE start scanning */
         NCP_CMD_SCAN_START scan_start;
-        /** NCP Bluetooth LE Connect/Disconnect */
+        /** NCP Bluetooth LE connect/disconnect */
         NCP_CMD_CONNECT connect;
-        /** Set NCP Bluetooth LE Data Len */
+        /** Set NCP Bluetooth LE data len */
         NCP_CMD_SET_DATA_LEN set_data_len;
-        /** Set NCP Bluetooth LE PHY */
+        /** Set NCP Bluetooth LE set Bluetooth PHY */
         NCP_CMD_SET_PHY set_phy;
-        /** NCP Bluetooth LE Connect Parameter Update */
+        /** NCP Bluetooth LE update connect parameter */
         NCP_CMD_CONN_PARA_UPDATE conn_param_update;
-        /** NCP Bluetooth LE Connect Encryption */
+        /** NCP Bluetooth LE connect encryption */
         NCP_CMD_ENCRYPTION conn_encryption;
-        /** NCP Bluetooth LE Set Power Mode */
+        /** NCP Bluetooth LE set power mode */
         NCP_CMD_SET_POWER_MODE set_pw_mode;
-        /** NCP Bluetooth LE Set Device Address */
+        /** NCP Bluetooth LE set device address */
         NCP_CMD_SET_ADDR set_dev_addr;
-        /** NCP Bluetooth LE Read characteristic */
+        /** NCP Bluetooth LE read characteristic */
         NCP_GATT_READ_CMD gatt_read_char;
-        /** NCP Bluetooth LE Set Device Name */
+        /** NCP Bluetooth LE set device name */
         NCP_CMD_SET_NAME set_dev_name;
-        /** NCP Bluetooth LE GATT Add Host Service */
+        /** NCP Bluetooth LE gatt add host service */
         NCP_CMD_SERVICE_ADD host_svc_add;
-        /** NCP Bluetooth LE Start Service at Host side */
+        /** NCP Bluetooth LE start service at host side */
         NCP_CMD_START_SERVICE host_start_svc;
-        /** NCP Bluetooth LE GATT Register Service*/
+        /** NCP Bluetooth LE gatt register service*/
         NCP_REGISTER_SERVICE register_service;
-        /** NCP Bluetooth LE GATT Set Characteristic/Descriptor Service*/
+        /** NCP Bluetooth LE gatt set characteristic/descriptor service*/
         NCP_SET_VALUE_CMD gatt_set_value;
-        /** NCP Bluetooth LE GATT Discover Primary Service*/
+        /** NCP Bluetooth LE gatt discover primary Service*/
         NCP_DISC_PRIM_UUID_CMD discover_prim;
-        /** NCP Bluetooth LE GATT Discover Characteristics*/
+        /** NCP Bluetooth LE gatt discover characteristics*/
         NCP_DISC_CHRC_UUID_CMD discover_chrc;
-        /** NCP Bluetooth LE GATT Configure service to indicate characteristic value to clinet*/
+        /** NCP Bluetooth LE gatt configure service to indicate characteristic value to client */
         NCP_CFG_SUBCRIBE_CMD cfg_subcribe;
 
-        /** NCP Bluetooth LE L2CAP connect */
+        /** NCP Bluetooth LE l2cap connect */
         NCP_L2CAP_CONNECT_CMD l2cap_connect;
-        /** NCP Bluetooth LE L2CAP disconnect */
+        /** NCP Bluetooth LE l2cap disconnect */
         NCP_L2CAP_DISCONNECT_CMD l2cap_disconnect;
-        /** NCP Bluetooth LE L2CAP send */
+        /** NCP Bluetooth LE l2cap send */
         NCP_L2CAP_SEND_CMD l2cap_send;
-        /** NCP Bluetooth LE L2CAP register*/
+        /** NCP Bluetooth LE l2cap register*/
         NCP_L2CAP_REGISTER_CMD l2cap_register;
-        /** NCP Bluetooth LE L2CAP metrics */
+        /** NCP Bluetooth LE l2cap metrics */
         NCP_L2CAP_METRICS_CMD l2cap_metrics;
-        /** NCP Bluetooth LE L2CAP receive */
+        /** NCP Bluetooth LE l2cap receive */
         NCP_L2CAP_RECEIVE_CMD l2cap_receive;
         
-        /** NCP Bluetooth LE Adv reported event */
+        /** NCP Bluetooth LE advertising reported event */
         NCP_DEVICE_ADV_REPORT_EV adv_reported;
-        /** NCP Bluetooth LE Connected event */
+        /** NCP Bluetooth LE connected event */
         NCP_DEVICE_CONNECTED_EV device_connected;
-        /** NCP Bluetooth LE Disonnected event */
+        /** NCP Bluetooth LE disonnected event */
         NCP_DEVICE_DISCONNECTED_EV device_disconnected;
-        /** NCP Bluetooth LE Passkey Display event */
+        /** NCP Bluetooth LE passkey display event */
         NCP_PASSKEY_DISPLAY_EV passkey_display;
-        /** NCP Bluetooth LE Remote Identity Address Resolved event */
+        /** NCP Bluetooth LE remote identity address resolved event */
         NCP_IDENTITY_RESOLVED_EV idenitiy_resolved;
-        /** NCP Bluetooth LE Connect Parameter Update event */
+        /** NCP Bluetooth LE connect parameter update event */
         NCP_CMD_CONN_PARA_UPDATE_EV conn_param_update_ev;
-        /** NCP Bluetooth LE Phy Update event */
+        /** NCP Bluetooth LE phy update event */
         NCP_CMD_PHY_UPDATE_EV phy_updated_ev;
-        /** NCP Bluetooth LE Data Len Update event */
+        /** NCP Bluetooth LE data length update event */
         NCP_CMD_DATA_LEN_UPDATE_EV data_len_updated_ev;
-        /** NCP Bluetooth LE Security Level Changed event */
+        /** NCP Bluetooth LE security level changed event */
         NCP_SEC_LEVEL_CHANGED_EV sec_level_changed;
 
-        /** NCP Bluetooth LE GATT notification Receive even */
+        /** NCP Bluetooth LE gatt notification receive event */
         NCP_NOTIFICATION_EV gatt_notification;
-        /** NCP Bluetooth LE GATT Attribute Value Changed event */
+        /** NCP Bluetooth LE gatt attribute value changed event */
         NCP_ATTR_VALUE_CHANGED_EV attr_value_changed;
-        /** NCP Bluetooth LE GATT Client Characteristic Configuration Changed event */
+        /** NCP Bluetooth LE gatt client characteristic configuration changed event */
         NCP_CCC_CFG_CHANGED_EV gatt_ccc_cfg_changed_ev;
-        /** NCP Bluetooth LE GATT Client Subscription event */
+        /** NCP Bluetooth LE gatt client subscription event */
         NCP_SUBSCRIPTIONED_EV gatt_subscription_ev;
-        /** NCP Bluetooth LE GATT Discover Primary Service event */
+        /** NCP Bluetooth LE gatt discover primary service event */
         NCP_DISC_PRIM_EV gatt_disc_prim_ev;
-        /** NCP Bluetooth LE GATT Discover Primary Service event */
+        /** NCP Bluetooth LE gatt discover chracteristic event */
         NCP_DISC_CHRC_EV gatt_disc_chrc_ev;
-        /** NCP Bluetooth LE GATT Discover Primary Service event */
+        /** NCP Bluetooth LE gatt discover description event */
         NCP_DISC_ALL_DESC_EV gatt_disc_desc_ev;
 
         /** NCP Bluetooth LE l2cap connect event */
@@ -2699,17 +2758,17 @@ typedef NCP_TLV_PACK_START struct _NCPCmd_DS_COMMAND
         /** NCP Bluetooth LE l2cap receive event */
         NCP_L2CAP_RECEIVE_EV l2cap_receive_ev;
         
-        /** NCP Bluetooth LE Adv start response */
+        /** NCP Bluetooth LE start advertising response */
         NCP_START_ADV_RP start_adv_rp;
-        /** NCP Bluetooth LE GATT Add Service Attribute Response */
+        /** NCP Bluetooth LE gatt add service attribute response */
         NCP_ADD_SERVICE_RP add_service_rp;
-        /** NCP Bluetooth LE GATT Discover Primary Service Response */
+        /** NCP Bluetooth LE gatt discover primary service response */
         NCP_DISC_PRIM_RP discover_prim_rp;
-        /** NCP Bluetooth LE GATT Discover Characteristics Response */
+        /** NCP Bluetooth LE gatt discover characteristics response */
         NCP_DISC_CHRC_RP discover_chrc_rp;
-        /** NCP Bluetooth LE GATT Discover Descriptors Response */
+        /** NCP Bluetooth LE gatt discover descriptors response */
         NCP_DISC_ALL_DESC_RP discover_desc_rp;
-        /** NCP Bluetooth LE NCS SSID/Password receive Response */
+        /** NCP Bluetooth LE commissioning ssid/password receive response */
         NCP_NCS_INFO_RP ncs_info_rp;
    } params;
 } NCP_TLV_PACK_END NCPCmd_DS_COMMAND, MCU_NCPCmd_DS_COMMAND;

@@ -69,7 +69,13 @@
 #define ZPS_TLV_G_PSK_PASSCODE     (4) /* Variable-length pass code (for PAKE protocols) */
 #define ZPS_TLV_G_PSK_BASICAUTH    (8) /* Basic Authorization Key */
 #define ZPS_TLV_G_PSK_ADMINAUTH   (16) /* Administrative Authorization Key */
-#define ZPS_TLV_G_PSK_WELLKNOWN  (255) /* Anonymous Well-Known Secret */
+
+#define ZPS_TLV_G_SELECTPSK_SYMMETRIC    (0) /* Symmetric authentication token */
+#define ZPS_TLV_G_SELECTPSK_INSTALLCODE  (1) /* Pre-configured link-ley derived from installation code */
+#define ZPS_TLV_G_SELECTPSK_PASSCODE     (2) /* Variable-length pass code (for PAKE protocols) */
+#define ZPS_TLV_G_SELECTPSK_BASICAUTH    (3) /* Basic Authorization Key */
+#define ZPS_TLV_G_SELECTPSK_ADMINAUTH    (4) /* Administrative Authorization Key */
+#define ZPS_TLV_G_SELECTPSK_WELLKNOWN  (255) /* Anonymous Well-Known Secret */
 
 #define ZPS_TLV_G_ROUTERINFO_HUBCONN         (1) /* Hub Connectivity */
 #define ZPS_TLV_G_ROUTERINFO_LONGUPTIME      (2) /* Uptime > 24 hrs */

@@ -62,7 +62,7 @@
 #ifndef CONFIG_BT_RX_STACK_SIZE
 
 #if (defined(CONFIG_BT_SMP) && (CONFIG_BT_SMP > 0U))
-    #define CONFIG_BT_RX_STACK_SIZE 2200
+    #define CONFIG_BT_RX_STACK_SIZE 2500
 #else
     #define CONFIG_BT_RX_STACK_SIZE 1024
 #endif
@@ -1816,6 +1816,13 @@ Select this for LE Peripheral role support.
 #endif
 
 #endif /* CONFIG_BT_MAP_MCE */
+
+/*! @brief Bluetooth MAP profile MSE Role support [EXPERIMENTAL], if the macro is set to 0, feature is disabled, if 1, feature is enabled.
+ * This option enables Bluetooth MAP MSE support
+ */
+#ifndef CONFIG_BT_MAP_MSE
+    #define CONFIG_BT_MAP_MSE 0
+#endif
 
 #if defined(CONFIG_BT_MAP_MSE) && (CONFIG_BT_MAP_MSE > 0)
 

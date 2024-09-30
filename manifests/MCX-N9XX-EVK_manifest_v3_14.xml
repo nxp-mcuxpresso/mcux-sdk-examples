@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_MCX-N9XX-EVK_manifest_v3_14" name="SDK Version Superset" brief="SDK Superset" format_version="3.14" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.14.xsd">
+<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_MCX-N9XX-EVK_manifest_v3_14" name="SDK 2.16.100 Superset" brief="SDK Superset" format_version="3.14" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.14.xsd">
 
   <externalDefinitions>
     <definition extID="frdmmcxn947"/>
@@ -91,67 +91,67 @@ ${load}</script>
         <files mask="mcxn9xxevk.png"/>
       </image>
       <examples>
-        <example id="mcxn9xxevk_peripheral_beacon" name="peripheral_beacon" brief="The Edgefast Bluetooth beacon example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/mcxn9xxevk/edgefast_bluetooth_examples/peripheral_beacon/cm33_core0">
+        <example id="mcxn9xxevk_peripheral_beacon" name="peripheral_beacon" brief="The EdgeFast BLE peripheral beacon example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/mcxn9xxevk/edgefast_bluetooth_examples/peripheral_beacon/cm33_core0">
           <external path="examples/mcxn9xxevk/edgefast_bluetooth_examples/peripheral_beacon/cm33_core0" type="xml">
             <files mask="peripheral_beacon_v3_14.xml"/>
           </external>
         </example>
-        <example id="mcxn9xxevk_spp" name="spp" brief="The Bluetooth BR SPP example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/mcxn9xxevk/edgefast_bluetooth_examples/spp/cm33_core0">
+        <example id="mcxn9xxevk_spp" name="spp" brief="The EdgeFast BR/EDR spp example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/mcxn9xxevk/edgefast_bluetooth_examples/spp/cm33_core0">
           <external path="examples/mcxn9xxevk/edgefast_bluetooth_examples/spp/cm33_core0" type="xml">
             <files mask="spp_v3_14.xml"/>
           </external>
         </example>
-        <example id="mcxn9xxevk_edgefast_bluetooth_shell" name="edgefast_bluetooth_shell" brief="The Edgefast Bluetooth shell example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/mcxn9xxevk/edgefast_bluetooth_examples/shell/cm33_core0">
+        <example id="mcxn9xxevk_edgefast_bluetooth_shell" name="edgefast_bluetooth_shell" brief="The EdgeFast BLE/BR/EDR shell example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/mcxn9xxevk/edgefast_bluetooth_examples/shell/cm33_core0">
           <external path="examples/mcxn9xxevk/edgefast_bluetooth_examples/shell/cm33_core0" type="xml">
             <files mask="edgefast_bluetooth_shell_v3_14.xml"/>
           </external>
         </example>
-        <example id="mcxn9xxevk_a2dp_source_cm33_core0" name="a2dp_source_cm33_core0" brief="The Edgefast Bluetooth audio source with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/mcxn9xxevk/edgefast_bluetooth_examples/a2dp_source/cm33_core0">
+        <example id="mcxn9xxevk_a2dp_source_cm33_core0" name="a2dp_source_cm33_core0" brief="The EdgeFast BR/EDR a2dp source example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/mcxn9xxevk/edgefast_bluetooth_examples/a2dp_source/cm33_core0">
           <external path="examples/mcxn9xxevk/edgefast_bluetooth_examples/a2dp_source/cm33_core0" type="xml">
             <files mask="a2dp_source_cm33_core0_v3_14.xml"/>
           </external>
         </example>
-        <example id="mcxn9xxevk_peripheral_ht" name="peripheral_ht" brief="The Edgefast Bluetooth hts example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/mcxn9xxevk/edgefast_bluetooth_examples/peripheral_ht/cm33_core0">
+        <example id="mcxn9xxevk_peripheral_ht" name="peripheral_ht" brief="The EdgeFast BLE peripheral ht example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/mcxn9xxevk/edgefast_bluetooth_examples/peripheral_ht/cm33_core0">
           <external path="examples/mcxn9xxevk/edgefast_bluetooth_examples/peripheral_ht/cm33_core0" type="xml">
             <files mask="peripheral_ht_v3_14.xml"/>
           </external>
         </example>
-        <example id="mcxn9xxevk_central_ht" name="central_ht" brief="The Edgefast Bluetooth hts example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/mcxn9xxevk/edgefast_bluetooth_examples/central_ht/cm33_core0">
+        <example id="mcxn9xxevk_central_ht" name="central_ht" brief="The EdgeFast BLE central ht example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/mcxn9xxevk/edgefast_bluetooth_examples/central_ht/cm33_core0">
           <external path="examples/mcxn9xxevk/edgefast_bluetooth_examples/central_ht/cm33_core0" type="xml">
             <files mask="central_ht_v3_14.xml"/>
           </external>
         </example>
-        <example id="mcxn9xxevk_peripheral_ipsp" name="peripheral_ipsp" brief="The Edgefast Bluetooth ipsp example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/mcxn9xxevk/edgefast_bluetooth_examples/peripheral_ipsp/cm33_core0">
+        <example id="mcxn9xxevk_peripheral_ipsp" name="peripheral_ipsp" brief="The EdgeFast BLE peripheral ipsp example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/mcxn9xxevk/edgefast_bluetooth_examples/peripheral_ipsp/cm33_core0">
           <external path="examples/mcxn9xxevk/edgefast_bluetooth_examples/peripheral_ipsp/cm33_core0" type="xml">
             <files mask="peripheral_ipsp_v3_14.xml"/>
           </external>
         </example>
-        <example id="mcxn9xxevk_central_ipsp" name="central_ipsp" brief="The Edgefast Bluetooth ipsp example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/mcxn9xxevk/edgefast_bluetooth_examples/central_ipsp/cm33_core0">
+        <example id="mcxn9xxevk_central_ipsp" name="central_ipsp" brief="The EdgeFast BLE central ipsp example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/mcxn9xxevk/edgefast_bluetooth_examples/central_ipsp/cm33_core0">
           <external path="examples/mcxn9xxevk/edgefast_bluetooth_examples/central_ipsp/cm33_core0" type="xml">
             <files mask="central_ipsp_v3_14.xml"/>
           </external>
         </example>
-        <example id="mcxn9xxevk_peripheral_pxr" name="peripheral_pxr" brief="The Edgefast Bluetooth pxr example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/mcxn9xxevk/edgefast_bluetooth_examples/peripheral_pxr/cm33_core0">
+        <example id="mcxn9xxevk_peripheral_pxr" name="peripheral_pxr" brief="The EdgeFast BLE peripheral pxr example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/mcxn9xxevk/edgefast_bluetooth_examples/peripheral_pxr/cm33_core0">
           <external path="examples/mcxn9xxevk/edgefast_bluetooth_examples/peripheral_pxr/cm33_core0" type="xml">
             <files mask="peripheral_pxr_v3_14.xml"/>
           </external>
         </example>
-        <example id="mcxn9xxevk_central_pxm" name="central_pxm" brief="The Edgefast Bluetooth pxm example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/mcxn9xxevk/edgefast_bluetooth_examples/central_pxm/cm33_core0">
+        <example id="mcxn9xxevk_central_pxm" name="central_pxm" brief="The EdgeFast BLE central pxm example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/mcxn9xxevk/edgefast_bluetooth_examples/central_pxm/cm33_core0">
           <external path="examples/mcxn9xxevk/edgefast_bluetooth_examples/central_pxm/cm33_core0" type="xml">
             <files mask="central_pxm_v3_14.xml"/>
           </external>
         </example>
-        <example id="mcxn9xxevk_peripheral_hps" name="peripheral_hps" brief="The Edgefast Bluetooth hps example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/mcxn9xxevk/edgefast_bluetooth_examples/peripheral_hps/cm33_core0">
+        <example id="mcxn9xxevk_peripheral_hps" name="peripheral_hps" brief="The EdgeFast BLE peripheral hps example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/mcxn9xxevk/edgefast_bluetooth_examples/peripheral_hps/cm33_core0">
           <external path="examples/mcxn9xxevk/edgefast_bluetooth_examples/peripheral_hps/cm33_core0" type="xml">
             <files mask="peripheral_hps_v3_14.xml"/>
           </external>
         </example>
-        <example id="mcxn9xxevk_central_hpc" name="central_hpc" brief="The Edgefast Bluetooth hpc example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/mcxn9xxevk/edgefast_bluetooth_examples/central_hpc/cm33_core0">
+        <example id="mcxn9xxevk_central_hpc" name="central_hpc" brief="The EdgeFast BLE central hpc example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/mcxn9xxevk/edgefast_bluetooth_examples/central_hpc/cm33_core0">
           <external path="examples/mcxn9xxevk/edgefast_bluetooth_examples/central_hpc/cm33_core0" type="xml">
             <files mask="central_hpc_v3_14.xml"/>
           </external>
         </example>
-        <example id="mcxn9xxevk_wireless_uart" name="wireless_uart" brief="The Edgefast Bluetooth wireless uart example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/mcxn9xxevk/edgefast_bluetooth_examples/wireless_uart/cm33_core0">
+        <example id="mcxn9xxevk_wireless_uart" name="wireless_uart" brief="The EdgeFast BLE wireless uart example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/mcxn9xxevk/edgefast_bluetooth_examples/wireless_uart/cm33_core0">
           <external path="examples/mcxn9xxevk/edgefast_bluetooth_examples/wireless_uart/cm33_core0" type="xml">
             <files mask="wireless_uart_v3_14.xml"/>
           </external>
@@ -5105,7 +5105,7 @@ ${load}</script>
         <include_path relative_path="template" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.maestro_framework.doc.MCXN947" name="maestro_framework" brief="MCU Maestro Audio Framework Doc" version="1.7.0" full_name="Maestro Audio Framework Middleware Doc" category="Audio/Framework" user_visible="false" type="middleware" package_base_path="middleware/maestro" project_base_path="maestro">
+    <component id="middleware.maestro_framework.doc.MCXN947" name="maestro_framework" brief="MCU Maestro Audio Framework Doc" version="1.8.0" full_name="Maestro Audio Framework Middleware Doc" category="Audio/Framework" user_visible="false" type="middleware" package_base_path="middleware/maestro" project_base_path="maestro">
       <dependencies>
         <device_dependency value="MCXN947"/>
       </dependencies>
@@ -21373,7 +21373,7 @@ ${load}</script>
         <include_path relative_path="library" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.maestro_framework.codecs.MCXN947" name="maestro_framework_codecs" brief="MCU Maestro Audio Framework Codecs" version="1.7.0" full_name="Maestro Audio Framework Middleware Codecs" category="Audio/Framework" user_visible="true" type="middleware" package_base_path="middleware/maestro" project_base_path="maestro">
+    <component id="middleware.maestro_framework.codecs.MCXN947" name="maestro_framework_codecs" brief="MCU Maestro Audio Framework Codecs" version="1.8.0" full_name="Maestro Audio Framework Middleware Codecs" category="Audio/Framework" user_visible="true" type="middleware" package_base_path="middleware/maestro" project_base_path="maestro">
       <dependencies>
         <all>
           <component_dependency value="middleware.maestro_framework.MCXN947"/>
@@ -21399,7 +21399,7 @@ ${load}</script>
         <files mask="middleware_maestro_framework_codecs.cmake" hidden="true"/>
       </source>
     </component>
-    <component id="middleware.maestro_framework.MCXN947" name="maestro_framework_streamer_core" brief="MCU Maestro Audio Framework Streamer Core" version="1.7.0" full_name="Maestro Audio Framework Streamer Core" category="Audio/Framework" user_visible="true" type="middleware" package_base_path="middleware/maestro" project_base_path="maestro">
+    <component id="middleware.maestro_framework.MCXN947" name="maestro_framework_streamer_core" brief="MCU Maestro Audio Framework Streamer Core" version="1.8.0" full_name="Maestro Audio Framework Streamer Core" category="Audio/Framework" user_visible="true" type="middleware" package_base_path="middleware/maestro" project_base_path="maestro">
       <defines>
         <define name="CASCFG_PLATFORM_FREERTOS" value=""/>
         <define name="FSL_OS_SELECTED" value="SDK_OS_FREERTOS"/>
@@ -21891,7 +21891,7 @@ ${load}</script>
         <include_path relative_path="src" type="c_include"/>
       </include_paths>
     </component>
-    <component id="docs.maestro.MCXN947" name="maestro_rn" brief="Maestro SDK Release Notes" version="1.7.0" full_name="Maestro SDK Release Notes" category="docs/maestro" user_visible="true" type="documentation" package_base_path="middleware/maestro/docs" project_base_path="maestro">
+    <component id="docs.maestro.MCXN947" name="maestro_rn" brief="Maestro SDK Release Notes" version="1.8.0" full_name="Maestro SDK Release Notes" category="docs/maestro" user_visible="true" type="documentation" package_base_path="middleware/maestro/docs" project_base_path="maestro">
       <dependencies>
         <all>
           <component_dependency value="middleware.maestro_framework.MCXN947"/>

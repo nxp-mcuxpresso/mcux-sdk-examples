@@ -250,7 +250,7 @@ void USB_PreLowpowerMode(void)
         systemTickControl = SysTick->CTRL;
         SysTick->CTRL &= ~SysTick_CTRL_TICKINT_Msk;
     }
-    
+
     __disable_irq();
 }
 
@@ -375,7 +375,7 @@ void usb_host_pm_task(void)
                 g_cdc.suspendResumeState = kStatus_SartSuspend;
                 usb_interface_pm_state = kStatus_DEV_PM2;
                 OSA_SemaphoreWait((osa_semaphore_handle_t)usb_wakelock, osaWaitForever_c);
-                
+
                 usb_echo("Start suspend USB BUS...\r\n");
             }
 
@@ -384,7 +384,7 @@ void usb_host_pm_task(void)
             g_cdc.suspendBus = 1;
             if (g_cdc.supportRemoteWakeup)
             {
-                usb_echo("\r\nIf you want to wakeup device.Please Enter: wlan-usb-pm-cfg 2\r\n");
+                usb_echo("\r\nIf you want to wakeup device.Please Enter: ncp-usb-pm-cfg 2\r\n");
                 g_cdc.suspendResumeState = kStatus_SuspendSetRemoteWakeup;
             }
             break;
@@ -554,7 +554,7 @@ void APP_init(void)
         return;
     }
     USB_HostIsrEnable();
-    
+
     usb_echo("host init finished\r\n");
 }
 
@@ -592,12 +592,12 @@ int usb_host_init(void)
 {
     (void)OSA_EventCreate(usb_host_events, 1U);
     (void)OSA_TaskCreate((osa_task_handle_t)app_task_thread, OSA_TASK(app_task), (osa_task_param_t)NULL);
-    
+
 #if CONFIG_NCP_USB
     (void)OSA_TaskCreate((osa_task_handle_t)usb_recv_thread, OSA_TASK(usb_recv_task), (osa_task_param_t)NULL);
     (void)OSA_TaskCreate((osa_task_handle_t)usb_pm_task_thread, OSA_TASK(usb_pm_task), (osa_task_param_t)NULL);
 #endif
-    
+
     return 0;
 }
 
@@ -605,11 +605,11 @@ int usb_host_deinit(void)
 {
     (void)OSA_TaskDestroy(app_task_thread);
     (void)OSA_TaskDestroy(usb_host_thread);
-    
-#if CONFIG_NCP_USB	
+
+#if CONFIG_NCP_USB
     (void)OSA_TaskDestroy(usb_recv_thread);
     (void)OSA_TaskDestroy(usb_pm_task_thread);
 #endif
-    
+
     return 0;
 }

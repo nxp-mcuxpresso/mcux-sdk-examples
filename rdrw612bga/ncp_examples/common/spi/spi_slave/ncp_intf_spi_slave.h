@@ -18,7 +18,9 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-#define CONFIG_NCP_SPI_DEBUG 1
+#ifndef CONFIG_NCP_SPI_DEBUG
+#define CONFIG_NCP_SPI_DEBUG 0
+#endif
 #define NCP_SPI_SLAVE        SPI0
 #define NCP_SPI_SLAVE_DMA              DMA0
 #define NCP_SPI_SLAVE_DMA_RX_CHANNEL 0

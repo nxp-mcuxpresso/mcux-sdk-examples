@@ -3,7 +3,7 @@
  *
  * SPDX-License-Identifier: BSD-3-Clause
  * The BSD-3-Clause license can be found at https://spdx.org/licenses/BSD-3-Clause.html
- * 
+ *
  * This file is used to provide flash save/load API for wifi in little endian, now by Little FS.
  * There are four ways to access flash.
  * 1. Add system/wlan/prov config to access common config files.

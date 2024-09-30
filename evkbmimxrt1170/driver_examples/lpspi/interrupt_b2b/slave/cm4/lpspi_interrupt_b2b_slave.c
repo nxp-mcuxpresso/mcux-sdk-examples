@@ -33,6 +33,7 @@
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
+AT_QUICKACCESS_SECTION_CODE(void EXAMPLE_LPSPI_SLAVE_IRQHandler(void));
 /* LPSPI user callback */
 void LPSPI_SlaveUserCallback(LPSPI_Type *base, lpspi_slave_handle_t *handle, status_t status, void *userData);
 

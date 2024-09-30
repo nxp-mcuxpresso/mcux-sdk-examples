@@ -77,6 +77,9 @@ static uart_clock_context_t s_uartClockCtx;
 #if CONFIG_NCP_WIFI
 extern int is_hs_handshake_done;
 #endif
+#if defined(configUSE_TICKLESS_IDLE) && (configUSE_TICKLESS_IDLE == 1)
+extern void USB_DevicePmStartResume(void);
+#endif
 OSA_SEMAPHORE_HANDLE_DEFINE(hs_cfm);
 
 /*******************************************************************************
@@ -102,6 +105,16 @@ static void ncp_hs_delay_us(uint32_t us)
 
     instNum = ((SystemCoreClock + 999999UL) / 1000000UL) * us;
     ncp_hs_delay((instNum + 2U) / 3U);
+}
+
+void GPIO_INTA_DriverIRQHandler()
+{
+    DisableIRQ(GPIO_INTA_IRQn);
+    /* clear the interrupt status */
+    GPIO_PinClearInterruptFlag(GPIO, 1, 10, 0);
+    POWER_ClearWakeupStatus(GPIO_INTA_IRQn);
+    POWER_DisableWakeup(GPIO_INTA_IRQn);
+    wakeup_reason = WAKEUP_BY_PIN;
 }
 
 void PIN1_INT_IRQHandler()
@@ -180,11 +193,21 @@ void host_sleep_cli_notify(void)
 
 int host_sleep_pre_cfg(int mode)
 {
-    POWER_ConfigWakeupPin(kPOWER_WakeupPin1, kPOWER_WakeupEdgeLow);
-    NVIC_ClearPendingIRQ(PIN1_INT_IRQn);
-    EnableIRQ(PIN1_INT_IRQn);
-    POWER_ClearWakeupStatus(PIN1_INT_IRQn);
-    POWER_EnableWakeup(PIN1_INT_IRQn);
+    if(strcmp(BOARD_NAME, "FRDM-RW612") == 0)
+    {
+        NVIC_ClearPendingIRQ(GPIO_INTA_IRQn);
+        EnableIRQ(GPIO_INTA_IRQn);
+        POWER_ClearWakeupStatus(GPIO_INTA_IRQn);
+        POWER_EnableWakeup(GPIO_INTA_IRQn);
+    }
+    else
+    {
+        POWER_ConfigWakeupPin(kPOWER_WakeupPin1, kPOWER_WakeupEdgeLow);
+        NVIC_ClearPendingIRQ(PIN1_INT_IRQn);
+        EnableIRQ(PIN1_INT_IRQn);
+        POWER_ClearWakeupStatus(PIN1_INT_IRQn);
+        POWER_EnableWakeup(PIN1_INT_IRQn);
+    }
 #if CONFIG_NCP_WIFI
     ncp_enable_wlan_wakeup(true);
 #endif
@@ -262,14 +285,24 @@ void host_sleep_post_cfg(int mode)
 {
     uint32_t irq_mask;
 
-    /* Disable wakeup source of WLAN and PIN1 interrupt after waking up */
-    irq_mask = DisableGlobalIRQ();
-    POWER_ConfigWakeupPin(kPOWER_WakeupPin1, kPOWER_WakeupEdgeHigh);
-    NVIC_ClearPendingIRQ(PIN1_INT_IRQn);
-    DisableIRQ(PIN1_INT_IRQn);
-    POWER_ClearWakeupStatus(PIN1_INT_IRQn);
-    POWER_DisableWakeup(PIN1_INT_IRQn);
-    EnableGlobalIRQ(irq_mask);
+    if(strcmp(BOARD_NAME, "FRDM-RW612") == 0)
+    {
+        NVIC_ClearPendingIRQ(GPIO_INTA_IRQn);
+        DisableIRQ(GPIO_INTA_IRQn);
+        POWER_ClearWakeupStatus(GPIO_INTA_IRQn);
+        POWER_DisableWakeup(GPIO_INTA_IRQn);
+    }
+    else
+    {
+        /* Disable wakeup source of WLAN and PIN1 interrupt after waking up */
+        irq_mask = DisableGlobalIRQ();
+        POWER_ConfigWakeupPin(kPOWER_WakeupPin1, kPOWER_WakeupEdgeHigh);
+        NVIC_ClearPendingIRQ(PIN1_INT_IRQn);
+        DisableIRQ(PIN1_INT_IRQn);
+        POWER_ClearWakeupStatus(PIN1_INT_IRQn);
+        POWER_DisableWakeup(PIN1_INT_IRQn);
+        EnableGlobalIRQ(irq_mask);
+    }
 #if CONFIG_NCP_WIFI
     ncp_enable_wlan_wakeup(false);
     ncp_check_wlan_wakeup();
@@ -297,7 +330,7 @@ void host_sleep_post_cfg(int mode)
         host_sleep_post_hook(2, NULL);
 #endif
     }
-    if(global_power_config.wakeup_host && wakeup_reason == 0x1)
+    if (global_power_config.wakeup_host && wakeup_reason == 0x1)
     {
         ncp_gpio_wakeup_host();
 	/* Only wakeup host for 1 time */
@@ -307,10 +340,20 @@ void host_sleep_post_cfg(int mode)
     /* For usb PM2 trigger by remote wake up.
      * Maybe some unknow error if any data transfer on usb interface after remote wakeup.
      */
-    if(global_power_config.subscribe_evt && 2 != mode)
+    if (global_power_config.subscribe_evt && 2 != mode)
+    {
         app_notify_event(APP_EVT_MCU_SLEEP_EXIT, APP_EVT_REASON_SUCCESS, NULL, 0);
+    }
+#if defined(configUSE_TICKLESS_IDLE) && (configUSE_TICKLESS_IDLE == 1)
+    if (mode == 2)
+    {
+        // start usb wakeup process
+        LPM_ConfigureNextLowPowerMode(0, 0);
+        USB_DevicePmStartResume();
+    }
+#endif
 #else
-    if(suspend_notify_flag)
+    if (suspend_notify_flag)
     {
         PRINTF("send sleep exit evt to app notify\r\n");
         lpm_setHandshakeState(NCP_LMP_HANDSHAKE_NOT_START);
@@ -431,9 +474,18 @@ int ncp_config_suspend_mode(int mode)
 {
     suspend_mode = mode;
 
+#if defined(configUSE_TICKLESS_IDLE) && (configUSE_TICKLESS_IDLE == 1)
+    if (!global_power_config.enable)
+#else
     if (!global_power_config.is_manual)
+#endif
         return -WM_FAIL;
+
+#if defined(configUSE_TICKLESS_IDLE) && (configUSE_TICKLESS_IDLE == 1)
+    LPM_ConfigureNextLowPowerMode(2, 0);
+#else
     (void)OSA_EventSet((osa_event_handle_t)ncp_suspend_event, SUSPEND_EVENT_TRIGGERS);
+#endif
 
     return WM_SUCCESS;
 }
@@ -466,17 +518,25 @@ void ncp_gpio_init()
         kGPIO_DigitalOutput,
         0,
     };
+    gpio_interrupt_config_t gpio_lp_int_config = {
+        .mode = kGPIO_PinIntEnableEdge,
+        .polarity = kGPIO_PinIntEnableLowOrFall
+    };
 
 #if CONFIG_NCP_UART || CONFIG_NCP_USB
     GPIO_PortInit(GPIO, 0);
 #endif
     GPIO_PortInit(GPIO, 1);
 
+
     if(strcmp(BOARD_NAME, "FRDM-RW612") == 0)
     {
-#if defined(BOARD_SW2_GPIO)
-        GPIO_PinInit(GPIO, BOARD_SW2_GPIO_PORT, BOARD_SW2_GPIO_PIN, &gpio_in_config);
-#endif
+        /* Initialize GPIO functionality on GPIO42 */
+        GPIO_PinInit(GPIO, 1U, 10U, &gpio_in_config);
+        GPIO_SetPinInterruptConfig(GPIO, 1U, 10U, &gpio_lp_int_config);
+        GPIO_PinEnableInterrupt(GPIO, 1U, 10U, (uint32_t)kGPIO_InterruptA);
+        NVIC_ClearPendingIRQ(GPIO_INTA_IRQn);
+        EnableIRQ(GPIO_INTA_IRQn);
     }
     else if (strcmp(BOARD_NAME, "RD-RW61X-BGA") == 0)
     {

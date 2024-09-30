@@ -52,6 +52,9 @@ static const uint8_t key128[AES128_KEY_SIZE] = {0x75, 0x6c, 0x74, 0x72, 0x61, 0x
 /*initialization vector: 16 bytes: "mysecretpassword"*/
 static uint8_t ive[AES_BLOCK_LENGTH] = {0x6d, 0x79, 0x73, 0x65, 0x63, 0x72, 0x65, 0x74,
                                         0x70, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72, 0x64};
+/*expected AES CMAC*/
+static const uint8_t cmac_expected[] = {0xba, 0xfd, 0x2c, 0x65, 0x0a, 0x62, 0x7c, 0x18,
+                                        0xa0, 0xdf, 0xb4, 0x20, 0xbb, 0xfb, 0x68, 0x27};
 
 static uint8_t cipher[OUTPUT_ARRAY_LEN];
 static uint8_t output[OUTPUT_ARRAY_LEN];
@@ -80,7 +83,8 @@ static void ltc_print_msg(const uint8_t *data, uint32_t length)
     for (i = 0; i < length; i++)
     {
         PUTCHAR(data[i]);
-        if (data[i] == ',')
+        /* If data has expected text, this puts linebreaks in correct places */
+        if (i == 60 || i == 116 || i == 178 || i == 235 || i == 291 || i == 319)
         {
             PRINTF("\r\n          ");
         }
@@ -210,8 +214,8 @@ static void ltc_aes_cmac_exam(void)
     uint8_t hash2[CMAC_HASH_SIZE] = {0};
     ltc_hash_ctx_t ctx; /* CMAC context */
 
-    PRINTF("----------------------------------- AES-XCBC-MAC --------------------------------------\r\n");
-    PRINTF("AES XCBC-MAC Computing hash of %u bytes \r\n", g_length);
+    PRINTF("----------------------------------- AES-CMAC ------------------------------------------\r\n");
+    PRINTF("AES CMAC Computing hash of %u bytes \r\n", g_length);
 
     /* Create sample key */
     j = 0;
@@ -221,7 +225,7 @@ static void ltc_aes_cmac_exam(void)
     }
 
     /* Initialize the CMAC with a given key, and selects a block cipher to use. */
-    if (kStatus_Success != LTC_HASH_Init(base, &ctx, kLTC_XcbcMac, &key[0], CMAC_KEY_SIZE))
+    if (kStatus_Success != LTC_HASH_Init(base, &ctx, kLTC_Cmac, &key[0], CMAC_KEY_SIZE))
     {
         PRINTF("Initialization of LTC HASH driver error\r\n");
         return;
@@ -250,12 +254,18 @@ static void ltc_aes_cmac_exam(void)
         return;
     }
 
+    /* Compare the calculated CMAC with the expected one */
+    if (memcmp(hash, cmac_expected, hash_size))
+    {
+        PRINTF("Error: calculated CMAC does not match expected CMAC\r\n");
+    }
+
     /* compute the same message by one call. we should get the same result. */
     hash_size = CMAC_HASH_SIZE;
-    LTC_HASH(base, kLTC_XcbcMac, aes_test_full, g_length, key, CMAC_KEY_SIZE, hash2, &hash_size);
+    LTC_HASH(base, kLTC_Cmac, aes_test_full, g_length, key, CMAC_KEY_SIZE, hash2, &hash_size);
     if (memcmp(hash, hash2, hash_size))
     {
-        PRINTF("Error: hash compare\r\n");
+        PRINTF("Error: one-go CMAC does not match multipart\r\n");
     }
 
     PRINTF("Computed hash:\r\n");

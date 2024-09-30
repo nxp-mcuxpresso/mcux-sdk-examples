@@ -1,8 +1,7 @@
 /*
  * Copyright (c) 2001-2004 Swedish Institute of Computer Science.
  * Copyright 2008-2023 NXP
- * SPDX-License-Identifier: BSD-3-Clause
- * The BSD-3-Clause license can be found at https://spdx.org/licenses/BSD-3-Clause.html
+ * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:

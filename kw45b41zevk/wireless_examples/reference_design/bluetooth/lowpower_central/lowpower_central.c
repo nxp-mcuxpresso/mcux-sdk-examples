@@ -542,7 +542,8 @@ static void BluetoothLEHost_Initialized(void)
 #endif
     }
 
-#if defined(gAppUsePrivacy_d) && (gAppUsePrivacy_d == 1)
+#if (defined(gAppUsePrivacy_d) && (gAppUsePrivacy_d == 1U)) && \
+    (defined(gAppUseBonding_d) && (gAppUseBonding_d == 1U))
     if (gcBondedDevices == 0U)
     {
         /* if no devices are bonded, we can start scan immediately */

@@ -372,7 +372,7 @@
     <source path="." project_relative_path="Dependencies/BDB/Include" type="c_include">
       <files mask="bdb_DeviceCommissioning.h"/>
     </source>
-    <source path="../../../../../../core/devices/MCXW716C/mcuxpresso" project_relative_path="startup" type="src" exclude="true">
+    <source path="../../../../../../core/devices/MCXW716C/mcuxpresso" project_relative_path="startup" type="src" exclude="true" config="true">
       <files mask="startup_mcxw716.c"/>
     </source>
     <source path="." project_relative_path="platform/framework/Common" type="c_include">

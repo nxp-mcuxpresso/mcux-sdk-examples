@@ -15,6 +15,7 @@
 #include "fsl_pm_device.h"
 #include "fsl_power.h"
 #include "fsl_rtc.h"
+#include "fsl_gpio.h"
 #include "osa.h"
 #include "wlan.h"
 #include "cli.h"
@@ -56,9 +57,29 @@ extern int is_hs_handshake_done;
 /*******************************************************************************
  * APIs
  ******************************************************************************/
+void lpm_gpio_wake_pin_init(void)
+{
+    /* Enables the clock for the GPIO0 module */
+    GPIO_PortInit(GPIO, 0);
+
+    gpio_pin_config_t gpio0_pinM2_config = {
+        .pinDirection = kGPIO_DigitalInput,
+        .outputLogic = 0U
+    };
+    gpio_interrupt_config_t gpio0_pinM2_int_config = {
+        .mode = kGPIO_PinIntEnableEdge,
+        .polarity = kGPIO_PinIntEnableLowOrFall
+    };
+    /* Initialize GPIO functionality on pin PIO0_11 (pin M2)  */
+    GPIO_PinInit(GPIO, BOARD_SW2_GPIO_PORT, BOARD_SW2_GPIO_PIN, &gpio0_pinM2_config);
+    GPIO_SetPinInterruptConfig(GPIO, BOARD_SW2_GPIO_PORT, BOARD_SW2_GPIO_PIN, &gpio0_pinM2_int_config);
+    GPIO_PinEnableInterrupt(GPIO, BOARD_SW2_GPIO_PORT, BOARD_SW2_GPIO_PIN, (uint32_t)kGPIO_InterruptA);
+}
+
 void lpm_pm3_exit_hw_reinit()
 {
     BOARD_InitBootPins();
+    lpm_gpio_wake_pin_init();
     if (BOARD_IS_XIP())
     {
         BOARD_BootClockLPR();
@@ -200,7 +221,8 @@ int LPM_Init(void)
     powerManager_Init();
 #endif
 
-    NVIC_SetPriority(PIN1_INT_IRQn, LPM_RTC_PIN1_PRIORITY);
+    lpm_gpio_wake_pin_init();
+    NVIC_SetPriority(GPIO_INTA_IRQn, LPM_RTC_PIN1_PRIORITY);
     return kStatus_PMSuccess;
 }
 #endif /* CONFIG_HOST_SLEEP */

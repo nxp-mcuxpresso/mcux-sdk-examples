@@ -319,8 +319,9 @@
     <source path="." project_relative_path="source" type="c_include">
       <files mask="app_preinclude_common.h"/>
     </source>
-    <source path="../../../../../../../middleware/wireless/ieee-802.15.4/bin/k32w1" project_relative_path="source" type="binary">
-      <files mask="k32w1_nbu_ble_15_4_dyn.bin" hidden="true"/>
+    <source path="../../../../../../../middleware/wireless/ieee-802.15.4/bin/k32w1" project_relative_path="source" type="other">
+      <files mask="k32w1_nbu_ble_15_4_dyn_1_0_17_2.xip" hidden="true"/>
+      <files mask="k32w1_nbu_ble_15_4_dyn_1_0_17_2.sb3" hidden="true"/>
     </source>
   </example>
 </ksdk:examples>

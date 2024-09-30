@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_FRDM-MCXA156_manifest_v3_14" name="SDK Version Superset" brief="SDK Superset" format_version="3.14" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.14.xsd">
+<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_FRDM-MCXA156_manifest_v3_14" name="SDK 2.16.100 Superset" brief="SDK Superset" format_version="3.14" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.14.xsd">
 
   <ksdk id="MCUXpressoSDK216100" name="MCUXpresso SDK216100" version="2.16.100" revision="2.16.100"/>
   <compilers>
@@ -4154,67 +4154,6 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.freertos-kernel.MCXA156" name="FreeRTOS kernel" brief="FreeRTOS kernel" version="11.0.1" full_name="FreeRTOS kernel" category="RTOS/Core" user_visible="true" type="OS" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
-      <defines>
-        <define name="SDK_OS_FREE_RTOS" value=""/>
-      </defines>
-      <dependencies>
-        <all>
-          <component_dependency value="middleware.freertos-kernel.cm33_non_trustzone.MCXA156"/>
-          <component_dependency value="middleware.freertos-kernel.template.MCXA156"/>
-          <component_dependency value="middleware.freertos-kernel.extension.MCXA156"/>
-          <device_dependency value="MCXA156"/>
-        </all>
-      </dependencies>
-      <source relative_path="./" type="src">
-        <files mask="croutine.c"/>
-        <files mask="event_groups.c"/>
-        <files mask="list.c"/>
-        <files mask="queue.c"/>
-        <files mask="stream_buffer.c"/>
-        <files mask="tasks.c"/>
-        <files mask="timers.c"/>
-      </source>
-      <source relative_path="include" type="c_include">
-        <files mask="atomic.h"/>
-        <files mask="croutine.h"/>
-        <files mask="deprecated_definitions.h"/>
-        <files mask="event_groups.h"/>
-        <files mask="FreeRTOS.h"/>
-        <files mask="list.h"/>
-        <files mask="message_buffer.h"/>
-        <files mask="mpu_prototypes.h"/>
-        <files mask="mpu_syscall_numbers.h"/>
-        <files mask="mpu_wrappers.h"/>
-        <files mask="newlib-freertos.h"/>
-        <files mask="picolibc-freertos.h"/>
-        <files mask="portable.h"/>
-        <files mask="projdefs.h"/>
-        <files mask="queue.h"/>
-        <files mask="semphr.h"/>
-        <files mask="stack_macros.h"/>
-        <files mask="StackMacros.h"/>
-        <files mask="stream_buffer.h"/>
-        <files mask="task.h"/>
-        <files mask="timers.h"/>
-      </source>
-      <source relative_path="include" type="doc">
-        <files mask="stdint.readme"/>
-      </source>
-      <source relative_path="portable/MemMang" type="other">
-        <files mask="ReadMe.url"/>
-      </source>
-      <source relative_path="portable" type="doc">
-        <files mask="readme.txt"/>
-      </source>
-      <source toolchain="armgcc" relative_path="./" type="workspace">
-        <files mask="middleware_freertos-kernel.cmake" hidden="true"/>
-      </source>
-      <include_paths>
-        <include_path relative_path="include" type="c_include"/>
-        <include_path relative_path="include" type="asm_include"/>
-      </include_paths>
-    </component>
     <component id="platform.drivers.flexcan_edma.MCXA156" name="flexcan_edma" brief="FLEXCAN Driver" version="2.11.4" full_name="FLEXCAN EDMA Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/flexcan" project_base_path="drivers">
       <dependencies>
         <all>
@@ -5244,6 +5183,66 @@ ${load}</script>
         <include_path relative_path="device" project_relative_path="device/source" type="c_include"/>
       </include_paths>
     </component>
+    <component id="middleware.freertos-kernel.MCXA156" name="FreeRTOS kernel" brief="FreeRTOS kernel" version="11.0.1" full_name="FreeRTOS kernel" category="RTOS/Core" user_visible="true" type="OS" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
+      <defines>
+        <define name="SDK_OS_FREE_RTOS" value=""/>
+      </defines>
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.freertos-kernel.template.MCXA156"/>
+          <component_dependency value="middleware.freertos-kernel.extension.MCXA156"/>
+          <device_dependency value="MCXA156"/>
+        </all>
+      </dependencies>
+      <source relative_path="./" type="src">
+        <files mask="croutine.c"/>
+        <files mask="event_groups.c"/>
+        <files mask="list.c"/>
+        <files mask="queue.c"/>
+        <files mask="stream_buffer.c"/>
+        <files mask="tasks.c"/>
+        <files mask="timers.c"/>
+      </source>
+      <source relative_path="include" type="c_include">
+        <files mask="atomic.h"/>
+        <files mask="croutine.h"/>
+        <files mask="deprecated_definitions.h"/>
+        <files mask="event_groups.h"/>
+        <files mask="FreeRTOS.h"/>
+        <files mask="list.h"/>
+        <files mask="message_buffer.h"/>
+        <files mask="mpu_prototypes.h"/>
+        <files mask="mpu_syscall_numbers.h"/>
+        <files mask="mpu_wrappers.h"/>
+        <files mask="newlib-freertos.h"/>
+        <files mask="picolibc-freertos.h"/>
+        <files mask="portable.h"/>
+        <files mask="projdefs.h"/>
+        <files mask="queue.h"/>
+        <files mask="semphr.h"/>
+        <files mask="stack_macros.h"/>
+        <files mask="StackMacros.h"/>
+        <files mask="stream_buffer.h"/>
+        <files mask="task.h"/>
+        <files mask="timers.h"/>
+      </source>
+      <source relative_path="include" type="doc">
+        <files mask="stdint.readme"/>
+      </source>
+      <source relative_path="portable/MemMang" type="other">
+        <files mask="ReadMe.url"/>
+      </source>
+      <source relative_path="portable" type="doc">
+        <files mask="readme.txt"/>
+      </source>
+      <source toolchain="armgcc" relative_path="./" type="workspace">
+        <files mask="middleware_freertos-kernel.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="include" type="c_include"/>
+        <include_path relative_path="include" type="asm_include"/>
+      </include_paths>
+    </component>
     <component id="middleware.freertos-kernel.cm33_non_trustzone.MCXA156" name="cm33 nontrustzone port" brief="FreeRTOS cm33 non trustzone port" version="11.0.1" full_name="FreeRTOS cm33 non trustzone port" category="RTOS/cm33_non_trustzone_port" user_visible="true" type="middleware" package_base_path="rtos/freertos/freertos-kernel" project_base_path="freertos/freertos-kernel">
       <dependencies>
         <all>
@@ -5758,7 +5757,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.glikey.MCXA156" name="glikey" brief="GLIKEY Driver" version="2.0.0" full_name="GLIKEY Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/glikey" project_base_path="drivers">
+    <component id="platform.drivers.glikey.MCXA156" name="glikey" brief="GLIKEY Driver" version="2.0.1" full_name="GLIKEY Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/glikey" project_base_path="drivers">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.common.MCXA156"/>

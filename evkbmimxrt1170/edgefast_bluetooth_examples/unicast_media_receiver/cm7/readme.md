@@ -132,3 +132,4 @@ Other cmds could be used:
 
 Note:
 1 "exit" command is a shell internal command, only used to exit shell module and could not used to exit demo.
+2 There is a delay in synchronizing volume/mute status between receivers. Setting a smaller connection interval can reduce the delay, but may introduce other timing issues if a too small value is set to connection interval.

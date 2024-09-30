@@ -7,11 +7,7 @@
 *
 * Copyright 2020-2024 NXP
 *
-* NXP Confidential Proprietary
-*
-* No part of this document must be reproduced in any form - including copied,
-* transcribed, printed or by any electronic means - without specific written
-* permission from NXP.
+* SPDX-License-Identifier: BSD-3-Clause
 ********************************************************************************** */
 
 /************************************************************************************
@@ -358,12 +354,12 @@ void BleApp_GenericCallback (gapGenericEvent_t* pGenericEvent)
             {
                 if(mpfBleEventHandler != NULL)
                 {
-                    appEventData_t *pEventData = MEM_BufferAlloc(sizeof(appEventData_t) + sizeof(gcBleDeviceAddressSize_c));
+                    appEventData_t *pEventData = MEM_BufferAlloc(sizeof(appEventData_t) + gcBleDeviceAddressSize_c);
                     if(pEventData != NULL)
                     {
                         pEventData->appEvent = mAppEvt_GenericCallback_RandomAddressReady_c;
                         pEventData->eventData.pData = pEventData + 1;
-                        FLib_MemCpy(pEventData->eventData.pData, pGenericEvent->eventData.addrReady.aAddress, sizeof(gcBleDeviceAddressSize_c));
+                        FLib_MemCpy(pEventData->eventData.pData, pGenericEvent->eventData.addrReady.aAddress, gcBleDeviceAddressSize_c);
                         if (gBleSuccess_c != App_PostCallbackMessage(mpfBleEventHandler, pEventData))
                         {
                             (void)MEM_BufferFree(pEventData);

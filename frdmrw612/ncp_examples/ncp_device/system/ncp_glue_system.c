@@ -5,6 +5,7 @@
  * The BSD-3-Clause license can be found at https://spdx.org/licenses/BSD-3-Clause.html
  */
 
+#include "board.h"
 #include "ncp_debug.h"
 #include "ncp_config.h"
 #include "ncp_cmd_system.h"
@@ -156,8 +157,15 @@ static int ncp_sys_get_config(void *tlv)
 static int ncp_sys_wake_cfg(void *tlv)
 {
     osa_status_t status;
+    int ret = 0;
     NCP_CMD_POWERMGMT_WAKE_CFG *wake_config = (NCP_CMD_POWERMGMT_WAKE_CFG *)tlv;
 
+    if(strcmp(BOARD_NAME, "RD-RW61X-BGA") == 0 && wake_config->wake_mode == WAKE_MODE_WIFI_NB)
+    {
+        ncp_e("Invalid wake mode. The WIFI-NB mode is for FRDMRW612 only.");
+        ret = -WM_E_INVAL;
+        goto out;
+    }
     global_power_config.wake_mode     = wake_config->wake_mode;
     global_power_config.subscribe_evt = wake_config->subscribe_evt;
 #if !CONFIG_NCP_BLE
@@ -167,11 +175,16 @@ static int ncp_sys_wake_cfg(void *tlv)
         status = OSA_TimerChange((osa_timer_handle_t)wake_timer, global_power_config.wake_duration * 1000, 0);
         if (status != KOSA_StatusSuccess)
         {
-            return -WM_FAIL;
+            ret = -WM_FAIL;
+            goto out;
         }
     }
 #endif
-    ncp_sys_prepare_status(NCP_RSP_SYSTEM_POWERMGMT_WAKE_CFG, NCP_CMD_RESULT_OK);
+out:
+    if (ret)
+        ncp_sys_prepare_status(NCP_RSP_SYSTEM_POWERMGMT_WAKE_CFG, NCP_CMD_RESULT_ERROR);
+    else
+        ncp_sys_prepare_status(NCP_RSP_SYSTEM_POWERMGMT_WAKE_CFG, NCP_CMD_RESULT_OK);
 
     return WM_SUCCESS;
 }
@@ -224,11 +237,14 @@ static int ncp_sys_mcu_sleep(void *tlv)
         else
         {
 #endif
-            if (global_power_config.wake_mode == WAKE_MODE_INTF)
+            if (global_power_config.wake_mode == WAKE_MODE_INTF ||
+                (!strcmp(BOARD_NAME, "FRDM-RW612") && global_power_config.wake_mode == WAKE_MODE_GPIO))
             {
 #if defined(configUSE_TICKLESS_IDLE) && (configUSE_TICKLESS_IDLE == 1)
                 /* Set current PM constraints to PM2 */
+#if !(CONFIG_NCP_USB)
                 LPM_ConfigureNextLowPowerMode(2, mcu_sleep_config->rtc_timeout);
+#endif
 #else
                 if (current_PM_mode == PM_LP_STATE_PM3)
                     PM_ReleaseConstraints(PM_LP_STATE_PM3, APP_PM3_CONSTRAINTS);

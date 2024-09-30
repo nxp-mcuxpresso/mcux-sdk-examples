@@ -413,6 +413,19 @@ static void USB_DevicePmEventPut(usb_cdc_status_t event)
     (void)OSA_MsgQPut(ncp_usb_pm_event_queue, &msg);
 }
 
+void USB_DevicePmStartResume(void)
+{
+    if (s_cdcVcom.attach)
+    {
+        usb_echo("PM task StartResume!\r\n");
+        USB_DevicePmEventPut(kStatus_StartResume);
+    }
+    else
+    {
+        USB_DevicePmEventPut(kStatus_Idle);
+    }
+}
+
 /*!
  * @brief USB device callback function.
  *
@@ -760,15 +773,10 @@ void usb_pm_task(void *handle)
                     /* Do nothing */
                 }
 
-                if (s_cdcVcom.attach)
-                {
-                    usb_echo("PM task StartResume!\r\n");
-                    USB_DevicePmEventPut(kStatus_StartResume);
-                }
-                else
-                {
-                    USB_DevicePmEventPut(kStatus_Idle);
-                }
+#if CONFIG_NCP_WIFI
+                /* In wlan manual low power mode, cpu3 will start resume usb interface at here */
+                USB_DevicePmStartResume();
+#endif
                 break;
             case kStatus_StartResume:
                 s_cdcVcom.suspend = kStatus_StartResume;

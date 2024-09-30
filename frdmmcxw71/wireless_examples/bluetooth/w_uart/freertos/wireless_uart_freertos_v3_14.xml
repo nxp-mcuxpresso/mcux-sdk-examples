@@ -338,8 +338,9 @@
     <source path="armgcc" project_relative_path="wireless/framework/Common/devices/kw45_k32w1/gcc" type="linker" toolchain="armgcc">
       <files mask="connectivity_ble.ld"/>
     </source>
-    <source path="../../../../../../middleware/wireless/ble_controller/bin" project_relative_path="source" type="binary">
-      <files mask="k32w1_nbu_ble_hosted.bin"/>
+    <source path="../../../../../../middleware/wireless/ble_controller/bin" project_relative_path="source" type="other">
+      <files mask="mcxw71_nbu_ble_1_9_14_1.xip"/>
+      <files mask="mcxw71_nbu_ble_1_9_14_1.sb3"/>
     </source>
   </example>
 </ksdk:examples>

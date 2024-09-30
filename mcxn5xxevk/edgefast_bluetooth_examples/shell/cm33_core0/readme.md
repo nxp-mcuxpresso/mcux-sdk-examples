@@ -735,17 +735,17 @@ Here is an example of run PCE, and PSE is a mobile phone or a board running a PS
    If PSE connect PCE proactively, do not perform this step.
 8. After ACL connected successfully, input "pbap.pce.connect" to create PBAP connection to PSE.
    PCE establishes PBAP connections to PSE based on the rfcomm channel by default.
-   If want to based on GOEP_L2CAP_PSM, add parameter "-psm", like "pbap.connect -psm".
+   If want to based on GOEP_L2CAP_PSM, add parameter "-psm", like "pbap.pce.connect -psm".
    If PSE does not supported GOEP_L2CAP_PSM, PCE will continue to establishe PBAP connection based on the rfcomm channel.
-   If PCE wants to authenticate PSE proactively, add parameter "-pwd" which means OBEX pin_code, like "pbap.connect -pwd 0000".
+   If PCE wants to authenticate PSE proactively, add parameter "-pwd" which means OBEX pin_code, like "pbap.pce.connect -pwd 0000".
    parameter '-uid' which means OBEX use_id is optional because it is not suppoeted now.
    If PSE and PCE have not negotiated authenticate information, it is recommended that PCE do not authenticate PSE proactively.
    For example: PSE is a mobile phone.
 9. After PBAP connected successfully, input "pbap.pce.pull_phonebook -name telecom/pb.vcf" to pull phonebook object from PSE.
    The name shall contain the absolute path in the virtual folders architecture of the PSE.
    Example: telecom/pb.vcf or SIM1/telecom/pb.vcf.
-   If want to set the parameter "srmp", add the parameter "-srmp", like "pbap.pull_phonebook -name telecom/pb.vcf -srmp 3". 
-   If want to add applicaton parameters, input like "pbap.pull_phonebook -name telecom/pb.vcf -f 1".
+   If want to set the parameter "srmp", add the parameter "-srmp", like "pbap.pce.pull_phonebook -name telecom/pb.vcf -srmp 3". 
+   If want to add applicaton parameters, input like "pbap.pce.pull_phonebook -name telecom/pb.vcf -f 1".
    All application parameters are optional and their specific information can be found in spec.
    It is possible that PSE does not support all parameters. 
 10. After receiving all the information from PSE, input "pbap.pce.set_path ./telecom" to set PSE path to telecom.
@@ -755,8 +755,8 @@ Here is an example of run PCE, and PSE is a mobile phone or a board running a PS
 11. After setting path successfully, input "pbap.pce.pull_vcardlist -name cch" to pull cch vcard listing object from PSE.
    The name shall not include any path information, since the PullvCardListing function uses relative paths.
    Example: cch or ich or och.
-   If want to set the parameter "srmp", add the parameter "-srmp", like "pbap.pull_vcardlist -name cch -srmp 3". 
-   If want to add applicaton parameters, input like "pbap.pull_vcardlist -name cch -name telecom/pb.vcf -o 0".
+   If want to set the parameter "srmp", add the parameter "-srmp", like "pbap.pce.pull_vcardlist -name cch -srmp 3". 
+   If want to add applicaton parameters, input like "pbap.pce.pull_vcardlist -name cch -name telecom/pb.vcf -o 0".
    All application parameters are optional and their specific information can be found in spec.
    It is possible that PSE does not support all parameters or name(spd, fav). 
 12. After receiving all the information from PSE, Input "pbap.pce.set_path ./cch" to set pse path to cch
@@ -766,8 +766,8 @@ Here is an example of run PCE, and PSE is a mobile phone or a board running a PS
 13. After setting path successfully, Input "pbap.pce.pull_vcardentry -name 4.vcf" to pull handle=4 vcard entry object from PSE.
    The name shall be used to indicate the name or the X-BT-UID of the object, and not include any path information.
    Example: 4.vcf or X-BT-UID:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.
-   If want to set the parameter "srmp", add the parameter "-srmp", like "pbap.pull_vcardentry -name 4.vcf -srmp 3". 
-   If want to add applicaton parameters, input like "pbap.pull_vcardentry -name 4.vcf -f 1".
+   If want to set the parameter "srmp", add the parameter "-srmp", like "pbap.pce.pull_vcardentry -name 4.vcf -srmp 3". 
+   If want to add applicaton parameters, input like "pbap.pce.pull_vcardentry -name 4.vcf -f 1".
    All application parameters are optional and their specific information can be found in spec.
    It is possible that PSE does not support all parameters or X-BT-UID. 
 14. Input "pbap.pce.disconnect" to disconnect PBAP connection to PSE

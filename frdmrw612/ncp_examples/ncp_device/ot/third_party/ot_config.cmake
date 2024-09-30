@@ -73,6 +73,7 @@ if (EXISTS ${NXP_OT_LIBS_PATH})
         ${NXP_OT_LIBS_PATH}/libot-cli-rw612.a
         ${NXP_OT_LIBS_PATH}/libopenthread-url.a
         ${NXP_OT_LIBS_PATH}/libopenthread-radio-spinel.a
+        ${NXP_OT_LIBS_PATH}/libtcplp-ftd.a
     )
 
     TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)

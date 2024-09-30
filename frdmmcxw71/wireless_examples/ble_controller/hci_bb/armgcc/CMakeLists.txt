@@ -51,8 +51,10 @@ include(${ProjDirPath}/flags.cmake)
 include(${ProjDirPath}/config.cmake)
 
 add_executable(${MCUX_SDK_PROJECT_NAME} 
-"${SdkRootDirPath}/middleware/wireless/ble_controller/bin/k32w1_nbu_ble_hosted.bin"
-"${SdkRootDirPath}/middleware/wireless/ble_controller/bin/experimental/k32w1_nbu_ble_xp_hosted.bin"
+"${SdkRootDirPath}/middleware/wireless/ble_controller/bin/mcxw71_nbu_ble_1_9_14_1.xip"
+"${SdkRootDirPath}/middleware/wireless/ble_controller/bin/mcxw71_nbu_ble_1_9_14_1.sb3"
+"${SdkRootDirPath}/middleware/wireless/ble_controller/bin/experimental/mcxw71_nbu_ble_xp_1_9_14_1.xip"
+"${SdkRootDirPath}/middleware/wireless/ble_controller/bin/experimental/mcxw71_nbu_ble_xp_1_9_14_1.sb3"
 "${SdkRootDirPath}/middleware/wireless/ble_controller/application/hci_bb/hci_bb.c"
 "${ProjDirPath}/../app_services_init.c"
 "${ProjDirPath}/../app_ble_init.c"

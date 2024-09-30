@@ -41,26 +41,21 @@ IPED Peripheral Driver Example
 
 Calling API_Init
 API_Init Successfully
-Configure IPED region 0 enc/dec: start 0x8002000 end 0x8003000
+Configure IPED region 0 enc/dec: start 0x80002000 end 0x80003000
 Configure IPED  Successfully
 External Flash memory configured successfully
-*Success* read plain data from 0x8001000 to 0x8001FFF
-*Success* read programmed&encrypted data from 0x08002000 to 0x8002FFF
-*Success* read plain data from 0x8003000 to 0x8003FFF
-Disabling IPED
-*Success* read plain data from 0x8001000 to 0x8001FFF
-*Success* read encrypted data from 0x8002000 to 0x8002FFF
-*Success* read plain data from 0x8003000 to 0x8003FFF
-Enabling IPED
-*Success* read plain data from 0x8001000 to 0x8001FFF
-*Success* read decrypted data from 0x8002000 to 0x8002FFF
-*Success* read plain data from 0x8003000 to 0x8003FFF
+*Success* read plain data from 0x80001000 to 0x80001FFF
+*Success* read programmed & encrypted data from 0x80002000 to 0x80002FFF
+*Success* read plain data from 0x80003000 to 0x80003FFF
 Reconfiguring IPED
 Reconfigure IPED  Successfully
 *Success* read plain data from 0x8001000 to 0x8001FFF
 *Success* read decrypted data from 0x8002000 to 0x8002FFF
 *Success* read plain data from 0x8003000 to 0x8003FFF
 Disabling IPED
+*Success* read plain data from 0x80001000 to 0x80001FFF
+*Success* read ciphered data from 0x80002000 to 0x80002FFF
+*Success* read plain data from 0x80003000 to 0x80003FFF
 End of example
 
 ~~~~~~~~~~~~~~~~~~

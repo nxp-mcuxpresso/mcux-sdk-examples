@@ -120,24 +120,21 @@ void SW_IntControl(uint8_t enable)
     if (enable)
     {
         g_UsbDeviceHidMouse.selfWakeup = 0U;
-        PINT_EnableCallback(PINT);
+        LPM_EnableWakeupSource(GPIO_INTA_IRQn);
     }
     else
     {
-        PINT_DisableCallback(PINT);
+        LPM_DisableWakeupSource(GPIO_INTA_IRQn);
     }
 }
 
-void APP_WakeupHandler(IRQn_Type irq)
+void GPIO_INTA_DriverIRQHandler()
 {
+    /* clear the interrupt status */
+    GPIO_PinClearInterruptFlag(GPIO, BOARD_SW2_GPIO_PORT, BOARD_SW2_GPIO_PIN, 0);
     g_UsbDeviceHidMouse.selfWakeup = 1U;
     SW_IntControl(0);
-}
-
-void PIN1_INT_IRQHandler()
-{
-    NVIC_ClearPendingIRQ(PIN1_INT_IRQn);
-    APP_WakeupHandler(PIN1_INT_IRQn);
+    SDK_ISR_EXIT_BARRIER;
 }
 
 void BOARD_DeinitPins(void)
@@ -758,7 +755,7 @@ void main(void)
     BOARD_InitPins();
     BOARD_BootClockRUN();
     BOARD_InitDebugConsole();
-    CLOCK_EnableXtal32K(true);
+
     /* TODO: Use XTAL32K on real board */
     CLOCK_AttachClk(kRC32K_to_CLK32K);
     CLOCK_AttachClk(kLPOSC_to_OSTIMER_CLK);
@@ -769,7 +766,7 @@ void main(void)
     LPM_Init(&config);
     POWER_InitPowerConfig(&initCfg);
     POWER_ConfigCauInSleep(APP_SLEEP_CAU_PD);
-    LPM_EnableWakeupSource(PIN1_INT_IRQn);
+    LPM_EnableWakeupSource(GPIO_INTA_IRQn);
 
 #if ((defined(USB_DEVICE_CONFIG_LOW_POWER_MODE)) && (USB_DEVICE_CONFIG_LOW_POWER_MODE > 0U))
     USB_LowpowerModeInit();

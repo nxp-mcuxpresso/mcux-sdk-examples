@@ -64,6 +64,7 @@
 #endif
 
 #if defined(gUseControllerNotificationsCallback_c) && (gUseControllerNotificationsCallback_c)
+    #error "This feature is not available on this board"
     #include "controller_interface.h"
 #endif
 

@@ -17,7 +17,7 @@ Toolchain supported
 Hardware requirements
 =====================
 - Two USB-C cable
-- FRDM-RW612 v2 board
+- FRDM-RW612 board
 - Personal Computer
 
 Board settings

@@ -1,16 +1,13 @@
 /*
- *	Copyright 2024 NXP
+ *	Copyright 2008-2024 NXP
  *	
  *	SPDX-License-Identifier: BSD-3-Clause	
  *
  */
 
 /*!\file service.h
- *\brief Bluetooth service defineations.
+ *\brief Bluetooth service definitions.
  */
-
-#if CONFIG_NCP_BLE
-
 #ifndef __SERVICE_H_
 #define __SERVICE_H_
 
@@ -68,46 +65,46 @@ struct host_gatt_attr {
 
 /** Characteristic Properties Bit field values */
 
-/** Characteristic broadcast property.
+/** Bluetooth GATT Characteristic broadcast property.
  * If set, permits broadcasts of the Characteristic Value using Server
  * Characteristic Configuration Descriptor.
  */
 #define BT_GATT_CHRC_BROADCAST			0x01
 /**
- * Characteristic read property.
+ * Bluetooth GATT Characteristic read property.
  * If set, permits reads of the Characteristic Value.
  */
 #define BT_GATT_CHRC_READ			0x02
 /**
- * Characteristic write without response property.
+ * Bluetooth GATT Characteristic write without response property.
  * If set, permits write of the Characteristic Value without response.
  */
 #define BT_GATT_CHRC_WRITE_WITHOUT_RESP		0x04
 /**
- * Characteristic write with response property.
+ * Bluetooth GATT Characteristic write with response property.
  * If set, permits write of the Characteristic Value with response.
  */
 #define BT_GATT_CHRC_WRITE			0x08
 /**
- * Characteristic notify property.
+ * Bluetooth GATT Characteristic notify property.
  * 
  * If set, permits notifications of a Characteristic Value without acknowledgment.
  */
 #define BT_GATT_CHRC_NOTIFY			0x10
 /**
- * Characteristic indicate property.
+ * Bluetooth GATT Characteristic indicate property.
  * 
  * If set, permits indications of a Characteristic Value with acknowledgment.
  */
 #define BT_GATT_CHRC_INDICATE			0x20
 /**
- * Characteristic Authenticated Signed Writes property.
+ * Bluetooth GATT Characteristic Authenticated Signed Writes property.
  * 
  * If set, permits signed writes to the Characteristic Value.
  */
 #define BT_GATT_CHRC_AUTH			0x40
 /**
- * Characteristic Extended Properties property.
+ * Bluetooth GATT Characteristic Extended Properties.
  * 
  * 
  * If set, additional characteristic properties are defined in the
@@ -176,15 +173,15 @@ struct host_gatt_attr {
 /** Client Characteristic Configuration Values */
 
 /**
- * Client Characteristic Configuration Notification.
+ * Bluetooth GATT Client Characteristic Configuration notification.
  * 
- * If set, changes to Characteristic Value shall be notified.
+ * If set, changes to Characteristic Value are notified.
  */
 #define BT_GATT_CCC_NOTIFY			0x0001
 /**
- * Client Characteristic Configuration Indication.
+ * Bluetooth GATT Client Characteristic Configuration indication.
  * 
- * If set, changes to Characteristic Value shall be indicated.
+ * If set, changes to Characteristic Value are indicated.
  */
 #define BT_GATT_CCC_INDICATE			0x0002
 
@@ -194,22 +191,22 @@ struct host_gatt_attr {
 /** GATT Client Characteristic Configuration UUID */
 #define UUID_GATT_CCC 0x2902
 
-/** Client Characteristic Configuration Values */
+/** Bluetooth GATT Client Characteristic Configuration values */
 
 /**
- * Client Characteristic Configuration Notification.
+ * Bluetooth GATT Client Characteristic Configuration notification
  * 
- * If set, changes to Characteristic Value shall be notified.
+ * If set, changes to Characteristic Value are notified.
  */
 #define BT_GATT_CCC_NOTIFY			0x0001
 /**
- * Client Characteristic Configuration Indication.
+ * Bluetooth GATT Client Characteristic Configuration indication.
  * 
- * If set, changes to Characteristic Value shall be indicated.
+ * If set, changes to Characteristic Value are indicated.
  */
 #define BT_GATT_CCC_INDICATE			0x0002
 
-/** EIR/AD data type definitions */
+/** EIR (Extended Inquiry Response)/AD (Advertising Data) data type definitions */
 #define BT_DATA_FLAGS                   0x01 /* AD flags */
 #define BT_DATA_UUID16_SOME             0x02 /* 16-bit UUID, more available */
 #define BT_DATA_UUID16_ALL              0x03 /* 16-bit UUID, all listed */
@@ -248,7 +245,7 @@ struct host_gatt_attr {
 #define CENTRAL_HRC_SERVICE_ID         5
 
 /**
- *  Put a 16-bit integer as little-endian to arbitrary location.
+ *  Put a 16-bit integer as little-endian to arbitrary location. \n
  *
  *  Put a 16-bit integer, originally in host endianness, to a
  *  potentially unaligned memory location in little-endian format.
@@ -265,7 +262,7 @@ static inline void sys_put_le16(uint16_t val, uint8_t dst[2])
 }
 
 /**
- *  Put a 32-bit integer as little-endian to arbitrary location.
+ *  Put a 32-bit integer as little-endian to arbitrary location. \n
  *
  *  Put a 32-bit integer, originally in host endianness, to a
  *  potentially unaligned memory location in little-endian format.
@@ -282,7 +279,7 @@ static inline void sys_put_le32(uint32_t val, uint8_t dst[4])
 }
 
 /**
- *  Get a 16-bit integer stored in little-endian format.
+ *  Get a 16-bit integer stored in little-endian format. \n
  *
  *  Get a 16-bit integer, stored in little-endian format in a potentially
  *  unaligned memory location, and convert it to the host endianness.
@@ -297,7 +294,7 @@ static inline uint16_t sys_get_le16(const uint8_t src[2])
 }
 
 /**
- *  Get a 32-bit integer stored in little-endian format.
+ *  Get a 32-bit integer stored in little-endian format. \n
  *
  *  Get a 32-bit integer, stored in little-endian format in a potentially
  *  unaligned memory location, and convert it to the host endianness.
@@ -311,5 +308,3 @@ static inline uint32_t sys_get_le32(const uint8_t src[4])
 	return ((uint32_t)sys_get_le16(&src[2]) << 16) | sys_get_le16(&src[0]);
 }
 #endif /* __SERVICE_H_ */
-
-#endif /* CONFIG_NCP_BLE */

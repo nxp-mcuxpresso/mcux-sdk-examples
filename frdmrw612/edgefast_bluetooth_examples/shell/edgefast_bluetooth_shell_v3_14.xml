@@ -177,6 +177,7 @@
           <value>gMemManagerLight=0</value>
           <value>CFG_BLE</value>
           <value>gPlatformDisableBleLowPower_d=1</value>
+          <value>SHELL_TASK_STACK_SIZE=2800</value>
           <value>USE_RTOS=1</value>
           <value>PRINTF_ADVANCED_ENABLE=1</value>
           <value>SDK_OS_FREE_RTOS</value>
@@ -188,7 +189,6 @@
           <value>CONFIG_BT_CENTRAL=1</value>
           <value>CONFIG_BT_SMP=1</value>
           <value>CONFIG_BT_GATT_CLIENT=1</value>
-          <value>SHELL_TASK_STACK_SIZE=2048</value>
           <value>LPUART_RING_BUFFER_SIZE=1024U</value>
           <value>HAL_AUDIO_DMA_INIT_ENABLE=0</value>
           <value>LFS_NO_INTRINSICS=1</value>

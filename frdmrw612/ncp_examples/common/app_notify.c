@@ -27,6 +27,10 @@
 
 #define APP_NOTIFY_MAX_EVENTS 20
 
+#ifndef OT_NCP_CMD_HANDLING
+#define OT_NCP_CMD_HANDLING 4
+#endif
+
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -34,6 +38,18 @@
 extern int wifi_ncp_send_response(uint8_t *pbuf);
 uint8_t suspend_notify_flag = 0;
 extern uint8_t wifi_res_buf[NCP_INBUF_SIZE];
+
+#if defined(configUSE_TICKLESS_IDLE) && (configUSE_TICKLESS_IDLE == 1)
+extern void APP_SetTicklessIdle(bool enable);
+#endif
+
+#if CONFIG_NCP_SPI
+extern int ncp_spi_txrx_is_finish(void);
+#endif
+
+#if CONFIG_NCP_OT
+extern volatile uint8_t OtNcpDataHandle;
+#endif
 
 /*******************************************************************************
  * Variables
@@ -94,6 +110,12 @@ static void app_notify_event_handler(void *argv)
     uint8_t *event_buf = NULL;
 #if CONFIG_NCP_USB
     int lpm_usb_retry_cnt = 20;
+#endif
+#if CONFIG_NCP_SPI
+    uint8_t spi_chk_finish_cnt = 10;
+#endif
+#if CONFIG_NCP_OT
+    uint8_t ot_chk_rsp_cnt = 10;
 #endif
 
     while (1)
@@ -214,6 +236,40 @@ static void app_notify_event_handler(void *argv)
                 wlan_ncp_prepare_status(NCP_RSP_WLAN_POWERMGMT_SUSPEND, msg.reason);
                 break;
             case APP_EVT_MCU_SLEEP_ENTER:
+#if CONFIG_NCP_SPI
+                /* For ot and ble PM3 mode, the point at which spi starts receiving data may be earlier
+                 * than the point at which spi finish is checked in enter sleep notify in tickless, resulting
+                 * in spi just starting to receive data when sleep handshake starts, repeat check here
+                 * for avoid that
+                 * */
+                spi_chk_finish_cnt = 10;
+                while((spi_chk_finish_cnt > 0) && (ncp_spi_txrx_is_finish() == 0))
+                {
+                    OSA_TimeDelay(50);
+                    spi_chk_finish_cnt--;
+                }
+
+                if (spi_chk_finish_cnt == 0)
+                {
+                    app_e("spi txrx was not finish yet");
+                }
+#endif
+#if CONFIG_NCP_OT
+                /* it should be ensured that the OT data has been sent first and then
+                 * start sleep handshake.
+                 * */
+                ot_chk_rsp_cnt = 10;
+                while((ot_chk_rsp_cnt > 0) && (OtNcpDataHandle == OT_NCP_CMD_HANDLING))
+                {
+                    OSA_TimeDelay(50);
+                    ot_chk_rsp_cnt--;
+                }
+
+                if (ot_chk_rsp_cnt == 0)
+                {
+                    app_e("ot has not been transmitted yet");
+                }
+#endif
                 app_d("got MCU sleep enter report");
                 event_buf = ncp_sys_evt_status(NCP_EVENT_MCU_SLEEP_ENTER, &msg);
                 if (!event_buf)
@@ -221,6 +277,9 @@ static void app_notify_event_handler(void *argv)
                 break;
             case APP_EVT_MCU_SLEEP_EXIT:
 #if CONFIG_NCP_USB
+#if defined(configUSE_TICKLESS_IDLE) && (configUSE_TICKLESS_IDLE == 1)
+                APP_SetTicklessIdle(false);
+#endif
                 /* Wait for USB re-init done */
                 lpm_usb_retry_cnt = 20;
                 while(lpm_usb_retry_cnt > 0 && 1 != s_cdcVcom.attach)
@@ -233,10 +292,19 @@ static void app_notify_event_handler(void *argv)
                 {
                     app_e("usb enum failed from LPM");
                 }
+#if defined(configUSE_TICKLESS_IDLE) && (configUSE_TICKLESS_IDLE == 1)
+                APP_SetTicklessIdle(true);
+#endif
 #endif
 #if CONFIG_NCP_SDIO
+#if defined(configUSE_TICKLESS_IDLE) && (configUSE_TICKLESS_IDLE == 1)
+                APP_SetTicklessIdle(false);
+#endif
                 /* Wait for SDIO re-init done */
                 OSA_TimeDelay(800);
+#if defined(configUSE_TICKLESS_IDLE) && (configUSE_TICKLESS_IDLE == 1)
+                APP_SetTicklessIdle(true);
+#endif
 #endif
                 app_d("got MCU sleep exit report");
                 event_buf = ncp_sys_evt_status(NCP_EVENT_MCU_SLEEP_EXIT, &msg);

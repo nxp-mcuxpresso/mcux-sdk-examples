@@ -52,14 +52,6 @@ GLIKEY Peripheral Driver Example
 
 *Success* GLIKEY Continue enable Step 3 pass
 
-*Success* GLIKEY Continue enable  Step 4 pass
-
-*Success* GLIKEY Continue enable  Step 5 pass
-
-*Success* GLIKEY Continue enable  Step 6 pass
-
-*Success* GLIKEY Continue enable  Step 7 pass
-
 *Success* GLIKEY Continue enable Step Enable pass
 
 SUCCESS: Register on index 2 can be now written!

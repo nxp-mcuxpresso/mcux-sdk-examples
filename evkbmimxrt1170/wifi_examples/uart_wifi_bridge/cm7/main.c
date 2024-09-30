@@ -153,13 +153,13 @@ extern phy_rtl8211f_resource_t g_phy_resource;
 #define WIFI_WRITE_REG32(reg, val) (WIFI_REG32(reg) = (val))
 
 /* Set default mode of fw download */
-#if !CONFIG_SUPPORT_WIFI
+#ifndef CONFIG_SUPPORT_WIFI
 #define CONFIG_SUPPORT_WIFI 1
 #endif
-#if !CONFIG_SUPPORT_BLE
+#ifndef CONFIG_SUPPORT_BLE
 #define CONFIG_SUPPORT_BLE 1
 #endif
-#if !CONFIG_SUPPORT_15D4
+#ifndef CONFIG_SUPPORT_15D4
 #define CONFIG_SUPPORT_15D4 1
 #endif
 
@@ -168,21 +168,21 @@ extern phy_rtl8211f_resource_t g_phy_resource;
 #define WLAN_CAU_TEMPERATURE_FW_ADDR (0x41382490U)
 #define WLAN_FW_WAKE_STATUS_ADDR     (0x40031068U)
 
-#if defined(CONFIG_SUPPORT_WIFI) && (CONFIG_MONOLITHIC_WIFI)
+#if (CONFIG_SUPPORT_WIFI) && (CONFIG_MONOLITHIC_WIFI)
 extern const uint32_t fw_cpu1[];
 #define WIFI_FW_ADDRESS  (uint32_t)&fw_cpu1[0]
 #else
 #define WIFI_FW_ADDRESS  0U
 #endif
 
-#if defined(CONFIG_SUPPORT_WIFI) && (CONFIG_MONOLITHIC_IEEE802154)
+#if (CONFIG_SUPPORT_15D4) && (CONFIG_MONOLITHIC_BLE_15_4)
 extern const uint32_t fw_cpu2_combo[];
 #define COMBO_FW_ADDRESS (uint32_t)&fw_cpu2_combo[0]
 #else
 #define COMBO_FW_ADDRESS   0U
 #endif
 
-#if (defined(CONFIG_SUPPORT_BLE) && !defined(CONFIG_SUPPORT_15D4)) && ((CONFIG_MONOLITHIC_BT) && !(CONFIG_MONOLITHIC_IEEE802154))
+#if ((CONFIG_SUPPORT_BLE) && !(CONFIG_SUPPORT_15D4)) && ((CONFIG_MONOLITHIC_BLE) && !(CONFIG_MONOLITHIC_BLE_15_4))
 extern const uint32_t fw_cpu2_ble[];
 #define BLE_FW_ADDRESS   (uint32_t)&fw_cpu2_ble[0]
 #else
@@ -1187,21 +1187,21 @@ static void main_task(osa_task_param_t arg)
     wifi_cau_temperature_enable();
     wifi_cau_temperature_write_to_firmware();
 
+#if (CONFIG_SUPPORT_15D4 == 1)
     /* 15d4 single and 15d4+ble combo */
-#if (CONFIG_SUPPORT_15D4) && (CONFIG_SUPPORT_15D4 == 1)
     sb3_fw_reset(LOAD_15D4_FIRMWARE, 1, COMBO_FW_ADDRESS);
-#endif
+#elif (CONFIG_SUPPORT_BLE == 1)
     /* only ble, no 15d4 */
-#if (CONFIG_SUPPORT_15D4) && (CONFIG_SUPPORT_15D4 == 0) && (CONFIG_SUPPORT_BLE) && (CONFIG_SUPPORT_BLE == 1)
     sb3_fw_reset(LOAD_BLE_FIRMWARE, 1, BLE_FW_ADDRESS);
 #endif
 
     /* Initialize WIFI Driver */
     imu_wifi_config();
 
+#if (CONFIG_SUPPORT_15D4 == 1) || (CONFIG_SUPPORT_BLE == 1)
     /* Initialize imumc */
     imumc_init();
-
+#endif
     /* Initialize CAU temperature timer */
     g_wifi_cau_temperature_timer =
         xTimerCreate("CAU Timer", 5000 / portTICK_PERIOD_MS, pdTRUE, NULL, wifi_cau_temperature_timer_cb);

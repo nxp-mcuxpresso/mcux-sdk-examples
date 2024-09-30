@@ -2,7 +2,7 @@
  *
  *  @brief This file contains declaration of the API functions.
  *
- *  Copyright 2008-2023 NXP
+ *  Copyright 2024 NXP
  *
  *  SPDX-License-Identifier: BSD-3-Clause
  */
@@ -28,6 +28,7 @@
 #include "host_sleep.h"
 #include "ncp_adapter.h"
 #include "ncp_wifi.h"
+#include "serial_network.h"
 
 
 /*******************************************************************************
@@ -57,6 +58,7 @@ extern osa_task_handle_t  wlan_suspend_thread;
 static uint32_t reg_access_cnt = 0;
 extern power_cfg_t global_power_config;
 extern int suspend_mode;
+extern nw_conn_t nw_handles[MAX_HANDLES];
 
 /*******************************************************************************
  * Code
@@ -1508,7 +1510,7 @@ static int wlan_ncp_start_wps_pin(void *tlv)
     char pin_str[10]         = {0};
     NCP_CMD_WPS_PIN *pin_cfg = (NCP_CMD_WPS_PIN *)tlv;
     uint32_t pin             = pin_cfg->pin;
-    (void)snprintf(pin_str, sizeof(pin_str), "%d", pin);
+    (void)snprintf(pin_str, sizeof(pin_str), "%08d", pin);
 
 #if CONFIG_WPA_SUPP_WPS
     ret = wlan_start_wps_pin(pin_str);
@@ -1536,6 +1538,15 @@ int wlan_ncp_reset(void *data)
     {
         ncp_wifi_set_nvm_network();
     }
+
+    for(int i = 0; i < MAX_HANDLES; i++)
+    {
+        if(nw_handles[i].type == SOCKET_HANDLE)
+        {
+            ncp_sock_close(i);
+        }
+    }
+
     wlan_ncp_prepare_status(NCP_RSP_WLAN_BASIC_WLAN_RESET, NCP_CMD_RESULT_OK);
     return WM_SUCCESS;
 }
@@ -2047,16 +2058,12 @@ static int wlan_ncp_socket_accept(void *data)
     cmd_res->header.result             = NCP_CMD_RESULT_OK;
 
     NCP_CMD_SOCKET_ACCEPT_CFG *tlv = (NCP_CMD_SOCKET_ACCEPT_CFG *)data;
-    ret                            = ncp_sock_accept(tlv->handle);
-    if (ret < 0)
+    accept_handle                  = ncp_sock_accept(tlv->handle);
+    if (accept_handle < 0)
     {
         ncp_e("NCP: %s fail!\r\n", __func__);
         ret = -WM_FAIL;
         goto out;
-    }
-    else
-    {
-        accept_handle = ret;
     }
 out:
 
@@ -2428,11 +2435,17 @@ static int wlan_ncp_suspend(void *tlv)
     int ret                                = 0;
 
     if ((global_power_config.wake_mode == WAKE_MODE_INTF && suspend_cfg->mode > 2) ||
-        (global_power_config.wake_mode == WAKE_MODE_GPIO && suspend_cfg->mode > 3))
+        (global_power_config.wake_mode == WAKE_MODE_GPIO && suspend_cfg->mode > 3) ||
+        (global_power_config.wake_mode == WAKE_MODE_GPIO && !strcmp(BOARD_NAME, "FRDM-RW612") &&
+          suspend_cfg->mode > 2) ||
+        (global_power_config.wake_mode == WAKE_MODE_WIFI_NB && !strcmp(BOARD_NAME, "FRDM-RW612") &&
+          suspend_cfg->mode > 3))
     {
         ncp_e("NCP: Invalid power mode %d!\r\n", suspend_cfg->mode);
         ncp_e("NCP: Only PM1/2 allowed with INTF mode\r\n");
-        ncp_e("NCP: Only PM1/2/3 allowed with GPIO mode\r\n");
+        ncp_e("NCP: Only PM1/2/3 allowed with GPIO mode for RDRW612\r\n");
+        ncp_e("NCP: Only PM1/2 allowed with GPIO mode for FRDMRW612\r\n");
+        ncp_e("NCP: Only PM1/2/3 allowed with WIFI-NB mode for FRDMRW612\r\n");
         ret = -WM_FAIL;
         goto out;
     }
@@ -2685,7 +2698,7 @@ static int wlan_ncp_memory_state(void *data)
 
     NCP_CMD_MEM_STAT *mem_stat_res            = (NCP_CMD_MEM_STAT *)&cmd_res->params.mem_stat;
     mem_stat_res->free_heap_size              = xPortGetFreeHeapSize();
-    mem_stat_res->minimun_ever_free_heap_size = xPortGetMinimumEverFreeHeapSize();
+    mem_stat_res->minimum_ever_free_heap_size = xPortGetMinimumEverFreeHeapSize();
 
     cmd_res->header.size += sizeof(NCP_CMD_MEM_STAT);
 

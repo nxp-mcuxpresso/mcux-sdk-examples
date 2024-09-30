@@ -33,22 +33,39 @@
 #define CONFIG_MONOLITHIC_WIFI 1
 #endif
 #if (CONFIG_NCP_BLE) && (CONFIG_NCP_OT)
-#define CONFIG_MONOLITHIC_IEEE802154 1
-#define CONFIG_MONOLITHIC_BT         0
+#define CONFIG_MONOLITHIC_BLE_15_4    1
+#define CONFIG_MONOLITHIC_BLE         0
 #else 
 #if CONFIG_NCP_BLE
-#define CONFIG_MONOLITHIC_IEEE802154 0
-#define CONFIG_MONOLITHIC_BT         1
+#define CONFIG_MONOLITHIC_BLE_15_4    0
+#define CONFIG_MONOLITHIC_BLE         1
 #else
-#define CONFIG_MONOLITHIC_IEEE802154 0
-#define CONFIG_MONOLITHIC_BT         0
+#define CONFIG_MONOLITHIC_BLE_15_4    0
+#define CONFIG_MONOLITHIC_BLE         0
 #endif
 #endif
 #endif
 
-#if ((CONFIG_MONOLITHIC_WIFI) || (CONFIG_MONOLITHIC_BT) || (CONFIG_MONOLITHIC_IEEE802154))
+#if ((CONFIG_MONOLITHIC_WIFI) || (CONFIG_MONOLITHIC_BLE) || (CONFIG_MONOLITHIC_BLE_15_4))
 #define CONFIG_SOC_SERIES_RW6XX_REVISION_A2 1
 #endif
+
+#if CONFIG_MONOLITHIC_BLE || CONFIG_MONOLITHIC_BLE_15_4
+/** If set gPlatformMonolithicApp_d to 1, enable monolithic feature for loading CPU2 FW automatically */
+#define gPlatformMonolithicApp_d        1
+
+/** these macro are added to avoid build error (Error[Li006]) when using IAR compiler */
+#define WIFI_FW_ADDRESS 0
+
+#if CONFIG_MONOLITHIC_BLE
+#define COMBO_FW_ADDRESS 0
+#endif
+
+#if CONFIG_MONOLITHIC_BLE_15_4
+#define BLE_FW_ADDRESS 0
+#endif
+
+#endif /* CONFIG_MONOLITHIC_BLE || CONFIG_MONOLITHIC_BLE_15_4 */
 
 #define CONFIG_NCP_UART   1
 #define CONFIG_NCP_SPI    0
@@ -59,7 +76,7 @@
 #define CONFIG_HOST_SLEEP           1
 #define CONFIG_POWER_MANAGER        1
 
-#if CONFIG_NCP_BLE
+#if (CONFIG_NCP_BLE) || (CONFIG_NCP_OT)
 #define configUSE_TICKLESS_IDLE 1
 #define configUSE_IDLE_HOOK 0
 #endif

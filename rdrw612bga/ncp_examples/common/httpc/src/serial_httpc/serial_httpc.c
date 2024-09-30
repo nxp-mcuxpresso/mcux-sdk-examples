@@ -197,8 +197,8 @@ int ncp_http_connect(char *host)
     uint8_t https_conn_attempts = 0;
 
 tryagain:
-    cert     = (uint8_t *)NGINX_SERVER_CRT;
-    cert_len = NGINX_SERVER_CRT_LEN;
+    cert     = (uint8_t *)NGINX_CA_CRT;
+    cert_len = NGINX_CA_CRT_LEN;
     if (cert == NULL)
         cert_len = 0;
 #endif

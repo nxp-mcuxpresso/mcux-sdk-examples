@@ -1,5 +1,5 @@
 /*!\file bas.h
- *\brief Battery Service Profile defineations.
+ *\brief Battery Service Profile definitions.
  */
 
 /*
@@ -45,7 +45,7 @@ extern "C" {
  */
 void bas_init(void);
 /**
- * count binary semaphore to wait BAS write characteristic response event
+ * Count binary semaphore to wait for BAS write characteristic response event
  * 
  * \param[in] flag flag to wait
  * 

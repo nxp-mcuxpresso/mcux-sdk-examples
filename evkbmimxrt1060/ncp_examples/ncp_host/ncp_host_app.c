@@ -226,11 +226,13 @@ static int handle_input(char *inbuf)
      */
     for (j = 0; j < MCU_CLI_STRING_SIZE; j++)
     {
-        if (inbuf[j] == 0x0D || inbuf[j] == 0x0A)
+        if (inbuf[j] == (char)(0x0D) || inbuf[j] == (char)0x0A)
         {
             if (j < (MCU_CLI_STRING_SIZE - 1))
-                (void)memmove((inbuf + j), inbuf + j + 1, (MCU_CLI_STRING_SIZE - j));
-            inbuf[MCU_CLI_STRING_SIZE] = 0x00;
+            {
+                (void)memmove((inbuf + j), inbuf + j + 1, (MCU_CLI_STRING_SIZE - 1 - j));
+            }
+            inbuf[MCU_CLI_STRING_SIZE - 1] = (char)(0x00);
         }
     }
 
@@ -569,8 +571,16 @@ int ncp_host_send_tlv_command()
 
     if (transfer_len >= sizeof(NCP_HOST_COMMAND))
     {
+        if ((global_power_config.wake_mode == WAKE_MODE_WIFI_NB) && (mcu_device_status == MCU_DEVICE_STATUS_SLEEP))
+        {
+            ncp_e("Command is not allowed when wake mode is WIFI-NB and device is sleeping.");
+            ncp_e("With WIFI-NB mode, host is not able to wakeup device.");
+            ncp_e("Please send command after device wakes up.");
+            ret = -NCP_STATUS_ERROR;
+            goto done;
+        }
         /* Wakeup MCU device through GPIO if host configured GPIO wake mode */
-        if ((global_power_config.wake_mode == WAKE_MODE_GPIO) && (mcu_device_status == MCU_DEVICE_STATUS_SLEEP))
+        else if ((global_power_config.wake_mode == WAKE_MODE_GPIO) && (mcu_device_status == MCU_DEVICE_STATUS_SLEEP))
         {
             GPIO_PinWrite(GPIO1, 27, 0);
             ncp_d("get gpio_wakelock after GPIO wakeup\r\n");

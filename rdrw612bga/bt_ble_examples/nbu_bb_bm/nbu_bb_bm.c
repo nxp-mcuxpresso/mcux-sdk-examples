@@ -19,6 +19,7 @@
 #include "fsl_flexcomm.h"
 #include "fsl_adapter_imu.h"
 #include "FunctionLib.h"
+#include "fwk_platform_coex.h"
 
 // #define NBU_APP_SUPPORT_LOWPOWER
 
@@ -519,7 +520,8 @@ static void start_task(void *argument)
     {
         platformInitialized = 1;
 
-        sb3_fw_download(LOAD_BLE_FIRMWARE, 1, 0);
+        /* Initialize BLE controller */
+        PLATFORM_InitControllers(connBle_c);
 
         Nbu_SerialInit();
 

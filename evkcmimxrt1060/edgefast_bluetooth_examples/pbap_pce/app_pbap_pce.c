@@ -213,6 +213,7 @@ static void app_pull_phonebook_cb(struct bt_pbap_pce *pbap_pce, uint8_t result, 
     if (result != PBAP_CONTINUE_RSP && result != BT_PBAP_SUCCESS_RSP)
     {
         app_error_result(result);
+        return;
     }
     else
     {
@@ -290,6 +291,7 @@ static void app_pull_vcard_listing_cb(struct bt_pbap_pce *pbap_pce, uint8_t resu
     if (result != PBAP_CONTINUE_RSP && result != BT_PBAP_SUCCESS_RSP)
     {
         app_error_result(result);
+        return;
     }
     else
     {
@@ -338,6 +340,7 @@ static void app_pull_vcard_entry_cb(struct bt_pbap_pce *pbap_pce, uint8_t result
     if (result != PBAP_CONTINUE_RSP && result != BT_PBAP_SUCCESS_RSP)
     {
         app_error_result(result);
+        return;
     }
     else
     {

@@ -54,10 +54,6 @@ fw_ble_cand_start                   = fw_ble_act_start + ble_fw_size;
 fw_15d5_act_start                   = fw_ble_cand_start + ble_fw_size;
 fw_15d4_cand_start                  = fw_15d5_act_start + z154_fw_size;
 
-PROVIDE(fw_cpu1 = fw_wifi_act_start);
-PROVIDE(fw_cpu2_ble = fw_ble_act_start);
-PROVIDE(fw_cpu2_combo = fw_15d5_act_start);
-
 m_app_start                         = m_boot_flash_conf_sector_end + 1;
 m_app_stated_size                   = (fw_storage_start - m_app_start - m_flash_sector_size);
 m_app_end                           = m_app_start + m_app_stated_size - 1;
