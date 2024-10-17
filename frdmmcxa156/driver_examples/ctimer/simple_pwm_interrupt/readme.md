@@ -6,7 +6,7 @@ With an interrupt callback the PWM duty cycle is changed frequently in such a wa
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

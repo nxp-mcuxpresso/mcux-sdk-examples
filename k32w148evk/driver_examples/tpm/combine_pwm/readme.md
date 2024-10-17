@@ -9,7 +9,7 @@ And if the board do not support LEDs to show, the outputs can be observed by osc
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

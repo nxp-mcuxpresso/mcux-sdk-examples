@@ -5,7 +5,7 @@ and periodically updates the PWM signals dutycycle.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

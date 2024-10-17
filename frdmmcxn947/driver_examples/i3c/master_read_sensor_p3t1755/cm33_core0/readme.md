@@ -7,7 +7,7 @@ and print it in while loop.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

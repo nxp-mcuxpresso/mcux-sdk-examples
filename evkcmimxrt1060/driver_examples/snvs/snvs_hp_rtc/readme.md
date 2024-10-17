@@ -4,7 +4,7 @@ The SNVS HP RTC project is a simple demonstration program of the SDK SNVS HP dri
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

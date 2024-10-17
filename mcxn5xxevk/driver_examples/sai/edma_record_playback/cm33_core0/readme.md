@@ -6,7 +6,7 @@ In this example, one sai instance record the audio data from input and playbacks
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

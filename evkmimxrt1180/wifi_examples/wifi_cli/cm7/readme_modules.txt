@@ -19,3 +19,4 @@ Board settings
 ==============
 J76: 2-3
 
+Connect external power supply to J2, set J1: 1-2 and turn on SW1.

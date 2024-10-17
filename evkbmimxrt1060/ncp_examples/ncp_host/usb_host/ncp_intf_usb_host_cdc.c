@@ -3,9 +3,9 @@
  *  @brief main file
  *
  *  Copyright 2024 NXP
- *  All rights reserved.
  *
  *  SPDX-License-Identifier: BSD-3-Clause
+ *  The BSD-3-Clause license can be found at https://spdx.org/licenses/BSD-3-Clause.html
  */
 #include "ncp_intf_usb_host_cdc.h"
 #include "ncp_debug.h"

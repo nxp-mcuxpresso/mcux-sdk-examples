@@ -7,7 +7,7 @@ FreeRTOS. The user uses an Internet browser to upload new version of firmware an
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

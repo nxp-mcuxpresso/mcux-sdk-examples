@@ -17,7 +17,7 @@ This demo demonstrates 2 wake-up sources:
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

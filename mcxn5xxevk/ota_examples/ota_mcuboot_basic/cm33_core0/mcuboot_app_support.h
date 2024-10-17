@@ -76,5 +76,6 @@ status_t bl_get_image_state(uint32_t image, uint32_t *state);
 const char *bl_imgstate_to_str(uint32_t state);
 void bl_print_image_info(bl_hashfunc_t hashfunc);
 int bl_flash_remap_active(void);
+int32_t bl_flash_read(uint32_t addr, uint32_t *buffer, uint32_t len);
 
 #endif

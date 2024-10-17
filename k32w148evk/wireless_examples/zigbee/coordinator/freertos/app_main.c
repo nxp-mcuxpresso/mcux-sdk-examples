@@ -60,6 +60,7 @@
 #ifdef NCP_HOST
 #include "serial_link_ctrl.h"
 #include "app_common_ncp.h"
+#include "app_console.h"
 #endif
 /****************************************************************************/
 /***        Macro Definitions                                             ***/
@@ -293,9 +294,9 @@ int main(int argc, char * argv[])
 
             DBG_vPrintf(TRUE, "MAIN\n");
 
-            vAppMain();
-
             bNcpHostTaskIsRunning = TRUE;
+            
+            vAppMain();
 
             while (bNcpHostTaskIsRunning)
             {
@@ -348,6 +349,8 @@ int main(int argc, char * argv[])
             /* Parent of child process for NCP Host application */
             waitpid(ncpHostPid, &status, 0);
 
+            APP_vConsoleDeinitialise();
+
             if (WIFEXITED(status))
             {
                  DBG_vPrintf(TRACE_APP, "NCP Host Task with pid %d exited with status %d\n",
@@ -362,6 +365,12 @@ int main(int argc, char * argv[])
                  {
                      /* TODO : to be handled */
                  }
+
+                 if (WTERMSIG(status) == SIGSEGV)
+                 {
+                    DBG_vPrintf(TRACE_APP, "NCP Host Task with pid %d encounterd a segmentation fault \n", ncpHostPid);
+                 }
+                 
                  bAppIsRunning = false;
             }
          }

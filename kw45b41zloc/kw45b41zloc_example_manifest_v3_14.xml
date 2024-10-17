@@ -2,11 +2,11 @@
 <ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_kw45b41zloc_examples_manifest_v3_14" name="SDK_2.x_kw45b41zloc_examples_manifest_v3_14" format_version="3.14" api_version="2.0.0" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.14.xsd">
 
   <externalDefinitions>
-    <definition extID="KW45B41Z83AFPA"/>
+    <definition extID="KW45B41Z83AFTA"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK216000_kw45b41zloc_examples_manifest_v3_14" name="MCUXpressoSDK216000_kw45b41zloc_examples_manifest_v3_14" version="2.16.000" revision="2.16.000"/>
+  <ksdk id="MCUXpressoSDK216100_kw45b41zloc_examples_manifest_v3_14" name="MCUXpressoSDK216100_kw45b41zloc_examples_manifest_v3_14" version="2.16.100" revision="2.16.100"/>
   <boards>
-    <board id="kw45b41zloc" name="KW45B41Z-LOC" version="1.0.0" package="KW45B41Z83AFPA">
+    <board id="kw45b41zloc" name="KW45B41Z-LOC" version="1.0.0" package="KW45B41Z83AFTA">
       <examples>
         <example id="kw45b41zloc_wireless_uart_bm" name="wireless_uart_bm" brief="The BLE wireless uart application is a simple demonstration program based on the MCUXpresso SDK.The application implements a custom GATT based Wireless UART Profile that emulates UART over BLE.To use the pplication Test Tool 12 or any other application which supports the FSCI protocol is required." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/w_uart/bm" path="examples/kw45b41zloc/wireless_examples/bluetooth/w_uart/bm">
           <external path="wireless_examples/bluetooth/w_uart/bm" type="xml">

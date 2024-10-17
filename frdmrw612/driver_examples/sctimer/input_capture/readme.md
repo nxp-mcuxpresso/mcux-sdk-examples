@@ -20,7 +20,7 @@ This example will print the capture values and pluse width of the input signal o
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================
@@ -29,7 +29,7 @@ Toolchain supported
 
 Hardware requirements
 =====================
-- Micro USB cable
+- USB-C cable
 - FRDM-RW612 board
 - Personal Computer
 
@@ -37,7 +37,7 @@ Board settings
 ==============
 Connect J1-1(SCT In 1) to 1kHz, dutycycle 50% PWM signal.
 
-1.  Connect a micro USB cable between the PC host and the MCU-Link USB port (J10) on the board
+1.  Connect a USB-C cable between the PC host and the MCU-Link USB port (J10) on the board
 2.  Open a serial terminal with the following settings:
     - 115200 baud rate
     - 8 data bits

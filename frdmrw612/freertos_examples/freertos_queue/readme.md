@@ -17,7 +17,7 @@ write_task_2 print 5 messages into log.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================
@@ -26,7 +26,7 @@ Toolchain supported
 
 Hardware requirements
 =====================
-- Micro USB cable
+- USB-C cable
 - FRDM-RW612 board
 - Personal Computer
 

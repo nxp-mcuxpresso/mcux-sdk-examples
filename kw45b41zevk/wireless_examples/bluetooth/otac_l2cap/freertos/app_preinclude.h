@@ -95,16 +95,16 @@
 
 #define gHost_TaskStackSize_c           1796
 
-#define BUTTON_TASK_STACK_SIZE          356
+#define BUTTON_TASK_STACK_SIZE          424
 
-#define SERIAL_MANAGER_TASK_STACK_SIZE  232
+#define SERIAL_MANAGER_TASK_STACK_SIZE  328
 
 #define gMainThreadStackSize_c          1232
 
-#define TM_TASK_STACK_SIZE              416
+#define TM_TASK_STACK_SIZE              640
 
 /* The size used for the Idle task, in dwords. */
-#define configMINIMAL_STACK_SIZE        192
+#define configMINIMAL_STACK_SIZE        232
 
 #endif
 

@@ -3,7 +3,7 @@
  * @{
  ********************************************************************************** */
 /*
- * Copyright 2021 - 2023 NXP
+ * Copyright 2021 - 2024 NXP
  *
  *
  *
@@ -98,18 +98,18 @@
 
 #define gHost_TaskStackSize_c           1756
 
-#define BUTTON_TASK_STACK_SIZE          364
+#define BUTTON_TASK_STACK_SIZE          400
 
-#define SERIAL_MANAGER_TASK_STACK_SIZE  232
+#define SERIAL_MANAGER_TASK_STACK_SIZE  320
 
 #define gMainThreadStackSize_c          880
 
-#define TM_TASK_STACK_SIZE              256
+#define TM_TASK_STACK_SIZE              400
 
 #define SHELL_TASK_STACK_SIZE           500
 
 /* The size used for the Idle task, in dwords. */
-#define configMINIMAL_STACK_SIZE        140
+#define configMINIMAL_STACK_SIZE        160
 
 #endif
 /*! *********************************************************************************

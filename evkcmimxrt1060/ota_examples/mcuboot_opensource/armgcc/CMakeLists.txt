@@ -59,6 +59,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${SdkRootDirPath}/core/boards/evkcmimxrt1060/dcd.h"
 "${ProjDirPath}/../boot.c"
 "${ProjDirPath}/../boot.h"
+"${ProjDirPath}/../bootutil_hooks.c"
 "${ProjDirPath}/../keys.c"
 "${ProjDirPath}/../include/mbedtls_config.h"
 "${ProjDirPath}/../include/mcuboot_config/mcuboot_config.h"

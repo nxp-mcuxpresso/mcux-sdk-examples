@@ -44,7 +44,7 @@ bool hts_cccd_written = false;
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
-
+extern void write_charateristic_command_local(NCP_SET_VALUE_CMD *param);
 
 /*******************************************************************************
  * Definitions
@@ -182,7 +182,7 @@ static void peripheral_hts_task(void *pvParameters)
     {
         if(hts_cccd_written)
         {
-            printf("temperature is %dC\n", temperature);
+            printf("temperature is %ldC\n", temperature);
             temp_measurement.flags = hts_unit_celsius_c;
             temp_measurement.flags += hts_include_temp_type;
             temp_measurement.type = temp_type;

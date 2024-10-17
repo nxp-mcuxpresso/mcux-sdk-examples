@@ -7,7 +7,7 @@ a message a printed on the serial terminal and an LED is toggled on the board.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

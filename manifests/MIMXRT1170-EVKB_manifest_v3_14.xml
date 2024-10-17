@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_MIMXRT1170-EVKB_manifest_v3_14" name="SDK Version Superset" brief="SDK Superset" format_version="3.14" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.14.xsd">
+<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_MIMXRT1170-EVKB_manifest_v3_14" name="SDK 2.16.100 Superset" brief="SDK Superset" format_version="3.14" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.14.xsd">
 
   <externalDefinitions>
     <definition extID="isi_qmc_dgc"/>
     <definition extID="evkmimxrt1170"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK216000" name="MCUXpresso SDK216000" version="2.16.000" revision="2.16.000"/>
+  <ksdk id="MCUXpressoSDK216100" name="MCUXpresso SDK216100" version="2.16.100" revision="2.16.100"/>
   <compilers>
     <compiler id="compiler_gcc" name="gcc" type="gcc"/>
   </compilers>
@@ -97,7 +97,7 @@ ${load}</script>
       </memory>
       <total_memory flash_size_kb="65536" ram_size_kb="65536"/>
       <examples>
-        <example id="evkbmimxrt1170_a2dp_source_cm4" name="a2dp_source_cm4" brief="The Edgefast Bluetooth audio source with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/a2dp_source/cm4">
+        <example id="evkbmimxrt1170_a2dp_source_cm4" name="a2dp_source_cm4" brief="The EdgeFast BR/EDR a2dp source example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/a2dp_source/cm4">
           <external path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/a2dp_source/cm4" type="xml">
             <files mask="a2dp_source_cm4_v3_14.xml"/>
           </external>
@@ -1217,129 +1217,149 @@ ${load}</script>
             <files mask="tflm_multicore_cm4_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkbmimxrt1170_peripheral_beacon" name="peripheral_beacon" brief="The Edgefast Bluetooth beacon example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/peripheral_beacon/cm7">
+        <example id="evkbmimxrt1170_peripheral_beacon" name="peripheral_beacon" brief="The EdgeFast BLE peripheral beacon example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/peripheral_beacon/cm7">
           <external path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/peripheral_beacon/cm7" type="xml">
             <files mask="peripheral_beacon_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkbmimxrt1170_spp" name="spp" brief="The Bluetooth BR SPP example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/spp/cm7">
+        <example id="evkbmimxrt1170_spp" name="spp" brief="The EdgeFast BR/EDR spp example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/spp/cm7">
           <external path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/spp/cm7" type="xml">
             <files mask="spp_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkbmimxrt1170_a2dp_sink" name="a2dp_sink" brief="The Edgefast Bluetooth audio source with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/a2dp_sink/cm7">
+        <example id="evkbmimxrt1170_a2dp_sink" name="a2dp_sink" brief="The EdgeFast BR/EDR a2dp sink example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/a2dp_sink/cm7">
           <external path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/a2dp_sink/cm7" type="xml">
             <files mask="a2dp_sink_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkbmimxrt1170_edgefast_bluetooth_shell" name="edgefast_bluetooth_shell" brief="The Edgefast Bluetooth shell example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/shell/cm7">
+        <example id="evkbmimxrt1170_edgefast_bluetooth_shell" name="edgefast_bluetooth_shell" brief="The EdgeFast BLE/BR/EDR shell example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/shell/cm7">
           <external path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/shell/cm7" type="xml">
             <files mask="edgefast_bluetooth_shell_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkbmimxrt1170_handsfree_ag" name="handsfree_ag" brief="The Edgefast Bluetooth handsfree AG example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/handsfree_ag/cm7">
+        <example id="evkbmimxrt1170_handsfree_ag" name="handsfree_ag" brief="The EdgeFast BR/EDR handsfree ag example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/handsfree_ag/cm7">
           <external path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/handsfree_ag/cm7" type="xml">
             <files mask="handsfree_ag_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkbmimxrt1170_handsfree" name="handsfree" brief="The Edgefast Bluetooth bluetooth handsfree example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/handsfree/cm7">
+        <example id="evkbmimxrt1170_handsfree" name="handsfree" brief="The EdgeFast BR/EDR handsfree example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/handsfree/cm7">
           <external path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/handsfree/cm7" type="xml">
             <files mask="handsfree_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkbmimxrt1170_a2dp_source_cm7" name="a2dp_source_cm7" brief="The Edgefast Bluetooth audio source with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/a2dp_source/cm7">
+        <example id="evkbmimxrt1170_a2dp_source_cm7" name="a2dp_source_cm7" brief="The EdgeFast BR/EDR a2dp source example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/a2dp_source/cm7">
           <external path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/a2dp_source/cm7" type="xml">
             <files mask="a2dp_source_cm7_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkbmimxrt1170_peripheral_ht" name="peripheral_ht" brief="The Edgefast Bluetooth hts example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/peripheral_ht/cm7">
+        <example id="evkbmimxrt1170_peripheral_ht" name="peripheral_ht" brief="The EdgeFast BLE peripheral ht example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/peripheral_ht/cm7">
           <external path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/peripheral_ht/cm7" type="xml">
             <files mask="peripheral_ht_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkbmimxrt1170_central_ht" name="central_ht" brief="The Edgefast Bluetooth hts example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/central_ht/cm7">
+        <example id="evkbmimxrt1170_central_ht" name="central_ht" brief="The EdgeFast BLE central ht example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/central_ht/cm7">
           <external path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/central_ht/cm7" type="xml">
             <files mask="central_ht_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkbmimxrt1170_peripheral_ipsp" name="peripheral_ipsp" brief="The Edgefast Bluetooth ipsp example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/peripheral_ipsp/cm7">
+        <example id="evkbmimxrt1170_peripheral_ipsp" name="peripheral_ipsp" brief="The EdgeFast BLE peripheral ipsp example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/peripheral_ipsp/cm7">
           <external path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/peripheral_ipsp/cm7" type="xml">
             <files mask="peripheral_ipsp_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkbmimxrt1170_central_ipsp" name="central_ipsp" brief="The Edgefast Bluetooth ipsp example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/central_ipsp/cm7">
+        <example id="evkbmimxrt1170_central_ipsp" name="central_ipsp" brief="The EdgeFast BLE central ipsp example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/central_ipsp/cm7">
           <external path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/central_ipsp/cm7" type="xml">
             <files mask="central_ipsp_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkbmimxrt1170_peripheral_pxr" name="peripheral_pxr" brief="The Edgefast Bluetooth pxr example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/peripheral_pxr/cm7">
+        <example id="evkbmimxrt1170_peripheral_pxr" name="peripheral_pxr" brief="The EdgeFast BLE peripheral pxr example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/peripheral_pxr/cm7">
           <external path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/peripheral_pxr/cm7" type="xml">
             <files mask="peripheral_pxr_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkbmimxrt1170_central_pxm" name="central_pxm" brief="The Edgefast Bluetooth pxm example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/central_pxm/cm7">
+        <example id="evkbmimxrt1170_central_pxm" name="central_pxm" brief="The EdgeFast BLE central pxm example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/central_pxm/cm7">
           <external path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/central_pxm/cm7" type="xml">
             <files mask="central_pxm_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkbmimxrt1170_peripheral_hps" name="peripheral_hps" brief="The Edgefast Bluetooth hps example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/peripheral_hps/cm7">
+        <example id="evkbmimxrt1170_peripheral_hps" name="peripheral_hps" brief="The EdgeFast BLE peripheral hps example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/peripheral_hps/cm7">
           <external path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/peripheral_hps/cm7" type="xml">
             <files mask="peripheral_hps_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkbmimxrt1170_central_hpc" name="central_hpc" brief="The Edgefast Bluetooth hpc example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/central_hpc/cm7">
+        <example id="evkbmimxrt1170_central_hpc" name="central_hpc" brief="The EdgeFast BLE central hpc example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/central_hpc/cm7">
           <external path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/central_hpc/cm7" type="xml">
             <files mask="central_hpc_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkbmimxrt1170_wireless_uart" name="wireless_uart" brief="The Edgefast Bluetooth wireless uart example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/wireless_uart/cm7">
+        <example id="evkbmimxrt1170_wireless_uart" name="wireless_uart" brief="The EdgeFast BLE wireless uart example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/wireless_uart/cm7">
           <external path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/wireless_uart/cm7" type="xml">
             <files mask="wireless_uart_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkbmimxrt1170_tmap_central" name="tmap_central" brief="The Edgefast Bluetooth pxm example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/tmap_central/cm7">
+        <example id="evkbmimxrt1170_tmap_central" name="tmap_central" brief="The EdgeFast BLE Audio tmap central example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/tmap_central/cm7">
           <external path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/tmap_central/cm7" type="xml">
             <files mask="tmap_central_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkbmimxrt1170_tmap_peripheral" name="tmap_peripheral" brief="The Edgefast Bluetooth pxm example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/tmap_peripheral/cm7">
+        <example id="evkbmimxrt1170_tmap_peripheral" name="tmap_peripheral" brief="The EdgeFast BLE Audio tmap peripheral example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/tmap_peripheral/cm7">
           <external path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/tmap_peripheral/cm7" type="xml">
             <files mask="tmap_peripheral_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkbmimxrt1170_broadcast_media_sender" name="broadcast_media_sender" brief="The Edgefast Bluetooth pxm example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/broadcast_media_sender/cm7">
+        <example id="evkbmimxrt1170_broadcast_media_sender" name="broadcast_media_sender" brief="The EdgeFast BLE Audio broadcast media sender example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/broadcast_media_sender/cm7">
           <external path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/broadcast_media_sender/cm7" type="xml">
             <files mask="broadcast_media_sender_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkbmimxrt1170_broadcast_media_receiver" name="broadcast_media_receiver" brief="The Edgefast Bluetooth pxm example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/broadcast_media_receiver/cm7">
+        <example id="evkbmimxrt1170_broadcast_media_receiver" name="broadcast_media_receiver" brief="The EdgeFast BLE Audio broadcast media receiver example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/broadcast_media_receiver/cm7">
           <external path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/broadcast_media_receiver/cm7" type="xml">
             <files mask="broadcast_media_receiver_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkbmimxrt1170_unicast_media_sender" name="unicast_media_sender" brief="The Edgefast Bluetooth pxm example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/unicast_media_sender/cm7">
+        <example id="evkbmimxrt1170_unicast_media_sender" name="unicast_media_sender" brief="The EdgeFast BLE Audio unicast media sender example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/unicast_media_sender/cm7">
           <external path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/unicast_media_sender/cm7" type="xml">
             <files mask="unicast_media_sender_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkbmimxrt1170_unicast_media_receiver" name="unicast_media_receiver" brief="The Edgefast Bluetooth pxm example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/unicast_media_receiver/cm7">
+        <example id="evkbmimxrt1170_unicast_media_receiver" name="unicast_media_receiver" brief="The EdgeFast BLE Audio unicast media receiver example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/unicast_media_receiver/cm7">
           <external path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/unicast_media_receiver/cm7" type="xml">
             <files mask="unicast_media_receiver_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkbmimxrt1170_call_terminal" name="call_terminal" brief="The Edgefast Bluetooth call terminal example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/call_terminal/cm7">
+        <example id="evkbmimxrt1170_call_terminal" name="call_terminal" brief="The EdgeFast BLE Audio call terminal example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/call_terminal/cm7">
           <external path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/call_terminal/cm7" type="xml">
             <files mask="call_terminal_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkbmimxrt1170_call_gateway" name="call_gateway" brief="The Edgefast Bluetooth call gateway example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/call_gateway/cm7">
+        <example id="evkbmimxrt1170_call_gateway" name="call_gateway" brief="The EdgeFast BLE Audio call gateway example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/call_gateway/cm7">
           <external path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/call_gateway/cm7" type="xml">
             <files mask="call_gateway_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkbmimxrt1170_wifi_cli_over_ble_wu" name="wifi_cli_over_ble_wu" brief="wifi_cli_over_ble_wu" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/wifi_cli_over_ble_wu/cm7">
+        <example id="evkbmimxrt1170_wifi_cli_over_ble_wu" name="wifi_cli_over_ble_wu" brief="The EdgeFast BLE wifi cli over ble wu example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/wifi_cli_over_ble_wu/cm7">
           <external path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/wifi_cli_over_ble_wu/cm7" type="xml">
             <files mask="wifi_cli_over_ble_wu_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkbmimxrt1170_pbap_pce_cm7" name="pbap_pce_cm7" brief="The EdgeFast BR/EDR pbap pce example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/pbap_pce/cm7">
+          <external path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/pbap_pce/cm7" type="xml">
+            <files mask="pbap_pce_cm7_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkbmimxrt1170_pbap_pse_cm7" name="pbap_pse_cm7" brief="The EdgeFast BR/EDR pbap pse example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/pbap_pse/cm7">
+          <external path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/pbap_pse/cm7" type="xml">
+            <files mask="pbap_pse_cm7_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkbmimxrt1170_map_mce_cm7" name="map_mce_cm7" brief="The EdgeFast BR/EDR map mce example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/map_mce/cm7">
+          <external path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/map_mce/cm7" type="xml">
+            <files mask="map_mce_cm7_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkbmimxrt1170_map_mse_cm7" name="map_mse_cm7" brief="The EdgeFast BR/EDR map mse example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/map_mse/cm7">
+          <external path="examples/evkbmimxrt1170/edgefast_bluetooth_examples/map_mse/cm7" type="xml">
+            <files mask="map_mse_cm7_v3_14.xml"/>
           </external>
         </example>
         <example id="evkbmimxrt1170_dev_audio_generator_bm_cm7" name="dev_audio_generator_bm_cm7" brief="The USB Audio Generator application is a simple demonstration program based on the MCUXpresso SDK.It is enumerated as a recording device and users can record the sound from this device via the &quot;Sound Recorder&quot; in the Windows Accessories." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="usb_examples" path="examples/evkbmimxrt1170/usb_examples/usb_device_audio_generator/bm/cm7">
@@ -3027,6 +3047,11 @@ ${load}</script>
             <files mask="power_manager_test_asymmetric_multiCore_bm_core0_v3_14.xml"/>
           </external>
         </example>
+        <example id="evkbmimxrt1170_tflm_cm7" name="tflm_cm7" brief="Library build of TensorFlow Lite Micro" toolchain="mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkbmimxrt1170/eiq_examples/tflm_lib_cm7">
+          <external path="examples/evkbmimxrt1170/eiq_examples/tflm_lib_cm7" type="xml">
+            <files mask="tflm_cm7_v3_14.xml"/>
+          </external>
+        </example>
         <example id="evkbmimxrt1170_tflm_cifar10_cm7" name="tflm_cifar10_cm7" brief="CIFAR-10 example for TensorFlow Lite Micro" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="eiq_examples" path="examples/evkbmimxrt1170/eiq_examples/tflm_cifar10">
           <external path="examples/evkbmimxrt1170/eiq_examples/tflm_cifar10" type="xml">
             <files mask="tflm_cifar10_cm7_v3_14.xml"/>
@@ -3430,7 +3455,7 @@ ${load}</script>
         <include_path relative_path="template" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.maestro_framework.doc.MIMXRT1176" name="maestro_framework" brief="MCU Maestro Audio Framework Doc" version="1.7.0" full_name="Maestro Audio Framework Middleware Doc" category="Audio/Framework" user_visible="false" type="middleware" package_base_path="middleware/maestro" project_base_path="maestro">
+    <component id="middleware.maestro_framework.doc.MIMXRT1176" name="maestro_framework" brief="MCU Maestro Audio Framework Doc" version="1.8.0" full_name="Maestro Audio Framework Middleware Doc" category="Audio/Framework" user_visible="false" type="middleware" package_base_path="middleware/maestro" project_base_path="maestro">
       <dependencies>
         <device_dependency value="MIMXRT1176xxxxx"/>
       </dependencies>
@@ -6629,6 +6654,20 @@ ${load}</script>
         <files mask="mcuboot_enc_support.c"/>
         <files mask="platform_enc_bee.c"/>
       </source>
+      <source relative_path="./" type="doc">
+        <files mask="mcuboot_encrypted_xip.md"/>
+      </source>
+      <source relative_path="enc_xip_images" type="image">
+        <files mask="bee_metadata.jpg"/>
+        <files mask="bee_rom_layout.jpg"/>
+        <files mask="device_fleet_graph.jpg"/>
+        <files mask="general_metadata.jpg"/>
+        <files mask="keys_scheme.jpg"/>
+        <files mask="overwrite_only.jpg"/>
+        <files mask="overwrite_only_flow.jpg"/>
+        <files mask="three_slot.jpg"/>
+        <files mask="three_slot_flow.jpg"/>
+      </source>
       <source toolchain="armgcc" relative_path="./" type="workspace">
         <files mask="middleware_mcuboot_encrypted_xip.cmake" hidden="true"/>
       </source>
@@ -7566,7 +7605,7 @@ ${load}</script>
         <include_path relative_path="template/usdhc" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.phydcd_config_header.MIMXRT1176" name="USB device phydcd config header" brief="USB device phydcd config header" version="2.8.4" full_name="USB device phydcd config header" category="USB/USB DCD" user_visible="true" type="project_template" package_base_path="middleware/usb" project_base_path="source">
+    <component id="middleware.usb.phydcd_config_header.MIMXRT1176" name="USB device phydcd config header" brief="USB device phydcd config header" version="2.10.1" full_name="USB device phydcd config header" category="USB/USB DCD" user_visible="true" type="project_template" package_base_path="middleware/usb" project_base_path="source">
       <dependencies>
         <device_dependency value="MIMXRT1176xxxxx"/>
       </dependencies>
@@ -7580,7 +7619,7 @@ ${load}</script>
         <include_path relative_path="output/npw/dcd_config/phydcd" project_relative_path="generated" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.hsdcd_config_header.MIMXRT1176" name="USB device hsdcd config header" brief="USB device hsdcd config header" version="2.8.4" full_name="USB device hsdcd config header" category="USB/USB DCD" user_visible="true" type="project_template" package_base_path="middleware/usb" project_base_path="source">
+    <component id="middleware.usb.hsdcd_config_header.MIMXRT1176" name="USB device hsdcd config header" brief="USB device hsdcd config header" version="2.10.1" full_name="USB device hsdcd config header" category="USB/USB DCD" user_visible="true" type="project_template" package_base_path="middleware/usb" project_base_path="source">
       <dependencies>
         <device_dependency value="MIMXRT1176xxxxx"/>
       </dependencies>
@@ -7608,9 +7647,6 @@ ${load}</script>
       <source condition="middleware.usb.device.controller.driver.MIMXRT1176" relative_path="./" type="doc">
         <files mask="MCUXpresso SDK USB Stack Device Reference Manual.pdf"/>
         <files mask="MCUXpresso SDK USB Stack Composite Device User's Guide.pdf"/>
-      </source>
-      <source relative_path="./" type="doc">
-        <files mask="Enable More USB Examples on M4 Core for RT1170 or M7 Core for RT1180.pdf"/>
       </source>
     </component>
     <component id="component.power_manager_docs.MIMXRT1176" name="power_manager_docs" brief="Power Manager component documentation" version="2.0.0" full_name="Power Manager component documentation" category="Device/SDK Drivers" user_visible="true" type="documentation" package_base_path="core/components/power_manager" project_base_path="component/power_manager">
@@ -8231,7 +8267,6 @@ ${load}</script>
         <files mask="MCUXSDKEFBP_Abstraction Layer User Guide.pdf"/>
         <files mask="Hardware Rework Guide for EdgeFast BT PAL.pdf"/>
         <files mask="EFBTPALAPIRM.pdf"/>
-        <files mask="Enabling Additional Edgefast BT PAL Examples on M4 core for RT1170.pdf"/>
         <files mask="Enabling Additional Edgefast BT PAL Examples on M4 core for RT1170.pdf"/>
       </source>
     </component>
@@ -13641,7 +13676,7 @@ ${load}</script>
         <files mask="MCUXpresso SDK Azure RTOS Release Notes.pdf"/>
       </source>
     </component>
-    <component id="middleware.maestro_framework.codecs.MIMXRT1176" name="maestro_framework_codecs" brief="MCU Maestro Audio Framework Codecs" version="1.7.0" full_name="Maestro Audio Framework Middleware Codecs" category="Audio/Framework" user_visible="true" type="middleware" package_base_path="middleware/maestro" project_base_path="maestro">
+    <component id="middleware.maestro_framework.codecs.MIMXRT1176" name="maestro_framework_codecs" brief="MCU Maestro Audio Framework Codecs" version="1.8.0" full_name="Maestro Audio Framework Middleware Codecs" category="Audio/Framework" user_visible="true" type="middleware" package_base_path="middleware/maestro" project_base_path="maestro">
       <dependencies>
         <all>
           <component_dependency value="middleware.maestro_framework.MIMXRT1176"/>
@@ -13667,7 +13702,7 @@ ${load}</script>
         <files mask="middleware_maestro_framework_codecs.cmake" hidden="true"/>
       </source>
     </component>
-    <component id="middleware.maestro_framework.MIMXRT1176" name="maestro_framework_streamer_core" brief="MCU Maestro Audio Framework Streamer Core" version="1.7.0" full_name="Maestro Audio Framework Streamer Core" category="Audio/Framework" user_visible="true" type="middleware" package_base_path="middleware/maestro" project_base_path="maestro">
+    <component id="middleware.maestro_framework.MIMXRT1176" name="maestro_framework_streamer_core" brief="MCU Maestro Audio Framework Streamer Core" version="1.8.0" full_name="Maestro Audio Framework Streamer Core" category="Audio/Framework" user_visible="true" type="middleware" package_base_path="middleware/maestro" project_base_path="maestro">
       <defines>
         <define name="CASCFG_PLATFORM_FREERTOS" value=""/>
         <define name="FSL_OS_SELECTED" value="SDK_OS_FREERTOS"/>
@@ -14162,7 +14197,7 @@ ${load}</script>
         <include_path relative_path="src" type="c_include"/>
       </include_paths>
     </component>
-    <component id="docs.maestro.MIMXRT1176" name="maestro_rn" brief="Maestro SDK Release Notes" version="1.7.0" full_name="Maestro SDK Release Notes" category="docs/maestro" user_visible="true" type="documentation" package_base_path="middleware/maestro/docs" project_base_path="maestro">
+    <component id="docs.maestro.MIMXRT1176" name="maestro_rn" brief="Maestro SDK Release Notes" version="1.8.0" full_name="Maestro SDK Release Notes" category="docs/maestro" user_visible="true" type="documentation" package_base_path="middleware/maestro/docs" project_base_path="maestro">
       <dependencies>
         <all>
           <component_dependency value="middleware.maestro_framework.MIMXRT1176"/>
@@ -15048,8 +15083,6 @@ ${load}</script>
         <device_dependency value="MIMXRT1176xxxxx"/>
       </dependencies>
       <source relative_path="./" type="doc">
-        <files mask="Getting Started with MCUXpresso SDK for MIMXRT1170-EVK.pdf"/>
-        <files mask="MCUXpresso SDK Release Notes for MIMXRT1170-EVK.pdf"/>
         <files mask="Getting Started with MCUXpresso SDK for MIMXRT1170-EVKB.pdf"/>
         <files mask="MCUXpresso SDK Release Notes for MIMXRT1170-EVKB.pdf"/>
         <files mask="Getting Started Guide for using MCUXpresso SDK online.pdf"/>
@@ -17009,6 +17042,7 @@ ${load}</script>
           <component_dependency value="middleware.freertos-kernel.MIMXRT1176"/>
           <component_dependency value="utility.debug_console.MIMXRT1176"/>
           <component_dependency value="component.osa_free_rtos.MIMXRT1176"/>
+          <component_dependency value="middleware.wifi.cli.MIMXRT1176"/>
           <component_dependency value="middleware.wifi.MIMXRT1176"/>
           <component_dependency value="middleware.lwip.MIMXRT1176"/>
           <component_dependency value="middleware.mbedtls.MIMXRT1176"/>
@@ -17019,13 +17053,16 @@ ${load}</script>
         <files mask="wpa_supp_mbedtls_config.h"/>
         <files mask="wpa_supp_els_pkc_mbedtls_config.h"/>
         <files mask="wpa_supp_ele_s400_mbedtls_config.h"/>
+        <files mask="supp_crypto.h"/>
+      </source>
+      <source relative_path="port/mbedtls" type="src">
+        <files mask="supp_crypto.c"/>
       </source>
       <source relative_path="src/common" type="src">
         <files mask="wpa_common.c"/>
         <files mask="ieee802_11_common.c"/>
         <files mask="hw_features_common.c"/>
         <files mask="wpa_ctrl.c"/>
-        <files mask="cli.c"/>
         <files mask="sae.c"/>
         <files mask="dragonfly.c"/>
         <files mask="gas.c"/>
@@ -17400,7 +17437,6 @@ ${load}</script>
       </source>
       <source relative_path="src/common" type="c_include">
         <files mask="brcm_vendor.h"/>
-        <files mask="cli.h"/>
         <files mask="ctrl_iface_common.h"/>
         <files mask="defs.h"/>
         <files mask="dhcp.h"/>
@@ -18089,6 +18125,32 @@ ${load}</script>
       <dependencies>
         <all>
           <any_of>
+            <all>
+              <not>
+                <component_dependency value="middleware.lwip.sys_arch_static.MIMXRT1176"/>
+              </not>
+              <component_dependency value="middleware.lwip.sys_arch_dynamic.MIMXRT1176"/>
+            </all>
+            <all>
+              <not>
+                <component_dependency value="middleware.lwip.sys_arch_dynamic.MIMXRT1176"/>
+              </not>
+              <not>
+                <component_dependency value="middleware.lwip.usb_ethernetif.MIMXRT1176"/>
+              </not>
+              <not>
+                <component_dependency value="middleware.lwip.enet_ethernetif.MIMXRT1176"/>
+              </not>
+              <not>
+                <component_dependency value="middleware.lwip.kinetis_ethernetif.MIMXRT1176"/>
+              </not>
+              <not>
+                <component_dependency value="middleware.lwip.eoe_ethernetif.MIMXRT1176"/>
+              </not>
+              <component_dependency value="middleware.lwip.sys_arch_static.MIMXRT1176"/>
+            </all>
+          </any_of>
+          <any_of>
             <component_dependency value="middleware.lwip.usb_ethernetif.MIMXRT1176"/>
             <component_dependency value="middleware.lwip.enet_ethernetif.MIMXRT1176"/>
             <component_dependency value="middleware.lwip.kinetis_ethernetif.MIMXRT1176"/>
@@ -18132,13 +18194,9 @@ ${load}</script>
       <source relative_path="doc/doxygen/output" type="doc">
         <files mask="index.html" hidden="true"/>
       </source>
-      <source relative_path="port" type="src">
-        <files mask="sys_arch.c"/>
-      </source>
       <source relative_path="port/arch" type="c_include">
         <files mask="cc.h"/>
         <files mask="perf.h"/>
-        <files mask="sys_arch.h"/>
       </source>
       <source relative_path="src" type="doc">
         <files mask="FILES" hidden="true"/>
@@ -18409,14 +18467,68 @@ ${load}</script>
         <include_path relative_path="src/include" type="c_include"/>
       </include_paths>
     </component>
+    <component id="middleware.lwip.sys_arch_dynamic.MIMXRT1176" name="Sys Arch Dynamic interface" brief="lwIP System Abstraction Layer using either FreeRTOS dynamic memory allocation APIs or bare-metal" version="2.2.1" revision="1" full_name="Sys Arch Dynamic interface" category="Network/lwIP TCPIP Networking Stack" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.lwip.MIMXRT1176"/>
+          <component_dependency value="middleware.lwip.template.MIMXRT1176"/>
+          <device_dependency value="MIMXRT1176xxxxx"/>
+        </all>
+      </dependencies>
+      <source relative_path="port/sys_arch/dynamic" type="src">
+        <files mask="sys_arch.c"/>
+      </source>
+      <source relative_path="port/sys_arch/dynamic/arch" type="c_include">
+        <files mask="sys_arch.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="./" type="workspace">
+        <files mask="middleware_lwip_sys_arch_dynamic.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="port" type="c_include"/>
+        <include_path relative_path="port/sys_arch/dynamic" type="c_include"/>
+      </include_paths>
+    </component>
+    <component id="middleware.lwip.sys_arch_static.MIMXRT1176" name="Sys Arch Static interface" brief="Experimental lwIP System Abstraction Layer using FreeRTOS static memory allocation APIs - it is not supported and not guaranteed to work, also might be removed in future" version="2.2.1" revision="1" full_name="Sys Arch Static interface - experimental" category="Network/lwIP TCPIP Networking Stack" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
+      <dependencies>
+        <all>
+          <component_dependency value="middleware.lwip.MIMXRT1176"/>
+          <component_dependency value="middleware.lwip.template.MIMXRT1176"/>
+          <device_dependency value="MIMXRT1176xxxxx"/>
+        </all>
+      </dependencies>
+      <source relative_path="port/sys_arch/static" type="src">
+        <files mask="sys_arch.c"/>
+      </source>
+      <source relative_path="port/sys_arch/static/arch" type="c_include">
+        <files mask="sys_arch.h"/>
+      </source>
+      <source toolchain="armgcc" relative_path="./" type="workspace">
+        <files mask="middleware_lwip_sys_arch_static.cmake" hidden="true"/>
+      </source>
+      <include_paths>
+        <include_path relative_path="port" type="c_include"/>
+        <include_path relative_path="port/sys_arch/static" type="c_include"/>
+      </include_paths>
+    </component>
     <component id="middleware.lwip.enet_ethernetif.MIMXRT1176" name="Enet ethernet interface" brief="Enet ethernet interface" version="2.2.1" revision="1" full_name="Enet ethernet interface" category="Network/lwIP TCPIP Networking Stack" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
       <defines>
         <define name="LWIP_DISABLE_PBUF_POOL_SIZE_SANITY_CHECKS" value="1"/>
+        <define name="CHECKSUM_GEN_UDP" value="1"/>
+        <define name="CHECKSUM_GEN_TCP" value="1"/>
+        <define name="CHECKSUM_GEN_ICMP" value="1"/>
+        <define name="CHECKSUM_GEN_ICMP6" value="1"/>
+        <define name="CHECKSUM_CHECK_IP" value="1"/>
+        <define name="CHECKSUM_CHECK_UDP" value="1"/>
+        <define name="CHECKSUM_CHECK_TCP" value="1"/>
+        <define name="CHECKSUM_CHECK_ICMP" value="1"/>
+        <define name="CHECKSUM_CHECK_ICMP6" value="1"/>
       </defines>
       <dependencies>
         <all>
           <component_dependency value="middleware.lwip.MIMXRT1176"/>
           <component_dependency value="middleware.lwip.template.MIMXRT1176"/>
+          <component_dependency value="middleware.lwip.sys_arch_dynamic.MIMXRT1176"/>
           <component_dependency value="driver.phy-common.MIMXRT1176"/>
           <component_dependency value="component.igpio_adapter.MIMXRT1176"/>
           <component_dependency value="platform.drivers.enet_qos.MIMXRT1176"/>
@@ -18437,6 +18549,9 @@ ${load}</script>
       <source condition="platform.drivers.enet_qos.MIMXRT1176" relative_path="port" type="src">
         <files mask="enet_ethernetif_qos.c"/>
       </source>
+      <source relative_path="port" type="doc">
+        <files mask="README.md" hidden="true"/>
+      </source>
       <source toolchain="armgcc" relative_path="./" type="workspace">
         <files mask="middleware_lwip_enet_ethernetif.cmake" hidden="true"/>
       </source>
@@ -18447,13 +18562,20 @@ ${load}</script>
     <component id="middleware.lwip.kinetis_ethernetif.MIMXRT1176" name="Kinetis enet ethernet interface" brief="Kinetis ethernet interface" version="2.2.1" revision="1" full_name="Kinetis ethernet interface" category="Network/lwIP TCPIP Networking Stack" user_visible="true" type="middleware" package_base_path="middleware/lwip" project_base_path="lwip">
       <defines>
         <define name="LWIP_DISABLE_PBUF_POOL_SIZE_SANITY_CHECKS" value="1"/>
+        <define name="CHECKSUM_GEN_UDP" value="1"/>
+        <define name="CHECKSUM_GEN_TCP" value="1"/>
+        <define name="CHECKSUM_GEN_ICMP" value="1"/>
         <define name="CHECKSUM_GEN_ICMP6" value="1"/>
+        <define name="CHECKSUM_CHECK_UDP" value="1"/>
+        <define name="CHECKSUM_CHECK_TCP" value="1"/>
+        <define name="CHECKSUM_CHECK_ICMP" value="1"/>
         <define name="CHECKSUM_CHECK_ICMP6" value="1"/>
       </defines>
       <dependencies>
         <all>
           <component_dependency value="middleware.lwip.MIMXRT1176"/>
           <component_dependency value="middleware.lwip.template.MIMXRT1176"/>
+          <component_dependency value="middleware.lwip.sys_arch_dynamic.MIMXRT1176"/>
           <component_dependency value="driver.phy-common.MIMXRT1176"/>
           <component_dependency value="platform.drivers.enet.MIMXRT1176"/>
           <component_dependency value="component.igpio_adapter.MIMXRT1176"/>
@@ -18471,6 +18593,9 @@ ${load}</script>
         <files mask="ethernetif_mmac.h"/>
         <files mask="ethernetif_priv.h"/>
         <files mask="kinetis_configchecks.h"/>
+      </source>
+      <source relative_path="port" type="doc">
+        <files mask="README.md" hidden="true"/>
       </source>
       <source toolchain="armgcc" relative_path="./" type="workspace">
         <files mask="middleware_lwip_kinetis_ethernetif.cmake" hidden="true"/>
@@ -18491,6 +18616,7 @@ ${load}</script>
         <all>
           <component_dependency value="middleware.lwip.MIMXRT1176"/>
           <component_dependency value="middleware.lwip.template.MIMXRT1176"/>
+          <component_dependency value="middleware.lwip.sys_arch_dynamic.MIMXRT1176"/>
           <component_dependency value="middleware.freertos-kernel.MIMXRT1176"/>
           <device_dependency value="MIMXRT1176xxxxx"/>
         </all>
@@ -18516,6 +18642,7 @@ ${load}</script>
             <component_dependency value="middleware.usb.host_cdc_rndis.MIMXRT1176"/>
           </any_of>
           <component_dependency value="middleware.lwip.MIMXRT1176"/>
+          <component_dependency value="middleware.lwip.sys_arch_dynamic.MIMXRT1176"/>
           <component_dependency value="middleware.usb.host_cdc.MIMXRT1176"/>
           <component_dependency value="middleware.usb.host_controller_ehci.MIMXRT1176"/>
           <device_dependency value="MIMXRT1176xxxxx"/>
@@ -19015,7 +19142,6 @@ ${load}</script>
     <component id="middleware.multicore.erpc.common.MIMXRT1176" name="eRPC_common" brief="eRPC" version="1.13.0" full_name="Embedded Remote Procedure Call" category="Multicore/Remote Procedure Call" user_visible="true" type="middleware" package_base_path="middleware/multicore" project_base_path="erpc">
       <dependencies>
         <any_of>
-          <board_dependency value="evkmimxrt1170"/>
           <board_dependency value="evkbmimxrt1170"/>
           <device_dependency value="MIMXRT1176xxxxx"/>
         </any_of>
@@ -20210,7 +20336,6 @@ ${load}</script>
     <component id="middleware.multicore.erpc.MIMXRT1176" name="eRPC" brief="eRPC" version="1.13.0" full_name="Embedded Remote Procedure Call" category="Multicore/Remote Procedure Call" user_visible="true" type="middleware" package_base_path="middleware/multicore" project_base_path="erpc">
       <dependencies>
         <any_of>
-          <board_dependency value="evkmimxrt1170"/>
           <board_dependency value="evkbmimxrt1170"/>
           <device_dependency value="MIMXRT1176xxxxx"/>
         </any_of>
@@ -22356,7 +22481,6 @@ ${load}</script>
       </defines>
       <dependencies>
         <any_of>
-          <board_dependency value="evkmimxrt1170"/>
           <board_dependency value="evkbmimxrt1170"/>
           <device_dependency value="MIMXRT1176xxxxx"/>
         </any_of>
@@ -22462,12 +22586,9 @@ ${load}</script>
     <component id="middleware.multicore.mcmgr.imxrt1170.MIMXRT1176" name="mcmgr_imxrt1170" brief="Multicore Manager for evkmimxrt1170 board" version="4.1.5" full_name="Multicore Manager for evkmimxrt1170 board" category="Multicore/Core Management" user_visible="true" type="middleware" package_base_path="middleware/multicore" project_base_path="mcmgr">
       <dependencies>
         <all>
-          <any_of>
-            <board_dependency value="evkmimxrt1170"/>
-            <board_dependency value="evkbmimxrt1170"/>
-          </any_of>
           <component_dependency value="middleware.multicore.mcmgr.MIMXRT1176"/>
           <component_dependency value="platform.drivers.mu.MIMXRT1176"/>
+          <board_dependency value="evkbmimxrt1170"/>
           <device_dependency value="MIMXRT1176xxxxx"/>
         </all>
       </dependencies>
@@ -22482,10 +22603,7 @@ ${load}</script>
     <component id="middleware.multicore.rpmsg_lite.imxrt1170_bm.MIMXRT1176" name="rpmsg_lite_imxrt1170_bm" brief="RPMsg-Lite for evkmimxrt1170 baremetal application" version="5.1.2" full_name="Remote Procedure Messaging Lite porting layer for evkmimxrt1170 board" category="Multicore/Inter-Core Messaging System" user_visible="false" type="middleware" package_base_path="middleware/multicore" project_base_path="rpmsg_lite">
       <dependencies>
         <all>
-          <any_of>
-            <board_dependency value="evkmimxrt1170"/>
-            <board_dependency value="evkbmimxrt1170"/>
-          </any_of>
+          <board_dependency value="evkbmimxrt1170"/>
           <device_dependency value="MIMXRT1176xxxxx"/>
         </all>
       </dependencies>
@@ -22505,12 +22623,9 @@ ${load}</script>
     <component id="middleware.multicore.rpmsg_lite.imxrt1170_freertos.MIMXRT1176" name="rpmsg_lite_imxrt1170_freertos" brief="RPMsg-Lite for evkmimxrt1170 FreeRTOS application" version="5.1.2" full_name="Remote Procedure Messaging Lite porting layer for evkmimxrt1170 board" category="Multicore/Inter-Core Messaging System" user_visible="false" type="middleware" package_base_path="middleware/multicore" project_base_path="rpmsg_lite">
       <dependencies>
         <all>
-          <any_of>
-            <board_dependency value="evkmimxrt1170"/>
-            <board_dependency value="evkbmimxrt1170"/>
-          </any_of>
           <component_dependency value="middleware.freertos-kernel.MIMXRT1176"/>
           <component_dependency value="middleware.freertos-kernel.heap_4.MIMXRT1176"/>
+          <board_dependency value="evkbmimxrt1170"/>
           <device_dependency value="MIMXRT1176xxxxx"/>
         </all>
       </dependencies>
@@ -22530,14 +22645,11 @@ ${load}</script>
     <component id="middleware.multicore.rpmsg_lite.bm.config.imxrt1170.MIMXRT1176" name="rpmsg_lite_bm_imxrt1170" brief="RPMsg-Lite baremetal for evkmimxrt1170 board" version="5.1.2" full_name="Remote Procedure Messaging Lite BM for evkmimxrt1170 board" category="Multicore/Inter-Core Messaging System" user_visible="true" type="middleware" package_base_path="middleware/multicore" project_base_path="source">
       <dependencies>
         <all>
-          <any_of>
-            <board_dependency value="evkmimxrt1170"/>
-            <board_dependency value="evkbmimxrt1170"/>
-          </any_of>
           <component_dependency value="middleware.multicore.rpmsg_lite.MIMXRT1176"/>
           <component_dependency value="middleware.multicore.rpmsg_lite.bm.MIMXRT1176"/>
           <component_dependency value="middleware.multicore.mcmgr.imxrt1170.MIMXRT1176"/>
           <component_dependency value="middleware.multicore.rpmsg_lite.imxrt1170_bm.MIMXRT1176"/>
+          <board_dependency value="evkbmimxrt1170"/>
           <device_dependency value="MIMXRT1176xxxxx"/>
         </all>
       </dependencies>
@@ -22554,14 +22666,11 @@ ${load}</script>
     <component id="middleware.multicore.rpmsg_lite.freertos.config.imxrt1170.MIMXRT1176" name="rpmsg_lite_freertos_imxrt1170" brief="RPMsg-Lite FreeRTOS for evkmimxrt1170 board" version="5.1.2" full_name="Remote Procedure Messaging Lite FreeRTOS for evkmimxrt1170 board" category="Multicore/Inter-Core Messaging System" user_visible="true" type="middleware" package_base_path="middleware/multicore" project_base_path="source">
       <dependencies>
         <all>
-          <any_of>
-            <board_dependency value="evkmimxrt1170"/>
-            <board_dependency value="evkbmimxrt1170"/>
-          </any_of>
           <component_dependency value="middleware.multicore.rpmsg_lite.MIMXRT1176"/>
           <component_dependency value="middleware.multicore.rpmsg_lite.freertos.MIMXRT1176"/>
           <component_dependency value="middleware.multicore.mcmgr.imxrt1170.MIMXRT1176"/>
           <component_dependency value="middleware.multicore.rpmsg_lite.imxrt1170_freertos.MIMXRT1176"/>
+          <board_dependency value="evkbmimxrt1170"/>
           <device_dependency value="MIMXRT1176xxxxx"/>
         </all>
       </dependencies>
@@ -22671,7 +22780,6 @@ ${load}</script>
       <dependencies>
         <all>
           <any_of>
-            <board_dependency value="evkmimxrt1170"/>
             <board_dependency value="evkbmimxrt1170"/>
             <device_dependency value="MIMXRT1176xxxxx"/>
           </any_of>
@@ -23444,7 +23552,7 @@ ${load}</script>
         <include_path relative_path="host/usdhc" project_relative_path="host" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.ehci_config_header.MIMXRT1176" name="USB device ehci config header" brief="USB device ehci config header" version="2.10.0" full_name="USB device ehci config header" category="USB/USB Device" user_visible="true" type="project_template" package_base_path="middleware/usb" project_base_path="source">
+    <component id="middleware.usb.device.ehci_config_header.MIMXRT1176" name="USB device ehci config header" brief="USB device ehci config header" version="2.10.1" full_name="USB device ehci config header" category="USB/USB Device" user_visible="true" type="project_template" package_base_path="middleware/usb" project_base_path="source">
       <dependencies>
         <device_dependency value="MIMXRT1176xxxxx"/>
       </dependencies>
@@ -23458,7 +23566,7 @@ ${load}</script>
         <include_path relative_path="output/npw/device_config/ehci" project_relative_path="generated" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.common_header.MIMXRT1176" name="USB Common Header" brief="Middleware usb common_header" version="2.10.0" full_name="USB Common Header" category="USB/USB Common Header" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.common_header.MIMXRT1176" name="USB Common Header" brief="Middleware usb common_header" version="2.10.1" full_name="USB Common Header" category="USB/USB Common Header" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="component.osa.MIMXRT1176"/>
@@ -23477,7 +23585,7 @@ ${load}</script>
         <include_path relative_path="include" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.common_header.MIMXRT1176" name="USB Device Common Header" brief="Middleware usb device common_header" version="2.10.0" full_name="USB Device Common Header" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.common_header.MIMXRT1176" name="USB Device Common Header" brief="Middleware usb device common_header" version="2.10.1" full_name="USB Device Common Header" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="component.osa.MIMXRT1176"/>
@@ -23499,7 +23607,7 @@ ${load}</script>
         <include_path relative_path="device" project_relative_path="device/source" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device_controller_ehci.MIMXRT1176" name="USB Device EHCI Controller Driver(HS)" brief="Middleware usb device ehci" version="2.10.0" full_name="USB Device EHCI Controller Driver(HS)" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device_controller_ehci.MIMXRT1176" name="USB Device EHCI Controller Driver(HS)" brief="Middleware usb device ehci" version="2.10.1" full_name="USB Device EHCI Controller Driver(HS)" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.ehci_config_header.MIMXRT1176"/>
@@ -23522,7 +23630,7 @@ ${load}</script>
         <include_path relative_path="include" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.phy.MIMXRT1176" name="USB PHY" brief="Middleware usb phy" version="2.10.0" full_name="USB PHY" category="USB/USB PHY" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.phy.MIMXRT1176" name="USB PHY" brief="Middleware usb phy" version="2.10.1" full_name="USB PHY" category="USB/USB PHY" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.common_header.MIMXRT1176"/>
@@ -23543,7 +23651,7 @@ ${load}</script>
         <include_path relative_path="phy" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.stack.external.MIMXRT1176" name="USB Device Stack" brief="Middleware usb device stack external" version="2.10.0" full_name="USB Device Stack" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.stack.external.MIMXRT1176" name="USB Device Stack" brief="Middleware usb device stack external" version="2.10.1" full_name="USB Device Stack" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="component.osa.MIMXRT1176"/>
@@ -23573,7 +23681,7 @@ ${load}</script>
         <include_path relative_path="output/source/device" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.audio.external.MIMXRT1176" name="USB Device Audio" brief="Middleware usb device audio external" version="2.10.0" full_name="USB Device Audio" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.audio.external.MIMXRT1176" name="USB Device Audio" brief="Middleware usb device audio external" version="2.10.1" full_name="USB Device Audio" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.MIMXRT1176"/>
@@ -23594,7 +23702,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.cdc.external.MIMXRT1176" name="USB Device CDC" brief="Middleware usb device cdc external" version="2.10.0" full_name="USB Device CDC" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.cdc.external.MIMXRT1176" name="USB Device CDC" brief="Middleware usb device cdc external" version="2.10.1" full_name="USB Device CDC" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.MIMXRT1176"/>
@@ -23615,7 +23723,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.cdc.rndis.external.MIMXRT1176" name="USB Device CDC RNDIS" brief="Middleware usb device cdc rndis external" version="2.10.0" full_name="USB Device CDC RNDIS" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.cdc.rndis.external.MIMXRT1176" name="USB Device CDC RNDIS" brief="Middleware usb device cdc rndis external" version="2.10.1" full_name="USB Device CDC RNDIS" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.MIMXRT1176"/>
@@ -23637,7 +23745,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.hid.external.MIMXRT1176" name="USB Device HID" brief="Middleware usb device hid external" version="2.10.0" full_name="USB Device HID" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.hid.external.MIMXRT1176" name="USB Device HID" brief="Middleware usb device hid external" version="2.10.1" full_name="USB Device HID" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.MIMXRT1176"/>
@@ -23658,7 +23766,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.dfu.external.MIMXRT1176" name="USB Device DFU" brief="Middleware usb device dfu external" version="2.10.0" full_name="USB Device DFU" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.dfu.external.MIMXRT1176" name="USB Device DFU" brief="Middleware usb device dfu external" version="2.10.1" full_name="USB Device DFU" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.MIMXRT1176"/>
@@ -23679,7 +23787,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.msd.external.MIMXRT1176" name="USB Device MSD" brief="Middleware usb device msd external" version="2.10.0" full_name="USB Device MSD" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.msd.external.MIMXRT1176" name="USB Device MSD" brief="Middleware usb device msd external" version="2.10.1" full_name="USB Device MSD" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.MIMXRT1176"/>
@@ -23702,7 +23810,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.phdc.external.MIMXRT1176" name="USB Device PHDC" brief="Middleware usb device phdc external" version="2.10.0" full_name="USB Device PHDC" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.phdc.external.MIMXRT1176" name="USB Device PHDC" brief="Middleware usb device phdc external" version="2.10.1" full_name="USB Device PHDC" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.MIMXRT1176"/>
@@ -23723,7 +23831,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.video.external.MIMXRT1176" name="USB Device Video" brief="Middleware usb device video external" version="2.10.0" full_name="USB Device Video" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.video.external.MIMXRT1176" name="USB Device Video" brief="Middleware usb device video external" version="2.10.1" full_name="USB Device Video" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.MIMXRT1176"/>
@@ -23744,7 +23852,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.ccid.external.MIMXRT1176" name="USB Device CCID" brief="Middleware usb device ccid external" version="2.10.0" full_name="USB Device CCID" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.ccid.external.MIMXRT1176" name="USB Device CCID" brief="Middleware usb device ccid external" version="2.10.1" full_name="USB Device CCID" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.MIMXRT1176"/>
@@ -23765,7 +23873,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.printer.external.MIMXRT1176" name="USB Device Printer" brief="Middleware usb device printer external" version="2.10.0" full_name="USB Device Printer" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.printer.external.MIMXRT1176" name="USB Device Printer" brief="Middleware usb device printer external" version="2.10.1" full_name="USB Device Printer" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.device.stack.external.MIMXRT1176"/>
@@ -23786,7 +23894,7 @@ ${load}</script>
         <include_path relative_path="output/source/device/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.hsdcd.MIMXRT1176" name="USB HSDCD" brief="Middleware usb HSDCD (Select manually if needed)" version="2.8.4" full_name="USB HSDCD" category="USB/USB DCD" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.hsdcd.MIMXRT1176" name="USB HSDCD" brief="Middleware usb HSDCD (Select manually if needed)" version="2.10.1" full_name="USB HSDCD" category="USB/USB DCD" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.hsdcd_config_header.MIMXRT1176"/>
@@ -23807,7 +23915,7 @@ ${load}</script>
         <include_path relative_path="dcd" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.device.controller.driver.MIMXRT1176" name="USB Device Common Controller" brief="Middleware usb device controller driver" version="2.10.0" full_name="USB Device Common Controller" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.device.controller.driver.MIMXRT1176" name="USB Device Common Controller" brief="Middleware usb device controller driver" version="2.10.1" full_name="USB Device Common Controller" category="USB/USB Device" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="component.osa.MIMXRT1176"/>
@@ -23827,6 +23935,9 @@ ${load}</script>
       <source exclude="true" relative_path="./" type="doc">
         <files mask="ChangeLogKSDK.txt" hidden="true"/>
       </source>
+      <source exclude="true" relative_path="device" type="c_include">
+        <files mask="usb_device_mcux_drv_port.h" hidden="true"/>
+      </source>
       <source toolchain="armgcc" relative_path="./" type="workspace">
         <files mask="middleware_usb_device_controller_driver.cmake" hidden="true"/>
       </source>
@@ -23835,7 +23946,7 @@ ${load}</script>
         <include_path relative_path="device" project_relative_path="device/source" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host_controller_ehci.MIMXRT1176" name="USB Host EHCI Controller Driver(HS)" brief="Middleware usb host ehci" version="2.10.0" full_name="USB Host EHCI Controller Driver(HS)" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host_controller_ehci.MIMXRT1176" name="USB Host EHCI Controller Driver(HS)" brief="Middleware usb host ehci" version="2.10.1" full_name="USB Host EHCI Controller Driver(HS)" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.host.ehci_config_header.MIMXRT1176"/>
@@ -23858,7 +23969,7 @@ ${load}</script>
         <include_path relative_path="include" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host_audio.MIMXRT1176" name="USB Host Audio" brief="Middleware usb host audio" version="2.10.0" full_name="USB Host Audio" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host_audio.MIMXRT1176" name="USB Host Audio" brief="Middleware usb host audio" version="2.10.1" full_name="USB Host Audio" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.host.stack.MIMXRT1176"/>
@@ -23878,7 +23989,7 @@ ${load}</script>
         <include_path relative_path="host/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host_cdc.MIMXRT1176" name="USB Host CDC" brief="Middleware usb host cdc" version="2.10.0" full_name="USB Host CDC" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host_cdc.MIMXRT1176" name="USB Host CDC" brief="Middleware usb host cdc" version="2.10.1" full_name="USB Host CDC" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.host.stack.MIMXRT1176"/>
@@ -23898,7 +24009,7 @@ ${load}</script>
         <include_path relative_path="host/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host_cdc_ecm.MIMXRT1176" name="USB Host CDC ECM" brief="Middleware usb host cdc_ecm" version="2.9.1" full_name="USB Host CDC ECM" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host_cdc_ecm.MIMXRT1176" name="USB Host CDC ECM" brief="Middleware usb host cdc_ecm" version="2.10.1" full_name="USB Host CDC ECM" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.host.stack.MIMXRT1176"/>
@@ -23919,7 +24030,7 @@ ${load}</script>
         <include_path relative_path="host/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host_cdc_rndis.MIMXRT1176" name="USB Host CDC RNDIS" brief="Middleware usb host cdc_rndis" version="2.10.0" full_name="USB Host CDC RNDIS" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host_cdc_rndis.MIMXRT1176" name="USB Host CDC RNDIS" brief="Middleware usb host cdc_rndis" version="2.10.1" full_name="USB Host CDC RNDIS" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.host.stack.MIMXRT1176"/>
@@ -23940,7 +24051,7 @@ ${load}</script>
         <include_path relative_path="host/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host_hid.MIMXRT1176" name="USB Host HID" brief="Middleware usb host hid" version="2.10.0" full_name="USB Host HID" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host_hid.MIMXRT1176" name="USB Host HID" brief="Middleware usb host hid" version="2.10.1" full_name="USB Host HID" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.host.stack.MIMXRT1176"/>
@@ -23960,7 +24071,7 @@ ${load}</script>
         <include_path relative_path="host/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host_msd.MIMXRT1176" name="USB Host MSD" brief="Middleware usb host msd" version="2.10.0" full_name="USB Host MSD" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host_msd.MIMXRT1176" name="USB Host MSD" brief="Middleware usb host msd" version="2.10.1" full_name="USB Host MSD" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.host.stack.MIMXRT1176"/>
@@ -23981,7 +24092,7 @@ ${load}</script>
         <include_path relative_path="host/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host_video.MIMXRT1176" name="USB Host Video" brief="Middleware usb host video" version="2.10.0" full_name="USB Host Video" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host_video.MIMXRT1176" name="USB Host Video" brief="Middleware usb host video" version="2.10.1" full_name="USB Host Video" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.host.stack.MIMXRT1176"/>
@@ -24001,7 +24112,7 @@ ${load}</script>
         <include_path relative_path="host/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host_phdc.MIMXRT1176" name="USB Host PHDC" brief="Middleware usb host phdc" version="2.10.0" full_name="USB Host PHDC" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host_phdc.MIMXRT1176" name="USB Host PHDC" brief="Middleware usb host phdc" version="2.10.1" full_name="USB Host PHDC" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.host.stack.MIMXRT1176"/>
@@ -24021,7 +24132,7 @@ ${load}</script>
         <include_path relative_path="host/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host_printer.MIMXRT1176" name="USB Host Printer" brief="Middleware usb host printer" version="2.10.0" full_name="USB Host Printer" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host_printer.MIMXRT1176" name="USB Host Printer" brief="Middleware usb host printer" version="2.10.1" full_name="USB Host Printer" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="middleware.usb.host.stack.MIMXRT1176"/>
@@ -24041,7 +24152,7 @@ ${load}</script>
         <include_path relative_path="host/class" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host.common_header.MIMXRT1176" name="USB Host Common Header" brief="Middleware usb host common_header" version="2.10.0" full_name="USB Host Common Header" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host.common_header.MIMXRT1176" name="USB Host Common Header" brief="Middleware usb host common_header" version="2.10.1" full_name="USB Host Common Header" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="component.osa.MIMXRT1176"/>
@@ -24062,7 +24173,7 @@ ${load}</script>
         <include_path relative_path="host" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host.ehci_config_header.MIMXRT1176" name="USB host ehci config header" brief="USB host ehci config header" version="2.10.0" full_name="USB host ehci config header" category="USB/USB Host" user_visible="true" type="project_template" package_base_path="middleware/usb" project_base_path="source">
+    <component id="middleware.usb.host.ehci_config_header.MIMXRT1176" name="USB host ehci config header" brief="USB host ehci config header" version="2.10.1" full_name="USB host ehci config header" category="USB/USB Host" user_visible="true" type="project_template" package_base_path="middleware/usb" project_base_path="source">
       <dependencies>
         <device_dependency value="MIMXRT1176xxxxx"/>
       </dependencies>
@@ -24076,7 +24187,7 @@ ${load}</script>
         <include_path relative_path="output/npw/host_config/ehci" project_relative_path="generated" type="c_include"/>
       </include_paths>
     </component>
-    <component id="middleware.usb.host.stack.MIMXRT1176" name="USB Host Stack" brief="Middleware usb host stack" version="2.10.0" full_name="USB Host Stack" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
+    <component id="middleware.usb.host.stack.MIMXRT1176" name="USB Host Stack" brief="Middleware usb host stack" version="2.10.1" full_name="USB Host Stack" category="USB/USB Host" user_visible="true" type="middleware" package_base_path="middleware/usb" project_base_path="usb">
       <dependencies>
         <all>
           <component_dependency value="component.osa.MIMXRT1176"/>
@@ -24115,10 +24226,7 @@ ${load}</script>
     <component id="middleware.vit.cm7.MIMXRT1176" name="vit" brief="Voice intelligent technology library for Cortex M7" version="4.10.0" full_name="middleware vit cm7" category="Voice/Voice Command" user_visible="true" type="middleware" package_base_path="middleware/vit" project_base_path="vit">
       <dependencies>
         <all>
-          <any_of>
-            <board_dependency value="evkmimxrt1170"/>
-            <board_dependency value="evkbmimxrt1170"/>
-          </any_of>
+          <board_dependency value="evkbmimxrt1170"/>
           <device_dependency value="MIMXRT1176xxxxx"/>
         </all>
       </dependencies>
@@ -24166,11 +24274,8 @@ ${load}</script>
     <component id="middleware.voice_seeker.cm7.MIMXRT1176" name="voice_seeker" brief="Voice seeker library for Cortex M7" version="0.6.9" full_name="middleware voice_seeker cm7" category="Voice/Voice Control AFE" user_visible="true" type="middleware" package_base_path="middleware/voice_seeker/ARM_CortexM7" project_base_path="voice_seeker">
       <dependencies>
         <all>
-          <any_of>
-            <board_dependency value="evkmimxrt1170"/>
-            <board_dependency value="evkbmimxrt1170"/>
-          </any_of>
           <component_dependency value="middleware.voice_seeker.rdsp_utilities_public.cm7.MIMXRT1176"/>
+          <board_dependency value="evkbmimxrt1170"/>
           <device_dependency value="MIMXRT1176xxxxx"/>
         </all>
       </dependencies>
@@ -24196,10 +24301,7 @@ ${load}</script>
     <component id="middleware.voice_seeker.rdsp_utilities_public.cm7.MIMXRT1176" name="voice_seeker memory utils" brief="Voice seeker memory utilities for Cortex M7" version="0.6.9" full_name="middleware voice_seeker memory utils cm7" category="Voice/Voice Control AFE" user_visible="true" type="middleware" package_base_path="middleware/voice_seeker/ARM_CortexM7/rdsp_utilities_public" project_base_path="voice_seeker/ARM_CortexM7/rdsp_utilities_public">
       <dependencies>
         <all>
-          <any_of>
-            <board_dependency value="evkmimxrt1170"/>
-            <board_dependency value="evkbmimxrt1170"/>
-          </any_of>
+          <board_dependency value="evkbmimxrt1170"/>
           <device_dependency value="MIMXRT1176xxxxx"/>
           <device_core_dependency value="cm7_MIMXRT1176xxxxx"/>
         </all>
@@ -25008,28 +25110,6 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="component.flexspi_nor_flash_adapter_rt1170.MIMXRT1176" name="flexspi_nor_flash_adapter_rt1170" brief="Component flexspi_nor_flash_adapter_rt1170" version="1.0.0" full_name="Component flexspi_nor_flash_adapter_rt1170" category="Device/SDK Drivers" user_visible="true" type="abstraction_layer" package_base_path="core/components/internal_flash" project_base_path="component/internal_flash">
-      <dependencies>
-        <all>
-          <component_dependency value="platform.drivers.common.MIMXRT1176"/>
-          <component_dependency value="platform.drivers.flexspi.MIMXRT1176"/>
-          <board_dependency value="evkmimxrt1170"/>
-          <device_dependency value="MIMXRT1176xxxxx"/>
-        </all>
-      </dependencies>
-      <source relative_path="mimxrt1170" type="src">
-        <files mask="fsl_adapter_flexspi_nor_flash.c"/>
-      </source>
-      <source relative_path="./" type="c_include">
-        <files mask="fsl_adapter_flash.h"/>
-      </source>
-      <source toolchain="armgcc" relative_path="./" type="workspace">
-        <files mask="component_flexspi_nor_flash_adapter_rt1170.MIMXRT1176.cmake" hidden="true"/>
-      </source>
-      <include_paths>
-        <include_path relative_path="./" type="c_include"/>
-      </include_paths>
-    </component>
     <component id="component.flexspi_nor_flash_adapter_rt1170evkb.MIMXRT1176" name="flexspi_nor_flash_adapter_rt1170evkb" brief="Component flexspi_nor_flash_adapter_rt1170evkb" version="1.0.0" full_name="Component flexspi_nor_flash_adapter_rt1170evkb" category="Device/SDK Drivers" user_visible="true" type="abstraction_layer" package_base_path="core/components/internal_flash" project_base_path="component/internal_flash">
       <dependencies>
         <all>
@@ -25272,10 +25352,7 @@ ${load}</script>
     <component id="component.mflash_file.MIMXRT1176" name="mflash file" brief="mflash file" version="1.0.0" full_name="statically allocated file system for mflash" category="Device/SDK Drivers" user_visible="false" type="software_component" package_base_path="core/components/flash/mflash" project_base_path="flash/mflash">
       <dependencies>
         <all>
-          <any_of>
-            <component_dependency value="component.mflash.rt1170.MIMXRT1176"/>
-            <component_dependency value="component.mflash.mimxrt1170evkb.MIMXRT1176"/>
-          </any_of>
+          <component_dependency value="component.mflash.mimxrt1170evkb.MIMXRT1176"/>
           <device_dependency value="MIMXRT1176xxxxx"/>
         </all>
       </dependencies>
@@ -25308,35 +25385,6 @@ ${load}</script>
       <source toolchain="armgcc" relative_path="./" type="workspace">
         <files mask="component_mflash_dummy.MIMXRT1176.cmake" hidden="true"/>
       </source>
-    </component>
-    <component id="component.mflash.rt1170.MIMXRT1176" name="mflash rt1170" brief="mflash rt1170" version="1.0.0" full_name="mflash rt1170" category="Device/SDK Drivers" user_visible="true" type="software_component" package_base_path="core/components/flash/mflash/mimxrt1170" project_base_path="flash/mflash/mimxrt1170">
-      <defines>
-        <define name="MFLASH_FILE_BASEADDR" value="14221312"/>
-      </defines>
-      <dependencies>
-        <all>
-          <any_of>
-            <component_dependency value="platform.drivers.cache_armv7_m7.MIMXRT1176"/>
-            <component_dependency value="platform.drivers.cache_lmem.MIMXRT1176"/>
-          </any_of>
-          <component_dependency value="component.mflash.common.MIMXRT1176"/>
-          <component_dependency value="platform.drivers.flexspi.MIMXRT1176"/>
-          <board_dependency value="evkmimxrt1170"/>
-          <device_dependency value="MIMXRT1176xxxxx"/>
-        </all>
-      </dependencies>
-      <source relative_path="./" type="c_include">
-        <files mask="mflash_drv.h"/>
-      </source>
-      <source relative_path="./" type="src">
-        <files mask="mflash_drv.c"/>
-      </source>
-      <source toolchain="armgcc" relative_path="./" type="workspace">
-        <files mask="component_mflash_rt1170.MIMXRT1176.cmake" hidden="true"/>
-      </source>
-      <include_paths>
-        <include_path relative_path="./" type="c_include"/>
-      </include_paths>
     </component>
     <component id="component.mflash.mimxrt1170evkb.MIMXRT1176" name="mflash mimxrt1170evkb" brief="mflash mimxrt1170evkb" version="1.0.0" full_name="mflash mimxrt1170evkb" category="Device/SDK Drivers" user_visible="true" type="software_component" package_base_path="core/components/flash/mflash/mimxrt1170evkb" project_base_path="flash/mflash/mimxrt1170evkb">
       <defines>
@@ -25915,12 +25963,9 @@ ${load}</script>
     <component id="component.gpt_time_stamp_adapter.MIMXRT1176" name="gpt time stamp adapter" brief="Component gpt time stamp adapter" version="1.0.0" full_name="component gpt time stamp adapter" category="Device/SDK Drivers" user_visible="true" type="abstraction_layer" package_base_path="core/components/time_stamp" project_base_path="component/time_stamp">
       <dependencies>
         <all>
-          <any_of>
-            <board_dependency value="evkbmimxrt1170"/>
-            <board_dependency value="evkmimxrt1170"/>
-          </any_of>
           <component_dependency value="platform.drivers.common.MIMXRT1176"/>
           <component_dependency value="platform.drivers.gpt.MIMXRT1176"/>
+          <board_dependency value="evkbmimxrt1170"/>
           <device_dependency value="MIMXRT1176xxxxx"/>
         </all>
       </dependencies>
@@ -26128,7 +26173,7 @@ ${load}</script>
         <include_path relative_path="./" type="c_include"/>
       </include_paths>
     </component>
-    <component id="platform.drivers.common.MIMXRT1176" name="common" brief="COMMON Driver" version="2.4.1" full_name="COMMON Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/common" project_base_path="drivers">
+    <component id="platform.drivers.common.MIMXRT1176" name="common" brief="COMMON Driver" version="2.4.2" full_name="COMMON Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/common" project_base_path="drivers">
       <dependencies>
         <all>
           <component_dependency value="platform.drivers.clock.MIMXRT1176"/>
@@ -27145,11 +27190,8 @@ ${load}</script>
     <component id="platform.drivers.smartcard_emvsim.MIMXRT1176" name="smartcard_emvsim" brief="SMARTCARD EMVSIM Driver" version="2.3.0" full_name="SMARTCARD EMVSIM Driver" category="Device/SDK Drivers" user_visible="true" type="driver" package_base_path="core/drivers/smartcard" project_base_path="drivers">
       <dependencies>
         <all>
-          <any_of>
-            <board_dependency value="evkmimxrt1170"/>
-            <board_dependency value="evkbmimxrt1170"/>
-          </any_of>
           <component_dependency value="platform.drivers.common.MIMXRT1176"/>
+          <board_dependency value="evkbmimxrt1170"/>
           <device_dependency value="MIMXRT1176xxxxx"/>
         </all>
       </dependencies>
@@ -27173,12 +27215,9 @@ ${load}</script>
       </defines>
       <dependencies>
         <all>
-          <any_of>
-            <board_dependency value="evkmimxrt1170"/>
-            <board_dependency value="evkbmimxrt1170"/>
-          </any_of>
           <component_dependency value="platform.drivers.smartcard_emvsim.MIMXRT1176"/>
           <component_dependency value="platform.drivers.common.MIMXRT1176"/>
+          <board_dependency value="evkbmimxrt1170"/>
           <device_dependency value="MIMXRT1176xxxxx"/>
         </all>
       </dependencies>
@@ -28664,6 +28703,8 @@ ${load}</script>
         <files mask="bt_pal_keys_br.c"/>
         <files mask="bt_pal_l2cap.c"/>
         <files mask="bt_pal_l2cap_br.c"/>
+        <files mask="bt_pal_map_mce.c"/>
+        <files mask="bt_pal_map_mse.c"/>
         <files mask="bt_pal_monitor.c"/>
         <files mask="bt_pal_rfcomm.c"/>
         <files mask="bt_pal_spp.c"/>
@@ -28675,6 +28716,8 @@ ${load}</script>
         <files mask="bt_pal_uuid.c"/>
         <files mask="bt_pal_hfp_ag.c"/>
         <files mask="bt_pal_hfp_hf.c"/>
+        <files mask="bt_pal_pbap_pce.c"/>
+        <files mask="bt_pal_pbap_pse.c"/>
       </source>
       <source relative_path="source/impl/ethermind/host" project_relative_path="source/host" type="c_include">
         <files mask="bt_pal_a2dp_internal.h"/>
@@ -28701,6 +28744,7 @@ ${load}</script>
         <files mask="bt_pal_l2cap_internal.h"/>
         <files mask="bt_pal_l2cap_br_internal.h"/>
         <files mask="bt_pal_l2cap_br_interface.h"/>
+        <files mask="bt_pal_map_internal.h"/>
         <files mask="bt_pal_monitor.h"/>
         <files mask="bt_pal_rfcomm_internal.h"/>
         <files mask="bt_pal_rpa.h"/>
@@ -28709,11 +28753,15 @@ ${load}</script>
         <files mask="bt_pal_smp.h"/>
         <files mask="bt_pal_ssp.h"/>
         <files mask="bt_pal_hfp_internal.h"/>
+        <files mask="bt_pal_pbap_internal.h"/>
       </source>
       <source relative_path="source/impl/ethermind/host/a2dp_codec/sbc" project_relative_path="source/host/a2dp_codec/sbc" type="src">
         <files mask="a2dp_codec_sbc.c"/>
       </source>
       <source relative_path="include/bluetooth" type="c_include">
+        <files mask="pbap_pce.h"/>
+        <files mask="pbap_pse.h"/>
+        <files mask="pbap_types.h"/>
         <files mask="a2dp.h"/>
         <files mask="avrcp.h"/>
         <files mask="a2dp_codec_sbc.h"/>
@@ -28724,6 +28772,10 @@ ${load}</script>
         <files mask="direction.h"/>
         <files mask="buf.h"/>
         <files mask="l2cap.h"/>
+        <files mask="map_mce.h"/>
+        <files mask="map_mse.h"/>
+        <files mask="map_types.h"/>
+        <files mask="obex.h"/>
         <files mask="rfcomm.h"/>
         <files mask="spp.h"/>
         <files mask="sdp.h"/>
@@ -28894,6 +28946,8 @@ ${load}</script>
         <files mask="bt_pal_keys_br.c"/>
         <files mask="bt_pal_l2cap.c"/>
         <files mask="bt_pal_l2cap_br.c"/>
+        <files mask="bt_pal_map_mce.c"/>
+        <files mask="bt_pal_map_mse.c"/>
         <files mask="bt_pal_monitor.c"/>
         <files mask="bt_pal_rfcomm.c"/>
         <files mask="bt_pal_spp.c"/>
@@ -28905,6 +28959,8 @@ ${load}</script>
         <files mask="bt_pal_uuid.c"/>
         <files mask="bt_pal_hfp_ag.c"/>
         <files mask="bt_pal_hfp_hf.c"/>
+        <files mask="bt_pal_pbap_pce.c"/>
+        <files mask="bt_pal_pbap_pse.c"/>
       </source>
       <source relative_path="source/impl/ethermind/host" project_relative_path="source/host" type="c_include">
         <files mask="bt_pal_a2dp_internal.h"/>
@@ -28930,6 +28986,7 @@ ${load}</script>
         <files mask="bt_pal_l2cap_internal.h"/>
         <files mask="bt_pal_l2cap_br_internal.h"/>
         <files mask="bt_pal_l2cap_br_interface.h"/>
+        <files mask="bt_pal_map_internal.h"/>
         <files mask="bt_pal_monitor.h"/>
         <files mask="bt_pal_rfcomm_internal.h"/>
         <files mask="bt_pal_rpa.h"/>
@@ -28938,11 +28995,15 @@ ${load}</script>
         <files mask="bt_pal_smp.h"/>
         <files mask="bt_pal_ssp.h"/>
         <files mask="bt_pal_hfp_internal.h"/>
+        <files mask="bt_pal_pbap_internal.h"/>
       </source>
       <source relative_path="source/impl/ethermind/host/a2dp_codec/sbc" project_relative_path="source/host/a2dp_codec/sbc" type="src">
         <files mask="a2dp_codec_sbc.c"/>
       </source>
       <source relative_path="include/bluetooth" type="c_include">
+        <files mask="pbap_pce.h"/>
+        <files mask="pbap_pse.h"/>
+        <files mask="pbap_types.h"/>
         <files mask="a2dp.h"/>
         <files mask="avrcp.h"/>
         <files mask="a2dp_codec_sbc.h"/>
@@ -28953,6 +29014,10 @@ ${load}</script>
         <files mask="direction.h"/>
         <files mask="buf.h"/>
         <files mask="l2cap.h"/>
+        <files mask="map_mce.h"/>
+        <files mask="map_mse.h"/>
+        <files mask="map_types.h"/>
+        <files mask="obex.h"/>
         <files mask="rfcomm.h"/>
         <files mask="spp.h"/>
         <files mask="sdp.h"/>
@@ -29752,12 +29817,17 @@ ${load}</script>
         <files mask="shell_avrcp.c"/>
         <files mask="shell_test_mode.c"/>
         <files mask="shell_iso.c"/>
+        <files mask="shell_map.c"/>
+        <files mask="shell_pbap.c"/>
+        <files mask="shell_hfp.c"/>
+        <files mask="shell_ble_scan_filter.c"/>
       </source>
       <source relative_path="source/shell" project_relative_path="shell" type="c_include">
         <files mask="shell_bt.h"/>
         <files mask="shell_hci.h"/>
         <files mask="fsl_shell.h"/>
         <files mask="shell_test_mode.h"/>
+        <files mask="shell_ble_scan_filter.h"/>
       </source>
       <source toolchain="armgcc" relative_path="./" type="workspace">
         <files mask="middleware_edgefast_bluetooth_shell.cmake" hidden="true"/>
@@ -29858,12 +29928,14 @@ ${load}</script>
         <files mask="shell_l2cap.c"/>
         <files mask="fsl_shell.c"/>
         <files mask="shell_test_mode.c"/>
+        <files mask="shell_ble_scan_filter.c"/>
       </source>
       <source relative_path="source/shell" project_relative_path="shell" type="c_include">
         <files mask="shell_bt.h"/>
         <files mask="shell_hci.h"/>
         <files mask="fsl_shell.h"/>
         <files mask="shell_test_mode.h"/>
+        <files mask="shell_ble_scan_filter.h"/>
       </source>
       <source toolchain="armgcc" relative_path="./" type="workspace">
         <files mask="middleware_edgefast_bluetooth_shell_ble.cmake" hidden="true"/>
@@ -30296,10 +30368,7 @@ ${load}</script>
     <component id="middleware.multicore.erpc_common_multicore.MIMXRT1176" name="erpc_common_multicore" brief="erpc examples common files" version="1.0.0" full_name="erpc examples common files" category="Multicore/Remote Procedure Call" user_visible="true" type="middleware" package_base_path="middleware/multicore/" project_base_path="source">
       <dependencies>
         <all>
-          <any_of>
-            <board_dependency value="evkmimxrt1170"/>
-            <board_dependency value="evkbmimxrt1170"/>
-          </any_of>
+          <board_dependency value="evkbmimxrt1170"/>
           <device_dependency value="MIMXRT1176xxxxx"/>
         </all>
       </dependencies>
@@ -30319,10 +30388,7 @@ ${load}</script>
     <component id="middleware.multicore.erpc_common_multicore_matrix_multiply_client.MIMXRT1176" name="erpc_common_multicore_matrix_multiply_client" brief="erpc matrix_multiply_client examples common files" version="1.0.0" full_name="erpc matrix_multiply_client examples common files" category="Multicore/Remote Procedure Call" user_visible="true" type="middleware" package_base_path="middleware/multicore/" project_base_path="erpc/service">
       <dependencies>
         <all>
-          <any_of>
-            <board_dependency value="evkmimxrt1170"/>
-            <board_dependency value="evkbmimxrt1170"/>
-          </any_of>
+          <board_dependency value="evkbmimxrt1170"/>
           <device_dependency value="MIMXRT1176xxxxx"/>
         </all>
       </dependencies>
@@ -30353,10 +30419,7 @@ ${load}</script>
     <component id="middleware.multicore.erpc_common_multicore_matrix_multiply_server.MIMXRT1176" name="erpc_common_multicore_matrix_multiply_server" brief="erpc matrix_multiply_server examples common files" version="1.0.0" full_name="erpc matrix_multiply_server examples common files" category="Multicore/Remote Procedure Call" user_visible="true" type="middleware" package_base_path="middleware/multicore/" project_base_path="erpc/service">
       <dependencies>
         <all>
-          <any_of>
-            <board_dependency value="evkmimxrt1170"/>
-            <board_dependency value="evkbmimxrt1170"/>
-          </any_of>
+          <board_dependency value="evkbmimxrt1170"/>
           <device_dependency value="MIMXRT1176xxxxx"/>
         </all>
       </dependencies>
@@ -30387,10 +30450,7 @@ ${load}</script>
     <component id="middleware.multicore.erpc_common_two_way_rpc_core0.MIMXRT1176" name="erpc_common_two_way_rpc_core0" brief="erpc erpc_two_way_rpc_core0 examples common files" version="1.0.0" full_name="erpc erpc_two_way_rpc_core0 examples common files" category="Multicore/Remote Procedure Call" user_visible="true" type="middleware" package_base_path="middleware/multicore/" project_base_path="erpc/service">
       <dependencies>
         <all>
-          <any_of>
-            <board_dependency value="evkmimxrt1170"/>
-            <board_dependency value="evkbmimxrt1170"/>
-          </any_of>
+          <board_dependency value="evkbmimxrt1170"/>
           <device_dependency value="MIMXRT1176xxxxx"/>
         </all>
       </dependencies>
@@ -30429,10 +30489,7 @@ ${load}</script>
     <component id="middleware.multicore.erpc_common_two_way_rpc_core1.MIMXRT1176" name="erpc_common_two_way_rpc_core1" brief="erpc erpc_two_way_rpc_core1 examples common files" version="1.0.0" full_name="erpc erpc_two_way_rpc_core1 examples common files" category="Multicore/Remote Procedure Call" user_visible="true" type="middleware" package_base_path="middleware/multicore/" project_base_path="erpc/service">
       <dependencies>
         <all>
-          <any_of>
-            <board_dependency value="evkmimxrt1170"/>
-            <board_dependency value="evkbmimxrt1170"/>
-          </any_of>
+          <board_dependency value="evkbmimxrt1170"/>
           <device_dependency value="MIMXRT1176xxxxx"/>
         </all>
       </dependencies>
@@ -31339,6 +31396,8 @@ ${load}</script>
         <files mask="bt_pal_keys_br.c"/>
         <files mask="bt_pal_l2cap.c"/>
         <files mask="bt_pal_l2cap_br.c"/>
+        <files mask="bt_pal_map_mce.c"/>
+        <files mask="bt_pal_map_mse.c"/>
         <files mask="bt_pal_monitor.c"/>
         <files mask="bt_pal_rfcomm.c"/>
         <files mask="bt_pal_spp.c"/>
@@ -31350,6 +31409,8 @@ ${load}</script>
         <files mask="bt_pal_uuid.c"/>
         <files mask="bt_pal_hfp_ag.c"/>
         <files mask="bt_pal_hfp_hf.c"/>
+        <files mask="bt_pal_pbap_pce.c"/>
+        <files mask="bt_pal_pbap_pse.c"/>
       </source>
       <source relative_path="source/impl/ethermind/host" project_relative_path="source/host" type="c_include">
         <files mask="bt_pal_a2dp_internal.h"/>
@@ -31376,6 +31437,7 @@ ${load}</script>
         <files mask="bt_pal_l2cap_internal.h"/>
         <files mask="bt_pal_l2cap_br_internal.h"/>
         <files mask="bt_pal_l2cap_br_interface.h"/>
+        <files mask="bt_pal_map_internal.h"/>
         <files mask="bt_pal_monitor.h"/>
         <files mask="bt_pal_rfcomm_internal.h"/>
         <files mask="bt_pal_rpa.h"/>
@@ -31384,11 +31446,15 @@ ${load}</script>
         <files mask="bt_pal_smp.h"/>
         <files mask="bt_pal_ssp.h"/>
         <files mask="bt_pal_hfp_internal.h"/>
+        <files mask="bt_pal_pbap_internal.h"/>
       </source>
       <source relative_path="source/impl/ethermind/host/a2dp_codec/sbc" project_relative_path="source/host/a2dp_codec/sbc" type="src">
         <files mask="a2dp_codec_sbc.c"/>
       </source>
       <source relative_path="include/bluetooth" type="c_include">
+        <files mask="pbap_pce.h"/>
+        <files mask="pbap_pse.h"/>
+        <files mask="pbap_types.h"/>
         <files mask="a2dp.h"/>
         <files mask="avrcp.h"/>
         <files mask="a2dp_codec_sbc.h"/>
@@ -31399,6 +31465,10 @@ ${load}</script>
         <files mask="direction.h"/>
         <files mask="buf.h"/>
         <files mask="l2cap.h"/>
+        <files mask="map_mce.h"/>
+        <files mask="map_mse.h"/>
+        <files mask="map_types.h"/>
+        <files mask="obex.h"/>
         <files mask="rfcomm.h"/>
         <files mask="spp.h"/>
         <files mask="sdp.h"/>
@@ -31569,6 +31639,8 @@ ${load}</script>
         <files mask="bt_pal_keys_br.c"/>
         <files mask="bt_pal_l2cap.c"/>
         <files mask="bt_pal_l2cap_br.c"/>
+        <files mask="bt_pal_map_mce.c"/>
+        <files mask="bt_pal_map_mse.c"/>
         <files mask="bt_pal_monitor.c"/>
         <files mask="bt_pal_rfcomm.c"/>
         <files mask="bt_pal_spp.c"/>
@@ -31580,6 +31652,8 @@ ${load}</script>
         <files mask="bt_pal_uuid.c"/>
         <files mask="bt_pal_hfp_ag.c"/>
         <files mask="bt_pal_hfp_hf.c"/>
+        <files mask="bt_pal_pbap_pce.c"/>
+        <files mask="bt_pal_pbap_pse.c"/>
       </source>
       <source relative_path="source/impl/ethermind/host" project_relative_path="source/host" type="c_include">
         <files mask="bt_pal_a2dp_internal.h"/>
@@ -31605,6 +31679,7 @@ ${load}</script>
         <files mask="bt_pal_l2cap_internal.h"/>
         <files mask="bt_pal_l2cap_br_internal.h"/>
         <files mask="bt_pal_l2cap_br_interface.h"/>
+        <files mask="bt_pal_map_internal.h"/>
         <files mask="bt_pal_monitor.h"/>
         <files mask="bt_pal_rfcomm_internal.h"/>
         <files mask="bt_pal_rpa.h"/>
@@ -31613,11 +31688,15 @@ ${load}</script>
         <files mask="bt_pal_smp.h"/>
         <files mask="bt_pal_ssp.h"/>
         <files mask="bt_pal_hfp_internal.h"/>
+        <files mask="bt_pal_pbap_internal.h"/>
       </source>
       <source relative_path="source/impl/ethermind/host/a2dp_codec/sbc" project_relative_path="source/host/a2dp_codec/sbc" type="src">
         <files mask="a2dp_codec_sbc.c"/>
       </source>
       <source relative_path="include/bluetooth" type="c_include">
+        <files mask="pbap_pce.h"/>
+        <files mask="pbap_pse.h"/>
+        <files mask="pbap_types.h"/>
         <files mask="a2dp.h"/>
         <files mask="avrcp.h"/>
         <files mask="a2dp_codec_sbc.h"/>
@@ -31628,6 +31707,10 @@ ${load}</script>
         <files mask="direction.h"/>
         <files mask="buf.h"/>
         <files mask="l2cap.h"/>
+        <files mask="map_mce.h"/>
+        <files mask="map_mse.h"/>
+        <files mask="map_types.h"/>
+        <files mask="obex.h"/>
         <files mask="rfcomm.h"/>
         <files mask="spp.h"/>
         <files mask="sdp.h"/>
@@ -32081,10 +32164,7 @@ ${load}</script>
     <component id="middleware.multicore.erpc_common_multiprocessor.MIMXRT1176" name="erpc_common_multiprocessor" brief="erpc multiprocessor examples common files" version="1.0.0" full_name="erpc multiprocessor examples common files" category="Multicore/Remote Procedure Call" user_visible="true" type="middleware" package_base_path="middleware/multicore/" project_base_path="source">
       <dependencies>
         <all>
-          <any_of>
-            <board_dependency value="evkmimxrt1170"/>
-            <board_dependency value="evkbmimxrt1170"/>
-          </any_of>
+          <board_dependency value="evkbmimxrt1170"/>
           <device_dependency value="MIMXRT1176xxxxx"/>
         </all>
       </dependencies>
@@ -32104,10 +32184,7 @@ ${load}</script>
     <component id="middleware.multicore.erpc_common_multiprocessor_matrix_multiply_client.MIMXRT1176" name="erpc_common_multiprocessor_matrix_multiply_client" brief="erpc multiprocessor matrix_multiply_client examples common files" version="1.0.0" full_name="erpc multiprocessor matrix_multiply_client examples common files" category="Multicore/Remote Procedure Call" user_visible="true" type="middleware" package_base_path="middleware/multicore/" project_base_path="erpc/service">
       <dependencies>
         <all>
-          <any_of>
-            <board_dependency value="evkmimxrt1170"/>
-            <board_dependency value="evkbmimxrt1170"/>
-          </any_of>
+          <board_dependency value="evkbmimxrt1170"/>
           <device_dependency value="MIMXRT1176xxxxx"/>
         </all>
       </dependencies>
@@ -32138,10 +32215,7 @@ ${load}</script>
     <component id="middleware.multicore.erpc_common_multiprocessor_matrix_multiply_server.MIMXRT1176" name="erpc_common_multiprocessor_matrix_multiply_server" brief="erpc multiprocessor matrix_multiply_server examples common files" version="1.0.0" full_name="erpc multiprocessor matrix_multiply_server examples common files" category="Multicore/Remote Procedure Call" user_visible="true" type="middleware" package_base_path="middleware/multicore/" project_base_path="erpc/service">
       <dependencies>
         <all>
-          <any_of>
-            <board_dependency value="evkmimxrt1170"/>
-            <board_dependency value="evkbmimxrt1170"/>
-          </any_of>
+          <board_dependency value="evkbmimxrt1170"/>
           <device_dependency value="MIMXRT1176xxxxx"/>
         </all>
       </dependencies>
@@ -32172,10 +32246,7 @@ ${load}</script>
     <component id="middleware.eiq.mpp.MIMXRT1176" name="MPP library" brief="Multimedia Processing Pipelines Library" version="3.1.0" full_name="Multimedia Processing Pipelines Library" category="Machine Learning/mpp" user_visible="false" type="middleware" package_base_path="middleware/eiq" project_base_path="eiq">
       <dependencies>
         <all>
-          <any_of>
-            <board_dependency value="evkmimxrt1170"/>
-            <board_dependency value="evkbmimxrt1170"/>
-          </any_of>
+          <board_dependency value="evkbmimxrt1170"/>
           <device_dependency value="MIMXRT1176xxxxx"/>
         </all>
       </dependencies>

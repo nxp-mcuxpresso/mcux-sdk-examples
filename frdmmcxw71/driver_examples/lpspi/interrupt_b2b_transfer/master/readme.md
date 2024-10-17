@@ -11,7 +11,7 @@ LPSPI master send/received data to/from LPSPI slave in interrupt. (LPSPI Slave u
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

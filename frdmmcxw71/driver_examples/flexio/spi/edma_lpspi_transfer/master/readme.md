@@ -8,7 +8,7 @@ In this example, a flexio simulated master connect to a lpspi slave .
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================
@@ -27,10 +27,10 @@ To make the example work, connections needed to be as follows:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 MASTER(FlexIO SPI)          connect to      SLAVE(LPSPI0)
 Pin Name   Board Location                   Pin Name    Board Location
-SOUT       J1 pin 3                         SIN         J1 pin 2
-SIN        J1 pin 8                         SOUT        J2 pin 9
-SCK        J1 pin 4                         SCK         J1 pin 5
-PCS0       J1 pin 7                         PCS0        J1 pin 1
+SOUT       J1 pin 7                         SIN         J1 pin 2
+SIN        J1 pin 4                         SOUT        J2 pin 9
+SCK        J1 pin 8                         SCK         J1 pin 5
+PCS0       J1 pin 3                         PCS0        J1 pin 1
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Prepare the Demo

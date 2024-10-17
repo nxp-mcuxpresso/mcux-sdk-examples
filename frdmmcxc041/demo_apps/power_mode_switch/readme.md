@@ -16,7 +16,7 @@ source by following the debug console prompts. The purpose of this demo is to sh
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

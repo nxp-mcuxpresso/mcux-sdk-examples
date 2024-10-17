@@ -13,11 +13,11 @@
 /* clang-format off */
 /* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Peripherals v11.0
+product: Peripherals v15.0
 processor: MCXW716CxxxA
 package_id: MCXW716CMFTA
 mcu_data: ksdk2_0
-processor_version: 0.12.3
+processor_version: 0.16.10
 functionalGroups:
 - name: BOARD_InitPeripherals
   UUID: 706dc89e-c6b5-49d0-b5be-eb0804fc636a
@@ -32,6 +32,7 @@ component:
 - global_system_definitions:
   - user_definitions: ''
   - user_includes: ''
+  - global_init: ''
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 
 /* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
@@ -69,7 +70,7 @@ instance:
 - type: 'nvic'
 - mode: 'general'
 - custom_name_enabled: 'false'
-- type_id: 'nvic_57b5eef3774cc60acaede6f5b8bddc67'
+- type_id: 'nvic'
 - functional_group: 'BOARD_InitPeripherals'
 - peripheral: 'NVIC'
 - config_sets:
@@ -95,7 +96,7 @@ instance:
 - type: 'wuu'
 - mode: 'General'
 - custom_name_enabled: 'true'
-- type_id: 'wuu_9e591349506d059ebdfbc993a1b4a700'
+- type_id: 'wuu_2.1.0'
 - functional_group: 'BOARD_InitPeripherals'
 - peripheral: 'WUU0'
 - config_sets:
@@ -114,7 +115,7 @@ instance:
 /* clang-format on */
 
 static void DEMO_WUU_init(void) {
-  /* Enable interrupt WUU0_IRQn request in the NVIC. */
+  /* Enable interrupt DEMO_WUU_IRQN request in the NVIC */
   EnableIRQ(DEMO_WUU_IRQN);
 }
 
@@ -128,14 +129,14 @@ instance:
 - type: 'lptmr'
 - mode: 'LPTMR_GENERAL'
 - custom_name_enabled: 'true'
-- type_id: 'lptmr_48552e76e8733b28a9c768b6d8d4fefa'
+- type_id: 'lptmr_2.2.0'
 - functional_group: 'BOARD_InitPeripherals'
 - peripheral: 'LPTMR0'
 - config_sets:
   - fsl_lptmr:
     - lptmr_config:
       - timerMode: 'kLPTMR_TimerModeTimeCounter'
-      - pinSelect: 'ALT.0'
+      - pinSelect: 'ALT.3'
       - pinPolarity: 'kLPTMR_PinPolarityActiveHigh'
       - enableFreeRunning: 'false'
       - bypassPrescaler: 'true'
@@ -143,6 +144,7 @@ instance:
       - clockSource: 'custom:1000'
       - value: 'kLPTMR_Prescale_Glitch_0'
       - timerPeriod: '1000000 us'
+      - enableTimerInInit: 'false'
     - enableDma: 'false'
     - enableInterrupt: 'true'
     - interrupt:
@@ -170,7 +172,7 @@ static void DEMO_LPTMR_init(void) {
   LPTMR_SetTimerPeriod(DEMO_LPTMR_PERIPHERAL, DEMO_LPTMR_TICKS);
   /* Configure timer interrupt */
   LPTMR_EnableInterrupts(DEMO_LPTMR_PERIPHERAL, kLPTMR_TimerInterruptEnable);
-  /* Enable interrupt LPTMR0_IRQn request in the NVIC. */
+  /* Enable interrupt DEMO_LPTMR_IRQN request in the NVIC */
   EnableIRQ(DEMO_LPTMR_IRQN);
 }
 

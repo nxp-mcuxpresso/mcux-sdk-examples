@@ -356,6 +356,7 @@ static void vAppHandleZdoEvents( BDB_tsZpsAfEvent *psZpsAfEvent)
                 DBG_vPrintf(TRACE_APP, "\r\nAPP: Failed to start poll");
             }
 			APP_vSetLed(APP_E_LEDS_LED_2, APP_E_LED_ON);
+            DBG_vPrintf(TRUE,"APP-ZDO: Joined nwk with address %04x\r\n", ZPS_u16NwkNibGetNwkAddr(ZPS_pvAplZdoGetNwkHandle()));
         	break;
         case ZPS_EVENT_APS_DATA_INDICATION:
             DBG_vPrintf(TRACE_APP, "APP-ZDO: Data Indication Status %02x from %04x Src Ep Dst %d Ep %d Profile %04x Cluster %04x\r\n",

@@ -7,7 +7,7 @@ example uses the software button to control/toggle the LED.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

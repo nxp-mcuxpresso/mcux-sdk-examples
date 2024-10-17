@@ -11,7 +11,7 @@ the DAC output with a oscilloscope to see the Half-sine signal.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

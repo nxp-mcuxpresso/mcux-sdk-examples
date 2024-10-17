@@ -7,7 +7,7 @@ as 'kACOMP_PinOutSynInverted', so the output signal from gpio is the inversion o
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

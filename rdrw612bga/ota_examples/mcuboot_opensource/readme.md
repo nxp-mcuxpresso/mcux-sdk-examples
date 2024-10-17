@@ -50,10 +50,9 @@ List of boards with projects supporting flash remapping function:
     - FRDM-MCXN947
 
 Encrypted XIP support
-MCUBoot supports encrypted image residing on an external flash vulnerable to attack but MCUboot design expects that bootable image is decrypted to location in secure area like internal RAM or FLASH. Current version of MCUBoot doesn't support hardware on-the-fly decryption of encrypted images residing on an external flash memory. There are several on-the-fly decryption engines in NXP devices (BEE, OTFAD and IPED) which can be used for this purpose.
-
-This extension of MCUboot functionality can be evaluated by user by enabling define CONFIG_MCUBOOT_ENCRYPTED_XIP_SUPPORT in sblconfig.h
 For more information please see mcuboot_encrypted_xip.md (in mcuboot_opensource/ext/nxp_encrypted_xip)
+
+This extension of MCUboot functionality can be evaluated by enabling define CONFIG_ENCRYPT_XIP_EXT_ENABLE in sblconfig.h
 
 List of boards with projects supporting encrypted XIP:
     - MIMXRT1060-EVK  (BEE)
@@ -103,7 +102,7 @@ it's possible to setup the device for entire boot chain (ROM->MCUBoot->applicati
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

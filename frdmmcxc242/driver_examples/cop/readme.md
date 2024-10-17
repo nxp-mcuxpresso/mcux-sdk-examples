@@ -13,7 +13,7 @@ code will skip the disable COP WDOG operation.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

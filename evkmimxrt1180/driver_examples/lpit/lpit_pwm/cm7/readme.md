@@ -7,7 +7,7 @@ change the period and duty cycle,use oscilloscope can measure this output PWM si
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

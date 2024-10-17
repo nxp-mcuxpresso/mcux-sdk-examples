@@ -4,7 +4,7 @@
   <externalDefinitions>
     <definition extID="MCXW716CMFTA"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK216000_frdmmcxw71_examples_manifest_v3_14" name="MCUXpressoSDK216000_frdmmcxw71_examples_manifest_v3_14" version="2.16.000" revision="2.16.000"/>
+  <ksdk id="MCUXpressoSDK216100_frdmmcxw71_examples_manifest_v3_14" name="MCUXpressoSDK216100_frdmmcxw71_examples_manifest_v3_14" version="2.16.100" revision="2.16.100"/>
   <boards>
     <board id="frdmmcxw71" name="FRDM-MCXW71" version="1.0.0" package="MCXW716CMFTA">
       <examples>
@@ -83,167 +83,167 @@
             <files mask="zigbee_router_mac_split_r23_bm_v3_14.xml"/>
           </external>
         </example>
-        <example id="frdmmcxw71_wireless_uart_bm" name="wireless_uart_bm" brief="The BLE wireless uart application is a simple demonstration program based on the MCUXpresso SDK.The application implements a custom GATT based Wireless UART Profile that emulates UART over BLE.To use the pplication Test Tool 12 or any other application which supports the FSCI protocol is required." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/w_uart/bm" path="examples/frdmmcxw71/wireless_examples/bluetooth/w_uart/bm">
+        <example id="frdmmcxw71_wireless_uart_bm" name="wireless_uart_bm" brief="The BLE wireless uart application is a simple demonstration program based on the MCUXpresso SDK.The application implements a custom GATT based Wireless UART Profile that emulates UART over BLE.To use the pplication Test Tool 12 or any other application which supports the FSCI protocol is required." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/w_uart/bm" path="examples/frdmmcxw71/wireless_examples/bluetooth/w_uart/bm">
           <external path="wireless_examples/bluetooth/w_uart/bm" type="xml">
             <files mask="wireless_uart_bm_v3_14.xml"/>
           </external>
         </example>
-        <example id="frdmmcxw71_ble_shell_bm" name="ble_shell_bm" brief="The BLE ble shell application is a simple demonstration program based on the MCUXpresso SDK.The application implements a Bluetooth Low Energy Host with a shell inteface." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/ble_shell/bm" path="examples/frdmmcxw71/wireless_examples/bluetooth/ble_shell/bm">
+        <example id="frdmmcxw71_ble_shell_bm" name="ble_shell_bm" brief="The BLE ble shell application is a simple demonstration program based on the MCUXpresso SDK.The application implements a Bluetooth Low Energy Host with a shell inteface." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/ble_shell/bm" path="examples/frdmmcxw71/wireless_examples/bluetooth/ble_shell/bm">
           <external path="wireless_examples/bluetooth/ble_shell/bm" type="xml">
             <files mask="ble_shell_bm_v3_14.xml"/>
           </external>
         </example>
-        <example id="frdmmcxw71_ble_fsci_black_box_bm" name="ble_fsci_black_box_bm" brief="The BLE ble fsci black box application is a simple demonstration program based on the MCUXpresso SDK.This application implements a Bluetooth Low Energy Host Black Box which can communicate using the FSCI protocol over a serial interface.To use the pplication Test Tool 12 or any other application which supports the FSCI protocol is required." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/ble_fscibb/bm" path="examples/frdmmcxw71/wireless_examples/bluetooth/ble_fscibb/bm">
+        <example id="frdmmcxw71_ble_fsci_black_box_bm" name="ble_fsci_black_box_bm" brief="The BLE ble fsci black box application is a simple demonstration program based on the MCUXpresso SDK.This application implements a Bluetooth Low Energy Host Black Box which can communicate using the FSCI protocol over a serial interface.To use the pplication Test Tool 12 or any other application which supports the FSCI protocol is required." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/ble_fscibb/bm" path="examples/frdmmcxw71/wireless_examples/bluetooth/ble_fscibb/bm">
           <external path="wireless_examples/bluetooth/ble_fscibb/bm" type="xml">
             <files mask="ble_fsci_black_box_bm_v3_14.xml"/>
           </external>
         </example>
-        <example id="frdmmcxw71_hid_device_bm" name="hid_device_bm" brief="The BLE hid device application is a simple demonstration program based on the MCUXpresso SDK.This application implements a GATT based HID Service.To test the service the any mobile device which supports HID devices over BLE can be used." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/hid_device/bm" path="examples/frdmmcxw71/wireless_examples/bluetooth/hid_device/bm">
+        <example id="frdmmcxw71_hid_device_bm" name="hid_device_bm" brief="The BLE hid device application is a simple demonstration program based on the MCUXpresso SDK.This application implements a GATT based HID Service.To test the service the any mobile device which supports HID devices over BLE can be used." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/hid_device/bm" path="examples/frdmmcxw71/wireless_examples/bluetooth/hid_device/bm">
           <external path="wireless_examples/bluetooth/hid_device/bm" type="xml">
             <files mask="hid_device_bm_v3_14.xml"/>
           </external>
         </example>
-        <example id="frdmmcxw71_hid_host_bm" name="hid_host_bm" brief="The BLE hid host application is a simple demonstration program based on the MCUXpresso SDK.This application implements a GATT based HID Profile.This demo requires a serial port terminal application through a serial interface." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/hid_host/bm" path="examples/frdmmcxw71/wireless_examples/bluetooth/hid_host/bm">
+        <example id="frdmmcxw71_hid_host_bm" name="hid_host_bm" brief="The BLE hid host application is a simple demonstration program based on the MCUXpresso SDK.This application implements a GATT based HID Profile.This demo requires a serial port terminal application through a serial interface." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/hid_host/bm" path="examples/frdmmcxw71/wireless_examples/bluetooth/hid_host/bm">
           <external path="wireless_examples/bluetooth/hid_host/bm" type="xml">
             <files mask="hid_host_bm_v3_14.xml"/>
           </external>
         </example>
-        <example id="frdmmcxw71_otap_server_bm" name="otap_server_bm" brief="The BLE otap server application is a simple demonstration program based on the MCUXpresso SDK.The application implements a custom GATT based OTAP Profile.To use the pplication Test Tool 12 or any other application which supports the FSCI protocol is required." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/otas/bm" path="examples/frdmmcxw71/wireless_examples/bluetooth/otas/bm">
+        <example id="frdmmcxw71_otap_server_bm" name="otap_server_bm" brief="The BLE otap server application is a simple demonstration program based on the MCUXpresso SDK.The application implements a custom GATT based OTAP Profile.To use the pplication Test Tool 12 or any other application which supports the FSCI protocol is required." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/otas/bm" path="examples/frdmmcxw71/wireless_examples/bluetooth/otas/bm">
           <external path="wireless_examples/bluetooth/otas/bm" type="xml">
             <files mask="otap_server_bm_v3_14.xml"/>
           </external>
         </example>
-        <example id="frdmmcxw71_otap_client_att_bm" name="otap_client_att_bm" brief="The BLE otap client att application is a simple demonstration program based on the MCUXpresso SDK.The application implements a custom GATT based OTAP Service.To test the service/profile the Kinetis BLE Toolbox application can be used which is available for both Android and iOS." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/otac_att/bm" path="examples/frdmmcxw71/wireless_examples/bluetooth/otac_att/bm">
+        <example id="frdmmcxw71_otap_client_att_bm" name="otap_client_att_bm" brief="The BLE otap client att application is a simple demonstration program based on the MCUXpresso SDK.The application implements a custom GATT based OTAP Service.To test the service/profile the Kinetis BLE Toolbox application can be used which is available for both Android and iOS." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/otac_att/bm" path="examples/frdmmcxw71/wireless_examples/bluetooth/otac_att/bm">
           <external path="wireless_examples/bluetooth/otac_att/bm" type="xml">
             <files mask="otap_client_att_bm_v3_14.xml"/>
           </external>
         </example>
-        <example id="frdmmcxw71_beacon_bm" name="beacon_bm" brief="The BLE beacon application is a simple demonstration program based on the MCUXpresso SDK.This application implements a Beacon BLE Service.To test the service/profile the Kinetis BLE Toolbox application can be used which is available for both Android and iOS." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/beacon/bm" path="examples/frdmmcxw71/wireless_examples/bluetooth/beacon/bm">
+        <example id="frdmmcxw71_beacon_bm" name="beacon_bm" brief="The BLE beacon application is a simple demonstration program based on the MCUXpresso SDK.This application implements a Beacon BLE Service.To test the service/profile the Kinetis BLE Toolbox application can be used which is available for both Android and iOS." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/beacon/bm" path="examples/frdmmcxw71/wireless_examples/bluetooth/beacon/bm">
           <external path="wireless_examples/bluetooth/beacon/bm" type="xml">
             <files mask="beacon_bm_v3_14.xml"/>
           </external>
         </example>
-        <example id="frdmmcxw71_ancs_client_bm" name="ancs_client_bm" brief="The BLE ancs client application is a simple demonstration program based on the MCUXpresso SDK.This application implements an ANCS Client.To test the service/profile a GAP Central device is required which has the ANCS service available." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/ancs_c/bm" path="examples/frdmmcxw71/wireless_examples/bluetooth/ancs_c/bm">
+        <example id="frdmmcxw71_ancs_client_bm" name="ancs_client_bm" brief="The BLE ancs client application is a simple demonstration program based on the MCUXpresso SDK.This application implements an ANCS Client.To test the service/profile a GAP Central device is required which has the ANCS service available." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/ancs_c/bm" path="examples/frdmmcxw71/wireless_examples/bluetooth/ancs_c/bm">
           <external path="wireless_examples/bluetooth/ancs_c/bm" type="xml">
             <files mask="ancs_client_bm_v3_14.xml"/>
           </external>
         </example>
-        <example id="frdmmcxw71_temperature_collector_bm" name="temperature_collector_bm" brief="The BLE temperature collector application is a simple demonstration program based on the MCUXpresso SDK.This application implements a custom GATT based Temperature Profile.To test the service/profile the Kinetis BLE Toolbox application can be used which is available for both Android and iOS." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/temp_coll/bm" path="examples/frdmmcxw71/wireless_examples/bluetooth/temp_coll/bm">
+        <example id="frdmmcxw71_temperature_collector_bm" name="temperature_collector_bm" brief="The BLE temperature collector application is a simple demonstration program based on the MCUXpresso SDK.This application implements a custom GATT based Temperature Profile.To test the service/profile the Kinetis BLE Toolbox application can be used which is available for both Android and iOS." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/temp_coll/bm" path="examples/frdmmcxw71/wireless_examples/bluetooth/temp_coll/bm">
           <external path="wireless_examples/bluetooth/temp_coll/bm" type="xml">
             <files mask="temperature_collector_bm_v3_14.xml"/>
           </external>
         </example>
-        <example id="frdmmcxw71_temperature_sensor_bm" name="temperature_sensor_bm" brief="The BLE temperature sensor application is a simple demonstration program based on the MCUXpresso SDK.This application implements a GATT based Temperature Service.To test the service/profile the Kinetis BLE Toolbox application can be used which is available for both Android and iOS." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/temp_sens/bm" path="examples/frdmmcxw71/wireless_examples/bluetooth/temp_sens/bm">
+        <example id="frdmmcxw71_temperature_sensor_bm" name="temperature_sensor_bm" brief="The BLE temperature sensor application is a simple demonstration program based on the MCUXpresso SDK.This application implements a GATT based Temperature Service.To test the service/profile the Kinetis BLE Toolbox application can be used which is available for both Android and iOS." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/temp_sens/bm" path="examples/frdmmcxw71/wireless_examples/bluetooth/temp_sens/bm">
           <external path="wireless_examples/bluetooth/temp_sens/bm" type="xml">
             <files mask="temperature_sensor_bm_v3_14.xml"/>
           </external>
         </example>
-        <example id="frdmmcxw71_otap_client_l2cap_credit_bm" name="otap_client_l2cap_credit_bm" brief="The BLE otap client l2cap credit application is a simple demonstration program based on the MCUXpresso SDK.The application implements a custom GATT based OTAP Service.To test the service/profile the Kinetis BLE Toolbox application can be used which is available for both Android and iOS." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/otac_l2cap/bm" path="examples/frdmmcxw71/wireless_examples/bluetooth/otac_l2cap/bm">
+        <example id="frdmmcxw71_otap_client_l2cap_credit_bm" name="otap_client_l2cap_credit_bm" brief="The BLE otap client l2cap credit application is a simple demonstration program based on the MCUXpresso SDK.The application implements a custom GATT based OTAP Service.To test the service/profile the Kinetis BLE Toolbox application can be used which is available for both Android and iOS." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/otac_l2cap/bm" path="examples/frdmmcxw71/wireless_examples/bluetooth/otac_l2cap/bm">
           <external path="wireless_examples/bluetooth/otac_l2cap/bm" type="xml">
             <files mask="otap_client_l2cap_credit_bm_v3_14.xml"/>
           </external>
         </example>
-        <example id="frdmmcxw71_adv_ext_central_bm" name="adv_ext_central_bm" brief="This application implements a custom GATT based Temperature Profile." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/adv_ext_central/bm" path="examples/frdmmcxw71/wireless_examples/bluetooth/adv_ext_central/bm">
+        <example id="frdmmcxw71_adv_ext_central_bm" name="adv_ext_central_bm" brief="This application implements a custom GATT based Temperature Profile." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/adv_ext_central/bm" path="examples/frdmmcxw71/wireless_examples/bluetooth/adv_ext_central/bm">
           <external path="wireless_examples/bluetooth/adv_ext_central/bm" type="xml">
             <files mask="adv_ext_central_bm_v3_14.xml"/>
           </external>
         </example>
-        <example id="frdmmcxw71_adv_ext_peripheral_bm" name="adv_ext_peripheral_bm" brief="This application implements a GATT based Temperature Service." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/adv_ext_peripheral/bm" path="examples/frdmmcxw71/wireless_examples/bluetooth/adv_ext_peripheral/bm">
+        <example id="frdmmcxw71_adv_ext_peripheral_bm" name="adv_ext_peripheral_bm" brief="This application implements a GATT based Temperature Service." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/adv_ext_peripheral/bm" path="examples/frdmmcxw71/wireless_examples/bluetooth/adv_ext_peripheral/bm">
           <external path="wireless_examples/bluetooth/adv_ext_peripheral/bm" type="xml">
             <files mask="adv_ext_peripheral_bm_v3_14.xml"/>
           </external>
         </example>
-        <example id="frdmmcxw71_eatt_peripheral_bm" name="eatt_peripheral_bm" brief="This application implements 2 custom GATT based Services and sends data for each profile on an enhanced ATT bearer." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/eatt_peripheral/bm" path="examples/frdmmcxw71/wireless_examples/bluetooth/eatt_peripheral/bm">
+        <example id="frdmmcxw71_eatt_peripheral_bm" name="eatt_peripheral_bm" brief="This application implements 2 custom GATT based Services and sends data for each profile on an enhanced ATT bearer." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/eatt_peripheral/bm" path="examples/frdmmcxw71/wireless_examples/bluetooth/eatt_peripheral/bm">
           <external path="wireless_examples/bluetooth/eatt_peripheral/bm" type="xml">
             <files mask="eatt_peripheral_bm_v3_14.xml"/>
           </external>
         </example>
-        <example id="frdmmcxw71_eatt_central_bm" name="eatt_central_bm" brief="This application implements a central device which receives data from 2 custom GATT services on 2 enhanced ATT bearers." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/eatt_central/bm" path="examples/frdmmcxw71/wireless_examples/bluetooth/eatt_central/bm">
+        <example id="frdmmcxw71_eatt_central_bm" name="eatt_central_bm" brief="This application implements a central device which receives data from 2 custom GATT services on 2 enhanced ATT bearers." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/eatt_central/bm" path="examples/frdmmcxw71/wireless_examples/bluetooth/eatt_central/bm">
           <external path="wireless_examples/bluetooth/eatt_central/bm" type="xml">
             <files mask="eatt_central_bm_v3_14.xml"/>
           </external>
         </example>
-        <example id="frdmmcxw71_ancs_client_freertos" name="ancs_client_freertos" brief="The BLE ancs client application is a simple demonstration program based on the MCUXpresso SDK.This application implements an ANCS Client.To test the service/profile a GAP Central device is required which has the ANCS service available." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/ancs_c/freertos" path="examples/frdmmcxw71/wireless_examples/bluetooth/ancs_c/freertos">
+        <example id="frdmmcxw71_ancs_client_freertos" name="ancs_client_freertos" brief="The BLE ancs client application is a simple demonstration program based on the MCUXpresso SDK.This application implements an ANCS Client.To test the service/profile a GAP Central device is required which has the ANCS service available." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/ancs_c/freertos" path="examples/frdmmcxw71/wireless_examples/bluetooth/ancs_c/freertos">
           <external path="wireless_examples/bluetooth/ancs_c/freertos" type="xml">
             <files mask="ancs_client_freertos_v3_14.xml"/>
           </external>
         </example>
-        <example id="frdmmcxw71_beacon_freertos" name="beacon_freertos" brief="The BLE beacon application is a simple demonstration program based on the MCUXpresso SDK.This application implements a Beacon BLE Service.To test the service/profile the Kinetis BLE Toolbox application can be used which is available for both Android and iOS." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/beacon/freertos" path="examples/frdmmcxw71/wireless_examples/bluetooth/beacon/freertos">
+        <example id="frdmmcxw71_beacon_freertos" name="beacon_freertos" brief="The BLE beacon application is a simple demonstration program based on the MCUXpresso SDK.This application implements a Beacon BLE Service.To test the service/profile the Kinetis BLE Toolbox application can be used which is available for both Android and iOS." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/beacon/freertos" path="examples/frdmmcxw71/wireless_examples/bluetooth/beacon/freertos">
           <external path="wireless_examples/bluetooth/beacon/freertos" type="xml">
             <files mask="beacon_freertos_v3_14.xml"/>
           </external>
         </example>
-        <example id="frdmmcxw71_ble_fsci_black_box_freertos" name="ble_fsci_black_box_freertos" brief="The BLE ble fsci black box application is a simple demonstration program based on the MCUXpresso SDK.This application implements a Bluetooth Low Energy Host Black Box which can communicate using the FSCI protocol over a serial interface.To use the pplication Test Tool 12 or any other application which supports the FSCI protocol is required." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/ble_fscibb/freertos" path="examples/frdmmcxw71/wireless_examples/bluetooth/ble_fscibb/freertos">
+        <example id="frdmmcxw71_ble_fsci_black_box_freertos" name="ble_fsci_black_box_freertos" brief="The BLE ble fsci black box application is a simple demonstration program based on the MCUXpresso SDK.This application implements a Bluetooth Low Energy Host Black Box which can communicate using the FSCI protocol over a serial interface.To use the pplication Test Tool 12 or any other application which supports the FSCI protocol is required." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/ble_fscibb/freertos" path="examples/frdmmcxw71/wireless_examples/bluetooth/ble_fscibb/freertos">
           <external path="wireless_examples/bluetooth/ble_fscibb/freertos" type="xml">
             <files mask="ble_fsci_black_box_freertos_v3_14.xml"/>
           </external>
         </example>
-        <example id="frdmmcxw71_ble_shell_freertos" name="ble_shell_freertos" brief="The BLE ble shell application is a simple demonstration program based on the MCUXpresso SDK.The application implements a Bluetooth Low Energy Host with a shell inteface." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/ble_shell/freertos" path="examples/frdmmcxw71/wireless_examples/bluetooth/ble_shell/freertos">
+        <example id="frdmmcxw71_ble_shell_freertos" name="ble_shell_freertos" brief="The BLE ble shell application is a simple demonstration program based on the MCUXpresso SDK.The application implements a Bluetooth Low Energy Host with a shell inteface." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/ble_shell/freertos" path="examples/frdmmcxw71/wireless_examples/bluetooth/ble_shell/freertos">
           <external path="wireless_examples/bluetooth/ble_shell/freertos" type="xml">
             <files mask="ble_shell_freertos_v3_14.xml"/>
           </external>
         </example>
-        <example id="frdmmcxw71_hid_device_freertos" name="hid_device_freertos" brief="The BLE hid device application is a simple demonstration program based on the MCUXpresso SDK.This application implements a GATT based HID Service.To test the service the any mobile device which supports HID devices over BLE can be used." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/hid_device/freertos" path="examples/frdmmcxw71/wireless_examples/bluetooth/hid_device/freertos">
+        <example id="frdmmcxw71_hid_device_freertos" name="hid_device_freertos" brief="The BLE hid device application is a simple demonstration program based on the MCUXpresso SDK.This application implements a GATT based HID Service.To test the service the any mobile device which supports HID devices over BLE can be used." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/hid_device/freertos" path="examples/frdmmcxw71/wireless_examples/bluetooth/hid_device/freertos">
           <external path="wireless_examples/bluetooth/hid_device/freertos" type="xml">
             <files mask="hid_device_freertos_v3_14.xml"/>
           </external>
         </example>
-        <example id="frdmmcxw71_hid_host_freertos" name="hid_host_freertos" brief="The BLE hid host application is a simple demonstration program based on the MCUXpresso SDK.This application implements a GATT based HID Profile.This demo requires a serial port terminal application through a serial interface." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/hid_host/freertos" path="examples/frdmmcxw71/wireless_examples/bluetooth/hid_host/freertos">
+        <example id="frdmmcxw71_hid_host_freertos" name="hid_host_freertos" brief="The BLE hid host application is a simple demonstration program based on the MCUXpresso SDK.This application implements a GATT based HID Profile.This demo requires a serial port terminal application through a serial interface." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/hid_host/freertos" path="examples/frdmmcxw71/wireless_examples/bluetooth/hid_host/freertos">
           <external path="wireless_examples/bluetooth/hid_host/freertos" type="xml">
             <files mask="hid_host_freertos_v3_14.xml"/>
           </external>
         </example>
-        <example id="frdmmcxw71_otap_client_att_freertos" name="otap_client_att_freertos" brief="The BLE otap client att application is a simple demonstration program based on the MCUXpresso SDK.The application implements a custom GATT based OTAP Service.To test the service/profile the Kinetis BLE Toolbox application can be used which is available for both Android and iOS." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/otac_att/freertos" path="examples/frdmmcxw71/wireless_examples/bluetooth/otac_att/freertos">
+        <example id="frdmmcxw71_otap_client_att_freertos" name="otap_client_att_freertos" brief="The BLE otap client att application is a simple demonstration program based on the MCUXpresso SDK.The application implements a custom GATT based OTAP Service.To test the service/profile the Kinetis BLE Toolbox application can be used which is available for both Android and iOS." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/otac_att/freertos" path="examples/frdmmcxw71/wireless_examples/bluetooth/otac_att/freertos">
           <external path="wireless_examples/bluetooth/otac_att/freertos" type="xml">
             <files mask="otap_client_att_freertos_v3_14.xml"/>
           </external>
         </example>
-        <example id="frdmmcxw71_otap_client_l2cap_credit_freertos" name="otap_client_l2cap_credit_freertos" brief="The BLE otap client l2cap credit application is a simple demonstration program based on the MCUXpresso SDK.The application implements a custom GATT based OTAP Service.To test the service/profile the Kinetis BLE Toolbox application can be used which is available for both Android and iOS." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/otac_l2cap/freertos" path="examples/frdmmcxw71/wireless_examples/bluetooth/otac_l2cap/freertos">
+        <example id="frdmmcxw71_otap_client_l2cap_credit_freertos" name="otap_client_l2cap_credit_freertos" brief="The BLE otap client l2cap credit application is a simple demonstration program based on the MCUXpresso SDK.The application implements a custom GATT based OTAP Service.To test the service/profile the Kinetis BLE Toolbox application can be used which is available for both Android and iOS." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/otac_l2cap/freertos" path="examples/frdmmcxw71/wireless_examples/bluetooth/otac_l2cap/freertos">
           <external path="wireless_examples/bluetooth/otac_l2cap/freertos" type="xml">
             <files mask="otap_client_l2cap_credit_freertos_v3_14.xml"/>
           </external>
         </example>
-        <example id="frdmmcxw71_otap_server_freertos" name="otap_server_freertos" brief="The BLE otap server application is a simple demonstration program based on the MCUXpresso SDK.The application implements a custom GATT based OTAP Profile.To use the pplication Test Tool 12 or any other application which supports the FSCI protocol is required." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/otas/freertos" path="examples/frdmmcxw71/wireless_examples/bluetooth/otas/freertos">
+        <example id="frdmmcxw71_otap_server_freertos" name="otap_server_freertos" brief="The BLE otap server application is a simple demonstration program based on the MCUXpresso SDK.The application implements a custom GATT based OTAP Profile.To use the pplication Test Tool 12 or any other application which supports the FSCI protocol is required." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/otas/freertos" path="examples/frdmmcxw71/wireless_examples/bluetooth/otas/freertos">
           <external path="wireless_examples/bluetooth/otas/freertos" type="xml">
             <files mask="otap_server_freertos_v3_14.xml"/>
           </external>
         </example>
-        <example id="frdmmcxw71_temperature_collector_freertos" name="temperature_collector_freertos" brief="The BLE temperature collector application is a simple demonstration program based on the MCUXpresso SDK.This application implements a custom GATT based Temperature Profile.To test the service/profile the Kinetis BLE Toolbox application can be used which is available for both Android and iOS." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/temp_coll/freertos" path="examples/frdmmcxw71/wireless_examples/bluetooth/temp_coll/freertos">
+        <example id="frdmmcxw71_temperature_collector_freertos" name="temperature_collector_freertos" brief="The BLE temperature collector application is a simple demonstration program based on the MCUXpresso SDK.This application implements a custom GATT based Temperature Profile.To test the service/profile the Kinetis BLE Toolbox application can be used which is available for both Android and iOS." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/temp_coll/freertos" path="examples/frdmmcxw71/wireless_examples/bluetooth/temp_coll/freertos">
           <external path="wireless_examples/bluetooth/temp_coll/freertos" type="xml">
             <files mask="temperature_collector_freertos_v3_14.xml"/>
           </external>
         </example>
-        <example id="frdmmcxw71_temperature_sensor_freertos" name="temperature_sensor_freertos" brief="The BLE temperature sensor application is a simple demonstration program based on the MCUXpresso SDK.This application implements a GATT based Temperature Service.To test the service/profile the Kinetis BLE Toolbox application can be used which is available for both Android and iOS." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/temp_sens/freertos" path="examples/frdmmcxw71/wireless_examples/bluetooth/temp_sens/freertos">
+        <example id="frdmmcxw71_temperature_sensor_freertos" name="temperature_sensor_freertos" brief="The BLE temperature sensor application is a simple demonstration program based on the MCUXpresso SDK.This application implements a GATT based Temperature Service.To test the service/profile the Kinetis BLE Toolbox application can be used which is available for both Android and iOS." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/temp_sens/freertos" path="examples/frdmmcxw71/wireless_examples/bluetooth/temp_sens/freertos">
           <external path="wireless_examples/bluetooth/temp_sens/freertos" type="xml">
             <files mask="temperature_sensor_freertos_v3_14.xml"/>
           </external>
         </example>
-        <example id="frdmmcxw71_wireless_uart_freertos" name="wireless_uart_freertos" brief="The BLE wireless uart application is a simple demonstration program based on the MCUXpresso SDK.The application implements a custom GATT based Wireless UART Profile that emulates UART over BLE.To use the pplication Test Tool 12 or any other application which supports the FSCI protocol is required." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/w_uart/freertos" path="examples/frdmmcxw71/wireless_examples/bluetooth/w_uart/freertos">
+        <example id="frdmmcxw71_wireless_uart_freertos" name="wireless_uart_freertos" brief="The BLE wireless uart application is a simple demonstration program based on the MCUXpresso SDK.The application implements a custom GATT based Wireless UART Profile that emulates UART over BLE.To use the pplication Test Tool 12 or any other application which supports the FSCI protocol is required." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/w_uart/freertos" path="examples/frdmmcxw71/wireless_examples/bluetooth/w_uart/freertos">
           <external path="wireless_examples/bluetooth/w_uart/freertos" type="xml">
             <files mask="wireless_uart_freertos_v3_14.xml"/>
           </external>
         </example>
-        <example id="frdmmcxw71_adv_ext_central_freertos" name="adv_ext_central_freertos" brief="This application implements a custom GATT based Temperature Profile." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/adv_ext_central/freertos" path="examples/frdmmcxw71/wireless_examples/bluetooth/adv_ext_central/freertos">
+        <example id="frdmmcxw71_adv_ext_central_freertos" name="adv_ext_central_freertos" brief="This application implements a custom GATT based Temperature Profile." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/adv_ext_central/freertos" path="examples/frdmmcxw71/wireless_examples/bluetooth/adv_ext_central/freertos">
           <external path="wireless_examples/bluetooth/adv_ext_central/freertos" type="xml">
             <files mask="adv_ext_central_freertos_v3_14.xml"/>
           </external>
         </example>
-        <example id="frdmmcxw71_adv_ext_peripheral_freertos" name="adv_ext_peripheral_freertos" brief="This application implements a GATT based Temperature Service." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/adv_ext_peripheral/freertos" path="examples/frdmmcxw71/wireless_examples/bluetooth/adv_ext_peripheral/freertos">
+        <example id="frdmmcxw71_adv_ext_peripheral_freertos" name="adv_ext_peripheral_freertos" brief="This application implements a GATT based Temperature Service." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/adv_ext_peripheral/freertos" path="examples/frdmmcxw71/wireless_examples/bluetooth/adv_ext_peripheral/freertos">
           <external path="wireless_examples/bluetooth/adv_ext_peripheral/freertos" type="xml">
             <files mask="adv_ext_peripheral_freertos_v3_14.xml"/>
           </external>
         </example>
-        <example id="frdmmcxw71_eatt_peripheral_freertos" name="eatt_peripheral_freertos" brief="This application implements 2 custom GATT based Services and sends data for each profile on an enhanced ATT bearer." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/eatt_peripheral/freertos" path="examples/frdmmcxw71/wireless_examples/bluetooth/eatt_peripheral/freertos">
+        <example id="frdmmcxw71_eatt_peripheral_freertos" name="eatt_peripheral_freertos" brief="This application implements 2 custom GATT based Services and sends data for each profile on an enhanced ATT bearer." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/eatt_peripheral/freertos" path="examples/frdmmcxw71/wireless_examples/bluetooth/eatt_peripheral/freertos">
           <external path="wireless_examples/bluetooth/eatt_peripheral/freertos" type="xml">
             <files mask="eatt_peripheral_freertos_v3_14.xml"/>
           </external>
         </example>
-        <example id="frdmmcxw71_eatt_central_freertos" name="eatt_central_freertos" brief="This application implements a central device which receives data from 2 custom GATT services on 2 enhanced ATT bearers." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/eatt_central/freertos" path="examples/frdmmcxw71/wireless_examples/bluetooth/eatt_central/freertos">
+        <example id="frdmmcxw71_eatt_central_freertos" name="eatt_central_freertos" brief="This application implements a central device which receives data from 2 custom GATT services on 2 enhanced ATT bearers." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wireless_examples/bluetooth/eatt_central/freertos" path="examples/frdmmcxw71/wireless_examples/bluetooth/eatt_central/freertos">
           <external path="wireless_examples/bluetooth/eatt_central/freertos" type="xml">
             <files mask="eatt_central_freertos_v3_14.xml"/>
           </external>
         </example>
-        <example id="frdmmcxw71_hci_bb_bm" name="hci_bb_bm" brief="The hci black box test example" toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/ble_controller/hci_bb/bm" path="examples/frdmmcxw71/wireless_examples/ble_controller/hci_bb">
+        <example id="frdmmcxw71_hci_bb_bm" name="hci_bb_bm" brief="The hci black box test example" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wireless_examples/ble_controller/hci_bb/bm" path="examples/frdmmcxw71/wireless_examples/ble_controller/hci_bb">
           <external path="wireless_examples/ble_controller/hci_bb" type="xml">
             <files mask="hci_bb_bm_v3_14.xml"/>
           </external>
@@ -253,22 +253,22 @@
             <files mask="15.4_connectivity_test_bm_v3_14.xml"/>
           </external>
         </example>
-        <example id="frdmmcxw71_lowpower_peripheral_bm" name="lowpower_peripheral_bm" brief="The lowpower slave reference design application provides a reference design application on a slave device optimized for lowpower. This application is based on the temperature sensor example and has all Bluetooth services that the temperature sensor offers." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/reference_design/bluetooth/lowpower_peripheral/bm" path="examples/frdmmcxw71/wireless_examples/reference_design/bluetooth/lowpower_peripheral/bm">
+        <example id="frdmmcxw71_lowpower_peripheral_bm" name="lowpower_peripheral_bm" brief="The lowpower slave reference design application provides a reference design application on a slave device optimized for lowpower. This application is based on the temperature sensor example and has all Bluetooth services that the temperature sensor offers." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wireless_examples/reference_design/bluetooth/lowpower_peripheral/bm" path="examples/frdmmcxw71/wireless_examples/reference_design/bluetooth/lowpower_peripheral/bm">
           <external path="wireless_examples/reference_design/bluetooth/lowpower_peripheral/bm" type="xml">
             <files mask="lowpower_peripheral_bm_v3_14.xml"/>
           </external>
         </example>
-        <example id="frdmmcxw71_lowpower_central_bm" name="lowpower_central_bm" brief="The lowpower master reference design application provides a reference design application on a Master device (central) optimized for lowpower. This application is based on the temperature collector example and has all Bluetooth services that the temperature collector offers." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/reference_design/bluetooth/lowpower_central/bm" path="examples/frdmmcxw71/wireless_examples/reference_design/bluetooth/lowpower_central/bm">
+        <example id="frdmmcxw71_lowpower_central_bm" name="lowpower_central_bm" brief="The lowpower master reference design application provides a reference design application on a Master device (central) optimized for lowpower. This application is based on the temperature collector example and has all Bluetooth services that the temperature collector offers." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wireless_examples/reference_design/bluetooth/lowpower_central/bm" path="examples/frdmmcxw71/wireless_examples/reference_design/bluetooth/lowpower_central/bm">
           <external path="wireless_examples/reference_design/bluetooth/lowpower_central/bm" type="xml">
             <files mask="lowpower_central_bm_v3_14.xml"/>
           </external>
         </example>
-        <example id="frdmmcxw71_lowpower_peripheral_freertos" name="lowpower_peripheral_freertos" brief="The lowpower slave reference design application provides a reference design application on a slave device optimized for lowpower. This application is based on the temperature sensor example and has all Bluetooth services that the temperature sensor offers." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/reference_design/bluetooth/lowpower_peripheral/freertos" path="examples/frdmmcxw71/wireless_examples/reference_design/bluetooth/lowpower_peripheral/freertos">
+        <example id="frdmmcxw71_lowpower_peripheral_freertos" name="lowpower_peripheral_freertos" brief="The lowpower slave reference design application provides a reference design application on a slave device optimized for lowpower. This application is based on the temperature sensor example and has all Bluetooth services that the temperature sensor offers." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wireless_examples/reference_design/bluetooth/lowpower_peripheral/freertos" path="examples/frdmmcxw71/wireless_examples/reference_design/bluetooth/lowpower_peripheral/freertos">
           <external path="wireless_examples/reference_design/bluetooth/lowpower_peripheral/freertos" type="xml">
             <files mask="lowpower_peripheral_freertos_v3_14.xml"/>
           </external>
         </example>
-        <example id="frdmmcxw71_lowpower_central_freertos" name="lowpower_central_freertos" brief="The lowpower master reference design application provides a reference design application on a Master device (central) optimized for lowpower. This application is based on the temperature collector example and has all Bluetooth services that the temperature collector offers." toolchain="mcuxpresso" compiler="compiler_gcc" category="wireless_examples/reference_design/bluetooth/lowpower_central/freertos" path="examples/frdmmcxw71/wireless_examples/reference_design/bluetooth/lowpower_central/freertos">
+        <example id="frdmmcxw71_lowpower_central_freertos" name="lowpower_central_freertos" brief="The lowpower master reference design application provides a reference design application on a Master device (central) optimized for lowpower. This application is based on the temperature collector example and has all Bluetooth services that the temperature collector offers." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="wireless_examples/reference_design/bluetooth/lowpower_central/freertos" path="examples/frdmmcxw71/wireless_examples/reference_design/bluetooth/lowpower_central/freertos">
           <external path="wireless_examples/reference_design/bluetooth/lowpower_central/freertos" type="xml">
             <files mask="lowpower_central_freertos_v3_14.xml"/>
           </external>

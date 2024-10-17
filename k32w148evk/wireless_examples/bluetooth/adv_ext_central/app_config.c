@@ -4,7 +4,7 @@
 ********************************************************************************** */
 /*! *********************************************************************************
 * Copyright 2015 Freescale Semiconductor, Inc.
-* Copyright 2016-2023 NXP
+* Copyright 2016-2024 NXP
 *
 *
 * \file
@@ -70,7 +70,16 @@ gapConnectionRequestParameters_t gConnReqParams =
     .connEventLengthMax = 0xFFFF,
     .initiatingPHYs = (uint8_t)gLePhy1MFlag_c,
 };
-
+#if defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE)
+gapDecisionInstructionsData_t gDbafDecisionInstructions =
+{
+    .testGroup = gDITG_NewTestGroup_c,
+    .passCriteria = gDITPC_CheckPasses_c,
+    .relevantField = gDIRF_ResolvableTag_c,
+    .testParameters.resolvableTagKey = {0x44, 0x65, 0x63, 0x69, 0x73, 0x69, 0x6F, 0x6E,
+    0x42, 0x61, 0x73, 0x65, 0x64, 0x41, 0x64, 0x76},
+};
+#endif /* defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE) */
 /* SMP Data */
 #if (defined(gAppUsePairing_d) && (gAppUsePairing_d == 1U))
 gapPairingParameters_t gPairingParameters = {

@@ -3,7 +3,7 @@
  * @{
  ********************************************************************************** */
 /*!
- * Copyright 2019-2023 NXP
+ * Copyright 2019-2024 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  *
@@ -72,12 +72,19 @@
 
 /* Use Misra Compliant version of FSCI module */
 #define gFsciUseDedicatedTask_c         1
-
-/* FSCI task size */
+/*! *********************************************************************************
+ *     RTOS Configuration
+ ********************************************************************************** */
+#if defined(SDK_OS_FREE_RTOS)
+/* Fsci Task Stack size */
 #if defined(DEBUG)
 #define gFsciTaskStackSize_c            4600
 #else
 #define gFsciTaskStackSize_c            2600
+#endif
+
+#define gHost_TaskStackSize_c           1760
+
 #endif
 
 /*! Enable/Disable PowerDown functionality in Application - In case of troubles with lowpower,

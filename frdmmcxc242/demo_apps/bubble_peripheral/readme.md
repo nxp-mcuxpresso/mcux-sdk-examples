@@ -7,7 +7,7 @@ You can open the mex file with MCUXpresso Config Tool to do further configuratio
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

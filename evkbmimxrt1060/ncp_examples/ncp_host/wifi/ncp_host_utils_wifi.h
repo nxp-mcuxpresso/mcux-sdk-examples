@@ -235,6 +235,29 @@ struct ip6_addr
 /** IPv6 address */
 typedef struct ip6_addr ip6_addr_t;
 
+#define IEEEtypes_SSID_SIZE 32
+/* Min WPA2 passphrase can be upto 8 ASCII chars */
+#define WLAN_PSK_MIN_LENGTH 8U
+/** Max WPA2 passphrase can be upto 63 ASCII chars or 64 hexadecimal digits*/
+#define WLAN_PSK_MAX_LENGTH 65U
+#define SECURE_TYPE_LENGTH  10
+
+typedef NCP_TLV_PACK_START struct _ncp_commission_cfg_t
+{
+    /** ssid */
+    char ssid[IEEEtypes_SSID_SIZE];
+    /** length of ssid */
+    uint8_t ssid_len;
+    /** password */
+    char password[WLAN_PSK_MAX_LENGTH];
+    /** length of password */
+    uint8_t password_len;
+    /** secure type */
+    char secure[SECURE_TYPE_LENGTH];
+    /** length of secure type */
+    uint8_t secure_len;
+} NCP_TLV_PACK_END ncp_commission_cfg_t;
+
 /**
  * Convert a given hex string to a equivalent binary representation.
  *
@@ -976,4 +999,6 @@ static inline int string_equal(const char *s1, const char *s2)
         return 1;
     return 0;
 }
+
+void ncp_network_commissioning(ncp_commission_cfg_t *ncp_commission_cfg);
 #endif /* __NCP_HOST_UTILS_H__ */

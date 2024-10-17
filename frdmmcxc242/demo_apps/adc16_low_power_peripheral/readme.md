@@ -11,7 +11,7 @@ do further configuration of pin, clock and peripheral.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

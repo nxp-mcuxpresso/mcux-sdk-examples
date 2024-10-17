@@ -8,7 +8,7 @@ If the board support sdcard, then the case can demo an extra items
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

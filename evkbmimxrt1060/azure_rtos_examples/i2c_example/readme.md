@@ -11,7 +11,7 @@ and the second thread deals with I2C slave operation.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

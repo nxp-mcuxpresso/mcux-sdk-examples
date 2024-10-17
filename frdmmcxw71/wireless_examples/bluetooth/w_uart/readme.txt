@@ -7,6 +7,7 @@ Toolchain supported
 ===================
 - IAR embedded Workbench (ide version details are in the Release Notes)
 - MCUXpresso IDE (ide version details are in the Release Notes)
+- GCC ARM Embedded (ide version details are in the Release Notes)
 
 Hardware requirements
 =====================

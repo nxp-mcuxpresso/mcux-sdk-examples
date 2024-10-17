@@ -6,7 +6,7 @@ and another I2S interface to playback the buffer to output - digital loopback.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

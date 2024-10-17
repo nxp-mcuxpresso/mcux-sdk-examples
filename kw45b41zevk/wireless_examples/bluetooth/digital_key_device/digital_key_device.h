@@ -5,13 +5,9 @@
 /*! *********************************************************************************
 * \file digital_key_device.h
 *
-* Copyright 2020-2022 NXP
+* Copyright 2020-2022, 2024 NXP
 *
-* NXP Confidential Proprietary
-*
-* No part of this document must be reproduced in any form - including copied,
-* transcribed, printed or by any electronic means - without specific written
-* permission from NXP.
+* SPDX-License-Identifier: BSD-3-Clause
 ********************************************************************************** */
 
 #ifndef DIGITAL_KEY_DEVICE_H
@@ -70,6 +66,7 @@ typedef enum appEvent_tag{
     mAppEvt_GenericCallback_RandomAddressReady_c,
     mAppEvt_GenericCallback_CtrlNotifEvent_c,
     mAppEvt_GenericCallback_BondCreatedEvent_c,
+    mAppEvt_GenericCallback_DecisionInstructionsSetupComplete_c,
     mAppEvt_ConnectionCallback_ConnEvtConnected_c,
     mAppEvt_ConnectionCallback_ConnEvtDisconnected_c,
     mAppEvt_ConnectionCallback_ConnEvtLeScOobDataRequest_c,
@@ -88,7 +85,8 @@ typedef enum appEvent_tag{
     mAppEvt_L2capPsmControlCallback_NoPeerCredits_c,
     mAppEvt_Shell_Reset_Command_c,
     mAppEvt_Shell_FactoryReset_Command_c,
-    mAppEvt_Shell_ShellStartDiscovery_Command_c,
+    mAppEvt_Shell_ShellStartDiscoveryOP_Command_c,
+    mAppEvt_Shell_ShellStartDiscoveryPE_Command_c,
     mAppEvt_Shell_StopDiscovery_Command_c,
     mAppEvt_Shell_Disconnect_Command_c,
     mAppEvt_Shell_SetBondingData_Command_c,

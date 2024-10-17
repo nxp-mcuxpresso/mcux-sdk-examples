@@ -7,7 +7,7 @@ might be smaller than the LCD panel, so part of the LCD panel might be blank.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

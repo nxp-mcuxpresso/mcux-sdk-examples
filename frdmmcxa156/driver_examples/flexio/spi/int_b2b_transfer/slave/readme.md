@@ -6,7 +6,7 @@ In this example, a flexio simulated slave connect to a flexio simulated spi mast
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

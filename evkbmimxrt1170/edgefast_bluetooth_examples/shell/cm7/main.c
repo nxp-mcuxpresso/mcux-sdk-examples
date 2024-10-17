@@ -52,7 +52,8 @@ extern void app_audio_streamer_task_signal(void);
  * Code
  ******************************************************************************/
 
-#if (defined(WIFI_88W8987_BOARD_MURATA_1ZM_M2) || defined(WIFI_IW416_BOARD_MURATA_1XK_M2) || defined(WIFI_IW612_BOARD_MURATA_2EL_M2))
+#if (defined(WIFI_88W8987_BOARD_MURATA_1ZM_M2) || defined(WIFI_IW416_BOARD_MURATA_1XK_M2) || \
+     defined(WIFI_IW612_BOARD_MURATA_2EL_M2) || defined (WIFI_AW611_BOARD_UBX_JODY_W5_M2))
 int controller_hci_uart_get_configuration(controller_hci_uart_config_t *config)
 {
     if (NULL == config)
@@ -60,7 +61,11 @@ int controller_hci_uart_get_configuration(controller_hci_uart_config_t *config)
         return -1;
     }
     config->clockSrc        = CLOCK_GetRootClockFreq(kCLOCK_Root_Lpuart2);
-    config->defaultBaudrate = 115200u;
+#if (defined(WIFI_AW611_BOARD_UBX_JODY_W5_M2))
+    config->defaultBaudrate = BOARD_BT_UART_BAUDRATE;
+#elif (defined(WIFI_88W8987_BOARD_MURATA_1ZM_M2) || defined(WIFI_IW416_BOARD_MURATA_1XK_M2) || defined(WIFI_IW612_BOARD_MURATA_2EL_M2))
+    config->defaultBaudrate = 115200U;
+#endif
     config->runningBaudrate = BOARD_BT_UART_BAUDRATE;
     config->instance        = 2;
 #if (defined(HAL_UART_DMA_ENABLE) && (HAL_UART_DMA_ENABLE > 0U))

@@ -7,7 +7,7 @@ uart_wifi_bridge version: v1.3.r34.p46
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

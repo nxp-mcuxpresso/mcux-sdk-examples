@@ -38,7 +38,7 @@ SET(LIBRARY_OUTPUT_PATH ${ProjDirPath}/${CMAKE_BUILD_TYPE})
 
 project(lpspi_interrupt_b2b_transfer_slave_cm4)
 
-set(MCUX_BUILD_TYPES debug release sdram_debug sdram_release flexspi_nor_debug flexspi_nor_release)
+set(MCUX_BUILD_TYPES flexspi_nor_debug flexspi_nor_release debug release sdram_debug sdram_release)
 
 set(MCUX_SDK_PROJECT_NAME lpspi_interrupt_b2b_transfer_slave_cm4.elf)
 

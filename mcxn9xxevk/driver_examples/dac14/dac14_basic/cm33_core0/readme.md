@@ -7,7 +7,7 @@ written into DAC data register will be directly pushed to analog conversion.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

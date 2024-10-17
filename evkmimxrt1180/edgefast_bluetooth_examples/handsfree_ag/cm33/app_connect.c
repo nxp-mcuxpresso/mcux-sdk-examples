@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 NXP
+ * Copyright 2020, 2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -49,6 +49,7 @@ static void connected(struct bt_conn *conn, uint8_t err)
     }
     else
     {
+        default_conn = conn;
         if (1U == default_connect_initialized)
         {
             struct bt_conn_info info;
@@ -60,7 +61,6 @@ static void connected(struct bt_conn *conn, uint8_t err)
                 return;
             }
 
-            default_conn = bt_conn_ref(conn);
             /*
              * Do an SDP Query on Successful ACL connection complete with the
              * required device
@@ -93,14 +93,12 @@ static void disconnected(struct bt_conn *conn, uint8_t reason)
 
     if (default_conn)
     {
-        bt_conn_unref(default_conn);
         default_conn = NULL;
     }
     else
     {
         return;
     }
-    app_hfp_ag_disconnect();
 }
 
 static void security_changed(struct bt_conn *conn, bt_security_t level, enum bt_security_err err)
@@ -115,18 +113,33 @@ static void security_changed(struct bt_conn *conn, bt_security_t level, enum bt_
     }
     else
     {
+        PRINTF("Security failed: %s level %u err %d\n", addr, level, err);
         if (err == BT_SECURITY_ERR_PIN_OR_KEY_MISSING)
         {
-            PRINTF("\n");
+            bt_addr_le_t addr;
+            struct bt_conn_info info;
+            int ret;
 
-            PRINTF("___________________________________________________________\n");
+            bt_conn_get_info(conn, &info);
+            if (info.type == BT_CONN_TYPE_LE)
+            {
+                return;
+            }
+
             PRINTF("The peer device seems to have lost the bonding information.\n");
-            PRINTF("Kindly delete the bonding information of the peer from the\n");
-            PRINTF("and try again.\n\n");
-
-            PRINTF("\n");
+            PRINTF("Delete the bonding information of the peer, please try again.\n");
+            addr.type = BT_ADDR_LE_PUBLIC;
+            addr.a = *info.br.dst;
+            ret = bt_unpair(BT_ID_DEFAULT, &addr);
+            if (ret)
+            {
+                PRINTF("fail to delete.\n");
+            }
+            else
+            {
+                PRINTF("success to delete.\n");
+            }
         }
-        PRINTF("Security failed: %s level %u err %d\n", addr, level, err);
     }
 }
 

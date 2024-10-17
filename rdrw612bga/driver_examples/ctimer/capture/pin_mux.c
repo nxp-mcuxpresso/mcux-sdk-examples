@@ -18,7 +18,7 @@ product: Pins v15.0
 processor: RW612
 package_id: RW612ETA2I
 mcu_data: ksdk2_0
-processor_version: 0.0.0
+processor_version: 0.16.9
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -46,9 +46,9 @@ void BOARD_InitBootPins(void)
 BOARD_InitPins:
 - options: {callFromInitBoot: 'true', coreID: cm33, enableClock: 'true'}
 - pin_list:
-  - {pin_num: F3, peripheral: FLEXCOMM3, signal: USART_RXD, pin_signal: GPIO_24}
-  - {pin_num: E8, peripheral: GPIO, signal: 'PIO1, 20', pin_signal: GPIO_52, direction: OUTPUT}
-  - {pin_num: D8, peripheral: CTIMER0, signal: 'CAPTURE, 0', pin_signal: GPIO_51}
+  - {pin_num: E5, peripheral: FLEXCOMM3, signal: USART_RXD, pin_signal: GPIO_24}
+  - {pin_num: K8, peripheral: GPIO, signal: 'PIO1, 20', pin_signal: GPIO_52, direction: OUTPUT}
+  - {pin_num: M8, peripheral: CTIMER0, signal: 'CAPTURE, 0', pin_signal: GPIO_51}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -67,17 +67,17 @@ void BOARD_InitPins(void)
     /* Enables the clock for the GPIO1 module */
     GPIO_PortInit(GPIO, 1);
 
-    gpio_pin_config_t gpio1_pinE8_config = {
+    gpio_pin_config_t gpio1_pinK8_config = {
         .pinDirection = kGPIO_DigitalOutput,
         .outputLogic = 0U
     };
-    /* Initialize GPIO functionality on pin PIO1_20 (pin E8)  */
-    GPIO_PinInit(GPIO, 1U, 20U, &gpio1_pinE8_config);
-    /* Initialize FC3_USART_DATA functionality on pin GPIO_24 (pin F3) */
+    /* Initialize GPIO functionality on pin PIO1_20 (pin K8)  */
+    GPIO_PinInit(GPIO, 1U, 20U, &gpio1_pinK8_config);
+    /* Initialize FC3_USART_DATA functionality on pin GPIO_24 (pin E5) */
     IO_MUX_SetPinMux(IO_MUX_FC3_USART_DATA);
-    /* Initialize CT_INP11 functionality on pin GPIO_51 (pin D8) */
+    /* Initialize CT_INP11 functionality on pin GPIO_51 (pin M8) */
     IO_MUX_SetPinMux(IO_MUX_CT_INP11);
-    /* Initialize GPIO52 functionality on pin GPIO_52 (pin E8) */
+    /* Initialize GPIO52 functionality on pin GPIO_52 (pin K8) */
     IO_MUX_SetPinMux(IO_MUX_GPIO52);
     /* CT_INP11 signal is selected for CTIMER0 capture input 0 */
     INPUTMUX_AttachSignal(INPUTMUX, 0U, kINPUTMUX_Gpio51Inp11ToTimer0CaptureChannels);

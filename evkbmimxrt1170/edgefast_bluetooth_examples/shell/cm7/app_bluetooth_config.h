@@ -14,13 +14,13 @@
  * Supported controller list,
  * WIFI_IW416_BOARD_MURATA_1XK_M2
  * WIFI_88W8987_BOARD_MURATA_1ZM_M2
- * BT_THIRD_PARTY_TRANSCEIVER
  * WIFI_IW612_BOARD_MURATA_2EL_M2
+ * WIFI_AW611_BOARD_UBX_JODY_W5_M2
  *
- * If Murata Type 1XK module(EAR00385 M2 only) used, define macro WIFI_IW416_BOARD_MURATA_1XK_M2 in following.
+ * If Murata Type 1XK module(EAR00385 M2 only) used , define macro WIFI_IW416_BOARD_MURATA_1XK_M2 in following.
  * If Murata Type 1ZM module(EAR00364 M2 only) used , define macro WIFI_88W8987_BOARD_MURATA_1ZM_M2 in following.
- * If third party controller module used, define macro BT_THIRD_PARTY_TRANSCEIVER in following.
- * If Murata Type 2EL module(M2 only) used , define macro WIFI_IW612_BOARD_MURATA_2EL_M2 in following.
+ * If Murata Type 2EL module(Rev-A1 M2 only) used , define macro WIFI_IW612_BOARD_MURATA_2EL_M2 in following.
+ * If Murata Type AW611 module used , define macro WIFI_AW611_BOARD_UBX_JODY_W5_M2 in following.
  */
 
 /* @TEST_ANCHOR */
@@ -30,9 +30,11 @@
 /*#define WIFI_88W8987_BOARD_MURATA_1ZM_M2*/
 /*#define BT_THIRD_PARTY_TRANSCEIVER*/
 /*#define WIFI_IW612_BOARD_MURATA_2EL_M2*/
+/*WIFI_AW611_BOARD_UBX_JODY_W5_M2*/
 
 #if ( defined(WIFI_IW416_BOARD_MURATA_1XK_M2) || defined(WIFI_88W8987_BOARD_MURATA_1ZM_M2) || \
-      defined(BT_THIRD_PARTY_TRANSCEIVER) || defined(WIFI_IW612_BOARD_MURATA_2EL_M2) )
+      defined(BT_THIRD_PARTY_TRANSCEIVER) || defined(WIFI_IW612_BOARD_MURATA_2EL_M2) || \
+      defined(WIFI_AW611_BOARD_UBX_JODY_W5_M2))
 #include "wifi_bt_module_config.h"
 #include "wifi_config.h"
 #else
@@ -62,6 +64,10 @@
 
 #define CONFIG_BT_RFCOMM                    1
 #define CONFIG_BT_HFP_HF                    1
+#define CONFIG_BT_MAP_MCE                   1
+#define CONFIG_BT_MAP_MSE                   0
+#define CONFIG_BT_PBAP_PCE                  1
+#define CONFIG_BT_PBAP_PSE                  1
 #define CONFIG_BT_A2DP                      1
 #define CONFIG_BT_A2DP_SOURCE               1
 #define CONFIG_BT_A2DP_SINK                 1
@@ -352,14 +358,18 @@
 #define CONFIG_WORK_QUEUE_TASK_STACK_SIZE 4096
 
 #define SHELL_BUFFER_SIZE 512
+#if ((defined(CONFIG_BT_MAP_MCE) && (CONFIG_BT_MAP_MCE > 0U)) || \
+     (defined(CONFIG_BT_PBAP_PCE) && (CONFIG_BT_PBAP_PCE > 0U)))
+#define SHELL_MAX_ARGS    40
+#else
 #define SHELL_MAX_ARGS    20
+#endif
 
 #if (defined(CONFIG_BT_SMP) && (CONFIG_BT_SMP > 0U))
     #define CONFIG_BT_RX_STACK_SIZE 3000
 #else
     #define CONFIG_BT_RX_STACK_SIZE 1024
 #endif
-
 
 #include "edgefast_bluetooth_config.h"
 #include "edgefast_bluetooth_audio_config.h"

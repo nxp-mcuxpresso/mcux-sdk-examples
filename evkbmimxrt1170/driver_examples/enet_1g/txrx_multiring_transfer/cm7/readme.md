@@ -19,7 +19,7 @@ auto-negotiation when phy is in loop back mode. However, the auto-negotiation fa
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

@@ -3,7 +3,7 @@
  * @{
  ********************************************************************************** */
 /*! *********************************************************************************
-* Copyright 2020-2021, 2023 NXP
+* Copyright 2020-2021, 2023-2024 NXP
 *
 *
 * \file
@@ -36,7 +36,9 @@
 ************************************************************************************/
 extern gapConnectionRequestParameters_t gConnReqParams;
 extern gapScanningParameters_t          gScanParams;
-
+#if defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE)
+extern gapDecisionInstructionsData_t    gDbafDecisionInstructions;
+#endif /* defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE) */
 /************************************************************************************
 *************************************************************************************
 * Public prototypes

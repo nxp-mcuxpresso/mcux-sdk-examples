@@ -3,7 +3,7 @@
  * @{
  ********************************************************************************** */
 /*!
- * Copyright 2019-2023 NXP
+ * Copyright 2019-2024 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -89,14 +89,14 @@
 
 #define BUTTON_TASK_STACK_SIZE          380
 
-#define SERIAL_MANAGER_TASK_STACK_SIZE  224
+#define SERIAL_MANAGER_TASK_STACK_SIZE  320
 
-#define gMainThreadStackSize_c          800
+#define gMainThreadStackSize_c          864
 
-#define TM_TASK_STACK_SIZE              264
+#define TM_TASK_STACK_SIZE              360
 
 /* The size used for the Idle task, in dwords. */
-#define configMINIMAL_STACK_SIZE        140
+#define configMINIMAL_STACK_SIZE        156
 
 #endif /* defined(SDK_OS_FREE_RTOS) */
 

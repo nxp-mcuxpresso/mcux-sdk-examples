@@ -34,7 +34,7 @@ It is necessary to have installed tools capable of sending and receiving data ov
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================
@@ -43,7 +43,7 @@ Toolchain supported
 
 Hardware requirements
 =====================
-- Micro USB cable
+- USB-C cable
 - Network cable RJ45 standard
 - FRDM-RW612 board
 - Personal Computer

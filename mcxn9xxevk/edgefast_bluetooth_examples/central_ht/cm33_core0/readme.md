@@ -6,7 +6,7 @@ Except that this application specifically looks for health thermometer sensor an
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

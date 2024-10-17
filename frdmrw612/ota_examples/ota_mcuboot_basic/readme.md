@@ -5,7 +5,7 @@ This `ota_mcuboot_basic` example demonstrates a basic application that uses MCUB
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================
@@ -14,7 +14,7 @@ Toolchain supported
 
 Hardware requirements
 =====================
-- micro USB cable
+- USB-C cable
 - FRDM-RW612 board
 - Personal Computer
 

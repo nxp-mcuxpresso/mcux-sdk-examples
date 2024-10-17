@@ -6,7 +6,7 @@ The flip mode is changing.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

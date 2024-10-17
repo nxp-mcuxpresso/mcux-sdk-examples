@@ -7,7 +7,7 @@ Users can use some tools such as EXCEL to recover the input signal based on thos
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

@@ -37,6 +37,7 @@ bool_t APP_bConsoleReceiveChar(uint8_t* pu8Data);
 bool_t APP_bConsoleCanTransmit(void);
 bool_t APP_bConsoleTransmit(uint8_t pu8Data);
 void APP_vConsoleSetBaudRate(uint32_t baud);
+void APP_vConsoleDeinitialise(void);
 
 /****************************************************************************/
 /***        Exported Variables                                            ***/

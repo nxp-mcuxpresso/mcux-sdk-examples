@@ -11,7 +11,7 @@ so it demonstrates following techniques for TrustZone applications development:
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

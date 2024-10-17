@@ -9,7 +9,7 @@ User can use MMC plus card or emmc(on board IC, but not recommand use emmc socke
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

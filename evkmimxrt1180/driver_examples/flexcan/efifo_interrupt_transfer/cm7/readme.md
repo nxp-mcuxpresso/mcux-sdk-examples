@@ -14,7 +14,7 @@ the message content to terminal after receive 4 CAN FD messages.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

@@ -1,6 +1,6 @@
 /****************************************************************************
  *
- * Copyright 2020, 2022, 2023 NXP
+ * Copyright 2020, 2022-2024 NXP
  *
  * NXP Confidential. 
  * 
@@ -1719,6 +1719,77 @@ PUBLIC bool zps_bAplZdpUnpackBeaconSurveyResponse(ZPS_tsAfEvent *psZdoServerEven
     }
     return bZdp;
 }
+
+/****************************************************************************
+ *
+ * NAME:       zps_bAplZdpUnpackBeaconSurveyResponse
+ */
+/**
+ *
+ *
+ * @ingroup
+ *
+ * @param
+ * @param
+ * @param
+ *
+ * @param
+ *
+ * @return
+ *
+ * @note
+ *
+ ****************************************************************************/
+PUBLIC bool zps_bAplZdpUnpackStartDlkReq(ZPS_tsAfEvent *psZdoServerEvent,
+                                         ZPS_tsAfZdpEvent *psReturnStruct)
+{
+    bool bZdp = FALSE;
+    if( psZdoServerEvent != NULL)
+    {
+        uint8      u8SeqNum;
+        uint32     u32Location = 0;
+
+        PDUM_thAPduInstance hAPduInst = psZdoServerEvent->uEvent.sApsDataIndEvent.hAPduInst;
+        uint16 u16ClusterId = psZdoServerEvent->uEvent.sApsDataIndEvent.u16ClusterId;
+
+        bZdp = TRUE;
+        u8SeqNum = (( pdum_tsAPduInstance* )hAPduInst )->au8Storage[0];
+        u32Location++;
+
+        psReturnStruct->u8SequNumber = u8SeqNum;
+        psReturnStruct->u16ClusterId = u16ClusterId;
+
+        int iPayloadSize = PDUM_u16APduInstanceGetPayloadSize(hAPduInst) - u32Location;
+        int iOff;
+        void *pvTlvDescr = u16ClusterId == ZPS_ZDP_SECURITY_START_KEY_UPDATE_REQ_CLUSTER_ID ?
+                           &g_Tlv_SecStartKeyUpdateReq :
+                           &g_Tlv_SecStartKeyNegotiationReq;
+
+        if ((iPayloadSize > 0) &&
+            (ZPS_TLV_ENUM_SUCCESS == ZPS_eTlvParseValidate(ZPS_TLV_STACK_CTX, pvTlvDescr,
+                &((pdum_tsAPduInstance*)hAPduInst)->au8Storage[u32Location], iPayloadSize)) &&
+            (iOff = ZPS_iTlvGetOffset(ZPS_TLV_STACK_CTX, 0)) >= 0)
+        {
+            psReturnStruct->uZdpData.sSecStartDlkReq.u8SelectedKeyNegotiationMethod =
+            psReturnStruct->uZdpData.sSecStartDlkReq.u8SelectedPresharedSecret =
+                    0;
+
+            if (u16ClusterId == ZPS_ZDP_SECURITY_START_KEY_UPDATE_REQ_CLUSTER_ID)
+            {
+                /* Local TLV 0, get enumeration 2 bytes */
+                u32Location +=
+                PDUM_u16APduInstanceReadNBO(hAPduInst, u32Location + iOff, "bb",
+                    &psReturnStruct->uZdpData.sSecStartDlkReq.u8SelectedKeyNegotiationMethod);
+
+            }
+
+            /* Local TLV 0, get IEEE address */
+            PDUM_u16APduInstanceReadNBO(hAPduInst, u32Location + iOff, "l",
+                    &psReturnStruct->uZdpData.sSecStartDlkReq.u64JoinerAddr);
+        }
+    }
+    return bZdp;
+}
 #endif
 
 /****************************************************************************
@@ -3216,6 +3287,10 @@ PUBLIC bool zps_bAplZdpUnpackResponse (ZPS_tsAfEvent *psZdoServerEvent ,ZPS_tsAf
 #ifdef R23_UPDATES
         case ZPS_ZDP_MGMT_NWK_BEACON_SURVEY_RSP_CLUSTER_ID:
             bZdp = zps_bAplZdpUnpackBeaconSurveyResponse( psZdoServerEvent , psReturnStruct );
+            break;
+        case ZPS_ZDP_SECURITY_START_KEY_UPDATE_REQ_CLUSTER_ID:
+        case ZPS_ZDP_SECURITY_START_KEY_NEGOTIATION_REQ_CLUSTER_ID:
+            bZdp = zps_bAplZdpUnpackStartDlkReq( psZdoServerEvent , psReturnStruct );
             break;
 #endif
         case ZPS_ZDP_MGMT_NWK_UPDATE_NOTIFY_CLUSTER_ID:

@@ -6,7 +6,7 @@ security counter plus X register or security counter minus X register.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

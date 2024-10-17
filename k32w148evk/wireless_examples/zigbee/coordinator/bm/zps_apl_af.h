@@ -61,6 +61,7 @@
 #define ZPS_APL_SEC_DEVICE_LEFT             2
 #define ZPS_APL_SEC_STD_UNSEC_REJOIN        3
 #define ZPS_APL_SEC_INT_LEAVE_REJOIN        4
+#define ZPS_APL_SEC_INT_UNSEC_JOIN_DLK      5
 
 #define ZPS_APL_FILTER_NONE                 0
 #define ZPS_APL_FILTER_BCAST                1

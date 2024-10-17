@@ -24,7 +24,7 @@ at a fixed location that is then known for both cores.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

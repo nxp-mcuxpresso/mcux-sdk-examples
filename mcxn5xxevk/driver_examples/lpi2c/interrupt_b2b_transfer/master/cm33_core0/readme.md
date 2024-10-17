@@ -10,7 +10,7 @@ slave is correct.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================
@@ -20,7 +20,7 @@ Toolchain supported
 Hardware requirements
 =====================
 - Mini/micro USB cable
-- MCX-N9xx-EVK board
+- MCX-N5xx-EVK board
 - Personal Computer
 
 Board settings

@@ -3,7 +3,7 @@
  * @{
  ********************************************************************************** */
 /*! *********************************************************************************
-* Copyright 2020-2021, 2023 NXP
+* Copyright 2020-2021, 2023-2024 NXP
 *
 *
 * \file
@@ -53,6 +53,14 @@ extern gapExtAdvertisingParameters_t gExtAdvParamsScannable;
 extern gapExtAdvertisingParameters_t gExtAdvParamsConnectable;
 /* Extended Non Connectable Non Scannable Advertising Parameters */
 extern gapExtAdvertisingParameters_t gExtAdvParamsNonConnNonScann;
+#if defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE)
+/* DBAF Scannable Advertising Parameters */
+extern gapExtAdvertisingParameters_t gDbafParamsScannable;
+/* DBAF Connectable Advertising Parameters */
+extern gapExtAdvertisingParameters_t gDbafParamsConnectable;
+/* DBAF Non Connectable Non Scannable Advertising Parameters */
+#endif /* defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE) */
+extern gapExtAdvertisingParameters_t gDbafParamsNonConnNonScann;
 extern gapAdvertisingData_t          gAppExtAdvDataScannable;
 extern gapAdvertisingData_t          gAppExtAdvDataConnectable;
 extern gapAdvertisingData_t          gAppExtAdvDataId1NonConnNonScan;
@@ -67,6 +75,10 @@ extern gapAdvertisingData_t          gAppAdvertisingData;
 extern gapScanResponseData_t         gAppScanRspData;
 /* Periodic advertising parameters */
 extern gapPeriodicAdvParameters_t    gPeriodicAdvParams;
+#if defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE)
+/* DBAF Decision Data Parameters */
+extern gapAdvertisingDecisionData_t gAdvDecisionData;
+#endif /* defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE) */
 
 #if (defined(gAppButtonCnt_c) && (gAppButtonCnt_c > 0))
 extern button_status_t BleApp_HandleKeys0(void *buttonHandle, button_callback_message_t *message,void *callbackParam);

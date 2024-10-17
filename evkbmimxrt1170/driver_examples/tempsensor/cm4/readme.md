@@ -7,7 +7,7 @@ the system can then use this module to monitor the on-die temperature and take a
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

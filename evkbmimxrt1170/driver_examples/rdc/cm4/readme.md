@@ -6,7 +6,7 @@ asscess policy using RDC and RDC_SEMA42
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

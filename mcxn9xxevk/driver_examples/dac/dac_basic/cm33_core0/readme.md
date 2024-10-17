@@ -9,7 +9,7 @@ outputs the DAC output voltage through DAC output pin.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

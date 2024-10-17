@@ -183,10 +183,7 @@ static void stream_started_cb(struct bt_bap_stream *stream)
 	if(stream == &streams[0].stream)
 	{
 		seq_num = 0;
-		if(lc3_preset.qos.framing == BT_AUDIO_CODEC_QOS_FRAMING_FRAMED)
-		{
-			BOARD_SyncSignal_Start(0);
-		}
+		BOARD_SyncSignal_Start(0);
 	}
 
 	source_stream->seq_num = 0U;
@@ -196,10 +193,7 @@ static void stream_started_cb(struct bt_bap_stream *stream)
 
 static void stream_stopped_cb(struct bt_bap_stream *stream, uint8_t reason)
 {
-	if(lc3_preset.qos.framing == BT_AUDIO_CODEC_QOS_FRAMING_FRAMED)
-	{
-		BOARD_SyncSignal_Stop();
-	}
+	BOARD_SyncSignal_Stop();
 	OSA_SemaphorePost(sem_stopped);
 }
 
@@ -325,23 +319,16 @@ static int audio_stream_encode(void)
 		net_buf_add_mem(buf[i], sdu_buff[i], lc3_codec_info.octets_per_frame);
 	}
 
-	if(lc3_preset.qos.framing == BT_AUDIO_CODEC_QOS_FRAMING_FRAMED)
+	if(seq_num == 0)
 	{
-		if(seq_num == 0)
-		{
-			tx_samples = 0;
-			tx_time_stamp_start = get_sync_signal_timestamp() + get_iso_interval();
-			sdu_time_stamp = tx_time_stamp_start;
-		}
-		else
-		{
-			tx_samples += lc3_codec_info.samples_per_frame;
-			sdu_time_stamp = (uint32_t)((double)tx_time_stamp_start + (double)tx_samples * 1000000.0 / (double)lc3_codec_info.sample_rate);
-		}
+		tx_samples = 0;
+		tx_time_stamp_start = get_sync_signal_timestamp() + get_iso_interval();
+		sdu_time_stamp = tx_time_stamp_start;
 	}
 	else
 	{
-		sdu_time_stamp = BT_ISO_TIMESTAMP_NONE;
+		tx_samples += lc3_codec_info.samples_per_frame;
+		sdu_time_stamp = (uint32_t)((double)tx_time_stamp_start + (double)tx_samples * 1000000.0 / (double)lc3_codec_info.sample_rate);
 	}
 
 	for(int i = 0; i < CONFIG_BT_BAP_BROADCAST_SRC_STREAM_COUNT; i++)

@@ -17,7 +17,7 @@ There are two channels involved in this demo:
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

@@ -128,6 +128,9 @@ static bool_t mAuthRejected = FALSE;
 #endif
 
 static bool_t   mScanningOn = FALSE;
+#if defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE)
+static bool_t   mDbafScanning = FALSE;
+#endif /* defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE) */
 static bool_t   mFoundDeviceToConnect = FALSE;
 
 /* Buffer used for Characteristic related procedures */
@@ -149,7 +152,11 @@ static char* maAdvEvtDataTypeStrings[] = { "\n\rAdv Data", "\n\rScan Req Data" }
 static char* maAdvEvtAdvTypeStrings[] = { "\n\rExtended Advertising", "Legacy Advertising" };
 static char** maAdvPropStrings[] = {maAdvEvtConnStrings, maAdvEvtScannStrings, maAdvEvtDirStrings, maAdvEvtDataTypeStrings, maAdvEvtAdvTypeStrings};
 static char* maLePhyStrings[] = { "", "gLePhy1M_c", "gLePhy2M_c", "gLePhyCoded_c" };
+#if defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE)
+static char* maScanStrings[] = {"Passive", "Active", "DBAF"};
+#else
 static char* maScanStrings[] = {"Passive", "Active"};
+#endif /* defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE) */
 #if mAE_CentralDebug_c
 static char* maScanEventStrings[] = {\
     "gScanStateChanged_c",\
@@ -218,7 +225,9 @@ static void BleApp_HandlePeriodicAdv( gapExtScannedDevice_t* pExtScannedDevice, 
 #if (defined(gAppButtonCnt_c) && (gAppButtonCnt_c > 0))
 button_status_t BleApp_HandleKeys0(void *buttonHandle, button_callback_message_t *message,void *callbackParam);
 #endif /*gAppButtonCnt_c > 0*/
-
+#if defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE)
+static void Uart_PrintMenu(void *pData);
+#endif /* defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE) */
 /************************************************************************************
 *************************************************************************************
 * Public functions
@@ -285,7 +294,22 @@ button_status_t BleApp_HandleKeys0(void *buttonHandle, button_callback_message_t
             if (!mScanningOn)
             {
                 gScanParams.type = gScanTypeActive_c;
+#if defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE)
+                if (mDbafScanning == TRUE)
+                {
+                    gConnReqParams.filterPolicy = gUseOnlyDecisionPDUs_c;
+                    gScanParams.filterPolicy = (uint8_t)gScanOnlyDecisionPDUs_c;
+                    (void)Gap_SetDecisionInstructions(1U, &gDbafDecisionInstructions);
+                }
+                else
+                {
+                    gScanParams.filterPolicy = (uint8_t)gScanAll_c;
+                    gConnReqParams.filterPolicy = gUseDeviceAddress_c;
+                    BleApp_Start();
+                }
+#else
                 BleApp_Start();
+#endif /* defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE) */
             }
         }
         break;
@@ -295,11 +319,50 @@ button_status_t BleApp_HandleKeys0(void *buttonHandle, button_callback_message_t
             if (!mScanningOn)
             {
                 gScanParams.type = gScanTypePassive_c;
+#if defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE)
+                if (mDbafScanning == TRUE)
+                {
+                    gConnReqParams.filterPolicy = gUseOnlyDecisionPDUs_c;
+                    gScanParams.filterPolicy = (uint8_t)gScanOnlyDecisionPDUs_c;
+                    (void)Gap_SetDecisionInstructions(1U, &gDbafDecisionInstructions);
+                }
+                else
+                {
+                    gScanParams.filterPolicy = (uint8_t)gScanAll_c;
+                    gConnReqParams.filterPolicy = gUseDeviceAddress_c;
+                    BleApp_Start();
+                }
+#else
                 BleApp_Start();
+#endif /* defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE) */
             }
         }
         break;
-
+#if defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE)
+        /* Toggle Extended/DBAF scanning */
+    case kBUTTON_EventDoubleClick:
+        {
+            mDbafScanning = !mDbafScanning;
+            
+            if (mDbafScanning == TRUE)
+            {
+                /* Set connection parameters for Decision IND PDUs */
+                gConnReqParams.filterPolicy = gUseOnlyDecisionPDUs_c;
+                /* Set scanning filter policy for DBAF Decision Indication PDUs */
+                gScanParams.filterPolicy = (uint8_t)gScanOnlyDecisionPDUs_c;
+            }
+            else
+            {
+                /* Set default value for connection request filter policy */
+                gConnReqParams.filterPolicy = gUseDeviceAddress_c;
+                /* Set default value for scanning filter policy */
+                gScanParams.filterPolicy = (uint8_t)gScanAll_c;
+            }
+            
+            (void)App_PostCallbackMessage(Uart_PrintMenu, NULL);
+        }
+        break;
+#endif /* defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE) */
     default:
         {
             ; /* No action required */
@@ -335,12 +398,15 @@ static void BluetoothLEHost_GenericCallback (gapGenericEvent_t* pGenericEvent)
             AppPrintLePhyEvent(&pGenericEvent->eventData.phyEvent);
         }
         break;
-        case gRandomAddressReady_c:     
-                AppPrintString("\n\rOwn Address ");
-                AppPrintHexLe(pGenericEvent->eventData.addrReady.aAddress, 6);
-    
-            
-            break;
+    case gRandomAddressReady_c:
+        AppPrintString("\n\rOwn Address ");
+        AppPrintHexLe(pGenericEvent->eventData.addrReady.aAddress, 6);
+        break;
+#if defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE)
+    case gDecisionInstructionsSetupComplete_c:
+        BleApp_Start();
+        break;
+#endif /* defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE) */
     default:
         {
             ; /* No action required */
@@ -374,8 +440,12 @@ static void BluetoothLEHost_Initialized(void)
 
     /* Update UI */
     AppPrintString("\n\rExtended Advertising Application - Central");
+#if defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE)
+    Uart_PrintMenu(NULL);
+#else
     AppPrintString("\r\nPress WAKESW to Start Active Scanning!");
     AppPrintString("\r\nPress WAKESW Long to Start Passive Scanning!\r\n");
+#endif /* defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE) */
 
     LedStopFlashingAllLeds();
     Led1On();
@@ -1662,6 +1732,25 @@ static void BleApp_HandlePeriodicAdv( gapExtScannedDevice_t* pExtScannedDevice, 
     }
 }
 
+#if defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE)
+static void Uart_PrintMenu(void *pData)
+{
+    (void)pData;
+    if (mDbafScanning == TRUE)
+    {
+        AppPrintString("\r\nPress WAKESW to Start DBAF Active Scanning!");
+        AppPrintString("\r\nPress WAKESW Long to Start DBAF Passive Scanning!");
+        AppPrintString("\r\nDouble press WAKESW to toggle scanning for Decision IND PDUs (DBAF)!");
+    }
+    else
+    {
+        AppPrintString("\r\nPress WAKESW to Start Active Scanning!");
+        AppPrintString("\r\nPress WAKESW Long to Start Passive Scanning!");
+        AppPrintString("\r\nDouble press WAKESW to toggle scanning for Decision IND PDUs (DBAF)!");
+    }
+    AppPrintString("\r\n");
+}
+#endif /* defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE) */
 /*! *********************************************************************************
 * @}
 ********************************************************************************** */

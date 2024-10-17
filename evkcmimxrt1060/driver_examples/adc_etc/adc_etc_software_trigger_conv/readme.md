@@ -8,7 +8,7 @@ then the ADC_ETC ISR would be executed.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

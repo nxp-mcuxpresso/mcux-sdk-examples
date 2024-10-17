@@ -4,7 +4,7 @@ The IEE APC demo application demonstrates usage of the IEE and IEE APC driver. T
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

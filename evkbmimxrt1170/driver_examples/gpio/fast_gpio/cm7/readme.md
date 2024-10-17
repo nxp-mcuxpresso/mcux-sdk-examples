@@ -7,7 +7,7 @@ The example demos the fast GPIO usage and performance comparsion with normal GPI
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

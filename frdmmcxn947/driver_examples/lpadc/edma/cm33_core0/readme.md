@@ -12,7 +12,7 @@ indicated memory. Then the major loop waits for the transfer to be done. The res
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

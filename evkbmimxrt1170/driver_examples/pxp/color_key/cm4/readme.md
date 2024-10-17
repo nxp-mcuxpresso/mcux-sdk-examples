@@ -74,7 +74,7 @@ The screen shows the output frame like this:
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

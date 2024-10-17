@@ -4,7 +4,7 @@ The ERM project is a simple demonstration program of the SDK ERM driver. It show
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

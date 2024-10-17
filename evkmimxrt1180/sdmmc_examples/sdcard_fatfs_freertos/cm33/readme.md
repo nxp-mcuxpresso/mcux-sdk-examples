@@ -7,7 +7,7 @@ Note: The output log of the case is not constant, since difference of card acces
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

@@ -1,14 +1,15 @@
 /*
  * Copyright 2022-2024 NXP
- * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
+ * The BSD-3-Clause license can be found at https://spdx.org/licenses/BSD-3-Clause.html
  */
 
 #include "fsl_os_abstraction.h"
 #include "fsl_os_abstraction_free_rtos.h"
 
 #if defined(RW610)
+#include "fsl_flexcomm.h"
 #include "fsl_usart.h"
 #include "fsl_usart_freertos.h"
 #elif defined(MIMXRT1062_SERIES)
@@ -48,12 +49,12 @@ extern uint32_t BOARD_DebugConsoleSrcFreq(void);
 
 #if CONFIG_NCP_WIFI
 #define NCP_UART_TASK_PRIORITY    3
-#elif (CONFIG_NCP_BLE)      
+#elif (CONFIG_NCP_BLE)
 #define NCP_UART_TASK_PRIORITY    10
 #elif defined(CONFIG_NCP_OT)
 #define NCP_UART_TASK_PRIORITY    3
-#endif      
-      
+#endif
+
 #define NCP_UART_TASK_STACK_SIZE  1024
 
 /*******************************************************************************
@@ -97,13 +98,6 @@ static void ncp_uart_intf_task(void *argv);
 
 static OSA_TASK_HANDLE_DEFINE(ncp_uartTaskHandle);
 static OSA_TASK_DEFINE(ncp_uart_intf_task, NCP_UART_TASK_PRIORITY, 1, NCP_UART_TASK_STACK_SIZE, 0);
-#if defined(RW610)
-#if CONFIG_HOST_SLEEP
-#if CONFIG_POWER_MANAGER
-extern bool usart_suspend_flag;
-#endif
-#endif
-#endif
 
 /*******************************************************************************
  * API
@@ -190,20 +184,8 @@ int ncp_uart_recv(uint8_t *tlv_buf, size_t *tlv_sz)
     NCP_ASSERT(NULL != tlv_buf);
     NCP_ASSERT(NULL != tlv_sz);
 
-#if defined(RW610)
-restart:
-#endif
     while (tmp_len != TLV_CMD_HEADER_LEN)
     {
-#if defined(RW610)
-#if CONFIG_HOST_SLEEP
-        if (usart_suspend_flag)
-        {
-            vTaskDelay(1000);
-            goto restart;
-        }
-#endif
-#endif
 #if defined(RW610)
         ret = USART_RTOS_Receive(&ncp_rtos_handle, tlv_buf + tmp_len, TLV_CMD_HEADER_LEN, &rx_len);
 #elif defined(MIMXRT1062_SERIES)
@@ -250,22 +232,13 @@ restart:
     while (tmp_len != (cmd_len - TLV_CMD_HEADER_LEN + NCP_CHKSUM_LEN))
     {
 #if defined(RW610)
-#if CONFIG_HOST_SLEEP
-        if (usart_suspend_flag)
-        {
-            vTaskDelay(1000);
-            continue;
-        }
-#endif
-#endif
-#if defined(RW610)
         ret = USART_RTOS_Receive(&ncp_rtos_handle, tlv_buf + TLV_CMD_HEADER_LEN + tmp_len, cmd_len - TLV_CMD_HEADER_LEN + NCP_CHKSUM_LEN - tmp_len, &rx_len);
 #elif defined(MIMXRT1062_SERIES)
         ret = LPUART_RTOS_Receive(&ncp_rtos_handle, tlv_buf + TLV_CMD_HEADER_LEN + tmp_len, cmd_len - TLV_CMD_HEADER_LEN + NCP_CHKSUM_LEN - tmp_len, &rx_len);
 #endif
         tmp_len += rx_len;
         total   += rx_len;
-        if ((ret == 
+        if ((ret ==
 #if defined(RW610)
              kStatus_USART_RxRingBufferOverrun
 #elif defined(MIMXRT1062_SERIES)
@@ -319,6 +292,44 @@ int ncp_uart_send(uint8_t *tlv_buf, size_t tlv_sz, tlv_send_callback_t cb)
     return (int)NCP_STATUS_SUCCESS;
 }
 
+#if defined(RW610)
+static int wait_for_tx_done(void)
+{
+    /* Wait for uart interface output finished. */
+    while (((uint32_t)kUSART_TxIdleFlag & USART_GetStatusFlags(PROTOCOL_UART)) == 0U)
+    {
+    }
+
+    return NCP_PM_STATUS_SUCCESS;
+}
+
+static int ncp_uart_exit_power_down(void)
+{
+    int ret = (int)NCP_PM_STATUS_SUCCESS;
+
+    usart_config_t defcfg;
+    /* Attach FRG0 clock to FLEXCOMM0 */
+    CLOCK_SetFRGClock(PROTOCOL_UART_FRG_CLK);
+    CLOCK_AttachClk(PROTOCOL_UART_CLK_ATTACH);
+    ncp_uart_config.srcclk = PROTOCOL_UART_CLK_FREQ;
+
+    USART_GetDefaultConfig(&defcfg);
+    defcfg.baudRate_Bps = ncp_uart_config.baudrate;
+    defcfg.parityMode   = ncp_uart_config.parity;
+    defcfg.enableTx     = true;
+    defcfg.enableRx     = true;
+    defcfg.enableHardwareFlowControl = ncp_uart_config.enableHardwareFlowControl;
+
+    ret = USART_Init(ncp_rtos_handle.base, &defcfg, ncp_uart_config.srcclk);
+    /* Enable interrupt in NVIC. */
+    NVIC_SetPriority(PROTOCOL_UART_IRQ, PROTOCOL_UART_NVIC_PRIO);
+    FLEXCOMM_SetIRQHandler(ncp_rtos_handle.base,(flexcomm_irq_handler_t)USART_TransferHandleIRQ, ncp_rtos_handle.t_state);
+    USART_EnableInterrupts(ncp_rtos_handle.base,USART_FIFOINTENSET_RXLVL_MASK | USART_FIFOINTENSET_RXERR_MASK);
+
+    return ret;
+}
+#endif
+
 static int ncp_uart_pm_enter(int32_t pm_state)
 {
     int ret = (int)NCP_PM_STATUS_SUCCESS;
@@ -326,8 +337,7 @@ static int ncp_uart_pm_enter(int32_t pm_state)
 #if defined(RW610)
     if(pm_state == NCP_PM_STATE_PM3)
     {
-        xEventGroupSetBits(ncp_rtos_handle.rxEvent, RTOS_USART_COMPLETE);
-        ret = ncp_uart_deinit(NULL);
+        ret = wait_for_tx_done();
         if(ret != NCP_PM_STATUS_SUCCESS)
         {
             ncp_adap_e("Failed to init UART interface");
@@ -346,8 +356,18 @@ static int ncp_uart_pm_exit(int32_t pm_state)
 #if defined(RW610)
     if(pm_state == NCP_PM_STATE_PM3)
     {
-        ret = ncp_uart_init(NULL);
+        ret = ncp_uart_exit_power_down();
+
         if(ret != NCP_PM_STATUS_SUCCESS)
+        {
+            ncp_adap_e("Failed to init UART interface");
+            ret = (int)NCP_PM_STATUS_ERROR;
+        }
+    }
+    else if (pm_state == NCP_PM_STATE_PM2)
+    {
+        ret = wait_for_tx_done();
+        if (ret != NCP_PM_STATUS_SUCCESS)
         {
             ncp_adap_e("Failed to init UART interface");
             ret = (int)NCP_PM_STATUS_ERROR;

@@ -21,3 +21,5 @@ JP47: 2-3
 Remove R833, R815, R817, R818, R819, R820, R821, R860, R861, R862, R863, R864, R865
 Add 0Ohm resistors: R835, R816, R822, R823, R824, R825, R826
 Replace R317 by 50kOhm resistor
+
+Connect additional USB: J27 (add J26: 7-8) or J28 (add J26: 9-10).

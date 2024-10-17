@@ -9,7 +9,7 @@ The file 'spi_dma_b2b_transfer_slave.c' includes the SPI slave code.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

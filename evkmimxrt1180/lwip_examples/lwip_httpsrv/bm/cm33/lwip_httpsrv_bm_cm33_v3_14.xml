@@ -36,6 +36,7 @@
     <definition extID="driver.netc_rt1180.MIMXRT1189"/>
     <definition extID="driver.phy-common.MIMXRT1189"/>
     <definition extID="middleware.lwip.template.MIMXRT1189"/>
+    <definition extID="middleware.lwip.sys_arch_dynamic.MIMXRT1189"/>
     <definition extID="component.rgpio_adapter.MIMXRT1189"/>
     <definition extID="middleware.lwip.apps.httpd.support.MIMXRT1189"/>
     <definition extID="platform.drivers.ele_base_api.MIMXRT1189"/>
@@ -49,7 +50,7 @@
     <definition extID="com.nxp.mcuxpresso.core.debug.support.segger.debug"/>
     <definition extID="com.nxp.mcuxpresso.core.debug.support.segger.release"/>
   </externalDefinitions>
-  <example id="evkmimxrt1180_lwip_httpsrv_bm_cm33" name="lwip_httpsrv_bm_cm33" device_core="cm33_MIMXRT1189xxxxx" dependency="platform.drivers.netc.MIMXRT1189 platform.drivers.msgintr.MIMXRT1189 driver.phy-device-rtl8211f.MIMXRT1189 driver.phy-device-rtl8201.MIMXRT1189 middleware.lwip.netc_ethernetif.MIMXRT1189 middleware.lwip.MIMXRT1189 middleware.lwip.apps.httpd.MIMXRT1189 platform.drivers.clock.MIMXRT1189 platform.drivers.common.MIMXRT1189 platform.devices.MIMXRT1189_CMSIS.MIMXRT1189 platform.devices.MIMXRT1189_mcux_scripts.MIMXRT1189 utility.debug_console.MIMXRT1189 component.lpuart_adapter.MIMXRT1189 component.serial_manager_uart.MIMXRT1189 component.serial_manager.MIMXRT1189 platform.drivers.lpuart.MIMXRT1189 component.lists.MIMXRT1189 platform.devices.MIMXRT1189_startup.MIMXRT1189 platform.drivers.iomuxc.MIMXRT1189 platform.drivers.misc.MIMXRT1189 platform.utilities.assert.MIMXRT1189 platform.drivers.rgpio.MIMXRT1189 platform.drivers.xip_device.MIMXRT1189 platform.drivers.xip_board.evkmimxrt1180.MIMXRT1189 platform.drivers.pmu_1.MIMXRT1189 platform.drivers.dcdc_soc.MIMXRT1189 platform.drivers.cache_xcache.MIMXRT1189 component.silicon_id_rt1180.MIMXRT1189 component.silicon_id.MIMXRT1189 platform.utilities.misc_utilities.MIMXRT1189 platform.drivers.memory.MIMXRT1189 driver.netc_rt1180.MIMXRT1189 driver.phy-common.MIMXRT1189 middleware.lwip.template.MIMXRT1189 component.rgpio_adapter.MIMXRT1189 middleware.lwip.apps.httpd.support.MIMXRT1189 platform.drivers.ele_base_api.MIMXRT1189 platform.drivers.s3mu.MIMXRT1189 CMSIS_Include_core_cm.MIMXRT1189 platform.devices.MIMXRT1189_system.MIMXRT1189 utility.str.MIMXRT1189" category="lwip_examples">
+  <example id="evkmimxrt1180_lwip_httpsrv_bm_cm33" name="lwip_httpsrv_bm_cm33" device_core="cm33_MIMXRT1189xxxxx" dependency="platform.drivers.netc.MIMXRT1189 platform.drivers.msgintr.MIMXRT1189 driver.phy-device-rtl8211f.MIMXRT1189 driver.phy-device-rtl8201.MIMXRT1189 middleware.lwip.netc_ethernetif.MIMXRT1189 middleware.lwip.MIMXRT1189 middleware.lwip.apps.httpd.MIMXRT1189 platform.drivers.clock.MIMXRT1189 platform.drivers.common.MIMXRT1189 platform.devices.MIMXRT1189_CMSIS.MIMXRT1189 platform.devices.MIMXRT1189_mcux_scripts.MIMXRT1189 utility.debug_console.MIMXRT1189 component.lpuart_adapter.MIMXRT1189 component.serial_manager_uart.MIMXRT1189 component.serial_manager.MIMXRT1189 platform.drivers.lpuart.MIMXRT1189 component.lists.MIMXRT1189 platform.devices.MIMXRT1189_startup.MIMXRT1189 platform.drivers.iomuxc.MIMXRT1189 platform.drivers.misc.MIMXRT1189 platform.utilities.assert.MIMXRT1189 platform.drivers.rgpio.MIMXRT1189 platform.drivers.xip_device.MIMXRT1189 platform.drivers.xip_board.evkmimxrt1180.MIMXRT1189 platform.drivers.pmu_1.MIMXRT1189 platform.drivers.dcdc_soc.MIMXRT1189 platform.drivers.cache_xcache.MIMXRT1189 component.silicon_id_rt1180.MIMXRT1189 component.silicon_id.MIMXRT1189 platform.utilities.misc_utilities.MIMXRT1189 platform.drivers.memory.MIMXRT1189 driver.netc_rt1180.MIMXRT1189 driver.phy-common.MIMXRT1189 middleware.lwip.template.MIMXRT1189 middleware.lwip.sys_arch_dynamic.MIMXRT1189 component.rgpio_adapter.MIMXRT1189 middleware.lwip.apps.httpd.support.MIMXRT1189 platform.drivers.ele_base_api.MIMXRT1189 platform.drivers.s3mu.MIMXRT1189 CMSIS_Include_core_cm.MIMXRT1189 platform.devices.MIMXRT1189_system.MIMXRT1189 utility.str.MIMXRT1189" category="lwip_examples">
     <projects>
       <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
     </projects>
@@ -81,6 +82,8 @@
           <value>CHECKSUM_GEN_TCP=1</value>
           <value>CHECKSUM_GEN_ICMP=1</value>
           <value>CHECKSUM_GEN_ICMP6=1</value>
+          <value>CHECKSUM_CHECK_UDP=1</value>
+          <value>CHECKSUM_CHECK_TCP=1</value>
           <value>CHECKSUM_CHECK_ICMP=1</value>
           <value>CHECKSUM_CHECK_ICMP6=1</value>
           <value>SERIAL_PORT_TYPE_UART=1</value>

@@ -14,7 +14,7 @@ consumer and producer must be prepared to enable transaction.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================
@@ -23,7 +23,7 @@ Toolchain supported
 
 Hardware requirements
 =====================
-- Micro USB cable
+- USB-C cable
 - FRDM-RW612 board
 - Personal Computer
 

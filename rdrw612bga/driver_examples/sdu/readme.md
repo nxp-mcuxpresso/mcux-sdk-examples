@@ -6,7 +6,7 @@ The sdu example shows how to use sdu driver to exchange command/data with host d
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

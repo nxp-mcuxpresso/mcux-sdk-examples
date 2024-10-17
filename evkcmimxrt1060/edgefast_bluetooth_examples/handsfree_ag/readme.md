@@ -6,7 +6,7 @@ The HFP Ag can connected a HFP HF device like headphone or device running HFP HF
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

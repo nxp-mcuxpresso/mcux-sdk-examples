@@ -5,7 +5,7 @@ In this demo, NETC PSI sends/receives frames with external loopback cable. Use M
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

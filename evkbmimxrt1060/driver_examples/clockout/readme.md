@@ -8,7 +8,7 @@ root may be different in different targets even though the dividers are set as t
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

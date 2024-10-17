@@ -9,7 +9,7 @@ and sets mutex, to allow access other core to shared variable.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

@@ -12,7 +12,7 @@ The project checks the data in each buffer and show the result terminal.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

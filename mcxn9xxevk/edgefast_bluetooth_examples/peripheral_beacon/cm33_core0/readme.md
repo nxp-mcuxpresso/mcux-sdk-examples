@@ -8,7 +8,7 @@ iBeacon: This simple application demonstrates the BLE Broadcaster role functiona
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

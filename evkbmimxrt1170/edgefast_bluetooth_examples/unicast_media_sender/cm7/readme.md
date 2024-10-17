@@ -14,7 +14,7 @@ There should be four boards for a2dp_bridge: 1 a2dp_source + 1 a2dp_bridge(UMS) 
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

@@ -426,7 +426,7 @@ secEcdsaStatus_t ECDSA_VerifyMessageSignature(const uint8_t  pSignature[SEC_ECP2
  * \remarks
  *
  ********************************************************************************** */
-secEcp256Status_t ECP256_GenerateNewKeys(ecp256Point_t *pOutPublicKey,
+secEcp256Status_t ECP256_GenerateKeyPair(ecp256Point_t *pOutPublicKey,
                                          big_int256_t * pOutPrivateKey,
                                          void *         pMultiplicationBuffer);
 

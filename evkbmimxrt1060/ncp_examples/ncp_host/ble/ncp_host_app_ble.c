@@ -35,7 +35,8 @@ OSA_MSGQ_HANDLE_DEFINE(ble_ncp_command_queue_buff, BLE_NCP_COMMAND_QUEUE_NUM,  s
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
-
+extern int ble_process_response(uint8_t *res);
+extern int ble_process_ncp_event(uint8_t *res);
 
 /*******************************************************************************
  * Code

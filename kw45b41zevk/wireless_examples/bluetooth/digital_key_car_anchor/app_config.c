@@ -5,13 +5,9 @@
 /*! *********************************************************************************
 * \file app_config.c
 *
-* Copyright 2020-2023 NXP
+* Copyright 2020-2024 NXP
 *
-* NXP Confidential Proprietary
-*
-* No part of this document must be reproduced in any form - including copied,
-* transcribed, printed or by any electronic means - without specific written
-* permission from NXP.
+* SPDX-License-Identifier: BSD-3-Clause
 ********************************************************************************** */
 
 /************************************************************************************
@@ -110,12 +106,27 @@ gapExtAdvertisingParameters_t gExtAdvParams =
 
 };
 
+#if defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE)
+/* Default DBAF Decision Data Parameters */
+gapAdvertisingDecisionData_t gAdvDecisionData =
+{
+    /* pKey */                      NULL, \
+    /* pPrand */                    NULL, \
+    /* pDecisionData */             NULL, \
+    /* dataLength */                0, \
+    /* resolvableTagPresent */      FALSE \
+};
+#endif /* defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE) */
+
 /*Default Application Advertising Parameters */
 appExtAdvertisingParams_t gAppAdvParams =
 {
     &gLegacyAdvParams,
     &gAppAdvertisingData,
     &gAppScanRspData,
+#if defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE)
+    &gAdvDecisionData,
+#endif /* defined(gBLE60_DecisionBasedAdvertisingFilteringSupport_d) && (gBLE60_DecisionBasedAdvertisingFilteringSupport_d == TRUE) */
     gLegacyAdvSetHandle_c,
     gBleExtAdvNoDuration_c,
     gBleExtAdvNoMaxEvents_c

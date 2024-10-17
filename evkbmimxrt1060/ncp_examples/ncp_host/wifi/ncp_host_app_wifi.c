@@ -260,7 +260,7 @@ extern iperf_msg_t iperf_msg;
 #define NCP_IPERF_PER_PKG_SIZE 1448
 #define IPERF_RECV_TIMEOUT     3000
 /** A const buffer to send from: we want to measure sending, not copying! */
-static const char lwiperf_txbuf_const[NCP_IPERF_PER_PKG_SIZE] = {
+static char lwiperf_txbuf_const[NCP_IPERF_PER_PKG_SIZE] = {
     '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '1', '2',
     '3', '4', '5', '6', '7', '8', '9', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '1', '2', '3', '4', '5',
     '6', '7', '8', '9', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '1', '2', '3', '4', '5', '6', '7', '8',

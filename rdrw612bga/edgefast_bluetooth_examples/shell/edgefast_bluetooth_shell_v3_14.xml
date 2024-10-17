@@ -291,8 +291,7 @@
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="controller/configs/mbedtls" project_relative_path="source/controller/configs/mbedtls" type="c_include"/>
       <include_path path="." project_relative_path="boards/rdrw612bga/edgefast_bluetooth_examples/shell" type="c_include"/>
-      <include_path path="controller/configs/lwip" project_relative_path="source/controller/configs" type="c_include"/>
-      <include_path path="controller/configs/wifi" project_relative_path="source/controller/configs" type="c_include"/>
+      <include_path path="source" project_relative_path="source" type="c_include"/>
       <include_path path="../../../../core/boards/rdrw612bga" project_relative_path="." type="c_include"/>
       <include_path path="platform/configs" project_relative_path="source/platform/configs" type="c_include"/>
       <include_path path="." project_relative_path="source" type="asm_include"/>
@@ -356,6 +355,9 @@
     <source path="." project_relative_path="source" type="c_include">
       <files mask="edgefast_bluetooth_audio_config.h"/>
     </source>
+    <source path="." project_relative_path="source" type="src">
+      <files mask="shell_common.c"/>
+    </source>
     <source path="." project_relative_path="board" type="src">
       <files mask="board.c"/>
       <files mask="clock_config.c"/>
@@ -364,15 +366,11 @@
       <files mask="board.h"/>
       <files mask="clock_config.h"/>
     </source>
+    <source path="source" project_relative_path="source" type="c_include">
+      <files mask="monolithic_config.h"/>
+    </source>
     <source path="." project_relative_path="doc" type="doc" toolchain="mcuxpresso armgcc">
       <files mask="readme.md"/>
-    </source>
-    <source path="controller/configs/lwip" project_relative_path="source/controller/configs" type="c_include">
-      <files mask="lwipopts.h"/>
-      <files mask="lwippools.h"/>
-    </source>
-    <source path="controller/configs/wifi" project_relative_path="source/controller/configs" type="c_include">
-      <files mask="wifi_config.h"/>
     </source>
     <source path="platform/configs" project_relative_path="source/platform/configs" type="c_include" config="true">
       <files mask="ffconf.h"/>

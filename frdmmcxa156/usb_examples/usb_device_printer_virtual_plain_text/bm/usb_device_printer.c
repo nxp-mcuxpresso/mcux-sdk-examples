@@ -531,6 +531,7 @@ usb_status_t USB_DevicePrinterEvent(void *handle, uint32_t event, void *param)
             /* Handle the printer class specific request. */
             usb_device_control_request_struct_t *controlRequest = (usb_device_control_request_struct_t *)param;
             usb_device_printer_class_request_t classRequest;
+            (void)memset(&classRequest, 0, sizeof(classRequest));
             if ((controlRequest->setup->bmRequestType & USB_REQUEST_TYPE_RECIPIENT_MASK) !=
                 USB_REQUEST_TYPE_RECIPIENT_INTERFACE)
             {

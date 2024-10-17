@@ -4,7 +4,7 @@ This example showing how to read fuse, check it value and if its match expected 
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

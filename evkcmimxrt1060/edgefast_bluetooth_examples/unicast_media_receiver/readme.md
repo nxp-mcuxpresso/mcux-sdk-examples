@@ -9,7 +9,7 @@ UMR: receive one of CIS channel and render it.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================
@@ -135,6 +135,8 @@ Procedures to run
 Other cmds could be used:
 1 "sync_info" used to get iso_interval/sync_delay/pd/ts, and this cmd should be used after the audio stream start.
 2 "sync_test_mode" used to set the test mode, and this cmd should be used before init.
+3 "set_sirk" used to set sirk, and this cmd should be used before init.
 
 Note:
 1 "exit" command is a shell internal command, only used to exit shell module and could not used to exit demo.
+2 There is a delay in synchronizing volume/mute status between receivers. Setting a smaller connection interval can reduce the delay, but may introduce other timing issues if a too small value is set to connection interval.

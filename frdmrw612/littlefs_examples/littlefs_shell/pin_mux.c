@@ -18,7 +18,7 @@ product: Pins v15.0
 processor: RW612
 package_id: RW612ETA2I
 mcu_data: ksdk2_0
-processor_version: 0.15.5
+processor_version: 0.16.9
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -44,14 +44,14 @@ void BOARD_InitBootPins(void)
 BOARD_InitPins:
 - options: {callFromInitBoot: 'true', coreID: cm33, enableClock: 'true'}
 - pin_list:
-  - {pin_num: F3, peripheral: FLEXCOMM3, signal: USART_RXD, pin_signal: GPIO_24}
-  - {pin_num: E5, peripheral: FLEXSPI, signal: FLASH_CLK0, pin_signal: GPIO_34}
-  - {pin_num: A4, peripheral: FLEXSPI, signal: FLASH_DATA0, pin_signal: GPIO_30}
-  - {pin_num: D5, peripheral: FLEXSPI, signal: FLASH_DATA1, pin_signal: GPIO_31}
-  - {pin_num: C4, peripheral: FLEXSPI, signal: FLASH_DATA2, pin_signal: GPIO_32}
-  - {pin_num: C5, peripheral: FLEXSPI, signal: FLASH_DATA3, pin_signal: GPIO_33}
-  - {pin_num: D4, peripheral: FLEXSPI, signal: FLASH_DQS, pin_signal: GPIO_29}
-  - {pin_num: F5, peripheral: FLEXSPI, signal: FLASH_SSEL0, pin_signal: GPIO_28}
+  - {pin_num: E5, peripheral: FLEXCOMM3, signal: USART_RXD, pin_signal: GPIO_24}
+  - {pin_num: E3, peripheral: FLEXSPI, signal: FLASH_CLK0, pin_signal: GPIO_34}
+  - {pin_num: F3, peripheral: FLEXSPI, signal: FLASH_DATA0, pin_signal: GPIO_30}
+  - {pin_num: D3, peripheral: FLEXSPI, signal: FLASH_DATA1, pin_signal: GPIO_31}
+  - {pin_num: F2, peripheral: FLEXSPI, signal: FLASH_DATA2, pin_signal: GPIO_32}
+  - {pin_num: G3, peripheral: FLEXSPI, signal: FLASH_DATA3, pin_signal: GPIO_33}
+  - {pin_num: D2, peripheral: FLEXSPI, signal: FLASH_DQS, pin_signal: GPIO_29}
+  - {pin_num: F4, peripheral: FLEXSPI, signal: FLASH_SSEL0, pin_signal: GPIO_28}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -65,10 +65,10 @@ BOARD_InitPins:
 /* Function assigned for the Cortex-M33 */
 void BOARD_InitPins(void)
 {
-    /* Initialize FC3_USART_DATA functionality on pin GPIO_24 (pin F3) */
+    /* Initialize FC3_USART_DATA functionality on pin GPIO_24 (pin E5) */
     IO_MUX_SetPinMux(IO_MUX_FC3_USART_DATA);
     /* Initialize QUAD_SPI_FLASH functionality on pin GPIO_34, GPIO_30, GPIO_31, GPIO_32, GPIO_33, GPIO_29, GPIO_28
-     * (pin E5_A4_D5_C4_C5_D4_F5) */
+     * (pin E3_F3_D3_F2_G3_D2_F4) */
     IO_MUX_SetPinMux(IO_MUX_QUAD_SPI_FLASH);
 }
 /***********************************************************************************************************************

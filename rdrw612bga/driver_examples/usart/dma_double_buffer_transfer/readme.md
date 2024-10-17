@@ -23,7 +23,7 @@ RX to a continuous fast speed will cause the DMA to fall behind.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

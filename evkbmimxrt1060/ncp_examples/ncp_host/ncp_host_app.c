@@ -103,6 +103,12 @@ extern int ncp_host_wifi_command_init();
 #if CONFIG_NCP_BLE
 extern int ncp_host_ble_command_init();
 #endif
+#if CONFIG_NCP_OT
+extern int ncp_host_ot_command_init();
+#if CONFIG_NCP_SDIO
+extern uint8_t ot_reset_flag;
+#endif
+#endif
 
 int mcu_get_command_resp_sem()
 {
@@ -220,11 +226,13 @@ static int handle_input(char *inbuf)
      */
     for (j = 0; j < MCU_CLI_STRING_SIZE; j++)
     {
-        if (inbuf[j] == 0x0D || inbuf[j] == 0x0A)
+        if (inbuf[j] == (char)(0x0D) || inbuf[j] == (char)0x0A)
         {
             if (j < (MCU_CLI_STRING_SIZE - 1))
-                (void)memmove((inbuf + j), inbuf + j + 1, (MCU_CLI_STRING_SIZE - j));
-            inbuf[MCU_CLI_STRING_SIZE] = 0x00;
+            {
+                (void)memmove((inbuf + j), inbuf + j + 1, (MCU_CLI_STRING_SIZE - 1 - j));
+            }
+            inbuf[MCU_CLI_STRING_SIZE - 1] = (char)(0x00);
         }
     }
 
@@ -563,8 +571,16 @@ int ncp_host_send_tlv_command()
 
     if (transfer_len >= sizeof(NCP_HOST_COMMAND))
     {
+        if ((global_power_config.wake_mode == WAKE_MODE_WIFI_NB) && (mcu_device_status == MCU_DEVICE_STATUS_SLEEP))
+        {
+            ncp_e("Command is not allowed when wake mode is WIFI-NB and device is sleeping.");
+            ncp_e("With WIFI-NB mode, host is not able to wakeup device.");
+            ncp_e("Please send command after device wakes up.");
+            ret = -NCP_STATUS_ERROR;
+            goto done;
+        }
         /* Wakeup MCU device through GPIO if host configured GPIO wake mode */
-        if ((global_power_config.wake_mode == WAKE_MODE_GPIO) && (mcu_device_status == MCU_DEVICE_STATUS_SLEEP))
+        else if ((global_power_config.wake_mode == WAKE_MODE_GPIO) && (mcu_device_status == MCU_DEVICE_STATUS_SLEEP))
         {
             GPIO_PinWrite(GPIO1, 27, 0);
             ncp_d("get gpio_wakelock after GPIO wakeup\r\n");
@@ -601,6 +617,7 @@ done:
 
     return ret;
 }
+
 void ncp_host_input_task(void *pvParameters)
 {
     ncp_host_input_uart_config.srcclk = NCP_HOST_INPUT_UART_CLK_FREQ;
@@ -659,8 +676,20 @@ void ncp_host_input_task(void *pvParameters)
                 /*If the string command is empty, release command response semaphore.*/
                 mcu_put_command_resp_sem();
             }
-            else /*Send tlv command to ncp device */
+            else
+            {
+                /*Send tlv command to ncp device */
                 ncp_host_send_tlv_command();
+#if (CONFIG_NCP_OT && CONFIG_NCP_SDIO)
+                if (ot_reset_flag)
+                {
+                  PRINTF("Reseting...\n");
+                  /* Factoryreset need to erase flash, delay 3 seconds to ensure successful reset on the device side,  */
+                  vTaskDelay(pdMS_TO_TICKS(3000));
+                  ot_reset_flag = 0;
+                }
+#endif
+            }
 
             (void)PRINTF(PROMPT);
         }
@@ -724,6 +753,9 @@ int ncp_host_cli_init(void)
 #endif
 #if CONFIG_NCP_BLE
     ncp_host_ble_command_init();
+#endif
+#if CONFIG_NCP_OT
+    ncp_host_ot_command_init();
 #endif
 
     int n = 0;

@@ -10,12 +10,9 @@
 
 #include <bluetooth/conn.h>
 
-typedef void (*vcs_client_discover_callback_t)(struct bt_conn *conn, int err);
 typedef void (*vcs_server_vol_callback_t)(uint8_t volume, uint8_t mute);
 
 int le_audio_vcs_server_init(vcs_server_vol_callback_t callback);
-int le_audio_vcs_client_init(vcs_client_discover_callback_t callback);
-int le_audio_vcs_discover(struct bt_conn *conn, uint8_t channel);
 int le_audio_vcs_vol_set(uint8_t volume);
 int le_audio_vcs_vol_up(void);
 int le_audio_vcs_vol_down(void);

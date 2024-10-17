@@ -10,12 +10,12 @@ This example uses the transactional API in LPSPI driver.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================
-- MCUXpresso  11.10.0
 - GCC ARM Embedded  13.2.1
+- MCUXpresso  11.10.0
 
 Hardware requirements
 =====================

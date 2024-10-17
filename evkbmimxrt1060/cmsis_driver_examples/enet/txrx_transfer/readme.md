@@ -12,7 +12,7 @@ In this example, the ENET transmits 20 number broadcast frames and will print th
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

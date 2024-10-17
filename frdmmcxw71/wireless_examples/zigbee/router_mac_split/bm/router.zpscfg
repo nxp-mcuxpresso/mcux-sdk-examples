@@ -86,6 +86,7 @@
     <Clusters Name="Mgmt_NWK_Update_rsp" Id="0x8038"/>
     <Clusters Name="Parent_Annce_req" Id="0x001F"/>
     <Clusters Name="Parent_Annce_rsp" Id="0x801F"/>
+    <Clusters Name="Default_Server" Id="0xFFFF"/>
   </Profiles>
   <Profiles Name="HAP" Id="0x0104">
     <Clusters Name="Basic" Id="0x0000"/>
@@ -187,6 +188,7 @@
       <InputClusters Cluster="Mgmt_Cache_rsp" RxAPDU="Coordinator->apduZDP" Discoverable="false"/>
       <InputClusters Cluster="Mgmt_NWK_Update_rsp" RxAPDU="Coordinator->apduZDP" Discoverable="false"/>
       <InputClusters Cluster="Parent_Annce_req" RxAPDU="Coordinator->apduZDP" Discoverable="true"/>
+      <InputClusters Cluster="Default_Server" RxAPDU="Coordinator->apduZDP" Discoverable="true"/>
       <OutputClusters Cluster="NWK_addr_req" TxAPDUs="Coordinator->apduZDP" Discoverable="false"/>
       <OutputClusters Cluster="IEEE_addr_req" TxAPDUs="Coordinator->apduZDP" Discoverable="false"/>
       <OutputClusters Cluster="Node_Desc_req" TxAPDUs="Coordinator->apduZDP" Discoverable="false"/>
@@ -271,6 +273,7 @@
       <OutputClusters Cluster="Mgmt_Cache_rsp" TxAPDUs="Coordinator->apduZDP" Discoverable="false"/>
       <OutputClusters Cluster="Mgmt_NWK_Update_rsp" TxAPDUs="Coordinator->apduZDP" Discoverable="false"/>
       <OutputClusters Cluster="Parent_Annce_rsp" TxAPDUs="Coordinator->apduZDP" Discoverable="true"/>
+      <OutputClusters Cluster="Default_Server" TxAPDUs="Coordinator->apduZDP" Discoverable="true"/>
     </Endpoints>
     <Endpoints Id="1" Enabled="true" ApplicationDeviceId="0" ApplicationDeviceVersion="0" Profile="HAP" Message="APP_ZCL_vEventHandler" Name="Application">
       <InputClusters Cluster="Default" RxAPDU="Coordinator->apduZCL" Discoverable="false"/>
@@ -407,6 +410,7 @@
       <InputClusters Cluster="Mgmt_Cache_rsp" RxAPDU="router->apduZDP" Discoverable="false"/>
       <InputClusters Cluster="Mgmt_NWK_Update_rsp" RxAPDU="router->apduZDP" Discoverable="false"/>
       <InputClusters Cluster="Parent_Annce_req" RxAPDU="router->apduZDP" Discoverable="true"/>
+      <InputClusters Cluster="Default_Server" RxAPDU="router->apduZDP" Discoverable="true"/>
       <OutputClusters Cluster="NWK_addr_req" TxAPDUs="router->apduZDP" Discoverable="false"/>
       <OutputClusters Cluster="IEEE_addr_req" TxAPDUs="router->apduZDP" Discoverable="false"/>
       <OutputClusters Cluster="Node_Desc_req" TxAPDUs="router->apduZDP" Discoverable="false"/>
@@ -491,6 +495,7 @@
       <OutputClusters Cluster="Mgmt_Cache_rsp" TxAPDUs="router->apduZDP" Discoverable="false"/>
       <OutputClusters Cluster="Mgmt_NWK_Update_rsp" TxAPDUs="router->apduZDP" Discoverable="false"/>
       <OutputClusters Cluster="Parent_Annce_rsp" TxAPDUs="router->apduZDP" Discoverable="true"/>
+      <OutputClusters Cluster="Default_Server" TxAPDUs="router->apduZDP" Discoverable="true"/>
     </Endpoints>
     <Endpoints Id="1" Enabled="true" ApplicationDeviceId="256" ApplicationDeviceVersion="1" Profile="HAP" Message="APP_ZCL_vEventHandler" Name="Application">
       <InputClusters Cluster="Basic" RxAPDU="router->apduZCL" Discoverable="true"/>

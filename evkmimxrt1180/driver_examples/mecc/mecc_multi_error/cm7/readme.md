@@ -4,7 +4,7 @@ The MECC project is a simple demonstration program of the SDK MECC driver. It us
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

@@ -4,7 +4,7 @@ The ELE common application provides example how to load loadable FW into ELE and
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

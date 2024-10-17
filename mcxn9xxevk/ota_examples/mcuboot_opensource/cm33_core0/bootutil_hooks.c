@@ -13,6 +13,14 @@
 
 #include "fsl_debug_console.h"
 
+#include "sblconfig.h"
+#include "flash_map.h"
+#include "flash_partitioning.h"
+
+#ifdef CONFIG_ENCRYPT_XIP_EXT_OVERWRITE_ONLY
+#include "platform_enc_common.h"
+#endif
+
 #ifdef NDEBUG
 #undef assert
 #define assert(x) ((void)(x))
@@ -28,9 +36,26 @@ fih_int boot_image_check_hook(int img_index, int slot)
     return BOOT_HOOK_REGULAR;
 }
 
-int boot_perform_update_hook(int img_index, struct image_header *img_head, const struct flash_area *area)
+int boot_perform_update_hook(int img_index, struct image_header *img_head,
+                             const struct flash_area *area)
 {
     return BOOT_HOOK_REGULAR;
+}
+
+int boot_copy_region_pre_hook(int img_index, const struct flash_area *area, size_t size)
+{
+#ifdef CONFIG_ENCRYPT_XIP_EXT_OVERWRITE_ONLY
+    status_t status;
+    
+    status = platform_enc_cfg_write(boot_flash_meta_map, 0);
+    if (status != kStatus_Success)
+      return -1;
+    
+    status = platform_enc_cfg_init(boot_flash_meta_map, NULL);
+    if (status != kStatus_Success)
+      return -1;
+#endif
+    return 0;
 }
 
 int boot_copy_region_post_hook(int img_index, const struct flash_area *area, size_t size)
@@ -40,37 +65,5 @@ int boot_copy_region_post_hook(int img_index, const struct flash_area *area, siz
 
 int boot_read_swap_state_primary_slot_hook(int image_index, struct boot_swap_state *state)
 {
-    return BOOT_HOOK_REGULAR;
-}
-
-int boot_find_active_slot_hook(struct boot_loader_state *state, uint32_t *candidate_slot)
-{
-#if defined(MCUBOOT_IMAGE_ACCESS_HOOKS) && defined(MCUBOOT_DIRECT_XIP)
-
-    uint32_t slot;
-    int rc;
-    struct boot_swap_state swap_states[BOOT_NUM_SLOTS];
-    uint8_t image_index = BOOT_CURR_IMG(state);
-
-    rc = boot_read_swap_state_by_id(FLASH_AREA_IMAGE_PRIMARY(image_index), &swap_states[BOOT_PRIMARY_SLOT]);
-    assert(rc == 0);
-    rc = boot_read_swap_state_by_id(FLASH_AREA_IMAGE_SECONDARY(image_index), &swap_states[BOOT_SECONDARY_SLOT]);
-    assert(rc == 0);
-
-    for (slot = 0; slot < BOOT_NUM_SLOTS; slot++)
-    {
-        /* is slot in test state or marked as permanent (image_ok = set)? */
-        if (state->slot_usage[BOOT_CURR_IMG(state)].slot_available[slot] && swap_states[slot].magic == 0x1)
-        {
-            if (swap_states[slot].copy_done != BOOT_FLAG_SET)
-            {
-                *candidate_slot = slot;
-                PRINTF("Found a candidate in slot %X\n", slot);
-                return 0;
-            }
-        }
-    }
-
-#endif
     return BOOT_HOOK_REGULAR;
 }

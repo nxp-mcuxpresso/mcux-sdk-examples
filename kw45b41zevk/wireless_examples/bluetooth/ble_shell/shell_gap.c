@@ -1681,7 +1681,7 @@ static shell_status_t ShellGap_Bonds(uint8_t argc, char * argv[])
  ********************************************************************************** */
 static void ShellGap_ParseScannedDevice(gapScannedDevice_t* pData)
 {
-    uint8_t index = 0;
+    uint32_t index = 0;
     uint8_t nameLength;
     uint8_t aux;
 
@@ -1706,7 +1706,7 @@ static void ShellGap_ParseScannedDevice(gapScannedDevice_t* pData)
         }
 
         /* Move on to the next AD element type */
-        index += adElement.length + (uint8_t)sizeof(uint8_t);
+        index += (uint32_t)adElement.length + (uint8_t)sizeof(uint8_t);
     }
 
     for(uint32_t i = sizeof(bleDeviceAddress_t); i > 0U; i-- )
@@ -2087,10 +2087,10 @@ static shell_status_t ShellGap_ChangePeriodicAdvData(uint8_t argc, char * argv[]
         if(0 == strcmp((char*)argv[0], "-erase"))
         {
             gAppExtAdvertisingData.cNumAdStructures = 0U;
-            if (NULL != mpExtAdvData)
+            if (NULL != mpPeriodicData)
             {
-                (void)MEM_BufferFree(mpExtAdvData);
-                mpExtAdvData = NULL;
+                (void)MEM_BufferFree(mpPeriodicData);
+                mpPeriodicData = NULL;
             }
             /* Clean periodic advertising data */
             shell_write("\r\n\r\n-->  Periodic Advertising Data Erased.");

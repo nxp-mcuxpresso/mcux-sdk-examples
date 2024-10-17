@@ -4,7 +4,7 @@
   <externalDefinitions>
     <definition extID="MCXN947VDF"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK216000_frdmmcxn947_examples_manifest_v3_14" name="MCUXpressoSDK216000_frdmmcxn947_examples_manifest_v3_14" version="2.16.000" revision="2.16.000"/>
+  <ksdk id="MCUXpressoSDK216100_frdmmcxn947_examples_manifest_v3_14" name="MCUXpressoSDK216100_frdmmcxn947_examples_manifest_v3_14" version="2.16.100" revision="2.16.100"/>
   <boards>
     <board id="frdmmcxn947" name="FRDM-MCXN947" version="1.0.0" package="MCXN947VDF">
       <examples>
@@ -1346,6 +1346,11 @@
         <example id="frdmmcxn947_itrc" name="itrc" brief="The ITRC Example project is a demonstration program that uses the MCUX SDK software to show funcionality of Intrusion and Tamper Response Controller." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/itrc" path="examples/frdmmcxn947/driver_examples/itrc/cm33_core0">
           <external path="driver_examples/itrc/cm33_core0" type="xml">
             <files mask="itrc_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="frdmmcxn947_iped" name="iped" brief="The IPED Example project is a demonstration program that uses the MCUX SDK software to show funcionality of Inline Prince Encryption Decryption." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/iped" path="examples/frdmmcxn947/driver_examples/iped/cm33_core0">
+          <external path="driver_examples/iped/cm33_core0" type="xml">
+            <files mask="iped_v3_14.xml"/>
           </external>
         </example>
         <example id="frdmmcxn947_gdet" name="gdet" brief="The GDET Example project is a demonstration program that uses the MCUX SDK software to show funcionality of Glitch Detect (GDET) module." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/gdet" path="examples/frdmmcxn947/driver_examples/gdet/cm33_core0">

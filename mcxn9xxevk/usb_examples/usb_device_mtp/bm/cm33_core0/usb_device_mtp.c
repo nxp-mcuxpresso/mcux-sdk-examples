@@ -225,9 +225,9 @@ void USB_DevicePrimeDataIn(usb_device_mtp_struct_t *mtpHandle, usb_device_mtp_cm
     container->containerLength = (mtpHandle->transferTotal > USB_DEVICE_MTP_MAX_UINT32_VAL) ?
                                      USB_DEVICE_MTP_MAX_UINT32_VAL :
                                      mtpHandle->transferTotal;
-    container->containerType = USB_DEVICE_MTP_CONTAINER_TYPE_DATA;
-    container->code          = mtpHandle->mtpContainer->code;
-    container->transactionID = mtpHandle->transactionID;
+    container->containerType   = USB_DEVICE_MTP_CONTAINER_TYPE_DATA;
+    container->code            = mtpHandle->mtpContainer->code;
+    container->transactionID   = mtpHandle->transactionID;
 
     USB_DeviceMtpSend(mtpHandle);
 }
@@ -291,7 +291,7 @@ static void USB_DeviceMtpStateMachine(usb_device_mtp_struct_t *mtpHandle,
 
     /* Step B: state is not changed */
     /* Step C: change to new state */
-
+    (void)memset(&dataInfo, 0, sizeof(dataInfo));
     if (message->length == USB_UNINITIALIZED_VAL_32)
     {
         /* callback to cancel current transaction */

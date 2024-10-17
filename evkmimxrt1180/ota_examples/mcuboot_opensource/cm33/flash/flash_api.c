@@ -13,15 +13,88 @@
 #include "sysflash/sysflash.h"
 #include "bootutil/bootutil_log.h"
 #include "mflash_drv.h"
+#if defined(CONFIG_ENCRYPT_XIP_EXT_ENABLE) && defined(CONFIG_ENCRYPT_XIP_EXT_OVERWRITE_ONLY)
+#include "platform_enc_common.h"
+#endif
 
 #if !defined(ARRAY_SIZE)
 #define ARRAY_SIZE(x) (sizeof(x) / sizeof((x)[0]))
 #endif
 
-#define ALIGN_VAL  1
-#define ERASED_VAL 0xFF
+#define ALIGN_VAL       1
+#define ERASED_VAL      0xFF
+#define BUFFER_ENC_SZ   1024
 
 static uint32_t flash_page_buf[MFLASH_PAGE_SIZE / sizeof(uint32_t)];
+
+#if defined(CONFIG_ENCRYPT_XIP_EXT_ENABLE) && defined(CONFIG_ENCRYPT_XIP_EXT_OVERWRITE_ONLY)
+uint32_t enc_buffer[BUFFER_ENC_SZ / sizeof(uint32_t)];
+#endif
+
+/* Make sure the data address is 4 bytes aligned */
+static int flash_area_write_internal(const struct flash_area *area, uint32_t off, const void *src, uint32_t len)
+{
+    status_t status = kStatus_Success;
+
+    uint8_t *src_ptr  = (uint8_t *)src;
+    uint32_t dst_addr = area->fa_off + off;
+    uint32_t page_addr;
+
+    uint32_t chunk_size;
+    uint32_t chunk_ofs;
+
+    if (area->fa_device_id != FLASH_DEVICE_ID)
+    {
+        return -1;
+    }
+
+    /* offset within the first page and max size that would fit */
+    chunk_ofs  = dst_addr % MFLASH_PAGE_SIZE;
+    chunk_size = MFLASH_PAGE_SIZE - chunk_ofs;
+
+    /* calculate starting address of the page */
+    page_addr = dst_addr - chunk_ofs;
+
+    while (len > 0)
+    {
+        if (chunk_size > len)
+        {
+            chunk_size = len; /* last chunk of data */
+        }
+
+        /* check if part of the buffer is not going to be filled with data */
+        if ((chunk_ofs > 0) || (chunk_size < MFLASH_PAGE_SIZE))
+        {
+            /* fill the buffer with erased value, tweaking to clean just the unused range does not pay off */
+            memset(flash_page_buf, ERASED_VAL, MFLASH_PAGE_SIZE);
+        }
+
+        memcpy((uint8_t *)flash_page_buf + chunk_ofs, src_ptr, chunk_size);
+        status = mflash_drv_page_program(page_addr, flash_page_buf);
+        if (status != kStatus_Success)
+        {
+            break;
+        }
+
+        src_ptr += chunk_size;
+        len -= chunk_size;
+
+        /* re-initialize chunk to full size of the page */
+        chunk_ofs  = 0;
+        chunk_size = MFLASH_PAGE_SIZE;
+
+        /* advance to next page */
+        page_addr += MFLASH_PAGE_SIZE;
+    }
+
+    if (status != kStatus_Success)
+    {
+        /* some callers check only for negative error codes, translate to -1 to stay on the safe side */
+        return -1;
+    }
+
+    return 0;
+}
 
 int flash_device_base(uint8_t fd_id, uintptr_t *ret)
 {
@@ -103,69 +176,52 @@ int flash_area_read(const struct flash_area *area, uint32_t off, void *dst, uint
     return 0;
 }
 
-/* Make sure the data address is 4 bytes aligned */
 int flash_area_write(const struct flash_area *area, uint32_t off, const void *src, uint32_t len)
 {
-    status_t status = kStatus_Success;
-
-    uint8_t *src_ptr  = (uint8_t *)src;
-    uint32_t dst_addr = area->fa_off + off;
-    uint32_t page_addr;
-
-    uint32_t chunk_size;
-    uint32_t chunk_ofs;
-
-    if (area->fa_device_id != FLASH_DEVICE_ID)
+#if defined(CONFIG_ENCRYPT_XIP_EXT_ENABLE) && defined(CONFIG_ENCRYPT_XIP_EXT_OVERWRITE_ONLY)
+    /* Check whether offset is within encrypted area */
+    uint32_t phy_addr = area->fa_off + off;
+    if(phy_addr < area->fa_off || 
+       phy_addr >= area->fa_off + area->fa_size - MFLASH_SECTOR_SIZE)
     {
-        return -1;
+      /* Direct write */
+      return flash_area_write_internal(area, off, src, len);
     }
-
-    /* offset within the first page and max size that would fit */
-    chunk_ofs  = dst_addr % MFLASH_PAGE_SIZE;
-    chunk_size = MFLASH_PAGE_SIZE - chunk_ofs;
-
-    /* calculate starting address of the page */
-    page_addr = dst_addr - chunk_ofs;
-
-    while (len > 0)
+    else 
     {
-        if (chunk_size > len)
-        {
-            chunk_size = len; /* last chunk of data */
-        }
-
-        /* check if part of the buffer is not going to be filled with data */
-        if ((chunk_ofs > 0) || (chunk_size < MFLASH_PAGE_SIZE))
-        {
-            /* fill the buffer with erased value, tweaking to clean just the unused range does not pay off */
-            memset(flash_page_buf, ERASED_VAL, MFLASH_PAGE_SIZE);
-        }
-
-        memcpy((uint8_t *)flash_page_buf + chunk_ofs, src_ptr, chunk_size);
-        status = mflash_drv_page_program(page_addr, flash_page_buf);
-        if (status != kStatus_Success)
-        {
-            break;
-        }
-
-        src_ptr += chunk_size;
-        len -= chunk_size;
-
-        /* re-initialize chunk to full size of the page */
-        chunk_ofs  = 0;
-        chunk_size = MFLASH_PAGE_SIZE;
-
-        /* advance to next page */
-        page_addr += MFLASH_PAGE_SIZE;
+      /* Encrypt data */
+      uint32_t addr;
+      uint32_t nonce[16 / sizeof(uint32_t)];    
+      uint8_t *buffer_u8 = (uint8_t *)enc_buffer;
+      uint8_t *src_p = (uint8_t *)src;
+    
+      if (platform_enc_cfg_getNonce(boot_flash_meta_map,
+                                    (uint8_t *)nonce) != kStatus_Success)
+          return -1;
+    
+      while(len > 0)
+      {
+          uint32_t chunk_len = (len > BUFFER_ENC_SZ) ? BUFFER_ENC_SZ : len;
+      
+          memcpy(buffer_u8, src_p, chunk_len);
+      
+          addr = BOOT_FLASH_BASE + area->fa_off + off;
+          if(platform_enc_encrypt_data(addr, (uint8_t *)nonce, buffer_u8, 
+                                       buffer_u8, chunk_len) != kStatus_Success)
+              return -1;
+      
+          if(flash_area_write_internal(area, off, buffer_u8, chunk_len) != 0)
+              return -1;
+      
+          len -= chunk_len;
+          off += chunk_len;
+          src_p += chunk_len;
     }
-
-    if (status != kStatus_Success)
-    {
-        /* some callers check only for negative error codes, translate to -1 to stay on the safe side */
-        return -1;
-    }
-
     return 0;
+    }
+#else
+  return flash_area_write_internal(area, off, src, len);
+#endif
 }
 
 int flash_area_erase(const struct flash_area *area, uint32_t off, uint32_t len)

@@ -5,7 +5,7 @@ The GLIKEY Example project is a demonstration program that uses the MCUX SDK sof
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================
@@ -51,14 +51,6 @@ GLIKEY Peripheral Driver Example
 *Success* GLIKEY Continue enable Step 2 pass
 
 *Success* GLIKEY Continue enable Step 3 pass
-
-*Success* GLIKEY Continue enable  Step 4 pass
-
-*Success* GLIKEY Continue enable  Step 5 pass
-
-*Success* GLIKEY Continue enable  Step 6 pass
-
-*Success* GLIKEY Continue enable  Step 7 pass
 
 *Success* GLIKEY Continue enable Step Enable pass
 

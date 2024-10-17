@@ -11,7 +11,7 @@ The example application creates two tasks called flash_operation_task and hello_
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

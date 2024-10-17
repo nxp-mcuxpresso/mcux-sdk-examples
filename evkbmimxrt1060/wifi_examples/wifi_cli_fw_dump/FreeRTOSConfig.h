@@ -69,7 +69,15 @@
 /* Memory allocation related definitions. */
 #define configSUPPORT_STATIC_ALLOCATION  0
 #define configSUPPORT_DYNAMIC_ALLOCATION 1
+#if CONFIG_FREERTOS_LOW_MEMORY_FOOTPRINT
+#ifdef RW610
+#define configTOTAL_HEAP_SIZE            ((size_t)(40 * 1024))
+#else
 #define configTOTAL_HEAP_SIZE            ((size_t)(60 * 1024))
+#endif /* RW610 */
+#else
+#define configTOTAL_HEAP_SIZE            ((size_t)(60 * 1024))
+#endif /* CONFIG_FREERTOS_LOW_MEMORY_FOOTPRINT */
 #define configAPPLICATION_ALLOCATED_HEAP 0
 
 /* Hook function related definitions. */
@@ -90,7 +98,7 @@
 
 /* Software timer related definitions. */
 #define configUSE_TIMERS             1
-#define configTIMER_TASK_PRIORITY    4
+#define configTIMER_TASK_PRIORITY    (configMAX_PRIORITIES - 1)
 #define configTIMER_QUEUE_LENGTH     5
 #define configTIMER_TASK_STACK_DEPTH (configMINIMAL_STACK_SIZE)
 

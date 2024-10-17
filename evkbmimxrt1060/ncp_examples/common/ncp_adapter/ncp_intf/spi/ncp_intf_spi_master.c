@@ -3,9 +3,9 @@
  *  @brief main file
  *
  *  Copyright 2023 NXP
- *  All rights reserved.
  *
  *  SPDX-License-Identifier: BSD-3-Clause
+ *  The BSD-3-Clause license can be found at https://spdx.org/licenses/BSD-3-Clause.html
  */
 #if CONFIG_NCP_SPI
 #include "stdint.h"

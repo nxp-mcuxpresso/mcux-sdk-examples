@@ -59,7 +59,7 @@ Note that these steps assume you use the Azure IoT Hub for the first time.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

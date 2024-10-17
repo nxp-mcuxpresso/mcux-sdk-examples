@@ -12,7 +12,7 @@ pulse period with a high degree of accuracy, the frequency of reference clock is
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

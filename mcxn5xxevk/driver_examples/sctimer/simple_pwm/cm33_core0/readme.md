@@ -6,7 +6,7 @@ The duty cycles of the two PWM signals are 50% and 20%, respectively.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

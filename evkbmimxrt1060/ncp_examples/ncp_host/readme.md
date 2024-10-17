@@ -7,7 +7,7 @@ This is a MCU bridge app demo. Need to use with ncp_bridge application.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

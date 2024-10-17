@@ -2,6 +2,8 @@
 /*
  * Copyright 2021 - 2022 NXP
  * All rights reserved.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
  */
 #include <stdbool.h>
 
@@ -15,8 +17,9 @@
 #include "fsl_component_mem_manager.h"
 #include "fsl_usart.h"
 #include "fsl_flexcomm.h"
-#include "fsl_adapter_rpmsg.h"
+#include "fsl_adapter_imu.h"
 #include "FunctionLib.h"
+#include "fwk_platform_coex.h"
 
 // #define NBU_APP_SUPPORT_LOWPOWER
 
@@ -54,6 +57,8 @@
 
 #ifdef NBU_APP_SUPPORT_LOWPOWER
 
+OSA_SEMAPHORE_HANDLE_DEFINE(k_enterLowPowerIdle);
+
 /*!
  * 0 -> Full ram retention
  * 1 -> 512k ram retention
@@ -68,16 +73,18 @@
 
 #if defined(APP_PM3_RAM_RET_SEL) && (APP_PM3_RAM_RET_SEL == 0)
 /* full ram retention */
-#define APP_PM3_CONSTRAINTS                                                                                 \
-    6U, PM_RESC_SRAM_0K_384K_RETENTION, PM_RESC_SRAM_384K_448K_RETENTION, PM_RESC_SRAM_448K_512K_RETENTION, \
-        PM_RESC_SRAM_512K_640K_RETENTION, PM_RESC_SRAM_640K_896K_RETENTION, PM_RESC_SRAM_896K_1216K_RETENTION
+#define APP_PM3_CONSTRAINTS                                                                                    \
+    7U, PM_RESC_SRAM_0K_384K_RETENTION, PM_RESC_SRAM_384K_448K_RETENTION, PM_RESC_SRAM_448K_512K_RETENTION,    \
+        PM_RESC_SRAM_512K_640K_RETENTION, PM_RESC_SRAM_640K_896K_RETENTION, PM_RESC_SRAM_896K_1216K_RETENTION, \
+        PM_RESC_CAU_SOC_SLP_REF_CLK_ON
 #elif defined(APP_PM3_RAM_RET_SEL) && (APP_PM3_RAM_RET_SEL == 1)
 /* 512k ram retention */
-#define APP_PM3_CONSTRAINTS \
-    3U, PM_RESC_SRAM_0K_384K_RETENTION, PM_RESC_SRAM_384K_448K_RETENTION, PM_RESC_SRAM_448K_512K_RETENTION
+#define APP_PM3_CONSTRAINTS                                                                                 \
+    4U, PM_RESC_SRAM_0K_384K_RETENTION, PM_RESC_SRAM_384K_448K_RETENTION, PM_RESC_SRAM_448K_512K_RETENTION, \
+        PM_RESC_CAU_SOC_SLP_REF_CLK_ON
 #else
 /* no ram retention */
-#define APP_PM3_CONSTRAINTS 0U
+#define APP_PM3_CONSTRAINTS 1U, PM_RESC_CAU_SOC_SLP_REF_CLK_ON
 #endif
 
 #define APP_PM4_CONSTRAINTS 0U
@@ -216,9 +223,9 @@ static status_t Nbu_UartControlCallback(pm_event_type_t eventType, uint8_t power
 *************************************************************************************
 ************************************************************************************/
 
-/* Define RPMSG handle*/
-static RPMSG_HANDLE_DEFINE(NbuRpmsgHandle);
-static hal_rpmsg_config_t rw610BleEndpoint_CPU3_tx;
+/* Define IMUMC handle*/
+static IMUMC_HANDLE_DEFINE(NbuImumcHandle);
+static hal_imumc_config_t rw610BleEndpoint_CPU3_tx;
 
 /*osa start_task*/
 static void start_task(void *argument);
@@ -235,10 +242,9 @@ AT_ALWAYS_ON_DATA_INIT(pm_notify_element_t g_notify1) = {
     .data           = NULL,
 };
 AT_ALWAYS_ON_DATA(pm_wakeup_source_t g_OstimerWakeupSource);
-bool            enterLowPowerIdle = false;
-bool            timeOutOccured    = true;
-static uint8_t  powerMode         = 0U;
-static uint32_t timeOutUs         = 0U;
+bool            timeOutOccured = true;
+static uint8_t  powerMode      = 0U;
+static uint32_t timeOutUs      = 0U;
 
 static power_init_config_t initCfg = {
     /* VCORE AVDD18 supplied from iBuck on RD board. */
@@ -252,7 +258,7 @@ static power_init_config_t initCfg = {
 /*******************************************************************************
  * Code
  ******************************************************************************/
-void Nbu_RpmsgSendMessage()
+void Nbu_ImumcSendMessage()
 {
     uint8_t *pSerialPacket = NULL;
     uint32_t packet_Size   = (mHcitData.bytesReceived + 1U);
@@ -264,9 +270,9 @@ void Nbu_RpmsgSendMessage()
         /* power mode + timeout */
         assert(mHcitData.pktHeader.commandPacket.parameterTotalLength == 2U);
 
-        powerMode         = (uint8_t)mHcitData.pPacket->raw[3];
-        timeOutUs         = (uint32_t)mHcitData.pPacket->raw[4] * 1000000U;
-        enterLowPowerIdle = true;
+        powerMode = (uint8_t)mHcitData.pPacket->raw[3];
+        timeOutUs = (uint32_t)mHcitData.pPacket->raw[4] * 1000000U;
+        (void)OSA_SemaphorePost(k_enterLowPowerIdle);
     }
     else
 #endif /* NBU_APP_SUPPORT_LOWPOWER */
@@ -280,7 +286,7 @@ void Nbu_RpmsgSendMessage()
         pSerialPacket[0] = mHcitData.pktHeader.packetTypeMarker;
         FLib_MemCpy(pSerialPacket + 1, (uint8_t *)mHcitData.pPacket, mHcitData.bytesReceived);
 
-        if (kStatus_HAL_RpmsgSuccess != HAL_RpmsgSend((hal_rpmsg_handle_t)NbuRpmsgHandle, pSerialPacket, packet_Size))
+        if (kStatus_HAL_ImumcSuccess != HAL_ImumcSend((hal_imumc_handle_t)NbuImumcHandle, pSerialPacket, packet_Size))
         {
             assert(0);
         }
@@ -400,7 +406,7 @@ static void hci_rxCallBack(const uint8_t recvChar)
 
                 if (mHcitData.bytesReceived == mHcitData.expectedLength)
                 {
-                    Nbu_RpmsgSendMessage();
+                    Nbu_ImumcSendMessage();
                 }
             }
             break;
@@ -410,7 +416,7 @@ static void hci_rxCallBack(const uint8_t recvChar)
 
             if (mHcitData.bytesReceived == mHcitData.expectedLength)
             {
-                Nbu_RpmsgSendMessage();
+                Nbu_ImumcSendMessage();
             }
             break;
 
@@ -421,7 +427,7 @@ static void hci_rxCallBack(const uint8_t recvChar)
 
 void Nbu_AppUartHandler(USART_Type *base, usart_handle_t *handle, status_t status, void *userData)
 {
-    uint8_t recvChar;
+    uint8_t recvChar = 0;
 
     if ((kUSART_RxFifoNotEmptyFlag | kUSART_RxError) & USART_GetStatusFlags(NBU_APP_UART))
     {
@@ -441,7 +447,7 @@ void Nbu_AppUartHandler(USART_Type *base, usart_handle_t *handle, status_t statu
     }
 }
 
-static hal_rpmsg_return_status_t Nbu_AppRpmsgRxCallback(void *param, uint8_t *data, uint32_t len)
+static hal_imumc_return_status_t Nbu_AppImumcRxCallback(void *param, uint8_t *data, uint32_t len)
 {
     uint8_t *pSerialPacket = NULL;
     pSerialPacket          = MEM_BufferAlloc(len);
@@ -488,20 +494,20 @@ static void Nbu_SerialInit(void)
     EnableIRQ(NBU_APP_UART_IRQ);
 }
 
-static void Nbu_RpmsgInit()
+static void Nbu_ImumcInit()
 {
     rw610BleEndpoint_CPU3_tx.local_addr  = 30;
     rw610BleEndpoint_CPU3_tx.remote_addr = 40;
     rw610BleEndpoint_CPU3_tx.imuLink     = kIMU_LinkCpu2Cpu3;
 
-    if (kStatus_HAL_RpmsgSuccess != HAL_RpmsgInit(&NbuRpmsgHandle, &rw610BleEndpoint_CPU3_tx))
+    if (kStatus_HAL_ImumcSuccess != HAL_ImumcInit(&NbuImumcHandle, &rw610BleEndpoint_CPU3_tx))
     {
         assert(0);
     }
     else
     {
-        if (kStatus_HAL_RpmsgSuccess !=
-            HAL_RpmsgInstallRxCallback((hal_rpmsg_handle_t)(&NbuRpmsgHandle), Nbu_AppRpmsgRxCallback, NULL))
+        if (kStatus_HAL_ImumcSuccess !=
+            HAL_ImumcInstallRxCallback((hal_imumc_handle_t)(&NbuImumcHandle), Nbu_AppImumcRxCallback, NULL))
         {
             assert(0);
         }
@@ -514,17 +520,18 @@ static void start_task(void *argument)
     {
         platformInitialized = 1;
 
-        sb3_fw_download(LOAD_BLE_FIRMWARE, 1, 0);
+        /* Initialize BLE controller */
+        PLATFORM_InitControllers(connBle_c);
 
         Nbu_SerialInit();
 
-        Nbu_RpmsgInit();
+        Nbu_ImumcInit();
     }
 
     while (true)
     {
 #ifdef NBU_APP_SUPPORT_LOWPOWER
-        if (enterLowPowerIdle)
+        if (KOSA_StatusSuccess == OSA_SemaphoreWait(k_enterLowPowerIdle, osaWaitForever_c))
         {
             Nbu_EnterLowPower(powerMode, timeOutUs);
         }
@@ -554,8 +561,8 @@ int main(void)
 
 #ifdef NBU_APP_SUPPORT_LOWPOWER
     Nbu_LowPowerInit();
+    (void)OSA_SemaphoreCreate(k_enterLowPowerIdle, 1U);
 #endif
-
     (void)OSA_TaskCreate((osa_task_handle_t)s_startTaskHandle, OSA_TASK(start_task), NULL);
 
     /*start scheduler*/
@@ -710,8 +717,7 @@ void        RTC_IRQHandler()
         /* Clear alarm flag */
         RTC_ClearStatusFlags(RTC, kRTC_AlarmFlag);
         POWER_ClearWakeupStatus(RTC_IRQn);
-        enterLowPowerIdle = false;
-        timeOutOccured    = true;
+        timeOutOccured = true;
     }
 }
 

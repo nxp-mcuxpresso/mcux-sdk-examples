@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 NXP
+ * Copyright 2023-2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,31 +14,6 @@
 #include <bluetooth/audio/mcc.h>
 #include <bluetooth/audio/media_proxy.h>
 
-#if defined(CONFIG_BT_VCP_VOL_CTLR) && (CONFIG_BT_VCP_VOL_CTLR > 0)
-static struct bt_vcp_vol_ctlr *vcs_remote = NULL;
-static struct bt_vcp_vol_ctlr *vcs_clients[CONFIG_BT_MAX_CONN];
-static struct bt_conn *vcs_conn[CONFIG_BT_MAX_CONN];
-
-#define LOCAL_VOL_CHANGE_VOL_REQ          0x01
-#define LOCAL_VOL_CHANGE_MUTE_REQ         0x02
-
-static volatile uint32_t local_vol_change_req[CONFIG_BT_MAX_CONN] = { 0 };
-
-#define LOCAL_VOL_CHANGE_VOL_SET(i)     (local_vol_change_req[i] |= LOCAL_VOL_CHANGE_VOL_REQ)
-#define LOCAL_VOL_CHANGE_VOL_CLEAR(i)   (local_vol_change_req[i] &= (~LOCAL_VOL_CHANGE_VOL_REQ))
-#define LOCAL_VOL_CHANGE_VOL_IS_SET(i)  (local_vol_change_req[i] & LOCAL_VOL_CHANGE_VOL_REQ)
-
-#define LOCAL_VOL_CHANGE_MUTE_SET(i)     (local_vol_change_req[i] |= LOCAL_VOL_CHANGE_MUTE_REQ)
-#define LOCAL_VOL_CHANGE_MUTE_CLEAR(i)   (local_vol_change_req[i] &= (~LOCAL_VOL_CHANGE_MUTE_REQ))
-#define LOCAL_VOL_CHANGE_MUTE_IS_SET(i)  (local_vol_change_req[i] & LOCAL_VOL_CHANGE_MUTE_REQ)
-
-static int     pre_volume[CONFIG_BT_MAX_CONN] = { -1 };
-static int     pre_mute[CONFIG_BT_MAX_CONN]   = { -1 };
-
-static vcs_client_discover_callback_t vcs_client_discover_user_callback;
-#endif /* CONFIG_BT_VCP_VOL_CTLR */
-
-#if defined(CONFIG_BT_VCP_VOL_REND) && (CONFIG_BT_VCP_VOL_REND > 0)
 static vcs_server_vol_callback_t vcs_server_vol_callback;
 
 static void vcs_vol_rend_state_callback(int err, uint8_t volume, uint8_t mute)
@@ -82,282 +57,30 @@ int le_audio_vcs_server_init(vcs_server_vol_callback_t callback)
 
     return 0;
 }
-#endif /* CONFIG_BT_VCP_VOL_REND */
-
-#if defined(CONFIG_BT_VCP_VOL_CTLR) && (CONFIG_BT_VCP_VOL_CTLR > 0)
-static void vcs_client_discover_callback(struct bt_vcp_vol_ctlr *vol_ctlr, int err, uint8_t vocs_count, uint8_t aics_count)
-{
-	if (err) {
-		PRINTF("\nVCS discover finished callback error: %d\n", err);
-	} else {
-		PRINTF("\nVCS discover finished\n");
-	}
-    
-    for (int i = 0; i < CONFIG_BT_MAX_CONN; i++)
-    {
-        if (vol_ctlr == vcs_clients[i])
-        {
-            vcs_client_discover_user_callback(vcs_conn[i], err);
-        }
-    }
-}
-
-static void vcs_client_state_callback(struct bt_vcp_vol_ctlr *vol_ctlr, int err, uint8_t volume, uint8_t mute)
-{
-    int index;
-    int ret;
-
-    if (err)
-    {
-        PRINTF("\nVCS state callback error: %d\n", err);
-        return;
-    }
-
-    /* Get current device index. */
-    for (int i = 0; i < CONFIG_BT_MAX_CONN; i++)
-    {
-        if (vol_ctlr == vcs_clients[i])
-        {
-            index = i;
-            break;
-        }
-    }
-
-    PRINTF("\nVCS state update from device %d, vol %d, mute %d!\n", index, (int)volume, (int)mute);
-
-    /* Check if this state callback is come from a local req. */
-    if ((LOCAL_VOL_CHANGE_VOL_IS_SET(index)) || (LOCAL_VOL_CHANGE_MUTE_IS_SET(index)))
-    {
-        if(LOCAL_VOL_CHANGE_VOL_IS_SET(index))
-        {
-            LOCAL_VOL_CHANGE_VOL_CLEAR(index);
-        }
-        if(LOCAL_VOL_CHANGE_MUTE_IS_SET(index))
-        {
-            LOCAL_VOL_CHANGE_MUTE_CLEAR(index);
-        }
-
-        /* Save volume and mute state. */
-        pre_volume[index] = volume;
-        pre_mute[index]   = mute;
-        return;
-    }
-
-    /* Here we need sync the volume/mute to another render,
-    but we only handle the case volume/mute not change at the same time, otherwise we will meet the "-EBUSY" error.
-    In most case this will not have effect, except for Unmute/Relative Volume Down/Up operation, but here we not implement them. */
-    for(int i = 0; i < CONFIG_BT_MAX_CONN; i++)
-    {
-        /* Skip the current device. */
-        if (i == index)
-        {
-		    /* Save volume and mute state. */
-            pre_volume[i] = volume;
-            pre_mute[i]   = mute;
-            continue;
-        }
-        /* Sync volume, only if there is a volume change. */
-        if(pre_volume[i] != volume)
-        {
-            pre_volume[i] = volume;
-            vcs_remote = vcs_clients[i];
-            int ret = bt_vcp_vol_ctlr_set_vol(vcs_remote, volume);
-            if(ret)
-            {
-                PRINTF("\nVCS sync vol for device %d, error %d\n", i, ret);
-            }
-            else
-            {
-                LOCAL_VOL_CHANGE_VOL_SET(i);
-                PRINTF("\nVCS sync vol for device %d, success!\n", i);
-            }
-        }
-        /* Sync mute/unmute. */
-        if(pre_mute[i] != mute)
-        {
-            pre_mute[i] = mute;
-            vcs_remote = vcs_clients[i];
-            if(mute)
-            {
-                ret = bt_vcp_vol_ctlr_mute(vcs_remote);
-                if(ret)
-                {
-                    PRINTF("\nVCS sync mute for device %d, error %d\n", i, ret);
-                }
-                else
-                {
-                    LOCAL_VOL_CHANGE_MUTE_SET(i);
-                    PRINTF("\nVCS sync mute for device %d, success!\n", i);
-                }
-            }
-            else
-            {
-                ret = bt_vcp_vol_ctlr_unmute(vcs_remote);
-                if(ret)
-                {
-                    PRINTF("\nVCS sync unmute for device %d, error %d\n", i, ret);
-                }
-                else
-                {
-                    LOCAL_VOL_CHANGE_MUTE_SET(i);
-                    PRINTF("\nVCS sync unmute for device %d, success!\n", i);
-                }
-            }
-        }
-    }
-}
-
-static void vcs_client_flags_callback(struct bt_vcp_vol_ctlr *vol_ctlr, int err, uint8_t flags)
-{
-	if (err) {
-		PRINTF("\nVCS flag callback error: %d\n", err);
-	}
-}
-
-int le_audio_vcs_client_init(vcs_client_discover_callback_t callback)
-{
-    static struct bt_vcp_vol_ctlr_cb vcs_client_callback;
-
-    vcs_client_discover_user_callback = callback;
-
-    vcs_client_callback.discover = vcs_client_discover_callback;
-    vcs_client_callback.state    = vcs_client_state_callback;
-    vcs_client_callback.flags    = vcs_client_flags_callback;
-
-    return bt_vcp_vol_ctlr_cb_register(&vcs_client_callback);
-}
-
-int le_audio_vcs_discover(struct bt_conn *conn, uint8_t channel)
-{
-    if (channel >= CONFIG_BT_MAX_CONN)
-    {
-        return -EINVAL;
-    }
-
-    vcs_conn[channel] = conn;
-
-    return bt_vcp_vol_ctlr_discover(conn, &vcs_clients[channel]);
-}
-#endif /* CONFIG_BT_VCP_VOL_CTLR */
 
 int le_audio_vcs_vol_set(uint8_t volume)
 {
-#if defined(CONFIG_BT_VCP_VOL_CTLR) && (CONFIG_BT_VCP_VOL_CTLR > 0)
-    /* Volume change to all render. */
-    for(int i = 0; i < CONFIG_BT_MAX_CONN; i++)
-    {
-        vcs_remote = vcs_clients[i];
-        int ret = bt_vcp_vol_ctlr_set_vol(vcs_remote, volume);
-        if(ret)
-        {
-            PRINTF("\nVCS vol set fail for device %d, error %d\n", i, ret);
-        }
-        else
-        {
-            LOCAL_VOL_CHANGE_VOL_SET(i);
-        }
-    }
-
-    return 0;
-#elif defined(CONFIG_BT_VCP_VOL_REND) && (CONFIG_BT_VCP_VOL_REND > 0)
     return bt_vcp_vol_rend_set_vol(volume);
-#endif
 }
 
 int le_audio_vcs_vol_up(void)
 {
-#if defined(CONFIG_BT_VCP_VOL_CTLR) && (CONFIG_BT_VCP_VOL_CTLR > 0)
-    /* Volume change to all render. */
-    for(int i = 0; i < CONFIG_BT_MAX_CONN; i++)
-    {
-        vcs_remote = vcs_clients[i];
-        int ret = bt_vcp_vol_ctlr_vol_up(vcs_remote);
-        if(ret)
-        {
-            PRINTF("\nVCS vol up fail for device %d, error %d\n", i, ret);
-        }
-        else
-        {
-            LOCAL_VOL_CHANGE_VOL_SET(i);
-        }
-    }
-
-    return 0;
-#elif defined(CONFIG_BT_VCP_VOL_REND) && (CONFIG_BT_VCP_VOL_REND > 0)
     return bt_vcp_vol_rend_vol_up();
-#endif
 }
 
 int le_audio_vcs_vol_down(void)
 {
-#if defined(CONFIG_BT_VCP_VOL_CTLR) && (CONFIG_BT_VCP_VOL_CTLR > 0)
-    /* Volume change to all render. */
-    for(int i = 0; i < CONFIG_BT_MAX_CONN; i++)
-    {
-        vcs_remote = vcs_clients[i];
-        int ret = bt_vcp_vol_ctlr_vol_down(vcs_remote);
-        if(ret)
-        {
-            PRINTF("\nVCS vol down fail for device %d, error %d\n", i, ret);
-        }
-        else
-        {
-            LOCAL_VOL_CHANGE_VOL_SET(i);
-        }
-    }
-
-    return 0;
-#elif defined(CONFIG_BT_VCP_VOL_REND) && (CONFIG_BT_VCP_VOL_REND > 0)
     return bt_vcp_vol_rend_vol_down();
-#endif
 }
 
 int le_audio_vcs_vol_mute(void)
 {
-#if defined(CONFIG_BT_VCP_VOL_CTLR) && (CONFIG_BT_VCP_VOL_CTLR > 0)
-    /* Mute all render. */
-    for(int i = 0; i < CONFIG_BT_MAX_CONN; i++)
-    {
-        vcs_remote = vcs_clients[i];
-        int ret = bt_vcp_vol_ctlr_mute(vcs_remote);
-        if(ret)
-        {
-            PRINTF("\nVCS vol mute fail for device %d, error %d\n", i, ret);
-        }
-        else
-        {
-            LOCAL_VOL_CHANGE_MUTE_SET(i);
-        }
-    }
-
-    return 0;
-#elif defined(CONFIG_BT_VCP_VOL_REND) && (CONFIG_BT_VCP_VOL_REND > 0)
     return bt_vcp_vol_rend_mute();
-#endif
 }
 
 int le_audio_vcs_vol_unmute(void)
 {
-#if defined(CONFIG_BT_VCP_VOL_CTLR) && (CONFIG_BT_VCP_VOL_CTLR > 0)
-    /* Unmute to all render. */
-    for(int i = 0; i < CONFIG_BT_MAX_CONN; i++)
-    {
-        vcs_remote = vcs_clients[i];
-        int ret = bt_vcp_vol_ctlr_unmute(vcs_remote);
-        if(ret)
-        {
-            PRINTF("\nVCS vol unmute fail for device %d, error %d\n", i, ret);
-        }
-        else
-        {
-            LOCAL_VOL_CHANGE_MUTE_SET(i);
-        }
-    }
-
-    return 0;
-#elif defined(CONFIG_BT_VCP_VOL_REND) && (CONFIG_BT_VCP_VOL_REND > 0)
     return bt_vcp_vol_rend_unmute();
-#endif
 }
 
 #if defined(CONFIG_BT_MCS) && (CONFIG_BT_MCS > 0)

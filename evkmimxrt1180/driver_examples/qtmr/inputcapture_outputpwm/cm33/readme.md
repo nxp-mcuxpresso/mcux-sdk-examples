@@ -9,7 +9,7 @@ The example also sets up one QTMR channel to output pwm. The user should probe a
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

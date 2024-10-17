@@ -11,7 +11,7 @@ periodically executed and text “Tick.” is printed to terminal.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================
@@ -20,7 +20,7 @@ Toolchain supported
 
 Hardware requirements
 =====================
-- Micro USB cable
+- USB-C cable
 - FRDM-RW612 board
 - Personal Computer
 

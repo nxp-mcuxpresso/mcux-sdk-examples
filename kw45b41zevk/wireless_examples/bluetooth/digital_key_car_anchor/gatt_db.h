@@ -16,3 +16,12 @@ PRIMARY_SERVICE(service_dk, gBleSig_CCC_DK_UUID_d)
             VALUE(value_tx_power_level, gBleSig_TxPower_d, (gPermissionFlagReadable_c), 1, 0x01)
     CHARACTERISTIC_UUID128(char_antenna_id, uuid_char_antenna_id, (gGattCharPropRead_c) )
             VALUE_UUID128(value_antenna_id, uuid_char_antenna_id, (gPermissionFlagReadable_c), 2, 0x02, 0x03)
+
+/* Placed at the end of file due to macro interpretation of line numbers. */
+/*! *********************************************************************************
+* \file gatt_db.h
+*
+* Copyright 2021-2024 NXP
+*
+* SPDX-License-Identifier: BSD-3-Clause
+********************************************************************************** */

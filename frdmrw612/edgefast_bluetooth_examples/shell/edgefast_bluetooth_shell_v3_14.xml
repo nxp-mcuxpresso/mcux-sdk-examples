@@ -177,6 +177,7 @@
           <value>gMemManagerLight=0</value>
           <value>CFG_BLE</value>
           <value>gPlatformDisableBleLowPower_d=1</value>
+          <value>SHELL_TASK_STACK_SIZE=2800</value>
           <value>USE_RTOS=1</value>
           <value>PRINTF_ADVANCED_ENABLE=1</value>
           <value>SDK_OS_FREE_RTOS</value>
@@ -188,7 +189,6 @@
           <value>CONFIG_BT_CENTRAL=1</value>
           <value>CONFIG_BT_SMP=1</value>
           <value>CONFIG_BT_GATT_CLIENT=1</value>
-          <value>SHELL_TASK_STACK_SIZE=2048</value>
           <value>LPUART_RING_BUFFER_SIZE=1024U</value>
           <value>HAL_AUDIO_DMA_INIT_ENABLE=0</value>
           <value>LFS_NO_INTRINSICS=1</value>
@@ -293,8 +293,7 @@
       <include_path path="." project_relative_path="board" type="c_include"/>
       <include_path path="controller/configs/mbedtls" project_relative_path="source/controller/configs/mbedtls" type="c_include"/>
       <include_path path="." project_relative_path="boards/frdmrw612/edgefast_bluetooth_examples/shell" type="c_include"/>
-      <include_path path="controller/configs/lwip" project_relative_path="source/controller/configs" type="c_include"/>
-      <include_path path="controller/configs/wifi" project_relative_path="source/controller/configs" type="c_include"/>
+      <include_path path="source" project_relative_path="source" type="c_include"/>
       <include_path path="../../../../core/boards/frdmrw612" project_relative_path="." type="c_include"/>
       <include_path path="platform/configs" project_relative_path="source/platform/configs" type="c_include"/>
       <include_path path="." project_relative_path="source" type="asm_include"/>
@@ -358,6 +357,9 @@
     <source path="." project_relative_path="source" type="c_include">
       <files mask="edgefast_bluetooth_audio_config.h"/>
     </source>
+    <source path="." project_relative_path="source" type="src">
+      <files mask="shell_common.c"/>
+    </source>
     <source path="." project_relative_path="board" type="src">
       <files mask="board.c"/>
       <files mask="clock_config.c"/>
@@ -366,15 +368,11 @@
       <files mask="board.h"/>
       <files mask="clock_config.h"/>
     </source>
+    <source path="source" project_relative_path="source" type="c_include">
+      <files mask="monolithic_config.h"/>
+    </source>
     <source path="." project_relative_path="doc" type="doc" toolchain="mcuxpresso armgcc">
       <files mask="readme.md"/>
-    </source>
-    <source path="controller/configs/lwip" project_relative_path="source/controller/configs" type="c_include">
-      <files mask="lwipopts.h"/>
-      <files mask="lwippools.h"/>
-    </source>
-    <source path="controller/configs/wifi" project_relative_path="source/controller/configs" type="c_include">
-      <files mask="wifi_config.h"/>
     </source>
     <source path="platform/configs" project_relative_path="source/platform/configs" type="c_include" config="true">
       <files mask="ffconf.h"/>

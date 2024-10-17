@@ -9,7 +9,7 @@ BMR: lisen one of BIS channel and render it.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

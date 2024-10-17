@@ -10,7 +10,7 @@ The file 'lpspi_edma_b2b_transfer_slave.c' includes the LPSPI slave code.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

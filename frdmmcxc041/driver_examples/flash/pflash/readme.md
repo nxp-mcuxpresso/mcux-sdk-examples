@@ -6,7 +6,7 @@ The pflash example shows how to use flash driver to operate program flash:
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

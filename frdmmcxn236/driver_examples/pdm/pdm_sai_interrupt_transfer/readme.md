@@ -6,7 +6,7 @@ In this example, pdm gather audio data, and sai send it to codec.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

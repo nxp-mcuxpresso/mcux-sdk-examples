@@ -34,6 +34,8 @@ m_flash_size                        = 0x4000000;
 m_flash_end                         = m_flash_start + m_flash_size - 1;
 m_flash_sector_size                       = 0x1000;
 
+_flash_start = m_flash_start;
+
 m_boot_flash_conf_sector_start      = m_flash_start;
 m_boot_flash_conf_offset            = 0x400;
 m_boot_flash_conf_start             = m_boot_flash_conf_sector_start + m_boot_flash_conf_offset;
@@ -51,10 +53,6 @@ fw_ble_act_start                    = fw_wifi_cand_start + wifi_fw_size;
 fw_ble_cand_start                   = fw_ble_act_start + ble_fw_size;
 fw_15d5_act_start                   = fw_ble_cand_start + ble_fw_size;
 fw_15d4_cand_start                  = fw_15d5_act_start + z154_fw_size;
-
-PROVIDE(fw_cpu1 = fw_wifi_act_start);
-PROVIDE(fw_cpu2_ble = fw_ble_act_start);
-PROVIDE(fw_cpu2_combo = fw_15d5_act_start);
 
 m_app_start                         = m_boot_flash_conf_sector_end + 1;
 m_app_stated_size                   = (fw_storage_start - m_app_start - m_flash_sector_size);
@@ -84,10 +82,10 @@ PROD_DATA_END                       = PROD_DATA_BASE_ADDR + m_flash_sector_size 
 
 NV_STORAGE_START_ADDRESS            = PROD_DATA_END + 1;
 NV_STORAGE_START_ADDRESS_OFFSET     = NV_STORAGE_START_ADDRESS - m_flash_start;
-NV_STORAGE_MAX_SECTORS              = DEFINED(gNVMSectorCountLink_d) ? gNVMSectorCountLink_d : 16;
+NV_STORAGE_MAX_SECTORS              = DEFINED(gUseNVMLink_d) ? (DEFINED(gNVMSectorCountLink_d) ? gNVMSectorCountLink_d : 8) : 0;
 NV_STORAGE_SECTOR_SIZE              = m_flash_sector_size;
-m_nvm_storage_size                  = NV_STORAGE_MAX_SECTORS * NV_STORAGE_SECTOR_SIZE;
-NV_STORAGE_END_ADDRESS              = NV_STORAGE_START_ADDRESS + m_nvm_storage_size - 1;
+NV_STORAGE_SIZE                     = NV_STORAGE_MAX_SECTORS * NV_STORAGE_SECTOR_SIZE;
+NV_STORAGE_END_ADDRESS              = NV_STORAGE_START_ADDRESS + NV_STORAGE_SIZE - 1;
 
 LITTLEFS_STORAGE_START_ADDRESS       = NV_STORAGE_END_ADDRESS + 1;
 LITTLEFS_STORAGE_START_ADDRESS_OFFSET = LITTLEFS_STORAGE_START_ADDRESS - m_flash_start;
@@ -152,6 +150,33 @@ SECTIONS
     . = 0x280;
   } > m_interrupts
 
+    /* ZB OTA related sections, should not consume any memory if .ro_nonce/.ro_ota_header/.ro_se_lnkkey not used */
+  .ro_nonce : ALIGN(0x10)
+  {
+    _FlsNonceStart = ABSOLUTE(.);
+    *(.ro_nonce) /* nonce value is 16 bytes.*/
+    FILL(0xff)
+    . = ALIGN (0x10);
+  } > m_text
+
+  .ro_ota_header : ALIGN(0x10)
+  {
+    _enc_start = ABSOLUTE(.);
+    _enc_offset = (_enc_start & 0x0000000F);
+    _FlsOtaHeader = ABSOLUTE(.);
+    *(.ro_ota_header) /* Ota Header 69 bytes*/
+    FILL(0xff)
+    . = ALIGN (0x10);
+  } > m_text
+
+  .ro_se_lnkKey (ALIGN((. - _enc_offset), 16) + _enc_offset):
+  {
+    _FlsLinkKey = ABSOLUTE(.);
+    *(.ro_se_lnkKey)  /* Link Key 16 bytes*/
+    FILL(0xff)
+    . = ALIGN (0x10);
+  } > m_text
+
   /* The program code and other data goes into internal ram */
   .text :
   {
@@ -177,7 +202,7 @@ SECTIONS
         *mlan_11n_rxreorder.c.obj
         *wifi.c.obj
         *wifi-imu.c.obj
-        *fsl_adapter_rfimu.c.obj
+        *fsl_adapter_imu.c.obj
         *fsl_cache.c.obj
         *fsl_os_abstraction_free_rtos.c.obj
         *libethermind_ble_lc3_ndsp_common.a:*
@@ -191,6 +216,7 @@ SECTIONS
     KEEP (*(.init))
     KEEP (*(.fini))
     . = ALIGN(4);
+    KEEP(*(.fw_cpu2_combo))
   } > m_text
 
   ._bt_settings_area :
@@ -361,7 +387,7 @@ SECTIONS
     *mlan_11n_rxreorder.c.obj(.text* .rodata*)
     *wifi.c.obj(.text* .rodata*)
     *wifi-imu.c.obj(.text* .rodata*)
-    *fsl_adapter_rfimu.c.obj(.text* .rodata*)
+    *fsl_adapter_imu.c.obj(.text* .rodata*)
     *fsl_cache.c.obj(.text* .rodata*)
     *fsl_os_abstraction_free_rtos.c.obj(.text* .rodata*)
     *libethermind_ble_lc3_ndsp_common.a:*(.text* .rodata*)

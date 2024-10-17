@@ -245,6 +245,8 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_DEBUG " \
     -Map=output.map \
     -Wl,--print-memory-usage \
     -Xlinker \
+    --defsym=__heap_size__=0x1000 \
+    -Xlinker \
     --defsym=__stack_size__=0x1000 \
     ${FPU} \
     ${SPECS} \
@@ -271,6 +273,8 @@ SET(CMAKE_EXE_LINKER_FLAGS_FLASH_RELEASE " \
     -Xlinker \
     -Map=output.map \
     -Wl,--print-memory-usage \
+    -Xlinker \
+    --defsym=__heap_size__=0x1000 \
     -Xlinker \
     --defsym=__stack_size__=0x1000 \
     ${FPU} \
@@ -300,6 +304,8 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG " \
     -Map=output.map \
     -Wl,--print-memory-usage \
     -Xlinker \
+    --defsym=__heap_size__=0x1000 \
+    -Xlinker \
     --defsym=__stack_size__=0x1000 \
     ${FPU} \
     ${SPECS} \
@@ -326,6 +332,8 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE " \
     -Xlinker \
     -Map=output.map \
     -Wl,--print-memory-usage \
+    -Xlinker \
+    --defsym=__heap_size__=0x1000 \
     -Xlinker \
     --defsym=__stack_size__=0x1000 \
     ${FPU} \

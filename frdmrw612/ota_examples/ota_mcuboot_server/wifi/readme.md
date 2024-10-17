@@ -12,7 +12,7 @@ For more information about Wi-Fi module connection see:
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================
@@ -21,7 +21,7 @@ Toolchain supported
 
 Hardware requirements
 =====================
-- Micro USB cable
+- USB-C cable
 - Personal Computer
 
 

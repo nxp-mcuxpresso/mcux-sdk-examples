@@ -290,7 +290,7 @@ smacErrors_t smacToAppMlmeSap(smacToAppMlmeMessage_t* pMsg, instanceId_t instanc
     switch(pMsg->msgType)
     {
     case gMlmeEdCnf_c:
-        au8ScanResults[pMsg->msgData.edCnf.scannedChannel] = pMsg->msgData.edCnf.energyLeveldB;
+        au8ScanResults[testChannel] = pMsg->msgData.edCnf.energyLeveldB;
         (void)OSA_EventSet(gTaskEvent, gMlme_EdCnf_EVENT_c);
         break;
     case gMlmeCcaCnf_c:
@@ -507,9 +507,10 @@ int main(void)
 
     BOARD_InitHardware();
 
-#if USE_NBU
+#if defined(USE_NBU) && (USE_NBU == 1)
     PLATFORM_InitNbu();
-#endif
+    PLATFORM_InitMulticore();
+#endif /* defined(USE_NBU) && (USE_NBU == 1) */
 
     APP_InitServices();
 

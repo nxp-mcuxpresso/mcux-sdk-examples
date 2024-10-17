@@ -7,7 +7,7 @@ If the core temperature is higher or lower than average, the LEDs change state r
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

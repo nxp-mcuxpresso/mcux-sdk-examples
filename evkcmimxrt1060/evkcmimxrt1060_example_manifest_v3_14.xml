@@ -4,133 +4,153 @@
   <externalDefinitions>
     <definition extID="MIMXRT1062DVL6B"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK216000_evkcmimxrt1060_examples_manifest_v3_14" name="MCUXpressoSDK216000_evkcmimxrt1060_examples_manifest_v3_14" version="2.16.000" revision="2.16.000"/>
+  <ksdk id="MCUXpressoSDK216100_evkcmimxrt1060_examples_manifest_v3_14" name="MCUXpressoSDK216100_evkcmimxrt1060_examples_manifest_v3_14" version="2.16.100" revision="2.16.100"/>
   <boards>
     <board id="evkcmimxrt1060" name="MIMXRT1060-EVKC" version="1.0.0" package="MIMXRT1062DVL6B">
       <examples>
-        <example id="evkcmimxrt1060_spp" name="spp" brief="The Bluetooth BR SPP example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/spp">
+        <example id="evkcmimxrt1060_spp" name="spp" brief="The EdgeFast BR/EDR spp example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/spp">
           <external path="edgefast_bluetooth_examples/spp" type="xml">
             <files mask="spp_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkcmimxrt1060_a2dp_sink" name="a2dp_sink" brief="The Edgefast Bluetooth audio source with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/a2dp_sink">
+        <example id="evkcmimxrt1060_a2dp_sink" name="a2dp_sink" brief="The EdgeFast BR/EDR a2dp sink example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/a2dp_sink">
           <external path="edgefast_bluetooth_examples/a2dp_sink" type="xml">
             <files mask="a2dp_sink_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkcmimxrt1060_edgefast_bluetooth_shell" name="edgefast_bluetooth_shell" brief="The Edgefast Bluetooth shell example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/shell">
+        <example id="evkcmimxrt1060_edgefast_bluetooth_shell" name="edgefast_bluetooth_shell" brief="The EdgeFast BLE/BR/EDR shell example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/shell">
           <external path="edgefast_bluetooth_examples/shell" type="xml">
             <files mask="edgefast_bluetooth_shell_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkcmimxrt1060_handsfree_ag" name="handsfree_ag" brief="The Edgefast Bluetooth handsfree AG example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/handsfree_ag">
+        <example id="evkcmimxrt1060_handsfree_ag" name="handsfree_ag" brief="The EdgeFast BR/EDR handsfree ag example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/handsfree_ag">
           <external path="edgefast_bluetooth_examples/handsfree_ag" type="xml">
             <files mask="handsfree_ag_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkcmimxrt1060_handsfree" name="handsfree" brief="The Edgefast Bluetooth bluetooth handsfree example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/handsfree">
+        <example id="evkcmimxrt1060_handsfree" name="handsfree" brief="The EdgeFast BR/EDR handsfree example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/handsfree">
           <external path="edgefast_bluetooth_examples/handsfree" type="xml">
             <files mask="handsfree_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkcmimxrt1060_a2dp_source" name="a2dp_source" brief="The Edgefast Bluetooth audio source with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/a2dp_source">
+        <example id="evkcmimxrt1060_a2dp_source" name="a2dp_source" brief="The EdgeFast BR/EDR a2dp source example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/a2dp_source">
           <external path="edgefast_bluetooth_examples/a2dp_source" type="xml">
             <files mask="a2dp_source_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkcmimxrt1060_peripheral_ht" name="peripheral_ht" brief="The Edgefast Bluetooth hts example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/peripheral_ht">
+        <example id="evkcmimxrt1060_peripheral_ht" name="peripheral_ht" brief="The EdgeFast BLE peripheral ht example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/peripheral_ht">
           <external path="edgefast_bluetooth_examples/peripheral_ht" type="xml">
             <files mask="peripheral_ht_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkcmimxrt1060_central_ht" name="central_ht" brief="The Edgefast Bluetooth hts example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/central_ht">
+        <example id="evkcmimxrt1060_central_ht" name="central_ht" brief="The EdgeFast BLE central ht example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/central_ht">
           <external path="edgefast_bluetooth_examples/central_ht" type="xml">
             <files mask="central_ht_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkcmimxrt1060_peripheral_ipsp" name="peripheral_ipsp" brief="The Edgefast Bluetooth ipsp example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/peripheral_ipsp">
+        <example id="evkcmimxrt1060_peripheral_ipsp" name="peripheral_ipsp" brief="The EdgeFast BLE peripheral ipsp example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/peripheral_ipsp">
           <external path="edgefast_bluetooth_examples/peripheral_ipsp" type="xml">
             <files mask="peripheral_ipsp_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkcmimxrt1060_central_ipsp" name="central_ipsp" brief="The Edgefast Bluetooth ipsp example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/central_ipsp">
+        <example id="evkcmimxrt1060_central_ipsp" name="central_ipsp" brief="The EdgeFast BLE central ipsp example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/central_ipsp">
           <external path="edgefast_bluetooth_examples/central_ipsp" type="xml">
             <files mask="central_ipsp_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkcmimxrt1060_peripheral_pxr" name="peripheral_pxr" brief="The Edgefast Bluetooth pxr example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/peripheral_pxr">
+        <example id="evkcmimxrt1060_peripheral_pxr" name="peripheral_pxr" brief="The EdgeFast BLE peripheral pxr example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/peripheral_pxr">
           <external path="edgefast_bluetooth_examples/peripheral_pxr" type="xml">
             <files mask="peripheral_pxr_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkcmimxrt1060_central_pxm" name="central_pxm" brief="The Edgefast Bluetooth pxm example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/central_pxm">
+        <example id="evkcmimxrt1060_central_pxm" name="central_pxm" brief="The EdgeFast BLE central pxm example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/central_pxm">
           <external path="edgefast_bluetooth_examples/central_pxm" type="xml">
             <files mask="central_pxm_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkcmimxrt1060_peripheral_beacon" name="peripheral_beacon" brief="The Edgefast Bluetooth beacon example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/peripheral_beacon">
+        <example id="evkcmimxrt1060_peripheral_beacon" name="peripheral_beacon" brief="The EdgeFast BLE peripheral beacon example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/peripheral_beacon">
           <external path="edgefast_bluetooth_examples/peripheral_beacon" type="xml">
             <files mask="peripheral_beacon_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkcmimxrt1060_peripheral_hps" name="peripheral_hps" brief="The Edgefast Bluetooth hps example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/peripheral_hps">
+        <example id="evkcmimxrt1060_peripheral_hps" name="peripheral_hps" brief="The EdgeFast BLE peripheral hps example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/peripheral_hps">
           <external path="edgefast_bluetooth_examples/peripheral_hps" type="xml">
             <files mask="peripheral_hps_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkcmimxrt1060_central_hpc" name="central_hpc" brief="The Edgefast Bluetooth hpc example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/central_hpc">
+        <example id="evkcmimxrt1060_central_hpc" name="central_hpc" brief="The EdgeFast BLE central hpc example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/central_hpc">
           <external path="edgefast_bluetooth_examples/central_hpc" type="xml">
             <files mask="central_hpc_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkcmimxrt1060_wireless_uart" name="wireless_uart" brief="The Edgefast Bluetooth wireless uart example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/wireless_uart">
+        <example id="evkcmimxrt1060_wireless_uart" name="wireless_uart" brief="The EdgeFast BLE wireless uart example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/wireless_uart">
           <external path="edgefast_bluetooth_examples/wireless_uart" type="xml">
             <files mask="wireless_uart_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkcmimxrt1060_wifi_cli_over_ble_wu" name="wifi_cli_over_ble_wu" brief="wifi_cli_over_ble_wu" toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/wifi_cli_over_ble_wu">
+        <example id="evkcmimxrt1060_wifi_cli_over_ble_wu" name="wifi_cli_over_ble_wu" brief="The EdgeFast BLE wifi cli over ble wu example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/wifi_cli_over_ble_wu">
           <external path="edgefast_bluetooth_examples/wifi_cli_over_ble_wu" type="xml">
             <files mask="wifi_cli_over_ble_wu_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkcmimxrt1060_broadcast_media_sender" name="broadcast_media_sender" brief="The Edgefast Bluetooth pxm example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/broadcast_media_sender">
+        <example id="evkcmimxrt1060_broadcast_media_sender" name="broadcast_media_sender" brief="The EdgeFast BLE Audio broadcast media sender example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/broadcast_media_sender">
           <external path="edgefast_bluetooth_examples/broadcast_media_sender" type="xml">
             <files mask="broadcast_media_sender_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkcmimxrt1060_broadcast_media_receiver" name="broadcast_media_receiver" brief="The Edgefast Bluetooth pxm example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/broadcast_media_receiver">
+        <example id="evkcmimxrt1060_broadcast_media_receiver" name="broadcast_media_receiver" brief="The EdgeFast BLE Audio broadcast media receiver example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/broadcast_media_receiver">
           <external path="edgefast_bluetooth_examples/broadcast_media_receiver" type="xml">
             <files mask="broadcast_media_receiver_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkcmimxrt1060_unicast_media_sender" name="unicast_media_sender" brief="The Edgefast Bluetooth pxm example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/unicast_media_sender">
+        <example id="evkcmimxrt1060_unicast_media_sender" name="unicast_media_sender" brief="The EdgeFast BLE Audio unicast media sender example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/unicast_media_sender">
           <external path="edgefast_bluetooth_examples/unicast_media_sender" type="xml">
             <files mask="unicast_media_sender_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkcmimxrt1060_unicast_media_receiver" name="unicast_media_receiver" brief="The Edgefast Bluetooth pxm example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/unicast_media_receiver">
+        <example id="evkcmimxrt1060_unicast_media_receiver" name="unicast_media_receiver" brief="The EdgeFast BLE Audio unicast media receiver example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/unicast_media_receiver">
           <external path="edgefast_bluetooth_examples/unicast_media_receiver" type="xml">
             <files mask="unicast_media_receiver_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkcmimxrt1060_tmap_peripheral" name="tmap_peripheral" brief="The Edgefast Bluetooth pxm example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/tmap_peripheral">
+        <example id="evkcmimxrt1060_tmap_peripheral" name="tmap_peripheral" brief="The EdgeFast BLE Audio tmap peripheral example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/tmap_peripheral">
           <external path="edgefast_bluetooth_examples/tmap_peripheral" type="xml">
             <files mask="tmap_peripheral_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkcmimxrt1060_tmap_central" name="tmap_central" brief="The Edgefast Bluetooth pxm example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/tmap_central">
+        <example id="evkcmimxrt1060_tmap_central" name="tmap_central" brief="The EdgeFast BLE Audio tmap central example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/tmap_central">
           <external path="edgefast_bluetooth_examples/tmap_central" type="xml">
             <files mask="tmap_central_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkcmimxrt1060_call_gateway" name="call_gateway" brief="The Edgefast Bluetooth call gateway example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/call_gateway">
+        <example id="evkcmimxrt1060_call_gateway" name="call_gateway" brief="The EdgeFast BLE Audio call gateway example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/call_gateway">
           <external path="edgefast_bluetooth_examples/call_gateway" type="xml">
             <files mask="call_gateway_v3_14.xml"/>
           </external>
         </example>
-        <example id="evkcmimxrt1060_call_terminal" name="call_terminal" brief="The Edgefast Bluetooth call terminal example with simplified application." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/call_terminal">
+        <example id="evkcmimxrt1060_call_terminal" name="call_terminal" brief="The EdgeFast BLE Audio call terminal example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/call_terminal">
           <external path="edgefast_bluetooth_examples/call_terminal" type="xml">
             <files mask="call_terminal_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkcmimxrt1060_pbap_pce" name="pbap_pce" brief="The EdgeFast BR/EDR pbap pce example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/pbap_pce">
+          <external path="edgefast_bluetooth_examples/pbap_pce" type="xml">
+            <files mask="pbap_pce_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkcmimxrt1060_pbap_pse" name="pbap_pse" brief="The EdgeFast BR/EDR pbap pse example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/pbap_pse">
+          <external path="edgefast_bluetooth_examples/pbap_pse" type="xml">
+            <files mask="pbap_pse_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkcmimxrt1060_map_mce" name="map_mce" brief="The EdgeFast BR/EDR map mce example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/map_mce">
+          <external path="edgefast_bluetooth_examples/map_mce" type="xml">
+            <files mask="map_mce_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="evkcmimxrt1060_map_mse" name="map_mse" brief="The EdgeFast BR/EDR map mse example." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="edgefast_bluetooth_examples" path="examples/evkcmimxrt1060/edgefast_bluetooth_examples/map_mse">
+          <external path="edgefast_bluetooth_examples/map_mse" type="xml">
+            <files mask="map_mse_v3_14.xml"/>
           </external>
         </example>
         <example id="evkcmimxrt1060_cmsis_lpi2c_edma_b2b_transfer_master" name="cmsis_lpi2c_edma_b2b_transfer_master" brief="CMSIS-Driver defines generic peripheral driver interfaces for middleware making it reusable across a wide range of supported microcontroller devices. The API connects microcontroller peripherals with middleware that implements for example communication stacks, file systems, or graphic user interfaces. More information and usage methord please refer to http://www.keil.com/pack/doc/cmsis/Driver/html/index.html.The cmsis_i2c_edma_b2b_transfer_master example shows how to use i2c driver as master to do board to board transfer with EDMA:In this example, one i2c instance as master and another i2c instance on the other board as slave. Master sends a piece of data to slave, and receive a piece of data from slave. This example checks if the data received from slave is correct." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="cmsis_driver_examples/lpi2c" path="examples/evkcmimxrt1060/cmsis_driver_examples/lpi2c/edma_b2b_transfer/master">

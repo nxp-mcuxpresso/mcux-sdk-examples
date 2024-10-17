@@ -10,7 +10,7 @@ Example will first erase the sector and program a page into the flash, at last c
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

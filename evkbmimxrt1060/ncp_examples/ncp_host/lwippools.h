@@ -3,9 +3,9 @@
  *  @brief This file contains custom LwIP memory pool definitions
  *
  *  Copyright 2020 NXP
- *  All rights reserved.
  *
  *  SPDX-License-Identifier: BSD-3-Clause
+ *  The BSD-3-Clause license can be found at https://spdx.org/licenses/BSD-3-Clause.html
  */
 
 #ifndef __LWIPPOOLS_H__

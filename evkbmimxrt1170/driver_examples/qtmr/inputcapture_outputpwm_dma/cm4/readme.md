@@ -9,7 +9,7 @@ The user can enter a value to update the Duty cycle, when 5 is entered, the duty
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

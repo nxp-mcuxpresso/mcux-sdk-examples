@@ -70,6 +70,8 @@ ZPS_vNwkHandleMcpsVsInd(void *pvNwk,
                             MAC_tsMcpsVsDcfmInd *psMcpsDcfmInd);
 PUBLIC void ZPS_vNwkHandleMcpsVsDcfm (void *pvNwk,
                             MAC_tsMcpsVsCfmData *psMcpsDcfmInd);
+MODULE int zps_iNwkMcpsMgrCountFreeReqDescr(void *pvNwk);
+
 #ifdef __cplusplus
 };
 #endif

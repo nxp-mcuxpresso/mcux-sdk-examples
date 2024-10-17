@@ -4,7 +4,7 @@
   <externalDefinitions>
     <definition extID="MCXC041VFK"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK216000_frdmmcxc041_examples_manifest_v3_14" name="MCUXpressoSDK216000_frdmmcxc041_examples_manifest_v3_14" version="2.16.000" revision="2.16.000"/>
+  <ksdk id="MCUXpressoSDK216100_frdmmcxc041_examples_manifest_v3_14" name="MCUXpressoSDK216100_frdmmcxc041_examples_manifest_v3_14" version="2.16.100" revision="2.16.100"/>
   <boards>
     <board id="frdmmcxc041" name="FRDM-MCXC041" version="1.0.0" package="MCXC041VFK">
       <examples>

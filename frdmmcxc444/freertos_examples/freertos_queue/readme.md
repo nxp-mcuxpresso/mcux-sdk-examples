@@ -17,7 +17,7 @@ write_task_2 print 5 messages into log.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

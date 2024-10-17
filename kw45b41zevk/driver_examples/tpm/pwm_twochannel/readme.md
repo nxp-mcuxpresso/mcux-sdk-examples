@@ -8,7 +8,7 @@ a change in LED brightness if user enter different values.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

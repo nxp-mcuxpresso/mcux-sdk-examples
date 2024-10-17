@@ -7,7 +7,7 @@ its services with direct use of Messaging Unit driver.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

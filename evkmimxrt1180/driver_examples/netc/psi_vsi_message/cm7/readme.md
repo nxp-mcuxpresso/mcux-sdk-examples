@@ -7,7 +7,7 @@ indicating that the secondary core is running and uses NETC VSI to send/receive 
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

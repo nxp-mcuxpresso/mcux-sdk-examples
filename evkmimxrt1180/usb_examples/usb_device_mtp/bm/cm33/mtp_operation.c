@@ -480,6 +480,7 @@ usb_status_t USB_DeviceDeleteDir(uint8_t *path)
     uint32_t offset = 0U;
 #endif
 
+    (void)memset(&dir, 0, sizeof(dir));
     if (nestedDepth >= USB_DEVICE_MTP_DIR_INSTANCE)
     {
         usb_echo("The nested directory is too deep, please increase the dir instance\r\n");
@@ -1226,6 +1227,8 @@ void USB_DeviceCmdGetObjHandles(void *param)
     uint8_t storageCount                       = g_mtp.storageList->storageCount;
     usb_device_mtp_storage_info_t *storageInfo = g_mtp.storageList->storageInfo;
 
+   (void)memset(&dir, 0, sizeof(dir));
+   (void)memset(&objHandleStruct, 0, sizeof(objHandleStruct));
     /* Check storage ID */
     if (storageID != USB_DEVICE_MTP_MAX_UINT32_VAL)
     {
@@ -2509,7 +2512,7 @@ void USB_DeviceCmdSetObjPropVal(void *param)
     uint32_t j;
     uint32_t size;
     usb_mtp_obj_handle_t objHandleStruct;
-    uint16_t renameBuffer[MTP_PATH_MAX_LEN >> 1U];
+    uint16_t renameBuffer[MTP_PATH_MAX_LEN >> 1U] = {0U};
     usb_status_t result;
     usb_device_mtp_obj_prop_t *prop;
 

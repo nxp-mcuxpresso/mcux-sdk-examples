@@ -5,7 +5,7 @@ This example works as two USB CDC ACM devices. It will appear as two USB serial 
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

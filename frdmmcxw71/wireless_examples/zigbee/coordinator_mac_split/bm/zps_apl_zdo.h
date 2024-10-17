@@ -71,6 +71,9 @@ typedef enum
     ZPS_DEVICE_PERMISSIONS_JOIN_DISALLOWED = 1,
     ZPS_DEVICE_PERMISSIONS_DATA_REQUEST_DISALLOWED = 2,
     ZPS_DEVICE_PERMISSIONS_REJOIN_DISALLOWED = 4,
+#ifdef R23_UPDATES
+    ZPS_DEVICE_PERMISSIONS_DLK_DISALLOWED = 8,
+#endif
 } PACK ZPS_teDevicePermissions;
 
 
@@ -473,7 +476,7 @@ ZPS_APL_INLINE uint8 ZPS_u8AplZdoGetAuxRadioChannel(void)
 ZPS_APL_INLINE uint16 ZPS_u16AplZdoGetNetworkPanId(void) ZPS_ZDO_ALWAYS_INLINE;
 ZPS_APL_INLINE uint16 ZPS_u16AplZdoGetNetworkPanId(void)
 {
-    return zps_psAplZdoGetNib(ZPS_pvAplZdoGetAplHandle())->sPersist.u16VsPanId;
+    return ZPS_u16NwkNibGetPid(zps_pvAplZdoGetNwkHandle(ZPS_pvAplZdoGetAplHandle()));
 }
 
 ZPS_APL_INLINE uint64 ZPS_u64AplZdoGetNetworkExtendedPanId(void) ZPS_ZDO_ALWAYS_INLINE;

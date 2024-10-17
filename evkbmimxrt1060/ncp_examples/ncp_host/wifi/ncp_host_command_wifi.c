@@ -30,6 +30,10 @@ extern uint8_t mcu_tlv_command_buff[NCP_HOST_COMMAND_LEN];
 #endif
 
 extern int mcu_get_command_lock();
+extern int mcu_put_command_lock();
+extern int mcu_get_command_resp_sem();
+extern int mcu_put_command_resp_sem();
+extern int ncp_host_send_tlv_command();
 extern int ncp_host_cli_register_commands(const struct ncp_host_cli_command *commands, int num_commands);
 NCP_WLAN_NET_MONITOR_PARA g_net_monitor_param;
 wlan_csi_config_params_t g_csi_params;
@@ -919,7 +923,15 @@ int wlan_process_suspend_response(uint8_t *res)
     uint16_t result                = cmd_res->header.result;
 
     if (result == NCP_CMD_RESULT_ERROR)
+    {
         (void)PRINTF("suspend command is failed\r\n");
+        (void)PRINTF("PM1/2 allowed with INTF mode\r\n");
+        (void)PRINTF("If NCP device is RDRW612:\r\n");
+        (void)PRINTF("    PM1/2/3 allowed with GPIO mode\r\n");
+        (void)PRINTF("If NCP device is FRDMRW612:\r\n");
+        (void)PRINTF("    PM1/2 allowed with GPIO mode\r\n");
+        (void)PRINTF("    PM1/2/3 allowed with WIFI-NB mode\r\n");
+    }
     else
         (void)PRINTF("suspend command is successful\r\n");
     return WM_SUCCESS;
@@ -5014,7 +5026,7 @@ int wlan_process_memory_state_response(uint8_t *res)
     if (cmd_res->header.result == NCP_CMD_RESULT_OK)
     {
         (void)PRINTF("FreeHeapSize    : %u \r\n", mem_state->free_heap_size);
-        (void)PRINTF("MinFreeHeapSize : %u \r\n\r\n", mem_state->minimun_ever_free_heap_size);
+        (void)PRINTF("MinFreeHeapSize : %u \r\n\r\n", mem_state->minimum_ever_free_heap_size);
     }
     else
     {
@@ -6007,7 +6019,7 @@ static void dump_wlan_set_rf_tx_power_usage()
  *
  * @return Status returned
  */
-static int wlan_ncp_set_rf_tx_power_command(int argc, char **argv)
+int wlan_ncp_set_rf_tx_power_command(int argc, char **argv)
 {
     uint8_t power;
     uint8_t mod;
@@ -6106,7 +6118,7 @@ static void dump_wlan_set_tx_cont_mode_usage()
  *
  * @return Status returned
  */
-static int wlan_ncp_set_rf_tx_cont_mode_command(int argc, char **argv)
+int wlan_ncp_set_rf_tx_cont_mode_command(int argc, char **argv)
 {
     uint32_t enable_tx, cw_mode, payload_pattern, cs_mode, act_sub_ch, tx_rate;
 
@@ -6212,7 +6224,7 @@ static void dump_wlan_set_tx_frame_usage()
  *
  * @return Status returned
  */
-static int wlan_ncp_set_rf_tx_frame_command(int argc, char **argv)
+int wlan_ncp_set_rf_tx_frame_command(int argc, char **argv)
 {
     int ret;
     uint32_t enable;
@@ -6347,7 +6359,7 @@ static void dump_wlan_get_and_reset_rf_per_usage()
  *
  * @return Status returned
  */
-static int wlan_ncp_set_rf_get_and_reset_rf_per_command(int argc, char **argv)
+int wlan_ncp_set_rf_get_and_reset_rf_per_command(int argc, char **argv)
 {
     if (!ncp_rf_test_mode)
     {
@@ -7627,6 +7639,152 @@ int wlan_process_mbo_set_oce_response(uint8_t *res)
     (void)PRINTF("Set mbo oce succeeded!\r\n");
 
     return WM_SUCCESS;
+}
+
+void ncp_network_commissioning(ncp_commission_cfg_t *ncp_commission_cfg)
+{
+    char name[] = "sta_ncp_network_commissioning";
+
+    MCU_NCPCmd_DS_COMMAND *network_remove_command = ncp_host_get_cmd_buffer_wifi();
+    NCP_CMD_NETWORK_REMOVE *network_remove = (NCP_CMD_NETWORK_REMOVE *)&network_remove_command->params.network_remove;
+    (void)memset((uint8_t *)network_remove_command, 0, NCP_HOST_COMMAND_LEN);
+
+    network_remove_command->header.cmd      = NCP_CMD_WLAN_NETWORK_REMOVE;
+    network_remove_command->header.size     = NCP_CMD_HEADER_LEN;
+    network_remove_command->header.result   = NCP_CMD_RESULT_OK;
+
+    (void)memcpy(network_remove->name, name, strlen(name) + 1);
+    network_remove->remove_state = WM_SUCCESS;
+
+    network_remove_command->header.size += sizeof(NCP_CMD_NETWORK_REMOVE);
+
+    ncp_host_send_tlv_command();
+    mcu_get_command_resp_sem();
+    mcu_get_command_lock();
+
+    MCU_NCPCmd_DS_COMMAND *network_add_command = ncp_host_get_cmd_buffer_wifi();
+    NCP_CMD_NETWORK_ADD *network_add_tlv       = (NCP_CMD_NETWORK_ADD *)&network_add_command->params.network_add;
+    uint8_t *ptlv_pos                          = network_add_tlv->tlv_buf;
+    uint32_t tlv_buf_len                       = 0;
+    SSID_ParamSet_t *ssid_tlv                  = NULL;
+    Security_ParamSet_t *security_wpa2_tlv = NULL, *security_wpa3_tlv = NULL;
+
+    (void)memcpy(network_add_tlv->name, name, (strlen(name) > WLAN_NETWORK_NAME_MAX_LENGTH - 1) ? (WLAN_NETWORK_NAME_MAX_LENGTH - 1) : strlen(name) + 1);
+
+    if (ncp_commission_cfg->ssid_len > 32)
+    {
+        (void)PRINTF("Error: SSID is too long\r\n");
+        mcu_put_command_resp_sem();
+        mcu_put_command_lock();
+        return;
+    }
+
+    ssid_tlv = (SSID_ParamSet_t *)ptlv_pos;
+    (void)memcpy(ssid_tlv->ssid, ncp_commission_cfg->ssid, ncp_commission_cfg->ssid_len);
+    ssid_tlv->header.type = NCP_CMD_NETWORK_SSID_TLV;
+    ssid_tlv->header.size = sizeof(ssid_tlv->ssid);
+    ptlv_pos += sizeof(SSID_ParamSet_t);
+    tlv_buf_len += sizeof(SSID_ParamSet_t);
+
+    if(memcmp((const void *)ncp_commission_cfg->secure, "open", 4))
+    {
+        if(!memcmp((const void *)ncp_commission_cfg->secure, "wpa2", 4))
+        {
+            if(!memcmp((const void *)ncp_commission_cfg->secure, "wpa2_psk", ncp_commission_cfg->secure_len))
+            {
+                security_wpa2_tlv = (Security_ParamSet_t *)ptlv_pos;
+                security_wpa2_tlv->type = WLAN_SECURITY_WPA2;
+                security_wpa2_tlv->password_len = ncp_commission_cfg->password_len;
+            }
+            else
+            {
+                (void)PRINTF("Error: invalid WPA2 security argument, lack of psk.\r\n");
+                mcu_put_command_resp_sem();
+                mcu_put_command_lock();
+                return;
+            }
+
+            /* copy the PSK phrase */            
+            if (security_wpa2_tlv->password_len < WLAN_PSK_MIN_LENGTH || security_wpa2_tlv->password_len >= WLAN_PSK_MAX_LENGTH)
+            {
+                (void)PRINTF("Error: Invalid passphrase length %d (expected ASCII characters: 8..63)\r\n", ncp_commission_cfg->password_len);
+                mcu_put_command_resp_sem();
+                mcu_put_command_lock();
+                return;
+            }
+            else
+            {
+                strncpy(security_wpa2_tlv->password, ncp_commission_cfg->password, security_wpa2_tlv->password_len);
+            }
+            security_wpa2_tlv->header.type = NCP_CMD_NETWORK_SECURITY_TLV;
+            security_wpa2_tlv->header.size = sizeof(security_wpa2_tlv->type) + sizeof(security_wpa2_tlv->password_len) + security_wpa2_tlv->password_len;
+            ptlv_pos += NCP_TLV_HEADER_LEN + security_wpa2_tlv->header.size;
+            tlv_buf_len += NCP_TLV_HEADER_LEN + security_wpa2_tlv->header.size;
+        }       
+        else if(!memcmp((const void *)ncp_commission_cfg->secure, "wpa3", 4))
+        {       
+            if(!memcmp((const void *)ncp_commission_cfg->secure, "wpa3_sae", ncp_commission_cfg->secure_len))
+            {
+                security_wpa3_tlv = (Security_ParamSet_t *)ptlv_pos;
+                security_wpa3_tlv->type = WLAN_SECURITY_WPA3_SAE;
+                /* copy the PSK phrase */
+                security_wpa3_tlv->password_len = ncp_commission_cfg->password_len;
+                    if (!security_wpa3_tlv->password_len)
+                    {
+                        (void)PRINTF("Error: invalid WPA3 security argument\r\n");
+                        mcu_put_command_resp_sem();
+                        mcu_put_command_lock();
+                        return;
+                    }
+                    if (security_wpa3_tlv->password_len < 255)
+                        strcpy(security_wpa3_tlv->password, ncp_commission_cfg->password);
+                    else
+                    {
+                        (void)PRINTF("Error: invalid WPA3 security argument\r\n");
+                        mcu_put_command_resp_sem();
+                        mcu_put_command_lock();
+                        return;
+                    }
+
+                    security_wpa3_tlv->header.type = NCP_CMD_NETWORK_SECURITY_TLV;
+                    security_wpa3_tlv->header.size = sizeof(security_wpa3_tlv->type) +
+                                                     sizeof(security_wpa3_tlv->password_len) +
+                                                     security_wpa3_tlv->password_len;
+                    ptlv_pos += NCP_TLV_HEADER_LEN + security_wpa3_tlv->header.size;
+                    tlv_buf_len += NCP_TLV_HEADER_LEN + security_wpa3_tlv->header.size;
+            }
+            else
+            {
+                (void)PRINTF("Error: invalid WPA3 security argument\r\n");
+                mcu_put_command_resp_sem();
+                mcu_put_command_lock();
+                return;
+            }
+        }
+    }
+    network_add_tlv->tlv_buf_len = tlv_buf_len;
+    network_add_command->header.cmd = NCP_CMD_WLAN_NETWORK_ADD;
+    network_add_command->header.size = NCP_CMD_HEADER_LEN + sizeof(network_add_tlv->name) + sizeof(network_add_tlv->tlv_buf_len) + tlv_buf_len;
+    network_add_command->header.result   = NCP_CMD_RESULT_OK;
+
+    ncp_host_send_tlv_command();
+
+    mcu_get_command_resp_sem();
+    mcu_get_command_lock();
+    
+    /*start connect process*/
+    MCU_NCPCmd_DS_COMMAND *connect_command = ncp_host_get_cmd_buffer_wifi();
+
+    (void)memset((uint8_t *)connect_command, 0, NCP_HOST_COMMAND_LEN);
+    connect_command->header.cmd      = NCP_CMD_WLAN_STA_CONNECT;
+    connect_command->header.size     = NCP_CMD_HEADER_LEN;
+    connect_command->header.result   = NCP_CMD_RESULT_OK;
+
+    NCP_CMD_WLAN_CONN *conn = (NCP_CMD_WLAN_CONN *)&connect_command->params.wlan_connect;
+    (void)memcpy(conn->name, name, strlen(name));
+    connect_command->header.size += sizeof(NCP_CMD_WLAN_CONN);
+    
+    ncp_host_send_tlv_command();
 }
 
 int wlan_process_ncp_event(uint8_t *res)

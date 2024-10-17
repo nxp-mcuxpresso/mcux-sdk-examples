@@ -36,8 +36,8 @@ void BOARD_InitHardware(void)
 
     // BOARD_InitDebugConsole();
 
-    CLOCK_EnableXtal32K(true);
-    CLOCK_AttachClk(kXTAL32K_to_CLK32K);
+    BOARD_InitSleepPinConfig();
+    CLOCK_AttachClk(kRC32K_to_CLK32K);
     CLOCK_AttachClk(kCLK32K_to_OSTIMER_CLK);
 
     /* Reset GMDA */

@@ -6,7 +6,7 @@ for an ASCII string. Several CRC protocols are implemented using the CRC driver 
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

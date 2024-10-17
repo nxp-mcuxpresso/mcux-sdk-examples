@@ -6,7 +6,7 @@ File transfer is done using a simple HTTP server running on the board.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

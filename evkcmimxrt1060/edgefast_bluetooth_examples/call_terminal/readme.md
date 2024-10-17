@@ -5,7 +5,7 @@ Application demonstrating how to use the telephone call terminal feature of LE A
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

@@ -6,7 +6,7 @@ This application specifically looks for a peer advertising the Intermediate Aler
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

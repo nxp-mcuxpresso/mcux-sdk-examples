@@ -1,3 +1,10 @@
+/*! *********************************************************************************
+* \file gatt_uuid128.h
+*
+* Copyright 2021 - 2024 NXP
+*
+* SPDX-License-Identifier: BSD-3-Clause
+********************************************************************************** */
 /* 
 * Declare all custom 128-bit UUIDs here using the format:
 *

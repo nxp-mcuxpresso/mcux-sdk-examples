@@ -7,7 +7,7 @@ that PC send to the board. Note: two queued transfer in this example, so please 
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

@@ -12,7 +12,7 @@ When the LPIT interrupt is triggered a message a printed on the serial terminal.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

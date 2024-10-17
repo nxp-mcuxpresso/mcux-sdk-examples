@@ -12,7 +12,7 @@ via debug console utility and suspend itself.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

@@ -38,7 +38,7 @@ This is just an example application. To leverage the values, the demo has to be 
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

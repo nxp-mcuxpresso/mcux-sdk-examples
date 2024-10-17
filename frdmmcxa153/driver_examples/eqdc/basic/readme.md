@@ -10,7 +10,7 @@ The EQDC hardware is created with a special synchronize mechanism. There are act
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

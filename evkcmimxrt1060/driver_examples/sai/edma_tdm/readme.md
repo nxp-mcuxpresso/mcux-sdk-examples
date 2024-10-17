@@ -6,7 +6,7 @@ In this example, one sai instance playbacks the audio data stored in the sdcard 
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

@@ -137,11 +137,11 @@ int main(void)
     {
         dataScale = 4U;
     }
-    else if (sensorRange == 0x10)
+    else if (sensorRange == 0x02)
     {
         dataScale = 8U;
     }
-    else if (sensorRange == 0x11)
+    else if (sensorRange == 0x03)
     {
         dataScale = 16U;
     }

@@ -76,9 +76,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../board.h"
 "${ProjDirPath}/../clock_config.c"
 "${ProjDirPath}/../clock_config.h"
-"${ProjDirPath}/../controller/configs/lwip/lwipopts.h"
-"${ProjDirPath}/../controller/configs/lwip/lwippools.h"
-"${ProjDirPath}/../controller/configs/wifi/wifi_config.h"
+"${ProjDirPath}/../source/monolithic_config.h"
 "${ProjDirPath}/../platform/configs/ffconf.h"
 "${ProjDirPath}/../platform/configs/usb_host_config.h"
 )
@@ -88,8 +86,7 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/../controller/configs/mbedtls
     ${SdkRootDirPath}/examples/rdrw612bga/wifi_examples/common/lpm
     ${SdkRootDirPath}/examples/rdrw612bga/wifi_examples/common
-    ${ProjDirPath}/../controller/configs/lwip
-    ${ProjDirPath}/../controller/configs/wifi
+    ${ProjDirPath}/../source
     ${SdkRootDirPath}/core/boards/rdrw612bga
     ${ProjDirPath}/../platform/configs
 )
@@ -102,8 +99,6 @@ set_source_files_properties("${ProjDirPath}/../edgefast_bluetooth_config.h" PROP
 set_source_files_properties("${ProjDirPath}/../edgefast_bluetooth_debug_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_edgefast_bluetooth_config_template")
 set_source_files_properties("${ProjDirPath}/../lwipopts.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_lwip_template")
 set_source_files_properties("${ProjDirPath}/../wifi_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_wifi_template")
-set_source_files_properties("${ProjDirPath}/../controller/configs/lwip/lwipopts.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_lwip_template")
-set_source_files_properties("${ProjDirPath}/../controller/configs/wifi/wifi_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_wifi_template")
 set_source_files_properties("${ProjDirPath}/../platform/configs/ffconf.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_fatfs_template_usb")
 set_source_files_properties("${ProjDirPath}/../platform/configs/usb_host_config.h" PROPERTIES COMPONENT_CONFIG_FILE "middleware_usb_host_ehci_config_header")
 

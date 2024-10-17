@@ -24,3 +24,4 @@ M.2 connector:
   - remove R183
   - add 0Ohm resistor at position R404
 
+Connect external power supply to J43, set J38: 1-2 and turn on SW5.

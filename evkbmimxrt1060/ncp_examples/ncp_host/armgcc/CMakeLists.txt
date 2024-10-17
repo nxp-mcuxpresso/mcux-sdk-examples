@@ -81,6 +81,11 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../ble_service/hrs.c"
 "${ProjDirPath}/../ble_service/bas.h"
 "${ProjDirPath}/../ble_service/bas.c"
+"${ProjDirPath}/../ot/ncp_host_app_ot.c"
+"${ProjDirPath}/../ot/ncp_host_command_ot.c"
+"${ProjDirPath}/../ot/ot_opcode/otopcode.c"
+"${ProjDirPath}/../ot/ot_opcode/otopcode.h"
+"${ProjDirPath}/../ot/ot_opcode/otopcode_private.h"
 "${ProjDirPath}/../usb_host/ncp_intf_usb_host_cdc.c"
 "${ProjDirPath}/../usb_host/ncp_intf_usb_host_cdc.h"
 "${ProjDirPath}/../usb_host/ncp_usb_host_cdc.c"
@@ -121,6 +126,8 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
     ${ProjDirPath}/../wifi
     ${ProjDirPath}/../ble
     ${ProjDirPath}/../ble_service
+    ${ProjDirPath}/../ot
+    ${ProjDirPath}/../ot/ot_opcode
     ${ProjDirPath}/../usb_host
     ${ProjDirPath}/../sdio_host
     ${SdkRootDirPath}/core/boards/evkbmimxrt1060

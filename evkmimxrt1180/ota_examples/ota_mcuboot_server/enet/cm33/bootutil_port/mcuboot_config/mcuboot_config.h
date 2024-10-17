@@ -78,23 +78,37 @@
 
 #ifndef MCUBOOT_OVERWRITE_ONLY
    
-#if defined(CONFIG_MCUBOOT_ENCRYPTED_XIP_SUPPORT) && defined(CONFIG_MCUBOOT_FLASH_REMAP_ENABLE)
+#if defined(CONFIG_ENCRYPT_XIP_EXT_ENABLE) && defined(CONFIG_MCUBOOT_FLASH_REMAP_ENABLE)
 #error "Flash remap support cannot be combined with encrypted xip support"
 #endif
    
 #ifdef CONFIG_MCUBOOT_FLASH_REMAP_ENABLE
+
 /* Upgrade mode: DIRECT-XIP + FLASH REMAP */ 
 #define MCUBOOT_DIRECT_XIP
 #define MCUBOOT_DIRECT_XIP_REVERT
-#elif defined(CONFIG_MCUBOOT_ENCRYPTED_XIP_SUPPORT)
-/* Upgrade mode: DIRECT-XIP + ENCRYPTED XIP */ 
+
+#elif defined(CONFIG_ENCRYPT_XIP_EXT_ENABLE)
+
+/* Upgrade mode: ENCRYPTED XIP */
+#define CONFIG_BOOT_ENCRYPT_RSA
+#if defined(CONFIG_ENCRYPT_XIP_EXT_OVERWRITE_ONLY)
+/* Upgrade mode: ENCRYPTED XIP - overwrite only */
+#define MCUBOOT_OVERWRITE_ONLY
+#define MCUBOOT_OVERWRITE_ONLY_FAST
+#define MCUBOOT_IMAGE_ACCESS_HOOKS
+#else
+/* Upgrade mode: ENCRYPTED XIP - three slots */
 #define MCUBOOT_DIRECT_XIP
 #define MCUBOOT_DIRECT_XIP_REVERT
-#define CONFIG_BOOT_ENCRYPT_RSA
+#endif /* CONFIG_ENCRYPT_XIP_EXT_OVERWRITE_ONLY */
+
 #else
+
 /* Upgrade mode: SWAP MODE (default) */ 
 #define CONFIG_BOOT_SWAP_USING_MOVE
 #define MCUBOOT_SWAP_USING_MOVE 1
+
 #endif /* CONFIG_MCUBOOT_FLASH_REMAP_ENABLE */
 
 #endif /* MCUBOOT_OVERWRITE_ONLY */

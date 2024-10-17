@@ -4,7 +4,7 @@
   <externalDefinitions>
     <definition extID="K32W1480VFTA"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK216000_k32w148evk_examples_manifest_v3_14" name="MCUXpressoSDK216000_k32w148evk_examples_manifest_v3_14" version="2.16.000" revision="2.16.000"/>
+  <ksdk id="MCUXpressoSDK216100_k32w148evk_examples_manifest_v3_14" name="MCUXpressoSDK216100_k32w148evk_examples_manifest_v3_14" version="2.16.100" revision="2.16.100"/>
   <boards>
     <board id="k32w148evk" name="K32W148-EVK" href="https://www.nxp.com/pip/K32W148-EVK" version="1.0.0" package="K32W1480VFTA">
       <examples>
@@ -521,6 +521,11 @@
         <example id="k32w148evk_lpadc_interrupt" name="lpadc_interrupt" brief="The lpadc_interrupt example shows how to use interrupt with LPADC driver.In this example, user should indicate a channel to provide a voltage signal (can be controlled by user) as the LPADC'ssample input. When running the project, typing any key into debug console would trigger the conversion. ADC watermark interrupt would be asserted once the number of datawords stored in the ADC Result FIFO is greater than watermark value.In ADC ISR, the watermark flag would be cleared by reading the conversion result value. Also, result information wouldbe printed when the execution return to the main function." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/lpadc" path="examples/k32w148evk/driver_examples/lpadc/interrupt">
           <external path="driver_examples/lpadc/interrupt" type="xml">
             <files mask="lpadc_interrupt_v3_14.xml"/>
+          </external>
+        </example>
+        <example id="k32w148evk_lpadc_voltage_measurement" name="lpadc_voltage_measurement" brief="The lpadc_voltage_measurement example shows how to measure the voltage on the board. In this example, user should indicate a channel to provide a voltage signal (can be controlled by user) as the LPADC's sample input. When running the project, typing any key into debug console would trigger the conversion. ADC watermark interrupt would be asserted once the number of datawords stored in the ADC Result FIFO is greater than watermark value. In ADC ISR, the watermark flag would be cleared by reading the conversion result value. Also, result information wouldbe printed when the execution return to the main function." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/lpadc" path="examples/k32w148evk/driver_examples/lpadc/voltage_measurement">
+          <external path="driver_examples/lpadc/voltage_measurement" type="xml">
+            <files mask="lpadc_voltage_measurement_v3_14.xml"/>
           </external>
         </example>
         <example id="k32w148evk_lpadc_temperature_measurement" name="lpadc_temperature_measurement" brief="The lpadc_temperature_measurement example shows how to measure the temperature within the internal sensor. In this example, the ADC input channel is mapped to an internal temperature sensor. When running the project, typing any key into debug console would trigger the conversion. ADC watermark interrupt would be asserted once the number of datawords stored in the ADC Result FIFO is greater than watermark value. In ADC ISR, the watermark flag would be cleared by reading the conversion result value. When the conversion done, two valid result will be put in the FIFO, then the temperature can be calculated within the two results and a specific formula." toolchain="armgcc mcuxpresso" compiler="compiler_gcc" category="driver_examples/lpadc" path="examples/k32w148evk/driver_examples/lpadc/temperature_measurement">

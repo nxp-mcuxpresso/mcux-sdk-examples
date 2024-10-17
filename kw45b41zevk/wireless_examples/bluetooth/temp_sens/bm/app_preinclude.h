@@ -90,16 +90,16 @@
 
 #define gHost_TaskStackSize_c           1764
 
-#define BUTTON_TASK_STACK_SIZE          432
+#define BUTTON_TASK_STACK_SIZE          600
 
 #define SERIAL_MANAGER_TASK_STACK_SIZE  232
 
-#define gMainThreadStackSize_c          800
+#define gMainThreadStackSize_c          864
 
-#define TM_TASK_STACK_SIZE              256
+#define TM_TASK_STACK_SIZE              352
 
 /* The size used for the Idle task, in dwords. */
-#define configMINIMAL_STACK_SIZE        140
+#define configMINIMAL_STACK_SIZE        156
 
 /* Use Fro32k instead of Osc32k */
 #define gBoardUseFro32k_d                 1

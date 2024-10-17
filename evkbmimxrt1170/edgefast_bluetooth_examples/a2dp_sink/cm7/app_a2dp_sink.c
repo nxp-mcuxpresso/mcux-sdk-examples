@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 - 2022 NXP
+ * Copyright 2020 - 2022, 2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -244,8 +244,19 @@ void app_connected(struct bt_a2dp *a2dp, int err)
 {
     if (!err)
     {
+#if !((defined AUTO_CONNECT_USE_BOND_INFO) && (AUTO_CONNECT_USE_BOND_INFO))
+        struct bt_conn_info info;
+#endif
+
         default_a2dp = a2dp;
         PRINTF("a2dp connected success\r\n");
+#if !((defined AUTO_CONNECT_USE_BOND_INFO) && (AUTO_CONNECT_USE_BOND_INFO))
+        if (default_conn != NULL)
+        {
+            bt_conn_get_info(default_conn, &info);
+            app_auto_connect_save_addr(info.br.dst);
+        }
+#endif
     }
     else
     {
@@ -256,6 +267,15 @@ void app_connected(struct bt_a2dp *a2dp, int err)
 void app_disconnected(struct bt_a2dp *a2dp)
 {
     audio_start = 0;
+}
+
+void app_a2dp_connect(struct bt_conn *conn)
+{
+    default_a2dp = bt_a2dp_connect(conn);
+    if (NULL == default_a2dp)
+    {
+        PRINTF ("fail to connect a2dp\r\n");
+    }
 }
 
 static void app_edgefast_a2dp_init(void)
@@ -290,6 +310,10 @@ static void bt_ready(int err)
         return;
     }
 
+#if (defined(CONFIG_BT_SETTINGS) && (CONFIG_BT_SETTINGS > 0))
+    settings_load();
+#endif /* CONFIG_BT_SETTINGS */
+
     PRINTF("Bluetooth initialized\n");
 
     buf = bt_hci_cmd_create(BT_HCI_OP_WRITE_CLASS_OF_DEVICE, sizeof(*cp));
@@ -310,21 +334,9 @@ static void bt_ready(int err)
     }
     
     app_connect_init();
-
-    err = bt_br_set_connectable(true);
-    if (err) {
-        PRINTF("BR/EDR set/rest connectable failed (err %d)\n", err);
-        return;
-    }
-    err = bt_br_set_discoverable(true);
-    if (err) {
-        PRINTF("BR/EDR set discoverable failed (err %d)\n", err);
-        return;
-    }
-    PRINTF("BR/EDR set connectable and discoverable done\n");
-
     bt_sdp_register_service(&a2dp_sink_rec);
     app_edgefast_a2dp_init();
+    app_a2dp_snk_auto_connect();
 }
 
 void app_a2dp_sink_task(void *pvParameters)

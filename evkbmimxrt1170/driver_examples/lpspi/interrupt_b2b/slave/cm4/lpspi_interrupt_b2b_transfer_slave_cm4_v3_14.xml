@@ -127,6 +127,10 @@
       <files mask="CMakeLists.txt"/>
       <files mask="flags.cmake"/>
       <files mask="config.cmake"/>
+      <files mask="build_flexspi_nor_debug.bat"/>
+      <files mask="build_flexspi_nor_debug.sh"/>
+      <files mask="build_flexspi_nor_release.bat"/>
+      <files mask="build_flexspi_nor_release.sh"/>
       <files mask="build_debug.bat"/>
       <files mask="build_debug.sh"/>
       <files mask="build_release.bat"/>
@@ -135,10 +139,6 @@
       <files mask="build_sdram_debug.sh"/>
       <files mask="build_sdram_release.bat"/>
       <files mask="build_sdram_release.sh"/>
-      <files mask="build_flexspi_nor_debug.bat"/>
-      <files mask="build_flexspi_nor_debug.sh"/>
-      <files mask="build_flexspi_nor_release.bat"/>
-      <files mask="build_flexspi_nor_release.sh"/>
     </source>
     <source path="../../../../../../../core/devices/MIMXRT1176" project_relative_path="./" type="workspace" toolchain="armgcc">
       <files mask="all_lib_device.cmake"/>

@@ -18,7 +18,7 @@
 #include "FreeRTOS.h"
 #include "task.h"
 #include "semphr.h"
-
+#include "fsl_os_abstraction.h"
 #include "fsl_common.h"
 #include "fsl_iomuxc.h"
 #include "fsl_debug_console.h"
@@ -29,6 +29,7 @@
 #include "board.h"
 
 #include "fsl_debug_console.h"
+
 
 GPIO_HANDLE_DEFINE(s_WakeupGpioHandle);
 GPIO_HANDLE_DEFINE(h_WakeupGpioHandle);
@@ -61,7 +62,7 @@ static void (*wlan_host_sleep_post_cfg)(void);
  ******************************************************************************/
 static lpm_power_mode_t s_targetPowerMode;
 static lpm_power_mode_t s_curRunMode = LPM_PowerModeOverRun;
-static SemaphoreHandle_t s_wakeupSig;
+OSA_SEMAPHORE_HANDLE_DEFINE(s_wakeupSig);
 
 /*******************************************************************************
  * Code
@@ -69,7 +70,7 @@ static SemaphoreHandle_t s_wakeupSig;
 void APP_WAKEUP_BUTTON_Callback(void *param)
 {
     LPM_DisableWakeupSource(APP_WAKEUP_BUTTON_IRQ);
-    xSemaphoreGiveFromISR(s_wakeupSig, NULL);
+    OSA_SemaphorePost((osa_semaphore_handle_t)s_wakeupSig);
 }
 
 static void APP_SetWakeupConfig(lpm_power_mode_t targetMode)
@@ -88,7 +89,7 @@ static void APP_SetWakeupConfig(lpm_power_mode_t targetMode)
 void APP_HOST_WAKEUP_Callback(void *param)
 {
     LPM_DisableWakeupSource(APP_HOST_WAKEUP_IRQ);
-    xSemaphoreGiveFromISR(s_wakeupSig, NULL);
+    OSA_SemaphorePost((osa_semaphore_handle_t)s_wakeupSig);
 }
 
 static void HOST_SetWakeupConfig(lpm_power_mode_t targetMode)
@@ -232,7 +233,7 @@ static void PowerModeSwitch(lpm_power_mode_t mode)
                 HOST_SetWakeupConfig(s_targetPowerMode);
                 vPortPRE_SLEEP_PROCESSING(0);
                 vPortPOST_SLEEP_PROCESSING(0);
-                if (xSemaphoreTake(s_wakeupSig, portMAX_DELAY) == pdFALSE)
+                if (OSA_SemaphoreWait((osa_semaphore_handle_t)s_wakeupSig, portMAX_DELAY) == pdFALSE)
                 {
                     assert(0);
                 }
@@ -262,6 +263,7 @@ void mcu_suspend()
 
 int hostsleep_init(void (*wlan_hs_pre_cfg)(void), void (*wlan_hs_post_cfg)(void))
 {
+    osa_status_t status;
     if (true != LPM_Init(s_curRunMode))
     {
         PRINTF("LPM Init Failed!\r\n");
@@ -271,9 +273,14 @@ int hostsleep_init(void (*wlan_hs_pre_cfg)(void), void (*wlan_hs_post_cfg)(void)
     wlan_host_sleep_pre_cfg = wlan_hs_pre_cfg;
     wlan_host_sleep_post_cfg = wlan_hs_post_cfg;
 
-    s_wakeupSig = xSemaphoreCreateBinary();
+    status = OSA_SemaphoreCreateBinary((osa_semaphore_handle_t)s_wakeupSig);
+    if (status != KOSA_StatusSuccess)
+    {
+        PRINTF("Create s_wakeupSig sem failed");
+        return -1;
+    }
     /* Make current resource count 0 for signal purpose */
-    if (xSemaphoreTake(s_wakeupSig, 0) == pdTRUE)
+    if (OSA_SemaphoreWait((osa_semaphore_handle_t)s_wakeupSig, 0) == pdTRUE)
     {
         assert(0);
     }

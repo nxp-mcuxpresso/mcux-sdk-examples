@@ -30,10 +30,16 @@
 /* Encrypted XIP support config */
 
 /*
- * Enable support for on-the-fly decryption of encrypted image.
+ * Enable extension utilizing on-the-fly decryption of encrypted image.
  * For more information please see readme file.
  */
-//#define CONFIG_MCUBOOT_ENCRYPTED_XIP_SUPPORT
+//#define CONFIG_ENCRYPT_XIP_EXT_ENABLE
+
+/*
+ * Encrypted XIP extension uses simpler OVERWRITE_ONLY mode instead of three
+ * slot configuration.
+ */
+//#define CONFIG_ENCRYPT_XIP_EXT_OVERWRITE_ONLY
 
 /* Crypto Config */
 

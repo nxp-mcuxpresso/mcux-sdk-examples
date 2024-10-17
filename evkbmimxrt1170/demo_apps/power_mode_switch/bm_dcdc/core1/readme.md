@@ -24,7 +24,7 @@ and how to configure a wakeup source and wakeup the MCU from low power modes.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

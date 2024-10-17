@@ -21,10 +21,10 @@
 #define TRANSFER_BAUDRATE 500000U /*! Transfer baudrate - 500k */
 /* Master related */
 #define MASTER_FLEXIO_SPI_BASEADDR (FLEXIO0)
-#define FLEXIO_SPI_SIN_PIN         8U
-#define FLEXIO_SPI_SOUT_PIN        20U
-#define FLEXIO_SPI_CLK_PIN         21U
-#define FLEXIO_SPI_PCS_PIN         7U
+#define FLEXIO_SPI_SIN_PIN         21U
+#define FLEXIO_SPI_SOUT_PIN        7U
+#define FLEXIO_SPI_CLK_PIN         8U
+#define FLEXIO_SPI_PCS_PIN         20U
 
 #define MASTER_FLEXIO_SPI_CLOCK_FREQUENCY CLOCK_GetIpFreq(kCLOCK_Flexio0)
 #define MASTER_FLEXIO_SPI_IRQ             FLEXIO0_IRQn

@@ -1,8 +1,27 @@
 /* -------------------------------------------------------------------------- */
-/*                           Copyright 2021-2023 NXP                          */
+/*                           Copyright 2021-2024 NXP                          */
 /*                            All rights reserved.                            */
 /*                    SPDX-License-Identifier: BSD-3-Clause                   */
 /* -------------------------------------------------------------------------- */
+
+/*
+ * @warning
+ * This file is proposed for our connectivity demo applications. Customer is allowed to modify the DCDC setting /
+ * configuration in active and low power mode to accomodate with their boards and application use cases. However, side
+ * effects can happen if the DCDC configuration is not correctly set. As instance, following guideline is required :
+ *  - DCDC switches from Normal drive strength to low drive strength  shall not have same DCDC output voltage
+ *
+ * In order to avoid this to happen, Customer has 2 possibilities :
+ *
+ *  - Keep same DCDC drive strength in low power and active modes such as low drive strength . This is valid only if the
+ * device power consumption never exceeds 15mA (TX output to 0dbM and Main core frequency to 48Mhz maximum) - please
+ * check your board configuration and application use case.
+ *   Note that this is not recommended to set normal drive strength in low power mode due to high power consumption.
+ *
+ *  - OR, in active mode, set an output voltage higher (for instance, 1.35v or higher) than in low power mode (1.25v).
+ *
+ * In case of doubts, in any cases, please check the reference manual, datasheet, or contact your NXP representatives.
+ */
 
 /* -------------------------------------------------------------------------- */
 /*                                  Includes                                  */
@@ -30,6 +49,7 @@ static const spc_lowpower_mode_regulators_config_t spcLpCfg = {
         },
     .DCDCOption =
         {
+            /* 15mA maximum */
             .DCDCDriveStrength = kSPC_DCDC_LowDriveStrength,
             // 1.25V
             .DCDCVoltage = kSPC_DCDC_LowUnderVoltage,
@@ -131,7 +151,7 @@ static void BOARD_InitDcdcBuck(void)
     /* A drop of 250mV is needed between DCDC output voltage and LDO core voltage, see datasheet */
     BOARD_DCDC_config(kSPC_DCDC_LowDriveStrength, kSPC_DCDC_MidVoltage, false);
 #else
-    /* 0 dBm, 48MHz, 1.25V */
+    /* 0 dBm, 48MHz, 1.25V - 15mA maximum on DCDC output*/
     BOARD_DCDC_config(kSPC_DCDC_LowDriveStrength, kSPC_DCDC_LowUnderVoltage, false);
 #endif /* gAppHighSystemClockFrequency_d */
 #elif defined(gAppMaxTxPowerDbm_c) && (gAppMaxTxPowerDbm_c <= 7)

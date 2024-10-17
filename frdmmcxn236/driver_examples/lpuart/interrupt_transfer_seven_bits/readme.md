@@ -7,7 +7,7 @@ NOTE: Please set com port format to "7 data bits without parity bit" in PC's com
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================
@@ -24,7 +24,6 @@ Hardware requirements
 Board settings
 ==============
 Connect the USB to TTL converter to FRDM-MCXN236 board.
-MCX-N9XX-EVK UART pins:
 - TX of USB2COM to J8-4(P4_0)
 - RX of USB2COM to J8-3(P4_1)
 

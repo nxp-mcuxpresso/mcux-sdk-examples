@@ -319,11 +319,13 @@ button_status_t BleApp_HandleKeys0(void *buttonHandle, button_callback_message_t
         {
             if(!appAdvOn)
             {
-#if defined(gAppUsePrivacy_d) && (gAppUsePrivacy_d == 1)
+#if (defined(gAppUsePrivacy_d) && (gAppUsePrivacy_d == 1U)) && \
+    (defined(gAppUseBonding_d) && (gAppUseBonding_d == 1U))
                 /* if privacy has been disabled when going to no activity RAM RET,
                    we need to restart the privacy to restart the 15min counter.
                    no required when comming from no activity RAM OFF */
                 (void)BleConnManager_EnablePrivacy();
+
 
                 if (gcBondedDevices == 0U)
                 {
@@ -610,7 +612,8 @@ static void BleApp_AdvertisingCallback (gapAdvertisingEvent_t* pAdvertisingEvent
 
                 if ( appConnectionNumber == 0U )
                 {
-#if defined(gAppUsePrivacy_d) && (gAppUsePrivacy_d == 1)
+#if (defined(gAppUsePrivacy_d) && (gAppUsePrivacy_d == 1U)) && \
+    (defined(gAppUseBonding_d) && (gAppUseBonding_d == 1U))
                 /* When Privacy is enabled, a LPTMR is running to update RPA
                    To be able to shutdown 32khz osc in Deep Power Down mode, no LPTMR should run
                    Calling this function will stop the timer and allow power saving */

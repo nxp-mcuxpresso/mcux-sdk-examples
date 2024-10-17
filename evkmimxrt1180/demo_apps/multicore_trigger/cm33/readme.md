@@ -5,7 +5,7 @@ Normally it needs specific linker file to prevent memory conflict with subordina
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

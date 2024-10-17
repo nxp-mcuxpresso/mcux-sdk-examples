@@ -6,7 +6,7 @@ other BLE devices and establishing a connection with the first scanned Time Serv
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

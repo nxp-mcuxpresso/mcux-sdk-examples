@@ -22,7 +22,9 @@
 
 #if MSD_FATFS_THROUGHPUT_TEST_ENABLE
 #include "fsl_device_registers.h"
+#ifndef THROUGHPUT_BUFFER_SIZE
 #define THROUGHPUT_BUFFER_SIZE (64 * 1024) /* throughput test buffer */
+#endif
 #define MCU_CORE_CLOCK         (120000000) /* mcu core clock, user need to configure it. */
 #endif                                     /* MSD_FATFS_THROUGHPUT_TEST_ENABLE */
 

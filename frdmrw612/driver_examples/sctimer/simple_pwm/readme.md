@@ -6,7 +6,7 @@ The duty cycles of the two PWM signals are 50% and 20%, respectively.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================
@@ -15,7 +15,7 @@ Toolchain supported
 
 Hardware requirements
 =====================
-- Micro USB cable
+- USB-C cable
 - FRDM-RW612 board
 - Personal Computer
 
@@ -23,7 +23,7 @@ Board settings
 ==============
 No special settings are required.
 
-1.  Connect a micro USB cable between the PC host and the MCU-Link USB port (J10) on the board
+1.  Connect a USB-C cable between the PC host and the MCU-Link USB port (J10) on the board
 2.  Open a serial terminal with the following settings:
     - 115200 baud rate
     - 8 data bits

@@ -11,7 +11,7 @@ Note that the demo CAN NOT be built directly. Please see the "Prepare the Demo" 
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================
@@ -90,4 +90,4 @@ When the example is running, the serial port will output:
 After the PLC program started, the D6 LED starts to blink with 0.5Hz frequency.
 
 NOTE: refer to the User Guide for the details of how to setup the PLC project on TwinCAT3.
-
+	  User Guide path: .\docs\EcatDigitalIO\ECAT_Digital_IO_Example_User_Guide.pdf

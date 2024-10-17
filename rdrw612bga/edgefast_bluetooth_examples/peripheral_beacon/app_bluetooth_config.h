@@ -31,3 +31,4 @@
 #endif
 #include "edgefast_bluetooth_config.h"
 #include "edgefast_bluetooth_debug_config.h"
+#include "monolithic_config.h"

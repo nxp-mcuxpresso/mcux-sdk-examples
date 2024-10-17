@@ -86,13 +86,16 @@ USB_GLOBAL USB_RAM_ADDRESS_ALIGNMENT(USB_DATA_ALIGN_SIZE) static uint8_t
     formatCapacityData1[sizeof(usb_device_capacity_list_header_struct_t) +
                         sizeof(usb_device_current_max_capacity_descriptor_struct_t) +
                         sizeof(usb_device_formattable_capacity_descriptor_struct_t) * 3];
-USB_GLOBAL USB_RAM_ADDRESS_ALIGNMENT(USB_DATA_ALIGN_SIZE) usb_device_request_sense_data_struct_t requestSense2;
-USB_GLOBAL USB_RAM_ADDRESS_ALIGNMENT(USB_DATA_ALIGN_SIZE) usb_device_read_capacity_struct_t readCapacity2;
-USB_GLOBAL USB_RAM_ADDRESS_ALIGNMENT(USB_DATA_ALIGN_SIZE) usb_device_read_capacity16_data_struct_t readCapacity162;
-USB_GLOBAL USB_RAM_ADDRESS_ALIGNMENT(USB_DATA_ALIGN_SIZE) uint8_t
-    formatCapacityData2[sizeof(usb_device_capacity_list_header_struct_t) +
-                        sizeof(usb_device_current_max_capacity_descriptor_struct_t) +
-                        sizeof(usb_device_formattable_capacity_descriptor_struct_t) * 3];
+USB_GLOBAL USB_RAM_ADDRESS_ALIGNMENT(USB_DATA_ALIGN_SIZE)
+usb_device_request_sense_data_struct_t requestSense2;
+USB_GLOBAL USB_RAM_ADDRESS_ALIGNMENT(USB_DATA_ALIGN_SIZE)
+usb_device_read_capacity_struct_t readCapacity2;
+USB_GLOBAL USB_RAM_ADDRESS_ALIGNMENT(USB_DATA_ALIGN_SIZE)
+usb_device_read_capacity16_data_struct_t readCapacity162;
+USB_GLOBAL USB_RAM_ADDRESS_ALIGNMENT(USB_DATA_ALIGN_SIZE)
+uint8_t formatCapacityData2[sizeof(usb_device_capacity_list_header_struct_t) +
+                            sizeof(usb_device_current_max_capacity_descriptor_struct_t) +
+                            sizeof(usb_device_formattable_capacity_descriptor_struct_t) * 3];
 #define MSCSENSE_ARRAY                 \
     {                                  \
         &requestSense1, &requestSense2 \
@@ -1021,7 +1024,7 @@ usb_status_t USB_DeviceMscEvent(void *handle, uint32_t event, void *param)
     {
         return kStatus_USB_InvalidHandle;
     }
-
+    (void)memset(&diskInformation, 0, sizeof(diskInformation));
     /* Get the msc class handle. */
     mscHandle = (usb_device_msc_struct_t *)handle;
     switch (eventCode)

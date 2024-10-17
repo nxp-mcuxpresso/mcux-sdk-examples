@@ -151,14 +151,14 @@ UINT16 FoE_Read(UINT16 MBXMEM *pName, UINT16 nameSize, UINT32 password, UINT16 m
 
 UINT16 FoE_ReadData(UINT32 offset, UINT16 maxBlockSize, UINT16 *pData)
 {
-    uint16_t size = 0;
+    uint32_t size = 0;
 
     if (firmwareDownloadSize < offset) {
         return 0;
     }
 
     /*get file length to send*/
-    size = (UINT16)(firmwareDownloadSize - offset);
+    size = firmwareDownloadSize - offset;
     if (size > maxBlockSize) {
         /*transmit max block size if the file data to be send is greater than the max data block*/
         size = maxBlockSize;

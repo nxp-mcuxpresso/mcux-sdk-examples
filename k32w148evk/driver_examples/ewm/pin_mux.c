@@ -1,5 +1,5 @@
 /*
- * Copyright 2021-2023 NXP
+ * Copyright 2021-2024 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -14,11 +14,11 @@
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Pins v12.0
+product: Pins v15.0
 processor: K32W1480xxxA
 package_id: K32W1480VFTA
 mcu_data: ksdk2_0
-processor_version: 0.12.5
+processor_version: 0.15.7
 pin_labels:
 - {pin_num: '14', pin_signal: CMP1_IN0/PTA19/WUU0_P4/LPSPI0_SCK/LPUART0_RTS_b/LPI2C0_SCL/TPM0_CH2/RF_GPO_1, label: LED_GREEN, identifier: LED_GREEN}
 - {pin_num: '44', pin_signal: ADC0_A8/PTC6/WUU0_P11/LPSPI1_PCS1/TPM1_CH5/FLEXIO0_D22, label: SW3, identifier: SW3}
@@ -55,6 +55,8 @@ BOARD_InitPins:
     pull_enable: disable, slew_rate: fast, open_drain: disable, drive_strength: low}
   - {pin_num: '40', peripheral: LPUART1, signal: TX, pin_signal: PTC3/LPSPI1_SCK/LPUART1_TX/LPI2C1_SDAS/TPM1_CH3/FLEXIO0_D19, pull_select: down, pull_enable: disable,
     slew_rate: fast, open_drain: disable, drive_strength: low}
+  - {pin_num: '18', peripheral: EWM0, signal: OUT, pin_signal: ADC0_A15/CMP0_IN2/PTA21/WUU0_P5/LPSPI0_PCS3/LPUART0_RX/EWM0_OUT_b/TPM0_CH0/RF_GPO_3/RF_GPO_7/FLEXIO0_D8/RF_GPO_10,
+    pull_select: down, pull_enable: disable, slew_rate: fast, open_drain: disable, drive_strength: low}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -68,6 +70,8 @@ BOARD_InitPins:
 void BOARD_InitPins(void)
 {
     /* Clock Configuration: Peripheral clocks are enabled; module does not stall low power mode entry */
+    CLOCK_EnableClock(kCLOCK_PortA);
+    /* Clock Configuration: Peripheral clocks are enabled; module does not stall low power mode entry */
     CLOCK_EnableClock(kCLOCK_PortC);
 
     gpio_pin_config_t SW2_config = {
@@ -76,6 +80,27 @@ void BOARD_InitPins(void)
     };
     /* Initialize GPIO functionality on pin PTD1 (pin 24)  */
     GPIO_PinInit(BOARD_INITPINS_SW2_GPIO, BOARD_INITPINS_SW2_PIN, &SW2_config);
+
+    const port_pin_config_t porta21_pin18_config = {/* Internal pull-up/down resistor is disabled */
+                                                    (uint16_t)kPORT_PullDisable,
+                                                    /* Low internal pull resistor value is selected. */
+                                                    (uint16_t)kPORT_LowPullResistor,
+                                                    /* Fast slew rate is configured */
+                                                    (uint16_t)kPORT_FastSlewRate,
+                                                    /* Passive input filter is disabled */
+                                                    (uint16_t)kPORT_PassiveFilterDisable,
+                                                    /* Open drain output is disabled */
+                                                    (uint16_t)kPORT_OpenDrainDisable,
+                                                    /* Low drive strength is configured */
+                                                    (uint16_t)kPORT_LowDriveStrength,
+                                                    /* Normal drive strength is configured */
+                                                    (uint16_t)kPORT_NormalDriveStrength,
+                                                    /* Pin is configured as EWM0_OUT_b */
+                                                    (uint16_t)kPORT_MuxAlt4,
+                                                    /* Pin Control Register fields [15:0] are not locked */
+                                                    (uint16_t)kPORT_UnlockRegister};
+    /* PORTA21 (pin 18) is configured as EWM0_OUT_b */
+    PORT_SetPinConfig(PORTA, 21U, &porta21_pin18_config);
 
     const port_pin_config_t portc2_pin39_config = {/* Internal pull-up/down resistor is disabled */
                                                    (uint16_t)kPORT_PullDisable,

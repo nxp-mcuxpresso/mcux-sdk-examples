@@ -7,7 +7,7 @@ output. One input of CMP, other input is from internal DAC.
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================

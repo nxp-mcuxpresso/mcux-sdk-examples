@@ -60,6 +60,7 @@ AT_NONCACHEABLE_SECTION_ALIGN(static HAL_AUDIO_HANDLE_DEFINE(rx_mic_handle), 4);
 AT_NONCACHEABLE_SECTION_ALIGN(static HAL_AUDIO_HANDLE_DEFINE(tx_mic_handle), 4);
 AT_NONCACHEABLE_SECTION_ALIGN(static HAL_AUDIO_HANDLE_DEFINE(rx_speaker_handle), 4);
 static codec_handle_t codec_handle;
+static uint8_t codec_inited = 0;
 
 AT_NONCACHEABLE_SECTION_ALIGN(static uint8_t MicBuffer[BUFFER_NUMBER * BUFFER_SIZE], 4);
 AT_NONCACHEABLE_SECTION_ALIGN(static uint8_t SpeakerBuffer[BUFFER_NUMBER * BUFFER_SIZE], 4);
@@ -98,7 +99,6 @@ static void rxMicCallback(hal_audio_handle_t handle, hal_audio_status_t completi
     }
     else
     {
-        emptyMicBlock--;
         rxMic_test++;
         OSA_SemaphorePost(xSemaphoreScoAudio);
     }
@@ -289,7 +289,6 @@ static void rxSpeakerCallback(hal_audio_handle_t handle, hal_audio_status_t comp
     }
     else
     {
-        emptySpeakerBlock--;
         OSA_SemaphorePost(xSemaphoreScoAudio);
         rxSpeaker_test++;
     }
@@ -297,12 +296,17 @@ static void rxSpeakerCallback(hal_audio_handle_t handle, hal_audio_status_t comp
 
 static void Deinit_Board_Audio(void)
 {
+    if (codec_inited == 0)
+    {
+        return ;
+    }
     CODEC_SetMute(&codec_handle, kCODEC_PlayChannelHeadphoneRight | kCODEC_PlayChannelHeadphoneLeft, true);
     HAL_AudioTxDeinit((hal_audio_handle_t)&tx_speaker_handle[0]);
     HAL_AudioRxDeinit((hal_audio_handle_t)&rx_mic_handle[0]);
     HAL_AudioTxDeinit((hal_audio_handle_t)&tx_mic_handle[0]);
     HAL_AudioRxDeinit((hal_audio_handle_t)&rx_speaker_handle[0]);
     (void)BOARD_SwitchAudioFreq(0U);
+    codec_inited = 0;
 }
 
 /*Initialize sco audio interface and codec.*/
@@ -362,6 +366,7 @@ static void Init_Board_Sco_Audio(uint32_t samplingRate, UCHAR bitWidth)
         CODEC_SetVolume(&codec_handle, kCODEC_VolumeDAC, HFP_CODEC_DAC_VOLUME);
         CODEC_SetVolume(&codec_handle, kCODEC_VolumeHeadphoneLeft | kCODEC_VolumeHeadphoneRight, HFP_CODEC_HP_VOLUME);
         CODEC_SetMute(&codec_handle, kCODEC_PlayChannelHeadphoneRight | kCODEC_PlayChannelHeadphoneLeft, false);
+        codec_inited = 1;
     }
 }
 static void Init_Board_RingTone_Audio(uint32_t samplingRate, UCHAR bitWidth)
@@ -396,6 +401,7 @@ static void Init_Board_RingTone_Audio(uint32_t samplingRate, UCHAR bitWidth)
         CODEC_SetVolume(&codec_handle, kCODEC_VolumeDAC, HFP_CODEC_DAC_VOLUME);
         CODEC_SetVolume(&codec_handle, kCODEC_VolumeHeadphoneLeft | kCODEC_VolumeHeadphoneRight, HFP_CODEC_HP_VOLUME);
         CODEC_SetMute(&codec_handle, kCODEC_PlayChannelHeadphoneRight | kCODEC_PlayChannelHeadphoneLeft, false);
+        codec_inited = 1;
     }
 }
 
@@ -423,6 +429,7 @@ static uint32_t count = 0;
 void SCO_Edma_Task(void *handle)
 {
     hal_audio_transfer_t xfer;
+    OSA_SR_ALLOC();
 
     while (1)
     {
@@ -475,6 +482,9 @@ void SCO_Edma_Task(void *handle)
             xfer.data     = MicBuffer + rxMic_index * BUFFER_SIZE;
             xfer.dataSize = BUFFER_SIZE;
 
+            OSA_ENTER_CRITICAL();
+            emptyMicBlock--;
+            OSA_EXIT_CRITICAL();
             if (kStatus_HAL_AudioSuccess == HAL_AudioTransferReceiveNonBlocking((hal_audio_handle_t)&rx_mic_handle[0], &xfer))
             {
                 rxMic_index++;
@@ -505,6 +515,9 @@ void SCO_Edma_Task(void *handle)
             xfer.data     = SpeakerBuffer + rxSpeaker_index * BUFFER_SIZE;
             xfer.dataSize = BUFFER_SIZE;
 
+            OSA_ENTER_CRITICAL();
+            emptySpeakerBlock--;
+            OSA_EXIT_CRITICAL();
             if (kStatus_HAL_AudioSuccess == HAL_AudioTransferReceiveNonBlocking((hal_audio_handle_t)&rx_speaker_handle[0], &xfer))
             {
                 rxSpeaker_index++;
@@ -557,6 +570,8 @@ API_RESULT sco_audio_start_pl_ext(void)
         taskCreated = 1U;
         (void)result;
     }
+
+    emptyMicBlock = 0;
     for (uint8_t index = 0; index < BUFFER_NUMBER; ++index)
     {
         xfer.data     = MicBuffer + rxMic_index * BUFFER_SIZE;
@@ -571,8 +586,8 @@ API_RESULT sco_audio_start_pl_ext(void)
             rxMic_index = 0U;
         }
     }
-    emptyMicBlock = BUFFER_NUMBER;
 
+    emptySpeakerBlock = 0;
     for (uint8_t index = 0; index < BUFFER_NUMBER; ++index)
     {
         xfer.data     = SpeakerBuffer + rxSpeaker_index * BUFFER_SIZE;
@@ -587,7 +602,6 @@ API_RESULT sco_audio_start_pl_ext(void)
             rxSpeaker_index = 0U;
         }
     }
-    emptySpeakerBlock = BUFFER_NUMBER;
     //BOARD_SCO_EnableSaiMclkOutput(true);
 
     /* play dummy data to codec */
@@ -621,6 +635,10 @@ API_RESULT platform_audio_play_ringtone()
     cpy_index = 0;
     tx_index  = 0U;
     hal_audio_transfer_t xfer;
+    if (sco_audio_setup)
+    {
+        return API_SUCCESS;
+    }
     emptySpeakerBlock = BUFFER_NUMBER;
     if (s_ringTone == 0)
     {

@@ -5,7 +5,7 @@ It could be compared with the project powerquad_benckmark_sw_matrix to show the 
 
 SDK version
 ===========
-- Version: 2.16.000
+- Version: 2.16.100
 
 Toolchain supported
 ===================
