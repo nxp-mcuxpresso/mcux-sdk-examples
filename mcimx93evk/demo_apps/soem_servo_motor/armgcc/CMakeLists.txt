@@ -61,6 +61,7 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PUBLIC
     ${ProjDirPath}/..
     ${SdkRootDirPath}/core/boards/mcimx93evk
+	${SdkRootDirPath}/core/CMSIS/Core/Include
     ${SdkRootDirPath}/core/components/SOEM/soem/
     ${SdkRootDirPath}/core/components/SOEM/oshw/mcux-sdk
 	${SdkRootDirPath}/core/components/SOEM/osal/
@@ -93,66 +94,9 @@ set(CMAKE_MODULE_PATH
     ${SdkRootDirPath}/core/components/phy
 )
 
+include(${SdkRootDirPath}/core/devices/MIMX9352/all_lib_device.cmake)
+
 # include modules
-include(driver_phy-device-rtl8211f)
-
-include(driver_cache_lmem)
-
-include(driver_rgpio)
-
-include(utility_debug_console)
-
-include(utility_assert)
-
-include(component_silicon_id)
-
-include(driver_common)
-
-include(component_silicon_id_imx93.MIMX9352)
-
-include(driver_clock)
-
-include(driver_lpi2c)
-
-include(driver_enet)
-
-include(driver_common)
-
-include(device_CMSIS)
-
-include(component_lpuart_adapter)
-
-include(component_serial_manager_uart)
-
-include(component_serial_manager)
-
-include(component_lists)
-
-include(driver_lpuart)
-
-include(device_startup)
-
-include(driver_rgpio)
-
-include(driver_cache_xcache)
-
-include(driver_mdio-common)
-
-include(driver_pcal6524)
-
-include(CMSIS_Include_core_cm)
-
-include(driver_phy-common)
-
-include(utilities_misc_utilities)
-
-include(driver_memory)
-
-include(utilities_misc_utilities_MIMX9352)
-
-include(device_system)
-
-include(driver_tpm)
 
 include(component_soem)
 
