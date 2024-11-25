@@ -153,7 +153,7 @@ static void EtherCAT_servo_init(struct servo_t *svo, struct axis_t *ax)
 		svo[i].axis_num = 1;
 	}
 	
-    for (i = 0; i < 1; i++) {
+    for (i = 0; i < MAX_SERVO; i++) {
 		svo[i].VendorId = nxp_VendorId;
 		svo[i].ProductID = nxp_ProductID;
 	}

@@ -19,12 +19,12 @@ uint32_t tx_pdo_entry[1][4] = {
 	{ // axis 0
 	0x60410010, // statusword
 	0x60640020, // actual_position
-	0x606C0020,	// actual_velocity
-	0x60610010// op_mode_display
+	0x606C0020, // actual_velocity
+	0x60610008  // op_mode_display
 	}
 };
 
-uint32_t rx_pdo_entry[1][3] = {
+uint32_t rx_pdo_entry[1][4] = {
 	{ // axis 0
 	0x60400010, // controlword
 	0x607A0020, // Target position
@@ -36,20 +36,17 @@ uint32_t rx_pdo_entry[1][3] = {
 int servo_pdo_activate_map(struct servo_t *servo)
 {
 	int slave = servo->slave_id + 1;
-	uint16 map_1c12[3] = {0x0002, 0x1600, 0x1610};
-	uint16 map_1c13[3] = {0x0002, 0x1a00, 0x1a10};
+	uint16 map_1c12[2] = {0x0001, 0x1600};
+	uint16 map_1c13[2] = {0x0001, 0x1a00};
 	uint8_t map_6060 = 8;
-
 	uint16 num_16b = 0;
-	uint16 num_8b = 0;
+
 	ec_SDOwrite(slave, 0x1c12, 0x00, 0, 2, &num_16b, EC_TIMEOUTSAFE);
 	ec_SDOwrite(slave, 0x1c13, 0x00, 0, 2, &num_16b, EC_TIMEOUTSAFE);
 	
-	ec_SDOwrite(slave, 0x1c12, 0x02, 0, sizeof(map_1c12[2]), &map_1c12[2], EC_TIMEOUTSAFE);
 	ec_SDOwrite(slave, 0x1c12, 0x01, 0, sizeof(map_1c12[1]), &map_1c12[1], EC_TIMEOUTSAFE);
 	ec_SDOwrite(slave, 0x1c12, 0x00, 0, sizeof(map_1c12[0]), &map_1c12[0], EC_TIMEOUTSAFE);
 
-	ec_SDOwrite(slave, 0x1c13, 0x02, 0, sizeof(map_1c13[2]), &map_1c13[2], EC_TIMEOUTSAFE);
 	ec_SDOwrite(slave, 0x1c13, 0x01, 0, sizeof(map_1c13[1]), &map_1c13[1], EC_TIMEOUTSAFE);
 	ec_SDOwrite(slave, 0x1c13, 0x00, 0, sizeof(map_1c13[0]), &map_1c13[0], EC_TIMEOUTSAFE);
 	
