@@ -23,11 +23,13 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-#define FLASH_OPTION_QSPI_SDR 0xC0403000
+#define FLASH_OPTION_SEL 0xC0403000
 #define CPU_CLK               CLOCK_GetFreq(kCLOCK_CoreSysClk)
-#define IPED_REGION_SIZE       0x1000
-#define PLAIN_DATA0_START_ADDR 0x8001000
-#define PLAIN_DATA1_START_ADDR 0x8003000
+#define PLAIN_DATA0_START_ADDR     0x80001000U
+#define ENCRYPTED_DATA0_START_ADDR 0x80002000U
+#define PLAIN_DATA1_START_ADDR     0x80003000U
+
+#define IPED_REGION_SIZE 0x1000U
 
 /*******************************************************************************
  * Variables
@@ -38,15 +40,17 @@ static api_core_context_t apiCoreCtx = {0};
 
 /*! @brief config API initialization data structure */
 static kp_api_init_param_t apiInitParam = {
-    .allocStart = 0x2000a000, /* Allocate an area from ram for storing configuration information. */
-    .allocSize  = 0x2000      /* Configuration information size. */
+    .allocStart = 0x30010000, /* Allocate an area from ram for storing configuration information. */
+    .allocSize  = 0x6000      /* Configuration information size. */
 };
 
 /*! @brief config API initialization data structure */
 static flexspi_iped_region_arg_t flashConfigOptionIped = {
-    .option = {.tag = IPED_TAG, .iped_region = 0}, .start = 0x8002000, .end = 0x8003000};
+    .option = {.tag = IPED_TAG, .iped_region = 0, .iped_mode = kIPED_ModeCtr},
+    .start  = ENCRYPTED_DATA0_START_ADDR,
+    .end    = PLAIN_DATA1_START_ADDR};
 
-serial_nor_config_option_t flashConfigOption = {.option0 = {.U = FLASH_OPTION_QSPI_SDR}};
+serial_nor_config_option_t flashConfigOption = {.option0 = {.U = FLASH_OPTION_SEL}};
 
 /*******************************************************************************
  * Prototypes
@@ -94,6 +98,12 @@ int main(void)
     BOARD_BootClockPLL150M();
     BOARD_InitDebugConsole();
 
+    FLEXSPI_Type *FLEXSPI_APP_BASE  = FLEXSPI0;
+
+    const uint8_t iv[8] = {
+        0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
+    };
+
     PRINTF("IPED Peripheral Driver Example\r\n\r\n");
 
     PRINTF("Calling API_Init\r\n");
@@ -107,10 +117,19 @@ int main(void)
         PRINTF("API_Init failure!!!\r\n");
     }
 
+    IPED_EncryptEnable(FLEXSPI_APP_BASE );
+
     /* Configure IPED for on the fly encryption/decryption. IPED needs to be configured before External FLASH */
     PRINTF("Configure IPED region %d enc/dec: start 0x%x end 0x%x\r\n", flashConfigOptionIped.option.iped_region,
            flashConfigOptionIped.start, flashConfigOptionIped.end);
-    status = IPED_Configure(&apiCoreCtx, &flashConfigOptionIped, kIPED_RegionUnlock, kIPED_SkipCMPA);
+
+    status = IPED_Configure(FLEXSPI_APP_BASE , &apiCoreCtx, &flashConfigOptionIped, kIPED_RegionUnlock, kIPED_SkipCMPA);
+
+    /* In a real-world scenario, the IV needs to be carefully chosen to avoid re-using it. */
+    /* Ideally use that one which is calculated from UUID and aditional information. */
+    /* So it uses same IV as a ROM*/
+    IPED_SetRegionIV(FLEXSPI_APP_BASE , flashConfigOptionIped.option.iped_region, iv);
+
     if (status == kStatus_Success)
     {
         PRINTF("Configure IPED  Successfully\r\n");
@@ -132,10 +151,10 @@ int main(void)
     }
 
     /* Turn-off FLEXSPI CACHE and BUFFERING to be able read directly from ext memory */
-    FLEXSPI0->MCR0 |= FLEXSPI_MCR0_SWRESET_MASK;
-    FLEXSPI0->AHBCR &= ~FLEXSPI_AHBCR_CACHABLEEN_MASK;
-    FLEXSPI0->AHBCR &= ~FLEXSPI_AHBCR_BUFFERABLEEN_MASK;
-    FLEXSPI0->AHBCR &= ~FLEXSPI_AHBCR_PREFETCHEN_MASK;
+    FLEXSPI_APP_BASE ->MCR0 |= FLEXSPI_MCR0_SWRESET_MASK;
+    FLEXSPI_APP_BASE ->AHBCR &= ~FLEXSPI_AHBCR_CACHABLEEN_MASK;
+    FLEXSPI_APP_BASE ->AHBCR &= ~FLEXSPI_AHBCR_BUFFERABLEEN_MASK;
+    FLEXSPI_APP_BASE ->AHBCR &= ~FLEXSPI_AHBCR_PREFETCHEN_MASK;
 
     /* Erase ext memory used in this example (0x8001000-0x8003FFF) */
     status = MEM_Erase(&apiCoreCtx, PLAIN_DATA0_START_ADDR, IPED_REGION_SIZE, kMemoryFlexSpiNor);
@@ -171,7 +190,7 @@ int main(void)
     }
     else
     {
-        PRINTF("*Success* read plain data from 0x8001000 to 0x8001FFF\r\n");
+        PRINTF("*Success* read plain data from 0x80001000 to 0x80001FFF\r\n");
     }
 
     /* Test encrypted data write */
@@ -181,7 +200,7 @@ int main(void)
     }
     else
     {
-        PRINTF("*Success* read programmed&encrypted data from 0x08002000 to 0x8002FFF\r\n");
+        PRINTF("*Success* read programmed & encrypted data from 0x80002000 to 0x80002FFF\r\n");
     }
 
     /* Test plain data write */
@@ -191,80 +210,13 @@ int main(void)
     }
     else
     {
-        PRINTF("*Success* read plain data from 0x8003000 to 0x8003FFF\r\n");
+        PRINTF("*Success* read plain data from 0x80003000 to 0x80003FFF\r\n");
     }
 
-    /* Disable IPED */
-    PRINTF("Disabling IPED\r\n");
-    IPED_EncryptDisable(FLEXSPI0);
-
-    /* Test plain text data read */
-    if (memcmp_word_patter((void *)PLAIN_DATA0_START_ADDR, 0x11223344, IPED_REGION_SIZE) != true)
-    {
-        PRINTF("Read plaintext FAIL!!!\r\n");
-    }
-    else
-    {
-        PRINTF("*Success* read plain data from 0x8001000 to 0x8001FFF\r\n");
-    }
-
-    /* Test cipher text read */
-    if (memcmp_word_patter((void *)flashConfigOptionIped.start, 0xaabbccdd, IPED_REGION_SIZE) != false)
-    {
-        PRINTF("Encryption FAIL!!! \r\n");
-    }
-    else
-    {
-        PRINTF("*Success* read encrypted data from 0x8002000 to 0x8002FFF\r\n");
-    }
-
-    /* Test plain text data read */
-    if (memcmp_word_patter((void *)PLAIN_DATA1_START_ADDR, 0x11223344, IPED_REGION_SIZE) != true)
-    {
-        PRINTF("Read plaintext FAIL!!! \r\n");
-    }
-    else
-    {
-        PRINTF("*Success* read plain data from 0x8003000 to 0x8003FFF\r\n");
-    }
-
-    PRINTF("Enabling IPED\r\n");
-    IPED_EncryptEnable(FLEXSPI0);
-
-    /* Test plain text data read */
-    if (memcmp_word_patter((void *)PLAIN_DATA0_START_ADDR, 0x11223344, IPED_REGION_SIZE) != true)
-    {
-        PRINTF("Read plaintext FAIL!!!\r\n");
-    }
-    else
-    {
-        PRINTF("*Success* read plain data from 0x8001000 to 0x8001FFF\r\n");
-    }
-
-    /* Test decrypted data read */
-    if (memcmp_word_patter((void *)flashConfigOptionIped.start, 0xaabbccdd, IPED_REGION_SIZE) != true)
-    {
-        PRINTF("Encryption FAIL!!!\r\n");
-    }
-    else
-    {
-        PRINTF("*Success* read decrypted data from 0x8002000 to 0x8002FFF\r\n");
-    }
-
-    /* Test plain text data read */
-    if (memcmp_word_patter((void *)PLAIN_DATA1_START_ADDR, 0x11223344, IPED_REGION_SIZE) != true)
-    {
-        PRINTF("Read plaintext FAIL!!!\r\n");
-    }
-    else
-    {
-        PRINTF("*Success* read plain data from 0x8003000 to 0x8003FFF\r\n");
-    }
-
-    /* Call IPED Reconfigure with provided configuration, in  real application should be NULL and use CMPA unsted. */
+    /* Call IPED Reconfigure with provided configuration, in  real application should be NULL and use CMPA instead. */
     /* This should be called after wakeup from the Power Down mode */
     PRINTF("Reconfiguring IPED \r\n");
-    status = IPED_Reconfigure(&apiCoreCtx, &flashConfigOptionIped);
+    status = IPED_Reconfigure(FLEXSPI_APP_BASE , &apiCoreCtx, &flashConfigOptionIped);
     if (status == kStatus_Success)
     {
         PRINTF("Reconfigure IPED  Successfully\r\n");
@@ -285,7 +237,8 @@ int main(void)
     }
 
     /* Test decrypted data read */
-    if (memcmp_word_patter((void *)flashConfigOptionIped.start, 0xaabbccdd, IPED_REGION_SIZE) != true)
+    /* Because we do not use IV computed from UUID and aditional information, we will not read same data */
+    if (memcmp_word_patter((void *)flashConfigOptionIped.start, 0xaabbccdd, IPED_REGION_SIZE) != false)
     {
         PRINTF("Encryption FAIL!!!\r\n");
     }
@@ -306,7 +259,37 @@ int main(void)
 
     /* Disable IPED */
     PRINTF("Disabling IPED\r\n");
-    IPED_EncryptDisable(FLEXSPI0);
+    IPED_EncryptDisable(FLEXSPI_APP_BASE );
+
+    /* Test plain text data read */
+    if (memcmp_word_patter((void *)PLAIN_DATA0_START_ADDR, 0x11223344, IPED_REGION_SIZE) != true)
+    {
+        PRINTF("Read plaintext FAIL!!!\r\n");
+    }
+    else
+    {
+        PRINTF("*Success* read plain data from 0x80001000 to 0x80001FFF\r\n");
+    }
+
+    /* Test decrypted data read */
+    if (memcmp_word_patter((void *)flashConfigOptionIped.start, 0xaabbccdd, IPED_REGION_SIZE) != false)
+    {
+        PRINTF("Encryption FAIL!!!\r\n");
+    }
+    else
+    {
+        PRINTF("*Success* read ciphered data from 0x80002000 to 0x80002FFF\r\n");
+    }
+
+    /* Test plain text data read */
+    if (memcmp_word_patter((void *)PLAIN_DATA1_START_ADDR, 0x11223344, IPED_REGION_SIZE) != true)
+    {
+        PRINTF("Read plaintext FAIL!!!\r\n");
+    }
+    else
+    {
+        PRINTF("*Success* read plain data from 0x80003000 to 0x80003FFF\r\n");
+    }
 
     PRINTF("End of example\r\n");
     /* End of example */
