@@ -91,7 +91,7 @@
     <toolchainSettings>
       <toolchainSetting id_refs="com.nxp.mcuxpresso">
         <buildSteps>
-          <preBuildStep>sh ../tools/ZPSConfig/Source/ZPSConfig -n enddevice_rxoff -f ../source/Ed_rx_off/Source/enddevice_rxoff.zpscfg -y; sh ../tools/PDUMConfig/Source/PDUMConfig -z enddevice_rxoff -e LITTLE_ENDIAN_PROCESSOR -f ../source/Ed_rx_off/Source/enddevice_rxoff.zpscfg -o ../source/Ed_rx_off/Source; sh ../tools/ZPSConfig/Source/ZPSConfig -n enddevice_rxoff -t JN518x -l ../libs/libZPSNWK_ZED.a -a ../libs/libZPSAPL.a  -e LITTLE_ENDIAN_PROCESSOR  -f ../source/Ed_rx_off/Source/enddevice_rxoff.zpscfg -o ../source/Ed_rx_off/Source -c "${eclipse_home}/tools/"</preBuildStep>
+          <preBuildStep>dos2unix ../tools/ZPSConfig/Source/ZPSConfig; dos2unix ../tools/PDUMConfig/Source/PDUMConfig; sh ../tools/ZPSConfig/Source/ZPSConfig -n enddevice_rxoff -f ../source/Ed_rx_off/Source/enddevice_rxoff.zpscfg -y; sh ../tools/PDUMConfig/Source/PDUMConfig -z enddevice_rxoff -e LITTLE_ENDIAN_PROCESSOR -f ../source/Ed_rx_off/Source/enddevice_rxoff.zpscfg -o ../source/Ed_rx_off/Source; sh ../tools/ZPSConfig/Source/ZPSConfig -n enddevice_rxoff -t JN518x -l ../libs/libZPSNWK_ZED.a -a ../libs/libZPSAPL.a  -e LITTLE_ENDIAN_PROCESSOR  -f ../source/Ed_rx_off/Source/enddevice_rxoff.zpscfg -o ../source/Ed_rx_off/Source -c "${eclipse_home}/tools/"</preBuildStep>
           <postBuildStep>arm-none-eabi-size "${BuildArtifactFileName}"; echo "${OsType}" | grep -q win* &amp;&amp; py -3 "../scripts/dk6_image_tool.py" -s 294912 ${BuildArtifactFileName} || python3 "../scripts/dk6_image_tool.py" -s 294912 ${BuildArtifactFileName}; arm-none-eabi-objcopy -v -O binary "${BuildArtifactFileName}" "${BuildArtifactFileBaseName}.bin";arm-none-eabi-objdump -d "${BuildArtifactFileName}" &gt; "${BuildArtifactFileBaseName}.dis";mv "${BuildArtifactFileBaseName}.bin" ../zigbee_ota_build/${BuildArtifactFileBaseName}.bin;../zigbee_ota_build/DeviceCreateOtaEncClient.sh ../zigbee_ota_build win  "0x1037" "OM15081-EDRO--JN5189--ENCRYPTED0" "6" "JN518x" "0x0002" ${BuildArtifactFileBaseName} "1234567890ABCDEFA1B2C3D4E5F6F1B4"</postBuildStep>
         </buildSteps>
         <option id="com.crt.advproject.gas.fpu" type="enum">
@@ -298,8 +298,14 @@
     <source path="middleware/wireless/zigbee/tools/PDUMConfig/Source" target_path="tools/PDUMConfig/Source" type="other" exclude="true" toolchain="mcuxpresso">
       <files mask="PDUMConfig"/>
     </source>
+    <source path="middleware/wireless/zigbee/tools/PDUMConfig/Source" target_path="tools/PDUMConfig/Source" type="script" exclude="true" toolchain="mcuxpresso">
+      <files mask="PDUMConfig.py"/>
+    </source>
     <source path="middleware/wireless/zigbee/tools/ZPSConfig/Source" target_path="tools/ZPSConfig/Source" type="other" exclude="true" toolchain="mcuxpresso">
       <files mask="ZPSConfig"/>
+    </source>
+    <source path="middleware/wireless/zigbee/tools/ZPSConfig/Source" target_path="tools/ZPSConfig/Source" type="script" exclude="true" toolchain="mcuxpresso">
+      <files mask="ZPSConfig.py"/>
     </source>
     <source path="tools/imagetool" target_path="scripts" type="script" exclude="true" toolchain="mcuxpresso iar">
       <files mask="dk6_image_tool.py"/>

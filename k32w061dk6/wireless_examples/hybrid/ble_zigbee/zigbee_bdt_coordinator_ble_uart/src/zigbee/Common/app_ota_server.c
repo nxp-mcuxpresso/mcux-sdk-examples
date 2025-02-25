@@ -62,8 +62,8 @@ void vAppInitOTA(void)
     sNvmDefs.u8FlashDeviceType = E_FL_CHIP_INTERNAL;
     sNvmDefs.u32SectorSize = 512; /* Sector Size = 512 bytes*/
 
-#if !(defined(K32W1480_SERIES)) && !(defined(MCXW716A_SERIES)) && !(defined(MCXW716C_SERIES)) && !defined(NCP_HOST)
-    /* 
+#if IS_NOT_MCXW_SERIES_OR_RW_SERIES_OR_NCP
+    /*
      * Each Page on JN518x is 512 bytes , Flash size is 632K. Taking into account 31.5K for PDM (start page 1153) and 24K for customer data
      * usable for image is 576K
      * Split it into 2 sections to support OTA, so 288K becomes Max image size
@@ -71,7 +71,7 @@ void vAppInitOTA(void)
      */
     uint8_t u8StartSector[1] = {9}; /* So next image starts at 9*32*1024 = 288K offset*/
     uint8_t u8MaxSectorPerImage = 9 ;  /* 9 *32* 1024 = 288K is the maximum size of the image */
-#elif (defined(K32W1480_SERIES)) || (defined(MCXW716A_SERIES)) || (defined(MCXW716C_SERIES))
+#elif IS_MCXW_SERIES
     /*
      * For K32W1 we are using FWK OTA which is using INT storage with relative addresing, meaning that
      * reading first byte of the image should be accomplished by reading at address 0
@@ -83,7 +83,10 @@ void vAppInitOTA(void)
 
     uint8_t u8StartSector[1] = {0};
     uint8_t u8MaxSectorPerImage = 10;
- #endif
+#elif IS_RW_SERIES
+    uint8_t u8StartSector[1] = {0}; /* So next image starts at 0 offset*/
+    uint8_t u8MaxSectorPerImage = 34;  /* 34 * 32 * 4096 = 4.4M is the maximum size of the image */
+#endif
 
     vOTA_FlashInit(NULL,&sNvmDefs);
 

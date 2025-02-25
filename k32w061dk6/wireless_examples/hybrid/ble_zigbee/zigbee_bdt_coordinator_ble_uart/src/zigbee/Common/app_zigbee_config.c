@@ -1,5 +1,5 @@
 /*
-* Copyright 2019, 2023 NXP
+* Copyright 2019, 2023-2024 NXP
 * All rights reserved.
 *
 * SPDX-License-Identifier: BSD-3-Clause
@@ -10,17 +10,24 @@
 /****************************************************************************/
 #include "zigbee_config.h"
 #include "ZQueue.h"
+#ifndef NCP_COPRO
 #include "bdb_api.h"
+#endif
 #include "ZTimer.h"
 #include "zps_apl_af.h"
 #include "pdum_gen.h"
 #include "app_zcl_task.h"
 #include "app_common.h"
+#ifdef ZIGBEE_EVENT_IMPL
+#include "app_signals.h"
+#endif
 #if defined(NCP_COPRO)
 #include "serial_link_cmds_wkr.h"
 #endif
 #include "fsl_common.h"
+#ifdef BDB_SUPPORT_OOBC
 #include "bdb_DeviceCommissioning.h"
+#endif
 #include "zb_platform.h"
 
 uint8_t u8TimerZCL;
@@ -89,7 +96,13 @@ void APP_vInitZigbeeResources(void)
     ZQ_vQueueCreate(&zps_msgMcpsDcfmInd,      MCPS_QUEUE_SIZE,         sizeof(MAC_tsMcpsVsDcfmInd), NULL);
     ZQ_vQueueCreate(&zps_msgMcpsDcfm,         MCPS_DCFM_QUEUE_SIZE,    sizeof(MAC_tsMcpsVsCfmData), NULL);
     ZQ_vQueueCreate(&zps_TimeEvents,          TIMER_QUEUE_SIZE,        sizeof(zps_tsTimeEvent),     NULL);
-
+#ifdef ZIGBEE_EVENT_IMPL
+    ZQ_vRegisterCallback(&APP_msgBdbEvents, zbTaskletsSignalApp);
+    ZQ_vRegisterCallback(&zps_msgMlmeDcfmInd, zbTaskletsSignalZps);
+    ZQ_vRegisterCallback(&zps_msgMcpsDcfmInd, zbTaskletsSignalZps);
+    ZQ_vRegisterCallback(&zps_msgMcpsDcfm, zbTaskletsSignalZps);
+    ZQ_vRegisterCallback(&zps_TimeEvents, zbTaskletsSignalZps);
+#endif
     PDUM_vInit();
 }
 #elif (defined(NCP_COPRO))
@@ -117,6 +130,7 @@ void APP_vInitZigbeeResources(void)
 }
 #endif
 
+#ifdef BDB_SUPPORT_OOBC
 /* Out Of Band Commissioning */
 static struct dev_info app_dev_info;
 static bool_t valid_dev_info;
@@ -275,6 +289,7 @@ bool_t APP_Start_BDB_OOB()
     BDB_u8OutOfBandCommissionStartDevice(&bdb_oob);
     return TRUE;
 }
+#endif
 
 /* High Tx power */
 void APP_SetHighTxPowerMode()

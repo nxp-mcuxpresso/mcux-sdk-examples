@@ -59,6 +59,8 @@ extern void PWR_UpdateWakeupReason(void);
 #define BLE_MACID_SZ                      6
 #define MANUFACTURER_BLE_MACID_ADRESS     (const uint8_t*)(0x9fc00 + 0x100)
 #define gBD_ADDR_NXP_OUI_c                 0x00, 0x60, 0x37
+#define CHIP_IS_HITXPOWER_CAPABLE(chip)   ((CHIP_K32W041AM == chip_type) || (CHIP_K32W041A == chip_type))
+#define VBAT_SWITCH_VOLTAGE_MV             3000  // mV
 
 #define BLE_BASE_ADDR                     0x400A0000
 #define BLE_DIAGCNTL_OFFSET               0x00000050
@@ -136,6 +138,7 @@ static  gpioInputPinConfig_t resetPin = {
 static adc_config_t adcConfigStruct;
 static adc_conv_seq_config_t adcConvSeqConfigStruct;
 static bool do_battery_measure = false;
+static uint32_t voltageValMv = 0;
 static uint8_t battery_level = 0;
 
 static bool blocking_measure = true;
@@ -764,7 +767,7 @@ uint8_t BOARD_GetBatteryLevel(void)
         BOARD_ADCChannelSet(ADC_BAT_LEVEL_CHANNEL, false);
 
         /* battery_lvl = ADCoutputData/4095*ADCFullScale/ADCFrontEndGain/FullVoltageRange*100*/
-        uint32_t voltageValMv = ADC_TO_MV(adcResultInfoStruct.result);
+        voltageValMv = ADC_TO_MV(adcResultInfoStruct.result);
         battery_lvl  = (uint8_t)ADC_MV_TO_PERCENT(voltageValMv);
         do_battery_measure = false;
 
@@ -2349,5 +2352,61 @@ void BOARD_GetMCUUid(uint8_t* aOutUid16B, uint8_t* pOutLen)
 
         *pOutLen = BD_ADDR_SIZE;
         FLib_MemCpy(aOutUid16B, mac_id, BD_ADDR_SIZE);
+    }
+}
+
+/* Weak definitions for gcc 13.2 update */
+WEAK void _exit(int __status)
+{
+    while (1) {}
+}
+
+WEAK int _getpid(void)
+{
+    while (1) {};
+}
+
+void _kill(int pid, int sig)
+{
+    while (1) {}
+}
+
+/* This function is used to check for setting the DCDC to 1v3 before sleep.
+ * This is available for high TX devices like K32W0x1A and K32W0x1AM.
+ */
+void BOARD_CheckPowerDownDcdcVoltage(void)
+{
+    uint32_t chip_type = Chip_GetType();
+
+    if (CHIP_IS_HITXPOWER_CAPABLE(chip_type))
+    {
+#if gAdcUsed_d
+        if (voltageValMv < VBAT_SWITCH_VOLTAGE_MV)
+        {
+#endif
+            POWER_SetDcdc1v3();
+#if gAdcUsed_d
+        }
+#endif
+    }
+}
+
+/* This function is used to check for setting the DCDC to 1v8 on wake.
+ * This is available for high TX devices like K32W0x1A and K32W0x1AM.
+ */
+void BOARD_CheckWakeUpDcdcVoltage(void)
+{
+    uint32_t chip_type = Chip_GetType();
+
+    if (CHIP_IS_HITXPOWER_CAPABLE(chip_type))
+    {
+#if gAdcUsed_d
+        if (voltageValMv < VBAT_SWITCH_VOLTAGE_MV)
+        {
+#endif
+            POWER_SetDcdc1v8();
+#if gAdcUsed_d
+        }
+#endif
     }
 }

@@ -1,6 +1,5 @@
 /*
-* Copyright 2019, 2023-2024 NXP
-* All rights reserved.
+* Copyright 2024 NXP
 *
 * SPDX-License-Identifier: BSD-3-Clause
 */
@@ -53,6 +52,17 @@
 
 #define ASSOCIATION_ATTEMPTS   (5)
 
+#ifdef R23_UPDATES
+/* Uncomment this to enable DLK with AES-128 */
+//#define R23_DLK_AES128_ENABLE 1
+#endif
+#if R23_DLK_AES128_ENABLE
+#define R23_DLK_SHARED_SECRETS_MASK 0
+#define R23_DLK_KEY_PROTO_NEGOTIATION_MASK ZPS_TLV_G_SUPPKEYNEGMETH_SPEKEAES128
+#else
+#define R23_DLK_SHARED_SECRETS_MASK 0
+#define R23_DLK_KEY_PROTO_NEGOTIATION_MASK 0
+#endif /* R23_DLK_AES128_ENABLE */
 
 /****************************************************************************/
 /***        Type Definitions                                              ***/
@@ -121,8 +131,9 @@ TLV_ENCAPS(g_sJoinerTlvs,
           .u8Tag = ZPS_TLV_G_FRAGPARAMS, .u8Len = sizeof(tuFragParams) - 1 - ZPS_TLV_HDR_SIZE
         },
 
-        { .u8KeyNegotProtMask = ZPS_TLV_G_SUPPKEYNEGMETH_STATKEYREQ,
-          .u8SharedSecretsMask = 0,
+        { .u8KeyNegotProtMask = ZPS_TLV_G_SUPPKEYNEGMETH_STATKEYREQ
+                                | R23_DLK_KEY_PROTO_NEGOTIATION_MASK,
+          .u8SharedSecretsMask = R23_DLK_SHARED_SECRETS_MASK,
           .au8SrcIeeeAddr = {0},
           .u8Tag = ZPS_TLV_G_SUPPKEYNEGMETH, .u8Len = sizeof(tuSupportedKeyNegotiationMethods) - 1 - ZPS_TLV_HDR_SIZE
         },
@@ -173,8 +184,9 @@ uint8 au8TestTlvs1[sizeof(au8Storage_Tlv5) + sizeof(au8Storage_Tlv6)];
 TLV_ENCAPS(g_sPermitJoinReqTlvs, APP_SIZE_PERMITJOINREQ_TLV, m_, tuSupportedKeyNegotiationMethods, m_, tuFragParams) =
 {
         .u8Tag = ZPS_TLV_G_BEACONAPPENCAPS, .u8Len = sizeof(tuSupportedKeyNegotiationMethods) + sizeof(tuFragParams) - 1,
-        { .u8KeyNegotProtMask = ZPS_TLV_G_SUPPKEYNEGMETH_STATKEYREQ,
-          .u8SharedSecretsMask = 0,
+        { .u8KeyNegotProtMask = ZPS_TLV_G_SUPPKEYNEGMETH_STATKEYREQ
+                                | R23_DLK_KEY_PROTO_NEGOTIATION_MASK,
+          .u8SharedSecretsMask = R23_DLK_SHARED_SECRETS_MASK,
           .au8SrcIeeeAddr = {0},
           .u8Tag = ZPS_TLV_G_SUPPKEYNEGMETH, .u8Len = sizeof(tuSupportedKeyNegotiationMethods) - sizeof(tsTlvGeneric) - 1 },
         { .u16NodeId = 1, .u8FragOpt = 2, .u16InMaxLen = 10,
@@ -214,6 +226,9 @@ void APP_vInitialiseRouter(void)
                             sizeof(tsDeviceDesc),
                             &u16ByteRead);
 
+    void *pvNwk = ZPS_pvAplZdoGetNwkHandle();
+    pvNwk = pvNwk;
+
     /* Restore any report data that is previously saved to flash */
     eStatusReportReload = eRestoreReports();
 
@@ -234,9 +249,60 @@ void APP_vInitialiseRouter(void)
     ZPS_eAplAfInit();
 
 #ifdef R23_UPDATES
-    ZPS_vNwkNibSetBeaconAppendix(ZPS_pvAplZdoGetNwkHandle(), FALSE, TRUE,
+    /* All the network wide TLVs are reset for non-TC routers */
+    ZPS_vNwkNibSetBeaconAppendix(pvNwk, TRUE, FALSE,
+            g_sPermitJoinReqTlvs.u8Len + 1,
+            (tsTlvGeneric *)((uint8 *)&g_sPermitJoinReqTlvs + ZPS_TLV_HDR_SIZE));
+    /* All the local TLVs are kept as a set/collection */
+    ZPS_vNwkNibSetBeaconAppendix(pvNwk, FALSE, TRUE,
             sizeof(au8TestTlvs), (tsTlvGeneric *)au8TestTlvs);
-#endif
+
+    /* Configure the DLK options stored in the JoinerTLVs */
+    ZPS_eAplAibSetKeyNegotiationOptions(
+            g_sJoinerTlvs.m_tuSupportedKeyNegotiationMethods.u8KeyNegotProtMask,
+            g_sJoinerTlvs.m_tuSupportedKeyNegotiationMethods.u8SharedSecretsMask);
+
+#if R23_DLK_AES128_ENABLE
+    /* ZigBeeAlliance18 well known pass-phrase */
+    uint8 au8Passphrase[] = {
+                    0x5a,
+                    0x69,
+                    0x67,
+                    0x42,
+                    0x65,
+                    0x65,
+                    0x41,
+                    0x6c,
+                    0x6c,
+                    0x69,
+                    0x61,
+                    0x6e,
+                    0x63,
+                    0x65,
+                    0x31,
+                    0x38
+    };
+
+    /* Std 4.6.3.1 "When a device prepares to join a secured network
+     * it SHALL create an apsDeviceKeyPairSet entry for the Trust
+     * Center with its initial joining link key. It will set
+     * the apsLinkKeyType of that entry according to the kind of key
+     * it has. [...] If it supports key negotiation it will also set
+     * its initial Passphrase attribute of the apsDeviceKeyPairSet entry.
+     * [...] When joining for the first time the address of
+     * the Trust Center will not be known to the joiner.
+     * The DeviceAddress value for the apsDeviceKeyPairSet entry for
+     * the Trust Center will initially have an all F's address, as
+     * will the apsTrustCenterAddress AIB value."
+     */
+    if (ZPS_E_SUCCESS != ZPS_eAplAibSetDeviceApsDlkPassphrase(
+                             ZPS_E_BROADCAST_ALL_IEEE,
+                             au8Passphrase, sizeof(au8Passphrase)))
+    {
+        DBG_vPrintf(TRUE, "FAILED to set the DLK pass-phrase on the TCLK entry\n");
+    }
+#endif /* R23_DLK_AES128_ENABLE */
+#endif /* R23_UPDATES */
 
 #ifndef ENABLE_SUBG_IF
     APP_SetMaxTxPower();
@@ -301,7 +367,9 @@ void APP_vBdbCallback(BDB_tsBdbEvent *psBdbEvent)
             if (sDeviceDesc.eNodeState == E_STARTUP)
             {
 #ifndef KPI_MODE_APP
+#ifdef BDB_SUPPORT_OOBC
                 if (!APP_Start_BDB_OOB())
+#endif
                 {
                     BDB_teStatus eStatus = BDB_eNsStartNwkSteering();
                     DBG_vPrintf(TRACE_APP, "BDB Try Steering status %d\r\n",eStatus);
@@ -330,7 +398,9 @@ void APP_vBdbCallback(BDB_tsBdbEvent *psBdbEvent)
 #ifndef KPI_MODE_APP
             if (BDB_bIsBaseIdle())
             {
+#ifdef BDB_SUPPORT_OOBC
                 if (!APP_Start_BDB_OOB())
+#endif
                 {
                     BDB_teStatus eStatus = BDB_eNsStartNwkSteering();
                     DBG_vPrintf(TRACE_APP, "BDB Try Steering status %d\r\n",eStatus);
@@ -356,7 +426,9 @@ void APP_vBdbCallback(BDB_tsBdbEvent *psBdbEvent)
         case BDB_EVENT_OOB_JOIN_SUCCESS:
         case BDB_EVENT_REJOIN_SUCCESS:
             DBG_vPrintf(TRACE_APP,"APP: BDB_EVENT_REJOIN_SUCCESS \r\n");
+#ifdef BDB_SUPPORT_OOBC
             APP_ClearOOBInfo();
+#endif
 #ifdef KPI_MODE_APP
         case BDB_EVENT_NWK_FORMATION_SUCCESS:
             DBG_vPrintf(TRACE_APP, "APP-BDB: NwkFormation Success, Addr %04x, Channel %d\r\n",
@@ -600,7 +672,7 @@ static void vAppHandleZdoEvents( BDB_tsZpsAfEvent *psZpsAfEvent)
 #ifndef KPI_MODE_APP
                 APP_vFactoryResetRecords();
                 MICRO_DISABLE_INTERRUPTS();
-#if !defined(K32W1480_SERIES) && !defined(MCXW716A_SERIES) && !defined(MCXW716C_SERIES) && !defined(RW612_SERIES)
+#if IS_NOT_MCXW_SERIES_OR_RW_SERIES
                 vMMAC_Disable();
 #endif
                 RESET_SystemReset();
@@ -623,7 +695,7 @@ static void vAppHandleZdoEvents( BDB_tsZpsAfEvent *psZpsAfEvent)
 #else
                 APP_vFactoryResetRecords();
                 MICRO_DISABLE_INTERRUPTS();
-#if !defined(K32W1480_SERIES) && !defined(MCXW716A_SERIES) && !defined(MCXW716C_SERIES) && !defined(RW612_SERIES)
+#if IS_NOT_MCXW_SERIES_OR_RW_SERIES
                 vMMAC_Disable();
 #endif
                 RESET_SystemReset();
@@ -793,7 +865,7 @@ static void vDeletePDMOnButtonPress(uint8_t u8ButtonID)
             APP_vFactoryResetRecords();
             MICRO_DISABLE_INTERRUPTS();
 // TODO: Making SW reset abstracted
-#if !defined(K32W1480_SERIES) && !defined(MCXW716A_SERIES) && !defined(MCXW716C_SERIES) && !defined(RW612_SERIES)
+#if IS_NOT_MCXW_SERIES_OR_RW_SERIES
             vMMAC_Disable();
             RESET_SystemReset();
 #else

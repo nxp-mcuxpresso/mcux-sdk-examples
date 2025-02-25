@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_K32W041AMDK6" name="K32W041AMDK6" brief="This is SDK version 2.6.15 manifest file. It describes the content of the K32W041AMDK6 and additional settings for tools that support SDK version 2.6.15" format_version="3.5" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.5.xsd">
-  <!--Timestamp (UTC): 2024-08-06 08:22:04.217913-->
-  <!--This manifest is generated based on sdk repo commit: ae4f57890ccab28d737185c070de698514a69b25-->
+<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_K32W041AMDK6" name="K32W041AMDK6" brief="This is SDK version 2.6.16 manifest file. It describes the content of the K32W041AMDK6 and additional settings for tools that support SDK version 2.6.16" format_version="3.5" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.5.xsd">
+  <!--Timestamp (UTC): 2025-02-21 17:01:45.417815-->
+  <!--This manifest is generated based on sdk repo commit: c6919b62fb1d6b21050ee15b378bf17a99a08ac3-->
   <defines>
     <define name="CPU_$|package|" value=""/>
     <define name="CPU_$|package|_$|core|" value=""/>
   </defines>
-  <ksdk id="MCUXpressoSDK2615" name="MCUXpressoSDK2615" version="2.6.15"/>
+  <ksdk id="MCUXpressoSDK2616" name="MCUXpressoSDK2616" version="2.6.16"/>
   <compilers>
     <compiler id="compiler_gcc" name="gcc" type="gcc"/>
   </compilers>
@@ -4189,7 +4189,7 @@ ${load}</script>
         <files mask="fsl_rtc.h"/>
       </source>
     </component>
-    <component id="platform.drivers.lpc_adc.K32W041AM" name="adc" brief="ADC Driver" version="2.3.2" full_name="ADC Driver" devices="K32W041AM" dependency="device.K32W041AM_CMSIS.K32W041AM platform.Include_common.K32W041AM platform.Include_core_cm4.K32W041AM platform.drivers.clock.K32W041AM platform.drivers.common.K32W041AM platform.drivers.reset.K32W041AM" device_cores="cm4_K32W041AM" user_visible="true" type="driver">
+    <component id="platform.drivers.lpc_adc.K32W041AM" name="adc" brief="ADC Driver" version="2.4.0" full_name="ADC Driver" devices="K32W041AM" dependency="device.K32W041AM_CMSIS.K32W041AM platform.Include_common.K32W041AM platform.Include_core_cm4.K32W041AM platform.drivers.clock.K32W041AM platform.drivers.common.K32W041AM platform.drivers.reset.K32W041AM" device_cores="cm4_K32W041AM" user_visible="true" type="driver">
       <source path="core/drivers/lpc_adc" target_path="drivers" type="src">
         <files mask="fsl_adc.c"/>
       </source>
@@ -5518,13 +5518,13 @@ ${load}</script>
     </component>
     <component id="middleware.wireless.zigbee.platform.ncp_host.K32W041AM" name="Wireless zigbee NCP Host examples" version="1.0.0" full_name="Wireless zigbee platform" devices="K32W041AM" user_visible="false" type="middleware">
       <source path="middleware/wireless/zigbee/platform/NCP_HOST/cmake" target_path="platform/source" type="script">
-        <files mask="mbedtls_git.cmake"/>
+        <files mask="NxpZbNcpHostConfig.cmake"/>
         <files mask="mbedtls_sdk.cmake"/>
         <files mask="pdum.cmake"/>
         <files mask="utils.cmake"/>
       </source>
       <source path="middleware/wireless/zigbee/platform/NCP_HOST/cmake/toolchains" target_path="platform/source" type="script">
-        <files mask="arm-linux-gnueabihf.cmake"/>
+        <files mask="arm-linux.cmake"/>
         <files mask="x86_64-linux-gnu.cmake"/>
       </source>
       <source path="middleware/wireless/zigbee/platform/NCP_HOST/framework/Common" target_path="platform/include" type="c_include">
@@ -5564,10 +5564,6 @@ ${load}</script>
       <source path="middleware/wireless/zigbee/platform/NCP_HOST/framework/PWRM/Include" target_path="platform/include" type="c_include">
         <files mask="pwrm.h"/>
       </source>
-      <source path="middleware/wireless/zigbee/platform/NCP_HOST/framework/SecLib/Interface" target_path="platform/include" type="c_include">
-        <files mask="SecLib.h"/>
-        <files mask="aessw_ccm.h"/>
-      </source>
       <source path="middleware/wireless/zigbee/platform/NCP_HOST/ieee-802.15.4" target_path="platform/include" type="c_include">
         <files mask="AppApi.h"/>
         <files mask="MMAC.h"/>
@@ -5586,6 +5582,12 @@ ${load}</script>
         <files mask="uart.c"/>
         <files mask="wdog.c"/>
       </source>
+      <source path="middleware/wireless/zigbee/platform/NCP_HOST/third_party/mbedtls" target_path="platform/source" type="script">
+        <files mask="mbedtls.cmake"/>
+      </source>
+      <source path="middleware/wireless/zigbee/platform/NCP_HOST/third_party/mbedtls" target_path="platform/include" type="c_include">
+        <files mask="ncp_host-mbedtls-config.h"/>
+      </source>
     </component>
     <component id="middleware.wireless.zb_examples_collaterals.K32W041AM" name="Wireless zigbee examples collaterals" version="1.0.0" full_name="Wireless zigbee examples collaterals" devices="K32W041AM" user_visible="false" type="middleware">
       <source path="middleware/wireless/zigbee/examples/zb_common" target_path="zigbee/zigbee_coordinator/Linux/SL/inc" type="c_include">
@@ -5597,6 +5599,13 @@ ${load}</script>
         <files mask="app_zigbee_config_ncp.c"/>
         <files mask="serial_link_cmds_ctrl.c"/>
         <files mask="serial_link_ctrl.c"/>
+      </source>
+      <source path="middleware/wireless/zigbee/examples/zb_common/linux" target_path="zigbee/zigbee_coordinator/Linux/SL/src" type="c_include">
+        <files mask="linux_glue.h"/>
+        <files mask="pdum_gen.h"/>
+      </source>
+      <source path="middleware/wireless/zigbee/examples/zb_common/linux" target_path="zigbee/zigbee_coordinator/Linux/SL/src" type="src">
+        <files mask="pdum_gen_glue.c"/>
       </source>
     </component>
     <component id="middleware.wireless.zb_linux_coordinator.K32W041AM" name="Wireless zigbee Linux coordinator" version="1.0.0" full_name="Wireless zigbee Linux coordinator" devices="K32W041AM" user_visible="false" type="middleware">
@@ -5615,6 +5624,9 @@ ${load}</script>
       <source path="middleware/wireless/zigbee/examples/zigbee_coordinator/build_linux" target_path="zigbee/zigbee_coordinator/Linux/build" type="other">
         <files mask="README.md"/>
       </source>
+      <source path="middleware/wireless/zigbee/examples/zigbee_coordinator/build_linux" target_path="zigbee/zigbee_coordinator/Linux/build" type="script">
+        <files mask="app_config.cmake"/>
+      </source>
       <source path="middleware/wireless/zigbee/examples/zigbee_coordinator/src" target_path="zigbee/zigbee_coordinator/Linux/inc" type="c_include">
         <files mask="app_coordinator.h"/>
         <files mask="app_main.h"/>
@@ -5623,6 +5635,7 @@ ${load}</script>
         <files mask="bdb_options.h"/>
         <files mask="zcl_options.h"/>
         <files mask="zigbee_config.h"/>
+        <files mask="zps_gen.h"/>
       </source>
       <source path="middleware/wireless/zigbee/examples/zigbee_coordinator/src" target_path="zigbee/zigbee_coordinator/Linux/src" type="src">
         <files mask="app_coordinator_ncp.c"/>
@@ -5631,12 +5644,44 @@ ${load}</script>
         <files mask="app_start.c"/>
         <files mask="app_zcl_task.c"/>
       </source>
-      <source path="middleware/wireless/zigbee/examples/zigbee_coordinator/src/linux" target_path="zigbee/zigbee_coordinator/Linux/src" type="c_include">
-        <files mask="linux_glue.h"/>
-        <files mask="pdum_gen.h"/>
+    </component>
+    <component id="middleware.wireless.zb_linux_router.K32W041AM" name="Wireless zigbee Linux router" version="1.0.0" full_name="Wireless zigbee Linux router" devices="K32W041AM" user_visible="false" type="middleware">
+      <source path="middleware/wireless/zigbee/ZigbeeCommon/Include" target_path="zigbee/zigbee_router/Linux/inc" type="c_include">
+        <files mask="portmacro_linux.h"/>
       </source>
-      <source path="middleware/wireless/zigbee/examples/zigbee_coordinator/src/linux" target_path="zigbee/zigbee_coordinator/Linux/src" type="src">
-        <files mask="pdum_gen_glue.c"/>
+      <source path="middleware/wireless/zigbee/ZigbeeCommon/Source" target_path="zigbee/zigbee_router/Linux/SL/src" type="src">
+        <files mask="port_linux.c"/>
+      </source>
+      <source path="middleware/wireless/zigbee/examples/zb_common" target_path="zigbee/zigbee_router/Linux/SL/src" type="src">
+        <files mask="serial_link_ctrl_linux.c"/>
+      </source>
+      <source path="middleware/wireless/zigbee/examples/zigbee_router/build_linux" target_path="zigbee/zigbee_router/Linux/build" type="doc">
+        <files mask="CMakeLists.txt"/>
+      </source>
+      <source path="middleware/wireless/zigbee/examples/zigbee_router/build_linux" target_path="zigbee/zigbee_router/Linux/build" type="other">
+        <files mask="README.md"/>
+      </source>
+      <source path="middleware/wireless/zigbee/examples/zigbee_router/build_linux" target_path="zigbee/zigbee_router/Linux/build" type="script">
+        <files mask="app_config.cmake"/>
+      </source>
+      <source path="middleware/wireless/zigbee/examples/zigbee_router/src" target_path="zigbee/zigbee_router/Linux/src" type="src">
+        <files mask="app_main.c"/>
+        <files mask="app_reporting.c"/>
+        <files mask="app_router_node_ncp.c"/>
+        <files mask="app_serial_commands.c"/>
+        <files mask="app_start.c"/>
+        <files mask="app_zcl_task.c"/>
+      </source>
+      <source path="middleware/wireless/zigbee/examples/zigbee_router/src" target_path="zigbee/zigbee_router/Linux/inc" type="c_include">
+        <files mask="app_main.h"/>
+        <files mask="app_reporting.h"/>
+        <files mask="app_router_node.h"/>
+        <files mask="app_serial_commands.h"/>
+        <files mask="app_zcl_task.h"/>
+        <files mask="bdb_options.h"/>
+        <files mask="zcl_options.h"/>
+        <files mask="zigbee_config.h"/>
+        <files mask="zps_gen.h"/>
       </source>
     </component>
     <component id="middleware.wireless.zigbee_BuildConfig.K32W041AM" name="wireless zigbee BuildConfig#IDE will show this as component name" version="1.0.0" full_name="wireless zigbee BuildConfig" devices="K32W041AM" user_visible="false" type="middleware">
@@ -6299,6 +6344,12 @@ ${load}</script>
       <source path="middleware/wireless/zigbee/BDB/Source/TouchLink" target_path="zigbee/BDB/Source/TouchLink" type="c_include">
         <files mask="bdb_tl.h"/>
       </source>
+      <source path="middleware/wireless/zigbee/BDB/Source/TransportKeyDecider" target_path="zigbee/BDB/Source/TransportKeyDecider" type="src">
+        <files mask="bdb_tkd.c"/>
+      </source>
+      <source path="middleware/wireless/zigbee/BDB/Source/TransportKeyDecider" target_path="zigbee/BDB/Source/TransportKeyDecider" type="c_include">
+        <files mask="bdb_tkd.h"/>
+      </source>
     </component>
     <component id="middleware.wireless.zigbee_core_bdb_build.K32W041AM" name="Wireless Zigbee stack for BDB build" version="1.0.0" full_name="Wireless Zigbee stack for BDB build" devices="K32W041AM" user_visible="false" type="middleware">
       <source path="middleware/wireless/zigbee/BDB/Build" target_path="src" type="script">
@@ -6338,6 +6389,12 @@ ${load}</script>
       </source>
       <source path="middleware/wireless/zigbee/BDB/Source/OutOfBand" target_path="zigbee/BDB/Source/OutOfBand" type="c_include">
         <files mask="bdb_DeviceCommissioning.h"/>
+      </source>
+      <source path="middleware/wireless/zigbee/BDB/Source/TransportKeyDecider" target_path="zigbee/BDB/Source/TransportKeyDecider" type="src">
+        <files mask="bdb_tkd.c"/>
+      </source>
+      <source path="middleware/wireless/zigbee/BDB/Source/TransportKeyDecider" target_path="zigbee/BDB/Source/TransportKeyDecider" type="c_include">
+        <files mask="bdb_tkd.h"/>
       </source>
     </component>
     <component id="middleware.wireless.zigbee_core_common.K32W041AM" name="Wireless Zigbee stack common" version="1.0.0" full_name="Wireless Zigbee stack common" devices="K32W041AM" user_visible="false" type="middleware">
@@ -7603,233 +7660,23 @@ ${load}</script>
         <files mask="MSVCR71.dll"/>
         <files mask="w9xpopen.exe"/>
       </source>
+      <source path="middleware/wireless/zigbee/tools/PDUMConfig/Source" target_path="src" type="script">
+        <files mask="PDUMConfig.py"/>
+      </source>
       <source path="middleware/wireless/zigbee/tools/ZPSConfig/Source" target_path="src" type="other">
         <files mask="ZPSConfig"/>
       </source>
+      <source path="middleware/wireless/zigbee/tools/ZPSConfig/Source" target_path="src" type="script">
+        <files mask="ZPSConfig.py"/>
+      </source>
       <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor" target_path="src" type="other">
-        <files mask=".eclipseproduct"/>
         <files mask="Zigbee3ConfigEditor.exe"/>
       </source>
       <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/configuration" target_path="src" type="configuration">
         <files mask="config.ini"/>
       </source>
-      <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/configuration/org.eclipse.core.runtime" target_path="src" type="other">
-        <files mask=".contributions.3"/>
-        <files mask=".contributors.3"/>
-        <files mask=".extraData.3"/>
-        <files mask=".mainData.3"/>
-        <files mask=".namespaces.3"/>
-        <files mask=".orphans.3"/>
-        <files mask=".table.3"/>
-      </source>
-      <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/configuration/org.eclipse.core.runtime/.manager" target_path="src" type="other">
-        <files mask=".fileTable.10"/>
-        <files mask=".fileTable.9"/>
-        <files mask=".fileTableLock"/>
-      </source>
-      <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/configuration/org.eclipse.equinox.app/.manager" target_path="src" type="other">
-        <files mask=".fileTableLock"/>
-      </source>
       <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/configuration/org.eclipse.equinox.launcher/com.zpsconfig.zigbee3.rcp.zpscfgeditor_1.0.0" target_path="src" type="image">
         <files mask="splash.bmp"/>
-      </source>
-      <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/configuration/org.eclipse.osgi" target_path="src" type="other">
-        <files mask=".bundledata.3"/>
-        <files mask=".lazy.3"/>
-        <files mask=".state.3"/>
-      </source>
-      <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/configuration/org.eclipse.osgi/.manager" target_path="src" type="other">
-        <files mask=".fileTable.8"/>
-        <files mask=".fileTable.9"/>
-        <files mask=".fileTableLock"/>
-      </source>
-      <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/configuration/org.eclipse.osgi/bundles/3/1/.cp/icons/full/ctool16" target_path="src" type="image">
-        <files mask="CreateAlwaysOnNode_TrustCenter_TrustCenter.gif"/>
-        <files mask="CreateCoordinator_ZDOServers_ZDOServersCoordinator.gif"/>
-        <files mask="CreateEndDevice_ZDOServers_ZDOServersEndDevice.gif"/>
-        <files mask="CreateEndPoint_InputClusters_InputCluster.gif"/>
-        <files mask="CreateEndPoint_OutputClusters_OutputCluster.gif"/>
-        <files mask="CreateKeyDescriptorTable_PreconfiguredKey_PreconfiguredKey.gif"/>
-        <files mask="CreateMacInterfaceList_MacInterface_MacInterface.gif"/>
-        <files mask="CreateNode_BindingTable_BindingTable.gif"/>
-        <files mask="CreateNode_ChannelMask_ChannelMask.gif"/>
-        <files mask="CreateNode_Endpoints_EndPoint.gif"/>
-        <files mask="CreateNode_GreenPowerSecurityTable_GreenPowerSecurityTable.gif"/>
-        <files mask="CreateNode_GreenPowerTxQueue_GreenPowerTxQueue.gif"/>
-        <files mask="CreateNode_GroupTable_GroupTable.gif"/>
-        <files mask="CreateNode_KeyDescriptorTable_KeyDescriptorTable.gif"/>
-        <files mask="CreateNode_MacInterfaceList_MacInterfaceList.gif"/>
-        <files mask="CreateNode_NodeDescriptor_NodeDescriptor.gif"/>
-        <files mask="CreateNode_NodePowerDescriptor_NodePowerDescriptor.gif"/>
-        <files mask="CreateNode_PDUConfiguration_PDUManager.gif"/>
-        <files mask="CreateNode_UserDescriptor_UserDescriptor.gif"/>
-        <files mask="CreatePDUManager_APDUs_APDU.gif"/>
-        <files mask="CreateProfile_Clusters_Cluster.gif"/>
-        <files mask="CreateRouter_ZDOServers_ZDOServersRouter.gif"/>
-        <files mask="CreateTrustCenter_Keys_DefaultNwkKey.gif"/>
-        <files mask="CreateTrustCenter_Keys_PreConfiguredNwkKey.gif"/>
-        <files mask="CreateTrustCenter_Keys_PreconfiguredTCLinkKey.gif"/>
-        <files mask="CreateZDOCommonServers_ActiveEpServer_ActiveEpServer.gif"/>
-        <files mask="CreateZDOCommonServers_BindRequestServer_BindRequestServer.gif"/>
-        <files mask="CreateZDOCommonServers_BindUnbindServer_BindUnbindServer.gif"/>
-        <files mask="CreateZDOCommonServers_DefaultServer_DefaultServer.gif"/>
-        <files mask="CreateZDOCommonServers_DeviceAnnceServer_DeviceAnnceServer.gif"/>
-        <files mask="CreateZDOCommonServers_ExtendedActiveEpServer_ExtendedActiveEpServer.gif"/>
-        <files mask="CreateZDOCommonServers_ExtendedSimpleDescServer_ExtendedSimpleDescServer.gif"/>
-        <files mask="CreateZDOCommonServers_IeeeAddrServer_IeeeAddrServer.gif"/>
-        <files mask="CreateZDOCommonServers_MatchDescServer_MatchDescServer.gif"/>
-        <files mask="CreateZDOCommonServers_MgmtBindServer_MgmtBindServer.gif"/>
-        <files mask="CreateZDOCommonServers_MgmtLeaveServer_MgmtLeaveServer.gif"/>
-        <files mask="CreateZDOCommonServers_MgmtLqiServer_MgmtLqiServer.gif"/>
-        <files mask="CreateZDOCommonServers_MgmtNWKEnhanceUpdateServer_MgmtNWKEnhanceUpdateServer.gif"/>
-        <files mask="CreateZDOCommonServers_MgmtNWKUpdateServer_MgmtNWKUpdateServer.gif"/>
-        <files mask="CreateZDOCommonServers_NodeDescServer_NodeDescServer.gif"/>
-        <files mask="CreateZDOCommonServers_NwkAddrServer_NwkAddrServer.gif"/>
-        <files mask="CreateZDOCommonServers_PowerDescServer_PowerDescServer.gif"/>
-        <files mask="CreateZDOCommonServers_SimpleDescServer_SimpleDescServer.gif"/>
-        <files mask="CreateZDOCommonServers_SystemServerDiscoveryServer_SystemServerDiscoveryServer.gif"/>
-        <files mask="CreateZDOCommonServers_ZdoClient_ZdoClient.gif"/>
-        <files mask="CreateZDOCoordRouterOnlyServers_MgmtMibIeeeServer_MgmtMibIeeeServer.gif"/>
-        <files mask="CreateZDOCoordRouterOnlyServers_MgmtRtgServer_MgmtRtgServer.gif"/>
-        <files mask="CreateZDOCoordRouterOnlyServers_ParentAnnceServer_ParentAnnceServer.gif"/>
-        <files mask="CreateZDOCoordRouterOnlyServers_PermitJoiningServer_PermitJoiningServer.gif"/>
-        <files mask="CreateZDOServersCoordinator_EndDeviceBindServer_EndDeviceBindServer.gif"/>
-        <files mask="CreateZigbeeWirelessNetwork_ChildNodes_EndDevice.gif"/>
-        <files mask="CreateZigbeeWirelessNetwork_ChildNodes_Router.gif"/>
-        <files mask="CreateZigbeeWirelessNetwork_Coordinator_Coordinator.gif"/>
-        <files mask="CreateZigbeeWirelessNetwork_Profiles_Profile.gif"/>
-      </source>
-      <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/configuration/org.eclipse.osgi/bundles/3/1/.cp/icons/full/obj16" target_path="src" type="image">
-        <files mask="APDU.png"/>
-        <files mask="BindingTable.png"/>
-        <files mask="ChannelMask.png"/>
-        <files mask="Cluster.png"/>
-        <files mask="Coordinator.png"/>
-        <files mask="DefaultNwkKey.png"/>
-        <files mask="EndDevice.png"/>
-        <files mask="EndDeviceSleeping.png"/>
-        <files mask="EndPoint.png"/>
-        <files mask="GreenPowerSecurityTable.gif"/>
-        <files mask="GreenPowerTxQueue.gif"/>
-        <files mask="GroupTable.png"/>
-        <files mask="InputCluster.png"/>
-        <files mask="KeyDescriptorTable.png"/>
-        <files mask="NodeDescriptor.png"/>
-        <files mask="NodePowerDescriptor.png"/>
-        <files mask="OutputCluster.png"/>
-        <files mask="PDUManager.png"/>
-        <files mask="PreconfiguredTCLinkKey.png"/>
-        <files mask="Profile.png"/>
-        <files mask="Router.png"/>
-        <files mask="TrustCenter.png"/>
-        <files mask="UserDescriptor.png"/>
-        <files mask="ZDOServer.png"/>
-        <files mask="ZDOServers.png"/>
-        <files mask="ZigbeeWirelessNetwork.png"/>
-      </source>
-      <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/configuration/org.eclipse.osgi/bundles/4/1/.cp/icons/full/obj16" target_path="src" type="image">
-        <files mask="ZPSConfigurationModelFile.gif"/>
-        <files mask="ZPSConfigurationModelFile.png"/>
-      </source>
-      <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/configuration/org.eclipse.osgi/bundles/47/1/.cp/icons/full/obj16" target_path="src" type="image">
-        <files mask="BooleanValue.gif"/>
-        <files mask="GenericValue.gif"/>
-        <files mask="IntegralValue.gif"/>
-        <files mask="ResourceSet.gif"/>
-      </source>
-      <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/configuration/org.eclipse.osgi/bundles/48/1/.cp/icons/full/dlcl16" target_path="src" type="image">
-        <files mask="LocateValue.gif"/>
-      </source>
-      <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/configuration/org.eclipse.osgi/bundles/48/1/.cp/icons/full/elcl16" target_path="src" type="image">
-        <files mask="LocateValue.gif"/>
-      </source>
-      <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/configuration/org.eclipse.osgi/bundles/5/1/.cp/icons" target_path="src" type="image">
-        <files mask="nxp.gif"/>
-        <files mask="open.gif"/>
-        <files mask="perspective.gif"/>
-      </source>
-      <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/configuration/org.eclipse.osgi/bundles/64/1/.cp/org/eclipse/jface/action/images" target_path="src" type="image">
-        <files mask="stop.gif"/>
-      </source>
-      <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/configuration/org.eclipse.osgi/bundles/70/1/.cp/icons/full/dtool16" target_path="src" type="image">
-        <files mask="pin_editor.gif"/>
-        <files mask="save_edit.gif"/>
-      </source>
-      <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/configuration/org.eclipse.osgi/bundles/70/1/.cp/icons/full/elcl16" target_path="src" type="image">
-        <files mask="trash.gif"/>
-      </source>
-      <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/configuration/org.eclipse.osgi/bundles/70/1/.cp/icons/full/etool16" target_path="src" type="image">
-        <files mask="copy_edit.gif"/>
-        <files mask="cut_edit.gif"/>
-        <files mask="delete_edit.gif"/>
-        <files mask="paste_edit.gif"/>
-        <files mask="pin_editor.gif"/>
-        <files mask="redo_edit.gif"/>
-        <files mask="save_edit.gif"/>
-        <files mask="saveall_edit.gif"/>
-        <files mask="saveas_edit.gif"/>
-        <files mask="undo_edit.gif"/>
-      </source>
-      <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/configuration/org.eclipse.osgi/bundles/70/1/.cp/icons/full/eview16" target_path="src" type="image">
-        <files mask="defaultview_misc.gif"/>
-        <files mask="new_persp.gif"/>
-      </source>
-      <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/configuration/org.eclipse.osgi/bundles/70/1/.cp/icons/full/obj16" target_path="src" type="image">
-        <files mask="error_tsk.gif"/>
-        <files mask="generic_element.gif"/>
-        <files mask="signed_no_tbl.gif"/>
-        <files mask="signed_unkn_tbl.gif"/>
-        <files mask="signed_yes_tbl.gif"/>
-      </source>
-      <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/configuration/org.eclipse.osgi/bundles/70/1/.cp/icons/full/progress" target_path="src" type="image">
-        <files mask="progress_error.gif"/>
-        <files mask="progress_none.gif"/>
-        <files mask="progress_ok.gif"/>
-      </source>
-      <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/configuration/org.eclipse.osgi/bundles/71/1/.cp/icons/full/dtool16" target_path="src" type="image">
-        <files mask="last_edit_pos.gif"/>
-        <files mask="next_nav.gif"/>
-        <files mask="prev_nav.gif"/>
-      </source>
-      <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/configuration/org.eclipse.osgi/bundles/71/1/.cp/icons/full/etool16" target_path="src" type="image">
-        <files mask="last_edit_pos.gif"/>
-        <files mask="next_nav.gif"/>
-        <files mask="prev_nav.gif"/>
-      </source>
-      <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/configuration/org.eclipse.osgi/bundles/71/1/.cp/icons/full/obj16" target_path="src" type="image">
-        <files mask="file_obj.gif"/>
-      </source>
-      <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/configuration/org.eclipse.osgi/bundles/73/1/.cp/icons/full/etool16" target_path="src" type="image">
-        <files mask="newfile_wiz.gif"/>
-        <files mask="newfolder_wiz.gif"/>
-        <files mask="newprj_wiz.gif"/>
-      </source>
-      <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/configuration/org.eclipse.osgi/bundles/75/1/.cp/icons/full/dlcl16" target_path="src" type="image">
-        <files mask="defaults_ps.gif"/>
-      </source>
-      <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/configuration/org.eclipse.osgi/bundles/75/1/.cp/icons/full/elcl16" target_path="src" type="image">
-        <files mask="defaults_ps.gif"/>
-        <files mask="filter_ps.gif"/>
-        <files mask="new.gif"/>
-        <files mask="tree_mode.gif"/>
-      </source>
-      <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/configuration/org.eclipse.osgi/bundles/75/1/.cp/icons/full/eview16" target_path="src" type="image">
-        <files mask="prop_ps.gif"/>
-      </source>
-      <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/configuration/org.eclipse.osgi/bundles/77/1/.cp/icons/full/dtool16" target_path="src" type="image">
-        <files mask="block_selection_mode.gif"/>
-        <files mask="show_whitespace_chars.gif"/>
-      </source>
-      <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/configuration/org.eclipse.osgi/bundles/77/1/.cp/icons/full/etool16" target_path="src" type="image">
-        <files mask="block_selection_mode.gif"/>
-        <files mask="show_whitespace_chars.gif"/>
-      </source>
-      <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/configuration/org.eclipse.osgi/bundles/82/1/.cp/os/win32/x86" target_path="src" type="other">
-        <files mask="localfile_1_0_0.dll"/>
-      </source>
-      <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/configuration/org.eclipse.osgi/bundles/87/1/.cp" target_path="src" type="other">
-        <files mask="swt-gdip-win32-4335.dll"/>
-        <files mask="swt-win32-4335.dll"/>
       </source>
       <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/configuration/org.eclipse.osgi/manifests" target_path="src" type="other">
         <files mask="com.zpsconfig.zigbee3.rcp.zpscfgeditor_1.0.0.MF"/>
@@ -7925,11 +7772,6 @@ ${load}</script>
         <files mask="org.w3c.dom.smil_1.0.0.v200806040011.jar"/>
         <files mask="org.w3c.dom.svg_1.1.0.v201011041433.jar"/>
       </source>
-      <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/plugins/org.eclipse.core.runtime.compatibility.registry_3.5.200.v20130514-1256" target_path="src" type="other">
-        <files mask=".api_description"/>
-        <files mask="fragment.properties"/>
-        <files mask="runtime_registry_compatibility.jar"/>
-      </source>
       <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/plugins/org.eclipse.core.runtime.compatibility.registry_3.5.200.v20130514-1256/META-INF" target_path="src" type="other">
         <files mask="ECLIPSE_.RSA"/>
         <files mask="ECLIPSE_.SF"/>
@@ -7937,6 +7779,10 @@ ${load}</script>
       </source>
       <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/plugins/org.eclipse.core.runtime.compatibility.registry_3.5.200.v20130514-1256" target_path="src" type="doc">
         <files mask="about.html"/>
+      </source>
+      <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/plugins/org.eclipse.core.runtime.compatibility.registry_3.5.200.v20130514-1256" target_path="src" type="other">
+        <files mask="fragment.properties"/>
+        <files mask="runtime_registry_compatibility.jar"/>
       </source>
       <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/plugins/org.eclipse.equinox.launcher.win32.win32.x86_1.1.200.v20140116-2212/META-INF" target_path="src" type="other">
         <files mask="ECLIPSE_.RSA"/>
@@ -7949,22 +7795,6 @@ ${load}</script>
       <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/plugins/org.eclipse.equinox.launcher.win32.win32.x86_1.1.200.v20140116-2212" target_path="src" type="other">
         <files mask="eclipse_1503.dll"/>
         <files mask="launcher.win32.win32.x86.properties"/>
-      </source>
-      <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/workspace/.metadata" target_path="src" type="other">
-        <files mask=".log"/>
-      </source>
-      <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/workspace/.metadata/.plugins/org.eclipse.core.resources/.root/.indexes" target_path="src" type="other">
-        <files mask="properties.version"/>
-      </source>
-      <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/workspace/.metadata/.plugins/org.eclipse.core.runtime/.settings" target_path="src" type="other">
-        <files mask="org.eclipse.core.resources.prefs"/>
-        <files mask="org.eclipse.ui.editors.prefs"/>
-      </source>
-      <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/workspace/.metadata/.plugins/org.eclipse.e4.workbench" target_path="src" type="other">
-        <files mask="workbench.xmi"/>
-      </source>
-      <source path="middleware/wireless/zigbee/tools/Zigbee3ConfigEditor/workspace/.metadata/.plugins/org.eclipse.ui.workbench" target_path="src" type="xml">
-        <files mask="dialog_settings.xml"/>
       </source>
     </component>
     <component id="platform.utilities.misc_utilities.K32W041AM" name="misc_utilities" brief="Utilities which is needed for particular toolchain like the SBRK function required to address limitation between HEAP and STACK in GCC toolchain library." version="1.0.0" devices="K32W041AM" user_visible="true" type="utilities"/>

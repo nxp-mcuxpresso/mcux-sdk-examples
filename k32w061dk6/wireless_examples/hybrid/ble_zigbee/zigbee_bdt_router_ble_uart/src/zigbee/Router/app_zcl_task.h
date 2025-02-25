@@ -47,6 +47,9 @@ void APP_ZCL_vEventHandler(ZPS_tsAfEvent *psStackEvent);
 #ifdef CLD_IDENTIFY_10HZ_TICK
     void vIdEffectTick(uint8_t u8Endpoint);
 #endif
+#ifdef NCP_HOST
+PUBLIC ZPS_teStatus APP_eZbModuleInitialise(void);
+#endif
 /****************************************************************************/
 /***        Exported Variables                                            ***/
 /****************************************************************************/

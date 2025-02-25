@@ -228,7 +228,9 @@ void APP_vBdbCallback(BDB_tsBdbEvent *psBdbEvent)
             DBG_vPrintf(TRACE_APP,"APP: BDB_EVENT_INIT_SUCCESS\r\n");
             if (sDeviceDesc.eNodeState == E_STARTUP)
             {
+#if defined(BDB_SUPPORT_OOBC) && (BDB_SUPORT_OOBC == 1)
                 if (!APP_Start_BDB_OOB())
+#endif
                 {
                     eStatus = BDB_eNsStartNwkSteering();
                     DBG_vPrintf(TRACE_APP, "BDB Try Steering status %d\r\n",eStatus);
@@ -248,7 +250,9 @@ void APP_vBdbCallback(BDB_tsBdbEvent *psBdbEvent)
         case BDB_EVENT_REJOIN_FAILURE:
             if (BDB_bIsBaseIdle())
             {
+#if defined(BDB_SUPPORT_OOBC) && (BDB_SUPORT_OOBC == 1)
                 if (!APP_Start_BDB_OOB())
+#endif
                 {
                     eStatus = BDB_eNsStartNwkSteering();
                 }
@@ -260,7 +264,9 @@ void APP_vBdbCallback(BDB_tsBdbEvent *psBdbEvent)
         case BDB_EVENT_OOB_FORM_SUCCESS:
         case BDB_EVENT_OOB_JOIN_SUCCESS:
         case BDB_EVENT_REJOIN_SUCCESS:
+#ifdef BDB_SUPPORT_OOBC
             APP_ClearOOBInfo();
+#endif
             sDeviceDesc.eNodeState = E_RUNNING;
             PDM_eSaveRecordData(PDM_ID_APP_END_DEVICE,&sDeviceDesc,sizeof(tsDeviceDesc));
             break;

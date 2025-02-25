@@ -27,7 +27,9 @@
 #define MAX_SERVER_EPs 2
 #define MAX_SERVER_NODES 2
 #define IGNORE_COORDINATOR_AS_OTA_SERVER
+#ifndef APP_OTA_OFFSET_WRITEN_BEFORE_LINKKEY_VERIFICATION
 #define APP_OTA_OFFSET_WRITEN_BEFORE_LINKKEY_VERIFICATION 1100
+#endif
 
 /****************************************************************************/
 /***        Type Definitions                                              ***/

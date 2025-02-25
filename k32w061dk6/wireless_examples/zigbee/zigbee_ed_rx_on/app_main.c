@@ -15,10 +15,10 @@
 #include "zigbee_config.h"
 #include "fsl_gpio.h"
 #include "app_crypto.h"
-#if defined(K32W1480_SERIES) || defined(MCXW716A_SERIES) || defined(MCXW716C_SERIES) || defined(RW612_SERIES)
+#if IS_MCXW_SERIES_OR_RW_SERIES
 #include "fwk_platform.h"
 #include "fsl_component_mem_manager.h"
-#if defined(K32W1480_SERIES) || defined(MCXW716A_SERIES) || defined(MCXW716C_SERIES)
+#if IS_MCXW_SERIES
 #include "fwk_platform_ics.h"
 #endif
 #else
@@ -34,7 +34,7 @@
 #include "app_serial_commands.h"
 #endif
 
-#if defined(K32W1480_SERIES) || defined(MCXW716A_SERIES) || defined(MCXW716C_SERIES)
+#if IS_MCXW_SERIES
 int PLATFORM_SwitchToOsc32k();
 #endif
 /****************************************************************************/
@@ -98,10 +98,10 @@ void main_task (uint32_t parameter)
     {
         /* place initialization code here... */
         initialized = TRUE;
-#if !defined(K32W1480_SERIES) && !defined(MCXW716A_SERIES) && !defined(MCXW716C_SERIES) && !defined(RW612_SERIES)
+#if IS_NOT_MCXW_SERIES_OR_RW_SERIES
         TMR_Init();
 #else
-#if defined(K32W1480_SERIES) || defined(MCXW716A_SERIES) || defined(MCXW716C_SERIES)
+#if IS_MCXW_SERIES
         PLATFORM_SwitchToOsc32k();
 #endif
         PLATFORM_InitTimerManager();
@@ -110,7 +110,7 @@ void main_task (uint32_t parameter)
         CRYPTO_Init();
         MEM_Init();
 
-#if defined(K32W1480_SERIES) || defined(MCXW716A_SERIES) || defined(MCXW716C_SERIES)
+#if IS_MCXW_SERIES
 #if defined(USE_NBU) && (USE_NBU == 1)
         PLATFORM_InitNbu();
         PLATFORM_InitMulticore();

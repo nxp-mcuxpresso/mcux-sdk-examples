@@ -5,7 +5,8 @@ This application represents the "Zigbee coordinator" of the Zigbee Stack Demo Ap
 
 Toolchain supported
 ===================
-- MCUXpresso IDE
+- MCUXpresso IDE - Windows and Linux env only
+- ARM GCC - Linux and msys(-like) env only
 
 Hardware requirements
 =====================

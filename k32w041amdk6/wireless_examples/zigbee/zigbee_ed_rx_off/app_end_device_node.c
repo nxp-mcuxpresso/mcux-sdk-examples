@@ -1,5 +1,5 @@
 /*
-* Copyright 2019 NXP
+* Copyright 2019-2024 NXP
 * All rights reserved.
 *
 * SPDX-License-Identifier: BSD-3-Clause
@@ -66,6 +66,9 @@ static void vPrintAPSTable(void);
 /***        Exported Variables                                            ***/
 /****************************************************************************/
 tsDeviceDesc sDeviceDesc;
+#ifdef ZIGBEE_EVENT_IMPL
+extern PWR_tsWakeTimerEvent sZTimer;
+#endif
 
 /****************************************************************************/
 /***        Local Variables                                               ***/
@@ -202,7 +205,10 @@ void APP_cbTimerPoll( void *pvParam)
             {
                 /*need to also stop any other timers here too if sleep is intended */
                 ZTIMER_vStopAllTimers();
-
+#ifdef ZIGBEE_EVENT_IMPL
+                /* need to stop timer that run ZTIMER task */
+                PWRM_eRemoveActivity(&sZTimer);
+#endif
                 u32PollTime = 0;
                 /*
                  * Will wake after ZED_SLEEP_PERIOD ms if sleep is allowed or you

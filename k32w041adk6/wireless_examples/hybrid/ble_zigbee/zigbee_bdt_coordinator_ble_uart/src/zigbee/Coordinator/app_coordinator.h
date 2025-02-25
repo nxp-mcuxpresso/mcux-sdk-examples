@@ -26,10 +26,6 @@
 #define TRACE_APP_INIT FALSE
 #endif
 
-#ifndef MAX_HOST_TO_COPROCESSOR_COMMS_ATTEMPS
-#define MAX_HOST_TO_COPROCESSOR_COMMS_ATTEMPS (5)
-#endif
-
 /****************************************************************************/
 /***        Type Definitions                                              ***/
 /****************************************************************************/

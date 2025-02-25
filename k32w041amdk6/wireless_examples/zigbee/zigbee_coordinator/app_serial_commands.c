@@ -20,7 +20,7 @@
 #include "app_main.h"
 #include "ZQueue.h"
 #include "ZTimer.h"
-#if !(defined(K32W1480_SERIES) || defined(MCXW716A_SERIES) || defined(MCXW716C_SERIES) || defined(NCP_HOST))
+#if IS_NOT_MCXW_SERIES_OR_RW_SERIES_OR_NCP
 #include "fsl_reset.h"
 #endif
 #ifndef NCP_HOST
@@ -30,6 +30,9 @@
 #if defined(FSL_RTOS_FREE_RTOS) &&  DEBUG_STACK_DEPTH
 #include "FreeRTOS.h"
 #include "task.h"
+#endif
+#ifdef NCP_HOST
+#include "serial_link_ctrl.h"
 #endif
 /****************************************************************************/
 /***        Macro Definitions                                             ***/
@@ -222,6 +225,19 @@ static void vProcessCommand(char *tmp)
 #ifndef NCP_HOST
         MICRO_DISABLE_INTERRUPTS();
         RESET_SystemReset();
+#else
+        DBG_vPrintf(TRUE, "Resetting Coprocessor...");
+        vSL_SetLongResponsePeriod();
+        APP_vNcpHostResetZigBeeModule();
+
+        /* wait for coprocessor to be ready */
+        vSetJNState(JN_NOT_READY);
+        vWaitForJNReady(JN_READY_TIME_MS);
+        vSL_SetStandardResponsePeriod();
+
+        /* handle NCP HOST side */
+        DBG_vPrintf(TRUE, "Resetting Host...");
+        APP_vNcpHostReset();
 #endif
     }
 

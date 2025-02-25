@@ -1,5 +1,5 @@
 /*
-* Copyright 2019 NXP
+* Copyright 2019,2024 NXP
 * All rights reserved.
 *
 * SPDX-License-Identifier: BSD-3-Clause
@@ -16,14 +16,21 @@ extern "C" {
 /****************************************************************************/
 /***        Include Files                                                 ***/
 /****************************************************************************/
-#include "EmbeddedTypes.h"
 
 /****************************************************************************/
 /***        Macro Definitions                                             ***/
 /****************************************************************************/
+#ifndef BDB_SUPPORT_NWK_FORMATION
 #define BDB_SUPPORT_NWK_FORMATION               (1)
+#endif
+
+#ifndef BDB_SUPPORT_NWK_STEERING
 #define BDB_SUPPORT_NWK_STEERING                (1)
+#endif
+
+#ifndef BDB_SUPPORT_FIND_AND_BIND_INITIATOR
 #define BDB_SUPPORT_FIND_AND_BIND_INITIATOR     (1)
+#endif
 
 #define BDBC_TL_PRIMARY_CHANNEL_SET             (0x02108800)            /* bdbcTLPrimaryChannelSet */
 #define BDBC_TL_SECONDARY_CHANNEL_SET           (0x07fff800 ^ BDBC_TL_PRIMARY_CHANNEL_SET) /* bdbcTLSecondaryChannelSet */
@@ -49,7 +56,9 @@ extern "C" {
 #define BDB_TRUST_CENTER_NODE_JOIN_TIMEOUT      (0x0F)                  /* bdbTrustCenterNodeJoinTimeout */
 #define BDB_TRUST_CENTER_REQUIRE_KEYEXCHANGE    (TRUE)                  /* bdbTrustCenterRequireKeyExchange */
 
+#ifndef BDB_SET_DEFAULT_TC_POLICY
 #define BDB_SET_DEFAULT_TC_POLICY               (TRUE)
+#endif
 /****************************************************************************/
 /***        Type Definitions                                              ***/
 /****************************************************************************/

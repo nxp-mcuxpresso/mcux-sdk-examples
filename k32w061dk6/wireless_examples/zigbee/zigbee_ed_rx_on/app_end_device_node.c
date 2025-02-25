@@ -581,7 +581,7 @@ static void vDeletePDMOnButtonPress(uint8_t u8ButtonID)
             APP_vFactoryResetRecords();
             MICRO_DISABLE_INTERRUPTS();
 // TODO: Making SW reset abstracted
-#if !defined(K32W1480_SERIES) && !defined(MCXW716A_SERIES) && !defined(MCXW716C_SERIES) && !defined(RW612_SERIES)
+#if IS_NOT_MCXW_SERIES_OR_RW_SERIES
             vMMAC_Disable();
             RESET_SystemReset();
 #else

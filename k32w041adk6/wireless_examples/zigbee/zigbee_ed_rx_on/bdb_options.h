@@ -18,8 +18,14 @@ extern "C" {
 /****************************************************************************/
 /***        Macro Definitions                                             ***/
 /****************************************************************************/
-#define BDB_SUPPORT_NWK_STEERING                (1)
-#define BDB_SUPPORT_FIND_AND_BIND_TARGET        (1)
+#ifndef BDB_SUPPORT_NWK_STEERING
+#define BDB_SUPPORT_NWK_STEERING               (1)
+#endif
+
+#ifndef BDB_SUPPORT_FIND_AND_BIND_TARGET
+#define BDB_SUPPORT_FIND_AND_BIND_TARGET       (1)
+#endif
+
 #define BDB_PRIMARY_CHANNEL_SET                 (1<<SINGLE_CHANNEL)                 /* bdbPrimaryChannelSet e.g. (0x02108800) */
 #define BDB_SECONDARY_CHANNEL_SET               (0)                     /* bdbSecondaryChannelSet e.g. (0x07FFF800 ^ BDB_PRIMARY_CHANNEL_SET) */
 #define BDBC_TL_PRIMARY_CHANNEL_SET             (0x02108800)    /* bdbcTLPrimaryChannelSet */

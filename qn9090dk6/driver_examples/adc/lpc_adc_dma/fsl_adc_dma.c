@@ -1,7 +1,6 @@
 /*
  * Copyright (c) 2016, Freescale Semiconductor, Inc.
- * Copyright 2016-2018 NXP
- * All rights reserved.
+ * Copyright 2016-2018, 2024 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -29,6 +28,8 @@
 #define DEMO_ADC_SAMPLE_CHANNEL_NUMBER 0U
 #define DEMO_ADC_IRQ_HANDLER_FUNC ADC0_SEQA_IRQHandler
 #define DEMO_ADC_CLOCK_DIVIDER 7U
+
+#define DEMO_ADC_CLOCK_MODE kADC_ClockAsynchronousMode
 #define DEMO_DMA_ADC_CHANNEL 0U
 #define DEMO_DMA_BASE DMA0
 #define DMA_DESCRIPTOR_NUM 2U
@@ -73,6 +74,9 @@ static void ADC_ClockPower_Configuration(void)
 
     /* Enable LDO ADC 1v1 */
     PMC->PDRUNCFG |= PMC_PDRUNCFG_ENA_LDO_ADC_MASK;
+
+    CLOCK_AttachClk(kFRO12M_to_ADC_CLK);
+    CLOCK_SetClkDiv(kCLOCK_DivAdcClk, 3U, false);
 }
 
 /*${function:start}*/
@@ -145,8 +149,8 @@ static void ADC_Configuration(void)
 
 /* Configure the converter. */
 #if defined(FSL_FEATURE_ADC_HAS_CTRL_ASYNMODE) & FSL_FEATURE_ADC_HAS_CTRL_ASYNMODE
-    adcConfigStruct.clockMode = kADC_ClockSynchronousMode; /* Using sync clock source. */
-#endif                                                     /* FSL_FEATURE_ADC_HAS_CTRL_ASYNMODE */
+    adcConfigStruct.clockMode = DEMO_ADC_CLOCK_MODE;
+#endif /* FSL_FEATURE_ADC_HAS_CTRL_ASYNMODE */
     adcConfigStruct.clockDividerNumber = DEMO_ADC_CLOCK_DIVIDER;
 #if defined(FSL_FEATURE_ADC_HAS_CTRL_RESOL) & FSL_FEATURE_ADC_HAS_CTRL_RESOL
     adcConfigStruct.resolution = kADC_Resolution12bit;
@@ -157,6 +161,9 @@ static void ADC_Configuration(void)
 #if defined(FSL_FEATURE_ADC_HAS_CTRL_TSAMP) & FSL_FEATURE_ADC_HAS_CTRL_TSAMP
     adcConfigStruct.sampleTimeNumber = 0U;
 #endif /* FSL_FEATURE_ADC_HAS_CTRL_TSAMP */
+#if (defined(FSL_FEATURE_ADC_HAS_GPADC_CTRL0_GPADC_TSAMP) && FSL_FEATURE_ADC_HAS_GPADC_CTRL0_GPADC_TSAMP)
+    adcConfigStruct.extendSampleTimeNumber = kADC_ExtendSampleTimeNotUsed;
+#endif /* FSL_FEATURE_ADC_HAS_GPADC_CTRL0_GPADC_TSAMP */
 #if defined(FSL_FEATURE_ADC_HAS_CTRL_LPWRMODE) & FSL_FEATURE_ADC_HAS_CTRL_LPWRMODE
     adcConfigStruct.enableLowPowerMode = false;
 #endif /* FSL_FEATURE_ADC_HAS_CTRL_LPWRMODE */

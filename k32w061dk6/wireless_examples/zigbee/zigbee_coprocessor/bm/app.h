@@ -1,5 +1,5 @@
 /*
-* Copyright 2019 NXP
+* Copyright 2019, 2024 NXP
 * All rights reserved.
 *
 * SPDX-License-Identifier: BSD-3-Clause
@@ -70,8 +70,8 @@
 #define RF_TX_DENY_GPIO_PORT    (gpioPort_A_c)
 #define RF_TX_DENY_GPIO_PIN     (16u)
 
-#define RX_RX_DENY_GPIO_PORT    (gpioPort_A_c)
-#define RX_RX_DENY_GPIO_PIN     (17u)
+#define RF_RX_DENY_GPIO_PORT    (gpioPort_A_c)
+#define RF_RX_DENY_GPIO_PIN     (17u)
 
 #endif /* defined(gWCI2_UseCoexistence_d) && (gWCI2_UseCoexistence_d == 1) */
 /*******************************************************************************

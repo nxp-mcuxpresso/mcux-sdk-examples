@@ -1,5 +1,5 @@
 /*
-* Copyright 2019 NXP
+* Copyright 2019, 2024 NXP
 * All rights reserved.
 *
 * SPDX-License-Identifier: BSD-3-Clause
@@ -93,7 +93,7 @@ gpioOutputPinConfig_t rf_req = {
 };
 
 gpioInputPinConfig_t rf_tx_deny = {
-    .gpioPort = gpioPort_A_c,
+    .gpioPort = RF_TX_DENY_GPIO_PORT,
     .gpioPin = RF_TX_DENY_GPIO_PIN,
     .pullSelect = pinPull_Disabled_c,
     .interruptModeSelect = pinInt_EitherEdge_c,
@@ -102,8 +102,8 @@ gpioInputPinConfig_t rf_tx_deny = {
     .is_wake_source = FALSE,
 };
 gpioInputPinConfig_t rf_rx_deny = {
-    .gpioPort = gpioPort_A_c,
-    .gpioPin = RX_RX_DENY_GPIO_PIN,
+    .gpioPort = RF_RX_DENY_GPIO_PORT,
+    .gpioPin = RF_RX_DENY_GPIO_PIN,
     .pullSelect = pinPull_Disabled_c,
     .interruptModeSelect = pinInt_EitherEdge_c,
     .pinIntSelect = kPINT_PinInt2,
@@ -133,9 +133,17 @@ void BOARD_InitPins(void)
     IOCON_PinMuxSet(IOCON, 0, 13, IOCON_FUNC2 | IOCON_MODE_INACT | IOCON_DIGITAL_EN);
 
 #ifndef ENABLE_SUBG_IF
+#if defined(gWCI2_UseCoexistence_d) && (gWCI2_UseCoexistence_d == 1)
+#if (!defined(gWCI2_UseCoexistenceBitBang_d)) || (gWCI2_UseCoexistenceBitBang_d == 0)
+    /* USART1 RX/TX pin */
+    IOCON_PinMuxSet(IOCON, 0, 10, IOCON_FUNC2 | IOCON_MODE_INACT | IOCON_GPIO_MODE | IOCON_INPFILT_OFF | IOCON_DIGITAL_EN);
+    IOCON_PinMuxSet(IOCON, 0, 11, IOCON_FUNC2 | IOCON_MODE_INACT | IOCON_GPIO_MODE | IOCON_INPFILT_OFF | IOCON_DIGITAL_EN);
+#else
     /* I2C0  */
     IOCON_PinMuxSet(IOCON, 0, 10, IOCON_FUNC5 | IOCON_DIGITAL_EN | IOCON_STDI2C_EN);  /* I2C0_SCL */
     IOCON_PinMuxSet(IOCON, 0, 11, IOCON_FUNC5 | IOCON_DIGITAL_EN | IOCON_STDI2C_EN);  /* I2C0_SDA */
+#endif
+#endif
 #else
     /* USART1 RX/TX pin */
     IOCON_PinMuxSet(IOCON, 0, 10, IOCON_FUNC2 | IOCON_MODE_INACT | IOCON_GPIO_MODE | IOCON_INPFILT_OFF | IOCON_DIGITAL_EN);

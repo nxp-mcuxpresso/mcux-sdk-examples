@@ -1,0 +1,1 @@
+This folder contains files related to the Interposer board for K32W0x1 Mezannine module.

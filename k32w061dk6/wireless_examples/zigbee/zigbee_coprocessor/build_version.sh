@@ -30,6 +30,9 @@ elif [ -f $NXP_SDK_ROOT/SW-Content-Register.txt ]; then
 # MCUX check
 elif [ -f ../.cproject ]; then
     SDK_RELEASE=2
+# SDK3.0 check
+elif [ ! -z "$1" ]; then
+    SDK_RELEASE=3
 else
     echo "Could not found a valid SDK package!"
     exit 1
@@ -38,7 +41,7 @@ fi
 if [ "$SDK_RELEASE" = "1" ]; then
     file=$NXP_SDK_ROOT/SW-Content-Register.txt;
     #Get SDK version number
-    sdk_version=`grep "Release Version" $file | cut -d ":" -f 2 | sed 's/[\. ]//g'`;
+    sdk_version=`grep "Release Version" $file | cut -d ":" -f 2 | sed 's/[-\.a-zA-Z ]//g'`;
 
     #Get Zigbee version number
     start=`grep -n "Zigbee" $file | cut -d: -f 1`;
@@ -57,6 +60,18 @@ elif [ "$SDK_RELEASE" = "2" ]; then
     #Get Zigbee version number
     zigbee_version=0
 
+elif [ "$SDK_RELEASE" = "3" ]; then
+    file=$1/MCUX_VERSION;
+
+    #Version file will be created in build directory
+    VERSION_FILE="version.h"
+
+    #Get SDK version number
+    sdk_version=`grep VERSION_MAJOR $file | sed -e 's/VERSION_MAJOR//g;s/\ =\ //g'`;
+    sdk_version+=`grep VERSION_MINOR $file | sed -e 's/VERSION_MINOR//g;s/\ =\ //g'`;
+
+    #For now there is no zigbee version
+    zigbee_version=0;
 else
     #Get SDK version number
     sdk_version=0;

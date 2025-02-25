@@ -1,0 +1,34 @@
+Overview
+========
+The SSBL is a secondary stage boot loader.
+Its purpose is to decide among several applications and blobs which are valid and which are to be loaded.
+The SSBL reads the PSECT aka page0 in order to determine whether an OTA has just occurred.
+An OTA can be stored either on the QSPI flash or on the internal flash in a dedicate section if Selective OTA is used.
+
+Beforehand, the OTA client application will have stored the image either in QSPI Flash in a Ciphered way to guarantee secrecy and prevent cloning or in the internal flash for Selective OTA.
+For the QSPI storage, the key that is used is normally a device unique 128 bit key and the image is encrypted using an AES-ECB algorithm.
+
+On completion of the OTA transfer it will have written an OTA entry structure in PSECT used as a mailbox.
+The SSBL detects the presence of this entry to decide whether to attempt loading, deciphering, authenticating of the image.
+Otherwise it directly attempts to read the preferred application index and load the corresponding application using the image directory of the PSECT.
+Eventually, when the application is deemed as valid, the SSBL launches it.
+
+Optional features
+========
+The SSBL supports a set of optional features that can be enabled using compile switches:
+    - EXTERNAL_FLASH_DATA_OTA: When defined to "1", the SSBL is able to handle OTA images with ro_data section stored in the external flash
+    - USE_WATCHDOG: When defined to "1", the SSBL will use the WWDT to trigger a reset if the device is stuck for more than 5s.
+    - DISABLE_ISP: When defined to "1", the SSBL will reset the system instead of going into ISP if OTA fails and no valid application can be booted.
+    - gOTAUseCustomOtaEntry*: When defined to "1", the SSBL is able to handle custom OTA entry stored at another location (Ram or External Flash)
+    - gOTACustomOtaEntryMemory*: 
+            - When defined to OTACustomStorage_Ram (0): The custom OTA entry supported is stored in Ram - To use this, reset must be ARM reset, to keep RAM retained. If a Chip Reset or Powerdown Reset is done, the OTA entry will be lost and OTA will not be applied. 
+            - When defined to OTACustomStorage_ExtFlash (1): The custom OTA entry supported is stored in External flash
+    - SPIFI_OPTIM_SIZE: When defined, it will reduce the SPIFI_flash driver size to its minimum by disabling some features to reduce binary size. 
+      Warning: When defining this flag, the SPIFI_DUAL_MODE_SUPPORT flag must be set (true or false) according to the external flash capability.
+    - gSimpleHashVerification: When defined, SSBL will assume the upcoming OTA images do not use secure boot feature.
+      Instead, the images will have a simple hash appended after the boot block. SSBL will compute the hash of the
+      upcoming image and check it against the expected hash. If the check fails, the image will not be copied in internal flash.
+      Additionally, another simple hash verification is done after the image is copied in internal flash, to ensure the copying
+      was successful. If the check fails, then a corruption occurred during copying and the device will reset and retry the copying.
+
+*: gOTAUseCustomOtaEntry & gOTACustomOtaEntryMemory must be used together. Enabling only one of them will not work.

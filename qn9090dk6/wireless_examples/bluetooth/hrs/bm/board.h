@@ -513,6 +513,10 @@ void BOARD_DeInitAdc(void);
 uint8_t BOARD_GetBatteryLevel(void);
 int32_t BOARD_GetTemperature(void);
 
+/* Function to check on DCDC voltages for high TX devices like K32W041A and K32W041AM. */
+void BOARD_CheckPowerDownDcdcVoltage(void);
+void BOARD_CheckWakeUpDcdcVoltage(void);
+
 /* Function called by the BLE connection manager to generate PER MCU keys */
 extern void BOARD_GetMCUUid(uint8_t* aOutUid16B, uint8_t* pOutLen);
 

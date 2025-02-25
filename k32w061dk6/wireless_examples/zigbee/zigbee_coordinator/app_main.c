@@ -12,7 +12,7 @@
 #ifdef NCP_HOST
 #include <signal.h>
 #endif
-
+#include "zb_platform.h"
 #include "EmbeddedTypes.h"
 
 /* FreeRTOS kernel includes. */
@@ -35,10 +35,10 @@
 #ifndef NCP_HOST
 #include "fsl_gpio.h"
 #endif
-#if defined(K32W1480_SERIES) || defined(MCXW716A_SERIES) || defined(MCXW716C_SERIES) || defined(RW612_SERIES)
+#if IS_MCXW_SERIES_OR_RW_SERIES
 #include "fwk_platform.h"
 #include "fsl_component_mem_manager.h"
-#if defined(K32W1480_SERIES) || defined(MCXW716A_SERIES) || defined(MCXW716C_SERIES)
+#if IS_MCXW_SERIES
 #include "fwk_platform_ics.h"
 #endif
 #else
@@ -149,10 +149,10 @@ void main_task (uint32_t parameter)
     {
         /* place initialization code here... */
         initialized = TRUE;
-#if !defined(K32W1480_SERIES) && !defined(MCXW716A_SERIES) && !defined(MCXW716C_SERIES) && !defined(RW612_SERIES)
+#if IS_NOT_MCXW_SERIES_OR_RW_SERIES
         TMR_Init();
 #else
-#if defined(K32W1480_SERIES) || defined(MCXW716A_SERIES) || defined(MCXW716C_SERIES)
+#if IS_MCXW_SERIES
         PLATFORM_SwitchToOsc32k();
 #endif
         PLATFORM_InitTimerManager();
@@ -160,7 +160,7 @@ void main_task (uint32_t parameter)
         CRYPTO_Init();
         CRYPTO_u8RandomInit();
         MEM_Init();
-#if defined(K32W1480_SERIES) || defined(MCXW716A_SERIES) || defined(MCXW716C_SERIES)
+#if IS_MCXW_SERIES
 #if defined(USE_NBU) && (USE_NBU == 1)
         PLATFORM_InitNbu();
         PLATFORM_InitMulticore();
@@ -403,8 +403,8 @@ void APP_vInitResources(void)
     ZQ_vQueueCreate(&APP_msgAppEvents,        APP_QUEUE_SIZE,          sizeof(APP_tsEvent),         NULL);
 
 #ifdef NCP_HOST
-    ZQ_vQueueCreate(&appQueueHandle,        APP_QUEUE_SIZE,          4,         NULL);
-    ZQ_vQueueCreate(&zclQueueHandle,        ZCL_QUEUE_SIZE,          4,         NULL);
+    ZQ_vQueueCreate(&appQueueHandle,        APP_QUEUE_SIZE,          sizeof(uintptr_t),         NULL);
+    ZQ_vQueueCreate(&zclQueueHandle,        ZCL_QUEUE_SIZE,          sizeof(uintptr_t),         NULL);
 #endif
 }
 

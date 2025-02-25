@@ -18,7 +18,6 @@
 #include "serial_link_cmds_wkr.h"
 #include "app_coordinator.h"
 #include "app_serial_commands.h"
-#include "bdb_api.h"
 #include "app_leds.h"
 #ifdef ENABLE_SUBG_IF
 #include "MDI_ReadFirmVer.h"

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_QN9090DK6" name="QN9090DK6" brief="This is SDK version 2.6.15 manifest file. It describes the content of the QN9090DK6 and additional settings for tools that support SDK version 2.6.15" format_version="3.5" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.5.xsd">
-  <!--Timestamp (UTC): 2024-08-06 08:22:01.363443-->
-  <!--This manifest is generated based on sdk repo commit: ae4f57890ccab28d737185c070de698514a69b25-->
+<ksdk:manifest xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SDK_2.x_QN9090DK6" name="QN9090DK6" brief="This is SDK version 2.6.16 manifest file. It describes the content of the QN9090DK6 and additional settings for tools that support SDK version 2.6.16" format_version="3.5" api_version="2.0.0" configuration="37bbf4eb706f3814bfad8f3a27525c83" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd http://nxp.com/mcuxpresso/sdk/sdk_manifest_v3.5.xsd">
+  <!--Timestamp (UTC): 2025-02-21 17:01:41.301114-->
+  <!--This manifest is generated based on sdk repo commit: c6919b62fb1d6b21050ee15b378bf17a99a08ac3-->
   <defines>
     <define name="CPU_$|package|" value=""/>
     <define name="CPU_$|package|_$|core|" value=""/>
@@ -9,7 +9,7 @@
   <externalDefinitions>
     <definition extID="uwbfinderv3"/>
   </externalDefinitions>
-  <ksdk id="MCUXpressoSDK2615" name="MCUXpressoSDK2615" version="2.6.15"/>
+  <ksdk id="MCUXpressoSDK2616" name="MCUXpressoSDK2616" version="2.6.16"/>
   <compilers>
     <compiler id="compiler_gcc" name="gcc" type="gcc"/>
   </compilers>
@@ -3746,7 +3746,7 @@ ${load}</script>
         <files mask="fsl_rtc.h"/>
       </source>
     </component>
-    <component id="platform.drivers.lpc_adc.QN9090" name="adc" brief="ADC Driver" version="2.3.2" full_name="ADC Driver" devices="QN9090 QN9030" dependency="device.QN9090_CMSIS.QN9090 platform.Include_common.QN9090 platform.Include_core_cm4.QN9090 platform.drivers.clock.QN9090 platform.drivers.common.QN9090 platform.drivers.reset.QN9090" device_cores="cm4_QN9030 cm4_QN9090" user_visible="true" type="driver">
+    <component id="platform.drivers.lpc_adc.QN9090" name="adc" brief="ADC Driver" version="2.4.0" full_name="ADC Driver" devices="QN9090 QN9030" dependency="device.QN9090_CMSIS.QN9090 platform.Include_common.QN9090 platform.Include_core_cm4.QN9090 platform.drivers.clock.QN9090 platform.drivers.common.QN9090 platform.drivers.reset.QN9090" device_cores="cm4_QN9030 cm4_QN9090" user_visible="true" type="driver">
       <source path="core/drivers/lpc_adc" target_path="drivers" type="src">
         <files mask="fsl_adc.c"/>
       </source>

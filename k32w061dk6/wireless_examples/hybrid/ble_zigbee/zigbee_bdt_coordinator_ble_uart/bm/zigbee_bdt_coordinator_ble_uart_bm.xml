@@ -179,7 +179,7 @@
           <value>-fno-common</value>
         </option>
         <option id="gnu.c.compiler.option.misc.other" type="string">
-          <value>--param=min-pagesize=0  -c  -ffunction-sections  -fdata-sections  -ffreestanding  -fno-builtin -include "${ProjDirPath}/source/ble_zigbee/app_preinclude.h"</value>
+          <value>--param=min-pagesize=0  -c  -ffunction-sections  -fdata-sections  -ffreestanding  -fno-builtin -include "${ProjDirPath}/source/ble_zigbee/sdk_preinclude.h"</value>
         </option>
         <option id="com.crt.advproject.link.fpu" type="enum">
           <value>com.crt.advproject.link.fpu.none</value>
@@ -247,6 +247,7 @@
     <source path="examples/k32w061dk6/wireless_examples/hybrid/ble_zigbee/zigbee_bdt_coordinator_ble_uart/src/ble_zigbee" target_path="source/ble_zigbee" type="c_include">
       <files mask="app_dual_mode_switch.h"/>
       <files mask="app_preinclude.h"/>
+      <files mask="sdk_preinclude.h"/>
     </source>
     <source path="examples/k32w061dk6/wireless_examples/hybrid/ble_zigbee/zigbee_bdt_coordinator_ble_uart/src/ble_zigbee" target_path="source/ble_zigbee" type="src">
       <files mask="app_main_ble_zigbee.c"/>
@@ -321,8 +322,14 @@
     <source path="middleware/wireless/zigbee/tools/PDUMConfig/Source" target_path="tools/PDUMConfig/Source" type="other" exclude="true" toolchain="mcuxpresso">
       <files mask="PDUMConfig"/>
     </source>
+    <source path="middleware/wireless/zigbee/tools/PDUMConfig/Source" target_path="tools/PDUMConfig/Source" type="script" exclude="true" toolchain="mcuxpresso">
+      <files mask="PDUMConfig.py"/>
+    </source>
     <source path="middleware/wireless/zigbee/tools/ZPSConfig/Source" target_path="tools/ZPSConfig/Source" type="other" exclude="true" toolchain="mcuxpresso">
       <files mask="ZPSConfig"/>
+    </source>
+    <source path="middleware/wireless/zigbee/tools/ZPSConfig/Source" target_path="tools/ZPSConfig/Source" type="script" exclude="true" toolchain="mcuxpresso">
+      <files mask="ZPSConfig.py"/>
     </source>
     <source path="tools/imagetool/test_es2_sign" target_path="scripts/test_es2_sign" type="binary" exclude="true" toolchain="iar mcuxpresso">
       <files mask="cert.bin"/>

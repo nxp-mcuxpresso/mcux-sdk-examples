@@ -1,5 +1,5 @@
 /*
-* Copyright 2019, 2023 NXP
+* Copyright 2019, 2023-2024 NXP
 * All rights reserved.
 *
 * SPDX-License-Identifier: BSD-3-Clause
@@ -11,7 +11,6 @@
 /****************************************************************************/
 
 #include <EmbeddedTypes.h>
-#include "bdb_api.h"
 #include "PDM.h"
 #include "PDM_IDs.h"
 #include "app_common.h"
@@ -22,7 +21,6 @@
 #include "zps_gen.h"
 #include "pdum_gen.h"
 #include "app_coordinator.h"
-#include "app_ota_server.h"
 #include "app_leds.h"
 #include "app.h"
 
@@ -69,8 +67,6 @@ PUBLIC tsNcpDeviceDesc sNcpDeviceDesc = {FACTORY_NEW, E_STARTUP, ZPS_ZDO_DEVICE_
 /***        Local Variables                                               ***/
 /****************************************************************************/
 
-teNodeState eNodeState;
-
 #define GREEN_POWER_ENDPOINT                   242
 
 PUBLIC bool_t bDataPending = FALSE;
@@ -88,7 +84,11 @@ extern PUBLIC void APP_vRestoreStackData ( void );
 extern PUBLIC uint8 u8GetBeaconCount(void);
 extern PUBLIC void vResetBeaconCount(void);
 extern void vSendDiscoveryNoNetworks(void);
-
+extern bool_t vNfTcCallback (uint16 u16ShortAddress,
+                             uint64 u64DeviceAddress,
+                             uint64 u64ParentAddress,
+                             uint8 u8Status,
+                             uint16 u16MacId );
 /****************************************************************************
  *
  * NAME: APP_vInitialiseCoordinator
@@ -136,11 +136,14 @@ void APP_vInitialiseCoordinator(void)
     ZPS_u8MacMibIeeeSetPolicy(FALSE);
 #endif
 
+    /* Register trust center callback */
+    ZPS_vTCSetCallback(vNfTcCallback);
+
     /* Initialise other software modules
      * HERE
      */
 
-    DBG_vPrintf(TRACE_APP, "Recovered Application State %d \r\n", eNodeState);
+    DBG_vPrintf(TRACE_APP, "Recovered Application State %d \r\n", sNcpDeviceDesc.eNodeState);
 
 }
 
@@ -187,7 +190,7 @@ void APP_vFactoryResetRecords(void)
  ****************************************************************************/
 teNodeState APP_eGetCurrentApplicationState (void)
 {
-    return eNodeState;
+    return sNcpDeviceDesc.eNodeState;
 }
 
 
@@ -279,35 +282,36 @@ PUBLIC void APP_ZpsEventTask(void)
             {
                 u64SourceAddress = ZPS_u64AplZdoLookupIeeeAddr(sStackEvent.uEvent.sApsDataIndEvent.uSrcAddress.u16Addr);
             }
-#ifdef ZB_COORD_DEVICE
-            /* update stats */
-            sNwkStats.u32TotalRX++;
-            vUpdateDeviceStats(u64SourceAddress, sStackEvent.uEvent.sApsDataIndEvent.u8LinkQuality);
-#endif
-            {
-                uint16 u16Size = PDUM_u16APduInstanceGetPayloadSize( sStackEvent.uEvent.sApsDataIndEvent.hAPduInst);
-#ifdef ZB_COORD_DEVICE
-            /* If we are the trust centre, check the device sending the message has completed KEC with us. */
-            uint64 u64RemoteIeeeAddress;
-            ZPS_teDevicePermissions u8DevicePermissions;
-            uint8 u8Status;
 
-            u64RemoteIeeeAddress = ZPS_u64NwkNibFindExtAddr(ZPS_pvNwkGetHandle(),
-                    sStackEvent.uEvent.sApsDataIndEvent.uSrcAddress.u16Addr);
-            u8Status =
-                    ZPS_bAplZdoTrustCenterGetDevicePermissions(u64RemoteIeeeAddress,
-                                                               &u8DevicePermissions);
-            /* If status errror - not in table so assume full access allowed,
-             * e.g. when working with HA profile and APS security. */
-            if ( (u8Status == ZPS_E_SUCCESS) &&
-                    ( (u8DevicePermissions & ZPS_DEVICE_PERMISSIONS_DATA_REQUEST_DISALLOWED)
-                            == ZPS_DEVICE_PERMISSIONS_DATA_REQUEST_DISALLOWED) )
+            uint16 u16Size = PDUM_u16APduInstanceGetPayloadSize( sStackEvent.uEvent.sApsDataIndEvent.hAPduInst);
+
+            if (sNcpDeviceDesc.u8DeviceType == ZPS_ZDO_DEVICE_COORD)
             {
-                sStackEvent.uEvent.sApsDataIndEvent.eSecurityStatus
-                        = ZPS_APL_APS_E_SECURED_NWK_KEY;
-                DBG_vPrintf(TRACE_EVENT_HANDLER, "ZPS_APL_APS_E_SECURED_NWK_KEY  \n");
+                /* update stats */
+                sNwkStats.u32TotalRX++;
+                vUpdateDeviceStats(u64SourceAddress, sStackEvent.uEvent.sApsDataIndEvent.u8LinkQuality);
+
+                /* If we are the trust centre, check the device sending the message has completed KEC with us. */
+                uint64 u64RemoteIeeeAddress;
+                ZPS_teDevicePermissions u8DevicePermissions;
+                uint8 u8Status;
+
+                u64RemoteIeeeAddress = ZPS_u64NwkNibFindExtAddr(ZPS_pvNwkGetHandle(),
+                        sStackEvent.uEvent.sApsDataIndEvent.uSrcAddress.u16Addr);
+                u8Status =
+                        ZPS_bAplZdoTrustCenterGetDevicePermissions(u64RemoteIeeeAddress,
+                                                                &u8DevicePermissions);
+                /* If status errror - not in table so assume full access allowed,
+                * e.g. when working with HA profile and APS security. */
+                if ( (u8Status == ZPS_E_SUCCESS) &&
+                        ( (u8DevicePermissions & ZPS_DEVICE_PERMISSIONS_DATA_REQUEST_DISALLOWED)
+                                == ZPS_DEVICE_PERMISSIONS_DATA_REQUEST_DISALLOWED) )
+                {
+                    sStackEvent.uEvent.sApsDataIndEvent.eSecurityStatus
+                            = ZPS_APL_APS_E_SECURED_NWK_KEY;
+                    DBG_vPrintf(TRACE_EVENT_HANDLER, "ZPS_APL_APS_E_SECURED_NWK_KEY  \n");
+                }
             }
-#endif
 
             if(sStackEvent.uEvent.sApsDataIndEvent.eStatus == ZPS_NWK_ENUM_INVALID_REQUEST && u8TempExtendedError != 0u)
             {
@@ -368,7 +372,6 @@ PUBLIC void APP_ZpsEventTask(void)
                 vSL_WriteMessageFromTwoBuffers(E_SL_MSG_DATA_INDICATION, u16Length,NULL,
                         au8StatusBuffer,sStackEvent.uEvent.sApsDataIndEvent.hAPduInst);
             }
-        }
         break;
 
         case ZPS_EVENT_APS_DATA_CONFIRM: {
@@ -413,17 +416,19 @@ PUBLIC void APP_ZpsEventTask(void)
             ZNC_BUF_U16_UPD( &au8StatusBuffer[u16Length], sStackEvent.uEvent.sApsDataAckEvent.u16ClusterId , u16Length );
 
             vSL_WriteMessage(E_SL_MSG_DATA_ACK, u16Length,NULL, au8StatusBuffer);
-#ifdef ZB_COORD_DEVICE
-            /* update stats */
-            if(sStackEvent.uEvent.sApsDataAckEvent.u8Status == ZPS_E_SUCCESS)
+            
+            if (ZPS_ZDO_DEVICE_COORD == sNcpDeviceDesc.u8DeviceType)
             {
-                sNwkStats.u32TotalSuccessfulTX++;
+                /* update stats */
+                if(sStackEvent.uEvent.sApsDataAckEvent.u8Status == ZPS_E_SUCCESS)
+                {
+                    sNwkStats.u32TotalSuccessfulTX++;
+                }
+                else
+                {
+                    sNwkStats.u32TotalFailTX++;
+                }
             }
-            else
-            {
-                sNwkStats.u32TotalFailTX++;
-            }
-#endif
             break;
 
         case ZPS_EVENT_APS_INTERPAN_DATA_INDICATION:
@@ -525,6 +530,8 @@ PUBLIC void APP_ZpsEventTask(void)
             else if ( (sStackEvent.eType == ZPS_EVENT_NWK_JOINED_AS_ROUTER) ||
                     (sStackEvent.eType == ZPS_EVENT_NWK_JOINED_AS_ENDDEVICE  ))
             {
+                sNcpDeviceDesc.eNodeState = E_RUNNING;
+                sNcpDeviceDesc.eState = NOT_FACTORY_NEW;
                 //uint8 i;
                 bRejoinInProgress = FALSE;
                 vResetBeaconCount();
@@ -678,6 +685,72 @@ PUBLIC void APP_ZpsEventTask(void)
         case ZPS_EVENT_NWK_POLL_CONFIRM:
             break;
 
+        case ZPS_EVENT_TC_STATUS:
+        {
+            uint8 u8TcStatus = sStackEvent.uEvent.sApsTcEvent.u8Status;
+
+            ZNC_BUF_U8_UPD( &au8StatusBuffer[u16Length], u8TcStatus , u16Length );
+
+            switch (u8TcStatus) 
+            {
+            case ZPS_APL_APS_E_SECURED_LINK_KEY:
+            case ZPS_APL_APS_E_SECURITY_FAIL:
+                ZNC_BUF_U64_UPD( &au8StatusBuffer[u16Length], sStackEvent.uEvent.sApsTcEvent.uTcData.u64ExtendedAddress , u16Length );
+                break;
+            case ZPS_E_SUCCESS:
+
+                // sStackEvent.uEvent.sApsTcEvent.uTcData.pKeyDesc.u32OutgoingFrameCounter
+                ZNC_BUF_U32_UPD( &au8StatusBuffer[u16Length], sStackEvent.uEvent.sApsTcEvent.uTcData.pKeyDesc->u32OutgoingFrameCounter , u16Length );
+
+                // sStackEvent.uEvent.sApsTcEvent.uTcData.pKeyDesc.u16ExtAddrLkup
+                ZNC_BUF_U16_UPD( &au8StatusBuffer[u16Length], sStackEvent.uEvent.sApsTcEvent.uTcData.pKeyDesc->u16ExtAddrLkup , u16Length );
+
+                // sStackEvent.uEvent.sApsTcEvent.uTcData.pKeyDesc.au8LinkKey[]
+                memcpy(&au8StatusBuffer[u16Length], sStackEvent.uEvent.sApsTcEvent.uTcData.pKeyDesc->au8LinkKey, ZPS_SEC_KEY_LENGTH);
+                u16Length += ZPS_SEC_KEY_LENGTH;
+                
+                // sStackEvent.uEvent.sApsTcEvent.uTcData.pKeyDesc.u8BitMapSecLevl
+                ZNC_BUF_U8_UPD( &au8StatusBuffer[u16Length], sStackEvent.uEvent.sApsTcEvent.uTcData.pKeyDesc->u8BitMapSecLevl , u16Length );
+
+                break;
+            default:
+                DBG_vPrintf(TRACE_EVENT_HANDLER, "Unhandled ZPS_EVENT_TC_STATUS status %x", u8TcStatus);
+                break;
+            }
+
+            vSL_WriteMessage(E_SL_MSG_TC_STATUS, u16Length, NULL, au8StatusBuffer);
+        }
+        break;
+
+        case ZPS_EVENT_ZDO_BIND:
+        {
+            uint8 u8DstAddrMode = sStackEvent.uEvent.sZdoBindEvent.u8DstAddrMode;
+
+            /* Put address mode first so SerialLink payload can be properly parsed on the other side */
+
+            /* Copy destination address mode */
+            ZNC_BUF_U8_UPD( &au8StatusBuffer[u16Length], sStackEvent.uEvent.sZdoBindEvent.u8DstAddrMode , u16Length );
+
+            /* Copy destination address */
+            if(ZPS_E_ADDR_MODE_IEEE == u8DstAddrMode)
+            {
+                ZNC_BUF_U64_UPD( &au8StatusBuffer[u16Length], sStackEvent.uEvent.sZdoBindEvent.uDstAddr.u64Addr , u16Length );
+            }
+            else
+            {
+                ZNC_BUF_U16_UPD( &au8StatusBuffer[u16Length], sStackEvent.uEvent.sZdoBindEvent.uDstAddr.u16Addr , u16Length );
+            }
+
+            /* Copy source endpoint */
+            ZNC_BUF_U8_UPD( &au8StatusBuffer[u16Length], sStackEvent.uEvent.sZdoBindEvent.u8SrcEp , u16Length );
+
+            /* Copy destination endpoint */
+            ZNC_BUF_U8_UPD( &au8StatusBuffer[u16Length], sStackEvent.uEvent.sZdoBindEvent.u8DstEp , u16Length );
+
+            vSL_WriteMessage(E_SL_MSG_ZDO_BIND_EVENT, u16Length, NULL, au8StatusBuffer);
+        }
+        break;
+        
         default:
             DBG_vPrintf(TRACE_EVENT_HANDLER, "Unhandled Zps stack event %d", sStackEvent.eType);
             break;
@@ -1022,7 +1095,6 @@ PUBLIC void vHandleZpsErrorEvent(ZPS_tsAfErrorEvent *psErrEvt, uint8 * pu8Buffer
 /****************************************************************************/
 /***        Local Functions                                               ***/
 /****************************************************************************/
-#ifdef ZB_COORD_DEVICE
 
 /****************************************************************************
  *
@@ -1069,7 +1141,6 @@ PRIVATE void vUpdateDeviceStats(uint64 u64SourceAddress, uint8 u8Lqi)
         }
     }
 }
-#endif
 
 /****************************************************************************/
 /***        END OF FILE                                                   ***/

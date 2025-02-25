@@ -5,7 +5,8 @@ This application represents the "Zigbee end device rx off" of the Zigbee Stack D
 
 Toolchain supported
 ===================
-- MCUXpresso IDE
+- MCUXpresso IDE - Windows and Linux env only
+- ARMGCC - Linux and msys(-like) env only
 
 Hardware requirements
 =====================

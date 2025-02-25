@@ -1,5 +1,5 @@
 /*
-* Copyright 2019, 2023 NXP
+* Copyright 2019, 2023-2024 NXP
 * All rights reserved.
 *
 * SPDX-License-Identifier: BSD-3-Clause
@@ -20,13 +20,16 @@
 #endif
 #include "dbg.h"
 #include "app_crypto.h"
-#if !defined(K32W1480_SERIES) && !defined(MCXW716A_SERIES) && !defined(MCXW716C_SERIES)
+#if IS_NOT_MCXW7x_SERIES
 #include "MemManager.h"
 #include "TimersManager.h"
 #endif
 #include "app_zcl_task.h"
 #include "app_buttons.h"
 #include "app_leds.h"
+#ifdef ZIGBEE_EVENT_IMPL
+#include "app_signals.h"
+#endif
 #include "PWR_Interface.h"
 #include "pwrm.h"
 #include "app_reporting.h"
@@ -59,7 +62,7 @@ extern void *_stack_low_water_mark;
 /****************************************************************************/
 /***        Local Variables                                               ***/
 /****************************************************************************/
-#if defined(K32W1480_SERIES) || defined(MCXW716A_SERIES) || defined(MCXW716C_SERIES)
+#if IS_MCXW7x_SERIES
 static uint8_t led_states;
 #endif
 /**
@@ -76,6 +79,10 @@ static void vAppWakeup(void);
 /***        Exported Functions                                            ***/
 /****************************************************************************/
 extern void OSA_TimeInit(void);
+#ifdef ZIGBEE_EVENT_IMPL
+extern PWR_tsWakeTimerEvent sZTimer;
+#endif
+extern void vWakeCallBackZtimer(void);
 
 #ifdef OT_ZB_SUPPORT
 extern void App_ZB_WakeCallBack(void);
@@ -148,8 +155,7 @@ void vAppRegisterPWRCallbacks(void)
 void vAppPreSleep(void)
 {
     DBG_vPrintf(TRACE_APP, "sleeping \n");
-#if !defined(K32W1480_SERIES) && !defined(MCXW716A_SERIES) && !defined(MCXW716C_SERIES)
-    vSetReportDataForMinRetention();
+#if IS_NOT_MCXW7x_SERIES
 
     /* If the power mode is with RAM held do the following
      * else not required as the entry point will init everything*/
@@ -176,7 +182,7 @@ void vAppPreSleep(void)
 
 void vAppWakeup(void)
 {
-#if !defined(K32W1480_SERIES) && !defined(MCXW716A_SERIES) && !defined(MCXW716C_SERIES)
+#if IS_NOT_MCXW7x_SERIES
     /* If the power status is OK and RAM held while sleeping
      * restore the MAC settings
      * */
@@ -222,7 +228,7 @@ static void APP_vInitialise(bool_t bColdStart)
 {
     if(bColdStart)
     {
-#if !defined(K32W1480_SERIES) && !defined(MCXW716A_SERIES) && !defined(MCXW716C_SERIES)
+#if IS_NOT_MCXW7x_SERIES
         PWR_ChangeDeepSleepMode((uint8_t)E_AHI_SLEEP_OSCON_RAMON);
         PWR_Init();
         PWR_vForceRadioRetention(TRUE);
@@ -257,6 +263,12 @@ void vWakeCallBack(void)
     {
         DBG_vPrintf(TRACE_APP, "\r\nAPP: Failed to start poll");
     }
+#ifdef ZIGBEE_EVENT_IMPL
+    /* Timer running the ZTIMER task must be restarted and unlock the tasks */
+    PWR_eScheduleActivity(&sZTimer, 250, vWakeCallBackZtimer);
+    zbTaskletsSignalZps();
+    zbTaskletsSignalApp();
+#endif
 }
 
 /****************************************************************************/

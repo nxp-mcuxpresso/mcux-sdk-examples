@@ -17,7 +17,7 @@
 #include "dbg.h"
 #include "zigbee_config.h"
 
-#ifdef CLD_OTA
+#if defined(CLD_OTA) && !defined(NCP_HOST)
 #include "app_ota_client.h"
 #endif
 
@@ -101,10 +101,12 @@ void APP_ZCL_vInitialise(void)
     }
 
     APP_vZCL_DeviceSpecific_Init();
+#ifndef NCP_HOST
 #ifdef CLD_OTA
     vAppInitOTA();
 #endif
     APP_vSetLed(APP_E_LEDS_LED_1, sBaseDevice.sOnOffServerCluster.bOnOff);
+#endif
 }
 
 
@@ -159,14 +161,12 @@ void APP_cbTimerZclTick(void *pvParam)
         eZCL_Update100mS();
         u32Tick10ms = 0;
     }
-
-#ifdef CLD_OTA
+#if defined(CLD_OTA) && !defined(NCP_HOST)
     if (u32Tick1Sec == 82)   /* offset this from the 1 second roll over */
     {
         vRunAppOTAStateMachine(1000);
     }
 #endif
-
     /* Wrap the 1 second  counter and provide 1Hz ticks to cluster */
     if(u32Tick1Sec > 99)
     {
@@ -349,7 +349,7 @@ static void APP_ZCL_cbEndpointCallback(tsZCL_CallBackEvent *psEvent)
             if(psEvent->psClusterInstance != NULL)
             {
                 tsZCL_AttributeReportingConfigurationRecord    *psAttributeReportingRecord = &psEvent->uMessage.sAttributeReportingConfigurationRecord;
-                DBG_vPrintf(TRACE_ZCL,"Individual Configure Report Cluster %d Attrib %d Type %d Min %d Max %d IntV %d Direcct %d Change %d\r\n",
+                DBG_vPrintf(TRACE_ZCL,"Individual Configure Report Cluster %d Attrib %d Type %d Min %d Max %d IntV %d Direcct %d Change time %d date %d UTC time %d \r\n",
                         psEvent->psClusterInstance->psClusterDefinition->u16ClusterEnum,
                         psAttributeReportingRecord->u16AttributeEnum,
                         psAttributeReportingRecord->eAttributeDataType,
@@ -357,7 +357,9 @@ static void APP_ZCL_cbEndpointCallback(tsZCL_CallBackEvent *psEvent)
                         psAttributeReportingRecord->u16MaximumReportingInterval,
                         psAttributeReportingRecord->u16TimeoutPeriodField,
                         psAttributeReportingRecord->u8DirectionIsReceived,
-                        psAttributeReportingRecord->uAttributeReportableChange);
+                        psAttributeReportingRecord->uAttributeReportableChange.ztimeReportableChange,
+                        psAttributeReportingRecord->uAttributeReportableChange.zdateReportableChange,
+                        psAttributeReportingRecord->uAttributeReportableChange.zutctimeReportableChange);
 
                 if (E_ZCL_SUCCESS == psEvent->eZCL_Status)
                 {
@@ -406,7 +408,9 @@ void APP_vHandleIdentify(uint16_t u16Time)
             /*
              * Restore to off/off state
              */
+#ifndef NCP_HOST
         APP_vSetLed(APP_E_LEDS_LED_1, sBaseDevice.sOnOffServerCluster.bOnOff);
+#endif
         bActive = FALSE;
     }
     else
@@ -416,7 +420,9 @@ void APP_vHandleIdentify(uint16_t u16Time)
             bActive = TRUE;
             u8IdentifyCount = 5;
             bIdentifyState = TRUE;
+#ifndef NCP_HOST
             APP_vSetLed(APP_E_LEDS_LED_1, APP_E_LED_ON);
+#endif
         }
     }
 }
@@ -445,7 +451,9 @@ void vIdEffectTick(uint8_t u8Endpoint)
         {
             u8IdentifyCount = 5;
             bIdentifyState = (bIdentifyState)? FALSE: TRUE;
+#ifndef NCP_HOST
             APP_vSetLed(APP_E_LEDS_LED_1, bIdentifyState);
+#endif
         }
     }
 }
@@ -468,7 +476,9 @@ static void APP_vHandleClusterCustomCommands(tsZCL_CallBackEvent *psEvent)
     {
         case GENERAL_CLUSTER_ID_ONOFF:
         {
+#ifndef NCP_HOST
             APP_vSetLed(APP_E_LEDS_LED_1, sBaseDevice.sOnOffServerCluster.bOnOff);
+#endif
         }
         break;
 
@@ -490,8 +500,10 @@ static void APP_vHandleClusterCustomCommands(tsZCL_CallBackEvent *psEvent)
                 DBG_vPrintf(TRACE_ZCL, "Basic Factory Reset Received\r\n");
                 memset(&sBaseDevice,0,sizeof(tsZHA_BaseDevice));
                 APP_vZCL_DeviceSpecific_Init();
+#ifndef NCP_HOST
 #ifdef CLD_OTA
                 vAppInitOTA();
+#endif
 #endif
                 eZHA_RegisterBaseDeviceEndPoint(APP_u8GetDeviceEndpoint(),
                                                 &APP_ZCL_cbEndpointCallback,
@@ -499,6 +511,7 @@ static void APP_vHandleClusterCustomCommands(tsZCL_CallBackEvent *psEvent)
             }
         }
         break;
+#ifndef NCP_HOST
 #ifdef CLD_OTA
         case OTA_CLUSTER_ID:
         {
@@ -520,6 +533,7 @@ static void APP_vHandleClusterCustomCommands(tsZCL_CallBackEvent *psEvent)
 
         }
         break;
+#endif
 #endif
         default:
         break;

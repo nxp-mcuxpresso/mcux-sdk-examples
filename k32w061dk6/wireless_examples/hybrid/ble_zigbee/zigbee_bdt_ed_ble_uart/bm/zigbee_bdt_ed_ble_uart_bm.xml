@@ -319,8 +319,14 @@
     <source path="middleware/wireless/zigbee/tools/PDUMConfig/Source" target_path="tools/PDUMConfig/Source" type="other" exclude="true" toolchain="mcuxpresso">
       <files mask="PDUMConfig"/>
     </source>
+    <source path="middleware/wireless/zigbee/tools/PDUMConfig/Source" target_path="tools/PDUMConfig/Source" type="script" exclude="true" toolchain="mcuxpresso">
+      <files mask="PDUMConfig.py"/>
+    </source>
     <source path="middleware/wireless/zigbee/tools/ZPSConfig/Source" target_path="tools/ZPSConfig/Source" type="other" exclude="true" toolchain="mcuxpresso">
       <files mask="ZPSConfig"/>
+    </source>
+    <source path="middleware/wireless/zigbee/tools/ZPSConfig/Source" target_path="tools/ZPSConfig/Source" type="script" exclude="true" toolchain="mcuxpresso">
+      <files mask="ZPSConfig.py"/>
     </source>
     <source path="tools/imagetool/test_es2_sign" target_path="scripts/test_es2_sign" type="binary" exclude="true" toolchain="iar mcuxpresso">
       <files mask="cert.bin"/>

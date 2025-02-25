@@ -21,6 +21,13 @@
 #include "MDI_ReadFirmVer.h"
 #include "MDI_Programmer.h"
 #endif
+#ifdef NCP_HOST
+#include "dbg.h"
+#include "serial_link_ctrl.h"
+#endif
+#ifdef APP_ROUTER_NODE_CLI
+#include "app_console.h"
+#endif
 /****************************************************************************/
 /***        Macro Definitions                                             ***/
 /****************************************************************************/
@@ -70,19 +77,22 @@ extern void OSA_TimeInit(void);
  ****************************************************************************/
 void vAppMain(void)
 {
-
+#ifndef NCP_HOST
     /* Initialise LEDs and buttons */
     APP_vLedInitialise();
-
 #if !defined(LNT_MODE_APP) && !defined(USART1_FTDI)
     /* DK6 specific code */
     /* GPIO1 is used for USART1 RX */
     APP_bButtonInitialise();
 #endif
+#endif
 
 	APP_vInitResources();
     APP_vInitZigbeeResources();
     APP_vInitialise();
+#ifdef APP_ROUTER_NODE_CLI
+    APP_vConsoleInitialise();
+#endif
     BDB_vStart();
 }
 
@@ -126,6 +136,14 @@ static void APP_vInitialise(void)
 
 #ifdef ENABLE_SUBG_IF
     APP_vCheckMtgState();
+#endif
+
+#ifdef NCP_HOST
+    (void)eSL_SerialInit();
+    DBG_vPrintf(TRUE, "serial Link initialised\n");
+
+    extern uint8_t rxDmaTimerHandle;
+    ZTIMER_eStart(rxDmaTimerHandle, 100);
 #endif
 
     /* Initialise application */
