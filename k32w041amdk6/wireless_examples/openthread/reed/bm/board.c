@@ -35,6 +35,11 @@
 
 #include "fsl_spifi.h"
 
+/* Include power management interface when full power down mode is enabled */
+#if defined(cPWR_FullPowerDownMode) && (cPWR_FullPowerDownMode)
+#include "PWR_Interface.h"
+#endif
+
 #if gOtaEepromPostedOperations_d
 #include "OtaSupport.h"
 #endif
